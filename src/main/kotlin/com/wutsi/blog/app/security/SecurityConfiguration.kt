@@ -23,10 +23,6 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
             .and()
-                .formLogin()
-                    .loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/")
-            .and()
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
@@ -34,6 +30,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .and()
                 .oauth2Login()
                     .successHandler(successHandler)
+                    .loginPage("/login")
 		// @formatter:on
     }
 
