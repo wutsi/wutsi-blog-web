@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+        <div class="col-md-7 main-content">
+            <section>
+                <h1 th:text="${product.name}">Title</h1>
+                <div class="alert alert-danger"th:if="${error}" th:text="${error}">Error</div>
+            </section>
+
+            <section>
+                <h3 th:text="#{contacts}">Contacts</h3>
+                <form id="product-form" action="">
+
+                    <div class="form-group">
+                        <label th:text="#{'contact.role.' + ${contactRole}}">Nom</label>
+                        <select multiple="multiple" class="form-control" id="product-contacts" th:data-product-id="${product.id}" th:data-role="${contactRole}">
+                            <option th:each="contact : ${contacts}"
+                                    th:attrappend="selected=${contactIds.contains(contact.id)} ? selected"
+                                    th:value="${contact.id}"
+                                    th:text="${contact.displayName}"
+                            >Ray Sponsible</option>
+                        </select>
+                    </div>
+                    <script type="application/javascript">
+                        $(document).ready(function() {
+                            $('#product-contacts').select2();
+                        });
+
+                        $('#product-contacts').on('select2:select', function(event){
+                            var productId = $('#product-contacts').attr('data-product-id');
+                            var contactRole = $('#product-contacts').attr('data-role');
+                            var contactId = event.params.data.id;
+                            $.ajax({
+                                url: '/product/' + productId + '/contact/add?contactId=' + contactId + '&contactRole=' + contactRole
+                            }).fail (function(data) {
+                                wutsi.error('ERR_PRODUCT_ADD_CONTACT', data);
+                            });;
+                        });
+
+                        $('#product-contacts').on('select2:unselect', function(event){
+                            var productId = $('#product-contacts').attr('data-product-id');
+                            var contactRole = $('#product-contacts').attr('data-role');
+                            $.ajax({
+                                url: '/product/' + productId + '/contact/remove?contactId=' + contactId + '&contactRole=' + contactRole
+                            }).fail (function(data) {
+                                wutsi.error('ERR_PRODUCT_REMOVE_CONTACT', data);
+                            });
+                        });
+                    </script>
+
+                    <div class="btn-group">
+                        <a id="btn-close btn btn-sm btn-primary" th:href="${linkCancelUrl}" th:text="#{button.close}">Close</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

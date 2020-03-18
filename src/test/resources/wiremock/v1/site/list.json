@@ -1,0 +1,12 @@
+{
+  "sites": [
+    {
+      "id": 1,
+      "name": "Wutsi",
+      "webHostname": "localhost",
+      "adminHostname": "localhost",
+      "facebookUrl": "https://www.facebook.com/test",
+      "twitterUrl": "https://www.twitter.com/test"
+    }
+  ]
+}

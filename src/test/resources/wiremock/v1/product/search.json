@@ -1,0 +1,147 @@
+{
+  "products": [
+    {
+      "id": 100001,
+      "productTypeId": 1,
+      "name": "Oups ! 2",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 1,
+        "productId": 100001,
+        "imageType": "thumbnail",
+        "assetId": 10000101,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100002,
+      "productTypeId": 1,
+      "name": "Les Lions indomptables",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 2,
+        "productId": 100002,
+        "imageType": "thumbnail",
+        "assetId": 10000201,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100003,
+      "productTypeId": 1,
+      "name": "Laff Lafrikain T.1",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 3,
+        "productId": 100003,
+        "imageType": "thumbnail",
+        "assetId": 10000301,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100004,
+      "productTypeId": 1,
+      "name": "Capito, un mouton particulier",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 4,
+        "productId": 100004,
+        "imageType": "thumbnail",
+        "assetId": 10000401,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100005,
+      "productTypeId": 1,
+      "name": "La ruse",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 5,
+        "productId": 100005,
+        "imageType": "thumbnail",
+        "assetId": 10000501,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100006,
+      "productTypeId": 1,
+      "name": "Thembi et Jetje des tisseuses de l’arc-en-ciel",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 6,
+        "productId": 100006,
+        "imageType": "thumbnail",
+        "assetId": 10000601,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100007,
+      "productTypeId": 1,
+      "name": "Android Night",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 7,
+        "productId": 100007,
+        "imageType": "thumbnail",
+        "assetId": 10000701,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100008,
+      "productTypeId": 1,
+      "name": "Putain d’Afrique",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 8,
+        "productId": 100008,
+        "imageType": "thumbnail",
+        "assetId": 10000801,
+        "rank": 0
+      }
+    },
+    {
+      "id": 100009,
+      "productTypeId": 1,
+      "name": "OUPS! La belle et la bête",
+      "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+      "creationDateTime": "2019-07-21T19:45:40.000+0000",
+      "modificationDateTime": "2019-07-21T19:45:40.000+0000",
+      "thumbnail": {
+        "id": 9,
+        "productId": 100009,
+        "imageType": "thumbnail",
+        "assetId": 10000901,
+        "rank": 0
+      }
+    }
+  ]
+}

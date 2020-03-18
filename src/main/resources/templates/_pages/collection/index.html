@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+        <div class="col-md-10 main-content">
+            <section>
+                <h2>
+                    <span th:text="#{collections}">Collections</span>
+                    <a id="btn-add-collection" class="btn btn-primary btn-sm float-right" href="/collection/add" th:text="#{addNewCollection}">Ajouter une Collection</a>
+                </h2>
+                <div th:text="#{collections.description}"></div>
+            </section>
+            <section>
+                <div id="collection-container">
+                    <span th:text="#{collections.loading}">Loading</span>...
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $('#collection-container').load('/collection/list');
+                    });
+                </script>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

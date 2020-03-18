@@ -1,0 +1,41 @@
+{
+  "store": {
+    "id": 100,
+    "siteId": 1,
+    "name": "demo",
+    "status": "active",
+    "category": "product",
+    "country": "CM",
+    "currency": "XAF",
+    "creationDateTime": "2019-07-21T10:17:31.000+0000",
+    "modificationDateTime": "2019-07-21T10:17:31.000+0000",
+    "attributes": {
+      "display_name": "Waanda Comics",
+      "website:title": "Read Comics Online",
+      "website:description": "Read Comics Online. Biggest database for Marvel, DC Comics, Dark Horse Comics Online.",
+      "website:template": "comics",
+      "whatsapp": "+23799505677",
+      "email": "info@demo.com",
+
+      "website:about": "This is About text",
+      "website:contact": "This is Contact text",
+      "website:terms_of_service": "This is Terms of Service text",
+      "website:refund_policy": "This is Refund Policy text",
+      "website:privacy_policy": "This is Privacy Policy text",
+      "website:feature_products_collection_id": 10001,
+      "website:feature_collection_id1": 10001,
+      "website:feature_collection_id2": 10003,
+      "ga:id": "UA-1111",
+      "fb:pixel_id": "FB-2222",
+
+      "app:short_name": "DemoApp",
+      "app:splash_background": "red",
+      "app:android:appicon_url": "https://img.com/android/icon.png",
+      "app:android:splashicon_url": "https://img.com/android/splash.png",
+      "app:ios:appicon_url": "https://img.com/ios/icon.png",
+
+      "logo_url": "http://waandacomics.com/wp-content/uploads/2018/07/Waanda-Comics-Logo-02_180.png",
+      "favicon_url": "http://waandacomics.com/wp-content/uploads/2018/07/cropped-Favicon-192x192.png"
+    }
+  }
+}

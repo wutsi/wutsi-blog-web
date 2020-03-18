@@ -1,0 +1,36 @@
+<table class="table" th:if="!${collections.isEmpty()}">
+    <thead>
+        <tr>
+            <th scope="col" class="thumbnail"></th>
+            <th scope="col" th:text="#{name}">Nom</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="collection: ${collections}" th:data-id="${collection.id}" class="collection">
+            <td>
+                <img class="thumbnail" th:async-src="${collection.image.smallUrl}" th:if="${collection.image}" th:title="${collection.name}"/>
+                <img class="thumbnail" src="/assets/img/no-thumbnail.jpg" th:if="!${collection.image}" th:title="${collection.name}"/>
+            </td>
+            <td>
+                <a th:href="'/collection/' + ${collection.id}">
+                    <h6 th:text="${collection.name}">Collection #1</h6>
+                </a>
+                <div th:text="${collection.shortDescription}">short description</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div th:if="${collections.isEmpty()}">
+    <h3 th:text="#{collections.empty.title}"></h3>
+    <p th:text="#{collections.empty.description}"></p>
+    <a id="btn-add-first-collection" class="btn btn-primary" th:text="#{addNewCollection}" href="/collection/add">Create  Collection</a>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('img[async-src]').each(function() {
+            $(this).attr("src", $(this).attr("async-src"));
+        });
+    });
+</script>

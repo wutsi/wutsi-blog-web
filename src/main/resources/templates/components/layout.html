@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- ################# -->
+<!-- Header            -->
+<!-- ################# -->
+<div th:fragment="head" th:remove="tag">
+    <meta charset="utf-8" />
+
+    <base href="/" />
+
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="wutsi:page_name" th:content="${pageName}" th:if="${pageName}"/>
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" th:href="'/assets/wutsi/css/main.css'" />
+    <script src="/assets/wutsi/js/wutsi.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/classic/ckeditor.js"></script>
+</div>
+
+
+<!-- ################# -->
+<!-- Footer            -->
+<!-- ################# -->
+<footer class="page-footer border-top container-fluid" th:fragment="footer">
+
+
+    <script>
+        <!-- CKEDITOR -->
+        if ($('.ckeditor').length) {
+            document.querySelectorAll('.ckeditor').forEach(function(item){
+                ClassicEditor.create(item, {
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'insertTable'],
+                    table: {
+                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+                    }
+                })
+            });
+        }
+
+        <!-- ASYNC IMAGES -->
+        $(document).ready(function(){
+            $('img[async-src]').each(function() {
+                $(this).attr("src", $(this).attr("async-src"));
+            });
+        });
+    </script>
+</footer>
+
+
+<!-- ################# -->
+<!-- Navbar            -->
+<!-- ################# -->
+<nav class="navbar navbar-expand-lg navbar-light border-bottom" th:fragment="navbar">
+    <a class="navbar-brand" href="/">
+        <img src="/assets/wutsi/img/logo/logo.png" alt="Wutsi" title="Wutsi"/></a>
+
+    <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item dropdown" th:if="${user}">
+                <a class="nav-link dropdown-toggle user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="user-store">
+                        <div class="user" th:text="${user.fullName}">
+                            Ray Sponsible
+                        </div>
+                    </div>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/logout">D&eacute;connexion</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    -->
+
+    <ul class="navbar-nav ml-auto" >
+        <li class="nav-item dropdown" th:if="${user}">
+            <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
+            <!--
+            <a class="nav-link dropdown-toggle user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/logout">D&eacute;connexion</a>
+            </div>
+            -->
+        </li>
+    </ul>
+
+</nav>
+
+<!-- ################# -->
+<!-- SIDEBAR            -->
+<!-- ################# -->
+<div class="sidebar" th:fragment="sidebar">
+
+    <section class="menu">
+        <ul>
+            <li th:classappend="${#httpServletRequest.servletPath == '/'} ? 'active' : null">
+                <a href="/">
+                    <i class="fas fa-home"></i> <span th:text="#{home}">Home</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="menu">
+        <ul>
+            <li id="sidebar-product" th:classappend="${#httpServletRequest.servletPath.startsWith('/product')} ? 'active' : null">
+                <a href="/product"><i class="fas fa-bars"></i> <span th:text="#{products}">produits</span></a>
+            </li>
+            <li id="sidebar-collection" th:classappend="${#httpServletRequest.servletPath.startsWith('/collection')} ? 'active' : null">
+                <a href="/collection"><i class="fas fa-tag"></i> <span th:text="#{collections}">collections</span></a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="menu">
+        <ul>
+            <li id="sidebar-settings" th:classappend="${#httpServletRequest.servletPath.startsWith('/settings')} OR ${#httpServletRequest.servletPath.startsWith('/channel')} ? 'active' : null">
+                <a href="/settings"><i class="fas fa-cog"></i> <span th:text="#{settings}">Settings</span></a>
+            </li>
+        </ul>
+    </section>
+</div>
+
+</body>
+</html>

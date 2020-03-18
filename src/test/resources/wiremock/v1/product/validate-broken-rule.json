@@ -1,0 +1,7 @@
+{
+  "valid": true,
+  "brokenRules": [
+    "ComicMustHaveCoverPageRule",
+    "ProductMustHaveDescriptionRule"
+  ]
+}

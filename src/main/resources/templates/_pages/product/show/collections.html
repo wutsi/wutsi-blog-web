@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row">
+        <div th:each="collection : ${collections}" class="col-6 collection">
+            <input class="collection" type="checkbox" th:value="${collection.id}" th:checked="${collectionIds} AND ${collectionIds.contains(collection.id)}"  />
+            <a th:href="'/collection/' + ${collection.id}" th:text="${collection.name}">Collection</a>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    $(document).ready(function() {
+        $('input.collection').change(function() {
+            var productId = /*[[${productId}]]*/ '#';
+
+            var collectionId = $(this).attr("value");
+            var add = $(this).is(":checked");
+
+            $.ajax({
+                url: '/product/' + productId + '/collection/toggle?collectionId=' + collectionId + '&add=' + add
+            }).fail (function(data) {
+                wutsi.error('ERR_PRODUCT_ADD_COLLECTION', data);
+            });
+        });
+    });
+
+/*]]>*/
+</script>

@@ -1,0 +1,16 @@
+{
+  "geoZones":[
+    {
+      "id": 100,
+      "type": "country",
+      "countryCode": "CM",
+      "name": "Cameroon"
+    },
+    {
+      "id": 101,
+      "type": "country",
+      "countryCode": "GB",
+      "name": "Gabon"
+    }
+  ]
+}

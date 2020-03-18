@@ -1,0 +1,11 @@
+wiremock:
+  port: 8080
+  host: "localhost"
+  url: "http://${wiremock.host}:${wiremock.port}"
+wutsi:
+  backend:
+    api: "${wiremock.url}"
+    contentUrl: "${wiremock.url}"
+    catalogUrl: "${wiremock.url}"
+    omsUrl: "${wiremock.url}"
+    profileUrl: "${wiremock.url}"

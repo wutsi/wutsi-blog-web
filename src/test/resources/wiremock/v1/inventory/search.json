@@ -1,0 +1,34 @@
+{
+  "inventories": [
+    {
+      "id": 100001,
+      "productId": 100001,
+      "track": true,
+      "quantity": 150
+    },
+    {
+      "id": 100001,
+      "productId": 100001,
+      "track": true,
+      "quantity": 150
+    },
+    {
+      "id": 100002,
+      "productId": 100002,
+      "track": true,
+      "quantity": 150
+    },
+    {
+      "id": 100003,
+      "productId": 100003,
+      "track": true,
+      "quantity": 150
+    },
+    {
+      "id": 100004,
+      "productId": 100004,
+      "track": true,
+      "quantity": 150
+    }
+  ]
+}

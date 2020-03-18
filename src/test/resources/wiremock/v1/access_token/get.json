@@ -1,0 +1,10 @@
+{
+  "token": {
+    "id": "ca697359-474e-41c9-bee0-cb8ed570f51d",
+    "userId": 100,
+    "storeId": 100,
+    "loginDateTime": "2019-07-21T10:20:58.631+0000",
+    "logoutDateTime": null,
+    "expiryDateTime": "2059-07-22T10:20:58.631+0000"
+  }
+}

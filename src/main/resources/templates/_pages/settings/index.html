@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+        <div class="col-md-10 main-content">
+            <section id="section-logo">
+                <h2 th:text="#{settings}">Settings</h2>
+            </section>
+
+            <section id="section-items">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="setting-item">
+                                <h6><a href="/settings/general" th:text="#{config.general.title}">General</a></h6>
+                                <div th:text="#{config.general.description}">Description</div>
+                            </div>
+                            <div id="website" class="setting-item">
+                                <h6><a href="/settings/website" th:text="#{config.website.title}">Website</a></h6>
+                                <div th:text="#{config.website.description}">Description</div>
+                            </div>
+                            <div id="logo" class="setting-item">
+                                <h6><a href="/settings/logo" th:text="#{config.logo.title}">Logos</a></h6>
+                                <div th:text="#{config.logo.description}">Description</div>
+                            </div>
+                            <div id="mobile-app" class="setting-item" th:if="${toggles.pwa}">
+                                <h6><a href="/settings/app" th:text="#{config.app.title}">Mobile Application</a></h6>
+                                <div th:text="#{config.app.description}">Description</div>
+                            </div>
+                            <div id="channel" class="setting-item">
+                                <h6><a href="/settings/channel" th:text="#{config.channel.title}">Sales Channel</a></h6>
+                                <div th:text="#{config.channel.description}">Description</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+
+</body>
+
+</html>

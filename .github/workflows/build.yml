@@ -1,0 +1,72 @@
+name: build
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+
+##----------------------------------------
+##  BUILD
+##----------------------------------------
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: jdk
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+#    - name: install-chrome
+#      run: |
+#        wget -N http://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
+#        unzip ~/chromedriver_linux64.zip -d ~/
+#        rm ~/chromedriver_linux64.zip
+#        sudo mv -f ~/chromedriver /usr/local/share/
+#        sudo chmod +x /usr/local/share/chromedriver
+#        sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+#        google-chrome --version
+#        chromedriver --version
+
+    - name: build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        mkdir ~/.m2
+        cp settings.xml ~/.m2/settings.xml
+        mvn install
+
+##----------------------------------------
+##  INT-RELEASE
+##----------------------------------------
+    - name: int-release
+      env:
+        HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
+        HEROKU_APP: int-com-wutsi-blog-web
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
+        heroku plugins:install java
+        heroku buildpacks:clear --app ${HEROKU_APP}
+        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+
+    - name: int-healthcheck
+      run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+
+##----------------------------------------
+##  PROD-RELEASE
+##----------------------------------------
+#    - name: prod-release
+#      env:
+#        HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
+#        HEROKU_APP: com-wutsi-blog-web
+#      run: |
+#        curl https://cli-assets.heroku.com/install.sh | sh
+#        heroku plugins:install java
+#        heroku buildpacks:clear --app ${HEROKU_APP}
+#        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+#
+#    - name: prod-healthcheck
+#      run: curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null

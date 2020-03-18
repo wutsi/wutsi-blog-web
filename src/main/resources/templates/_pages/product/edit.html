@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+        <div class="col-md-7 main-content">
+            <section>
+                <h1 th:text="${product.name}">Title</h1>
+                <div class="alert alert-danger"th:if="${error}" th:text="${error}">Error</div>
+            </section>
+
+            <form id="product-form" th:action="${linkUpdateUrl}" th:object="${product}" method="post">
+                <section>
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" name="productTypeId" th:value="${product.productType.id}" />
+
+                    <div class="form-group">
+                        <label th:text="#{name}" class="required">Nom</label>
+                        <input id="name" th:field="*{name}" class="form-control" required="required" maxlength="200" />
+                    </div>
+                    <div class="form-group">
+                        <label for="short-description" th:text="#{short_description}">Short Description</label>
+                        <textarea id="short-description" th:field="*{shortDescription}" class="form-control" rows="2" maxlength="150"></textarea>
+                        <p class="form-text text-muted" th:text="#{product.short_description.help}">Help</p>
+                    </div>
+                    <div class="form-group">
+                        <label th:text="#{description}">Description</label>
+                        <textarea th:field="*{description}" class="form-control ckeditor" rows="5"></textarea>
+                        <p class="form-text text-muted" th:text="#{product.description.help}">Help</p>
+                    </div>
+                </section>
+
+                <section>
+                    <tr th:each="attribute: ${product.productType.attributes}">
+                        <td class="label" th:text="${attribute.displayName}"></td>
+                        <td>
+                            <div th:replace="components/product :: attribute_editor(${attribute}, ${product})"></div>
+                        </td>
+                    </tr>
+                </section>
+                <div class="btn-group">
+                    <button id="btn-submit" type="submit" class="btn btn-sm btn-primary" th:text="#{button.save}">Enregistrer</button>
+                    <a id="btn-cancel" class="btn btn-sm" th:href="${linkCancelUrl}" th:text="#{button.cancel}">Annuller</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

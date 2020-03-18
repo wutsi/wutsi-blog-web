@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+
+        <div class="col-md-7 main-content channel">
+            <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">This is error message</div>
+
+            <section class="channel" th:each="channel : ${channels}">
+                <div th:with="storeChannel=${storeChannels.get(channel.id)}">
+
+                <a th:name="${channel.name}" />
+                <div>
+                    <img class="logo" th:src="${channel.logoUrl}" />
+                    <span class="channel-name" th:text="${channel.displayName}">Channel Name</span>
+
+                    <a id="btn-disconnect" class="btn btn-large btn-danger float-right" th:href="'/settings/channel/unbind?id=' + ${channel.id}" th:if="${storeChannel}">
+                        <span th:text="#{disconnect}">Disconnect</span>
+                    </a>
+                    <a id="btn-connect" class="btn btn-large btn-primary float-right" th:href="${channel.configUrl}" th:if="!${storeChannel}">
+                        <span th:text="#{configure}">Configure</span>
+                    </a>
+                </div>
+
+                <div class="border m-4 p-2 border" th:if="${storeChannel}">
+                    <div>
+                        <img class="account-logo" th:src="${storeChannel.pictureUrl}" th:if="${storeChannel.pictureUrl}" />
+                        <span class="account-name" th:text="${storeChannel.accountName}">Name of Page</span>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

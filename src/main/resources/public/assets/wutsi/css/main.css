@@ -1,0 +1,113 @@
+/*
+ * Wutsi color:
+ *  blue: #1D7EDF
+ *  lightgray: #efefef
+ */
+
+
+/* ================================ */
+/*                                  */
+/*            COMMON                */
+/*                                  */
+/* ================================ */
+body {
+    --highlight-color: #1D7EDF;
+    --text-color: #404040;
+    --border-color: rgba(0,0,0,.125);
+
+    background: #f8f8f8 !important;
+    color: var(--text-color)
+}
+
+.hidden {
+    display: none;
+}
+
+.required {
+    color: darkred;
+    font-weight:bold;
+}
+
+.fa-facebook-square {
+    color: #3b5998
+}
+
+
+a {
+    color: var(--highlight-color)
+}
+
+
+.padding {
+    padding: 1em;
+}
+.padding-2x {
+    padding: 2em;
+}
+
+.margin-top {
+    margin-top: 1em;
+}
+.margin-top-2x {
+    margin-top: 2em;
+}
+
+a.sso-button {
+    padding: .5em 1em;
+    text-align: left;
+    display: block;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    text-decoration: none;
+}
+a.sso-button:hover {
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+}
+
+a.sso-button .fab {
+    font-size: 1.3em;
+    margin-right: 0.5em;
+}
+
+
+
+/* ==== HEADER ==== */
+.navbar {
+    background: white;
+}
+.navbar img.user {
+    height: 50px;
+    width: 50px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    float:left;
+}
+.navbar .user-store{
+    float: left;
+    margin-left:1em;
+    font-size: smaller;
+}
+.navbar .user-store .user{
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    height: 50px;
+}
+.nav-item .btn {
+    margin-right: 5px;
+}
+
+
+/* ==== FOOTER ==== */
+footer.page-footer {
+    margin-top: 2em;
+    width: 100%;
+    padding: .5rem 1rem;
+    font-size: 90%;
+}
+footer.page-footer .separator {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}

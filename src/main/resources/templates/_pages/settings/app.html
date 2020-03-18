@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+        <div class="col-md-10 main-content">
+            <section>
+                <h2 th:text="#{config.app.title}">Title and Description</h2>
+                <div th:text="#{config.app.description}">Description</div>
+
+                <div id="alert-saved" class="alert alert-success"th:if="${param.saved}" th:text="#{config.app.saved}">
+                    Votre configuration a &eacute;t&eacute; enregistr&eacute;e avec succ&egrave;s
+                </div>
+            </section>
+
+            <form id="store" th:action="@{/settings/app/save}" th:object="${store}" method="post">
+                <section>
+                    <div class="form-group">
+                        <label for="appShortName" th:text="#{app.short_name}">Name</label>
+                        <input th:field="*{appShortName}" id="appShortName" class="form-control" />
+                        <small class="form-text text-muted" th:text="#{app.short_name.help}">Help</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appSplashBackground" th:text="#{app.splash_screen_color}">Email</label>
+                        <select th:field="*{appSplashBackground}" id="appSplashBackground" class="form-control">
+                            <option value="black" th:text="#{color.black}"></option>
+                            <option value="blue" th:text="#{color.blue}"></option>
+                            <option value="gray" th:text="#{color.gray}"></option>
+                            <option value="red" th:text="#{color.red}"></option>
+                            <option value="white" th:text="#{color.white}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" id="btn-submit" class="btn btn-primary" th:text="#{save}">Enregistrer</button>
+                    </div>
+                </section>
+            </form>
+
+            <section id="section-appicon">
+                <h2 th:text="#{app.android}">Android Icons</h2>
+
+                <div class="row">
+                    <div class="border-right border-top col-md-6">
+                        <h4 th:text="#{app.android.icon}">AppIcon</h4>
+                        <p th:utext="#{app.android.icon.description}">Message</p>
+
+                        <div class="mb-1">
+                            <button data-target-id="appicon-upload"  class="btn-upload btn btn-primary btn-sm" th:text="#{upload.image}">Upload Logo</button>
+                            <input id="appicon-upload" class="input-upload" type="file" style="display:none" data-logo-type="app:android:appicon" th:data-url="${uploadUrl}"/>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="logo-container">
+                            <div class="remove" th:if="${store.androidAppIconUrl}" data-logo-type="app:android:appicon">x</div>
+                            <img id="img-appicon" class="img-fluid img-thumbnail" th:src="${store.androidAppIconUrl}"  th:if="${store.androidAppIconUrl}" width="192" height="192" />
+                            <img id="noimage-appicon" class="img-fluid img-thumbnail" src="/assets/wutsi/img/logo/noimage.png" th:if="!${store.androidAppIconUrl}" width="192" height="192" />
+                        </div>
+                    </div>
+
+
+                    <div class="border-top col-md-6">
+                        <h4 th:text="#{app.android.splash_screen_icon}">SplashScreen</h4>
+                        <p th:utext="#{app.android.splash_screen_icon.description}">Message</p>
+
+                        <div class="mb-1">
+                            <button data-target-id="appsplashicon-upload"  class="btn-upload btn btn-primary btn-sm" th:text="#{upload.image}">Upload Logo</button>
+                            <input id="appsplashicon-upload" class="input-upload" type="file" style="display:none" data-logo-type="app:android:splashicon" th:data-url="${uploadUrl}"/>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="logo-container">
+                            <div class="remove" th:if="${store.androidSplashIconUrl}" data-logo-type="app:android:splashicon">x</div>
+                            <img id="img-appsplashicon" class="img-fluid img-thumbnail" th:src="${store.androidSplashIconUrl}"  th:if="${store.androidSplashIconUrl}" width="512" height="512" />
+                            <img id="noimage-appsplashicon" class="img-fluid img-thumbnail" src="/assets/wutsi/img/logo/noimage.png" th:if="!${store.androidSplashIconUrl}" width="512" height="512" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="section-ios">
+                <h2 th:text="#{app.ios}">iOS</h2>
+
+                <div class="row">
+                    <div class="border-right border-top col-md-6">
+                        <h4 th:text="#{app.ios.icon}">AppIcon</h4>
+                        <p th:utext="#{app.ios.icon.description}">Message</p>
+
+                        <div class="mb-1">
+                            <button data-target-id="ios-appicon-upload"  class="btn-upload btn btn-primary btn-sm" th:text="#{upload.image}">Upload Logo</button>
+                            <input id="ios-appicon-upload" class="input-upload" type="file" style="display:none" data-logo-type="app:ios:appicon" th:data-url="${uploadUrl}"/>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="logo-container">
+                            <div class="remove" th:if="${store.iosAppIconUrl}" data-logo-type="app:ios:appicon">x</div>
+                            <img id="img-ios-appicon" class="img-fluid img-thumbnail" th:src="${store.iosAppIconUrl}"  th:if="${store.iosAppIconUrl}" width="180" height="180" />
+                            <img id="noimage-ios-appicon" class="img-fluid img-thumbnail" src="/assets/wutsi/img/logo/noimage.png" th:if="!${store.iosAppIconUrl}" width="180" height="180" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+    $(".btn-upload").click(function(){
+        var target = $(this).attr('data-target-id');
+        $('#' + target).click();
+    });
+
+    $(".input-upload").change(function(){
+        var url = $(this).attr('data-url');
+        var type = $(this).attr('data-logo-type');
+        var form = new FormData();
+        form.append('file', $(this).prop('files')[0]);
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: false,
+            processData: false,
+            data: form
+        }).done(function(response){
+            document.location.href = '/settings/app/set?type=' + type + '&url=' + encodeURI(response.asset.url);
+        }).fail(function(data){
+            wutsi.error('ERR_STORE_UPLOAD_LOGO', data);
+        });
+    });
+
+    $('.logo-container .remove').click(function(){
+        var type = $(this).attr('data-logo-type');
+        document.location.href = '/settings/app/reset?type=' + type;
+    });
+</script>
+<div th:replace="components/layout :: footer"></div>
+</body>
+
+</html>

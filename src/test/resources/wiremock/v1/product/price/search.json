@@ -1,0 +1,33 @@
+{
+  "prices": [
+    {
+      "productId": 10001,
+      "price": 1000,
+      "comparablePrice": 1500,
+      "savings": 500,
+      "savingsPercentage": 33,
+      "taxable": true,
+      "totalTaxes": 100,
+      "cost": 300,
+      "profit": 600,
+      "currency": "XAF"
+    },
+    {
+      "productId": 10002,
+      "price": 2000,
+      "comparablePrice": 2500,
+      "savings": 500,
+      "savingsPercentage": 20,
+      "totalTaxes": 100,
+      "cost": 300,
+      "profit": 600,
+      "currency": "XAF"
+    },
+    {
+      "productId": 10003,
+      "price": 3000,
+      "currency": "XAF"
+    }
+
+  ]
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 offset-md-3 col-md-6">
+
+            <div class="card text-center padding-2x margin-top-2x">
+                <h1 class="margin-top-2x" th:text="#{page.login.header1}">Join Wutsi</h1>
+                <p class="margin-top" th:text="#{page.login.info}">
+                    Join Wutsi to receive great stories in your phone; and follow authors and topics that you love.
+                </p>
+
+                <div class="row margin-top-2x">
+                    <div class="col-12 offset-lg-1 col-lg-10">
+                        <a class="sso-button" href="/oauth2/authorization/google">
+                            <i class="fab fa-google"></i>
+                            <span th:text="#{page.login.signin-google}">Sign in with Google</span>
+                        </a>
+                        <a class="sso-button margin-top" href="/oauth2/authorization/facebook">
+                            <i class="fab fa-facebook-square"></i>
+                            <span th:text="#{page.login.signin-facebook}">Sign in with Facebook</span>
+                        </a>
+                        <a class="sso-button margin-top" href="/oauth2/authorization/github">
+                            <i class="fab fa-github-square"></i>
+                            <span th:text="#{page.login.signin-github}">Sign in with Github</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

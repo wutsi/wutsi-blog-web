@@ -1,0 +1,50 @@
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+  profiles:
+    active: "local"
+  security:
+    basic:
+      enabled: false
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 2430c202b7d87c5eddce
+            client-secret: cf900a9f2c73012795ea95a4ecf16be80555659e
+            scope:
+              - user:email
+              - read:user
+          facebook:
+            client-id: 629340480740249
+            client-secret: d8549ed13e6217a3c65e2c5ce69283fa
+            scope:
+              - email
+              - publish_page
+server:
+  port: 8081
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
+    min-response-size: 512
+
+logging:
+  level:
+    root: INFO
+    com.wutsi: DEBUG
+    org.springframework: INFO
+
+  pattern:
+    console: "%d Type=%level Logger=%c Thread=%thread %m%n"
+    file: "%d Type=%level Logger=%c Thread=%thread %m%n"
+
+wutsi:
+  backend:
+    baseurl: http://localhost:8080
+    authentication:
+      endpoint: ${wutsi.backend.baseurl}/v1/auth
+  http:
+    client-id: wutsi-partner-app

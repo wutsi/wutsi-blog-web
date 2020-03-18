@@ -1,0 +1,15 @@
+{
+  "stores":[
+    {
+      "id": 100,
+      "siteId": 1,
+      "name": "demo",
+      "status": "active",
+      "category": "product",
+      "country": "CM",
+      "currency": "XAF",
+      "creationDateTime": "2019-07-21T10:17:31.000+0000",
+      "modificationDateTime": "2019-07-21T10:17:31.000+0000"
+    }
+  ]
+}

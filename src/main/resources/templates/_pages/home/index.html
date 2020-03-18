@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div th:replace="components/layout :: sidebar"></div>
+        </div>
+        <div class="col-md-10 main-content">
+<!--
+            <div class="kpi-summary" th:if="${kpi}">
+                <div>
+                    <div class="row">
+                        <div class="col" th:if="${toggles.onlinePayment}">
+                            <section id="kpi-sales">
+                                <h6 th:text="#{sales}">Total Payments</h6>
+                                <h4 class="value" th:text="${kpi.sales.value}">100</h4>
+                                <div th:replace="components/kpi :: diff(${kpi.sales})"></div>
+                            </section>
+                        </div>
+                        <div class="col" th:if="${toggles.shoppingCart}">
+                            <section id="kpi-order">
+                                <h6 th:text="#{orders}">Total Orders</h6>
+                                <h4 class="value" th:text="${kpi.orders.value}">100</h4>
+                                <div th:replace="components/kpi :: diff(${kpi.orders})"></div>
+                            </section>
+                        </div>
+                        <div class="col" th:if="${toggles.shoppingCart}">
+                            <section id="kpi-customer">
+                                <h6 th:text="#{customers}">Total Customers</h6>
+                                <h4 class="value" th:text="${kpi.customers.value}">100</h4>
+                                <div th:replace="components/kpi :: diff(${kpi.customers})"></div>
+                            </section>
+                        </div>
+                        <div class="col" th:if="${toggles.onlinePayment}">
+                            <section id="kpi-balance">
+                                <h6 th:text="#{balance}">Balance</h6>
+                                <h4 class="value" th:text="${account.balance}">100 XFA</h4>
+                                <div th:if="${lastCashoutTx}" class="kpi-diff">
+                                    <span th:text="#{last_cashout}">Last cashout</span>:
+                                    <b class="last-cashout-value" th:text="${lastCashoutTx.amount}">43094309 FAF</b> -
+                                    <span class="last-cashout-date" th:text="${lastCashoutTx.transactionDate}">434/43/11</span>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="order-recent" th:if="${kpi} AND ${kpi.orders.value} &gt; 0">
+                <h3 th:text="#{orders.recent}">Recent Orders</h3>
+                <div id="order-container">
+                    <span th:text="#{loading}">Loading</span>...
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-sm btn-link" href="/order"><span th:text="#{more}">More</span>...</a>
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $('#order-container').load('/order/list?limit=10');
+                    });
+                </script>
+            </section>
+-->
+            <div id="settings-check"></div>
+            <script>
+                $('#settings-check').load('/settings/check')
+            </script>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

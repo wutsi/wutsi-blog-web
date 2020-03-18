@@ -1,0 +1,5 @@
+<section th:each="brokenRule: ${brokenRules}">
+    <h5 th:text="#{'settings.' + ${brokenRule.title}}">Title</h5>
+    <div class="margin-bottom" th:utext="#{'settings.' + ${brokenRule.title} + '.description'}">Description</div>
+    <a class="btn btn-light border" th:href="${brokenRule.url}" th:text="#{'settings.' + ${brokenRule.title} + '.action'}">Button</a>
+</section>

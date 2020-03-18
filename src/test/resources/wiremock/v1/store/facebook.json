@@ -1,0 +1,17 @@
+{
+  "storeChannel":{
+    "id": 1,
+    "storeId": 100,
+    "accessKey": "122039-309403-203932",
+    "accountId": "1232",
+    "accountName": "Test",
+    "pictureUrl": "http://pic.me/1232",
+
+    "channel": {
+      "id": 1,
+      "name": "facebook",
+      "displayName": "Facebook",
+      "url": "http://localhost:8080/plugin/facebook"
+    }
+  }
+}
