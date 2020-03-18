@@ -1,0 +1,12 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 43bf80531cd351c84f5b
+            client-secret: 986634ef3a7c8ac6e66f9a75f5b0a1c4dec68918
+
+wutsi:
+  backend:
+    baseurl: https://int-com-wutsi-blog.herokuapp.com

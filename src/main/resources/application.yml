@@ -1,8 +1,6 @@
 spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
-  profiles:
-    active: "local"
   security:
     basic:
       enabled: false
