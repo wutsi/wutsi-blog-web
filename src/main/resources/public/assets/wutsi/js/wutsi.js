@@ -1,85 +1,52 @@
 function Wutsi (){
 
-    this.error = function (msg, details){
-        console.log('ERROR', msg, details);
-        alert(msg);
-    };
+    this.trackUrl = 'https://int-com-wutsi-track.herokuapp.com/v1/track';
 
-    this.warn = function (msg, details){
-        console.log('WARNING', msg, details)
-    };
+    this.track = function (event, value, productId){
+        console.log('Track.push', event, value, productId);
 
-    this.subscribe = function (formData, callback) {
-        console.log('Performing payment...');
-
-        var url = '/settings/subscription/subscribe';
-        $.ajax({
-
-            url: url,
-            data: formData,
-            method: 'POST'
-
-        }).done(function(data) {
-
-            console.log('Payment completed', data);
-            if (callback) {
-                callback(data);
-            }
-
-        }).fail(function(xhr, textStatus, errorThrown){
-            console.log('Failed - ' + url, xhr, textStatus, errorThrown);
-            if (callback){
-                callback({
-                    transactionId: -1,
-                    status: 'failed',
-                    error: 'internal_processing_error',
-                    errorText: 'Internal error has occured'
-                });
-            }
-        });
-    };
-
-    this.waitForPaymentConfirmation = function(tx, callback){
-        var handle = -1;
-        var retry = 0;
-        var worker = function(){
-
-            console.log(retry + '. Requesting status of Transaction#' + tx.id);
-            retry++;
-            var url = '/settings/subscription/status?transactionId=' + tx.id + '&retry=' + retry;
-            $.ajax({
-                url: url
-            }).done(function(transaction) {
-
-                console.log(retry + '. Transaction#' + tx.id, transaction);
-                if (transaction.status != 'pending'){
-                    clearInterval(handle);
-                    if (callback){
-                        callback(transaction)
-                    }
-                }
-
-            }).fail(function(jqXHR, textStatus, errorThrown){
-                console.log('Failed - ' + url, jqXHR, textStatus, errorThrown);
-                if (retry > 2) {
-                    clearInterval(handle);
-                    if (callback){
-                        callback({
-                            transactionId: -1,
-                            status: 'failed',
-                            error: 'internal_processing_error',
-                            errorText: 'Internal error has occured'
-                        });
-                    }
-                }
-            });
-
+        var data = {
+            time: new Date().getTime(),
+            duid: this.cookie('__w_duaid'),
+            pid:  (productId ? productId : null),
+            event: event,
+            page: this.page_name(),
+            ua: navigator.userAgent,
+            value: (value ? value : null)
         };
 
-        callback({
-            status: 'success'
-        })
+        $
+            .ajax({
+                method: 'POST',
+                url: this.trackUrl,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+            .fail(function(xhr, textStatus, errorThrown){
+                console.log('Failed - ' + this.trackUrl, xhr, textStatus, errorThrown);
+            });
+    };
+
+    this.cookie = function (name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+    };
+
+    this.page_name = function () {
+        var meta = document.head.querySelector("[name=wutsi\\:page_name]");
+        return meta ? meta.content : null
     };
 }
 
 var wutsi = new Wutsi();
+
+function wutsi_bind_tracking () {
+    console.log('binding controls with track API');
+    $('[wutsi-track-event]').click(function(){
+        var event = $(this).attr("wutsi-track-event");
+        var value = $(this).attr("wutsi-track-value");
+        var productId = $(this).attr("wutsi-track-product-id");
+        wutsi.track(event, value, productId)
+    });
+}

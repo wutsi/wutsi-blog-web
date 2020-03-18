@@ -52,11 +52,14 @@
             });
         }
 
-        <!-- ASYNC IMAGES -->
         $(document).ready(function(){
+            <!-- ASYNC IMAGES -->
             $('img[async-src]').each(function() {
                 $(this).attr("src", $(this).attr("async-src"));
             });
+
+            <!-- TRACKING -->
+            wutsi_bind_tracking();
         });
     </script>
 </footer>
