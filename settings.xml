@@ -24,29 +24,12 @@
                     <url>https://maven.pkg.github.com/wutsi/wutsi-http</url>
                 </repository>
                 <repository>
-                    <id>github-wutsi-client</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-client</url>
+                    <id>github-wutsi-blog-client</id>
+                    <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
                 </repository>
                 <repository>
                     <id>github-wutsi-core</id>
                     <url>https://maven.pkg.github.com/wutsi/wutsi-core</url>
-                </repository>
-
-                <repository>
-                    <id>github-wutsi-catalog</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-catalog-client</url>
-                </repository>
-                <repository>
-                    <id>github-wutsi-content</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-content-client</url>
-                </repository>
-                <repository>
-                    <id>github-wutsi-profile</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-profile-client</url>
-                </repository>
-                <repository>
-                    <id>github-wutsi-oms</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-oms-client</url>
                 </repository>
             </repositories>
         </profile>
@@ -54,7 +37,7 @@
 
     <servers>
         <server>
-            <id>github-wutsi-client</id>
+            <id>github-wutsi-blog-client</id>
             <username>wutsi</username>
             <password>${GITHUB_TOKEN}</password>
         </server>
@@ -65,27 +48,6 @@
         </server>
         <server>
             <id>github-wutsi-http</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-
-        <server>
-            <id>github-wutsi-catalog</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-oms</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-profile</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-content</id>
             <username>wutsi</username>
             <password>${GITHUB_TOKEN}</password>
         </server>

@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 @EnableWebSecurity
 @ComponentScan(value=[
-    "com.wutsi.partner",
+    "com.wutsi.blog",
     "com.wutsi.http",
     "com.wutsi.core"
 ])
