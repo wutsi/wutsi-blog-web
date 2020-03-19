@@ -50,4 +50,9 @@ wutsi:
     authentication:
       endpoint: ${wutsi.backend.baseurl}/v1/auth
   http:
-    client-id: wutsi-partner-app
+    client-id: wutsi-blog-app
+  toggles:
+    sso-facebook: false
+    sso-google: false
+    sso-twitter: false
+    sso-github: true

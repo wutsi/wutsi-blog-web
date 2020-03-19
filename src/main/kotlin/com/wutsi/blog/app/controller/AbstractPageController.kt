@@ -13,5 +13,8 @@ abstract class AbstractPageController(
     @ModelAttribute(ModelAttributeName.USER)
     fun getUser() = requestContext.currentUser()
 
+    @ModelAttribute(ModelAttributeName.TOGGLES)
+    fun getToggles() = requestContext.toggles()
+
     protected abstract fun page(): String
 }

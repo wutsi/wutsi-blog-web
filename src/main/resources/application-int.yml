@@ -10,3 +10,8 @@ spring:
 wutsi:
   backend:
     baseurl: https://int-com-wutsi-blog.herokuapp.com
+  toggles:
+    sso-facebook: true
+    sso-google: false
+    sso-twitter: false
+    sso-github: true

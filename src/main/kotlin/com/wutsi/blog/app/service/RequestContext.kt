@@ -11,7 +11,10 @@ import org.springframework.stereotype.Component
 
 @Component
 @Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-class RequestContext(private val mapper: UserMapper) {
+class RequestContext(
+        private val mapper: UserMapper,
+        private val togglesHolder: TogglesHolder
+) {
 
     fun currentUser(): UserModel? {
         val auth = SecurityContextHolder.getContext().authentication
@@ -22,4 +25,5 @@ class RequestContext(private val mapper: UserMapper) {
         }
     }
 
+    fun toggles() = togglesHolder.get()
 }

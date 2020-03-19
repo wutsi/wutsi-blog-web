@@ -20,11 +20,19 @@
 
                 <div class="row margin-top-2x">
                     <div class="col-12 offset-lg-2 col-lg-8">
-                        <a class="sso-button margin-top" href="/oauth2/authorization/facebook" wutsi-track-event="signin.facebook">
+                        <a class="sso-button margin-top" href="/oauth2/authorization/google" wutsi-track-event="signin.google" th:if="${toggles.ssoGoogle}" >
+                            <i class="fab fa-google"></i>
+                            <span th:text="#{page.login.signin-google}">Sign in with Google</span>
+                        </a>
+                        <a class="sso-button margin-top" href="/oauth2/authorization/facebook" wutsi-track-event="signin.facebook" th:if="${toggles.ssoFacebook}" >
                             <i class="fab fa-facebook-square"></i>
                             <span th:text="#{page.login.signin-facebook}">Sign in with Facebook</span>
                         </a>
-                        <a class="sso-button margin-top" href="/oauth2/authorization/github" wutsi-track-event="signin.github">
+                        <a class="sso-button margin-top" href="/oauth2/authorization/twitter" wutsi-track-event="signin.twitter" th:if="${toggles.ssoTwitter}" >
+                            <i class="fab fa-twitter-square"></i>
+                            <span th:text="#{page.login.signin-twitter}">Sign in with Twitter</span>
+                        </a>
+                        <a class="sso-button margin-top" href="/oauth2/authorization/github" wutsi-track-event="signin.github" th:if="${toggles.ssoGithub}">
                             <i class="fab fa-github-square"></i>
                             <span th:text="#{page.login.signin-github}">Sign in with Github</span>
                         </a>
