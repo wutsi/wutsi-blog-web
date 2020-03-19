@@ -31,7 +31,9 @@ body {
 .fa-facebook-square {
     color: #3b5998
 }
-
+.fa-twitter-square {
+    color: #0084b4;
+}
 
 a {
     color: var(--highlight-color)

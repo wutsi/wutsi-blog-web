@@ -12,13 +12,17 @@ class UserMapper {
         val provider = oauth.authorizedClientRegistrationId
         if (provider == "github") {
             return toUserModelFromGithub(oauth.principal.attributes, provider)
+        } else if (provider == "facebook") {
+            return toUserModelFromFacebook(oauth.principal.attributes, provider)
+        } else if (provider == "twitter") {
+            return toUserModelFromTwitter(oauth.principal.attributes, provider)
         }
 
         throw IllegalStateException("Provider not supported: $provider")
     }
 
     private fun toUserModelFromGithub(attrs: Map<String, Any>, provider: String) = UserModel(
-            id = attrs["id"]!!.toString(),
+            id = attrs["id"].toString(),
             fullName = githubFullName(attrs),
             email = attrs["email"]?.toString(),
             pictureUrl = attrs["avatar_url"]?.toString(),
@@ -29,4 +33,21 @@ class UserMapper {
         val name = attrs["name"]?.toString()
         return if (name == null || name.isEmpty()) attrs["login"]!!.toString() else name
     }
+
+    private fun toUserModelFromFacebook(attrs: Map<String, Any>, provider: String) = UserModel(
+            id = attrs["id"].toString(),
+            fullName = attrs["name"].toString(),
+            email = attrs["email"]?.toString(),
+            pictureUrl = "http://graph.facebook.com/" + attrs["id"] + "/picture?type=normal",
+            provider = provider
+    )
+
+    private fun toUserModelFromTwitter(attrs: Map<String, Any>, provider: String) = UserModel(
+            id = attrs["id"].toString(),
+            fullName = attrs["name"].toString(),
+            pictureUrl = attrs["profile_image_url_https"]?.toString(),
+            provider = provider
+    )
+
+
 }

@@ -2,16 +2,16 @@ package com.wutsi.blog.app.security
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.mapper.UserMapper
-import com.wutsi.blog.app.util.CookieName
 import com.wutsi.blog.client.user.AuthenticateRequest
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 import java.io.IOException
 import javax.servlet.ServletException
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+
+
 
 
 @Component
@@ -24,22 +24,17 @@ class OAuth2AuthenticationSuccessHandler(
     override fun onAuthenticationSuccess(request: HttpServletRequest, response: HttpServletResponse, authentication: Authentication) {
         super.onAuthenticationSuccess(request, response, authentication)
 
-        login(authentication, response)
+        login(authentication)
     }
 
-    private fun login(auth: Authentication, response: HttpServletResponse) {
+    private fun login(auth: Authentication) {
         val user = mapper.toUserModel(auth)
-        val resp = authenticationBackend.login(AuthenticateRequest(
+        authenticationBackend.login(AuthenticateRequest(
                 provider = user.provider,
                 pictureUrl = user.pictureUrl,
                 fullName = user.fullName,
                 email = user.email,
                 providerUserId = user.id
         ))
-        storeToken(resp.token, response)
-    }
-
-    private fun storeToken(token: String, response: HttpServletResponse) {
-        response.addCookie(Cookie(CookieName.ACCESS_TOKEN, token))
     }
 }

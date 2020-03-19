@@ -19,6 +19,11 @@ spring:
             scope:
               - email
               - publish_page
+#          twitter:
+#            provider: "oauth2"
+#            client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
+#            client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
+
 server:
   port: 8081
   error:
