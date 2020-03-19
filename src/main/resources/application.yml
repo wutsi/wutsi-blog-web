@@ -14,8 +14,8 @@ spring:
               - user:email
               - read:user
           facebook:
-            client-id: 629340480740249
-            client-secret: d8549ed13e6217a3c65e2c5ce69283fa
+            client-id: -
+            client-secret: -
             scope:
               - email
               - publish_page
