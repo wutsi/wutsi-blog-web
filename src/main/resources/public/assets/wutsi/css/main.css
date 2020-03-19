@@ -85,17 +85,37 @@ a.sso-button .fab {
     border-radius: 50%;
     float:left;
 }
-.navbar .user-store{
+
+.navbar-nav .dropdown-menu {
+    position: fixed;
+    float: none;
+    top: 70px;
+    left: auto;
+    width: 350px;
+    right: 1px;
+    border-radius: 0;
+}
+.navbar-nav .dropdown-item-user {
+    padding: 1em;
+    margin-bottom: 1em;
+}
+.navbar-nav .dropdown-item-user img {
+    height: 64px;
+    width: 64px;
+    margin-right: 1em;
     float: left;
-    margin-left:1em;
-    font-size: smaller;
 }
-.navbar .user-store .user{
-    font-weight: bold;
+.navbar-nav .dropdown-item-user .user-info{
+    font-size: 1em;
+    float: left;
+    text-overflow: ellipsis;
+    text-wrap: none;
 }
+
 
 .navbar-brand img {
     height: 50px;
+    width: 50px;
 }
 .nav-item .btn {
     margin-right: 5px;

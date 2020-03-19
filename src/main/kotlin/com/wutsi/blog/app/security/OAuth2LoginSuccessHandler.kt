@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse
 
 
 @Component
-class OAuth2AuthenticationSuccessHandler(
+class OAuth2LoginSuccessHandler(
         private val clients: OAuth2AuthorizedClientService,
         private val authenticationBackend: AuthenticationBackend,
         private val mapper: UserMapper

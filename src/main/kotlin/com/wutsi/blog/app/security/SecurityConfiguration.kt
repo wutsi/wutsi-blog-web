@@ -13,7 +13,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Autowired
-    private lateinit var successHandler: OAuth2AuthenticationSuccessHandler
+    private lateinit var loginSuccessHandler: OAuth2LoginSuccessHandler
 
     @Throws(Exception::class)
     public override fun configure(http: HttpSecurity) {
@@ -27,13 +27,12 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
-                    .deleteCookies("JSESSIONID")
             .and()
                 .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
                 .oauth2Login()
-                    .successHandler(successHandler)
+                    .successHandler(loginSuccessHandler)
                     .loginPage("/login")
 
 		// @formatter:on

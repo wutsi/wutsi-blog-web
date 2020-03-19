@@ -5,6 +5,7 @@ import com.wutsi.blog.client.user.AuthenticateResponse
 import com.wutsi.http.Http
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,10 +23,11 @@ class AuthenticationBackend (private val http: Http) {
 
     fun logout(token: String) {
         val url = "$endpoint/$token"
-        try {
-            http.delete(url)
-        } catch (ex: Exception) {
-            LOGGER.warn("Logout failed - DELETE $url", ex)
-        }
+        http.delete(url)
+    }
+
+    @Async
+    fun logoutAsync(token: String) {
+        logout(token)
     }
 }

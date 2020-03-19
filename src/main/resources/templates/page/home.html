@@ -9,7 +9,18 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container">
-    HELLO
+    <div class="row">
+        <div class="col-12 offset-md-2 col-md-8">
+
+            <div class="text-center padding-2x margin-top-2x">
+                <h1 class="margin-top-2x" th:text="#{page.home.header1}">Join Wutsi</h1>
+
+                <div class="text-center margin-top-2x">
+                    <a class="btn btn-primary btn-lg" href="/login" th:text="#{button.get_started}">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="components/layout :: footer"></div>
