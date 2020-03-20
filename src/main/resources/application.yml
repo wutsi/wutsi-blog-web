@@ -10,15 +10,9 @@ spring:
           github:
             client-id: 2430c202b7d87c5eddce
             client-secret: cf900a9f2c73012795ea95a4ecf16be80555659e
-            scope:
-              - user:email
-              - read:user
           facebook:
             client-id: 00000000
             client-secret: 0000000000000000
-            scope:
-              - email
-              - publish_page
 #          twitter:
 #            provider: "oauth2"
 #            client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
