@@ -2,8 +2,11 @@ package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.editor.StoryEditor
+import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
+import com.wutsi.blog.client.story.StoryDto
+import com.wutsi.blog.client.story.StoryStatus
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient
@@ -33,7 +36,8 @@ class StoryService(
     }
 
     fun get(id: Long): StoryModel {
-
+        val story = storyBackend.get(id).story
+        return toStoryModel(story)
     }
 
     protected fun accessToken(): String? {
@@ -54,5 +58,20 @@ class StoryService(
             content = editor.content,
             title = editor.title,
             accessToken = accessToken()
+    )
+
+    private fun toStoryModel(story: StoryDto) = StoryModel(
+            id = story.id,
+            content = story.content,
+            title = story.title,
+            contentType = story.contentType,
+            thumbmailUrl = story.thumbnailUrl,
+            worldCount = story.worldCount,
+            sourceUrl = story.sourceUrl,
+            readingMinutes = story.readingMinutes,
+            language = story.language,
+            summary = story.summary,
+            userId = story.userId,
+            draft = story.status == StoryStatus.draft
     )
 }

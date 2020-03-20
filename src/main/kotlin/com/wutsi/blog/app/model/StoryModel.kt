@@ -1,7 +1,5 @@
 package com.wutsi.blog.app.model
 
-import java.util.Date
-
 data class StoryModel(
         val id: Long? = -1,
         val userId: Long = -1,
@@ -15,7 +13,7 @@ data class StoryModel(
         val content: String? = null,
         val contentType: String? = null,
         val draft: Boolean = true,
-        val creationDateTime: Date = Date(),
-        val modificationDateTime: Date = Date(),
-        val publishedDateTime: Date? = null
+        val creationDateTime: String = "",
+        val modificationDateTime: String = "",
+        val publishedDateTime: String = ""
 )

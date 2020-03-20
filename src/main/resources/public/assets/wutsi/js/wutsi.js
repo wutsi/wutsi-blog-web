@@ -40,6 +40,23 @@ function Wutsi (){
         });
     };
 
+    this.story = function(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                method: 'GET',
+                url: '/story/editor/fetch?id=' + id,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    resolve(data)
+                },
+                error: function (error) {
+                    reject(error)
+                }
+            })
+        });
+    };
+
     this.save_story = function (story) {
         return new Promise(function (resolve, reject) {
             $.ajax({
