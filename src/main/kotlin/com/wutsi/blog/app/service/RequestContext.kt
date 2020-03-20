@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 @Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 class RequestContext(
         private val mapper: UserMapper,
-        private val togglesHolder: TogglesHolder
+        val togglesHolder: TogglesHolder
 ) {
 
     fun currentUser(): UserModel? {

@@ -1,11 +1,18 @@
 function Wutsi (){
-
-    this.trackUrl = 'https://int-com-wutsi-track.herokuapp.com/v1/track';
+    this.config = {
+        backend: {
+            trackUrl: 'https://int-com-wutsi-track.herokuapp.com/v1/track'
+        },
+        editor: {
+            autosave: 30000  /* 15 secs */
+        }
+    };
 
     this.track = function (event, value, productId){
         console.log('Track.push', event, value, productId);
 
-        var data = {
+        const url = this.config.backend.trackUrl;
+        const data = {
             time: new Date().getTime(),
             duid: this.cookie('__w_duaid'),
             pid:  (productId ? productId : null),
@@ -15,18 +22,44 @@ function Wutsi (){
             value: (value ? value : null)
         };
 
-        $
-            .ajax({
+        return new Promise(function (resolve, reject) {
+            $.ajax({
                 method: 'POST',
-                url: this.trackUrl,
+                url: url,
                 data: JSON.stringify(data),
                 dataType: 'json',
-                contentType: 'application/json'
-            })
-            .fail(function(xhr, textStatus, errorThrown){
-                console.log('Failed - ' + this.trackUrl, xhr, textStatus, errorThrown);
+                contentType: 'application/json',
+                success: function (data) {
+                    resolve(data)
+                },
+                error: function (error) {
+                    console.log('Failed - ' + url, xhr, textStatus, errorThrown);
+                    reject(error)
+                }
             });
+        });
     };
+
+    this.save_story = function (story) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                method: 'GET',
+                url: '/story/editor/save',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: story,
+                success: function (data) {
+                    resolve(data)
+                },
+                error: function (error) {
+                    reject(error)
+                }
+            })
+        });
+    };
+
+
+
 
     this.cookie = function (name) {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));

@@ -23,6 +23,8 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers( "/").permitAll()
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
+                .antMatchers( "/login").permitAll()
+                .anyRequest().authenticated()
             .and()
                 .logout()
                     .logoutUrl("/logout")

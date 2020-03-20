@@ -27,10 +27,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/classic/ckeditor.js"></script>
 
     <script src="/assets/wutsi/js/wutsi.js"></script>
     <link rel="stylesheet" th:href="'/assets/wutsi/css/main.css'" />
+
 </div>
 
 
@@ -38,21 +38,7 @@
 <!-- Footer            -->
 <!-- ################# -->
 <footer class="page-footer border-top container-fluid" th:fragment="footer">
-
-
     <script>
-        <!-- CKEDITOR -->
-        if ($('.ckeditor').length) {
-            document.querySelectorAll('.ckeditor').forEach(function(item){
-                ClassicEditor.create(item, {
-                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'insertTable'],
-                    table: {
-                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-                    }
-                })
-            });
-        }
-
         $(document).ready(function(){
             <!-- ASYNC IMAGES -->
             $('img[async-src]').each(function() {
@@ -61,6 +47,7 @@
 
             <!-- TRACKING -->
             wutsi_bind_tracking();
+            wutsi.track('pageview');
         });
     </script>
 </footer>
@@ -112,11 +99,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" th:text="#{navbar.new-stories}">New Stories</a>
-                <a class="dropdown-item" href="#" th:text="#{navbar.my-stories}">My Stories</a>
+                <a class="dropdown-item" href="/story/editor" wutsi-track-event="navbar.menu.story.new"  th:text="#{navbar.new-stories}">New Story</a>
+                <a class="dropdown-item" href="#" wutsi-track-event="navbar.menu.story.me" th:text="#{navbar.my-stories}">My Stories</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" th:text="#{navbar.settings}">Settings</a>
-                <a class="dropdown-item" href="/logout" th:text="#{navbar.logout}">Logout</a>
+                <a class="dropdown-item" href="#" wutsi-track-event="navbar.menu.settings" th:text="#{navbar.settings}">Settings</a>
+                <a class="dropdown-item" href="/logout" wutsi-track-event="navbar.menu.logout" th:text="#{navbar.logout}">Logout</a>
             </div>
         </li>
     </ul>

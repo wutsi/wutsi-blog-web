@@ -15,7 +15,7 @@ class AuthenticationBackend (private val http: Http) {
     }
 
     @Value("\${wutsi.backend.authentication.endpoint}")
-    private lateinit var endpoint: String;
+    private lateinit var endpoint: String
 
     fun login(request: AuthenticateRequest): AuthenticateResponse {
         return http.post(endpoint, request, AuthenticateResponse::class.java).body

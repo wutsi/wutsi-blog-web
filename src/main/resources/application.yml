@@ -49,6 +49,8 @@ wutsi:
     baseurl: http://localhost:8080
     authentication:
       endpoint: ${wutsi.backend.baseurl}/v1/auth
+    story:
+      endpoint: ${wutsi.backend.baseurl}/v1/story
   http:
     client-id: wutsi-blog-app
   toggles:
