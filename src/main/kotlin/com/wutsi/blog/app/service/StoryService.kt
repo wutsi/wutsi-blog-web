@@ -32,6 +32,10 @@ class StoryService(
         )
     }
 
+    fun get(id: Long): StoryModel {
+
+    }
+
     protected fun accessToken(): String? {
         val auth = SecurityContextHolder.getContext().authentication
         if (auth is AnonymousAuthenticationToken) {
