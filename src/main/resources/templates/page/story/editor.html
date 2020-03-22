@@ -12,9 +12,11 @@
 
     <div class="row border-bottom">
         <div class="col-12 padding">
-            <div id="story-status" class="hidden margin-right">Draft</div>
+            <div id="story-status-draft" class="story-status margin-right hidden" th:text="#{story.status.draft}">Draft</div>
+            <div id="story-status-published" class="story-status margin-right hidden" th:text="#{story.status.published}">Published</div>
 
-            <div id="story-alert" class="hidden" th:text="#{page.editor.saving}">Saving...</div>
+            <div id="story-alert-saving" class="story-status hidden" th:text="#{page.editor.saving}">Saving...</div>
+            <div id="story-alert-saved" class="story-status hidden" th:text="#{page.editor.saved}">Saving...</div>
 
             <div class="close">
                 <a href="/story/draft">X</a>
@@ -38,31 +40,32 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-<!--
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
 -->
 <script th:inline="javascript">
 /*<![CDATA[*/
     var storyId = /*[[${storyId}]]*/'0';
-    var labelDraft = /*[[#{story.status.draft}]]*/'Draft';
-    var labelPublished = /*[[#{story.status.published}]]*/'Published';
 
     var dirty = false;
     function set_dirty(value) {
         console.log('set_dirty', value);
         dirty = value;
+        if (dirty){
+            show_status('#story-alert-saved', false);
+        }
     }
 
     var editorjs;
@@ -73,12 +76,21 @@
     }
     function init_editorjs(story) {
         console.log('Initializing EditorJS');
+
+        var tools = {
+            header: Header,
+            marker: Marker,
+            quote: Quote,
+            delimiter: Delimiter,
+            code: CodeTool
+        };
         if (story) {
             console.log('Initializing editor with Story#' + story.id);
             $('#title').val(story.title);
             editorjs = new EditorJS({
                 holderId: 'editorjs',
                 autofocus: true,
+                tools: tools,
                 data: JSON.parse(story.content),
                 onChange: function () {
                     set_dirty(true);
@@ -91,6 +103,7 @@
             editorjs = new EditorJS({
                 holderId: 'editorjs',
                 autofocus: true,
+                tools: tools,
                 onChange: function () {
                     set_dirty(true);
                 }
@@ -102,31 +115,20 @@
     function init_status(story) {
         console.log('Initializing Status');
 
-        const selector = '#story-status';
-        var text;
-        var css;
-        if (!story || story.draft) {
-            text = labelDraft;
-            css = 'status-draft';
-        } else if (story && story.published) {
-            text = labelPublished;
-            css = 'status-published';
-        }
-
-        $(selector).text(text);
-        $(selector).addClass(css);
-        $(selector).removeClass('hidden');
+        show_status('#story-status-draft', !story || story.draft);
+        show_status('#story-status-published', story && story.published);
+        show_status('#story-alert-saved', story && !dirty);
     }
 
     function editorjs_save() {
         if (dirty){
             console.log("Document is dirty.Saving...");
 
+            show_status('#story-alert-saving', true);
             editorjs
                 .save()
                 .then(function(data){
                     set_dirty(false);
-                    editorjs_save_alert(true);
 
                     const request = {
                         id: storyId,
@@ -136,16 +138,17 @@
 
                     wutsi
                         .save_story(request)
-                        .then(function (story){
-                            storyId = story.id;
-                            editorjs_save_alert(false);
-                        })
-                        .catch(function (error){
-                            console.error('Error while saving the document', error);
-                            set_dirty(true);
-                            editorjs_save_alert(false);
-                        })
-                    ;
+                            .then(function (story){
+                                storyId = story.id;
+                            })
+                            .catch(function (error){
+                                console.error('Error while saving the document', error);
+                                set_dirty(true);
+                            })
+                            .finally(function(){
+                                show_status('#story-alert-saving', false);
+                                show_status('#story-alert-saved', !dirty);
+                            });
                 })
                 .catch(function(error){
                     console.error("Save Error", error);
@@ -154,18 +157,15 @@
             console.log("Document not dirty. Nothing to save");
         }
     }
-    function editorjs_save_alert(show){
-        console.log("Showing save alert", show);
-
-        const selector = '#story-alert';
-        if (show) {
-            $(selector).css('display', 'inline-block');
-        } else {
-            setTimeout(function() { $(selector).css('display', 'none'); }, wutsi.config.editor.autosave/10);
-        }
-    }
     setInterval(editorjs_save, wutsi.config.editor.autosave);
 
+    function show_status(selector, show){
+        if (show){
+            $(selector).css('display', 'inline-block');
+        } else {
+            $(selector).css('display', 'none');
+        }
+    }
 
     $(document).ready(function(){
         if (storyId > 0){

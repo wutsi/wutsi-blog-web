@@ -170,14 +170,16 @@ a.sso-button .fab {
     text-decoration: none;
 }
 
-.editor #story-status {
+.editor .story-status {
     float: left;
+    margin-right: 1em;
 }
-
-.editor #story-alert {
+.editor #story-status-draft {
+    color: var(--text-color-gray);
+    font-style: italic;
+}
+.editor #story-status-published {
     color: var(--text-color-success);
-    float: left;
-    margin-left: 1em;
 }
 
 .editor .title-container input {
@@ -213,7 +215,6 @@ a.sso-button .fab {
 }
 
 .story-list .story .summary {
-    font-size: 1.2em;
     margin-bottom: .5em;
 }
 
@@ -223,7 +224,11 @@ a.sso-button .fab {
 
 
 /* editorjs override */
-.ce-paragraph {
-    border-bottom: 1px dashed var(--border-color);
-    color: var(--text-color);
+.ce-block__content {
+    border-bottom: 1px dashed var(--border-color) !important;
+    color: var(--text-color)  !important;
+}
+.ce-header {
+    margin: 0 !important;
+    padding: 0 !important;
 }

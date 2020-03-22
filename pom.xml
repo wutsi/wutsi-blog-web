@@ -31,9 +31,8 @@
 
         <wutsi-blog-client.version>1.0.10</wutsi-blog-client.version>
         <wutsi-core.version>1.0.3</wutsi-core.version>
+        <wutsi-editorjs.version>1.0.2</wutsi-editorjs.version>
         <wutsi-http.version>1.0.9</wutsi-http.version>
-
-
     </properties>
 
     <dependencies>
@@ -51,6 +50,11 @@
             <groupId>com.wutsi</groupId>
             <artifactId>wutsi-http</artifactId>
             <version>${wutsi-http.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wutsi</groupId>
+            <artifactId>wutsi-editorjs</artifactId>
+            <version>${wutsi-editorjs.version}</version>
         </dependency>
 
 
