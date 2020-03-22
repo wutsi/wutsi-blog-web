@@ -8,8 +8,21 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container">
-    MY STORIES HERE
+<div class="container margin-top-2x story-list">
+    <h1 th:text="#{page.draft-story.header1}">My Stories</h1>
+
+    <div class="story col-12 padding margin-bottom border-top" th:each="story : ${stories}">
+        <a th:href="'/story/editor?id=' + ${story.id}">
+            <h3 class="title" th:text="${story.title}">Title</h3>
+            <p class="summary" th:text="${story.summary}">Summary</p>
+            <p class="meta">
+                <span th:text="#{label.modified}">Last Modified:</span> <span th:text="${story.modificationDateTime}">2 days ago</span>
+                -
+                <span th:text="#{story.read_time(${story.readingMinutes})}" th:if="${story.readingMinutes} GT 0">6 min</span>
+                (<span th:text="#{story.word_count(${story.wordCount})}">250 mots</span>)
+            </p>
+        </a>
+    </div>
 </div>
 
 <div th:replace="components/layout :: footer"></div>

@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.security
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
-import com.wutsi.blog.app.mapper.UserMapper
+import com.wutsi.blog.app.mapper.OAuth2UserMapper
 import com.wutsi.blog.client.user.AuthenticateRequest
 import org.springframework.security.core.Authentication
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse
 class OAuth2LoginSuccessHandler(
         private val clients: OAuth2AuthorizedClientService,
         private val authenticationBackend: AuthenticationBackend,
-        private val mapper: UserMapper
+        private val mapper: OAuth2UserMapper
 ) : SimpleUrlAuthenticationSuccessHandler() {
 
     @Throws(IOException::class, ServletException::class)

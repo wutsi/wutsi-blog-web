@@ -8,21 +8,33 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container">
-    <div class="editor border margin-top">
-        <div class="row">
-            <div class="col-12">
-                <div class="title-container">
-                    <input id="title" name="title" value="" th:placeholder="#{page.editor.title}"  autocomplete="off"/>
-                </div>
+<div class="container editor border margin-top">
 
-                <div class="editorjs-container">
-                    <div id="editorjs"></div>
-                </div>
+    <div class="row border-bottom">
+        <div class="col-12 padding">
+            <div id="story-status" class="hidden margin-right">Draft</div>
+
+            <div id="story-alert" class="hidden" th:text="#{page.editor.saving}">Saving...</div>
+
+            <div class="close">
+                <a href="/story/draft">X</a>
             </div>
         </div>
-
     </div>
+
+    <div class="row border-bottom">
+        <div class="col-12 padding title-container">
+            <input id="title" name="title" value="" th:placeholder="#{page.editor.title}"  autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 editorjs-container">
+            <div id="editorjs"></div>
+        </div>
+    </div>
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
@@ -44,6 +56,8 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
     var storyId = /*[[${storyId}]]*/'0';
+    var labelDraft = /*[[#{story.status.draft}]]*/'Draft';
+    var labelPublished = /*[[#{story.status.published}]]*/'Published';
 
     var dirty = false;
     function set_dirty(value) {
@@ -52,9 +66,15 @@
     }
 
     var editorjs;
-    function editorjs_init(story) {
+    function init(story) {
+        console.log('Initializing');
+        init_editorjs(story);
+        init_status(story);
+    }
+    function init_editorjs(story) {
+        console.log('Initializing EditorJS');
         if (story) {
-
+            console.log('Initializing editor with Story#' + story.id);
             $('#title').val(story.title);
             editorjs = new EditorJS({
                 holderId: 'editorjs',
@@ -66,6 +86,7 @@
             });
 
         } else {
+            console.log('Initializing empty editor');
 
             editorjs = new EditorJS({
                 holderId: 'editorjs',
@@ -74,19 +95,39 @@
                     set_dirty(true);
                 }
             });
-
         }
 
         set_dirty(false);
     }
+    function init_status(story) {
+        console.log('Initializing Status');
+
+        const selector = '#story-status';
+        var text;
+        var css;
+        if (!story || story.draft) {
+            text = labelDraft;
+            css = 'status-draft';
+        } else if (story && story.published) {
+            text = labelPublished;
+            css = 'status-published';
+        }
+
+        $(selector).text(text);
+        $(selector).addClass(css);
+        $(selector).removeClass('hidden');
+    }
 
     function editorjs_save() {
         if (dirty){
-            console.log("Saving story");
+            console.log("Document is dirty.Saving...");
+
             editorjs
                 .save()
                 .then(function(data){
                     set_dirty(false);
+                    editorjs_save_alert(true);
+
                     const request = {
                         id: storyId,
                         title: $('#title').val(),
@@ -97,11 +138,14 @@
                         .save_story(request)
                         .then(function (story){
                             storyId = story.id;
+                            editorjs_save_alert(false);
                         })
                         .catch(function (error){
                             console.error('Error while saving the document', error);
                             set_dirty(true);
-                        });
+                            editorjs_save_alert(false);
+                        })
+                    ;
                 })
                 .catch(function(error){
                     console.error("Save Error", error);
@@ -110,22 +154,35 @@
             console.log("Document not dirty. Nothing to save");
         }
     }
+    function editorjs_save_alert(show){
+        console.log("Showing save alert", show);
+
+        const selector = '#story-alert';
+        if (show) {
+            $(selector).css('display', 'inline-block');
+        } else {
+            setTimeout(function() { $(selector).css('display', 'none'); }, wutsi.config.editor.autosave/10);
+        }
+    }
     setInterval(editorjs_save, wutsi.config.editor.autosave);
 
 
     $(document).ready(function(){
         if (storyId > 0){
             wutsi.story(storyId)
-                .then( function(story) { editorjs_init(story)})
-                .catch(function(error) { console.log('Unable to load the story', error) });
+                .then( function(story) { init(story)})
+                .catch(function(error) { console.error('Unable to load the Story#' + storyId, error) });
         } else {
-            editorjs_init(null);
+            init(null);
         }
 
         // Event handlers
         $('#title').on('keydown', function(){ set_dirty(true)} );
 
-        window.addEventListener('beforeunload', function(){ editorjs_save() });
+        window.addEventListener('beforeunload', function(){
+            console.log('Unloading the window');
+            editorjs_save()
+        });
     });
 /*]]>*/
 </script>

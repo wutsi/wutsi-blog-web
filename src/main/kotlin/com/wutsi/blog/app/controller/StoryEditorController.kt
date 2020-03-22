@@ -29,6 +29,8 @@ class StoryEditorController(
 
         if (id != null) {
             model.addAttribute("storyId", id)
+        } else {
+            model.addAttribute("storyId", 0)
         }
 
         return "page/story/editor"

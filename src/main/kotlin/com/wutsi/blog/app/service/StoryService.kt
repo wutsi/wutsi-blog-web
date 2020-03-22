@@ -2,22 +2,20 @@ package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.editor.StoryEditor
+import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
-import com.wutsi.blog.client.story.StoryDto
+import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
-import org.springframework.security.authentication.AnonymousAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken
 import org.springframework.stereotype.Service
 
 @Service
 class StoryService(
-        private val storyBackend: StoryBackend,
-        private val oauth2ClientService: OAuth2AuthorizedClientService
+        private val requestContext: RequestContext,
+        private val mapper: StoryMapper,
+        private val storyBackend: StoryBackend
 ) {
     fun save(editor: StoryEditor): StoryEditor {
         val response: SaveStoryResponse
@@ -37,18 +35,29 @@ class StoryService(
 
     fun get(id: Long): StoryModel {
         val story = storyBackend.get(id).story
-        return toStoryModel(story)
+        return mapper.toStoryModel(story)
     }
 
-    protected fun accessToken(): String? {
-        val auth = SecurityContextHolder.getContext().authentication
-        if (auth is AnonymousAuthenticationToken) {
-            return null
-        }
+    fun drafts(limit: Int, offset: Int): List<StoryModel> {
+        val request = SearchStoryRequest(
+                userId = requestContext.user?.id,
+                status = StoryStatus.draft,
+                sortBy = StorySortStrategy.modified,
+                limit = limit,
+                offset = offset
+        )
+        val stories = storyBackend.search(request).stories
+        return stories.map { mapper.toStoryModel(it) }
+    }
 
-        val ooauth2Token = auth as OAuth2AuthenticationToken
-        val client = oauth2ClientService.loadAuthorizedClient<OAuth2AuthorizedClient>(ooauth2Token.authorizedClientRegistrationId, auth.name)
-        return client.accessToken.tokenValue
+    fun totalDrafts(): Int {
+        val request = SearchStoryRequest(
+                userId = requestContext.user?.id,
+                status = StoryStatus.draft,
+                limit = 0,
+                offset = Int.MAX_VALUE
+        )
+        return storyBackend.count(request).total
     }
 
     private fun shouldCreate(editor: StoryEditor) = (editor.id == 0L)
@@ -57,21 +66,7 @@ class StoryService(
             contentType = "application/editorjs",
             content = editor.content,
             title = editor.title,
-            accessToken = accessToken()
-    )
-
-    private fun toStoryModel(story: StoryDto) = StoryModel(
-            id = story.id,
-            content = story.content,
-            title = story.title,
-            contentType = story.contentType,
-            thumbmailUrl = story.thumbnailUrl,
-            worldCount = story.worldCount,
-            sourceUrl = story.sourceUrl,
-            readingMinutes = story.readingMinutes,
-            language = story.language,
-            summary = story.summary,
-            userId = story.userId,
-            draft = story.status == StoryStatus.draft
+            accessToken = requestContext.accessToken()
     )
 }
+

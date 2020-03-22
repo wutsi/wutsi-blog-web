@@ -23,6 +23,7 @@ class LogoutController(
     companion object {
         private val LOGGER = LoggerFactory.getLogger(LogoutController::class.java)
     }
+
     @GetMapping()
     fun index(request: HttpServletRequest): String {
         backendLogout()
