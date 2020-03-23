@@ -17,8 +17,11 @@
 
     <div class="row margin-top-2x">
         <div class="col-12 col-md-5">
-            <h5 th:text="${story.title}">Title</h5>
+            <h5 th:text="${story.title}" th:if="!${story.title.isEmpty()}">Title</h5>
+            <h5 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h5>
+
             <p th:text="${story.summary}">Summary</p>
+            <p class="disabled" th:text="#{story.no_summary}" th:id="${story.summary.isEmpty()}">Summary</p>
         </div>
 
         <div class="col-md-2"></div>

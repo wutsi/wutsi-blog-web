@@ -10,5 +10,7 @@ class PageName{
         const val STORY_PUBLISH = "page.story.publish"
         const val STORY_CONFIRMATION = "page.story.confirmation"
         const val STORY_SHARE = "page.story.share"
+
+        const val ERROR_500 = "page.error.500"
     }
 }

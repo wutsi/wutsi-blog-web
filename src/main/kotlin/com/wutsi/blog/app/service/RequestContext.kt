@@ -3,6 +3,7 @@ package com.wutsi.blog.app.service
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.mapper.UserMapper
 import com.wutsi.blog.app.model.UserModel
+import com.wutsi.core.exception.UnauthorizedException
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.security.authentication.AnonymousAuthenticationToken
@@ -30,8 +31,12 @@ class RequestContext(
 
         val token = accessToken()
         if (token != null) {
-            val response = backend.session(token)
-            user = mapper.toUserModel(response.session.user)
+            try {
+                val response = backend.session(token)
+                user = mapper.toUserModel(response.session.user)
+            } catch (e: Exception){
+                throw UnauthorizedException(e.message, e)
+            }
         }
         return user
     }

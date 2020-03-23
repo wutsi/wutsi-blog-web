@@ -26,15 +26,15 @@
         <div class="col-12 col-md-5">
             <div th:text="#{page.story.share.message}">Message</div>
 
-            <a class="sso-button margin-top-2x" href="#" wutsi-track-event="share.facebook">
+            <a id="facebook-share" class="sso-button margin-top-2x" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?u=' + ${url}">
                 <i class="fab fa-facebook-square"></i>
                 <span th:text="#{page.story.share.share-facebook}">Sign in with Facebook</span>
             </a>
-            <a class="sso-button margin-top" href="#" wutsi-track-event="share.twitter">
+            <a id="twitter-share" class="sso-button margin-top" href="#" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/share?url=' + ${url}">
                 <i class="fab fa-twitter-square"></i>
                 <span th:text="#{page.story.share.share-twitter}">Sign in with Twitter</span>
             </a>
-            <a class="sso-button margin-top" href="#" wutsi-track-event="share.linkedin">
+            <a id="linkedin-share" class="sso-button margin-top" href="#" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
                 <i class="fab fa-linkedin"></i>
                 <span th:text="#{page.story.share.share-linkedin}">Sign in with LinkedIn</span>
             </a>

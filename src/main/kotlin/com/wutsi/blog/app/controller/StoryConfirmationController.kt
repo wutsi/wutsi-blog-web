@@ -4,7 +4,7 @@ import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.StoryStatus
-import com.wutsi.blog.exception.NotFoundException
+import com.wutsi.core.exception.NotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

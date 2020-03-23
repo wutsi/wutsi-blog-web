@@ -8,6 +8,8 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
+<div class="alert alert-danger container margin-top" th:if="${error}" th:text="#{'error.' + ${error}}">Error</div>
+
 <div class="container editor border margin-top">
 
     <div class="row border-bottom">

@@ -10,6 +10,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
@@ -26,8 +27,9 @@ class StoryEditorController(
     }
 
     @GetMapping("/story/{id}/editor")
-    fun update(@PathVariable id:Long, model: Model): String {
+    fun update(@PathVariable id:Long, @RequestParam error:String?=null, model: Model): String {
         model.addAttribute("storyId", id)
+        model.addAttribute("error", error)
         return "page/story/editor"
     }
 

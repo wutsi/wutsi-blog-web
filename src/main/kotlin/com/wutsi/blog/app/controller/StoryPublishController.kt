@@ -4,6 +4,7 @@ import com.wutsi.blog.app.editor.PublishEditor
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.core.exception.ConflictException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,7 +28,11 @@ class StoryPublishController(
 
     @GetMapping("/story/publish/submit")
     fun submit(@ModelAttribute editor: PublishEditor): String {
-        service.publish(editor)
-        return "redirect:/story/${editor.id}/confirmation"
+        try {
+            service.publish(editor)
+            return "redirect:/story/${editor.id}/confirmation"
+        } catch (ex: ConflictException) {
+            return "redirect:/story/${editor.id}/editor?error=publish_error"
+        }
     }
 }

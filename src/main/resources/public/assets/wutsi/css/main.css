@@ -36,6 +36,7 @@ a {
 
 .disabled {
     color: var(--text-color-gray);
+    font-style: italic;
 }
 
 .required {
