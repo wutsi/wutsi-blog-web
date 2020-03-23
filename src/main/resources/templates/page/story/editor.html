@@ -21,6 +21,7 @@
             <div class="close">
                 <a href="/story/draft">X</a>
             </div>
+            <button id="btn-publish" class="btn btn-primary btn-sm hidden" th:text="#{button.publish}">Publish</button>
         </div>
     </div>
 
@@ -118,6 +119,7 @@
         show_status('#story-status-draft', !story || story.draft);
         show_status('#story-status-published', story && story.published);
         show_status('#story-alert-saved', story && !dirty);
+        show_status('#btn-publish', storyId > 0);
     }
 
     function editorjs_save() {
@@ -140,6 +142,7 @@
                         .save_story(request)
                             .then(function (story){
                                 storyId = story.id;
+                                show_status('#btn-publish', true);
                             })
                             .catch(function (error){
                                 console.error('Error while saving the document', error);
@@ -178,6 +181,10 @@
 
         // Event handlers
         $('#title').on('keydown', function(){ set_dirty(true)} );
+
+        $('#btn-publish').on('click', function(){
+            window.location.href = '/story/publish?id=' + storyId;
+        });
 
         window.addEventListener('beforeunload', function(){
             console.log('Unloading the window');

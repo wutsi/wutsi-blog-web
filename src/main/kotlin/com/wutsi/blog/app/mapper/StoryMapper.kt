@@ -8,7 +8,10 @@ import com.wutsi.blog.client.story.StorySummaryDto
 import org.springframework.stereotype.Service
 
 @Service
-class StoryMapper(private val moment: Moment) {
+class StoryMapper(
+        private val tagMapper: TagMapper,
+        private val moment: Moment
+) {
     fun toStoryModel(story: StoryDto) = StoryModel(
             id = story.id,
             content = story.content,
@@ -25,7 +28,8 @@ class StoryMapper(private val moment: Moment) {
             published = story.status == StoryStatus.published,
             modificationDateTime = moment.format(story.modificationDateTime),
             creationDateTime = moment.format(story.creationDateTime),
-            publishedDateTime = moment.format(story.publishedDateTime)
+            publishedDateTime = moment.format(story.publishedDateTime),
+            tags = story.tags.map { tagMapper.toTagModel(it) }
     )
 
     fun toStoryModel(story: StorySummaryDto) = StoryModel(

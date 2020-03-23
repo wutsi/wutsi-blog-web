@@ -9,19 +9,21 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container margin-top-2x story-list">
-    <h1 th:text="#{page.draft-story.header1}">My Stories</h1>
+    <h1 th:text="#{page.story.draft.header1}">My Stories</h1>
 
-    <div class="story col-12 padding margin-bottom border-top" th:each="story : ${stories}">
-        <a th:href="'/story/editor?id=' + ${story.id}">
-            <h3 class="title" th:text="${story.title}">Title</h3>
-            <div class="summary" th:text="${story.summary}">Summary</div>
-            <div class="meta">
-                <span th:text="#{label.modified}">Last Modified:</span> <span th:text="${story.modificationDateTime}">2 days ago</span>
-                -
-                <span th:text="#{story.read_time(${story.readingMinutes})}" th:if="${story.readingMinutes} GT 0">6 min</span>
-                (<span th:text="#{story.word_count(${story.wordCount})}">250 mots</span>)
-            </div>
-        </a>
+    <div class="row padding margin-bottom border-top" th:each="story : ${stories}">
+        <div class="story col-12">
+            <a th:href="'/story/editor?id=' + ${story.id}">
+                <h3 class="title" th:text="${story.title}">Title</h3>
+                <div class="summary" th:text="${story.summary}">Summary</div>
+                <div class="meta">
+                    <span th:text="#{label.modified}">Last Modified:</span> <span th:text="${story.modificationDateTime}">2 days ago</span>
+                    -
+                    <span th:text="#{story.read_time(${story.readingMinutes})}" th:if="${story.readingMinutes} GT 0">6 min</span>
+                    (<span th:text="#{story.word_count(${story.wordCount})}">250 mots</span>)
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 

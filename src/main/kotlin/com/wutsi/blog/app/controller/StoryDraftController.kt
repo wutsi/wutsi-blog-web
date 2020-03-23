@@ -15,7 +15,7 @@ class StoryDraftController(
         private val service: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun page() = PageName.MY_DRAFT_STORIES
+    override fun page() = PageName.STORY_DRAFT
 
     @GetMapping()
     fun index(
@@ -24,12 +24,8 @@ class StoryDraftController(
             model: Model
     ): String {
         val stories = service.drafts(limit, offset)
-        val totalDrafts = service.totalDrafts()
-        val totalPublished = 0
 
         model.addAttribute("stories", stories)
-        model.addAttribute("totalDrafts", totalDrafts)
-        model.addAttribute("totalPublished", totalPublished)
         return "page/story/draft"
     }
 }

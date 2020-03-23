@@ -1,9 +1,11 @@
 package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.StoryBackend
+import com.wutsi.blog.app.editor.PublishEditor
 import com.wutsi.blog.app.editor.StoryEditor
 import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
@@ -56,14 +58,10 @@ class StoryService(
         return stories.map { mapper.toStoryModel(it) }
     }
 
-    fun totalDrafts(): Int {
-        val request = SearchStoryRequest(
-                userId = requestContext.user?.id,
-                status = StoryStatus.draft,
-                limit = 0,
-                offset = Int.MAX_VALUE
-        )
-        return storyBackend.count(request).total
+    fun publish(editor: PublishEditor){
+        storyBackend.publish(editor.id, PublishStoryRequest(
+                tags = editor.tags
+        ))
     }
 
     private fun shouldUpdate(editor: StoryEditor) = editor.id > 0L

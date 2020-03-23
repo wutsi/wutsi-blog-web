@@ -16,5 +16,6 @@ data class StoryModel(
         val published: Boolean = false,
         val creationDateTime: String = "",
         val modificationDateTime: String = "",
-        val publishedDateTime: String = ""
+        val publishedDateTime: String = "",
+        val tags: List<TagModel> = emptyList()
 )

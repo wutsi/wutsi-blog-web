@@ -48,6 +48,10 @@ a {
 .border-top {
     border-top: 1px solid var(--border-color);
 }
+.border-right {
+    border-right: 1px solid var(--border-color);
+}
+
 .padding {
     padding: 1em;
 }
@@ -163,11 +167,8 @@ a.sso-button .fab {
 }
 
 .editor .close {
-    float: right;
-}
-.editor .close a {
-    color: var(--text-color-gray);;
-    text-decoration: none;
+    margin-top: 0.125em;
+    margin-top: .1em;
 }
 
 .editor .story-status {
@@ -180,6 +181,11 @@ a.sso-button .fab {
 }
 .editor #story-status-published {
     color: var(--text-color-success);
+}
+
+.editor #btn-publish {
+    float: right;
+    margin-right: 1em;
 }
 
 .editor .title-container input {
@@ -220,6 +226,17 @@ a.sso-button .fab {
 
 .story-list .story .meta {
     font-size: 0.9em;
+}
+
+
+/* bootstrap override */
+.btn-primary {
+    background: var(--highlight-color)
+}
+
+.close a {
+    color: var(--text-color-gray);
+    text-decoration: none;
 }
 
 
