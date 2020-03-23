@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container main-content border margin-top padding-2x">
+    <div class="close">
+        <a wutsi-track-event="story.publish.close" th:href="'/story/draft'">X</a>
+    </div>
+
+    <h1 th:text="#{page.story.share.header1}">Share Story</h1>
+
+    <div class="row margin-top-2x">
+        <div class="col-12 col-md-5">
+            <h5 th:text="${story.title}">Title</h5>
+            <p th:text="${story.summary}">Summary</p>
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-12 col-md-5">
+            <div th:text="#{page.story.share.message}">Message</div>
+
+            <a class="sso-button margin-top-2x" href="#" wutsi-track-event="share.facebook">
+                <i class="fab fa-facebook-square"></i>
+                <span th:text="#{page.story.share.share-facebook}">Sign in with Facebook</span>
+            </a>
+            <a class="sso-button margin-top" href="#" wutsi-track-event="share.twitter">
+                <i class="fab fa-twitter-square"></i>
+                <span th:text="#{page.story.share.share-twitter}">Sign in with Twitter</span>
+            </a>
+            <a class="sso-button margin-top" href="#" wutsi-track-event="share.linkedin">
+                <i class="fab fa-linkedin"></i>
+                <span th:text="#{page.story.share.share-linkedin}">Sign in with LinkedIn</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+
+</html>

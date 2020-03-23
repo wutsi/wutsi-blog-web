@@ -24,12 +24,14 @@ class StoryMapper(
             language = story.language,
             summary = story.summary,
             userId = story.userId,
+            status = story.status,
             draft = story.status == StoryStatus.draft,
             published = story.status == StoryStatus.published,
             modificationDateTime = moment.format(story.modificationDateTime),
             creationDateTime = moment.format(story.creationDateTime),
             publishedDateTime = moment.format(story.publishedDateTime),
-            tags = story.tags.map { tagMapper.toTagModel(it) }
+            tags = story.tags.map { tagMapper.toTagModel(it) },
+            slug = story.slug
     )
 
     fun toStoryModel(story: StorySummaryDto) = StoryModel(
@@ -42,10 +44,12 @@ class StoryMapper(
             language = story.language,
             summary = story.summary,
             userId = story.userId,
+            status = story.status,
             draft = story.status == StoryStatus.draft,
             published = story.status == StoryStatus.published,
             modificationDateTime = moment.format(story.modificationDateTime),
             creationDateTime = moment.format(story.creationDateTime),
-            publishedDateTime = moment.format(story.publishedDateTime)
+            publishedDateTime = moment.format(story.publishedDateTime),
+            slug = story.slug
     )
 }

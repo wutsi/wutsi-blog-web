@@ -9,7 +9,6 @@ function Wutsi (){
     };
 
     this.track = function (event, value, productId){
-        console.log('Track.push', event, value, productId);
 
         const url = this.config.backend.trackUrl;
         const data = {
@@ -21,6 +20,7 @@ function Wutsi (){
             ua: navigator.userAgent,
             value: (value ? value : null)
         };
+        console.log('Track.push to' + url, data);
 
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -39,42 +39,6 @@ function Wutsi (){
             });
         });
     };
-
-    this.story = function(id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                method: 'GET',
-                url: '/story/editor/fetch?id=' + id,
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    resolve(data)
-                },
-                error: function (error) {
-                    reject(error)
-                }
-            })
-        });
-    };
-
-    this.save_story = function (story) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                method: 'GET',
-                url: '/story/editor/save',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: story,
-                success: function (data) {
-                    resolve(data)
-                },
-                error: function (error) {
-                    reject(error)
-                }
-            })
-        });
-    };
-
 
 
 

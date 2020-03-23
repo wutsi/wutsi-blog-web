@@ -64,6 +64,15 @@ class StoryService(
         ))
     }
 
+    fun count(status: StoryStatus): Int {
+        val request = SearchStoryRequest(
+                userId = requestContext.user?.id,
+                status = status,
+                limit = Int.MAX_VALUE
+        )
+        return storyBackend.count(request).total
+    }
+
     private fun shouldUpdate(editor: StoryEditor) = editor.id > 0L
 
     private fun shouldCreate(editor: StoryEditor) = editor.id == 0L && !isEmpty(editor)

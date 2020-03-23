@@ -1,5 +1,7 @@
 package com.wutsi.blog.app.model
 
+import com.wutsi.blog.client.story.StoryStatus
+
 data class StoryModel(
         val id: Long? = -1,
         val userId: Long = -1,
@@ -12,10 +14,12 @@ data class StoryModel(
         val language: String? = null,
         val content: String? = null,
         val contentType: String? = null,
+        val status: StoryStatus = StoryStatus.draft,
         val draft: Boolean = true,
         val published: Boolean = false,
         val creationDateTime: String = "",
         val modificationDateTime: String = "",
         val publishedDateTime: String = "",
-        val tags: List<TagModel> = emptyList()
+        val tags: List<TagModel> = emptyList(),
+        val slug: String = ""
 )

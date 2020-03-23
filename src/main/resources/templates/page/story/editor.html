@@ -19,15 +19,15 @@
             <div id="story-alert-saved" class="story-status hidden" th:text="#{page.editor.saved}">Saving...</div>
 
             <div class="close">
-                <a href="/story/draft">X</a>
+                <a href="/story/draft" wutsi-track-event="story.editor.close">X</a>
             </div>
-            <button id="btn-publish" class="btn btn-primary btn-sm hidden" th:text="#{button.publish}">Publish</button>
+            <button id="btn-publish" class="btn btn-primary btn-sm" disabled="disabled" wutsi-track-event="story.editor.publish" th:text="#{button.publish}">Publish</button>
         </div>
     </div>
 
     <div class="row border-bottom">
         <div class="col-12 padding title-container">
-            <input id="title" name="title" value="" th:placeholder="#{page.editor.title}"  autocomplete="off"/>
+            <input id="title" name="title" value="" th:placeholder="#{page.editor.title}" autocomplete="off" maxlength="200" />
         </div>
     </div>
 
@@ -74,6 +74,13 @@
         console.log('Initializing');
         init_editorjs(story);
         init_status(story);
+        enabled_publish(story);
+
+        if (!story || story.draft) {
+            // Autosave draft document
+            // Publish document must be explicitelly be published to be saved
+            setInterval(editorjs_save, wutsi.config.editor.autosave);
+        }
     }
     function init_editorjs(story) {
         console.log('Initializing EditorJS');
@@ -119,10 +126,9 @@
         show_status('#story-status-draft', !story || story.draft);
         show_status('#story-status-published', story && story.published);
         show_status('#story-alert-saved', story && !dirty);
-        show_status('#btn-publish', storyId > 0);
     }
 
-    function editorjs_save() {
+    function editorjs_save(callback) {
         if (dirty){
             console.log("Document is dirty.Saving...");
 
@@ -138,29 +144,41 @@
                         content: JSON.stringify(data)
                     };
 
-                    wutsi
-                        .save_story(request)
-                            .then(function (story){
-                                storyId = story.id;
-                                show_status('#btn-publish', true);
-                            })
-                            .catch(function (error){
-                                console.error('Error while saving the document', error);
-                                set_dirty(true);
-                            })
-                            .finally(function(){
-                                show_status('#story-alert-saving', false);
-                                show_status('#story-alert-saved', !dirty);
-                            });
+                    $
+                        .ajax({
+                            method: 'GET',
+                            url: '/story/editor/save',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: request
+                        })
+                        .then(function (story){
+                            storyId = story.id;
+                            enabled_publish(true);
+                            if (callback){
+                                callback();
+                            }
+                        })
+                        .catch(function (error){
+                            console.error('Error while saving the document', error);
+                            set_dirty(true);
+                        })
+                        .always(function(){
+                            show_status('#story-alert-saving', false);
+                            show_status('#story-alert-saved', !dirty);
+                        })
+                    ;
                 })
                 .catch(function(error){
                     console.error("Save Error", error);
                 });
         } else {
             console.log("Document not dirty. Nothing to save");
+            if (callback){
+                callback();
+            }
         }
     }
-    setInterval(editorjs_save, wutsi.config.editor.autosave);
 
     function show_status(selector, show){
         if (show){
@@ -169,10 +187,23 @@
             $(selector).css('display', 'none');
         }
     }
+    function enabled_publish(enabled) {
+        if (enabled){
+            $('#btn-publish').removeAttr('disabled');
+        } else {
+            $('#btn-publish').attr('disabled', 'disabled');
+        }
+    }
 
     $(document).ready(function(){
         if (storyId > 0){
-            wutsi.story(storyId)
+            $
+                .ajax({
+                    method: 'GET',
+                    url: '/story/' + storyId + '/editor/fetch',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                })
                 .then( function(story) { init(story)})
                 .catch(function(error) { console.error('Unable to load the Story#' + storyId, error) });
         } else {
@@ -183,7 +214,11 @@
         $('#title').on('keydown', function(){ set_dirty(true)} );
 
         $('#btn-publish').on('click', function(){
-            window.location.href = '/story/publish?id=' + storyId;
+            if (storyId > 0) {
+                editorjs_save(function(){
+                    window.location.href = '/story/' + storyId + '/publish';
+                });
+            }
         });
 
         window.addEventListener('beforeunload', function(){

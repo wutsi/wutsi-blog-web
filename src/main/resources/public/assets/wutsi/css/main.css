@@ -1,6 +1,7 @@
 /*
  * Wutsi color:
  *  blue: #1D7EDF
+ *  blue-light: #e4edf7
  *  lightgray: #efefef
  */
 
@@ -12,6 +13,7 @@
 /* ================================ */
 body {
     --highlight-color: #1D7EDF;
+    --highlight-color-light: #e4edf7;
     --text-color: #404040;
     --text-color-gray: gray;
     --text-color-error: darkred;
@@ -22,8 +24,18 @@ body {
     color: var(--text-color)
 }
 
+a {
+    color: var(--highlight-color)
+}
+
+
+
 .hidden {
     display: none;
+}
+
+.disabled {
+    color: var(--text-color-gray);
 }
 
 .required {
@@ -34,12 +46,11 @@ body {
 .fa-facebook-square {
     color: #3b5998
 }
+.fa-linkedin {
+    color: #0e76a8;
+}
 .fa-twitter-square {
     color: #0084b4;
-}
-
-a {
-    color: var(--highlight-color)
 }
 
 .border {
@@ -50,6 +61,10 @@ a {
 }
 .border-right {
     border-right: 1px solid var(--border-color);
+}
+
+.main-content {
+    background: white;
 }
 
 .padding {
@@ -71,6 +86,7 @@ a {
 .margin-top-2x {
     margin-top: 2em;
 }
+
 
 /* ==== NAVBAR ==== */
 .navbar {

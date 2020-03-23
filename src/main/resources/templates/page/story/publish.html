@@ -8,31 +8,36 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container border margin-top padding-2x">
+<div class="container main-content border margin-top padding-2x">
     <div class="close">
-        <a th:href="'/story/editor?id=' + ${story.id}">X</a>
+        <a wutsi-track-event="story.publish.close" th:href="'/story/' + ${story.id} + '/editor'">X</a>
     </div>
 
     <h1 th:text="#{page.story.publish.header1}">Publish Story</h1>
 
     <div class="row margin-top-2x">
         <div class="col-12 col-md-5">
-            <h3 th:text="${story.title}">Title of story</h3>
+            <h5 th:text="${story.title}">Title</h5>
             <p th:text="${story.summary}">Summary</p>
         </div>
 
         <div class="col-md-2"></div>
 
         <div class="col-12 col-md-5">
-            <div class="form-group margin-bottom">
-                <div th:text="#{page.story.publish.tag_info}">Tags</div>
-                <select id="tags" class="form-control" name="tags" multiple="multiple">
-                    <option selected="selected" th:value="${tag.name}" th:text="${tag.name}" th:each="tag : ${story.tags}">Tag</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" th:text="#{button.publish_now}">Publish Now</button>
-            </div>
+            <form id="form-publish" method="get" action="/story/publish/submit" autocomplete="off">
+                <input type="hidden" name="id" th:value="${story.id}" />
+
+                <div class="form-group margin-bottom">
+                    <div th:text="#{page.story.publish.tag_info}">Tags</div>
+                    <select id="tags" class="form-control" name="tags" multiple="multiple">
+                        <option selected="selected" th:value="${tag.name}" th:text="${tag.name}" th:each="tag : ${story.tags}">Tag</option>
+                    </select>
+                </div>
+
+                <div class="margin-top-2x">
+                    <button id="btn-publish" type="submit" class="btn btn-primary" disabled="disabled" wutsi-track-event="story.publish.publish" th:text="#{button.publish_now}">Publish Now</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -46,13 +51,28 @@
     $('#tags').select2({
         ajax: {
             url: '/tag/search',
-            dataType: 'json',
-            processResults: function (data) {
-                return {
-                    results: data.items
-                };
-            }
+            dataType: 'json'
         },
+        tags: true,
+        tokenSeparators: [',', ' '],
+        minimumInputLength: 3
     });
+
+    $('#tags').on('change', function(e){
+        const data = $(this).select2('data');
+        enabled_submit(data && data.length > 0);
+    });
+
+    $('#form-publish').submit(function(){
+        enabled_submit(false);
+    });
+
+    function enabled_submit(flag){
+        if (flag){
+            $('#btn-publish').removeAttr('disabled');
+        } else {
+            $('#btn-publish').attr('disabled', 'disabled');
+        }
+    }
 </script>
 </html>

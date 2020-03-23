@@ -9,42 +9,36 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-@RequestMapping("/story/editor")
 class StoryEditorController(
         private val service: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun page() = PageName.STORY_EDITOR
 
-    @GetMapping()
-    fun index(
-            @RequestParam(required = false) id:Long? = null,
-            model: Model
-    ): String {
-
-        if (id != null) {
-            model.addAttribute("storyId", id)
-        } else {
-            model.addAttribute("storyId", 0)
-        }
-
+    @GetMapping("/story/editor")
+    fun create(model: Model): String {
+        model.addAttribute("storyId", 0)
         return "page/story/editor"
+    }
 
+    @GetMapping("/story/{id}/editor")
+    fun update(@PathVariable id:Long, model: Model): String {
+        model.addAttribute("storyId", id)
+        return "page/story/editor"
     }
 
     @ResponseBody
-    @GetMapping("/fetch", produces = ["application/json"])
-    fun fetch(@RequestParam id:Long): StoryModel {
+    @GetMapping("/story/{id}/editor/fetch", produces = ["application/json"])
+    fun fetch(@PathVariable id:Long): StoryModel {
         return service.get(id)
     }
 
     @ResponseBody
-    @GetMapping("/save", produces = ["application/json"], consumes = ["application/json"])
+    @GetMapping("/story/editor/save", produces = ["application/json"], consumes = ["application/json"])
     fun save(@ModelAttribute editor: StoryEditor): StoryEditor {
         return service.save(editor)
     }

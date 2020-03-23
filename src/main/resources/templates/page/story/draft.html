@@ -8,12 +8,12 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container margin-top-2x story-list">
+<div class="container border main-content margin-top-2x padding-2x story-list">
     <h1 th:text="#{page.story.draft.header1}">My Stories</h1>
 
     <div class="row padding margin-bottom border-top" th:each="story : ${stories}">
         <div class="story col-12">
-            <a th:href="'/story/editor?id=' + ${story.id}">
+            <a th:href="'/story/' + ${story.id} + '/editor'">
                 <h3 class="title" th:text="${story.title}">Title</h3>
                 <div class="summary" th:text="${story.summary}">Summary</div>
                 <div class="meta">

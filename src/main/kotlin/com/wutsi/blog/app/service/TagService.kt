@@ -12,7 +12,7 @@ class TagService(
 ) {
     fun search(query: String) : TagListModel {
         val tags = backend.search(query).tags
-        return TagListModel( items = tags.map { mapper.toTagModel(it) } )
+        return TagListModel( results = tags.map { mapper.toTagModel(it) } )
     }
 }
 

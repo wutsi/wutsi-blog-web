@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container main-content border margin-top padding-2x">
+
+    <h1 th:text="#{page.story.confirmation.header1}">Congatulation! your story has been published</h1>
+
+    <div class="row margin-top-2x">
+        <div class="col-12 col-md-5">
+            <h5 th:text="${story.title}">Title</h5>
+            <p th:text="${story.summary}">Summary</p>
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-12 col-md-5">
+            <div>
+                <span th:utext="#{page.story.confirmation.firstStory(${user.fullName})}"  th:if="${firstStory}">Description</span>
+                <span th:utext="#{page.story.confirmation.description(${user.fullName})}" th:if="!${firstStory}">Description</span>
+            </div>
+
+            <div class="margin-top-2x" th:utext="#{page.story.confirmation.share}">Share your story</div>
+            <div class="margin-top">
+                <a class="btn btn-primary" wutsi-track-event="story.publish.share" th:text="#{button.share_story}"  th:href="'/story/' + ${story.id} + '/share'">Share</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+
+</html>

@@ -9,10 +9,10 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container">
-    <div class="row">
+    <div class="row margin-top-2x">
         <div class="col-12 offset-md-3 col-md-6">
 
-            <div class="card text-center padding-2x margin-top-2x">
+            <div class="main-content border text-center padding-2x">
                 <h1 class="margin-top-2x" th:text="#{page.login.header1}">Join Wutsi</h1>
                 <p class="margin-top" th:text="#{page.login.info}">
                     Join Wutsi to receive great stories in your phone; and follow authors and topics that you love.
@@ -20,19 +20,19 @@
 
                 <div class="row margin-top-2x">
                     <div class="col-12 offset-lg-2 col-lg-8">
-                        <a class="sso-button margin-top" href="/oauth2/authorization/google" wutsi-track-event="signin.google" th:if="${toggles.ssoGoogle}" >
+                        <a class="sso-button margin-top" href="/oauth2/authorization/google" wutsi-track-event="login.google" th:if="${toggles.ssoGoogle}" >
                             <i class="fab fa-google"></i>
                             <span th:text="#{page.login.signin-google}">Sign in with Google</span>
                         </a>
-                        <a class="sso-button margin-top" href="/oauth2/authorization/facebook" wutsi-track-event="signin.facebook" th:if="${toggles.ssoFacebook}" >
+                        <a class="sso-button margin-top" href="/oauth2/authorization/facebook" wutsi-track-event="login.facebook" th:if="${toggles.ssoFacebook}" >
                             <i class="fab fa-facebook-square"></i>
                             <span th:text="#{page.login.signin-facebook}">Sign in with Facebook</span>
                         </a>
-                        <a class="sso-button margin-top" href="/oauth2/authorization/twitter" wutsi-track-event="signin.twitter" th:if="${toggles.ssoTwitter}" >
+                        <a class="sso-button margin-top" href="/oauth2/authorization/twitter" wutsi-track-event="login.twitter" th:if="${toggles.ssoTwitter}" >
                             <i class="fab fa-twitter-square"></i>
                             <span th:text="#{page.login.signin-twitter}">Sign in with Twitter</span>
                         </a>
-                        <a class="sso-button margin-top" href="/oauth2/authorization/github" wutsi-track-event="signin.github" th:if="${toggles.ssoGithub}">
+                        <a class="sso-button margin-top" href="/oauth2/authorization/github" wutsi-track-event="login.github" th:if="${toggles.ssoGithub}">
                             <i class="fab fa-github-square"></i>
                             <span th:text="#{page.login.signin-github}">Sign in with Github</span>
                         </a>
