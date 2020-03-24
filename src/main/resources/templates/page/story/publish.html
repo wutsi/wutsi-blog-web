@@ -16,7 +16,7 @@
     <h1 th:text="#{page.story.publish.header1}">Publish Story</h1>
 
     <div class="row margin-top-2x">
-        <div class="col-12 col-md-5">
+        <div class="col-12 col-md-5 story-preview border padding">
             <h5 th:text="${story.title}" th:if="!${story.title.isEmpty()}">Title</h5>
             <h5 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h5>
 
@@ -27,7 +27,17 @@
         <div class="col-md-2"></div>
 
         <div class="col-12 col-md-5">
-            <form id="form-publish" method="get" action="/story/publish/submit" autocomplete="off">
+
+            <div class="wizard">
+                <ul class="step-indicator">
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <form id="form-publish" method="get" action="/story/publish/submit" autocomplete="off" class="margin-top">
                 <input type="hidden" name="id" th:value="${story.id}" />
 
                 <div class="form-group margin-bottom">

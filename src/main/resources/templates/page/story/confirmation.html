@@ -13,7 +13,7 @@
     <h1 th:text="#{page.story.confirmation.header1}">Congatulation! your story has been published</h1>
 
     <div class="row margin-top-2x">
-        <div class="col-12 col-md-5">
+        <div class="col-12 col-md-5 story-preview border padding">
             <h5 th:text="${story.title}">Title</h5>
             <p th:text="${story.summary}">Summary</p>
         </div>
@@ -21,7 +21,16 @@
         <div class="col-md-2"></div>
 
         <div class="col-12 col-md-5">
-            <div>
+            <div class="wizard">
+                <ul class="step-indicator">
+                    <li class="active"></li>
+                    <li class="active"></li>
+                    <li></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="margin-top">
                 <span th:utext="#{page.story.confirmation.firstStory(${user.fullName})}"  th:if="${firstStory}">Description</span>
                 <span th:utext="#{page.story.confirmation.description(${user.fullName})}" th:if="!${firstStory}">Description</span>
             </div>

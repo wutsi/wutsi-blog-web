@@ -2,7 +2,7 @@
  * Wutsi color:
  *  blue: #1D7EDF
  *  blue-light: #e4edf7
- *  lightgray: #efefef
+ *  lightgray: #f8f8f8
  */
 
 
@@ -14,13 +14,15 @@
 body {
     --highlight-color: #1D7EDF;
     --highlight-color-light: #e4edf7;
+    --background-light: #f8f8f8;
+
     --text-color: #404040;
     --text-color-gray: gray;
     --text-color-error: darkred;
     --text-color-success: var(--highlight-color);
     --border-color: rgba(0,0,0,.125);
 
-    background: #f8f8f8 !important;
+    background: var(--background-light) !important;
     color: var(--text-color)
 }
 
@@ -243,6 +245,32 @@ a.sso-button .fab {
 
 .story-list .story .meta {
     font-size: 0.9em;
+}
+
+.story-preview {
+    background: var(--background-light);
+}
+
+.wizard {
+    width: 50%;
+    margin: 0 auto;
+}
+ul.step-indicator {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin: 0 auto;
+}
+ul.step-indicator li {
+    background: var(--border-color);
+    border-radius: 5px;
+    float: left;
+    margin: 0 5px;
+    padding: 5px;
+    width: 25%;
+}
+ul.step-indicator li.active {
+    background: var(--highlight-color)
 }
 
 
