@@ -31,7 +31,7 @@
 
         <wutsi-blog-client.version>1.0.14</wutsi-blog-client.version>
         <wutsi-core.version>1.0.5</wutsi-core.version>
-        <wutsi-editorjs.version>1.0.2</wutsi-editorjs.version>
+        <wutsi-editorjs.version>1.0.3</wutsi-editorjs.version>
         <wutsi-http.version>1.0.9</wutsi-http.version>
     </properties>
 
