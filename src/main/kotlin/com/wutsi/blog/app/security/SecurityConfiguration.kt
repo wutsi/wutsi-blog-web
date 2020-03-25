@@ -24,6 +24,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
                 .antMatchers( "/login").permitAll()
+                .antMatchers( "/read/**/*").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .logout()
@@ -36,7 +37,6 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .oauth2Login()
                     .successHandler(loginSuccessHandler)
                     .loginPage("/login")
-
 		// @formatter:on
     }
 

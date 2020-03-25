@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body class="paper">
+
+<div th:replace="components/layout :: navbar"></div>
+
+<article class="container read offset-md-3 col-md-6">
+    <h1 class="margin-top" th:text="${story.title}">Title</h1>
+
+    <div class="author margin-top-2x">
+        <img class="margin-right float-left" th:src="${story.user.pictureUrl}" th:alt="${user.fullName}" />
+        <div class="float-left">
+            <h5 th:text="${story.user.fullName}">Ray Sponsible</h5>
+            <div class="float-left meta">
+                <span th:text="${story.publishedDateTime}">12 May</span>
+                -
+                <span th:text="#{story.read_time(${story.readingMinutes})}">3 min</span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="post-content margin-top-2x" th:utext="${html}">This is a block</div>
+
+    <div class="margin-top">
+        <span class="tag margin-right" th:each="tag : ${story.tags}" th:text="${tag.text}">Tag</span>
+    </div>
+</article>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+
+<script>
+/*<![CDATA[*/
+    var storyId = /*[[${storyId}]]*/'0';
+
+    $(document).ready(function(){
+        wutsi.track('storyread', storyId)
+    })
+
+/*]]>*/
+</script>
+</html>

@@ -4,7 +4,7 @@ import com.wutsi.blog.client.story.StoryStatus
 
 data class StoryModel(
         val id: Long? = -1,
-        val userId: Long = -1,
+        val user: UserModel = UserModel(),
         val title: String? = null,
         val summary: String? = null,
         val thumbmailUrl: String? = null,

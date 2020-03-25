@@ -10,19 +10,19 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/story/draft")
-class StoryDraftController(
+@RequestMapping("/story/published")
+class StoryPublishedController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryListController(service, requestContext) {
-    override fun page() = PageName.STORY_LIST_DRAFT
+    override fun page() = PageName.STORY_LIST_PUBLISHED
 
-    override fun viewName() = "page/story/draft"
+    override fun viewName() = "page/story/published"
 
     override fun stories(limit: Int, offset: Int) = service.search(SearchStoryRequest(
             userId = requestContext.user?.id,
-            status = StoryStatus.draft,
-            sortBy = StorySortStrategy.modified,
+            status = StoryStatus.published,
+            sortBy = StorySortStrategy.published,
             limit = limit,
             offset = offset
     ))

@@ -77,18 +77,18 @@
         init_editorjs(story);
         init_status(story);
         enabled_publish(story);
-
-        if (!story || story.draft) {
-            // Autosave draft document
-            // Publish document must be explicitelly be published to be saved
-            setInterval(editorjs_save, wutsi.config.editor.autosave);
-        }
     }
     function init_editorjs(story) {
         console.log('Initializing EditorJS');
 
         var tools = {
-            header: Header,
+            header: {
+                class: Header,
+                config: {
+                    levels: [2, 3, 4],
+                    defaultLevel: 2
+                }
+            },
             marker: Marker,
             quote: Quote,
             delimiter: Delimiter,
@@ -154,14 +154,14 @@
                             contentType: 'application/json',
                             data: request
                         })
-                        .then(function (story){
+                        .done(function (story){
                             storyId = story.id;
                             enabled_publish(true);
                             if (callback){
                                 callback();
                             }
                         })
-                        .catch(function (error){
+                        .fail(function (error){
                             console.error('Error while saving the document', error);
                             set_dirty(true);
                         })
@@ -181,6 +181,11 @@
             }
         }
     }
+    setInterval(editorjs_save, wutsi.config.editor.autosave);
+    window.addEventListener('beforeunload', function(){
+        console.log('Unloading the window');
+        editorjs_save()
+    });
 
     function show_status(selector, show){
         if (show){
@@ -206,8 +211,8 @@
                     dataType: 'json',
                     contentType: 'application/json'
                 })
-                .then( function(story) { init(story)})
-                .catch(function(error) { console.error('Unable to load the Story#' + storyId, error) });
+                .done( function(story) { init(story)})
+                .fail(function(error) { console.error('Unable to load the Story#' + storyId, error) });
         } else {
             init(null);
         }
@@ -221,11 +226,6 @@
                     window.location.href = '/story/' + storyId + '/publish';
                 });
             }
-        });
-
-        window.addEventListener('beforeunload', function(){
-            console.log('Unloading the window');
-            editorjs_save()
         });
     });
 /*]]>*/

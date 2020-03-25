@@ -16,18 +16,21 @@
     <h1 th:text="#{page.story.publish.header1}">Publish Story</h1>
 
     <div class="row margin-top-2x">
-        <div class="col-12 col-md-5 story-preview border padding">
+
+        <!-- Preview -->
+        <div class="col-12 col-md-5 jumbotron border">
             <h5 th:text="${story.title}" th:if="!${story.title.isEmpty()}">Title</h5>
             <h5 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h5>
 
             <p th:text="${story.summary}">Summary</p>
-            <p class="disabled" th:text="#{story.no_summary}" th:id="${story.summary.isEmpty()}">Summary</p>
+            <p class="disabled" th:text="#{story.no_summary}" th:if="${story.summary.isEmpty()}">Summary</p>
         </div>
 
         <div class="col-md-2"></div>
 
         <div class="col-12 col-md-5">
 
+            <!-- Wizard -->
             <div class="wizard">
                 <ul class="step-indicator">
                     <li class="active"></li>
@@ -37,6 +40,7 @@
                 <div class="clearfix"></div>
             </div>
 
+            <!-- Publish Form -->
             <form id="form-publish" method="get" action="/story/publish/submit" autocomplete="off" class="margin-top">
                 <input type="hidden" name="id" th:value="${story.id}" />
 
@@ -58,8 +62,6 @@
 <div th:replace="components/layout :: footer"></div>
 </body>
 
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
     $('#tags').select2({
         ajax: {

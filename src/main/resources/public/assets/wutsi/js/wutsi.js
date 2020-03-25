@@ -4,11 +4,11 @@ function Wutsi (){
             trackUrl: 'https://int-com-wutsi-track.herokuapp.com/v1/track'
         },
         editor: {
-            autosave: 30000  /* 15 secs */
+            autosave: 15000  /* 15 secs */
         }
     };
 
-    this.track = function (event, value, productId){
+    this.track = function (event, productId, value){
 
         const url = this.config.backend.trackUrl;
         const data = {

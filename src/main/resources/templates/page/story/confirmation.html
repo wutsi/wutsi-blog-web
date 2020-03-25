@@ -13,7 +13,8 @@
     <h1 th:text="#{page.story.confirmation.header1}">Congatulation! your story has been published</h1>
 
     <div class="row margin-top-2x">
-        <div class="col-12 col-md-5 story-preview border padding">
+        <!-- Preview -->
+        <div class="col-12 col-md-5 jumbotron border">
             <h5 th:text="${story.title}">Title</h5>
             <p th:text="${story.summary}">Summary</p>
         </div>
@@ -21,6 +22,8 @@
         <div class="col-md-2"></div>
 
         <div class="col-12 col-md-5">
+
+            <!-- Wizard -->
             <div class="wizard">
                 <ul class="step-indicator">
                     <li class="active"></li>
@@ -30,6 +33,7 @@
                 <div class="clearfix"></div>
             </div>
 
+            <!-- Confirmation -->
             <div class="margin-top">
                 <span th:utext="#{page.story.confirmation.firstStory(${user.fullName})}"  th:if="${firstStory}">Description</span>
                 <span th:utext="#{page.story.confirmation.description(${user.fullName})}" th:if="!${firstStory}">Description</span>
@@ -37,7 +41,7 @@
 
             <div class="margin-top-2x" th:utext="#{page.story.confirmation.share}">Share your story</div>
             <div class="margin-top">
-                <a class="btn btn-primary" wutsi-track-event="story.publish.share" th:text="#{button.share_story}"  th:href="'/story/' + ${story.id} + '/share'">Share</a>
+                <a class="btn btn-primary" wutsi-track-event="story.configuration.share" th:text="#{button.share_story}"  th:href="'/story/' + ${story.id} + '/share'">Share</a>
             </div>
         </div>
     </div>

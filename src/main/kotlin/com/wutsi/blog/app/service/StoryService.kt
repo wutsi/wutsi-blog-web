@@ -5,12 +5,14 @@ import com.wutsi.blog.app.editor.PublishEditor
 import com.wutsi.blog.app.editor.StoryEditor
 import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
+import com.wutsi.blog.client.story.StorySummaryDto
+import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
@@ -23,7 +25,8 @@ class StoryService(
         private val mapper: StoryMapper,
         private val storyBackend: StoryBackend,
         private val ejsJsonReader: EJSJsonReader,
-        private val ejsHtmlWriter: EJSHtmlWriter
+        private val ejsHtmlWriter: EJSHtmlWriter,
+        private val userService: UserService
 ) {
     fun save(editor: StoryEditor): StoryEditor {
         var response = SaveStoryResponse()
@@ -43,19 +46,18 @@ class StoryService(
 
     fun get(id: Long): StoryModel {
         val story = storyBackend.get(id).story
-        return mapper.toStoryModel(story)
+        val user = userService.get(story.userId)
+        return mapper.toStoryModel(story, user)
     }
 
-    fun drafts(limit: Int, offset: Int): List<StoryModel> {
-        val request = SearchStoryRequest(
-                userId = requestContext.user?.id,
-                status = StoryStatus.draft,
-                sortBy = StorySortStrategy.modified,
-                limit = limit,
-                offset = offset
-        )
+    fun search(request: SearchStoryRequest): List<StoryModel> {
         val stories = storyBackend.search(request).stories
-        return stories.map { mapper.toStoryModel(it) }
+        if (stories.isEmpty()){
+            return emptyList()
+        }
+
+        val users = searchUserMap(stories)
+        return stories.map { mapper.toStoryModel(it, users[it.id]) }
     }
 
     fun publish(editor: PublishEditor){
@@ -94,5 +96,16 @@ class StoryService(
             title = editor.title,
             accessToken = requestContext.accessToken()
     )
+
+    private fun searchUserMap(stories: List<StorySummaryDto>): Map<Long, UserModel?> {
+        val userIds = stories.map { it.userId }.toSet().toList()
+        return userService.search(SearchUserRequest(
+                userIds = userIds,
+                limit = userIds.size,
+                offset = 0
+        ))
+                .map { it.id to it }
+                .toMap()
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.mapper
 
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.Moment
 import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus
@@ -12,7 +13,7 @@ class StoryMapper(
         private val tagMapper: TagMapper,
         private val moment: Moment
 ) {
-    fun toStoryModel(story: StoryDto) = StoryModel(
+    fun toStoryModel(story: StoryDto, user: UserModel? = null) = StoryModel(
             id = story.id,
             content = story.content,
             title = story.title,
@@ -23,7 +24,7 @@ class StoryMapper(
             readingMinutes = story.readingMinutes,
             language = story.language,
             summary = story.summary,
-            userId = story.userId,
+            user = if (user == null) UserModel(id = story.userId) else user,
             status = story.status,
             draft = story.status == StoryStatus.draft,
             published = story.status == StoryStatus.published,
@@ -34,7 +35,7 @@ class StoryMapper(
             slug = story.slug
     )
 
-    fun toStoryModel(story: StorySummaryDto) = StoryModel(
+    fun toStoryModel(story: StorySummaryDto, user: UserModel? = null) = StoryModel(
             id = story.id,
             title = story.title,
             thumbmailUrl = story.thumbnailUrl,
@@ -43,7 +44,7 @@ class StoryMapper(
             readingMinutes = story.readingMinutes,
             language = story.language,
             summary = story.summary,
-            userId = story.userId,
+            user = if (user == null) UserModel(id = story.userId) else user,
             status = story.status,
             draft = story.status == StoryStatus.draft,
             published = story.status == StoryStatus.published,

@@ -47,6 +47,8 @@ wutsi:
       endpoint: ${wutsi.backend.baseurl}/v1/story
     tag:
       endpoint: ${wutsi.backend.baseurl}/v1/tag
+    user:
+      endpoint: ${wutsi.backend.baseurl}/v1/user
   http:
     client-id: wutsi-blog-app
   toggles:
