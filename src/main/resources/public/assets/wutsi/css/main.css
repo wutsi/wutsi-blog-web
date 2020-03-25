@@ -196,15 +196,11 @@ a.sso-button .fab {
     margin-top: .1em;
 }
 
-.editor .story-status {
-    float: left;
-    margin-right: 1em;
-}
-.editor #story-status-draft {
+.editor .status-draft {
     color: var(--text-color-gray);
     font-style: italic;
 }
-.editor #story-status-published {
+.editor .status-published {
     color: var(--text-color-success);
 }
 
@@ -354,4 +350,10 @@ ul.step-indicator li.active {
 .ce-header {
     margin: 0 !important;
     padding: 0 !important;
+}
+
+/* select2 overrides */
+.select2-container--default .select2-selection--multiple {
+    border-radius: 0;
+    border: 1px solid var(--border-color);
 }

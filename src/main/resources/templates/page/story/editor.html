@@ -14,11 +14,8 @@
 
     <div class="row border-bottom">
         <div class="col-12 padding">
-            <div id="story-status-draft" class="story-status margin-right hidden" th:text="#{story.status.draft}">Draft</div>
-            <div id="story-status-published" class="story-status margin-right hidden" th:text="#{story.status.published}">Published</div>
-
-            <div id="story-alert-saving" class="story-status hidden" th:text="#{page.editor.saving}">Saving...</div>
-            <div id="story-alert-saved" class="story-status hidden" th:text="#{page.editor.saved}">Saving...</div>
+            <div id="story-status" class="float-left margin-right" th:text="#{story.status.draft}"></div>
+            <div id="editor-status" class="float-left"></div>
 
             <div class="close">
                 <a href="/story/draft" wutsi-track-event="story.editor.close">X</a>
@@ -58,152 +55,22 @@
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
 -->
+<script src="/assets/wutsi/js/wutsi-editorjs.js"></script>
+
 <script th:inline="javascript">
 /*<![CDATA[*/
+
+    function publish(story) {
+        window.location.href = '/story/' + story.id + '/publish';
+    }
+
     var storyId = /*[[${storyId}]]*/'0';
-
-    var dirty = false;
-    function set_dirty(value) {
-        console.log('set_dirty', value);
-        dirty = value;
-        if (dirty){
-            show_status('#story-alert-saved', false);
-        }
-    }
-
-    var editorjs;
-    function init(story) {
-        console.log('Initializing');
-        init_editorjs(story);
-        init_status(story);
-        enabled_publish(story);
-    }
-    function init_editorjs(story) {
-        console.log('Initializing EditorJS');
-
-        var tools = {
-            header: {
-                class: Header,
-                config: {
-                    levels: [2, 3, 4],
-                    defaultLevel: 2
-                }
-            },
-            marker: Marker,
-            quote: Quote,
-            delimiter: Delimiter,
-            code: CodeTool
-        };
-        if (story) {
-            console.log('Initializing editor with Story#' + story.id);
-            $('#title').val(story.title);
-            editorjs = new EditorJS({
-                holderId: 'editorjs',
-                autofocus: true,
-                tools: tools,
-                data: JSON.parse(story.content),
-                onChange: function () {
-                    set_dirty(true);
-                }
-            });
-
-        } else {
-            console.log('Initializing empty editor');
-
-            editorjs = new EditorJS({
-                holderId: 'editorjs',
-                autofocus: true,
-                tools: tools,
-                onChange: function () {
-                    set_dirty(true);
-                }
-            });
-        }
-
-        set_dirty(false);
-    }
-    function init_status(story) {
-        console.log('Initializing Status');
-
-        show_status('#story-status-draft', !story || story.draft);
-        show_status('#story-status-published', story && story.published);
-        show_status('#story-alert-saved', story && !dirty);
-    }
-
-    function editorjs_save(callback) {
-        if (dirty){
-            console.log("Document is dirty.Saving...");
-
-            show_status('#story-alert-saving', true);
-            editorjs
-                .save()
-                .then(function(data){
-                    set_dirty(false);
-
-                    const request = {
-                        id: storyId,
-                        title: $('#title').val(),
-                        content: JSON.stringify(data)
-                    };
-
-                    $
-                        .ajax({
-                            method: 'GET',
-                            url: '/story/editor/save',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: request
-                        })
-                        .done(function (story){
-                            storyId = story.id;
-                            enabled_publish(true);
-                            if (callback){
-                                callback();
-                            }
-                        })
-                        .fail(function (error){
-                            console.error('Error while saving the document', error);
-                            set_dirty(true);
-                        })
-                        .always(function(){
-                            show_status('#story-alert-saving', false);
-                            show_status('#story-alert-saved', !dirty);
-                        })
-                    ;
-                })
-                .catch(function(error){
-                    console.error("Save Error", error);
-                });
-        } else {
-            console.log("Document not dirty. Nothing to save");
-            if (callback){
-                callback();
-            }
-        }
-    }
-    setInterval(editorjs_save, wutsi.config.editor.autosave);
-    window.addEventListener('beforeunload', function(){
-        console.log('Unloading the window');
-        editorjs_save()
-    });
-
-    function show_status(selector, show){
-        if (show){
-            $(selector).css('display', 'inline-block');
-        } else {
-            $(selector).css('display', 'none');
-        }
-    }
-    function enabled_publish(enabled) {
-        if (enabled){
-            $('#btn-publish').removeAttr('disabled');
-        } else {
-            $('#btn-publish').attr('disabled', 'disabled');
-        }
-    }
-
     $(document).ready(function(){
+        var editor = new WutsiEJS('editorjs', publish);
+        console.log('editor', editor);
+
         if (storyId > 0){
+            console.log('Loading Story#' + storyId);
             $
                 .ajax({
                     method: 'GET',
@@ -211,23 +78,18 @@
                     dataType: 'json',
                     contentType: 'application/json'
                 })
-                .done( function(story) { init(story)})
-                .fail(function(error) { console.error('Unable to load the Story#' + storyId, error) });
+                .done( function(story) {
+                        editor.setup(story);
+                    })
+                .fail(function(error) {
+                        console.error('Unable to load the Story#' + storyId, error)
+                    });
         } else {
-            init(null);
+            editor.setup(null);
         }
-
-        // Event handlers
-        $('#title').on('keydown', function(){ set_dirty(true)} );
-
-        $('#btn-publish').on('click', function(){
-            if (storyId > 0) {
-                editorjs_save(function(){
-                    window.location.href = '/story/' + storyId + '/publish';
-                });
-            }
-        });
     });
+
+
 /*]]>*/
 </script>
 

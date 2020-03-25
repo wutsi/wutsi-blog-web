@@ -2,9 +2,6 @@ function Wutsi (){
     this.config = {
         backend: {
             trackUrl: 'https://int-com-wutsi-track.herokuapp.com/v1/track'
-        },
-        editor: {
-            autosave: 15000  /* 15 secs */
         }
     };
 
