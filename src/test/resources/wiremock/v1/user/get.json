@@ -1,24 +1,12 @@
 {
   "user": {
-    "id": 100,
-    "storeId": 100,
-    "email": "yannick.debou.sikoue@gmail.com",
-    "admin": true,
-    "registrationDateTime": "2019-07-21T10:17:31.000+0000",
-    "contact": {
-      "id": 1000,
-      "storeId": 100,
-      "displayName": "Yannick Debou Sikoue",
-      "user": true,
-      "type": "person",
-      "creationDateTime": "2019-07-21T10:17:31.000+0000",
-      "modificationDateTime": "2019-07-21T10:17:31.000+0000",
-      "attributes": {
-        "display_name": "Yannick Debou Sikoue",
-        "first_name": "Yannick",
-        "last_name": "Debou Sikoue",
-        "picture_url": "http://graph.facebook.com/1047805820/picture"
-      }
-    }
+    "id": 1,
+    "fullName": "Ray Sponsible",
+    "email": null,
+    "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
+    "loginCount": 4,
+    "lastLoginDateTime": 1585334250000,
+    "creationDateTime": 1585325914000,
+    "modificationDateTime": 1585325914000
   }
 }

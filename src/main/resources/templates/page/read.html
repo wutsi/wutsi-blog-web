@@ -12,7 +12,7 @@
     <h1 class="title margin-top" th:text="${story.title}">Title</h1>
 
     <div class="author margin-top-2x">
-        <img class="margin-right float-left" th:src="${story.user.pictureUrl}" th:alt="${user.fullName}" />
+        <img class="margin-right float-left" th:src="${story.user.pictureUrl}" th:alt="${story.user.fullName}" />
         <div class="float-left">
             <h5 th:text="${story.user.fullName}">Ray Sponsible</h5>
             <div class="float-left meta">

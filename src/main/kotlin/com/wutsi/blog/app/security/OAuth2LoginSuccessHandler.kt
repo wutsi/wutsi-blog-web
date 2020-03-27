@@ -38,7 +38,7 @@ class OAuth2LoginSuccessHandler(
         val user = mapper.toUserModel(auth)
         authenticationBackend.login(AuthenticateRequest(
                 accessToken = client.accessToken?.tokenValue,
-                refreshToken = client.refreshToken?.tokenValue,
+                refreshToken = null,
                 provider = user.provider,
                 pictureUrl = user.pictureUrl,
                 fullName = user.fullName,

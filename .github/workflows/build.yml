@@ -20,22 +20,22 @@ jobs:
       with:
         java-version: 1.8
 
-#    - name: install-chrome
-#      run: |
-#        wget -N http://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
-#        unzip ~/chromedriver_linux64.zip -d ~/
-#        rm ~/chromedriver_linux64.zip
-#        sudo mv -f ~/chromedriver /usr/local/share/
-#        sudo chmod +x /usr/local/share/chromedriver
-#        sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-#        google-chrome --version
-#        chromedriver --version
+    - name: install-chrome
+      run: |
+        wget -N http://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
+        unzip ~/chromedriver_linux64.zip -d ~/
+        rm ~/chromedriver_linux64.zip
+        sudo mv -f ~/chromedriver /usr/local/share/
+        sudo chmod +x /usr/local/share/chromedriver
+        sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+        google-chrome --version
+        chromedriver --version
 
     - name: build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        mvn -s settings.xml install
+        mvn -s settings.xml install -Dheadless=true
 
 ##----------------------------------------
 ##  INT-RELEASE
