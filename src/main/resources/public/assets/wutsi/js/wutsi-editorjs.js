@@ -6,7 +6,7 @@ function WutsiEJS (holderId, publishCallback){
     this.editorjs = null;
 
     this.config = {
-        autosave: 15000,
+        autosave: 60000,
         saveUrl: '/story/editor/save',
         selectors: {
             title: '#title',
