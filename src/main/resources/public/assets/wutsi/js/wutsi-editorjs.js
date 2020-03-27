@@ -11,6 +11,7 @@ function WutsiEJS (holderId, publishCallback){
         selectors: {
             title: '#title',
             publish: '#btn-publish',
+            close: '#btn-close',
             storyStatus: '#story-status',
             editorStatus: '#editor-status'
         },
@@ -123,10 +124,26 @@ function WutsiEJS (holderId, publishCallback){
                     defaultLevel: 2
                 }
             },
-            marker: Marker,
+            image: SimpleImage,
             quote: Quote,
             delimiter: Delimiter,
-            code: CodeTool
+            code: CodeTool,
+
+            list: List,
+            marker: Marker
+
+            /*
+             * We are disabling for the moment because of bug that prevent to consume uploaded images
+             *
+            image: {
+                class: ImageTool,
+                config:{
+                    endpoints: {
+                        byFile: '/upload?'
+                    }
+                }
+            }
+             */
         };
         if (story) {
             console.log('Initializing editor with Story#' + story.id);
@@ -175,6 +192,15 @@ function WutsiEJS (holderId, publishCallback){
         $(this.config.selectors.publish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.save);
         $(this.config.selectors.publish).on('click', function () {
             me.editorjs_save(publishCallback(story));
+        });
+
+        // Close button
+        $(this.config.selectors.close).on('click', function () {
+            if (story.published) {
+                window.location.href = '/story/published';
+            } else {
+                me.editorjs_save();
+            }
         });
 
         this.update_toolbar();

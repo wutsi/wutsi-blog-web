@@ -40,6 +40,7 @@ function Wutsi (){
 
 
     this.cookie = function (name) {
+        console.log('cookie', name + ' - document.cookie=' + document.cookie);
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         if (match) return match[2];
     };

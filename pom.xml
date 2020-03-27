@@ -29,9 +29,10 @@
         <selenium.version>3.141.59</selenium.version>
         <wiremock.version>1.57</wiremock.version>
 
-        <wutsi-blog-client.version>1.0.14</wutsi-blog-client.version>
-        <wutsi-core.version>1.0.5</wutsi-core.version>
-        <wutsi-editorjs.version>1.0.3</wutsi-editorjs.version>
+        <wutsi-blog-client.version>1.0.15</wutsi-blog-client.version>
+        <wutsi-core.version>1.0.8</wutsi-core.version>
+        <wutsi-core-aws.version>1.0.1</wutsi-core-aws.version>
+        <wutsi-editorjs.version>1.0.5</wutsi-editorjs.version>
         <wutsi-http.version>1.0.9</wutsi-http.version>
     </properties>
 
@@ -45,6 +46,11 @@
             <groupId>com.wutsi</groupId>
             <artifactId>wutsi-core</artifactId>
             <version>${wutsi-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wutsi</groupId>
+            <artifactId>wutsi-core-aws</artifactId>
+            <version>${wutsi-core-aws.version}</version>
         </dependency>
         <dependency>
             <groupId>com.wutsi</groupId>

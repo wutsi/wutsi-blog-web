@@ -298,24 +298,72 @@ ul.step-indicator li.active {
 }
 
 
-/*======= READ =======*/
-.read .author img {
+/*======= READER =======*/
+.reader .author img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
 }
 
-.read .author .meta {
+.reader .author .meta {
     font-size: .9em;
     color: var(--text-color-gray);
 }
 
-.read .tag {
+.reader .tag {
     border: 1px solid var(--border-color);
     border-radius: .2em;
     padding: .2em 1em;
     text-decoration: none;
 }
+
+
+.reader .content > *{
+    margin: 0 0 1em 0;
+}
+
+.reader .content blockquote p {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;
+}
+.reader .content blockquote p:before {
+    content: open-quote;
+}
+.reader .content blockquote p:after {
+    content: close-quote;
+}
+.reader .content blockquote footer {
+    text-align: center;
+    text-decoration: underline;
+    width: 100%;
+}
+
+.reader .content pre {
+    background: var(--background-light);
+    border: 1px solid var(--border-color);
+    padding: 1em;
+}
+
+.reader .content figure img {
+    max-width: 100%;
+}
+.reader .content figure img.stretched {
+    width: 100%;
+}
+.reader .content figure figcaption {
+    text-align: center;
+    text-decoration: underline;
+    width: 100%;
+}
+
+.reader .content hr {
+    margin: 2em auto;
+    width: 75%;
+}
+
 
 
 /* bootstrap override */

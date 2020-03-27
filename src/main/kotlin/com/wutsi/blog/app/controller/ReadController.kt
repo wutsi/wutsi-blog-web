@@ -18,7 +18,7 @@ class ReadController(
         private val ejsHtmlWriter: EJSHtmlWriter,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun page() = PageName.STORY_EDITOR
+    override fun page() = PageName.READ
 
     @GetMapping("/read/{id}")
     fun read(@PathVariable id: Long, model: Model): String {

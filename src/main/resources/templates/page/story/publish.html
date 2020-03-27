@@ -73,21 +73,30 @@
         minimumInputLength: 3
     });
 
-    $('#tags').on('change', function(e){
-        const data = $(this).select2('data');
-        enabled_submit(data && data.length > 0);
+    $('#tags').on('change', function(){
+        on_change();
     });
 
     $('#form-publish').submit(function(){
-        enabled_submit(false);
+        enable_publish(false);
     });
 
-    function enabled_submit(flag){
+
+    function on_change(){
+        const data = $('#tags').select2('data');
+        enable_publish(data && data.length > 0);
+    }
+
+    function enable_publish(flag){
         if (flag){
             $('#btn-publish').removeAttr('disabled');
         } else {
             $('#btn-publish').attr('disabled', 'disabled');
         }
     }
+
+    $(document).ready(function (){
+        on_change();
+    })
 </script>
 </html>

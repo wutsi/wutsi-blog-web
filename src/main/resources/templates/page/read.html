@@ -8,8 +8,8 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<article class="container read offset-md-3 col-md-6">
-    <h1 class="margin-top" th:text="${story.title}">Title</h1>
+<article class="container reader offset-md-3 col-md-6">
+    <h1 class="title margin-top" th:text="${story.title}">Title</h1>
 
     <div class="author margin-top-2x">
         <img class="margin-right float-left" th:src="${story.user.pictureUrl}" th:alt="${user.fullName}" />
@@ -24,9 +24,9 @@
         <div class="clearfix"></div>
     </div>
 
-    <div class="post-content margin-top-2x" th:utext="${html}">This is a block</div>
+    <div class="content margin-top-2x" th:utext="${html}">This is a block</div>
 
-    <div class="margin-top">
+    <div class="margin-top padding-top border-top">
         <span class="tag margin-right" th:each="tag : ${story.tags}" th:text="${tag.text}">Tag</span>
     </div>
 </article>
@@ -34,6 +34,8 @@
 <div th:replace="components/layout :: footer"></div>
 </body>
 
+<link rel="stylesheet" th:href="'/assets/prettify/css/prettify.css'" />
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&lang=java&java=kotlin&lang=sql&lang=yaml"></script>
 <script>
 /*<![CDATA[*/
     var storyId = /*[[${storyId}]]*/'0';
@@ -41,7 +43,6 @@
     $(document).ready(function(){
         wutsi.track('storyread', storyId)
     })
-
 /*]]>*/
 </script>
 </html>

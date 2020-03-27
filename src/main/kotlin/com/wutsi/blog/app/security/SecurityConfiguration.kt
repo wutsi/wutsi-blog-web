@@ -2,10 +2,10 @@ package com.wutsi.blog.app.security
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 
 @Configuration
@@ -24,19 +24,22 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
                 .antMatchers( "/login").permitAll()
+                .antMatchers( "/logout").permitAll()
                 .antMatchers( "/read/**/*").permitAll()
+                .antMatchers( "/storage/**/*").permitAll()
+                .antMatchers( HttpMethod.POST, "/upload").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
             .and()
-                .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            .and()
                 .oauth2Login()
                     .successHandler(loginSuccessHandler)
                     .loginPage("/login")
+            .and()
+                .csrf()
+                    .disable()
 		// @formatter:on
     }
 

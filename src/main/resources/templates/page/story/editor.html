@@ -18,7 +18,7 @@
             <div id="editor-status" class="float-left"></div>
 
             <div class="close">
-                <a href="/story/draft" wutsi-track-event="story.editor.close">X</a>
+                <a id="btn-close" href="/story/draft" wutsi-track-event="story.editor.close">X</a>
             </div>
             <button id="btn-publish" class="btn btn-primary btn-sm" disabled="disabled" wutsi-track-event="story.editor.publish" th:text="#{button.publish}">Publish</button>
         </div>
@@ -47,24 +47,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
-<!--
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
--->
 <script src="/assets/wutsi/js/wutsi-editorjs.js"></script>
 
 <script th:inline="javascript">
 /*<![CDATA[*/
 
+    var storyId = /*[[${storyId}]]*/'0';
+
     function publish(story) {
-        window.location.href = '/story/' + story.id + '/publish';
+        window.location.href = '/story/' + storyId + '/publish';
     }
 
-    var storyId = /*[[${storyId}]]*/'0';
     $(document).ready(function(){
         var editor = new WutsiEJS('editorjs', publish);
         console.log('editor', editor);

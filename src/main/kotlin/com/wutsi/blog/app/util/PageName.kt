@@ -13,6 +13,9 @@ class PageName{
         const val STORY_SHARE = "page.story.share"
         const val READ = "page.read"
 
+        const val ERROR_400 = "page.error.400"
+        const val ERROR_403 = "page.error.403"
+        const val ERROR_404 = "page.error.404"
         const val ERROR_500 = "page.error.500"
     }
 }

@@ -11,8 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 @ComponentScan(value=[
     "com.wutsi.blog",
-    "com.wutsi.http",
-    "com.wutsi.core"
+    "com.wutsi.http"
 ])
 class Application
 
