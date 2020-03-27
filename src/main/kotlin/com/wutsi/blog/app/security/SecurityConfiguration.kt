@@ -21,6 +21,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 		http
             .authorizeRequests()
                 .antMatchers( "/").permitAll()
+                .antMatchers( "/favicon.ico").permitAll()
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
                 .antMatchers( "/login").permitAll()
