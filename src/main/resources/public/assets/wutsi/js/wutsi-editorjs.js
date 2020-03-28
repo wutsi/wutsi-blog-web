@@ -67,7 +67,7 @@ function WutsiEJS (holderId, publishCallback){
 
                     $
                         .ajax({
-                            method: 'GET',
+                            method: 'POST',
                             url: me.config.saveUrl,
                             dataType: 'json',
                             contentType: 'application/json',
