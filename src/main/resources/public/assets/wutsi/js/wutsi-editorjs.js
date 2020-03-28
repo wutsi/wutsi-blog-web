@@ -71,7 +71,7 @@ function WutsiEJS (holderId, publishCallback){
                             url: me.config.saveUrl,
                             dataType: 'json',
                             contentType: 'application/json',
-                            data: request
+                            data: JSON.stringify(request)
                         })
                         .done(function (story){
                             storyId = story.id;

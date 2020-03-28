@@ -3,10 +3,10 @@ package com.wutsi.blog.app.config
 import com.amazonaws.services.s3.AmazonS3
 import com.wutsi.blog.app.servlet.StorageServlet
 import com.wutsi.core.aws.service.AwsStorageService
-import com.wutsi.core.service.DeviceUIDProvider
-import com.wutsi.core.service.LocalStorageService
-import com.wutsi.core.service.StorageService
-import com.wutsi.core.servlet.DeviceUIDFilter
+import com.wutsi.core.storage.LocalStorageService
+import com.wutsi.core.storage.StorageService
+import com.wutsi.core.tracking.DeviceUIDFilter
+import com.wutsi.core.tracking.DeviceUIDProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.servlet.ServletRegistrationBean

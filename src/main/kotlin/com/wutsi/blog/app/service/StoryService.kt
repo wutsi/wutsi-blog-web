@@ -34,7 +34,7 @@ class StoryService(
         if (shouldCreate(editor)){
             response = storyBackend.create(request)
         } else if (shouldUpdate(editor)) {
-            response = storyBackend.update(editor.id, request)
+            response = storyBackend.update(editor.id!!, request)
         }
 
         return StoryEditor(
@@ -75,9 +75,9 @@ class StoryService(
         return storyBackend.count(request).total
     }
 
-    private fun shouldUpdate(editor: StoryEditor) = editor.id > 0L
+    private fun shouldUpdate(editor: StoryEditor) =  editor.id != null && editor.id > 0L
 
-    private fun shouldCreate(editor: StoryEditor) = editor.id == 0L && !isEmpty(editor)
+    private fun shouldCreate(editor: StoryEditor) = (editor.id == null || editor.id == 0L) && !isEmpty(editor)
 
     private fun isEmpty(editor: StoryEditor): Boolean {
         if (editor.title.trim().isNotEmpty()){

@@ -2,7 +2,7 @@ package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.model.File
 import com.wutsi.blog.app.model.UploadModel
-import com.wutsi.core.service.StorageService
+import com.wutsi.core.storage.StorageService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
