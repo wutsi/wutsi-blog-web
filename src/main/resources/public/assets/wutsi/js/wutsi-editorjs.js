@@ -11,7 +11,6 @@ function WutsiEJS (holderId, publishCallback){
         selectors: {
             title: '#title',
             publish: '#btn-publish',
-            close: '#btn-close',
             storyStatus: '#story-status',
             editorStatus: '#editor-status'
         },
@@ -22,7 +21,7 @@ function WutsiEJS (holderId, publishCallback){
             saved: 'Enregistré',
             modified: 'Modifié',
             publish: 'Publiez',
-            save: 'Enregistrez'
+            saveAndPublish: 'Enregistrez et Publiez'
         }
     };
 
@@ -39,14 +38,17 @@ function WutsiEJS (holderId, publishCallback){
         $(this.config.selectors.title).on('keydown', function(){ me.set_dirty(true)} );
 
         window.addEventListener('beforeunload', function(){
-            console.log('Unloading the window');
-            me.editorjs_save();
+            if (!story || story.draft) {
+                /* Save on unload only fro draft stories */
+                console.log('Unloading the window');
+                me.editorjs_save();
+            }
         });
     };
 
 
     this.editorjs_save = function(callback) {
-        console.log('editorjs_save', this.dirty);
+        console.log('editorjs_save()');
 
         this.saving = true;
         if (this.dirty){
@@ -74,13 +76,14 @@ function WutsiEJS (holderId, publishCallback){
                             data: JSON.stringify(request)
                         })
                         .done(function (story){
-                            storyId = story.id;
+                            console.log('SUCCESS - Saving document', story);
+                            me.storyId = story.id;
                             if (callback){
                                 callback();
                             }
                         })
                         .fail(function (error){
-                            console.error('Error while saving the document', error);
+                            console.error('FAIL - Saving document',  error);
                             me.set_dirty(true);
                         })
                         .always(function(){
@@ -102,13 +105,13 @@ function WutsiEJS (holderId, publishCallback){
 
     this.init_autosave = function(story) {
         if (!story || story.draft) {
-            console.log('The Story in DRAFT. Enabling autosave');
+            console.log('The Story in DRAFT. Enabling auto-save');
             const me = this;
             setInterval(function () {
                 me.editorjs_save()
             }, this.config.autosave);
         } else {
-            console.log('The Story in PUBLISED. Disabling autosave');
+            console.log('The Story in PUBLISHED. Disabling auto-save');
         }
     };
 
@@ -147,6 +150,7 @@ function WutsiEJS (holderId, publishCallback){
         };
         if (story) {
             console.log('Initializing editor with Story#' + story.id);
+            this.storyId = story.id;
             $(this.config.selectors.title).val(story.title);
             this.editorjs = new EditorJS({
                 holderId: this.holderId,
@@ -189,18 +193,9 @@ function WutsiEJS (holderId, publishCallback){
 
         // Publish button
         const me = this;
-        $(this.config.selectors.publish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.save);
+        $(this.config.selectors.publish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.saveAndPublish);
         $(this.config.selectors.publish).on('click', function () {
             me.editorjs_save(publishCallback(story));
-        });
-
-        // Close button
-        $(this.config.selectors.close).on('click', function () {
-            if (story.published) {
-                window.location.href = '/story/published';
-            } else {
-                me.editorjs_save();
-            }
         });
 
         this.update_toolbar();

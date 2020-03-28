@@ -18,9 +18,9 @@
             <div id="editor-status" class="float-left"></div>
 
             <div class="close">
-                <a id="btn-close" href="/story/draft" wutsi-track-event="story.editor.close">X</a>
+                <a id="btn-close" th:href="!${story} OR ${story.draft} ? '/story/draft' : '/story/published'">X</a>
             </div>
-            <button id="btn-publish" class="btn btn-primary btn-sm" disabled="disabled" wutsi-track-event="story.editor.publish" th:text="#{button.publish}">Publish</button>
+            <button id="btn-publish" class="btn btn-primary btn-sm" disabled="disabled" th:text="#{button.publish}">Publish</button>
         </div>
     </div>
 

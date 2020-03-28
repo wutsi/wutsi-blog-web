@@ -86,6 +86,9 @@ a {
     padding-top: 1em;
 }
 
+.margin-left {
+    margin-left: 1em;
+}
 .margin-right {
     margin-right: 1em;
 }
@@ -249,6 +252,17 @@ a.sso-button .fab {
     font-size: 0.7em;
 }
 
+.story-list .story .meta .story-dropdown-menu {
+    display: inline-block;
+}
+.story-list .story .meta .story-dropdown-menu .btn-light {
+    padding: 0 .5em;
+    outline: none;
+}
+.story-list .story .meta .story-dropdown-menu .btn-light:hover {
+    background-color: #fff;
+}
+
 .wizard {
     width: 50%;
     margin: 0 auto;
@@ -368,9 +382,17 @@ ul.step-indicator li.active {
 
 /* bootstrap override */
 .btn-primary {
-    background: var(--highlight-color);
+    background-color: var(--highlight-color);
     border-radius: 0;
     outline: 1px solid var(--highlight-color);
+    outline-offset: 1px;
+}
+
+.btn-light {
+    color: var(--text-color);
+    background-color: #fff;
+    border-radius: 0;
+    outline: 1px solid var(--border-color);
     outline-offset: 1px;
 }
 
@@ -380,9 +402,6 @@ ul.step-indicator li.active {
     padding: 2em;
 }
 
-.nav-pills .active {
-    background: var(--highlight-color-light)
-}
 
 .close a {
     color: var(--text-color-gray);

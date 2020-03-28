@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div  th:fragment="toolbar">
+    <a class="btn btn-primary float-right" href="/story/editor" th:text="#{button.create_story}">New Story</a>
+    <div class="clearfix"></div>
+</div>
+
+<ul th:fragment="tabs(status, totalDraftStories, totalPublishedStories)" class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="/story/draft"  th:classappend="${status} == 'draft' ? 'active' : null">
+            <span th:text="#{story.status.draft}">Draft</span>
+            <span class="badge badge-light" th:text="${totalDraftStories}" th:if="${totalDraftStories} GT 0">9</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/story/published" th:classappend="${status} == 'published' ? 'active' : null">
+            <span th:text="#{story.status.published}">Published</span>
+            <span class="badge badge-light" th:text="${totalPublishedStories}" th:if="${totalPublishedStories} GT 0">9</span>
+        </a>
+    </li>
+</ul>
+
+
+<div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
+
+    <a th:href="${story.draft} ? '/story/' + ${story.id} + '/editor' : ${story.slug}">
+        <h3 class="title" th:text="${story.title}">Title</h3>
+        <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
+
+        <div class="summary" th:text="${story.summary}">Summary</div>
+        <div class="disabled" th:text="#{story.no_summary}" th:if="${story.summary.isEmpty()}">Summary</div>
+    </a>
+
+    <div class="meta">
+        <span th:text="#{label.modified}">Last Modified:</span> <span th:text="${story.modificationDateTime}">2 days ago</span>
+        -
+        <span th:text="#{story.read_time(${story.readingMinutes})}" th:if="${story.readingMinutes} GT 0">6 min</span>
+        (<span th:text="#{story.word_count(${story.wordCount})}">250 mots</span>)
+
+        <div class="dropdown show story-dropdown-menu margin-left">
+            <a class="btn btn-light btn-sm" href="#" role="button" th:id="'story-menu-' + ${story.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-h"></i>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="'story-menu' + ${story.id}">
+                <a class="dropdown-item" th:href="'/story/' + ${story.id} + '/editor'" th:text="#{button.edit}">Edit</a>
+                <a class="dropdown-item" th:href="'/story/' + ${story.id} + '/publish'" th:text="#{button.publish}" th:if="${story.draft}">Publish</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
