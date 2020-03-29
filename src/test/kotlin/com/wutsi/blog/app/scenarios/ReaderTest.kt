@@ -41,4 +41,16 @@ class ReaderTest: SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
+
+    @Test
+    fun `article should contains OpenGraph headers`() {
+        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+
+        assertElementAttribute("head meta[property='og:title']", "content", "Lorem Ipsum")
+        assertElementAttribute("head meta[property='og:description']","content", "Lorem Ipsum is simply dummy text of the printing and typesetting industry")
+        assertElementAttribute("head meta[property='og:type']", "content", "article")
+        assertElementAttribute("head meta[property='og:author']", "content", "Ray Sponsible")
+        assertElementAttribute("head meta[property='og:url']", "content", "/read/10/lorem-ipsum")
+        assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
+    }
 }
