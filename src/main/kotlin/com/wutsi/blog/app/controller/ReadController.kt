@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.controller
 
+import com.wutsi.blog.app.model.OpenGraphModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
@@ -36,6 +37,7 @@ class ReadController(
         val html = toHtml(story)
         model.addAttribute("html", html)
 
+        model.addAttribute("openGraph", toOpenGraph(story))
         return "page/read"
     }
 
@@ -55,4 +57,15 @@ class ReadController(
             throw NotFoundException("story_not_published")
         }
     }
+
+    private fun toOpenGraph(story: StoryModel)= OpenGraphModel(
+            title = story.title!!,
+            description = story.summary!!,
+            type = "article",
+            url = story.slug,
+            imageUrl = story.thumbmailUrl,
+            author = story.user.fullName,
+            publishedTime = story.publishedDateTimeISO8601
+    )
+
 }

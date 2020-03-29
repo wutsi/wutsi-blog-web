@@ -17,8 +17,8 @@ class RequestContext(
         private val mapper: UserMapper,
         private val backend: AuthenticationBackend,
         private val togglesHolder: TogglesHolder,
-//        private val oauth2ClientService: OAuth2AuthorizedClientService,
-        private val request: HttpServletRequest
+        private val request: HttpServletRequest,
+        private val localization: LocalizationService
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
@@ -58,5 +58,7 @@ class RequestContext(
 //        val client = oauth2ClientService.loadAuthorizedClient<OAuth2AuthorizedClient>(ooauth2Token.authorizedClientRegistrationId, auth.name)
 //        return client.accessToken.tokenValue
     }
+
+    fun getMessage(key: String) = localization.getMessage(key)
 
 }
