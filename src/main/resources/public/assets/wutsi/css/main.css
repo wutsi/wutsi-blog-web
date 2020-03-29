@@ -199,11 +199,11 @@ a.sso-button .fab {
     margin-top: .1em;
 }
 
-.editor .status-draft {
+.status-draft {
     color: var(--text-color-gray);
     font-style: italic;
 }
-.editor .status-published {
+.status-published {
     color: var(--text-color-success);
 }
 

@@ -9,11 +9,15 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container main-content border margin-top padding-2x">
-    <div class="close">
-        <a wutsi-track-event="story.publish.close" th:href="'/story/draft'">X</a>
-    </div>
+    <div class="row border-bottom">
+        <div class="col-12 padding">
+            <div class="float-left status-published" th:text="#{story.status.published}">Published</div>
 
-    <h1 th:text="#{page.story.share.header1}">Share Story</h1>
+            <div class="close">
+                <a wutsi-track-event="close" th:href="'/story/published'">X</a>
+            </div>
+        </div>
+    </div>
 
     <div class="row margin-top-2x">
 
@@ -53,6 +57,10 @@
                 <i class="fab fa-linkedin"></i>
                 <span th:text="#{page.story.share.share-linkedin}">Sign in with LinkedIn</span>
             </a>
+
+            <div class="margin-top">
+                <a class="float-left" wutsi-track-event="read" th:text="#{button.read_story}"  th:href="${story.slug}">Read</a>
+            </div>
         </div>
     </div>
 </div>

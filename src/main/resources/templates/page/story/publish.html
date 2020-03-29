@@ -9,11 +9,16 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container main-content border margin-top padding-2x">
-    <div class="close">
-        <a wutsi-track-event="story.publish.close" th:href="'/story/' + ${story.id} + '/editor'">X</a>
-    </div>
+    <div class="row border-bottom">
+        <div class="col-12 padding">
+            <div class="float-left status-draft" th:text="#{story.status.draft}" th:if="${story.draft}">Draft</div>
+            <div class="float-left status-published" th:text="#{story.status.published}" th:if="${story.published}">Published</div>
 
-    <h1 th:text="#{page.story.publish.header1}">Publish Story</h1>
+            <div class="close">
+                <a wutsi-track-event="close" th:href="'/story/' + ${story.id} + '/editor'">X</a>
+            </div>
+        </div>
+    </div>
 
     <div class="row margin-top-2x">
 
@@ -52,7 +57,17 @@
                 </div>
 
                 <div class="margin-top-2x">
-                    <button id="btn-publish" type="submit" class="btn btn-primary" disabled="disabled" wutsi-track-event="story.publish.publish" th:text="#{button.publish_now}">Publish Now</button>
+                    <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
+                            wutsi-track-event="publish"
+                            th:if="${story.draft}"
+                            th:text="#{button.publish_now}"
+                    >Publish Now</button>
+
+                    <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
+                            wutsi-track-event="save"
+                            th:if="${story.published}"
+                            th:text="#{button.save}"
+                    >Save</button>
                 </div>
             </form>
         </div>

@@ -10,13 +10,14 @@ function WutsiEJS (holderId, publishCallback){
         saveUrl: '/story/editor/save',
         selectors: {
             title: '#title',
-            publish: '#btn-publish',
+            btnPublish: '#btn-publish',
+            btnClose: '#btn-close',
             storyStatus: '#story-status',
             editorStatus: '#editor-status'
         },
         labels: {
             draft: 'Brouillon',
-            published: 'Published',
+            published: 'Publié',
             saving: 'Enregistrement en cours...',
             saved: 'Enregistré',
             modified: 'Modifié',
@@ -193,22 +194,25 @@ function WutsiEJS (holderId, publishCallback){
 
         // Publish button
         const me = this;
-        $(this.config.selectors.publish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.saveAndPublish);
-        $(this.config.selectors.publish).on('click', function () {
+        $(this.config.selectors.btnPublish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.saveAndPublish);
+        $(this.config.selectors.btnPublish).on('click', function () {
             me.editorjs_save(publishCallback(story));
         });
+
+        // Close button
+        $(this.config.selectors.btnClose).on('click', function () {
+            if (!story || story.draft) {
+                window.location.href = '/story/draft';
+            } else {
+                window.location.href = '/story/published';
+            }
+        });
+
 
         this.update_toolbar();
     };
 
     this.update_toolbar = function () {
-        // Publish button
-        if (storyId > 0) {
-            $(this.config.selectors.publish).removeAttr('disabled');
-        } else {
-            $(this.config.selectors.publish).attr('disabled', 'disabled');
-        }
-
         // Status
         if (this.saving) {
             $(this.config.selectors.editorStatus).text(this.config.labels.saving);

@@ -1,5 +1,0 @@
-<div class="alert alert-danger" th:if="${brokenRules}">
-    <ul>
-        <li th:each="rule : ${brokenRules}" th:text="#{'product.validation.' + ${rule}}">Rule</li>
-    </ul>
-</div>
