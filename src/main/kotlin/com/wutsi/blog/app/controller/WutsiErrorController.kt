@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.controller
 
+import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
 import org.slf4j.LoggerFactory
@@ -10,10 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping
 import javax.servlet.http.HttpServletRequest
 
 @Controller
-class WutsiErrorController: ErrorController {
+class WutsiErrorController(
+        requestContext: RequestContext
+): ErrorController, AbstractPageController(requestContext) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(WutsiErrorController::class.java)
     }
+
+    override fun page() = ""
 
     @GetMapping("/error")
     fun error(request: HttpServletRequest, model: Model): String {

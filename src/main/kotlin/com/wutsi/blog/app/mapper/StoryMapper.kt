@@ -34,7 +34,7 @@ class StoryMapper(
                 modificationDateTime = moment.format(story.modificationDateTime),
                 creationDateTime = moment.format(story.creationDateTime),
                 publishedDateTime = moment.format(story.publishedDateTime),
-                publishedDateTimeISO8601 = fmt.format(story.publishedDateTime),
+                publishedDateTimeISO8601 = if (story.publishedDateTime == null) null else fmt.format(story.publishedDateTime),
                 modificationDateTimeISO8601 = fmt.format(story.modificationDateTime),
                 tags = story.tags.map { tagMapper.toTagModel(it) },
                 slug = story.slug

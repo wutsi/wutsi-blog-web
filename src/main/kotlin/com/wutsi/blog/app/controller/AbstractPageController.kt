@@ -18,7 +18,7 @@ abstract class AbstractPageController(
     fun getToggles() = requestContext.toggles()
 
     @ModelAttribute(ModelAttributeName.OPEN_GRAPH)
-    fun getOpenGrath() = OpenGraphModel(
+    fun getOpenGraph() = OpenGraphModel(
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
             type = "website"
