@@ -37,6 +37,12 @@ jobs:
       run: |
         mvn -s settings.xml install -Dheadless=true
 
+    - name: codecov
+      uses: codecov/codecov-action@v1.0.5
+      with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
 ##----------------------------------------
 ##  INT-RELEASE
 ##----------------------------------------

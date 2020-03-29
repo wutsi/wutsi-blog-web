@@ -43,15 +43,24 @@ class ReaderTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `article should contains OpenGraph headers`() {
+    fun `article should contains META headers`() {
         driver?.get("$url/read/$PUBLISHED_ID/looks-good")
 
-        assertElementAttribute("head meta[property='og:title']", "content", "Lorem Ipsum")
-        assertElementAttribute("head meta[property='og:description']","content", "Lorem Ipsum is simply dummy text of the printing and typesetting industry")
+        val title = "Lorem Ipsum"
+        val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+
+        assertElementAttribute("head meta[property='og:title']", "content", title)
+        assertElementAttribute("head meta[property='og:description']","content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "article")
-        assertElementAttribute("head meta[property='og:author']", "content", "Ray Sponsible")
         assertElementAttribute("head meta[property='og:url']", "content", "/read/10/lorem-ipsum")
         assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
+        assertElementAttribute("head meta[property='article:author']", "content", "Ray Sponsible")
+        assertElementAttribute("head meta[property='article:modified_time']", "content", "2020-03-27T14:42.51.000-0400")
+        assertElementAttribute("head meta[property='article:published_time']", "content", "2020-03-27T12:49.07.000-0400")
+        assertElementCount("head meta[property='article:tag']", 3)
+
+        assertElementAttribute("head meta[name='description']", "content", description)
+        assertElementAttribute("head title", "text", title)
     }
 }
