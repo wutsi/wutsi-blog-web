@@ -12,7 +12,8 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import org.apache.commons.io.IOUtils
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.openqa.selenium.By
@@ -75,27 +76,6 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun setupWiremock() {
-//        stub(HttpMethod.POST, "/v1/access_token", HttpStatus.OK, "v1/access_token/login.json")
-//        stub(HttpMethod.GET, "/v1/access_token/.*", HttpStatus.OK, "v1/access_token/get.json")
-//        stub(HttpMethod.DELETE, "/v1/access_token/.*", HttpStatus.OK)
-//
-//        stub(HttpMethod.GET, "/v1/site", HttpStatus.OK, "v1/site/list.json")
-//
-//        stub(HttpMethod.GET, "/v1/user/[0-9]*", HttpStatus.OK, "v1/user/get.json")
-//
-//        stub(HttpMethod.POST, "/v1/store/search", HttpStatus.OK, "v1/store/search.json")
-//        stub(HttpMethod.GET, "/v1/store/[0-9]+", HttpStatus.OK, "v1/store/get.json")
-//        stub(HttpMethod.GET, "/v1/store/[0-9]+/channel", HttpStatus.OK, "v1/store/channels.json")
-//        stub(HttpMethod.GET, "/v1/store/[0-9]+/channel/1", HttpStatus.OK, "v1/store/facebook.json")
-//        stub(HttpMethod.GET, "/v1/store/[0-9]+/channel/2", HttpStatus.OK, "v1/store/twitter.json")
-//
-//        stub(HttpMethod.GET, "/v1/channel", HttpStatus.OK, "v1/channel/list.json")
-//
-//        stub(HttpMethod.GET, "/v1/asset/[0-9]+", HttpStatus.OK, "v1/asset/get.json")
-//        stub(HttpMethod.GET, "/v1/asset/[0-9]+/small", HttpStatus.OK, "v1/asset/get.json")
-//
-//        stub(HttpMethod.GET, "/v1/product/type", HttpStatus.OK, "v1/product/type.json")
-//        stub(HttpMethod.POST, "/v1/product/channel/search", HttpStatus.OK, "v1/product/channel/search.json")
     }
 
 
@@ -137,23 +117,27 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun assertCurrentPageIs(page: String) {
-        Assert.assertEquals(page, driver?.findElement(By.cssSelector("meta[name=wutsi\\:page_name]"))?.getAttribute("content"))
+        assertEquals(page, driver?.findElement(By.cssSelector("meta[name=wutsi\\:page_name]"))?.getAttribute("content"))
     }
 
     protected fun assertElementNotPresent(selector: String){
-        Assert.assertTrue(driver!!.findElements(By.cssSelector(selector)).size == 0)
+        assertTrue(driver!!.findElements(By.cssSelector(selector)).size == 0)
     }
 
     protected fun assertElementPresent(selector: String){
-        Assert.assertTrue(driver!!.findElements(By.cssSelector(selector)).size > 0)
+        assertTrue(driver!!.findElements(By.cssSelector(selector)).size > 0)
     }
 
     protected fun assertElementText(selector: String, text: String) {
-        Assert.assertEquals(text, driver!!.findElement(By.cssSelector(selector)).text)
+        assertEquals(text, driver!!.findElement(By.cssSelector(selector)).text)
+    }
+
+    protected fun assertElementCount(selector: String, count: Int) {
+        assertEquals(count, driver!!.findElements(By.cssSelector(selector)).size)
     }
 
     protected fun assertElementAttribute(selector: String, name: String, value: String) {
-        Assert.assertEquals(value, driver!!.findElement(By.cssSelector(selector)).getAttribute(name))
+        assertEquals(value, driver!!.findElement(By.cssSelector(selector)).getAttribute(name))
     }
 
     protected fun click(selector: String){

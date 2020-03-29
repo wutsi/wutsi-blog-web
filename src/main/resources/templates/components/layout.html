@@ -16,13 +16,18 @@
     <meta name="wutsi:page_name" th:content="${pageName}" th:if="${pageName}"/>
     <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
 
+    <title th:text="${openGraph.title}"></title>
+    <meta name="description" th:content="${openGraph.description}" />
     <meta property="og:site_name" th:content="Wutsi" />
     <meta property="og:type" th:content="${openGraph.type}" />
-    <meta property="og:url" th:content="${openGraph.url}" th:if="${openGraph}" />
-    <meta property="og:title" th:content="${openGraph.title}" th:if="${openGraph}" />
-    <meta property="og:description" th:content="${openGraph.description}" th:if="${openGraph}" />
-    <meta property="og:image" th:content="${openGraph.imageUrl}" th:if="${openGraph} AND ${openGraph.imageUrl}" />
-    <meta property="og:author" th:content="${openGraph.author}" th:if="${openGraph}" />
+    <meta property="og:url" th:content="${openGraph.url}" th:if="${openGraph.imageUrl}" />
+    <meta property="og:title" th:content="${openGraph.title}" />
+    <meta property="og:description" th:content="${openGraph.description}" />
+    <meta property="og:image" th:content="${openGraph.imageUrl}" th:if="${openGraph.imageUrl}" />
+    <meta property="article:author" th:content="${openGraph.author}" th:if="${openGraph.author}" />
+    <meta property="article:published_time" th:content="${openGraph.publishedTime}" th:if="${openGraph.publishedTime}" />
+    <meta property="article:modified_time" th:content="${openGraph.modifiedTime}" th:if="${openGraph.modifiedTime}" />
+    <meta property="article:tag" th:content="${tag}" th:each="tag : ${openGraph.tags}" />
 
     <link rel="shortcut icon" href="/favicon.ico" />
 

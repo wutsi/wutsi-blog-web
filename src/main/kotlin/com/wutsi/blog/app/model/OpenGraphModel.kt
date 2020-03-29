@@ -4,9 +4,11 @@ data class OpenGraphModel (
         val title: String = "",
         val description: String = "",
         val type: String = "website",
-        val url: String = "",
+        val url: String? = null,
         val imageUrl: String? = null,
-        val publishedTime: String = "",
-        val author: String = ""
+        val modifiedTime: String? = null,
+        val publishedTime: String? = null,
+        val author: String? = null,
+        val tags: List<String> = emptyList()
 )
 

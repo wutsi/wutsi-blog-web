@@ -1,0 +1,67 @@
+{
+  "stories":[
+    {
+      "id": 20,
+      "userId": 1,
+      "title": "Lorem Ipsum",
+      "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+      "thumbnailUrl": "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg",
+      "sourceUrl": null,
+      "wordCount": 179,
+      "readingMinutes": 1,
+      "language": "en",
+      "contentType": "application/editorjs",
+      "status": "published",
+      "creationDateTime": 1585327543000,
+      "modificationDateTime": 1585334571000,
+      "publishedDateTime": 1585327747000,
+      "slug": "/read/20/lorem-ipsum"
+    },
+    {
+      "id": 21,
+      "userId": 1,
+      "title": "Lorem Ipsum",
+      "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+      "sourceUrl": null,
+      "wordCount": 960,
+      "readingMinutes": 8,
+      "language": "en",
+      "contentType": "application/editorjs",
+      "status": "published",
+      "creationDateTime": 1585327543000,
+      "modificationDateTime": 1585334571000,
+      "publishedDateTime": 1585327747000,
+      "slug": "/read/21/lorem-ipsum"
+    },
+    {
+      "id": 22,
+      "userId": 2,
+      "title": "Lorem Ipsum",
+      "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+      "sourceUrl": null,
+      "wordCount": 960,
+      "readingMinutes": 5,
+      "language": "en",
+      "status": "published",
+      "creationDateTime": 1585327543000,
+      "modificationDateTime": 1585334571000,
+      "publishedDateTime": 1585327747000,
+      "slug": "/read/21/lorem-ipsum"
+    },
+    {
+      "id": 23,
+      "userId": 1,
+      "title": "Lorem Ipsum",
+      "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+      "sourceUrl": null,
+      "wordCount": 1560,
+      "readingMinutes": 8,
+      "language": "en",
+      "status": "published",
+      "creationDateTime": 1585327543000,
+      "modificationDateTime": 1585334571000,
+      "publishedDateTime": 1585327747000,
+      "slug": "/read/23/lorem-ipsum"
+    }
+  ]
+}

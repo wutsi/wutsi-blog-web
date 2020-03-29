@@ -65,7 +65,9 @@ class ReadController(
             url = story.slug,
             imageUrl = story.thumbmailUrl,
             author = story.user.fullName,
-            publishedTime = story.publishedDateTimeISO8601
+            publishedTime = story.publishedDateTimeISO8601,
+            modifiedTime = story.modificationDateTimeISO8601,
+            tags = story.tags.map { it.name }
     )
 
 }
