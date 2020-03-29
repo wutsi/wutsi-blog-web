@@ -196,7 +196,9 @@ function WutsiEJS (holderId, publishCallback){
         const me = this;
         $(this.config.selectors.btnPublish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.saveAndPublish);
         $(this.config.selectors.btnPublish).on('click', function () {
-            me.editorjs_save(publishCallback(story));
+            me.editorjs_save(function() {
+                publishCallback(me.storyId);
+            });
         });
 
         // Close button
