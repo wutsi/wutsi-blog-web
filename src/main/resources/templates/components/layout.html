@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta name="wutsi:page_name" th:content="${pageName}" th:if="${pageName}"/>
+    <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
 
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -50,6 +51,9 @@
             <!-- TRACKING -->
             wutsi_bind_tracking();
             wutsi.track('pageview');
+            window.addEventListener('beforeunload', function(){
+                wutsi.track('pageunload')
+            });
         });
     </script>
 </footer>

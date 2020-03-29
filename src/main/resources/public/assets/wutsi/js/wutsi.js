@@ -5,13 +5,13 @@ function Wutsi (){
         }
     };
 
-    this.track = function (event, productId, value){
+    this.track = function (event, value){
 
         const url = this.config.backend.trackUrl;
         const data = {
             time: new Date().getTime(),
             duid: this.cookie('__w_duaid'),
-            pid:  (productId ? productId : null),
+            pid:  this.story_id(),
             event: event,
             page: this.page_name(),
             ua: navigator.userAgent,
@@ -40,13 +40,17 @@ function Wutsi (){
 
 
     this.cookie = function (name) {
-        console.log('cookie', name + ' - document.cookie=' + document.cookie);
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         if (match) return match[2];
     };
 
     this.page_name = function () {
         var meta = document.head.querySelector("[name=wutsi\\:page_name]");
+        return meta ? meta.content : null
+    };
+
+    this.story_id = function () {
+        var meta = document.head.querySelector("[name=wutsi\\:story_id]");
         return meta ? meta.content : null
     };
 }
