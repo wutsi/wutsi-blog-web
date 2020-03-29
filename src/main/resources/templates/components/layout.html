@@ -21,7 +21,8 @@
     <meta property="og:url" th:content="${openGraph.url}" th:if="${openGraph}" />
     <meta property="og:title" th:content="${openGraph.title}" th:if="${openGraph}" />
     <meta property="og:description" th:content="${openGraph.description}" th:if="${openGraph}" />
-    <meta property="og:image" th:content="${imageUrl}" th:if="${openGraph} AND ${openGraph.imageUrl}" />
+    <meta property="og:image" th:content="${openGraph.imageUrl}" th:if="${openGraph} AND ${openGraph.imageUrl}" />
+    <meta property="og:author" th:content="${openGraph.author}" th:if="${openGraph}" />
 
     <link rel="shortcut icon" href="/favicon.ico" />
 

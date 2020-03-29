@@ -52,5 +52,6 @@ class ReaderTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:author']", "content", "Ray Sponsible")
         assertElementAttribute("head meta[property='og:url']", "content", "/read/10/lorem-ipsum")
         assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
+        assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
     }
 }
