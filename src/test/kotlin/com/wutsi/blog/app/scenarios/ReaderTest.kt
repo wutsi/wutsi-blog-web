@@ -56,8 +56,8 @@ class ReaderTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
         assertElementAttribute("head meta[property='article:author']", "content", "Ray Sponsible")
-        assertElementAttribute("head meta[property='article:modified_time']", "content", "2020-03-27T14:42.51.000-0400")
-        assertElementAttribute("head meta[property='article:published_time']", "content", "2020-03-27T12:49.07.000-0400")
+        assertElementAttributeStartsWith("head meta[property='article:modified_time']", "content", "2020-03-27T")
+        assertElementAttributeStartsWith("head meta[property='article:published_time']", "content", "2020-03-27T")
         assertElementCount("head meta[property='article:tag']", 3)
 
         assertElementAttribute("head meta[name='description']", "content", description)

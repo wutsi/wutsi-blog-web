@@ -140,6 +140,10 @@ abstract class SeleniumTestSupport {
         assertEquals(value, driver!!.findElement(By.cssSelector(selector)).getAttribute(name))
     }
 
+    protected fun assertElementAttributeStartsWith(selector: String, name: String, value: String) {
+        driver!!.findElement(By.cssSelector(selector)).getAttribute(name).startsWith(value)
+    }
+
     protected fun click(selector: String){
         driver!!.findElement(By.cssSelector(selector)).click()
     }

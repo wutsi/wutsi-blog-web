@@ -1,4 +1,5 @@
 ![](https://github.com/wutsi/wutsi-blog-web/workflows/build/badge.svg)
+[![](https://img.shields.io/codecov/c/github/wutsi/wutsi-blog-web/master.svg)](https://codecov.io/gh/wutsi/wutsi-blog-web)
 ![](https://img.shields.io/badge/jdk-1.8-brightgreen.svg)
 
 
