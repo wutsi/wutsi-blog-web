@@ -15,27 +15,27 @@ class OAuthConfiguration {
         const val FACEBOOK_OAUTH_SERVICE: String = "FACEBOOK_OAUTH_SERVICE"
     }
 
-    @Value ("\${wutsi.oauth.github.client-id}")
-    private lateinit var githubClientId: String
 
-    @Value ("\${wutsi.oauth.github.client-secret}")
-    private lateinit var githubClientSecret: String
-
-    @Value ("\${wutsi.oauth.facebook.client-id}")
-    private lateinit var facebookClientId: String
-
-    @Value ("\${wutsi.oauth.facebook.client-secret}")
-    private lateinit var facebookClientSecret: String
 
     @Bean(GITHUB_OAUTH_SERVICE)
-    fun getGithubOAuthService(): OAuth20Service = ServiceBuilder(githubClientId)
-            .apiSecret(githubClientSecret)
+    fun getGithubOAuthService(
+            @Value ("\${wutsi.oauth.github.client-id}") clientId: String,
+            @Value ("\${wutsi.oauth.github.client-secret}") clientSecret: String,
+            @Value ("\${wutsi.oauth.github.callback-url}") callbackUrl: String
+    ): OAuth20Service = ServiceBuilder(clientId)
+            .apiSecret(clientSecret)
+            .callback(callbackUrl)
             .build(GitHubApi.instance())
 
 
     @Bean(FACEBOOK_OAUTH_SERVICE)
-    fun getFacebookOAuthService(): OAuth20Service = ServiceBuilder(facebookClientId)
-            .apiSecret(facebookClientId)
+    fun getFacebookOAuthService(
+            @Value ("\${wutsi.oauth.facebook.client-id}") clientId: String,
+            @Value ("\${wutsi.oauth.facebook.client-secret}") clientSecret: String,
+            @Value ("\${wutsi.oauth.facebook.callback-url}") callbackUrl: String
+    ): OAuth20Service = ServiceBuilder(clientId)
+            .apiSecret(clientSecret)
+            .callback(callbackUrl)
             .build(FacebookApi.instance())
 
 }

@@ -1,4 +1,6 @@
 wutsi:
+  base-url: https://int-com-wutsi-blog-web.herokuapp.com
+
   backend:
     baseurl: https://int-com-wutsi-blog.herokuapp.com
 
