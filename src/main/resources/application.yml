@@ -70,8 +70,19 @@ wutsi:
       region: "us-east-1"
       bucket: "int-wutsi-track"
 
+  auth:
+    github:
+      client-id: 2430c202b7d87c5eddce
+      client-secret: cf900a9f2c73012795ea95a4ecf16be80555659e
+    facebook:
+      client-id: 00000000
+      client-secret: 0000000000000000
+    twitter:
+      client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
+      client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
+
   toggles:
     sso-facebook: false
     sso-google: false
-    sso-twitter: false
+    sso-twitter: true
     sso-github: true

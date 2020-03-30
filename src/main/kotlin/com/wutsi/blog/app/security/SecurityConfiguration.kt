@@ -29,6 +29,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers( "/read/**/*").permitAll()
                 .antMatchers( "/storage/**/*").permitAll()
                 .antMatchers( HttpMethod.POST, "/upload").permitAll()
+                .antMatchers( "/twitter/**/*").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .logout()

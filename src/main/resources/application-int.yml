@@ -16,7 +16,7 @@ wutsi:
   toggles:
     sso-facebook: true
     sso-google: false
-    sso-twitter: false
+    sso-twitter: true
     sso-github: true
   storage:
     s3:
