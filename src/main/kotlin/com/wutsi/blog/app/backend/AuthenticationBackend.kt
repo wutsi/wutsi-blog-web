@@ -5,7 +5,6 @@ import com.wutsi.blog.client.user.AuthenticateResponse
 import com.wutsi.blog.client.user.GetSessionResponse
 import com.wutsi.http.Http
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,10 +23,5 @@ class AuthenticationBackend (private val http: Http) {
 
     fun session(token: String): GetSessionResponse {
         return http.get("$endpoint/$token", GetSessionResponse::class.java).body
-    }
-
-    @Async
-    fun logoutAsync(token: String) {
-        logout(token)
     }
 }

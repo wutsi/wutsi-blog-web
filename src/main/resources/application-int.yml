@@ -1,26 +1,24 @@
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: 43bf80531cd351c84f5b
-            client-secret: 986634ef3a7c8ac6e66f9a75f5b0a1c4dec68918
-          facebook:
-            client-id: 466330503408293
-            client-secret: 4494a0cef683e0ff8ad28ea23874a24b
-
 wutsi:
   backend:
     baseurl: https://int-com-wutsi-blog.herokuapp.com
-  toggles:
-    sso-facebook: true
-    sso-google: false
-    sso-twitter: true
-    sso-github: true
+
+  oauth:
+      github:
+        client-id: 43bf80531cd351c84f5b
+        client-secret: 986634ef3a7c8ac6e66f9a75f5b0a1c4dec68918
+      facebook:
+        client-id: 466330503408293
+        client-secret: 4494a0cef683e0ff8ad28ea23874a24b
+
   storage:
     s3:
       region: "us-east-1"
       bucket: "int-wutsi-blog"
     servlet:
       hostname: "int-com-wutsi-blog.herokuapp.com"
+
+  toggles:
+    sso-facebook: true
+    sso-google: false
+    sso-twitter: true
+    sso-github: true

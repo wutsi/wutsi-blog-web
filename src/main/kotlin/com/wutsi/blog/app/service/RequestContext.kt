@@ -3,7 +3,7 @@ package com.wutsi.blog.app.service
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.mapper.UserMapper
 import com.wutsi.blog.app.model.UserModel
-import com.wutsi.blog.app.security.AccessTokenCookieFilter
+import com.wutsi.blog.app.security.AccessTokenStorage
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
@@ -18,6 +18,7 @@ class RequestContext(
         private val backend: AuthenticationBackend,
         private val togglesHolder: TogglesHolder,
         private val request: HttpServletRequest,
+        private val tokenStorage: AccessTokenStorage,
         private val localization: LocalizationService
 ) {
     companion object {
@@ -47,16 +48,7 @@ class RequestContext(
     fun toggles() = togglesHolder.get()
 
     fun accessToken(): String? {
-        val cookie = AccessTokenCookieFilter.getCookie(request)
-        return if (cookie == null) null else cookie.value
-//        val auth = SecurityContextHolder.getContext().authentication
-//        if (auth is AnonymousAuthenticationToken) {
-//            return null
-//        }
-//
-//        val ooauth2Token = auth as OAuth2AuthenticationToken
-//        val client = oauth2ClientService.loadAuthorizedClient<OAuth2AuthorizedClient>(ooauth2Token.authorizedClientRegistrationId, auth.name)
-//        return client.accessToken.tokenValue
+        return tokenStorage.get(request)
     }
 
     fun getMessage(key: String) = localization.getMessage(key)

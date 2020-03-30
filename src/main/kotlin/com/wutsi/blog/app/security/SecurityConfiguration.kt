@@ -1,8 +1,9 @@
 package com.wutsi.blog.app.security
 
-import org.springframework.beans.factory.annotation.Autowired
+import com.wutsi.blog.app.security.oauth.OAuthLogoutHandler
+import com.wutsi.blog.app.util.CookieName
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -10,10 +11,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfiguration : WebSecurityConfigurerAdapter() {
+class SecurityConfiguration(
+        private val accessTokenStorage: AccessTokenStorage,
+        private val logoutHandler: OAuthLogoutHandler
+) : WebSecurityConfigurerAdapter() {
+    companion object {
+        const val OAUTH_SIGNIN_PATTERN = "/login/oauth/signin"
 
-    @Autowired
-    private lateinit var loginSuccessHandler: OAuth2LoginSuccessHandler
+        const val SESSION_STATE = "wusti.social.state"
+
+        const val PARAM_ACCESS_TOKEN = "token"
+        const val PARAM_STATE = "state"
+        const val PARAM_USER = "user"
+        const val PARAM_PROVIDER = "provider"
+
+        const val PROVIDER_GITHUB = "github"
+        const val PROVIDER_FACEBOOK = "facebook"
+    }
 
     @Throws(Exception::class)
     public override fun configure(http: HttpSecurity) {
@@ -25,20 +39,24 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
                 .antMatchers( "/login").permitAll()
+                .antMatchers( "/login/**/*").permitAll()
                 .antMatchers( "/logout").permitAll()
                 .antMatchers( "/read/**/*").permitAll()
                 .antMatchers( "/storage/**/*").permitAll()
-                .antMatchers( HttpMethod.POST, "/upload").permitAll()
-                .antMatchers( "/twitter/**/*").permitAll()
                 .anyRequest().authenticated()
+
             .and()
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
+                    .deleteCookies("JSESSIONID", CookieName.ACCESS_TOKEN)
+                    .addLogoutHandler(logoutHandler)
+
             .and()
-                .oauth2Login()
-                    .successHandler(loginSuccessHandler)
-                    .loginPage("/login")
+                .formLogin()
+                    .loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/")
+
             .and()
                 .csrf()
                     .disable()
@@ -46,4 +64,11 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     }
 
 
+    @Bean
+    fun authenticationFilter(): AuthenticationFilter {
+        val filter = AuthenticationFilter(accessTokenStorage, SecurityConfiguration.OAUTH_SIGNIN_PATTERN)
+        filter.setAuthenticationManager(authenticationManagerBean())
+
+        return filter
+    }
 }

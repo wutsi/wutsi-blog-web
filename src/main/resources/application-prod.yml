@@ -1,7 +1,0 @@
-wutsi:
-  backend:
-    url: "https://com-wutsi-api.herokuapp.com"
-    catalogUrl: "https://com-wutsi-catalog.herokuapp.com"
-    contentUrl: "https://com-wutsi-content.herokuapp.com"
-    omsUrl: "https://com-wutsi-oms.herokuapp.com"
-    profileUrl: "https://com-wutsi-profile.herokuapp.com"
