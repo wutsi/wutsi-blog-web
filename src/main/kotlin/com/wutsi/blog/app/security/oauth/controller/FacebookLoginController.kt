@@ -20,7 +20,7 @@ class FacebookLoginController(
     override fun getOAuthService() = oauth
 
     override fun loadUser(accessToken: String): OAuthUser {
-        val request = OAuthRequest(Verb.GET, "https://api.github.com/user")
+        val request = OAuthRequest(Verb.GET, "https://graph.facebook.com/me")
         oauth.signRequest(accessToken, request)
 
         val response = oauth.execute(request)
@@ -30,7 +30,7 @@ class FacebookLoginController(
                 name = attrs["id"].toString(),
                 fullName = attrs["name"].toString(),
                 email = attrs["email"]?.toString(),
-                pictureUrl = "http://graph.facebook.com/" + attrs["id"] + "/picture?type=normal",
+                pictureUrl = attrs["picture"].toString(),
                 provider = SecurityConfiguration.PROVIDER_FACEBOOK
         )
     }
