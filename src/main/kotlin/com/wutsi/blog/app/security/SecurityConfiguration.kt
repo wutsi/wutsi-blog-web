@@ -33,6 +33,8 @@ class SecurityConfiguration(
     public override fun configure(http: HttpSecurity) {
         // @formatter:off
 		http
+            .csrf().disable()
+
             .authorizeRequests()
                 .antMatchers( "/").permitAll()
                 .antMatchers( "/favicon.ico").permitAll()
@@ -57,9 +59,6 @@ class SecurityConfiguration(
                     .loginPage("/login").permitAll()
                     .defaultSuccessUrl("/")
 
-            .and()
-                .csrf()
-                    .disable()
 		// @formatter:on
     }
 
