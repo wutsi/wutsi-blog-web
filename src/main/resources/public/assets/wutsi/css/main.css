@@ -417,6 +417,10 @@ ul.step-indicator li.active {
     border-bottom: 1px dashed var(--border-color) !important;
     color: var(--text-color)  !important;
 }
+.ce-block--stretched {
+    max-width: 650px;
+    margin: 0 auto;
+}
 .ce-header {
     margin: 0 !important;
     padding: 0 !important;
