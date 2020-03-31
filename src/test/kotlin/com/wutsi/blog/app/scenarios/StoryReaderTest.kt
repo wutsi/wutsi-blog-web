@@ -56,7 +56,7 @@ class StoryReaderTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:title']", "content", title)
         assertElementAttribute("head meta[property='og:description']","content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "article")
-        assertElementAttribute("head meta[property='og:url']", "content", "/read/10/lorem-ipsum")
+        assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/read/10/lorem-ipsum")
         assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
         assertElementAttribute("head meta[property='article:author']", "content", "Ray Sponsible")

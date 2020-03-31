@@ -9,6 +9,7 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,6 +23,9 @@ class ReadController(
         private val ejsHtmlWriter: EJSHtmlWriter,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
+    @Value("\${wutsi.base-url}")
+    lateinit var baseUrl: String
+
     override fun pageName() = PageName.READ
 
     override fun shouldBeIndexedByBots() = true
@@ -67,7 +71,7 @@ class ReadController(
             title = story.title!!,
             description = story.summary!!,
             type = "article",
-            url = story.slug,
+            url = baseUrl + story.slug,
             imageUrl = story.thumbmailUrl,
             author = story.user.fullName,
             publishedTime = story.publishedDateTimeISO8601,

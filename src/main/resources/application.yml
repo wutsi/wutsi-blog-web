@@ -33,16 +33,17 @@ logging:
 
 wutsi:
   base-url: "http://localhost:8081"
+
   backend:
-    baseurl: http://localhost:8080
+    base-url: http://localhost:8080
     authentication:
-      endpoint: ${wutsi.backend.baseurl}/v1/auth
+      endpoint: ${wutsi.backend.base-url}/v1/auth
     story:
-      endpoint: ${wutsi.backend.baseurl}/v1/story
+      endpoint: ${wutsi.backend.base-url}/v1/story
     tag:
-      endpoint: ${wutsi.backend.baseurl}/v1/tag
+      endpoint: ${wutsi.backend.base-url}/v1/tag
     user:
-      endpoint: ${wutsi.backend.baseurl}/v1/user
+      endpoint: ${wutsi.backend.base-url}/v1/user
 
   http:
     client-id: wutsi-blog-app
