@@ -1,19 +1,32 @@
 package com.wutsi.blog.app.security
 
-import com.wutsi.blog.app.security.oauth.OAuthLogoutHandler
+import com.wutsi.blog.app.security.auto.AutoLoginAuthenticationProvider
+import com.wutsi.blog.app.security.auto.AutoLoginFilter
+import com.wutsi.blog.app.security.oauth.OAuthAuthenticationFilter
+import com.wutsi.blog.app.security.oauth.OAuthAuthenticationProvider
+import com.wutsi.blog.app.security.oauth.OAuthRememberMeService
+import com.wutsi.blog.app.service.AccessTokenStorage
 import com.wutsi.blog.app.util.CookieName
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.security.web.util.matcher.OrRequestMatcher
+import javax.servlet.Filter
 
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
         private val accessTokenStorage: AccessTokenStorage,
-        private val logoutHandler: OAuthLogoutHandler
+        private val logoutHandler: LogoutHandlerImpl,
+        private val oauthAuthenticationProvider: OAuthAuthenticationProvider,
+        private val oAuthRememberMeService: OAuthRememberMeService,
+        private val autoLoginAuthenticationProvider: AutoLoginAuthenticationProvider
 ) : WebSecurityConfigurerAdapter() {
     companion object {
         const val OAUTH_SIGNIN_PATTERN = "/login/oauth/signin"
@@ -29,15 +42,21 @@ class SecurityConfiguration(
         const val PROVIDER_FACEBOOK = "facebook"
     }
 
+    @Autowired
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth.authenticationProvider(oauthAuthenticationProvider)
+            .authenticationProvider(autoLoginAuthenticationProvider)
+    }
+
     @Throws(Exception::class)
-    public override fun configure(http: HttpSecurity) {
+    override fun configure(http: HttpSecurity) {
         // @formatter:off
 		http
             .csrf().disable()
 
             .authorizeRequests()
                 .antMatchers( "/").permitAll()
-                .antMatchers( "/favicon.ico").permitAll()
+                .antMatchers( "*.ico").permitAll()
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
                 .antMatchers( "/login").permitAll()
@@ -58,16 +77,28 @@ class SecurityConfiguration(
                 .formLogin()
                     .loginPage("/login").permitAll()
                     .defaultSuccessUrl("/")
-
 		// @formatter:on
     }
 
-
     @Bean
-    fun authenticationFilter(): AuthenticationFilter {
-        val filter = AuthenticationFilter(accessTokenStorage, SecurityConfiguration.OAUTH_SIGNIN_PATTERN)
+    fun authenticationFilter(): OAuthAuthenticationFilter {
+        val filter = OAuthAuthenticationFilter(OAUTH_SIGNIN_PATTERN)
         filter.setAuthenticationManager(authenticationManagerBean())
+        filter.rememberMeServices = oAuthRememberMeService
 
         return filter
     }
+
+    @Bean
+    fun autoLoginFilter(): Filter = AutoLoginFilter(
+            storage = accessTokenStorage,
+            authenticationManager = authenticationManagerBean(),
+            excludePaths = OrRequestMatcher(
+                    AntPathRequestMatcher("/login"),
+                    AntPathRequestMatcher("/login/**/*"),
+                    AntPathRequestMatcher("/logout"),
+                    AntPathRequestMatcher("/assets/**/*"),
+                    AntPathRequestMatcher("*.ico")
+            )
+    )
 }

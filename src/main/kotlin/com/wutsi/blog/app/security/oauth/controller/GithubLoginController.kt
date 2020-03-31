@@ -25,8 +25,7 @@ class GithubLoginController(
         val response = oauth.execute(request)
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return OAuthUser(
-                id = attrs["id"].toString(),
-                name = attrs["login"].toString(),
+                id = attrs["login"].toString(),
                 fullName = githubFullName(attrs),
                 email = attrs["email"]?.toString(),
                 pictureUrl = attrs["avatar_url"]?.toString(),

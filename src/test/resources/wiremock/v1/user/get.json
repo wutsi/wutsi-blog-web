@@ -7,6 +7,26 @@
     "loginCount": 4,
     "lastLoginDateTime": 1585334250000,
     "creationDateTime": 1585325914000,
-    "modificationDateTime": 1585325914000
+    "modificationDateTime": 1585325914000,
+    "accounts": [
+      {
+        "id": 11,
+        "provider": "facebook",
+        "loginCount": 3,
+        "providerUserId": "ray.sponsible",
+        "lastLoginDateTime": 1585334250000,
+        "creationDateTime": 1585325914000,
+        "modificationDateTime": 1585325914000
+      },
+      {
+        "id": 12,
+        "provider": "facebook",
+        "loginCount": 3,
+        "providerUserId": "ray-sponsible",
+        "lastLoginDateTime": 1585334250000,
+        "creationDateTime": 1585325914000,
+        "modificationDateTime": 1585325914000
+      }
+    ]
   }
 }

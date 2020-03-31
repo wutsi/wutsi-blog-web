@@ -19,22 +19,22 @@ class OAuthAuthenticationProvider(
         validateState()
 
         val authentication = auth as OAuthTokenAuthentication
-        authenticate(authentication)
-        authentication.setAuthenticated(true)
-
-        return auth
+        return authenticate(authentication)
     }
 
-    private fun authenticate(authentication: OAuthTokenAuthentication) {
+    private fun authenticate(authentication: OAuthTokenAuthentication): Authentication {
         val user = authentication.principal.user
         backend.login(AuthenticateRequest(
                 accessToken = authentication.accessToken,
-                provider = authentication.provider,
+                provider = authentication.principal.user.provider,
                 pictureUrl = user.pictureUrl,
                 fullName = user.fullName,
                 email = user.email,
                 providerUserId = user.id
         ))
+
+        authentication.setAuthenticated(true)
+        return authentication
     }
 
     override fun supports(clazz: Class<*>) = OAuthTokenAuthentication::class.java == clazz

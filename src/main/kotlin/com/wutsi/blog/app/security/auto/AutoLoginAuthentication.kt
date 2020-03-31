@@ -1,13 +1,11 @@
-package com.wutsi.blog.app.security.oauth
+package com.wutsi.blog.app.security.auto
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 
 
-class OAuthTokenAuthentication(
-        private val principal: OAuthPrincipal,
-        val accessToken: String,
-        val state: String
+class AutoLoginAuthentication(
+        val accessToken: String
 ) : Authentication {
     private var authenticated = false
 
@@ -15,11 +13,11 @@ class OAuthTokenAuthentication(
 
     override fun getAuthorities(): Collection<GrantedAuthority> = emptyList()
 
-    override fun getCredentials() = state
+    override fun getCredentials() = null
 
     override fun getDetails() = null
 
-    override fun getPrincipal() = principal
+    override fun getPrincipal() = AutoLoginPrincipal(accessToken)
 
     override fun isAuthenticated(): Boolean {
         return authenticated

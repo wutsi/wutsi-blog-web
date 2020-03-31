@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class ReaderTest: SeleniumTestSupport() {
+class StoryReaderTest: SeleniumTestSupport() {
     companion object {
         private const val PUBLISHED_ID = "10"
         private const val DRAFT_ID = "20"

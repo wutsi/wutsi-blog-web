@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/jdk-1.8-brightgreen.svg)
 
 
-``wutsi-parnet-web`` is the blog web application
+Blog web application
 
 
 ## Installation

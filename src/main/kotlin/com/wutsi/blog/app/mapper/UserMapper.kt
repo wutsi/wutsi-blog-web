@@ -11,7 +11,8 @@ class UserMapper {
             id = user.id,
             fullName = user.fullName,
             pictureUrl = user.pictureUrl,
-            email = user.email
+            email = user.email,
+            twitterUserId = user.accounts.find { it.provider == "twitter" }?.providerUserId
     )
 
     fun toUserModel(user: UserSummaryDto) = UserModel(

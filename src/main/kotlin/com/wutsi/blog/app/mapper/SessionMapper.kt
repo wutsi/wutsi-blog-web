@@ -12,7 +12,7 @@ class SessionMapper(private val mapper: UserMapper) {
             logoutDateTime = session.logoutDateTime,
             loginDateTime = session.loginDateTime,
             accountId = session.accountId,
-            user = mapper.toUserModel(session.user)
+            userId = session.userId
     )
 
 }

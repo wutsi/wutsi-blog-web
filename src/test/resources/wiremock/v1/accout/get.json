@@ -1,0 +1,10 @@
+{
+  "session": {
+    "accessToken": "user1-fb-token",
+    "accountId": 1,
+    "userId": 1,
+    "loginDateTime": 1585327543000,
+    "logoutDateTime": 1585334571000,
+    "refreshToken": null
+  }
+}

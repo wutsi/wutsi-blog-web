@@ -27,7 +27,6 @@ class FacebookLoginController(
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return OAuthUser(
                 id = attrs["id"].toString(),
-                name = attrs["id"].toString(),
                 fullName = attrs["name"].toString(),
                 email = attrs["email"]?.toString(),
                 pictureUrl = attrs["picture"].toString(),

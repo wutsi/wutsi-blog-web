@@ -1,9 +1,9 @@
 package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
+import com.wutsi.blog.app.backend.UserBackend
 import com.wutsi.blog.app.mapper.UserMapper
 import com.wutsi.blog.app.model.UserModel
-import com.wutsi.blog.app.security.AccessTokenStorage
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest
 @Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 class RequestContext(
         private val mapper: UserMapper,
-        private val backend: AuthenticationBackend,
+        private val authBackend: AuthenticationBackend,
+        private val userBackend: UserBackend,
         private val togglesHolder: TogglesHolder,
         private val request: HttpServletRequest,
         private val tokenStorage: AccessTokenStorage,
@@ -35,8 +36,9 @@ class RequestContext(
         val token = accessToken()
         if (token != null) {
             try {
-                val response = backend.session(token)
-                user = mapper.toUserModel(response.session.user)
+                val response = authBackend.session(token)
+                val usr = userBackend.get(response.session.userId).user
+                user = mapper.toUserModel(usr)
             } catch (e: Exception){
                 LOGGER.warn("Unable to resolve user associate with access_token ${token}", e)
                 return null

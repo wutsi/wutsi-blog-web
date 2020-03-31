@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security
+package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.util.CookieName
 import org.springframework.stereotype.Component
@@ -16,22 +16,13 @@ class AccessTokenStorage {
 
     fun put(accessToken: String, request: HttpServletRequest, response: HttpServletResponse) {
         var cookie = getCookie(request)
-        if (cookie != null) {
-            cookie.maxAge = 86400 // 1 days
-        } else {
+        if (cookie == null) {
             cookie = Cookie(CookieName.ACCESS_TOKEN, accessToken)
-            response.addCookie(cookie)
         }
 
         cookie.value = accessToken
         cookie.maxAge = 86400 // 1 days
         cookie.path = "/"
-        response.addCookie(cookie)
-    }
-
-    fun remove(response: HttpServletResponse) {
-        val cookie = Cookie(CookieName.ACCESS_TOKEN, "")
-        cookie.maxAge = 0
         response.addCookie(cookie)
     }
 
