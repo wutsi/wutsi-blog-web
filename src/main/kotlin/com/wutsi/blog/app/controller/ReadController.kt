@@ -9,7 +9,6 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -44,6 +43,7 @@ class ReadController(
         model.addAttribute("html", html)
 
         model.addAttribute(ModelAttributeName.PAGE, toPage(story))
+        model.addAttribute("url", url(story))
         return "page/read"
     }
 
@@ -69,7 +69,7 @@ class ReadController(
             title = story.title!!,
             description = story.summary!!,
             type = "article",
-            url = baseUrl + story.slug,
+            url = url(story),
             imageUrl = story.thumbmailUrl,
             author = story.user.fullName,
             publishedTime = story.publishedDateTimeISO8601,

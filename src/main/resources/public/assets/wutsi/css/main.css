@@ -72,6 +72,10 @@ a {
     border-right: 1px solid var(--border-color);
 }
 
+.box-filled {
+    background-color: var(--background-light);
+}
+
 .main-content {
     background: white;
 }
@@ -252,6 +256,7 @@ a.sso-button .fab {
     font-size: 0.7em;
 }
 
+
 .story-list .story .meta .story-dropdown-menu {
     display: inline-block;
 }
@@ -319,9 +324,25 @@ ul.step-indicator li.active {
     border-radius: 50%;
 }
 
-.reader .author .meta {
-    font-size: .9em;
-    color: var(--text-color-gray);
+.reader .author .info {
+    display: inline-block;
+    vertical-align: top;
+}
+.reader .meta {
+    font-size: .8em;
+}
+
+.reader .author .meta-share {
+    margin-top: -0.5em;
+}
+.reader .author .meta-share a {
+    text-decoration: none;
+}
+.reader .author .meta-share i {
+    margin-left: .5em;
+}
+.reader .author .meta-share .fab {
+    color: var(--text-color-gray)
 }
 
 .reader .tag {

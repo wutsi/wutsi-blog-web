@@ -45,15 +45,15 @@
             <!-- Share -->
             <div class="margin-top" th:text="#{page.story.share.message}">Message</div>
 
-            <a id="facebook-share" class="sso-button margin-top-2x" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?u=' + ${url}">
+            <a id="facebook-share" target="_new" class="sso-button margin-top-2x" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?u=' + ${url}">
                 <i class="fab fa-facebook-square"></i>
                 <span th:text="#{page.story.share.share-facebook}">Sign in with Facebook</span>
             </a>
-            <a id="twitter-share" class="sso-button margin-top" href="#" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/share?url=' + ${url}">
+            <a id="twitter-share" target="_new" class="sso-button margin-top" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/share?url=' + ${url}">
                 <i class="fab fa-twitter-square"></i>
                 <span th:text="#{page.story.share.share-twitter}">Sign in with Twitter</span>
             </a>
-            <a id="linkedin-share" class="sso-button margin-top" href="#" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
+            <a id="linkedin-share" target="_new" class="sso-button margin-top" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
                 <i class="fab fa-linkedin"></i>
                 <span th:text="#{page.story.share.share-linkedin}">Sign in with LinkedIn</span>
             </a>

@@ -53,5 +53,35 @@
 
 </div>
 
+<div th:fragment="share(story, url)" class="meta meta-share">
+    <a id="facebook-share" target="_new" class="margin-top-2x" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?u=' + ${url}">
+        <i class="fab fa-facebook-square fa-2x"></i>
+    </a>
+    <a id="twitter-share" target="_new" class="margin-top" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/share?url=' + ${url}">
+        <i class="fab fa-twitter-square fa-2x"></i>
+    </a>
+    <a id="linkedin-share" target="_new" class="margin-top" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
+        <i class="fab fa-linkedin fa-2x"></i>
+    </a>
+</div>
+
+<div th:fragment="author(story, showBio, showMeta)" class="author">
+    <img class="margin-right" th:src="${story.user.pictureUrl}" th:alt="${story.user.fullName}" />
+    <div class="info">
+        <h5 th:text="${story.user.fullName}">Ray Sponsible</h5>
+        <div th:if="${showBio} AND ${story.user.biography}">Biography</div>
+        <div th:if="${showMeta}">
+            <div th:replace="components/story :: meta(${story})"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div th:fragment="meta(story)" class="meta">
+    <span th:text="${story.publishedDateTime}">12 May</span>
+    -
+    <span th:text="#{story.read_time(${story.readingMinutes})}">3 min</span>
+</div>
+
 </body>
 </html>

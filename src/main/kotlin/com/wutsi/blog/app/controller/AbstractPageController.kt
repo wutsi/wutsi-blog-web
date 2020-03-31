@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.controller
 
 import com.wutsi.blog.app.model.PageModel
+import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import org.springframework.beans.factory.annotation.Value
@@ -36,4 +37,6 @@ abstract class AbstractPageController(
             robots = robots(),
             baseUrl = baseUrl
     )
+
+    protected fun url(story: StoryModel) = baseUrl + story.slug
 }
