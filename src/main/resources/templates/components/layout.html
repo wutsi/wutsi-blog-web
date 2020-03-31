@@ -82,8 +82,8 @@
         <img src="/assets/wutsi/img/logo/logo.png" alt="Wutsi" title="Wutsi"/></a>
 
 
-    <ul class="navbar-nav ml-auto" >
-        <li class="nav-item dropdown" th:if="${user} AND ${page.name != 'page.Login'}">
+    <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
+        <li class="nav-item dropdown" th:if="${user}">
             <a class="nav-link user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
             </a>

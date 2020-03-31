@@ -336,6 +336,9 @@ ul.step-indicator li.active {
     margin: 0 0 1em 0;
 }
 
+.reader .content blockquote {
+    margin: 2em 0;
+}
 .reader .content blockquote p {
     font-size: 1.4em;
     font-weight: bold;
