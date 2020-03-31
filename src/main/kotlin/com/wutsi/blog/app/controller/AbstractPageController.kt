@@ -22,7 +22,7 @@ abstract class AbstractPageController(
 
     open protected fun shouldBeIndexedByBots() = false
 
-    protected fun robots () = if (shouldBeIndexedByBots()) "all" else "noindex,noindex"
+    protected fun robots () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
 
     protected fun page() = PageModel(
             name = pageName(),
