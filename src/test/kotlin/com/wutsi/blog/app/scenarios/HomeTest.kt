@@ -35,6 +35,7 @@ class HomeTest: SeleniumTestSupport() {
 
     @Test
     fun `home page should contains META headers`() {
+        assertElementAttribute("head base", "href", "http://localhost:8081")
         assertElementAttribute("head title", "text", META_TITLE)
         assertElementAttribute("head meta[name='description']", "content", META_DESCRIPTION)
         assertElementAttribute("head meta[name='robots']", "content", "all")

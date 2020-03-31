@@ -3,11 +3,15 @@ package com.wutsi.blog.app.controller
 import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.ModelAttribute
 
 abstract class AbstractPageController(
         protected val requestContext: RequestContext
 ) {
+    @Value("\${wutsi.base-url}")
+    protected lateinit var baseUrl: String
+
     protected abstract fun pageName(): String
 
 
@@ -29,6 +33,7 @@ abstract class AbstractPageController(
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
             type = "website",
-            robots = robots()
+            robots = robots(),
+            baseUrl = baseUrl
     )
 }

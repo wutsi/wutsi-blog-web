@@ -8,7 +8,7 @@
 <div th:fragment="head" th:remove="tag">
     <meta charset="utf-8" />
 
-    <base href="/" />
+    <base th:href="${page.baseUrl}" />
 
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

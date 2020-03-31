@@ -23,8 +23,6 @@ class ReadController(
         private val ejsHtmlWriter: EJSHtmlWriter,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    @Value("\${wutsi.base-url}")
-    lateinit var baseUrl: String
 
     override fun pageName() = PageName.READ
 
@@ -76,6 +74,7 @@ class ReadController(
             author = story.user.fullName,
             publishedTime = story.publishedDateTimeISO8601,
             modifiedTime = story.modificationDateTimeISO8601,
+            baseUrl = baseUrl,
             robots = robots(),
             tags = story.tags.map { it.name }
     )

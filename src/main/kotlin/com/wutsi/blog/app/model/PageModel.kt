@@ -11,6 +11,7 @@ data class PageModel (
         val publishedTime: String? = null,
         val author: String? = null,
         val robots: String = "all",
-        val tags: List<String> = emptyList()
+        val tags: List<String> = emptyList(),
+        val baseUrl: String = ""
 )
 

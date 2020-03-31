@@ -49,8 +49,9 @@ class StoryReaderTest: SeleniumTestSupport() {
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 
-        assertElementAttribute("head meta[name='description']", "content", description)
+        assertElementAttribute("head base", "href", "http://localhost:8081")
         assertElementAttribute("head title", "text", title)
+        assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "all")
 
         assertElementAttribute("head meta[property='og:title']", "content", title)
