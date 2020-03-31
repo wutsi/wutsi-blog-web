@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.controller
 
-import com.wutsi.blog.app.model.OpenGraphModel
+import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute
 abstract class AbstractPageController(
         protected val requestContext: RequestContext
 ) {
-    @ModelAttribute(ModelAttributeName.PAGE_NAME)
-    fun getPageName() = page()
+    protected abstract fun pageName(): String
+
 
     @ModelAttribute(ModelAttributeName.USER)
     fun getUser() = requestContext.currentUser()
@@ -17,12 +17,18 @@ abstract class AbstractPageController(
     @ModelAttribute(ModelAttributeName.TOGGLES)
     fun getToggles() = requestContext.toggles()
 
-    @ModelAttribute(ModelAttributeName.OPEN_GRAPH)
-    fun getOpenGraph() = OpenGraphModel(
+    @ModelAttribute(ModelAttributeName.PAGE)
+    fun getPage() = page()
+
+    open protected fun shouldBeIndexedByBots() = false
+
+    protected fun robots () = if (shouldBeIndexedByBots()) "all" else "noindex,noindex"
+
+    protected fun page() = PageModel(
+            name = pageName(),
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
-            type = "website"
+            type = "website",
+            robots = robots()
     )
-
-    protected abstract fun page(): String
 }

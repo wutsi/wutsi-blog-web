@@ -17,7 +17,10 @@ class HomeController(
         private val service: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun page() = PageName.HOME
+    override fun pageName() = PageName.HOME
+
+    override fun shouldBeIndexedByBots() = true
+
 
     @GetMapping()
     fun index(model: Model): String {

@@ -16,7 +16,7 @@ class StoryPublishController(
         private val service: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun page() = PageName.STORY_PUBLISH
+    override fun pageName() = PageName.STORY_PUBLISH
 
     @GetMapping("/story/{id}/publish")
     fun index(@PathVariable id:Long, model: Model): String {

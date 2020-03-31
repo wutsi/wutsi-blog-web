@@ -15,7 +15,7 @@ class StoryDraftController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryListController(service, requestContext) {
-    override fun page() = PageName.STORY_LIST_DRAFT
+    override fun pageName() = PageName.STORY_LIST_DRAFT
 
     override fun viewName() = "page/story/draft"
 

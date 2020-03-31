@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.controller
 
+import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
@@ -18,7 +19,7 @@ class WutsiErrorController(
         private val LOGGER = LoggerFactory.getLogger(WutsiErrorController::class.java)
     }
 
-    override fun page() = ""
+    override fun pageName(): String = ""
 
     @GetMapping("/error")
     fun error(request: HttpServletRequest, model: Model): String {
@@ -31,23 +32,39 @@ class WutsiErrorController(
             LOGGER.error("StatusCode=$code - $message")
         }
 
-        /* error code */
+        model.addAttribute(ModelAttributeName.PAGE, toPage(code))
         if (code == 400){
-            model.addAttribute(ModelAttributeName.PAGE_NAME, PageName.ERROR_400)
             return "page/error/404"
         } else if (code == 403){
-            model.addAttribute(ModelAttributeName.PAGE_NAME, PageName.ERROR_403)
             return "page/error/404"
         } else if (code == 404){
-            model.addAttribute(ModelAttributeName.PAGE_NAME, PageName.ERROR_404)
             return "page/error/404"
         } else {
-            model.addAttribute(ModelAttributeName.PAGE_NAME, PageName.ERROR_500)
             return "page/error/500"
         }
     }
 
     override fun getErrorPath(): String {
         return "/error"
+    }
+
+    private fun toPage(code: Int?) = PageModel(
+            name = pageName(code),
+            title = requestContext.getMessage("wutsi.title"),
+            description = requestContext.getMessage("wutsi.description"),
+            type = "website",
+            robots = robots()
+    )
+
+    private fun pageName(code: Int?): String {
+        if (code == 400){
+            return PageName.ERROR_400
+        } else if (code == 403){
+            return PageName.ERROR_403
+        } else if (code == 404){
+            return PageName.ERROR_404
+        } else {
+            return PageName.ERROR_500
+        }
     }
 }

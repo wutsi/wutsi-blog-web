@@ -1,9 +1,10 @@
 package com.wutsi.blog.app.controller
 
-import com.wutsi.blog.app.model.OpenGraphModel
+import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
+import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.editorjs.html.EJSHtmlWriter
@@ -21,7 +22,10 @@ class ReadController(
         private val ejsHtmlWriter: EJSHtmlWriter,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun page() = PageName.READ
+    override fun pageName() = PageName.READ
+
+    override fun shouldBeIndexedByBots() = true
+
 
     @GetMapping("/read/{id}/{title}")
     fun read(@PathVariable id: Long, @PathVariable title: String, model: Model): String {
@@ -37,7 +41,7 @@ class ReadController(
         val html = toHtml(story)
         model.addAttribute("html", html)
 
-        model.addAttribute("openGraph", toOpenGraph(story))
+        model.addAttribute(ModelAttributeName.PAGE, toPage(story))
         return "page/read"
     }
 
@@ -58,7 +62,7 @@ class ReadController(
         }
     }
 
-    private fun toOpenGraph(story: StoryModel)= OpenGraphModel(
+    private fun toPage(story: StoryModel)= PageModel(
             title = story.title!!,
             description = story.summary!!,
             type = "article",
@@ -67,6 +71,7 @@ class ReadController(
             author = story.user.fullName,
             publishedTime = story.publishedDateTimeISO8601,
             modifiedTime = story.modificationDateTimeISO8601,
+            robots = robots(),
             tags = story.tags.map { it.name }
     )
 

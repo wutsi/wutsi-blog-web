@@ -13,21 +13,23 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name="wutsi:page_name" th:content="${pageName}" th:if="${pageName}"/>
+    <meta name="wutsi:page_name" th:content="${page.name}"/>
     <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
 
-    <title th:text="${openGraph.title}"></title>
-    <meta name="description" th:content="${openGraph.description}" />
+    <title th:text="${page.title}"></title>
+    <meta name="description" th:content="${page.description}" />
     <meta property="og:site_name" th:content="Wutsi" />
-    <meta property="og:type" th:content="${openGraph.type}" />
-    <meta property="og:url" th:content="${openGraph.url}" th:if="${openGraph.imageUrl}" />
-    <meta property="og:title" th:content="${openGraph.title}" />
-    <meta property="og:description" th:content="${openGraph.description}" />
-    <meta property="og:image" th:content="${openGraph.imageUrl}" th:if="${openGraph.imageUrl}" />
-    <meta property="article:author" th:content="${openGraph.author}" th:if="${openGraph.author}" />
-    <meta property="article:published_time" th:content="${openGraph.publishedTime}" th:if="${openGraph.publishedTime}" />
-    <meta property="article:modified_time" th:content="${openGraph.modifiedTime}" th:if="${openGraph.modifiedTime}" />
-    <meta property="article:tag" th:content="${tag}" th:each="tag : ${openGraph.tags}" />
+    <meta property="og:type" th:content="${page.type}" />
+    <meta property="og:url" th:content="${page.url}" th:if="${page.imageUrl}" />
+    <meta property="og:title" th:content="${page.title}" />
+    <meta property="og:description" th:content="${page.description}" />
+    <meta property="og:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}" />
+    <meta property="article:author" th:content="${page.author}" th:if="${page.author}" />
+    <meta property="article:published_time" th:content="${page.publishedTime}" th:if="${page.publishedTime}" />
+    <meta property="article:modified_time" th:content="${page.modifiedTime}" th:if="${page.modifiedTime}" />
+    <meta property="article:tag" th:content="${tag}" th:each="tag : ${page.tags}" />
+
+    <meta name="robots" th:content="${page.robots}" />
 
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -81,7 +83,7 @@
 
 
     <ul class="navbar-nav ml-auto" >
-        <li class="nav-item dropdown" th:if="${user} AND ${pageName != 'page.Login'}">
+        <li class="nav-item dropdown" th:if="${user} AND ${page.name != 'page.Login'}">
             <a class="nav-link user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
             </a>
@@ -95,11 +97,14 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/story/editor" wutsi-track-event="navbar.menu.story.new"  th:text="#{navbar.new-stories}">New Story</a>
-                <a class="dropdown-item" href="/story/draft" wutsi-track-event="navbar.menu.story.me" th:text="#{navbar.my-stories}">My Stories</a>
+                <a class="dropdown-item" href="/story/editor" rel="nofollow" wutsi-track-event="navbar.story_editor"  th:text="#{navbar.new-stories}">New Story</a>
+                <a class="dropdown-item" href="/story/draft" rel="nofollow" wutsi-track-event="navbar.story_draft" th:text="#{navbar.my-stories}">My Stories</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/logout" wutsi-track-event="navbar.menu.logout" th:text="#{navbar.logout}">Logout</a>
+                <a class="dropdown-item" href="/logout" rel="nofollow" wutsi-track-event="navbar.logout" th:text="#{navbar.logout}">Logout</a>
             </div>
+        </li>
+        <li class="nav-item dropdown" th:if="!${user} OR ${page.name != 'page.Login'}">
+            <a class="login btn btn-primary" href="/login" rel="nofollow" th:text="#{button.login}">Login</a>
         </li>
     </ul>
 

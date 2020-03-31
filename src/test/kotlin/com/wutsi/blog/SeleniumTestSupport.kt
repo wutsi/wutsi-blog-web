@@ -35,7 +35,10 @@ import java.util.concurrent.TimeUnit
 @ActiveProfiles("qa")
 abstract class SeleniumTestSupport {
     companion object {
-        protected var wiremock: WireMockServer? = null
+        var wiremock: WireMockServer? = null
+
+        const val META_TITLE = "Wutsi"
+        const val META_DESCRIPTION: String = "Wutsi est une plateforme de partage d'idées, d'opinions et d'information. Les informations vous sont partagées sans la moindre intrusion de banieres publicitaire."
     }
 
     @LocalServerPort

@@ -15,7 +15,7 @@ class StoryPublishedController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryListController(service, requestContext) {
-    override fun page() = PageName.STORY_LIST_PUBLISHED
+    override fun pageName() = PageName.STORY_LIST_PUBLISHED
 
     override fun viewName() = "page/story/published"
 

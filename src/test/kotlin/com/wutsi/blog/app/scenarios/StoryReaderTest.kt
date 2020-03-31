@@ -49,6 +49,10 @@ class StoryReaderTest: SeleniumTestSupport() {
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 
+        assertElementAttribute("head meta[name='description']", "content", description)
+        assertElementAttribute("head title", "text", title)
+        assertElementAttribute("head meta[name='robots']", "content", "all")
+
         assertElementAttribute("head meta[property='og:title']", "content", title)
         assertElementAttribute("head meta[property='og:description']","content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "article")
@@ -59,8 +63,5 @@ class StoryReaderTest: SeleniumTestSupport() {
         assertElementAttributeStartsWith("head meta[property='article:modified_time']", "content", "2020-03-27T")
         assertElementAttributeStartsWith("head meta[property='article:published_time']", "content", "2020-03-27T")
         assertElementCount("head meta[property='article:tag']", 3)
-
-        assertElementAttribute("head meta[name='description']", "content", description)
-        assertElementAttribute("head title", "text", title)
     }
 }

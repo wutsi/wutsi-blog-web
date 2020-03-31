@@ -15,5 +15,5 @@ class LoginController(requestContext: RequestContext): AbstractPageController(re
         return "page/login"
     }
 
-    override fun page() = PageName.LOGIN
+    override fun pageName() = PageName.LOGIN
 }

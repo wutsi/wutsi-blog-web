@@ -22,21 +22,25 @@ class HomeTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user should view recent stories in home page`() {
+    fun `anonymous user should view login button in home page`() {
+        assertElementPresent("nav .login")
+        assertElementAttribute("nav .login", "rel", "nofollow")
+    }
 
+    @Test
+    fun `user should view recent stories in home page`() {
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".post", 4)
     }
 
     @Test
     fun `home page should contains META headers`() {
-        val description = "Wutsi est une plateforme de partage d'idées, d'opinions et d'information. Les informations vous sont partagées sans la moindre intrusion de banieres publicitaire."
-
-        assertElementAttribute("head title", "text", "Wutsi")
-        assertElementAttribute("head meta[name='description']", "content", description)
+        assertElementAttribute("head title", "text", META_TITLE)
+        assertElementAttribute("head meta[name='description']", "content", META_DESCRIPTION)
+        assertElementAttribute("head meta[name='robots']", "content", "all")
 
         assertElementAttribute("head meta[property='og:title']", "content", "Wutsi")
-        assertElementAttribute("head meta[property='og:description']","content", description)
+        assertElementAttribute("head meta[property='og:description']","content", META_DESCRIPTION)
         assertElementAttribute("head meta[property='og:type']", "content", "website")
         assertElementNotPresent("head meta[property='og:url']")
         assertElementNotPresent("head meta[property='og:image']")

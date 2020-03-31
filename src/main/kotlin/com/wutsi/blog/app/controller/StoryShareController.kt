@@ -22,7 +22,7 @@ class StoryShareController(
         private val LOGGER = LoggerFactory.getLogger(StoryShareController::class.java)
     }
 
-    override fun page() = PageName.STORY_SHARE
+    override fun pageName() = PageName.STORY_SHARE
 
     @GetMapping("/story/{id}/share")
     fun index(@PathVariable id:Long, model: Model): String {

@@ -19,7 +19,7 @@ class StoryEditorController(
         private val service: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun page() = PageName.STORY_EDITOR
+    override fun pageName() = PageName.STORY_EDITOR
 
     @GetMapping("/story/editor")
     fun create(model: Model): String {

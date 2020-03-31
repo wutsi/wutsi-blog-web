@@ -20,7 +20,7 @@ class StoryConfirmationController(
         private val LOGGER = LoggerFactory.getLogger(StoryConfirmationController::class.java)
     }
 
-    override fun page() = PageName.STORY_CONFIRMATION
+    override fun pageName() = PageName.STORY_CONFIRMATION
 
     @GetMapping("/story/{id}/confirmation")
     fun index(@PathVariable id:Long, model: Model): String {

@@ -31,4 +31,12 @@ class StoryDraftTest: SeleniumTestSupport() {
 //        assertCurrentPageIs(PageName.STORY_LIST_DRAFT)
 //        assertElementCount(".story", 4)
 //    }
+
+    @Test
+    fun `draft page should contains META headers`() {
+        assertElementAttribute("head title", "text", META_TITLE)
+        assertElementAttribute("head meta[name='description']", "content", META_DESCRIPTION)
+        assertElementAttribute("head meta[name='robots']", "content", "noindex,noindex")
+    }
+
 }
