@@ -11,6 +11,9 @@ wutsi:
       facebook:
         client-id: 629340480740249
         client-secret: d8549ed13e6217a3c65e2c5ce69283fa
+      google:
+        client-id: 806985813772-ae9dav3ankkfcpbq0optkkv7ve6g0q5c.apps.googleusercontent.com
+        client-secret: ySK8Wohv1go1xA7GPbwJG685
 
   storage:
     s3:
@@ -21,6 +24,6 @@ wutsi:
 
   toggles:
     sso-facebook: true
-    sso-google: false
-    sso-twitter: true
+    sso-google: true
+    sso-twitter: false
     sso-github: true

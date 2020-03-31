@@ -56,6 +56,10 @@ wutsi:
       client-id: 00000000
       client-secret: 0000000000000000
       callback-url: ${wutsi.base-url}/login/facebook/callback
+    google:
+      client-id: 00000000
+      client-secret: 0000000000000000
+      callback-url: ${wutsi.base-url}/login/google/callback
     twitter:
       client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
       client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
@@ -75,5 +79,5 @@ wutsi:
   toggles:
     sso-facebook: false
     sso-google: false
-    sso-twitter: true
+    sso-twitter: false
     sso-github: true

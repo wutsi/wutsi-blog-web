@@ -21,5 +21,5 @@ $ mvn clean install
 ```
 $ java -jar target/wutsi-blog-web.jar
 ```
-- Launch the blog API server [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#launch-the-service)
+- Launch the blog REST server [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#launch-the-service)
 - Navigate to `http://localhost:8081`

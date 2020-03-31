@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import java.net.URLEncoder
 import java.util.UUID
@@ -40,7 +41,8 @@ abstract class AbstractOAuth20LoginController {
                 state = state,
                 user = loadUser(accessToken)
         )
-        return return "redirect:$url"
+        LoggerFactory.getLogger(javaClass).info("Redirecting to $url")
+        return "redirect:$url"
     }
 
     protected fun getSigninUrl(
@@ -52,7 +54,7 @@ abstract class AbstractOAuth20LoginController {
                 "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
                 "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
                 "&" + SecurityConfiguration.PARAM_PROVIDER + "=" + SecurityConfiguration.PROVIDER_GITHUB +
-                "&" + SecurityConfiguration.PARAM_USER + "=" + objectMapper.writeValueAsString(user)
+                "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
 
     }
 
