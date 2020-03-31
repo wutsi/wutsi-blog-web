@@ -63,6 +63,7 @@ class ReadController(
     }
 
     private fun toPage(story: StoryModel)= PageModel(
+            name = pageName(),
             title = story.title!!,
             description = story.summary!!,
             type = "article",

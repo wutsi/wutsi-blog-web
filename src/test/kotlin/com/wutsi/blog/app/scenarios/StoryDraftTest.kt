@@ -34,6 +34,8 @@ class StoryDraftTest: SeleniumTestSupport() {
 
     @Test
     fun `draft page should contains META headers`() {
+        driver?.get("$url/story/draft")
+
         assertElementAttribute("head title", "text", META_TITLE)
         assertElementAttribute("head meta[name='description']", "content", META_DESCRIPTION)
         assertElementAttribute("head meta[name='robots']", "content", "noindex,noindex")
