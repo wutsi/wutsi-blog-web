@@ -7,22 +7,19 @@
 WebApp for the wutsi blog platform
 
 ## Installation
-- Install the blog REST API [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#installation)
-
 - Download the code and build
 ```
 $ git clone git@github.com:wutsi/wutsi-blog-web.git
 $ cd wutsi-blog-web
 $ mvn clean install
 ```
+- Install the blog REST API [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#installation)
 
 
 ### Launch the application
-- Launch the blog API server [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#launch-the-service)
-
 - Launch the webapp on port `8081` with the command:
 ```
 $ java -jar target/wutsi-blog-web.jar
 ```
-
+- Launch the blog API server [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#launch-the-service)
 - Navigate to `http://localhost:8081`
