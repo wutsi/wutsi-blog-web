@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.oauth.controller
+package com.wutsi.blog.app.security.controller
 
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
@@ -13,28 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/login/github")
-class GithubLoginController(
+class GoogleLoginController(
         @Qualifier(OAuthConfiguration.GITHUB_OAUTH_SERVICE) private val oauth: OAuth20Service
 ): AbstractOAuth20LoginController() {
     override fun getOAuthService() = oauth
 
     override fun loadUser(accessToken: String): OAuthUser {
-        val request = OAuthRequest(Verb.GET, "https://api.github.com/user")
+        val request = OAuthRequest(Verb.GET, "https://www.googleapis.com/oauth2/v3/userinfo")
         oauth.signRequest(accessToken, request)
 
         val response = oauth.execute(request)
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return OAuthUser(
-                id = attrs["login"].toString(),
-                fullName = githubFullName(attrs),
+                id = attrs["id"].toString(),
+                fullName = attrs["name"].toString(),
                 email = attrs["email"]?.toString(),
-                pictureUrl = attrs["avatar_url"]?.toString(),
-                provider = SecurityConfiguration.PROVIDER_GITHUB
+                pictureUrl = attrs["picture"]?.toString(),
+                provider = SecurityConfiguration.PROVIDER_GOOGLE
         )
-    }
-
-    private fun githubFullName(attrs: Map<String, Any>): String {
-        val name = attrs["name"]?.toString()
-        return if (name == null || name.isEmpty()) attrs["login"]!!.toString() else name
     }
 }

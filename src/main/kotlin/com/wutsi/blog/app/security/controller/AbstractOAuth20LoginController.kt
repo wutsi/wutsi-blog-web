@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.oauth.controller
+package com.wutsi.blog.app.security.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.oauth.OAuth20Service

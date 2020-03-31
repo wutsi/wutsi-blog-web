@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.oauth.controller
+package com.wutsi.blog.app.security.controller
 
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
@@ -9,30 +9,32 @@ import com.wutsi.blog.app.security.oauth.OAuthUser
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
-import javax.servlet.http.HttpServletRequest
 
 
 @Controller
-@RequestMapping("/login/facebook")
-class FacebookLoginController(
-        @Qualifier(OAuthConfiguration.FACEBOOK_OAUTH_SERVICE) private val oauth: OAuth20Service
-) : AbstractOAuth20LoginController() {
+@RequestMapping("/login/github")
+class GithubLoginController(
+        @Qualifier(OAuthConfiguration.GITHUB_OAUTH_SERVICE) private val oauth: OAuth20Service
+): AbstractOAuth20LoginController() {
     override fun getOAuthService() = oauth
 
     override fun loadUser(accessToken: String): OAuthUser {
-        val request = OAuthRequest(Verb.GET, "https://graph.facebook.com/me")
+        val request = OAuthRequest(Verb.GET, "https://api.github.com/user")
         oauth.signRequest(accessToken, request)
 
         val response = oauth.execute(request)
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return OAuthUser(
-                id = attrs["id"].toString(),
-                fullName = attrs["name"].toString(),
+                id = attrs["login"].toString(),
+                fullName = githubFullName(attrs),
                 email = attrs["email"]?.toString(),
-                pictureUrl = "http://graph.facebook.com/" + attrs["id"] + "/picture?type=square",
-                provider = SecurityConfiguration.PROVIDER_FACEBOOK
+                pictureUrl = attrs["avatar_url"]?.toString(),
+                provider = SecurityConfiguration.PROVIDER_GITHUB
         )
     }
 
-    override fun getError(request: HttpServletRequest) = request.getParameter("error_code")
+    private fun githubFullName(attrs: Map<String, Any>): String {
+        val name = attrs["name"]?.toString()
+        return if (name == null || name.isEmpty()) attrs["login"]!!.toString() else name
+    }
 }

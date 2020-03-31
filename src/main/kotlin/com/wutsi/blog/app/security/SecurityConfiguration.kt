@@ -40,6 +40,7 @@ class SecurityConfiguration(
 
         const val PROVIDER_GITHUB = "github"
         const val PROVIDER_FACEBOOK = "facebook"
+        const val PROVIDER_GOOGLE = "google"
     }
 
     @Autowired
