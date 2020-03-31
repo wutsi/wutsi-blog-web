@@ -60,6 +60,7 @@ class SecurityConfiguration(
                 .antMatchers( "*.ico").permitAll()
                 .antMatchers( "/error").permitAll()
                 .antMatchers( "/assets/**/*").permitAll()
+                .antMatchers( "/actuator/**/*").permitAll()
                 .antMatchers( "/login").permitAll()
                 .antMatchers( "/login/**/*").permitAll()
                 .antMatchers( "/logout").permitAll()

@@ -14,12 +14,14 @@ class LogoutHandlerImpl(private val backend: AuthenticationBackend): LogoutHandl
         private val LOGGER = LoggerFactory.getLogger(LogoutHandlerImpl::class.java)
     }
 
-    override fun logout(request: HttpServletRequest, response: HttpServletResponse, auth: Authentication) {
-        val accessToken = auth.name
-        try {
-            backend.logout(accessToken)
-        } catch(ex: Exception) {
-            LOGGER.warn("Logout failed", ex)
+    override fun logout(request: HttpServletRequest, response: HttpServletResponse, auth: Authentication?) {
+        if (auth != null) {
+            val accessToken = auth.name
+            try {
+                backend.logout(accessToken)
+            } catch (ex: Exception) {
+                LOGGER.warn("Logout failed", ex)
+            }
         }
     }
 }
