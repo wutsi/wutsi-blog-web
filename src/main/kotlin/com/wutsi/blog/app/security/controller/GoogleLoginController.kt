@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 
 @Controller
-@RequestMapping("/login/github")
+@RequestMapping("/login/google")
 class GoogleLoginController(
         @Qualifier(OAuthConfiguration.GITHUB_OAUTH_SERVICE) private val oauth: OAuth20Service
 ): AbstractOAuth20LoginController() {
