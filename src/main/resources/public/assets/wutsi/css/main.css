@@ -332,17 +332,13 @@ ul.step-indicator li.active {
     font-size: .8em;
 }
 
-.reader .author .meta-share {
-    margin-top: -0.5em;
-}
-.reader .author .meta-share a {
+.reader .share a {
     text-decoration: none;
 }
-.reader .author .meta-share i {
+.reader .share .fab {
+    color: var(--text-color);
+    font-size: 1.5em;
     margin-left: .5em;
-}
-.reader .author .meta-share .fab {
-    color: var(--text-color-gray)
 }
 
 .reader .tag {
