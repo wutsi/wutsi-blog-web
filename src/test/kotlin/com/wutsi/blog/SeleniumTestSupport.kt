@@ -14,6 +14,7 @@ import com.wutsi.blog.app.security.SecurityConfiguration
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
@@ -58,6 +59,7 @@ abstract class SeleniumTestSupport {
         this.url = "http://localhost:$port"
 
         val options = ChromeOptions()
+        options.addArguments("--disable-web-security")  // To prevent CORS issues
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
         }
@@ -160,7 +162,7 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun assertElementHasNotClass(selector: String, value: String) {
-        assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute("class").contains(value))
+        assertFalse(driver.findElement(By.cssSelector(selector)).getAttribute("class").contains(value))
     }
 
     protected fun click(selector: String){
