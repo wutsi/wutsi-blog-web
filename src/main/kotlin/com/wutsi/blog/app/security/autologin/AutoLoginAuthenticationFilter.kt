@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.auto
+package com.wutsi.blog.app.security.autologin
 
 import com.wutsi.blog.app.service.AccessTokenStorage
 import org.springframework.security.authentication.AnonymousAuthenticationToken
@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 
-class AutoLoginFilter(
+class AutoLoginAuthenticationFilter(
         private val storage: AccessTokenStorage,
         private val authenticationManager: AuthenticationManager,
         private val excludePaths: RequestMatcher

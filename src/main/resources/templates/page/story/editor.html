@@ -10,7 +10,13 @@
 
 <div class="alert alert-danger container margin-top" th:if="${error}" th:text="#{'error.' + ${error}}">Error</div>
 
-<div class="container editor border margin-top">
+<div id="story-load-error" class="alert alert-danger container margin-top hidden">
+    <div class="not-found  hidden" th:utext="#{story.error.not-found}"></div>
+    <div class="permission-denied  hidden" th:utext="#{story.error.permission-denied}"></div>
+    <div class="unknown  hidden" th:utext="#{story.error.load}"></div>
+</div>
+
+<div id="story-editor" class="container editor border margin-top hidden">
 
     <div class="row border-bottom">
         <div class="col-12 padding">
@@ -36,8 +42,8 @@
         </div>
     </div>
 
-
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
@@ -54,6 +60,7 @@
 /*<![CDATA[*/
 
     var storyId = /*[[${storyId}]]*/'0';
+
 
     function publish(id) {
         window.location.href = '/story/' + id + '/publish';
@@ -73,11 +80,23 @@
                     contentType: 'application/json'
                 })
                 .done( function(story) {
-                        editor.setup(story);
-                    })
+                    editor.setup(story);
+                    $('#story-editor').removeClass('hidden');
+                })
                 .fail(function(error) {
-                        console.error('Unable to load the Story#' + storyId, error)
-                    });
+                    console.error('Unable to load the Story#' + storyId, error);
+
+                    var selector = '';
+                    if (error.status == 404) {
+                        selector = '#story-load-error .not-found';
+                    } else if (error.status == 403) {
+                        selector = '#story-load-error .permission-denied';
+                    } else {
+                        selector = '#story-load-error .unknown';
+                    }
+                    $(selector).removeClass('hidden');
+                    $('#story-load-error').removeClass('hidden');
+                });
         } else {
             editor.setup(null);
         }

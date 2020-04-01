@@ -10,6 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
+import com.wutsi.blog.app.security.SecurityConfiguration
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -27,6 +28,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 
@@ -48,7 +50,7 @@ abstract class SeleniumTestSupport {
 
     protected var timeout = 10L
 
-    protected var driver: WebDriver? = null
+    lateinit protected var driver: WebDriver
 
 
     @Before
@@ -61,7 +63,7 @@ abstract class SeleniumTestSupport {
         }
 
         this.driver = ChromeDriver(options)
-        driver!!.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
+        driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
 
         if (wiremock == null) {
             wiremock = WireMockServer()
@@ -75,13 +77,19 @@ abstract class SeleniumTestSupport {
     @Throws(Exception::class)
     fun tearDown() {
         wiremock?.resetMappings()
-        driver?.quit()
+        driver.quit()
     }
 
     protected fun setupWiremock() {
     }
 
-
+    protected fun login() {
+        val state = UUID.randomUUID().toString()
+        driver.get(
+                url + SecurityConfiguration.QA_SIGNIN_PATTERN +
+                "?" + SecurityConfiguration.PARAM_STATE + "=" + state
+        )
+    }
 
     protected fun stub(
             method: HttpMethod,
@@ -120,46 +128,54 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun assertCurrentPageIs(page: String) {
-        assertEquals(page, driver?.findElement(By.cssSelector("meta[name=wutsi\\:page_name]"))?.getAttribute("content"))
+        assertEquals(page, driver.findElement(By.cssSelector("meta[name=wutsi\\:page_name]"))?.getAttribute("content"))
     }
 
     protected fun assertElementNotPresent(selector: String){
-        assertTrue(driver!!.findElements(By.cssSelector(selector)).size == 0)
+        assertTrue(driver.findElements(By.cssSelector(selector)).size == 0)
     }
 
     protected fun assertElementPresent(selector: String){
-        assertTrue(driver!!.findElements(By.cssSelector(selector)).size > 0)
+        assertTrue(driver.findElements(By.cssSelector(selector)).size > 0)
     }
 
     protected fun assertElementText(selector: String, text: String) {
-        assertEquals(text, driver!!.findElement(By.cssSelector(selector)).text)
+        assertEquals(text, driver.findElement(By.cssSelector(selector)).text)
     }
 
     protected fun assertElementCount(selector: String, count: Int) {
-        assertEquals(count, driver!!.findElements(By.cssSelector(selector)).size)
+        assertEquals(count, driver.findElements(By.cssSelector(selector)).size)
     }
 
     protected fun assertElementAttribute(selector: String, name: String, value: String) {
-        assertEquals(value, driver!!.findElement(By.cssSelector(selector)).getAttribute(name))
+        assertEquals(value, driver.findElement(By.cssSelector(selector)).getAttribute(name))
     }
 
     protected fun assertElementAttributeStartsWith(selector: String, name: String, value: String) {
-        driver!!.findElement(By.cssSelector(selector)).getAttribute(name).startsWith(value)
+        assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute(name).startsWith(value))
+    }
+
+    protected fun assertElementHasClass(selector: String, value: String) {
+        assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute("class").contains(value))
+    }
+
+    protected fun assertElementHasNotClass(selector: String, value: String) {
+        assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute("class").contains(value))
     }
 
     protected fun click(selector: String){
-        driver!!.findElement(By.cssSelector(selector)).click()
+        driver.findElement(By.cssSelector(selector)).click()
     }
 
     protected fun input(selector: String, value: String){
         val by = By.cssSelector(selector)
-        driver!!.findElement(by).clear()
-        driver!!.findElement(by).sendKeys(value)
+        driver.findElement(by).clear()
+        driver.findElement(by).sendKeys(value)
     }
 
     protected fun select(selector: String, index: Int){
         val by = By.cssSelector(selector)
-        val select = Select(driver!!.findElement(by))
+        val select = Select(driver.findElement(by))
         select.selectByIndex(index)
     }
 

@@ -1,13 +1,15 @@
 package com.wutsi.blog.app.security
 
-import com.wutsi.blog.app.security.auto.AutoLoginAuthenticationProvider
-import com.wutsi.blog.app.security.auto.AutoLoginFilter
+import com.wutsi.blog.app.security.autologin.AutoLoginAuthenticationFilter
+import com.wutsi.blog.app.security.autologin.AutoLoginAuthenticationProvider
 import com.wutsi.blog.app.security.oauth.OAuthAuthenticationFilter
 import com.wutsi.blog.app.security.oauth.OAuthAuthenticationProvider
 import com.wutsi.blog.app.security.oauth.OAuthRememberMeService
+import com.wutsi.blog.app.security.qa.QAAuthenticationFilter
 import com.wutsi.blog.app.service.AccessTokenStorage
 import com.wutsi.blog.app.util.CookieName
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -30,6 +32,7 @@ class SecurityConfiguration(
 ) : WebSecurityConfigurerAdapter() {
     companion object {
         const val OAUTH_SIGNIN_PATTERN = "/login/oauth/signin"
+        const val QA_SIGNIN_PATTERN = "/login/qa/signin"
 
         const val SESSION_STATE = "wusti.social.state"
 
@@ -41,6 +44,7 @@ class SecurityConfiguration(
         const val PROVIDER_GITHUB = "github"
         const val PROVIDER_FACEBOOK = "facebook"
         const val PROVIDER_GOOGLE = "google"
+        const val PROVIDER_QA = "qa"
     }
 
     @Autowired
@@ -92,7 +96,16 @@ class SecurityConfiguration(
     }
 
     @Bean
-    fun autoLoginFilter(): Filter = AutoLoginFilter(
+    @ConditionalOnProperty(name=["wutsi.toggles.qa-login"], havingValue = "true")
+    fun qaAuthenticationFilter(): QAAuthenticationFilter {
+        val filter = QAAuthenticationFilter(QA_SIGNIN_PATTERN)
+        filter.setAuthenticationManager(authenticationManagerBean())
+
+        return filter
+    }
+
+    @Bean
+    fun autoLoginAuthenticationFilter(): Filter = AutoLoginAuthenticationFilter(
             storage = accessTokenStorage,
             authenticationManager = authenticationManagerBean(),
             excludePaths = OrRequestMatcher(

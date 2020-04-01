@@ -82,3 +82,4 @@ wutsi:
     sso-google: false
     sso-twitter: false
     sso-github: true
+    qa-login: false

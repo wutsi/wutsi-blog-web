@@ -4,6 +4,8 @@ import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
+import com.wutsi.core.exception.ForbiddenException
+import com.wutsi.core.exception.NotFoundException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.ModelAttribute
 
@@ -39,4 +41,16 @@ abstract class AbstractPageController(
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug
+
+    protected fun checkOwnership(story: StoryModel) {
+        if (story.user.id != requestContext.user?.id) {
+            throw ForbiddenException("ownership_error")
+        }
+    }
+
+    protected fun checkPublished(story: StoryModel) {
+        if (!story.published) {
+            throw NotFoundException("story_not_published")
+        }
+    }
 }

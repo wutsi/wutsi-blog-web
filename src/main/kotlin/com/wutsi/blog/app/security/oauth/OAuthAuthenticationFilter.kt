@@ -18,13 +18,11 @@ class OAuthAuthenticationFilter(
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         val accessToken = getRequiredParameter(SecurityConfiguration.PARAM_ACCESS_TOKEN, request)
         val user = getUserAttributes(request)
-        val auth = authenticationManager.authenticate(OAuthTokenAuthentication(
+        return authenticationManager.authenticate(OAuthTokenAuthentication(
                 principal = OAuthPrincipal(accessToken, user),
                 accessToken = accessToken,
                 state = getRequiredParameter(SecurityConfiguration.PARAM_STATE, request)
         ))
-
-        return auth
     }
 
     private fun getUserAttributes(request: HttpServletRequest): OAuthUser {

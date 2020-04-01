@@ -37,7 +37,10 @@ class StoryEditorController(
     @ResponseBody
     @GetMapping("/story/{id}/editor/fetch", produces = ["application/json"])
     fun fetch(@PathVariable id:Long): StoryModel {
-        return service.get(id)
+        val story = service.get(id)
+        super.checkOwnership(story)
+
+        return story
     }
 
     @ResponseBody

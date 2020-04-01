@@ -16,10 +16,13 @@ class OAuthAuthenticationProvider(
         private val request: HttpServletRequest
 ) : AuthenticationProvider {
     override fun authenticate(auth: Authentication): Authentication {
-        validateState()
-
-        val authentication = auth as OAuthTokenAuthentication
-        return authenticate(authentication)
+        try {
+            validateState()
+            val authentication = auth as OAuthTokenAuthentication
+            return authenticate(authentication)
+        } finally {
+            clearState()
+        }
     }
 
     private fun authenticate(authentication: OAuthTokenAuthentication): Authentication {
@@ -41,9 +44,12 @@ class OAuthAuthenticationProvider(
 
     private fun validateState() {
         val state = request.getParameter("state")
-        if (state == null || state != request.session.getAttribute(SecurityConfiguration.SESSION_STATE)){
+        if (state == null || state.isEmpty() || state != request.session.getAttribute(SecurityConfiguration.SESSION_STATE)){
             throw BadCredentialsException("invalid_state")
         }
     }
 
+    private fun clearState() {
+        request.session.removeAttribute(SecurityConfiguration.SESSION_STATE)
+    }
 }

@@ -18,7 +18,7 @@ class HomeControllerTest: SeleniumTestSupport() {
     override fun setUp(){
         super.setUp()
 
-        driver?.get("$url")
+        driver.get("$url")
     }
 
     @Test
@@ -39,17 +39,5 @@ class HomeControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head title", "text", META_TITLE)
         assertElementAttribute("head meta[name='description']", "content", META_DESCRIPTION)
         assertElementAttribute("head meta[name='robots']", "content", "all")
-
-        assertElementAttribute("head meta[property='og:title']", "content", "Wutsi")
-        assertElementAttribute("head meta[property='og:description']","content", META_DESCRIPTION)
-        assertElementAttribute("head meta[property='og:type']", "content", "website")
-        assertElementNotPresent("head meta[property='og:url']")
-        assertElementNotPresent("head meta[property='og:image']")
-        assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
-        assertElementNotPresent("head meta[property='article:author']")
-        assertElementNotPresent("head meta[property='article:modifiedTime']")
-        assertElementNotPresent("head meta[property='article:publishedTime']")
-        assertElementNotPresent("head meta[property='article:tag']")
-
     }
 }

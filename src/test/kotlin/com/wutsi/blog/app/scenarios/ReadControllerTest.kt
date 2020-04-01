@@ -15,38 +15,38 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     override fun setupWiremock() {
-        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_ID", HttpStatus.OK, "v1/story/get_published.json")
-        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_NO_THUMBNAIL_ID", HttpStatus.OK, "v1/story/get_published_no_thumbnail.json")
-        stub(HttpMethod.GET, "/v1/story/$DRAFT_ID", HttpStatus.OK, "v1/story/get_draft.json")
+        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_ID", HttpStatus.OK, "v1/story/get-story10-published.json")
+        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_NO_THUMBNAIL_ID", HttpStatus.OK, "v1/story/get-story30-no_thumbnail.json")
+        stub(HttpMethod.GET, "/v1/story/$DRAFT_ID", HttpStatus.OK, "v1/story/get-story20-draft.json")
 
-        stub(HttpMethod.GET, "/v1/user/[0-9]+", HttpStatus.OK, "v1/user/get.json")
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
     }
 
 
     @Test
     fun `read published story`() {
-        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+        driver.get("$url/read/$PUBLISHED_ID/looks-good")
 
         assertCurrentPageIs(PageName.READ)
     }
 
     @Test
     fun `read draft story`() {
-        driver?.get("$url/read/$DRAFT_ID/looks-good")
+        driver.get("$url/read/$DRAFT_ID/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
 
     @Test
     fun `read invalid story`() {
-        driver?.get("$url/read/9999999/looks-good")
+        driver.get("$url/read/9999999/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
 
     @Test
     fun `share to Facebook`() {
-        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+        driver.get("$url/read/$PUBLISHED_ID/looks-good")
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
 
@@ -57,7 +57,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `share to Twitter`() {
-        driver?.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
+        driver.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
 
@@ -68,7 +68,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `share to LinkedIn`() {
-        driver?.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
+        driver.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
 
@@ -78,7 +78,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `META headers`() {
-        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+        driver.get("$url/read/$PUBLISHED_ID/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -102,7 +102,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `Twitter card summary_large_image`() {
-        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+        driver.get("$url/read/$PUBLISHED_ID/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -116,7 +116,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `Twitter card summary`() {
-        driver?.get("$url/read/$PUBLISHED_NO_THUMBNAIL_ID/looks-good")
+        driver.get("$url/read/$PUBLISHED_NO_THUMBNAIL_ID/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"

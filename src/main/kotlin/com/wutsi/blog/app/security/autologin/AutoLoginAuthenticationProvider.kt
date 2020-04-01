@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.auto
+package com.wutsi.blog.app.security.autologin
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import org.apache.http.auth.BasicUserPrincipal

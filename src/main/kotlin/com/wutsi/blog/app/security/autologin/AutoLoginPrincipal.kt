@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.auto
+package com.wutsi.blog.app.security.autologin
 
 import java.security.Principal
 

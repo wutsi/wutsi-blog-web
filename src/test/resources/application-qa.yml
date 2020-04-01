@@ -6,3 +6,6 @@ wiremock:
 wutsi:
   backend:
     baseurl: "${wiremock.url}"
+
+  toggles:
+    qa-login: true

@@ -21,6 +21,7 @@ class StoryPublishController(
     @GetMapping("/story/{id}/publish")
     fun index(@PathVariable id:Long, model: Model): String {
         val story = service.get(id)
+        super.checkOwnership(story)
 
         model.addAttribute("story", story)
         return "page/story/publish"

@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.auto
+package com.wutsi.blog.app.security.autologin
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority

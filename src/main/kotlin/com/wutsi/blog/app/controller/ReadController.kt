@@ -6,7 +6,6 @@ import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.core.exception.NotFoundException
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.springframework.stereotype.Controller
@@ -36,8 +35,8 @@ class ReadController(
     @GetMapping("/read/{id}")
     fun read(@PathVariable id: Long, model: Model): String {
         val story = storyService.get(id)
+        checkPublished(story)
         model.addAttribute("story", story)
-        ensurePublished(story)
 
         val html = toHtml(story)
         model.addAttribute("html", html)
@@ -55,12 +54,6 @@ class ReadController(
         val html = StringWriter()
         ejsHtmlWriter.write(ejs, html)
         return html.toString()
-    }
-
-    private fun ensurePublished(story: StoryModel) {
-        if (!story.published){
-            throw NotFoundException("story_not_published")
-        }
     }
 
     private fun toPage(story: StoryModel)= PageModel(
