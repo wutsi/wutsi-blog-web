@@ -30,9 +30,12 @@
     <meta property="article:modified_time" th:content="${page.modifiedTime}" th:if="${page.modifiedTime}" />
     <meta property="article:tag" th:content="${tag}" th:each="tag : ${page.tags}" />
 
-    <meta name="twitter:card" content="summary" th:if="${page.twitterUserId}" />
+    <meta name="twitter:card" th:content="${page.imageUrl} ? 'summary_large_image' : 'summary'" />
     <meta name="twitter:site" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}" />
     <meta name="twitter:creator" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}" />
+    <meta name="twitter:title" th:content="${page.title}" />
+    <meta name="twitter:description" th:content="${page.description}" />
+    <meta name="twitter:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}" />
 
     <meta name="robots" th:content="${page.robots}" />
 

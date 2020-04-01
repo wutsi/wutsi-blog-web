@@ -11,10 +11,12 @@ class ReadControllerTest: SeleniumTestSupport() {
     companion object {
         private const val PUBLISHED_ID = "10"
         private const val DRAFT_ID = "20"
+        private const val PUBLISHED_NO_THUMBNAIL_ID = "30"
     }
 
     override fun setupWiremock() {
         stub(HttpMethod.GET, "/v1/story/$PUBLISHED_ID", HttpStatus.OK, "v1/story/get_published.json")
+        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_NO_THUMBNAIL_ID", HttpStatus.OK, "v1/story/get_published_no_thumbnail.json")
         stub(HttpMethod.GET, "/v1/story/$DRAFT_ID", HttpStatus.OK, "v1/story/get_draft.json")
 
         stub(HttpMethod.GET, "/v1/user/[0-9]+", HttpStatus.OK, "v1/user/get.json")
@@ -22,28 +24,28 @@ class ReadControllerTest: SeleniumTestSupport() {
 
 
     @Test
-    fun `user should read published story`() {
+    fun `read published story`() {
         driver?.get("$url/read/$PUBLISHED_ID/looks-good")
 
         assertCurrentPageIs(PageName.READ)
     }
 
     @Test
-    fun `user should be redirected to 404 when he try to read draft story`() {
+    fun `read draft story`() {
         driver?.get("$url/read/$DRAFT_ID/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
 
     @Test
-    fun `user should be redirected to 404 when he try to read invalid story`() {
+    fun `read invalid story`() {
         driver?.get("$url/read/9999999/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
 
     @Test
-    fun `user should share they story on Facebook`() {
+    fun `share to Facebook`() {
         driver?.get("$url/read/$PUBLISHED_ID/looks-good")
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
@@ -54,7 +56,7 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user should share they story on Twitter`() {
+    fun `share to Twitter`() {
         driver?.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
@@ -65,7 +67,7 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user should share they story on LinkedIn`() {
+    fun `share to LinkedIn`() {
         driver?.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
@@ -75,7 +77,7 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `article should contains META headers`() {
+    fun `META headers`() {
         driver?.get("$url/read/$PUBLISHED_ID/looks-good")
 
         val title = "Lorem Ipsum"
@@ -96,10 +98,33 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttributeStartsWith("head meta[property='article:modified_time']", "content", "2020-03-27T")
         assertElementAttributeStartsWith("head meta[property='article:published_time']", "content", "2020-03-27T")
         assertElementCount("head meta[property='article:tag']", 3)
+    }
 
+    @Test
+    fun `Twitter card summary_large_image`() {
+        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+
+        val title = "Lorem Ipsum"
+        val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+
+        assertElementAttribute("head meta[name='twitter:title']", "content", title)
+        assertElementAttribute("head meta[name='twitter:description']","content", description)
+        assertElementAttribute("head meta[name='twitter:card']", "content", "summary_large_image")
+        assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
+        assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
+    }
+
+    @Test
+    fun `Twitter card summary`() {
+        driver?.get("$url/read/$PUBLISHED_NO_THUMBNAIL_ID/looks-good")
+
+        val title = "Lorem Ipsum"
+        val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+
+        assertElementAttribute("head meta[name='twitter:title']", "content", title)
+        assertElementAttribute("head meta[name='twitter:description']","content", description)
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary")
         assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
         assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
-
     }
 }
