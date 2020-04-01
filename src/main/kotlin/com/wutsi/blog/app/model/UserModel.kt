@@ -5,6 +5,6 @@ data class UserModel (
         val fullName: String = "",
         val email: String? = null,
         val pictureUrl: String? = null,
-        val twitterUserId: String? = null,
-        val biography: String? = null
+        val biography: String? = null,
+        val accounts: List<AccountModel> = emptyList()
 )

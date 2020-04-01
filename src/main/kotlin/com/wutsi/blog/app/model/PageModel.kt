@@ -12,6 +12,7 @@ data class PageModel (
         val author: String? = null,
         val robots: String = "all",
         val tags: List<String> = emptyList(),
-        val baseUrl: String = ""
+        val baseUrl: String = "",
+        val twitterUserId: String? = null
 )
 

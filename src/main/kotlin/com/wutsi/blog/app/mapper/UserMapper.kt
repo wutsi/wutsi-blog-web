@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.mapper
 
+import com.wutsi.blog.app.model.AccountModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
@@ -12,7 +13,12 @@ class UserMapper {
             fullName = user.fullName,
             pictureUrl = user.pictureUrl,
             email = user.email,
-            twitterUserId = user.accounts.find { it.provider == "twitter" }?.providerUserId
+            accounts = user.accounts.map { AccountModel(
+                    id = it.id,
+                    provider = it.provider,
+                    providerUserId = it.providerUserId,
+                    loginCount = it.loginCount
+            ) }
     )
 
     fun toUserModel(user: UserSummaryDto) = UserModel(

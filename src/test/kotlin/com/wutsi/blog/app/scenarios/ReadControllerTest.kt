@@ -96,5 +96,10 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttributeStartsWith("head meta[property='article:modified_time']", "content", "2020-03-27T")
         assertElementAttributeStartsWith("head meta[property='article:published_time']", "content", "2020-03-27T")
         assertElementCount("head meta[property='article:tag']", 3)
+
+        assertElementAttribute("head meta[name='twitter:card']", "content", "summary")
+        assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
+        assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
+
     }
 }
