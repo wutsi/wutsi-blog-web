@@ -15,7 +15,7 @@
     <div class="margin-top padding border box-filled">
         <div th:replace="components/story :: author(story=${story}, showMeta=true, showBio=false)"></div>
         <div class="text-right">
-            <div th:replace="components/story :: share(${story}, ${url})"></div>
+            <div th:replace="components/story :: share(story=${story})"></div>
         </div>
     </div>
 
@@ -28,8 +28,8 @@
     </div>
 
     <!-- Share -->
-    <div class="text-right">
-        <div th:replace="components/story :: share(${story}, ${url})"></div>
+    <div class="text-right padding">
+        <div th:replace="components/story :: share(story=${story})"></div>
     </div>
 
     <!-- Author -->

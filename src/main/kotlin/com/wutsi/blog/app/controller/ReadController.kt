@@ -43,7 +43,6 @@ class ReadController(
         model.addAttribute("html", html)
 
         model.addAttribute(ModelAttributeName.PAGE, toPage(story))
-        model.addAttribute("url", url(story))
         return "page/read"
     }
 

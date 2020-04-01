@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class StoryReaderTest: SeleniumTestSupport() {
+class ReadControllerTest: SeleniumTestSupport() {
     companion object {
         private const val PUBLISHED_ID = "10"
         private const val DRAFT_ID = "20"
@@ -43,13 +43,45 @@ class StoryReaderTest: SeleniumTestSupport() {
     }
 
     @Test
+    fun `user should share they story on Facebook`() {
+        driver?.get("$url/read/$PUBLISHED_ID/looks-good")
+
+        val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
+
+        assertElementCount(".share .share-facebook", 2)
+        assertElementAttribute(".share .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
+        assertElementAttribute(".share .share-facebook", "target", "_blank")
+    }
+
+    @Test
+    fun `user should share they story on Twitter`() {
+        driver?.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
+
+        val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
+
+        assertElementCount(".share .share-twitter", 2)
+        assertElementAttribute(".share .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
+        assertElementAttribute(".share .share-facebook", "target", "_blank")
+    }
+
+    @Test
+    fun `user should share they story on LinkedIn`() {
+        driver?.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
+
+        val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
+
+        assertElementCount(".share .share-linkedin", 2)
+        assertElementAttribute(".share .share-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=$url")
+    }
+
+    @Test
     fun `article should contains META headers`() {
         driver?.get("$url/read/$PUBLISHED_ID/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 
-        assertElementAttribute("head base", "href", "http://localhost:8081")
+        assertElementAttribute("head base", "href", "http://localhost:8081/")
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "all")

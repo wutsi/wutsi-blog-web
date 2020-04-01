@@ -53,14 +53,14 @@
 
 </div>
 
-<div th:fragment="share(story, url)" class="share">
-    <a id="twitter-share" target="_new" class="margin-top" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/share?url=' + ${url}">
+<div th:fragment="share(story)" class="share">
+    <a target="_blank" class="margin-top share-twitter btn-share" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
         <i class="fab fa-twitter"></i>
     </a>
-    <a id="facebook-share" target="_new" class="margin-top-2x" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?u=' + ${url}">
+    <a target="_blank" class="margin-top-2x share-facebook btn-share" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
         <i class="fab fa-facebook-square"></i>
     </a>
-    <a id="linkedin-share" target="_new" class="margin-top" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
+    <a target="_blank" class="margin-top share-linkedin btn-share" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${page.url}">
         <i class="fab fa-linkedin"></i>
     </a>
 </div>
