@@ -1,5 +1,6 @@
 wutsi:
-  asset-url: "http://int-wutsi.s3-website-us-east-1.amazonaws.com/static/wutsi-blog-web"
+
+  asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-blog-web
   base-url: https://int-com-wutsi-blog-web.herokuapp.com
 
   backend:
