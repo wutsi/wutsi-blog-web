@@ -3,7 +3,6 @@
 ![](https://img.shields.io/badge/jdk-1.8-brightgreen.svg)
 ![](https://img.shields.io/badge/language-kotlin-blue.svg)
 
-
 WebApp for the wutsi blog platform
 
 ## Installation
