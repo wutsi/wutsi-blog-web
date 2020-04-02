@@ -3,7 +3,6 @@ wutsi:
   backend:
     baseurl: https://com-wutsi-blog.herokuapp.com
 
-
   toggles:
     sso-facebook: true
     sso-google: true
