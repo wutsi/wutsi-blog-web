@@ -11,7 +11,6 @@ wutsi:
         client-secret: 986634ef3a7c8ac6e66f9a75f5b0a1c4dec68918
       facebook:
         client-id: 629340480740249
-        client-secret: d8549ed13e6217a3c65e2c5ce69283fa
       google:
         client-id: 806985813772-ae9dav3ankkfcpbq0optkkv7ve6g0q5c.apps.googleusercontent.com
         client-secret: ySK8Wohv1go1xA7GPbwJG685
