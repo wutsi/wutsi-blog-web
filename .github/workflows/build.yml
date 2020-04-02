@@ -59,18 +59,18 @@ jobs:
     - name: int-healthcheck
       run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
-##----------------------------------------
-##  PROD-RELEASE
-##----------------------------------------
-#    - name: prod-release
-#      env:
-#        HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
-#        HEROKU_APP: com-wutsi-blog-web
-#      run: |
-#        curl https://cli-assets.heroku.com/install.sh | sh
-#        heroku plugins:install java
-#        heroku buildpacks:clear --app ${HEROKU_APP}
-#        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
-#
-#    - name: prod-healthcheck
-#      run: curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+#----------------------------------------
+#  PROD-RELEASE
+#----------------------------------------
+    - name: prod-release
+      env:
+        HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
+        HEROKU_APP: com-wutsi-blog-web
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
+        heroku plugins:install java
+        heroku buildpacks:clear --app ${HEROKU_APP}
+        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+
+    - name: prod-healthcheck
+      run: curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
