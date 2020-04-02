@@ -8,10 +8,14 @@ wutsi:
   oauth:
       facebook:
         client-id: 466330503408293
+      github:
+        client-id: 900cfd0accedc133ea5b
+      google:
+        client-id: 518604071018-pillp0vjc0iu7cdk0tsgaq1emo9aa1vr.apps.googleusercontent.com
 
   toggles:
     sso-facebook: true
-    sso-google: false
+    sso-google: true
     sso-twitter: false
-    sso-github: false
+    sso-github: true
     qa-login: false
