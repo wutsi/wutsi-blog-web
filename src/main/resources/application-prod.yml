@@ -1,5 +1,5 @@
 wutsi:
-  base-url: "https://wutsi.com"
+  base-url: "http://www.wutsi.com"
   backend:
     baseurl: https://com-wutsi-blog.herokuapp.com
 
