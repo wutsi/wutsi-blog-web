@@ -67,6 +67,7 @@ class ReadController(
             publishedTime = story.publishedDateTimeISO8601,
             modifiedTime = story.modificationDateTimeISO8601,
             baseUrl = baseUrl,
+            assetUrl = assetUrl,
             robots = robots(),
             tags = story.tags.map { it.name },
             twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId

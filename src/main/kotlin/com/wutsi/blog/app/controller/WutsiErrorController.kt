@@ -53,6 +53,8 @@ class WutsiErrorController(
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
             type = "website",
+            assetUrl = assetUrl,
+            baseUrl = baseUrl,
             robots = robots()
     )
 

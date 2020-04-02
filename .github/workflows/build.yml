@@ -50,11 +50,18 @@ jobs:
       env:
         HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
         HEROKU_APP: int-com-wutsi-blog-web
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
         heroku plugins:install java
         heroku buildpacks:clear --app ${HEROKU_APP}
         heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+        aws s3 cp \
+          --recursive \
+          --acl public-read \
+          --region us-east-1 \
+          ./src/main/resources/public/ s3://int-wutsi/static/wutsi-blog-web
 
     - name: int-healthcheck
       run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
@@ -66,11 +73,18 @@ jobs:
       env:
         HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
         HEROKU_APP: com-wutsi-blog-web
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
         heroku plugins:install java
         heroku buildpacks:clear --app ${HEROKU_APP}
         heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+        aws s3 cp \
+          --recursive \
+          --acl public-read \
+          --region us-east-1 \
+          ./src/main/resources/public/ s3://prod-wutsi/static/wutsi-blog-web
 
     - name: prod-healthcheck
       run: curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null

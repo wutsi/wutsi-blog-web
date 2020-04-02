@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute
 abstract class AbstractPageController(
         protected val requestContext: RequestContext
 ) {
+    @Value("\${wutsi.asset-url}")
+    protected lateinit var assetUrl: String
+
     @Value("\${wutsi.base-url}")
     protected lateinit var baseUrl: String
+
 
     protected abstract fun pageName(): String
 
@@ -37,7 +41,8 @@ abstract class AbstractPageController(
             description = requestContext.getMessage("wutsi.description"),
             type = "website",
             robots = robots(),
-            baseUrl = baseUrl
+            baseUrl = baseUrl,
+            assetUrl = assetUrl
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug
