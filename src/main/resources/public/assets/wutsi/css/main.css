@@ -111,7 +111,6 @@ a {
 }
 .navbar img.user {
     height: 50px;
-    width: 50px;
     border: 1px solid var(--border-color);
     border-radius: 50%;
     float:left;

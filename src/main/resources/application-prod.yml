@@ -3,9 +3,13 @@ wutsi:
   backend:
     baseurl: https://com-wutsi-blog.herokuapp.com
 
+  oauth:
+      facebook:
+        client-id: 466330503408293
+
   toggles:
     sso-facebook: true
-    sso-google: true
+    sso-google: false
     sso-twitter: false
     sso-github: false
     qa-login: false
