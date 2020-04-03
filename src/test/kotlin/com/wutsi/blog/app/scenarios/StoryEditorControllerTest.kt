@@ -34,6 +34,7 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
         assertElementHasNotClass("#story-editor", "hidden")
     }
 
+
     @Test
     @Ignore
     fun `user can publish draft story`() {
