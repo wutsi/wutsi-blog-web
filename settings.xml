@@ -20,10 +20,6 @@
                 </repository>
 
                 <repository>
-                    <id>github-wutsi-http</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-http</url>
-                </repository>
-                <repository>
                     <id>github-wutsi-blog-client</id>
                     <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
                 </repository>
@@ -52,11 +48,6 @@
         </server>
         <server>
             <id>github-wutsi-core-aws</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-http</id>
             <username>wutsi</username>
             <password>${GITHUB_TOKEN}</password>
         </server>

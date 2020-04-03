@@ -8,7 +8,7 @@ import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SearchStoryResponse
-import com.wutsi.http.Http
+import com.wutsi.core.http.Http
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 

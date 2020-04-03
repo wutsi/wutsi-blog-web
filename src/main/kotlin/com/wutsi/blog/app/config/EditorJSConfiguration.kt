@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration
 
 
 @Configuration
-class EditorJSConfiguration {
+class EditorJSConfiguration(private val objectMapper: ObjectMapper) {
     @Bean
     fun htmlWriter() = EJSHtmlWriter(tagProvider())
 
@@ -19,14 +19,11 @@ class EditorJSConfiguration {
     fun htmlReader() = EJSHtmlReader(tagProvider())
 
     @Bean
-    fun jsonReader() = EJSJsonReader(objectMapper())
+    fun jsonReader() = EJSJsonReader(objectMapper)
 
     @Bean
-    fun jsonWriter() = EJSJsonWriter(objectMapper())
+    fun jsonWriter() = EJSJsonWriter(objectMapper)
 
     @Bean
     fun tagProvider() = TagProvider()
-
-    @Bean
-    fun objectMapper () = ObjectMapper()
 }

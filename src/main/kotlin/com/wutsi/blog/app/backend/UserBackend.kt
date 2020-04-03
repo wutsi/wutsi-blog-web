@@ -3,7 +3,7 @@ package com.wutsi.blog.app.backend
 import com.wutsi.blog.client.user.GetUserResponse
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.user.SearchUserResponse
-import com.wutsi.http.Http
+import com.wutsi.core.http.Http
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 

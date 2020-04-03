@@ -47,7 +47,7 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/user
 
   http:
-    client-id: wutsi-blog-app
+    client-id: wutsi-blog-web
 
   oauth:
     github:
