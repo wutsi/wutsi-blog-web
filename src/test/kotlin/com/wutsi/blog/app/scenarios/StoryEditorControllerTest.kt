@@ -24,7 +24,6 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    @Ignore
     fun `user can edit draft story`() {
         login()
         driver.get("$url/story/20/editor")

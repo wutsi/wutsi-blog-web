@@ -198,7 +198,7 @@ function WutsiEJS (holderId, publishCallback){
         // Preview
         $(this.config.selectors.btnPreview).on('click', function () {
             if (me.storyId > 0) {
-                window.open('/read/' + storyId + '?preview=true')
+                window.open('/read/' + me.storyId + '?preview=true')
             }
         });
 
