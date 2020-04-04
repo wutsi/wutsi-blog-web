@@ -20,7 +20,7 @@ class StoryDraftController(
     override fun viewName() = "page/story/draft"
 
     override fun stories(limit: Int, offset: Int) = service.search(SearchStoryRequest(
-            userId = requestContext.user?.id,
+            userId = requestContext.currentUser()?.id,
             status = StoryStatus.draft,
             sortBy = StorySortStrategy.modified,
             limit = limit,

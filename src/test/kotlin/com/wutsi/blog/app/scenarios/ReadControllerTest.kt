@@ -15,33 +15,61 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     override fun setupWiremock() {
+        stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
+        stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
+
         stub(HttpMethod.GET, "/v1/story/$PUBLISHED_ID", HttpStatus.OK, "v1/story/get-story10-published.json")
         stub(HttpMethod.GET, "/v1/story/$PUBLISHED_NO_THUMBNAIL_ID", HttpStatus.OK, "v1/story/get-story30-no_thumbnail.json")
         stub(HttpMethod.GET, "/v1/story/$DRAFT_ID", HttpStatus.OK, "v1/story/get-story20-draft.json")
+        stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
 
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
+        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
+        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
     }
 
 
     @Test
-    fun `read published story`() {
+    fun `published story`() {
         driver.get("$url/read/$PUBLISHED_ID/looks-good")
 
         assertCurrentPageIs(PageName.READ)
     }
 
     @Test
-    fun `read draft story`() {
+    fun `draft story`() {
         driver.get("$url/read/$DRAFT_ID/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
 
     @Test
-    fun `read invalid story`() {
+    fun `invalid story`() {
         driver.get("$url/read/9999999/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
+    }
+
+    @Test
+    fun `preview story`() {
+        login()
+
+        driver.get("$url/read/$DRAFT_ID?preview=true")
+        assertCurrentPageIs(PageName.READ)
+    }
+
+    @Test
+    fun `anonymous user cannot preview story`() {
+        driver.get("$url/read/$DRAFT_ID?preview=true")
+        assertCurrentPageIs(PageName.ERROR_403)
+    }
+
+    @Test
+    fun `only owner can preview story`() {
+        login()
+        driver.get("$url/read/99?preview=true")
+        assertCurrentPageIs(PageName.ERROR_403)
     }
 
     @Test

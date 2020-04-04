@@ -26,7 +26,7 @@ class RequestContext(
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
     }
 
-    var user: UserModel? = null
+    private var user: UserModel? = null
 
     fun currentUser(): UserModel? {
         if (user != null) {

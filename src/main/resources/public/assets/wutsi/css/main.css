@@ -211,7 +211,10 @@ a.sso-button .fab {
 
 
 .editor #btn-publish {
-    float: right;
+    margin-right: 1em;
+}
+
+.editor #btn-preview {
     margin-right: 1em;
 }
 

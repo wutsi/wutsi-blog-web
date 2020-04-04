@@ -68,7 +68,7 @@ class StoryService(
 
     fun count(status: StoryStatus): Int {
         val request = SearchStoryRequest(
-                userId = requestContext.user?.id,
+                userId = requestContext.currentUser()?.id,
                 status = status,
                 limit = Int.MAX_VALUE
         )

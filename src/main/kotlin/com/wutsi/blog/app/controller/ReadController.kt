@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import java.io.StringWriter
 
 @Controller
@@ -29,20 +30,36 @@ class ReadController(
 
     @GetMapping("/read/{id}/{title}")
     fun read(@PathVariable id: Long, @PathVariable title: String, model: Model): String {
-        return read(id, model)
+        return read(id, false, model)
     }
 
     @GetMapping("/read/{id}")
-    fun read(@PathVariable id: Long, model: Model): String {
-        val story = storyService.get(id)
-        checkPublished(story)
+    fun read(
+            @PathVariable id: Long,
+            @RequestParam(required = false, defaultValue = "false") preview: Boolean = false,
+            model: Model
+    ): String {
+        val story = get(id, preview)
         model.addAttribute("story", story)
 
         val html = toHtml(story)
         model.addAttribute("html", html)
 
         model.addAttribute(ModelAttributeName.PAGE, toPage(story))
+        model.addAttribute("preview", preview)
         return "page/read"
+    }
+
+    private fun get(id: Long, preview: Boolean): StoryModel {
+        val story = storyService.get(id)
+
+        if (preview) {
+            checkOwnership(story)   // Only owner can preview a story
+        } else {
+            checkPublished(story)
+        }
+
+        return story
     }
 
     private fun toHtml(story: StoryModel): String {

@@ -100,6 +100,7 @@ class SecurityConfiguration(
     fun qaAuthenticationFilter(): QAAuthenticationFilter {
         val filter = QAAuthenticationFilter(QA_SIGNIN_PATTERN)
         filter.setAuthenticationManager(authenticationManagerBean())
+        filter.rememberMeServices = oAuthRememberMeService
 
         return filter
     }
