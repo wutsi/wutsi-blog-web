@@ -39,6 +39,7 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
     fun `user can publish draft story`() {
         login()
         driver.get("$url/story/20/editor")
+        Thread.sleep(1000)
 
         assertCurrentPageIs(PageName.STORY_EDITOR)
         input("#title", "Hello world")

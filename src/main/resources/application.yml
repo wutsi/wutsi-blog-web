@@ -32,7 +32,7 @@ logging:
     file: "%d Type=%level Logger=%c Thread=%thread %m%n"
 
 wutsi:
-  asset-url: "http://localhost:${server.port}"
+  asset-url: ""
   base-url: "http://localhost:8081"
 
   backend:

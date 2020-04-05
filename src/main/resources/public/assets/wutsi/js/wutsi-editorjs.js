@@ -75,7 +75,10 @@ function WutsiEJS (holderId, publishCallback){
                             url: me.config.saveUrl,
                             dataType: 'json',
                             contentType: 'application/json',
-                            data: JSON.stringify(request)
+                            data: JSON.stringify(request),
+                            headers: {
+                                'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+                            }
                         })
                         .done(function (story){
                             console.log('SUCCESS - Saving document', story);

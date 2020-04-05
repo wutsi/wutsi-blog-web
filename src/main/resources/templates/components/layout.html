@@ -37,6 +37,9 @@
     <meta name="twitter:description" th:content="${page.description}" />
     <meta name="twitter:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}" />
 
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <meta name="robots" th:content="${page.robots}" />
 
     <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/wutsi/img/favicon.ico'" />

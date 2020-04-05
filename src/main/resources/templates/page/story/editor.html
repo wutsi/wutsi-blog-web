@@ -78,7 +78,10 @@
                     method: 'GET',
                     url: '/story/' + storyId + '/editor/fetch',
                     dataType: 'json',
-                    contentType: 'application/json'
+                    contentType: 'application/json',
+                    headers: {
+                        'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+                    }
                 })
                 .done( function(story) {
                     editor.setup(story);

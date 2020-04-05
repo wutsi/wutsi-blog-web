@@ -57,7 +57,6 @@ class SecurityConfiguration(
     override fun configure(http: HttpSecurity) {
         // @formatter:off
 		http
-            .csrf().disable()
 
             .authorizeRequests()
                 .antMatchers( "/").permitAll()
