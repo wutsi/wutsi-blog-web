@@ -1,7 +1,9 @@
 package com.wutsi.blog.app.servlet
 
+import com.wutsi.core.logging.KVLogger
 import org.apache.commons.io.FilenameUtils
-import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -13,10 +15,11 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-open class StorageServlet(val directory: String) : HttpServlet() {
-    companion object {
-        private val LOGGER = LoggerFactory.getLogger(StorageServlet::class.java)
-    }
+@Component
+class StorageServlet(
+        private val logger: KVLogger,
+        @Value("\${wutsi.storage.local.directory}")private val directory: String
+) : HttpServlet() {
 
     @Throws(ServletException::class, IOException::class)
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
@@ -27,7 +30,9 @@ open class StorageServlet(val directory: String) : HttpServlet() {
     private fun output(file: File, resp: HttpServletResponse) {
         val contentType = probeContentType(file)
         try {
-            LOGGER.info("File=${file.absolutePath} - contentType=$contentType")
+            logger.add("File", file.absolutePath)
+            logger.add("ContentType", contentType)
+
             resp.contentType = probeContentType(file)
 
             FileInputStream(file).use {

@@ -33,7 +33,8 @@ logging:
 
 wutsi:
   asset-url: ""
-  base-url: "http://localhost:8081"
+  domain: localhost
+  base-url: "http://${wutsi.domain}:8081"
 
   backend:
     base-url: http://localhost:8080

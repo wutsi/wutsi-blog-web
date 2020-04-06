@@ -8,6 +8,9 @@ import com.wutsi.core.http.Http
 import com.wutsi.core.http.HttpExceptionHandler
 import com.wutsi.core.http.RequestTraceContext
 import com.wutsi.core.http.TraceContextProvider
+import com.wutsi.core.logging.KVLogger
+import com.wutsi.core.logging.KVLoggerFilter
+import com.wutsi.core.logging.KVLoggerImpl
 import com.wutsi.core.storage.LocalStorageService
 import com.wutsi.core.storage.StorageService
 import com.wutsi.core.tracking.DeviceUIDFilter
@@ -22,33 +25,25 @@ import org.springframework.context.annotation.Profile
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.context.WebApplicationContext
+import java.time.Clock
 import javax.servlet.http.HttpServletRequest
 
 
 @Configuration
 class CoreConfiguration(
         private val objectMapper: ObjectMapper,
+        private val clock: Clock,
         private val context: ApplicationContext
 ) {
-    @Value("\${wutsi.storage.local.directory}")
-    private lateinit var directory: String
-
-    @Value("\${wutsi.storage.servlet.path}")
-    lateinit var servletPath: String
-
-    @Value("\${wutsi.storage.servlet.url}")
-    lateinit var servletUrl: String
-
-    @Value("\${wutsi.http.client-id}")
-    lateinit var clientId: String
-
-
     @Bean
-    fun http() : Http {
+    fun http(
+            @Value("\${wutsi.http.client-id}") clientId: String
+    ) : Http {
         return Http(
                 rest = restTemplate(),
-                exceptionHandler = httpExceptionHandler(),
-                traceContextProvider = traceContextProvider()
+                exceptionHandler = HttpExceptionHandler(objectMapper),
+                traceContextProvider = TraceContextProvider(clientId, context)
         )
     }
 
@@ -56,25 +51,25 @@ class CoreConfiguration(
     fun restTemplate() = RestTemplate()
 
     @Bean
-    fun httpExceptionHandler() = HttpExceptionHandler(objectMapper)
-
-    @Bean
-    fun traceContextProvider() = TraceContextProvider(clientId, context)
-
-    @Bean
     @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
     fun requestTraceContext(request: HttpServletRequest) = RequestTraceContext(request)
 
     @Bean
-    fun storageServlet(): ServletRegistrationBean<*> {
-        val bean = ServletRegistrationBean(StorageServlet(directory), "${servletPath}/*")
+    fun storageServlet(
+            @Value("\${wutsi.storage.local.directory}") directory: String,
+            @Value("\${wutsi.storage.servlet.path}") servletPath: String
+    ): ServletRegistrationBean<*> {
+        val bean = ServletRegistrationBean(StorageServlet(logger(), directory), "$servletPath/*")
         bean.setLoadOnStartup(1)
         return bean
     }
 
     @Bean
     @Profile("!aws")
-    fun localStorageService(): StorageService {
+    fun localStorageService(
+            @Value("\${wutsi.storage.local.directory}") directory: String,
+            @Value("\${wutsi.storage.servlet.url}") servletUrl: String
+    ): StorageService {
         return LocalStorageService(directory, servletUrl)
     }
 
@@ -89,4 +84,13 @@ class CoreConfiguration(
     fun deviceUIDFilter () : DeviceUIDFilter {
         return DeviceUIDFilter(DeviceUIDProvider())
     }
+
+    @Bean
+    fun loggerFilter(): KVLoggerFilter {
+        return KVLoggerFilter(logger(), clock)
+    }
+
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    fun logger(): KVLogger = KVLoggerImpl()
 }
