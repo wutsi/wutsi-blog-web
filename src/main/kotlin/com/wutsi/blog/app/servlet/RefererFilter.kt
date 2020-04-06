@@ -3,6 +3,8 @@ package com.wutsi.blog.app.servlet
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName
 import com.wutsi.core.logging.KVLogger
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.FilterConfig
@@ -12,12 +14,13 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
+@Component
 class RefererFilter(
         private val logger: KVLogger,
-        private val domain: String
+        @Value("\${wutsi.domain}") private val domain: String
 ) : Filter {
     companion object {
-        const val DIRECT = "REDIRECT"
+        const val DIRECT = "DIRECT"
         const val LOGGER_KEY = "HttpRequestReferer"
     }
     override fun destroy() {

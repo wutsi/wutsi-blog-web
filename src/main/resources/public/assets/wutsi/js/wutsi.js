@@ -15,7 +15,8 @@ function Wutsi (){
             event: event,
             page: this.page_name(),
             ua: navigator.userAgent,
-            value: (value ? value : null)
+            value: (value ? value : null),
+            referer: this.cookie('__w_rfr')
         };
         console.log('Track.push to' + url, data);
 
