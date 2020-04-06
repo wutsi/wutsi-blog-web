@@ -3,7 +3,7 @@
 <body>
 
 <div  th:fragment="toolbar">
-    <a class="btn btn-primary float-right" href="/story/editor" th:text="#{button.create_story}" wutsi-track-event="toolbar.create">New Story</a>
+    <a class="btn btn-primary float-right" href="/story/editor" th:text="#{button.create_story}">New Story</a>
     <div class="clearfix"></div>
 </div>
 
@@ -21,7 +21,6 @@
         </a>
     </li>
 </ul>
-
 
 <div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
 
@@ -54,13 +53,19 @@
 </div>
 
 <div th:fragment="share(story)" class="share">
-    <a target="_blank" class="margin-top share-twitter btn-share" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
+    <a target="_blank" class="margin-top share-twitter btn-share"
+       wutsi-track-event="share.twitter"
+       th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
         <i class="fab fa-twitter"></i>
     </a>
-    <a target="_blank" class="margin-top-2x share-facebook btn-share" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
+    <a target="_blank" class="margin-top-2x share-facebook btn-share"
+       wutsi-track-event="share.facebook"
+       th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
         <i class="fab fa-facebook-square"></i>
     </a>
-    <a target="_blank" class="margin-top share-linkedin btn-share" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${page.url}">
+    <a target="_blank" class="margin-top share-linkedin btn-share"
+       wutsi-track-event="share.linkedin"
+       th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${page.url}">
         <i class="fab fa-linkedin"></i>
     </a>
 </div>
@@ -82,6 +87,16 @@
     -
     <span th:text="#{story.read_time(${story.readingMinutes})}">3 min</span>
 </div>
+
+<script>
+    $(document).ready(function(){
+        wutsi_bind_tracking();
+        wutsi.track('startread');
+        window.addEventListener('beforeunload', function(){
+            wutsi.track('endread')
+        });
+    });
+</script>
 
 </body>
 </html>

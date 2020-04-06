@@ -58,7 +58,6 @@ function Wutsi (){
 var wutsi = new Wutsi();
 
 function wutsi_bind_tracking () {
-    console.log('binding controls with track API');
     $('[wutsi-track-event]').click(function(){
         var event = $(this).attr("wutsi-track-event");
         var value = $(this).attr("wutsi-track-value");

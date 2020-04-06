@@ -10,7 +10,7 @@
 
 <div class="container margin-top post-list">
     <section class="offset-md-3 col-md-6 padding border-bottom post" th:each="story: ${stories}">
-        <a th:href="${story.slug}" wutsi-track-event="click">
+        <a th:href="${story.slug}">
             <h2 class="title" th:text="${story.title}">Title</h2>
             <div class="summary" th:text="${story.summary}">Summary</div>
             <div class="author">

@@ -32,7 +32,7 @@
         <p th:utext="#{page.story.draft.first_story}" th:if="${totalStories} == 0">You have not post any story yet.</p>
         <p th:utext="#{page.story.draft.no_story}"    th:if="${totalStories} GT 0">You have not post any story yet.</p>
 
-        <a class="btn btn-primary" href="/story/editor" th:text="#{button.create_story}" wutsi-track-event="create">Create a Story</a>
+        <a class="btn btn-primary" href="/story/editor" th:text="#{button.create_story}">Create a Story</a>
     </div>
 
 </div>

@@ -14,7 +14,7 @@
             <div class="float-left status-published" th:text="#{story.status.published}">Published</div>
 
             <div class="close">
-                <a wutsi-track-event="close" th:href="'/story/published'">X</a>
+                <a th:href="'/story/published'">X</a>
             </div>
         </div>
     </div>
@@ -45,21 +45,21 @@
             <!-- Share -->
             <div class="margin-top" th:text="#{page.story.share.message}">Message</div>
 
-            <a id="twitter-share" target="_blank" class="sso-button margin-top" wutsi-track-event="share.twitter" th:href="'http://www.twitter.com/intent/tweet?url=' + ${url}">
+            <a id="twitter-share" target="_blank" class="sso-button margin-top" th:href="'http://www.twitter.com/intent/tweet?url=' + ${url}">
                 <i class="fab fa-twitter-square"></i>
                 <span th:text="#{page.story.share.share-twitter}">Sign in with Twitter</span>
             </a>
-            <a id="facebook-share" target="_blank" class="sso-button margin-top-2x" wutsi-track-event="share.facebook" th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${url}">
+            <a id="facebook-share" target="_blank" class="sso-button margin-top-2x" th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${url}">
                 <i class="fab fa-facebook-square"></i>
                 <span th:text="#{page.story.share.share-facebook}">Sign in with Facebook</span>
             </a>
-            <a id="linkedin-share" target="_new" class="sso-button margin-top" wutsi-track-event="share.linkedin" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
+            <a id="linkedin-share" target="_new" class="sso-button margin-top" th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${url}">
                 <i class="fab fa-linkedin"></i>
                 <span th:text="#{page.story.share.share-linkedin}">Sign in with LinkedIn</span>
             </a>
 
             <div class="margin-top">
-                <a class="float-left" wutsi-track-event="read" th:text="#{button.read_story}"  th:href="${story.slug}">Read</a>
+                <a class="float-left" th:text="#{button.read_story}"  th:href="${story.slug}">Read</a>
             </div>
         </div>
     </div>

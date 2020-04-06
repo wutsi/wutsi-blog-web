@@ -15,7 +15,7 @@
             <div class="float-left status-published" th:text="#{story.status.published}">Published</div>
 
             <div class="close">
-                <a wutsi-track-event="close" th:href="'/story/published'">X</a>
+                <a th:href="'/story/published'">X</a>
             </div>
         </div>
     </div>
@@ -49,8 +49,8 @@
 
             <div class="margin-top-2x" th:utext="#{page.story.confirmation.share}">Share your story</div>
             <div class="margin-top">
-                <a class="float-left" wutsi-track-event="read" th:text="#{button.read_story}"  th:href="${story.slug}">Read</a>
-                <a class="float-right btn btn-primary" wutsi-track-event="share" th:text="#{button.share_story}"  th:href="'/story/' + ${story.id} + '/share'">Share</a>
+                <a class="float-left" th:text="#{button.read_story}"  th:href="${story.slug}">Read</a>
+                <a class="float-right btn btn-primary" th:text="#{button.share_story}"  th:href="'/story/' + ${story.id} + '/share'">Share</a>
             </div>
         </div>
     </div>

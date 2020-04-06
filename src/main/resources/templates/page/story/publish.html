@@ -15,7 +15,7 @@
             <div class="float-left status-published" th:text="#{story.status.published}" th:if="${story.published}">Published</div>
 
             <div class="close">
-                <a wutsi-track-event="close" th:href="'/story/' + ${story.id} + '/editor'">X</a>
+                <a th:href="'/story/' + ${story.id} + '/editor'">X</a>
             </div>
         </div>
     </div>
@@ -58,13 +58,11 @@
 
                 <div class="margin-top-2x">
                     <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
-                            wutsi-track-event="publish"
                             th:if="${story.draft}"
                             th:text="#{button.publish_now}"
                     >Publish Now</button>
 
                     <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
-                            wutsi-track-event="save"
                             th:if="${story.published}"
                             th:text="#{button.save}"
                     >Save</button>
