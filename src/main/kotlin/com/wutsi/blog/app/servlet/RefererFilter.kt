@@ -20,7 +20,7 @@ class RefererFilter(
         @Value("\${wutsi.domain}") private val domain: String
 ) : Filter {
     companion object {
-        const val DIRECT = "DIRECT"
+        const val DIRECT = ""
         const val LOGGER_KEY = "HttpRequestReferer"
     }
     override fun destroy() {
