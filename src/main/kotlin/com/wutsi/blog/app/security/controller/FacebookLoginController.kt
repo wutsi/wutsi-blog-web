@@ -29,7 +29,7 @@ class FacebookLoginController(
                 id = attrs["id"].toString(),
                 fullName = attrs["name"].toString(),
                 email = attrs["email"]?.toString(),
-                pictureUrl = "http://graph.facebook.com/" + attrs["id"] + "/picture?type=square",
+                pictureUrl = "https://graph.facebook.com/" + attrs["id"] + "/picture?type=square",
                 provider = SecurityConfiguration.PROVIDER_FACEBOOK
         )
     }
