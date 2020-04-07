@@ -11,7 +11,7 @@ class ImageFilter: Filter{
 
     private fun filter(id: Int, img: Element) {
         img.attr("async-src", img.attr("src"))
-        img.attr("data-lightbox", img.attr("lightbox-$id"))
+        img.attr("data-lightbox","lightbox-$id")
         img.removeAttr("src")
     }
 }
