@@ -22,12 +22,6 @@ class HomeControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `anonymous user should view login button in home page`() {
-        assertElementPresent("nav .login")
-        assertElementAttribute("nav .login", "rel", "nofollow")
-    }
-
-    @Test
     fun `user should view recent stories in home page`() {
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".post", 4)
