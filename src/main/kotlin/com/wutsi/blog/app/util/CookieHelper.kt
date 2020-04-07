@@ -11,6 +11,12 @@ object CookieHelper {
         return if (cookie == null) null else cookie.value
     }
 
+    fun remove(name: String, response: HttpServletResponse) {
+        val cookie = Cookie(name, "")
+        cookie.maxAge = 0
+        response.addCookie(cookie)
+    }
+
     fun put(name: String, value: String?, request: HttpServletRequest, response: HttpServletResponse, maxAge: Int = 86400) {
         var cookie = getCookie(name, request)
         if (cookie == null) {
