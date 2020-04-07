@@ -18,6 +18,8 @@ abstract class AbstractPageController(
     @Value("\${wutsi.base-url}")
     protected lateinit var baseUrl: String
 
+    @Value("\${wutsi.google.ga.code}")
+    protected lateinit var googleAnalyticsCode: String
 
     protected abstract fun pageName(): String
 
@@ -42,7 +44,8 @@ abstract class AbstractPageController(
             type = "website",
             robots = robots(),
             baseUrl = baseUrl,
-            assetUrl = assetUrl
+            assetUrl = assetUrl,
+            googleAnalyticsCode = this.googleAnalyticsCode
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

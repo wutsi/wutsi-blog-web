@@ -55,7 +55,8 @@ class WutsiErrorController(
             type = "website",
             assetUrl = assetUrl,
             baseUrl = baseUrl,
-            robots = robots()
+            robots = robots(),
+            googleAnalyticsCode = this.googleAnalyticsCode
     )
 
     private fun pageName(code: Int?): String {

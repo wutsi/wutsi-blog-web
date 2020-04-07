@@ -79,6 +79,10 @@ wutsi:
       region: "us-east-1"
       bucket: "int-wutsi-track"
 
+  google:
+    ga:
+      code:
+
   toggles:
     sso-facebook: false
     sso-google: false

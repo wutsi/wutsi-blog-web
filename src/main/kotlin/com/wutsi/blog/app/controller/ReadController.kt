@@ -96,7 +96,8 @@ class ReadController(
             assetUrl = assetUrl,
             robots = robots(),
             tags = story.tags.map { it.name },
-            twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId
+            twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId,
+            googleAnalyticsCode = this.googleAnalyticsCode
     )
 
 }
