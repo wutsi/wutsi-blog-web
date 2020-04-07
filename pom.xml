@@ -16,8 +16,8 @@
 
     <properties>
 
-        <jacoco.threshold.line>0.30</jacoco.threshold.line>
-        <jacoco.threshold.class>0.30</jacoco.threshold.class>
+        <jacoco.threshold.line>0.50</jacoco.threshold.line>
+        <jacoco.threshold.class>0.50</jacoco.threshold.class>
 
         <!-- Library versions - in ALPHABETICAL ORDER-->
         <common-lang.version>2.4</common-lang.version>
@@ -31,7 +31,7 @@
         <wutsi-blog-client.version>1.0.18</wutsi-blog-client.version>
         <wutsi-core.version>1.2.0</wutsi-core.version>
         <wutsi-core-aws.version>1.1.0</wutsi-core-aws.version>
-        <wutsi-editorjs.version>1.0.5</wutsi-editorjs.version>
+        <wutsi-editorjs.version>1.1.0</wutsi-editorjs.version>
     </properties>
 
     <dependencies>

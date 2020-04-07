@@ -1,6 +1,6 @@
-package com.wutsi.blog.app.editor
+package com.wutsi.blog.app.model
 
-data class PublishEditor (
+data class PublishForm (
         val id: Long = -1,
         val tags: List<String> = emptyList()
 )

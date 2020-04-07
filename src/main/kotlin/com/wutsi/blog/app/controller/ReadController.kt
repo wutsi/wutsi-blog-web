@@ -4,10 +4,12 @@ import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
+import com.wutsi.blog.app.service.editorjs.EJSFilterSet
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
+import org.jsoup.Jsoup
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,6 +22,7 @@ class ReadController(
         private val storyService: StoryService,
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
+        private val ejsFilters: EJSFilterSet,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
 
@@ -42,7 +45,7 @@ class ReadController(
         val story = get(id, preview)
         model.addAttribute("story", story)
 
-        val html = toHtml(story)
+        val html = filter(toHtml(story))
         model.addAttribute("html", html)
 
         model.addAttribute(ModelAttributeName.PAGE, toPage(story))
@@ -71,6 +74,12 @@ class ReadController(
         val html = StringWriter()
         ejsHtmlWriter.write(ejs, html)
         return html.toString()
+    }
+
+    private fun filter(html: String): String {
+        val doc = Jsoup.parse(html)
+        ejsFilters.filter(doc)
+        return doc.html()
     }
 
     private fun toPage(story: StoryModel)= PageModel(

@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.controller
 
-import com.wutsi.blog.app.editor.PublishEditor
+import com.wutsi.blog.app.model.PublishForm
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -28,7 +28,7 @@ class StoryPublishController(
     }
 
     @GetMapping("/story/publish/submit")
-    fun submit(@ModelAttribute editor: PublishEditor): String {
+    fun submit(@ModelAttribute editor: PublishForm): String {
         try {
             service.publish(editor)
             return "redirect:/story/${editor.id}/confirmation"

@@ -1,8 +1,8 @@
 package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.StoryBackend
-import com.wutsi.blog.app.editor.PublishEditor
-import com.wutsi.blog.app.editor.StoryEditor
+import com.wutsi.blog.app.model.PublishForm
+import com.wutsi.blog.app.model.StoryForm
 import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
@@ -28,7 +28,7 @@ class StoryService(
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val userService: UserService
 ) {
-    fun save(editor: StoryEditor): StoryEditor {
+    fun save(editor: StoryForm): StoryForm {
         var response = SaveStoryResponse()
         val request = toSaveStoryRequest(editor)
         if (shouldCreate(editor)){
@@ -37,7 +37,7 @@ class StoryService(
             response = storyBackend.update(editor.id!!, request)
         }
 
-        return StoryEditor(
+        return StoryForm(
                 id = response.storyId,
                 title = editor.title,
                 content = editor.content
@@ -60,7 +60,7 @@ class StoryService(
         return stories.map { mapper.toStoryModel(it, users[it.id]) }
     }
 
-    fun publish(editor: PublishEditor){
+    fun publish(editor: PublishForm){
         storyBackend.publish(editor.id, PublishStoryRequest(
                 tags = editor.tags
         ))
@@ -75,11 +75,11 @@ class StoryService(
         return storyBackend.count(request).total
     }
 
-    private fun shouldUpdate(editor: StoryEditor) =  editor.id != null && editor.id > 0L
+    private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
 
-    private fun shouldCreate(editor: StoryEditor) = (editor.id == null || editor.id == 0L) && !isEmpty(editor)
+    private fun shouldCreate(editor: StoryForm) = (editor.id == null || editor.id == 0L) && !isEmpty(editor)
 
-    private fun isEmpty(editor: StoryEditor): Boolean {
+    private fun isEmpty(editor: StoryForm): Boolean {
         if (editor.title.trim().isNotEmpty()){
             return false
         }
@@ -90,7 +90,7 @@ class StoryService(
         return Jsoup.parse(html.toString()).body().text().trim().isEmpty()
     }
 
-    private fun toSaveStoryRequest(editor: StoryEditor) = SaveStoryRequest(
+    private fun toSaveStoryRequest(editor: StoryForm) = SaveStoryRequest(
             contentType = "application/editorjs",
             content = editor.content,
             title = editor.title,

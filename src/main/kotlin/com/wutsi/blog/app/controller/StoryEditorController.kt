@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.controller
 
-import com.wutsi.blog.app.editor.StoryEditor
+import com.wutsi.blog.app.model.StoryForm
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
@@ -45,7 +45,7 @@ class StoryEditorController(
 
     @ResponseBody
     @PostMapping("/story/editor/save", produces = ["application/json"], consumes = ["application/json"])
-    fun save(@RequestBody editor: StoryEditor): StoryEditor {
+    fun save(@RequestBody editor: StoryForm): StoryForm {
         return service.save(editor)
     }
 }
