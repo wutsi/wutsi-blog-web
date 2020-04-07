@@ -44,4 +44,16 @@
 <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'" />
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&lang=kotlin&lang=sql&lang=yaml"></script>
 
+<script>
+    $(document).ready(function(){
+        wutsi.track('readstart');
+        window.addEventListener('beforeunload', function(){
+            wutsi.track('readend');
+        });
+
+        $('.content img[async-src]').each(function() {
+            $(this).attr("src", $(this).attr("async-src"));
+        });
+    });
+</script>
 </html>
