@@ -8,7 +8,7 @@ class ImageFilterTest {
     private val filter = ImageFilter()
 
     @Test
-    fun filter() {
+    fun async() {
         val doc = Jsoup.parse("<body>Hello <img src='foo.gif'/>world</body>")
         filter.filter(doc)
 
@@ -18,4 +18,13 @@ class ImageFilterTest {
         }
     }
 
+    @Test
+    fun lightbox() {
+        val doc = Jsoup.parse("<body>Hello <img src='foo.gif'/>world</body>")
+        filter.filter(doc)
+
+        doc.select("a").forEach {
+            Assert.assertEquals("lightbox-1", it.attr("data-lightbox"))
+        }
+    }
 }
