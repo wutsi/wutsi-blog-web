@@ -24,6 +24,8 @@ class ReadControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
 
+        stub(HttpMethod.POST, "/v1/track", HttpStatus.OK)
+
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
         stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")

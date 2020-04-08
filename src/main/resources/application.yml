@@ -44,6 +44,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/story
     tag:
       endpoint: ${wutsi.backend.base-url}/v1/tag
+    track:
+      endpoint: ${wutsi.backend.base-url}/v1/track
     user:
       endpoint: ${wutsi.backend.base-url}/v1/user
 

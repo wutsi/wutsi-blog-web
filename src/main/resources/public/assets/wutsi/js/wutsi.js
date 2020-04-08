@@ -1,24 +1,16 @@
 function Wutsi (){
-    this.config = {
-        backend: {
-            trackUrl: 'https://int-com-wutsi-track.herokuapp.com/v1/track'
-        }
-    };
-
     this.track = function (event, value){
 
-        const url = this.config.backend.trackUrl;
+        const url = '/track';
         const data = {
             time: new Date().getTime(),
-            duid: this.cookie('__w_duaid'),
             pid:  this.story_id(),
             event: event,
             page: this.page_name(),
             ua: navigator.userAgent,
-            value: (value ? value : null),
-            referer: this.cookie('__w_rfr')
+            value: (value ? value : null)
         };
-        console.log('Track.push to' + url, data);
+        console.log('Pushing ', data);
 
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -27,11 +19,14 @@ function Wutsi (){
                 data: JSON.stringify(data),
                 dataType: 'json',
                 contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+                },
                 success: function (data) {
                     resolve(data)
                 },
                 error: function (error) {
-                    console.log('Failed - ' + url, xhr, textStatus, errorThrown);
+                    console.log('Failed - ' + url, error);
                     reject(error)
                 }
             });

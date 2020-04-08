@@ -6,6 +6,7 @@ import com.wutsi.blog.app.security.qa.QAAuthenticationFilter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -57,7 +58,7 @@ class SecurityConfiguration(
                 .antMatchers( "/login/**/*").permitAll()
                 .antMatchers( "/logout").permitAll()
                 .antMatchers( "/read/**/*").permitAll()
-                .antMatchers( "/storage/**/*").permitAll()
+                .antMatchers( HttpMethod.POST, "/track").permitAll()
                 .anyRequest().authenticated()
 
             .and()
