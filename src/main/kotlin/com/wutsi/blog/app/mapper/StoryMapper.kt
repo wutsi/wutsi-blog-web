@@ -21,7 +21,7 @@ class StoryMapper(
                 content = story.content,
                 title = story.title,
                 contentType = story.contentType,
-                thumbmailUrl = story.thumbnailUrl,
+                thumbnailUrl = story.thumbnailUrl,
                 wordCount = story.wordCount,
                 sourceUrl = story.sourceUrl,
                 readingMinutes = story.readingMinutes,
@@ -44,7 +44,7 @@ class StoryMapper(
     fun toStoryModel(story: StorySummaryDto, user: UserModel? = null) = StoryModel(
             id = story.id,
             title = story.title,
-            thumbmailUrl = story.thumbnailUrl,
+            thumbnailUrl = story.thumbnailUrl,
             wordCount = story.wordCount,
             sourceUrl = story.sourceUrl,
             readingMinutes = story.readingMinutes,

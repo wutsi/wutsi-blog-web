@@ -88,7 +88,7 @@ class ReadController(
             description = story.summary!!,
             type = "article",
             url = url(story),
-            imageUrl = story.thumbmailUrl,
+            imageUrl = story.thumbnailUrl,
             author = story.user.fullName,
             publishedTime = story.publishedDateTimeISO8601,
             modifiedTime = story.modificationDateTimeISO8601,

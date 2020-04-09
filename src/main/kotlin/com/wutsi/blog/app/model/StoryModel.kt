@@ -7,7 +7,7 @@ data class StoryModel(
         val user: UserModel = UserModel(),
         val title: String? = null,
         val summary: String? = null,
-        val thumbmailUrl: String? = null,
+        val thumbnailUrl: String? = null,
         val sourceUrl: String? = null,
         val wordCount: Int = 0,
         val readingMinutes: Int = 0,
