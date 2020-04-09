@@ -12,6 +12,7 @@ class PageName{
         const val STORY_CONFIRMATION = "page.story.confirmation"
         const val STORY_SHARE = "page.story.share"
         const val READ = "page.read"
+        const val SETTINGS = "page.settings"
 
         const val ERROR_400 = "page.error.400"
         const val ERROR_403 = "page.error.403"

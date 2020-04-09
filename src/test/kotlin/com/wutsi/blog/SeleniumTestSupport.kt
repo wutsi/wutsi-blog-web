@@ -83,9 +83,20 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun setupWiremock() {
+        stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
+        stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
+
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
+
+        stub(HttpMethod.POST, "/v1/track", HttpStatus.OK)
+
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
+        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
     }
 
     protected fun login() {
+        driver.get(url)
+
         val state = UUID.randomUUID().toString()
         driver.get(
                 url + SecurityConfiguration.QA_SIGNIN_PATTERN +

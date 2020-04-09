@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service
 class UserMapper {
     fun toUserModel(user: UserDto) = UserModel(
             id = user.id,
+            name = user.name,
+            biography = user.biography,
             fullName = user.fullName,
             pictureUrl = user.pictureUrl,
             email = user.email,

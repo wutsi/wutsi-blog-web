@@ -15,20 +15,14 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     override fun setupWiremock() {
-        stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
-        stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
+        super.setupWiremock()
 
         stub(HttpMethod.GET, "/v1/story/$PUBLISHED_ID", HttpStatus.OK, "v1/story/get-story10-published.json")
         stub(HttpMethod.GET, "/v1/story/$PUBLISHED_NO_THUMBNAIL_ID", HttpStatus.OK, "v1/story/get-story30-no_thumbnail.json")
         stub(HttpMethod.GET, "/v1/story/$DRAFT_ID", HttpStatus.OK, "v1/story/get-story20-draft.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
 
-        stub(HttpMethod.POST, "/v1/track", HttpStatus.OK)
-
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
     }
 
 
@@ -113,7 +107,6 @@ class ReadControllerTest: SeleniumTestSupport() {
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 
-        assertElementAttribute("head base", "href", "http://localhost:8081/")
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "all")

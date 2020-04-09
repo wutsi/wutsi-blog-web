@@ -1,8 +1,10 @@
 {
   "user": {
     "id": 1,
+    "name": "ray.sponsible",
+    "email": "ray.sponsible@gmail.com",
     "fullName": "Ray Sponsible",
-    "email": null,
+    "biography": "Ray sponsible is a test user",
     "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
     "loginCount": 4,
     "lastLoginDateTime": 1585334250000,

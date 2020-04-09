@@ -10,25 +10,19 @@ import org.springframework.http.HttpStatus
 
 class StoryEditorControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
-        stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
-        stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
+        super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/story/10", HttpStatus.OK, "v1/story/get-story10-published.json")
-        stub(HttpMethod.POST, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
-        stub(HttpMethod.POST, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
+        stub(HttpMethod.GET, "/v1/story/10", HttpStatus.OK, "v1/story/get-story10-published.json")
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
+        stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
     }
 
     @Test
     fun `user can edit draft story`() {
-        login()
-        driver.get("$url/story/20/editor")
+        gotoPage(20)
 
-        assertCurrentPageIs(PageName.STORY_EDITOR)
         assertElementHasClass("#story-load-error", "hidden")
         assertElementHasNotClass("#story-editor", "hidden")
     }
@@ -37,27 +31,21 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
     @Test
     @Ignore
     fun `user can publish draft story`() {
-        login()
-        driver.get("$url/story/20/editor")
-        Thread.sleep(1000)
+        gotoPage(20)
 
-        assertCurrentPageIs(PageName.STORY_EDITOR)
         input("#title", "Hello world")
         click(".ce-paragraph")
         input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
         click("#btn-publish")
 
         assertCurrentPageIs(PageName.STORY_PUBLISH)
-
     }
 
     @Test
     @Ignore
     fun `user can edit published story`() {
-        login()
-        driver.get("$url/story/10/editor")
+        gotoPage(10)
 
-        assertCurrentPageIs(PageName.STORY_EDITOR)
         assertElementHasNotClass("#story-load-error .permission-denied", "hidden")
         assertElementHasNotClass("#story-load-error .not-found", "hidden")
         assertElementHasNotClass("#story-load-error .unknwon", "hidden")
@@ -74,32 +62,35 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    @Ignore
     fun `user should never edit another user story`() {
-        login()
-        driver.get("$url/story/99/editor")
+        gotoPage(99)
 
-        assertCurrentPageIs(PageName.STORY_EDITOR)
-        assertElementHasNotClass("#story-load-error .permission-denied", "hidden")
-        assertElementHasClass("#story-load-error .not-found", "hidden")
-        assertElementHasClass("#story-load-error .unknown", "hidden")
-        assertElementHasClass("#story-load-error", "hidden")
+        assertElementHasNotClass("#story-load-error", "hidden")
+        assertElementHasNotClass(".permission-denied", "hidden")
+        assertElementHasClass(".not-found", "hidden")
+        assertElementHasClass(".unknown", "hidden")
 
         assertElementHasClass("#story-editor", "hidden")
     }
 
     @Test
-    @Ignore
     fun `user should never edit invalid story`() {
-        login()
-        driver.get("$url/story/99999/editor")
+        gotoPage(99999)
 
-        assertCurrentPageIs(PageName.STORY_EDITOR)
-        assertElementHasNotClass("#story-load-error .permission-denied", "hidden")
-        assertElementHasClass("#story-load-error .not-found", "hidden")
-        assertElementHasNotClass("#story-load-error .unknown", "hidden")
-        assertElementHasClass("#story-load-error", "hidden")
+        assertElementHasNotClass("#story-load-error", "hidden")
+        assertElementHasNotClass(".not-found", "hidden")
+        assertElementHasClass(".permission-denied", "hidden")
+        assertElementHasClass(".unknown", "hidden")
 
         assertElementHasClass("#story-editor", "hidden")
+    }
+
+    private fun gotoPage(storyId:Long) {
+        login()
+
+        driver.get("$url/story/$storyId/editor")
+        Thread.sleep(1000)
+
+        assertCurrentPageIs(PageName.STORY_EDITOR)
     }
 }

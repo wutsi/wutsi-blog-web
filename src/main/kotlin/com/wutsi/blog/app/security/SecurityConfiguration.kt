@@ -49,6 +49,8 @@ class SecurityConfiguration(
 		http
 
             .authorizeRequests()
+                .antMatchers("/me/**/*").authenticated()
+
                 .antMatchers( "/").permitAll()
                 .antMatchers( "*.ico").permitAll()
                 .antMatchers( "/error").permitAll()
@@ -59,6 +61,7 @@ class SecurityConfiguration(
                 .antMatchers( "/logout").permitAll()
                 .antMatchers( "/read/**/*").permitAll()
                 .antMatchers( HttpMethod.POST, "/track").permitAll()
+
                 .anyRequest().authenticated()
 
             .and()

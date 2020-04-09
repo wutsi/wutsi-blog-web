@@ -9,13 +9,8 @@ import org.springframework.http.HttpStatus
 
 class StoryDraftControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
-        stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
-        stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
-
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
+        super.setupWiremock()
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
-
-        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
     }
 
 

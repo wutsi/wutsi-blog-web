@@ -402,6 +402,16 @@ ul.step-indicator li.active {
     width: 75%;
 }
 
+.settings .form-control {
+    border: none;
+    border-radius: 0;
+    padding: 0.5em 0;
+}
+.settings .form-control:disabled {
+    border: none;
+    background-color: #ffffff;
+}
+
 
 
 /* bootstrap override */
