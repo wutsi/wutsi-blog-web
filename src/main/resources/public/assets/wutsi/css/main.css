@@ -305,6 +305,12 @@ ul.step-indicator li.active {
     margin-bottom: .5em;
 }
 
+.post-list .post img {
+    border: 1px solid var(--border-color);
+    width: 100%;
+    margin-bottom: .5em;
+}
+
 .post-list .post .summary {
     margin-bottom: .5em;
 }

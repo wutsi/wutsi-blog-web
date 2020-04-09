@@ -12,6 +12,7 @@
     <section class="offset-md-3 col-md-6 padding border-bottom post" th:each="story: ${stories}">
         <a th:href="${story.slug}">
             <h2 class="title" th:text="${story.title}">Title</h2>
+            <img th:src="${story.thumbnailUrl}" th:alt="${story.title}" th:if="${story.thumbnailUrl}" />
             <div class="summary" th:text="${story.summary}">Summary</div>
             <div class="author">
                 <span th:text="${story.user.fullName}">Ray Sponsible</span>
