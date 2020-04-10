@@ -7,9 +7,6 @@ on:
 
 jobs:
 
-##----------------------------------------
-##  BUILD
-##----------------------------------------
   build:
     runs-on: ubuntu-latest
 
@@ -43,9 +40,10 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
 
-##----------------------------------------
-##  INT-RELEASE
-##----------------------------------------
+  release-int:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: int-release
       env:
         HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
@@ -66,9 +64,10 @@ jobs:
     - name: int-healthcheck
       run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
-#----------------------------------------
-#  PROD-RELEASE
-#----------------------------------------
+  release-prod:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: prod-release
       env:
         HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
