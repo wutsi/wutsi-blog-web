@@ -87,7 +87,7 @@ jobs:
           --recursive \
           --acl public-read \
           --region us-east-1 \
-          ./src/main/resources/public/ s3://int-wutsi/static/wutsi-blog-web
+          /wutsi-blog-web/src/main/resources/public/ s3://int-wutsi/static/wutsi-blog-web
 
     - name: int-healthcheck
       run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
@@ -127,7 +127,7 @@ jobs:
           --recursive \
           --acl public-read \
           --region us-east-1 \
-          ./src/main/resources/public/ s3://prod-wutsi/static/wutsi-blog-web
+          /wutsi-blog-web/src/main/resources/public/ s3://prod-wutsi/static/wutsi-blog-web
 
     - name: prod-healthcheck
       run: curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
