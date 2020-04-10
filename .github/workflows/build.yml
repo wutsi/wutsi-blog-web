@@ -31,8 +31,10 @@ jobs:
         google-chrome --version
         chromedriver --version
 
-    - name: build
+    - name: checkout
       uses: actions/checkout@v1
+
+    - name: build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -64,7 +66,7 @@ jobs:
       with:
         name: jar
 
-    - name: int-release
+    - name: int-deploy
       env:
         HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
         HEROKU_APP: int-com-wutsi-blog-web
@@ -76,8 +78,10 @@ jobs:
         heroku buildpacks:clear --app ${HEROKU_APP}
         heroku deploy:jar jar/wutsi-blog-web.jar --app ${HEROKU_APP}
 
-    - name: upload assets
+    - name: checkout
       uses: actions/checkout@v1
+
+    - name: int-asset-deploy
       run: |
         aws s3 cp \
           --recursive \
@@ -102,7 +106,7 @@ jobs:
       with:
         name: jar
 
-    - name: prod-release
+    - name: prod-deploy
       env:
         HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
         HEROKU_APP: com-wutsi-blog-web
@@ -114,8 +118,10 @@ jobs:
         heroku buildpacks:clear --app ${HEROKU_APP}
         heroku deploy:jar jar/wutsi-blog-web.jar --app ${HEROKU_APP}
 
-    - name: upload-assets
+    - name: checkout
       uses: actions/checkout@v1
+
+    - name: prod-assets-deploy
       run: |
         aws s3 cp \
           --recursive \
