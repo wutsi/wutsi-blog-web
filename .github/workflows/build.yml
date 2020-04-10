@@ -47,7 +47,7 @@ jobs:
     - name: Upload wutsi-blog-web.jar
       uses: actions/upload-artifact@v1
       with:
-        name: wutsi-blog-web
+        name: jar
         path: target/wutsi-blog-web.jar
 
 
@@ -62,7 +62,7 @@ jobs:
     - name: Download wutsi-blog-web.jar
       uses: actions/download-artifact@v1
       with:
-        name: wutsi-blog-web
+        name: jar
 
     - name: int-release
       env:
@@ -74,7 +74,7 @@ jobs:
         curl https://cli-assets.heroku.com/install.sh | sh
         heroku plugins:install java
         heroku buildpacks:clear --app ${HEROKU_APP}
-        heroku deploy:jar wutsi-blog-web.jar --app ${HEROKU_APP}
+        heroku deploy:jar jar/wutsi-blog-web.jar --app ${HEROKU_APP}
         aws s3 cp \
           --recursive \
           --acl public-read \
@@ -96,7 +96,7 @@ jobs:
     - name: Download wutsi-blog-web.jar
       uses: actions/download-artifact@v1
       with:
-        name: wutsi-blog-web
+        name: jar
 
     - name: prod-release
       env:
@@ -108,7 +108,7 @@ jobs:
         curl https://cli-assets.heroku.com/install.sh | sh
         heroku plugins:install java
         heroku buildpacks:clear --app ${HEROKU_APP}
-        heroku deploy:jar wutsi-blog-web.jar --app ${HEROKU_APP}
+        heroku deploy:jar jar/wutsi-blog-web.jar --app ${HEROKU_APP}
         aws s3 cp \
           --recursive \
           --acl public-read \
