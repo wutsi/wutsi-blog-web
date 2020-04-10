@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    #---------------------------------------------
+    # SETUP
+    #---------------------------------------------
     - uses: actions/checkout@v1
     - name: jdk
       uses: actions/setup-java@v1
@@ -28,23 +32,27 @@ jobs:
         google-chrome --version
         chromedriver --version
 
+    #---------------------------------------------
+    # BUILD
+    #---------------------------------------------
     - name: build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         mvn -s settings.xml install -Dheadless=true
 
+    #---------------------------------------------
+    # CODE COVERAGE
+    #---------------------------------------------
     - name: codecov
       uses: codecov/codecov-action@v1.0.5
       with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
 
-  release-int:
-    runs-on: ubuntu-latest
-    needs: [build]
-
-    steps:
+    #---------------------------------------------
+    # INT DEPLOYMENT
+    #---------------------------------------------
     - name: int-release
       env:
         HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
@@ -65,11 +73,9 @@ jobs:
     - name: int-healthcheck
       run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
-  release-prod:
-    runs-on: ubuntu-latest
-    needs: [release-int]
-
-    steps:
+    #---------------------------------------------
+    # PROD DEPLOYMENT
+    #---------------------------------------------
     - name: prod-release
       env:
         HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
