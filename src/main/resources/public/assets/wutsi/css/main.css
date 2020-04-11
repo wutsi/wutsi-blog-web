@@ -408,6 +408,8 @@ ul.step-indicator li.active {
     width: 75%;
 }
 
+
+
 .settings .form-control {
     border: none;
     border-radius: 0;
@@ -417,7 +419,12 @@ ul.step-indicator li.active {
     border: none;
     background-color: #ffffff;
 }
-
+.settings #my-picture {
+    width: 128px;
+    height: 128px;
+    display: block;
+    border: 1px solid var(--border-color)
+}
 
 
 /* bootstrap override */

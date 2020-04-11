@@ -1,7 +1,5 @@
 function Wutsi (){
     this.track = function (event, value){
-
-        const url = '/track';
         const data = {
             time: new Date().getTime(),
             pid:  this.story_id(),
@@ -10,27 +8,8 @@ function Wutsi (){
             ua: navigator.userAgent,
             value: (value ? value : null)
         };
-        console.log('Pushing ', data);
 
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                method: 'POST',
-                url: url,
-                data: JSON.stringify(data),
-                dataType: 'json',
-                contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
-                },
-                success: function (data) {
-                    resolve(data)
-                },
-                error: function (error) {
-                    console.log('Failed - ' + url, error);
-                    reject(error)
-                }
-            });
-        });
+        return this.httpPost('/track', data, true);
     };
 
     this.httpGet = function(url, json) {
@@ -61,7 +40,9 @@ function Wutsi (){
                 type: 'POST',
                 data: json ? JSON.stringify(data) : data,
                 dataType: json ? 'json' : null,
-                contentType: json ? 'application/json': null,
+                contentType: json ? 'application/json': false,
+                cache: false,
+                processData: false,
                 headers: {
                     'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
                 },

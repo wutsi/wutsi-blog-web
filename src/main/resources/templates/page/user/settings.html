@@ -9,7 +9,14 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container main-content border margin-top padding-2x settings">
+
     <div>
+        <img id="my-picture" th:src="${user.pictureUrl}" />
+        <button class="btn-upload btn btn-sm btn-light margin-top" th:text="#{button.change}">Upload Logo</button>
+        <input id="file-upload" class="hidden" type="file" />
+    </div>
+
+    <div class="border-top margin-top padding-top">
         <div th:replace="components/form :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=30, type='input')"></div>
     </div>
     <div class="border-top margin-top padding-top">
@@ -53,18 +60,22 @@
         $('#file-upload').click();
     });
     $('#file-upload').change(function(){
-        var form = new FormData();
-        form.append('file', $(this).prop('files')[0]);
+        const form = new FormData();
+        const file = $(this).prop('files')[0];
 
-        wutsi.httpPost('/upload', form)
-            then(function(){
-                save_attribute('pictureurl', response.url)
-                    .then(function(){
-                        $('#my-picture').attr('src', response.url)
-                    });
+        console.log('Uploading ', file);
+        if (file.type.startsWith('image/')) {
+            form.append('file', file);
 
-            });
+            wutsi.httpPost('/upload', form)
+                .then(function (data) {
+                    save_attribute('pictureurl', data.url)
+                        .then(function () {
+                            $('#my-picture').attr('src', data.url)
+                        });
 
+                });
+        }
     });
 
     function save_attribute(name, value) {
