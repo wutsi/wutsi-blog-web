@@ -419,7 +419,7 @@ ul.step-indicator li.active {
     border: none;
     background-color: #ffffff;
 }
-.settings #my-picture {
+.settings .picture img {
     width: 128px;
     height: 128px;
     display: block;

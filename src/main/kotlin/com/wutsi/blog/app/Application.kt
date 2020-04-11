@@ -10,8 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableAspectJAutoProxy
 @EnableWebSecurity
 @ComponentScan(value=[
-    "com.wutsi.blog",
-    "com.wutsi.http"
+    "com.wutsi.blog"
 ])
 class Application
 
