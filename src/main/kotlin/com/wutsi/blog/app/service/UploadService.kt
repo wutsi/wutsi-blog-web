@@ -1,9 +1,8 @@
 package com.wutsi.blog.app.service
 
-import com.wutsi.blog.app.model.File
 import com.wutsi.blog.app.model.UploadModel
+import com.wutsi.core.logging.KVLogger
 import com.wutsi.core.storage.StorageService
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.text.SimpleDateFormat
@@ -16,20 +15,17 @@ import java.util.UUID
 @Service
 class UploadService(
         private val clock: Clock,
+        private val logger: KVLogger,
         private val storage: StorageService
 ) {
-    companion object {
-        private val LOGGER = LoggerFactory.getLogger(UploadService::class.java)
-    }
-
     fun upload(file: MultipartFile): UploadModel {
         val path = key(file)
         val url = storage.store(path, file.inputStream, file.contentType)
 
-        LOGGER.info("Store ${file.originalFilename} to ${url}")
+        logger.add("Url", url)
+        logger.add("FileName", file.originalFilename)
         return UploadModel(
-                result = 1,
-                file = File(url = url)
+                url = url
         )
     }
 
