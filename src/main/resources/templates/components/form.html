@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:id="${name} + '-form'" th:fragment="inline_input_form(title, name, value, maxlen, type)">
+<div th:id="${name} + '-form'" th:fragment="inline_input_form(title, name, value, maxlen, type, placeholder)">
     <h4 th:text="${title}">Title</h4>
     <div class="alert alert-danger hidden"></div>
     <input type="hidden" class="old-value" />
@@ -12,12 +12,14 @@
                    th:name="${name}"
                    th:value="${value}"
                    th:maxlength="${maxlen}"
+                   th:placeholder="${placeholder}"
                    th:if="${type == 'input'}"
             />
             <textarea class="form-control" disabled="disabled" rows="2"
                    th:name="${name}"
                    th:text="${value}"
                    th:maxlength="${maxlen}"
+                   th:placeholder="${placeholder}"
                    th:if="${type == 'textarea'}"
             ></textarea>
         </div>

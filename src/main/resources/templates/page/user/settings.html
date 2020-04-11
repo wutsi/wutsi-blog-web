@@ -18,13 +18,13 @@
         </div>
         <div class="col-12 col-md-10">
             <div>
-                <div th:replace="components/form :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=30, type='input')"></div>
+                <div th:replace="components/form :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=30, type='input', placeholder=#{page.settings.username.placeholder})"></div>
             </div>
             <div class="border-top margin-top padding-top">
-                <div th:replace="components/form :: inline_input_form(title=#{label.email}, name='email', value=${user.email}, maxlen=100, type='input')"></div>
+                <div th:replace="components/form :: inline_input_form(title=#{label.email}, name='email', value=${user.email}, maxlen=100, type='input', placeholder=#{page.settings.email.placeholder})"></div>
             </div>
             <div class="border-top margin-top padding-top">
-                <div th:replace="components/form :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, type='textarea')"></div>
+                <div th:replace="components/form :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, type='textarea', placeholder=#{page.settings.bio.placeholder})"></div>
             </div>
         </div>
     </div>
