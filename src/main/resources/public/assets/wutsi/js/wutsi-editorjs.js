@@ -69,33 +69,20 @@ function WutsiEJS (holderId, publishCallback){
                         content: JSON.stringify(data)
                     };
 
-                    $
-                        .ajax({
-                            method: 'POST',
-                            url: me.config.saveUrl,
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify(request),
-                            headers: {
-                                'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
-                            }
-                        })
-                        .done(function (story){
-                            console.log('SUCCESS - Saving document', story);
+                    wutsi.httpPost(me.config.saveUrl, request, true)
+                        .then(function(story){
                             me.storyId = story.id;
                             if (callback){
                                 callback();
                             }
                         })
-                        .fail(function (error){
-                            console.error('FAIL - Saving document',  error);
+                        .catch(function(){
                             me.set_dirty(true);
                         })
-                        .always(function(){
+                        .finally(function(){
                             me.saving = false;
                             me.update_toolbar();
-                        })
-                    ;
+                        });
                 })
                 .catch(function(error){
                     console.error("Save Error", error);

@@ -73,22 +73,11 @@
 
         if (storyId > 0){
             console.log('Loading Story#' + storyId);
-            $
-                .ajax({
-                    method: 'GET',
-                    url: '/story/' + storyId + '/editor/fetch',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    headers: {
-                        'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
-                    }
-                })
-                .done( function(story) {
+            wutsi.httpGet('/story/' + storyId + '/editor/fetch', true)
+                .then(function(story){
                     editor.setup(story);
                 })
-                .fail(function(error) {
-                    console.error('Unable to load the Story#' + storyId, error);
-
+                .catch(function(error){
                     var selector = '';
                     if (error.status == 404) {
                         selector = '#story-load-error .not-found';
@@ -100,6 +89,7 @@
                     $(selector).removeClass('hidden');
                     $('#story-load-error').removeClass('hidden');
                     $('#story-editor').addClass('hidden');
+
                 });
         } else {
             editor.setup(null);

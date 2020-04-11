@@ -33,6 +33,27 @@ function Wutsi (){
         });
     };
 
+    this.httpGet = function(url, json) {
+        return $.ajax({
+            method: 'GET',
+            url: url,
+            dataType: json ? 'json' : null,
+            contentType: json ? 'application/json': null,
+            headers: {
+                'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+            },
+            success: function(data) {
+                console.log('GET ', url, data);
+                resolve(data)
+            },
+            error: function(error) {
+                console.error('GET ', url, error);
+                reject(error)
+            }
+        })
+
+    };
+
     this.httpPost = function(url, data, json) {
         return new Promise(function(resolve, reject) {
             $.ajax({
