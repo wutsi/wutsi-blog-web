@@ -15,7 +15,7 @@ class StoryShareController(
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.STORY_SHARE
 
-    @GetMapping("/story/{id}/share")
+    @GetMapping("/me/story/{id}/share")
     fun index(@PathVariable id:Long, model: Model): String {
         val story = service.get(id)
         checkPublished(story)

@@ -18,19 +18,6 @@
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>false</enabled></snapshots>
                 </repository>
-
-                <repository>
-                    <id>github-wutsi-blog-client</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
-                </repository>
-                <repository>
-                    <id>github-wutsi-core</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-core</url>
-                </repository>
-                <repository>
-                    <id>github-wutsi-core-aws</id>
-                    <url>https://maven.pkg.github.com/wutsi/wutsi-core-aws</url>
-                </repository>
             </repositories>
         </profile>
     </profiles>
@@ -48,6 +35,16 @@
         </server>
         <server>
             <id>github-wutsi-core-aws</id>
+            <username>wutsi</username>
+            <password>${GITHUB_TOKEN}</password>
+        </server>
+        <server>
+            <id>github-wutsi-editorjs</id>
+            <username>wutsi</username>
+            <password>${GITHUB_TOKEN}</password>
+        </server>
+        <server>
+            <id>github-wutsi-extractor</id>
             <username>wutsi</username>
             <password>${GITHUB_TOKEN}</password>
         </server>

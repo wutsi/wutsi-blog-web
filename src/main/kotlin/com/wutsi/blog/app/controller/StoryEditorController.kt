@@ -21,13 +21,13 @@ class StoryEditorController(
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.STORY_EDITOR
 
-    @GetMapping("/story/editor")
+    @GetMapping("/me/story/editor")
     fun create(model: Model): String {
         model.addAttribute("storyId", 0)
         return "page/story/editor"
     }
 
-    @GetMapping("/story/{id}/editor")
+    @GetMapping("/me/story/{id}/editor")
     fun update(@PathVariable id:Long, @RequestParam error:String?=null, model: Model): String {
         model.addAttribute("storyId", id)
         model.addAttribute("error", error)
@@ -35,7 +35,7 @@ class StoryEditorController(
     }
 
     @ResponseBody
-    @GetMapping("/story/{id}/editor/fetch", produces = ["application/json"])
+    @GetMapping("/me/story/{id}/editor/fetch", produces = ["application/json"])
     fun fetch(@PathVariable id:Long): StoryModel {
         val story = service.get(id)
         super.checkOwnership(story)
@@ -44,7 +44,7 @@ class StoryEditorController(
     }
 
     @ResponseBody
-    @PostMapping("/story/editor/save", produces = ["application/json"], consumes = ["application/json"])
+    @PostMapping("/me/story/editor/save", produces = ["application/json"], consumes = ["application/json"])
     fun save(@RequestBody editor: StoryForm): StoryForm {
         return service.save(editor)
     }

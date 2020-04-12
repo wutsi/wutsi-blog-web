@@ -11,6 +11,7 @@ class PageName{
         const val STORY_PUBLISH = "page.story.publish"
         const val STORY_CONFIRMATION = "page.story.confirmation"
         const val STORY_SHARE = "page.story.share"
+        const val STORY_SYNDICATE = "page.story.syndicate"
         const val READ = "page.read"
         const val SETTINGS = "page.settings"
 

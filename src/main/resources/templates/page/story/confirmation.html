@@ -50,7 +50,7 @@
             <div class="margin-top-2x" th:utext="#{page.story.confirmation.share}">Share your story</div>
             <div class="margin-top">
                 <a class="float-left" th:text="#{button.read_story}"  th:href="${story.slug}">Read</a>
-                <a class="float-right btn btn-primary" th:text="#{button.share_story}"  th:href="'/story/' + ${story.id} + '/share'">Share</a>
+                <a class="float-right btn btn-primary" th:text="#{button.share_story}"  th:href="'/me/story/' + ${story.id} + '/share'">Share</a>
             </div>
         </div>
     </div>

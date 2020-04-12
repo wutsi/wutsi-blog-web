@@ -64,7 +64,7 @@
 
 
     function publish(id) {
-        window.location.href = '/story/' + id + '/publish';
+        window.location.href = '/me/story/' + id + '/publish';
     }
 
     $(document).ready(function(){
@@ -73,7 +73,7 @@
 
         if (storyId > 0){
             console.log('Loading Story#' + storyId);
-            wutsi.httpGet('/story/' + storyId + '/editor/fetch', true)
+            wutsi.httpGet('/me/story/' + storyId + '/editor/fetch', true)
                 .then(function(story){
                     editor.setup(story);
                 })

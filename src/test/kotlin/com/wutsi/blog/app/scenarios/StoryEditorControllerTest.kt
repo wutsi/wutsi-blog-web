@@ -56,7 +56,7 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `anonymous user cannot edit stories`() {
-        driver.get("$url/story/10/editor")
+        driver.get("$url/me/story/10/editor")
 
         assertCurrentPageIs(PageName.LOGIN)
     }
@@ -88,7 +88,7 @@ class StoryEditorControllerTest: SeleniumTestSupport() {
     private fun gotoPage(storyId:Long) {
         login()
 
-        driver.get("$url/story/$storyId/editor")
+        driver.get("$url/me/story/$storyId/editor")
         Thread.sleep(1000)
 
         assertCurrentPageIs(PageName.STORY_EDITOR)

@@ -3,7 +3,7 @@
 <body>
 
 <div  th:fragment="toolbar">
-    <a class="btn btn-primary float-right" href="/story/editor" th:text="#{button.create_story}">New Story</a>
+    <a class="btn btn-primary float-right" href="/me/story/editor" th:text="#{button.create_story}">New Story</a>
     <div class="clearfix"></div>
 </div>
 
@@ -24,7 +24,7 @@
 
 <div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
 
-    <a th:href="${story.draft} ? '/story/' + ${story.id} + '/editor' : ${story.slug}">
+    <a th:href="${story.draft} ? '/me/story/' + ${story.id} + '/editor' : ${story.slug}">
         <h3 class="title" th:text="${story.title}">Title</h3>
         <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
 
@@ -44,8 +44,8 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="'story-menu' + ${story.id}">
-                <a class="dropdown-item" th:href="'/story/' + ${story.id} + '/editor'" th:text="#{button.edit}">Edit</a>
-                <a class="dropdown-item" th:href="'/story/' + ${story.id} + '/publish'" th:text="#{button.publish}" th:if="${story.draft}">Publish</a>
+                <a class="dropdown-item" th:href="'/me/story/' + ${story.id} + '/editor'" th:text="#{button.edit}">Edit</a>
+                <a class="dropdown-item" th:href="'/me/story/' + ${story.id} + '/publish'" th:text="#{button.publish}" th:if="${story.draft}">Publish</a>
             </div>
         </div>
     </div>

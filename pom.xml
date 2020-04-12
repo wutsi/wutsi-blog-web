@@ -142,6 +142,28 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>github-wutsi-blog-client</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
+        </repository>
+        <repository>
+            <id>github-wutsi-blog-core</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
+        </repository>
+        <repository>
+            <id>github-wutsi-blog-core-aws</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-blog-core-aws</url>
+        </repository>
+        <repository>
+            <id>github-wutsi-extractor</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-extractor</url>
+        </repository>
+        <repository>
+            <id>github-wutsi-editorjs</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-editorjs</url>
+        </repository>
+    </repositories>
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>

@@ -17,7 +17,7 @@ class StoryConfirmationController(
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.STORY_CONFIRMATION
 
-    @GetMapping("/story/{id}/confirmation")
+    @GetMapping("/me/story/{id}/confirmation")
     fun index(@PathVariable id:Long, model: Model): String {
         val story = get(id)
         model.addAttribute("story", story)

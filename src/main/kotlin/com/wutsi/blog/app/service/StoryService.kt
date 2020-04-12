@@ -1,9 +1,9 @@
 package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.StoryBackend
+import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.PublishForm
 import com.wutsi.blog.app.model.StoryForm
-import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.client.story.PublishStoryRequest
@@ -74,6 +74,7 @@ class StoryService(
         )
         return storyBackend.count(request).total
     }
+
 
     private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
 

@@ -50,19 +50,9 @@ class SecurityConfiguration(
 
             .authorizeRequests()
                 .antMatchers("/me/**/*").authenticated()
+                .antMatchers(HttpMethod.POST, "/upload").authenticated()
 
-                .antMatchers( "/").permitAll()
-                .antMatchers( "*.ico").permitAll()
-                .antMatchers( "/error").permitAll()
-                .antMatchers( "/assets/**/*").permitAll()
-                .antMatchers( "/actuator/**/*").permitAll()
-                .antMatchers( "/login").permitAll()
-                .antMatchers( "/login/**/*").permitAll()
-                .antMatchers( "/logout").permitAll()
-                .antMatchers( "/read/**/*").permitAll()
-                .antMatchers( HttpMethod.POST, "/track").permitAll()
-
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
 
             .and()
                 .formLogin()

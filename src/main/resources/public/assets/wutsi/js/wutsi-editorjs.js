@@ -7,7 +7,7 @@ function WutsiEJS (holderId, publishCallback){
 
     this.config = {
         autosave: 60000,
-        saveUrl: '/story/editor/save',
+        saveUrl: '/me/story/editor/save',
         selectors: {
             title: '#title',
             btnPreview: '#btn-preview',
