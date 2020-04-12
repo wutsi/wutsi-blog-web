@@ -6,6 +6,7 @@ import com.wutsi.blog.app.model.PublishForm
 import com.wutsi.blog.app.model.StoryForm
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
+import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
@@ -75,6 +76,14 @@ class StoryService(
         return storyBackend.count(request).total
     }
 
+    fun import(url: String): Long {
+        val request = ImportStoryRequest(
+                url = url,
+                accessToken = requestContext.accessToken()
+        )
+        return storyBackend.import(request).storyId
+    }
+
 
     private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
 
@@ -97,6 +106,7 @@ class StoryService(
             title = editor.title,
             accessToken = requestContext.accessToken()
     )
+
 
     private fun searchUserMap(stories: List<StorySummaryDto>): Map<Long, UserModel?> {
         val userIds = stories.map { it.userId }.toSet().toList()

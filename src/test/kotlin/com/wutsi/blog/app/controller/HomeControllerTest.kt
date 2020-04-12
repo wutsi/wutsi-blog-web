@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.scenarios
+package com.wutsi.blog.app.controller
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName

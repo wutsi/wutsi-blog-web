@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.service
 
 import org.springframework.stereotype.Service
+import java.text.DateFormat
 import java.time.Clock
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -24,8 +25,6 @@ class Moment(
         val minutes = ChronoUnit.MINUTES.between(now, localDate)
         val hours = ChronoUnit.HOURS.between(now, localDate)
         val days = ChronoUnit.DAYS.between(now, localDate)
-        val months = ChronoUnit.MONTHS.between(now, localDate)
-        val years = ChronoUnit.MONTHS.between(now, localDate)
 
         if (minutes == 0L){
             return getMessage("moment.now")
@@ -37,12 +36,9 @@ class Moment(
             return getMessage("moment.today")
         } else if (days == -1L){
             return getMessage("moment.yesterday")
-        } else if (months == 0L) {
-            return if (days < 0) getMessage("moment.ago_days", arrayOf(-days)) else getMessage("moment.in_days", arrayOf(days))
-        } else if (Math.abs(months) < 12) {
-            return if (months < 0) getMessage("moment.ago_months", arrayOf(-months)) else getMessage("moment.in_months", arrayOf(months))
         } else {
-            return if (years < 0) getMessage("moment.ago_years", arrayOf(-years)) else getMessage("moment.in_years", arrayOf(years))
+            val fmt = DateFormat.getDateInstance(DateFormat.MEDIUM)
+            return fmt.format(date)
         }
     }
 

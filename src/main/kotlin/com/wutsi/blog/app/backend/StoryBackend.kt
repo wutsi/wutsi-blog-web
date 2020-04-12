@@ -2,6 +2,8 @@ package com.wutsi.blog.app.backend
 
 import com.wutsi.blog.client.story.CountStoryResponse
 import com.wutsi.blog.client.story.GetStoryResponse
+import com.wutsi.blog.client.story.ImportStoryRequest
+import com.wutsi.blog.client.story.ImportStoryResponse
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.PublishStoryResponse
 import com.wutsi.blog.client.story.SaveStoryRequest
@@ -39,5 +41,9 @@ class StoryBackend (private val http: Http) {
 
     fun publish(id:Long, request: PublishStoryRequest): PublishStoryResponse {
         return http.post("$endpoint/$id/publish", request, PublishStoryResponse::class.java).body
+    }
+
+    fun import(request: ImportStoryRequest): ImportStoryResponse {
+        return http.post("$endpoint/import", request, ImportStoryResponse::class.java).body
     }
 }

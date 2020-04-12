@@ -49,6 +49,7 @@ class SecurityConfiguration(
 		http
 
             .authorizeRequests()
+                .antMatchers("/me/*").authenticated()
                 .antMatchers("/me/**/*").authenticated()
                 .antMatchers(HttpMethod.POST, "/upload").authenticated()
 
