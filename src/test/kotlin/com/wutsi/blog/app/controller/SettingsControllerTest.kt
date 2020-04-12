@@ -68,7 +68,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
     fun `user update - unexpected error`() {
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.INTERNAL_SERVER_ERROR)
 
-        val error = "Ooup! une erreur innatendue est survenu."
+        val error = "Ooup! une erreur innatendue est survenue."
         testUpdate("biography", "Ray sponsible is a test user", "...", error)
     }
 
