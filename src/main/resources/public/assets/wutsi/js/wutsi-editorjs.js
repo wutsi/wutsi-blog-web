@@ -203,9 +203,9 @@ function WutsiEJS (holderId, publishCallback){
         // Close button
         $(this.config.selectors.btnClose).on('click', function () {
             if (!story || story.draft) {
-                window.location.href = '/story/draft';
+                window.location.href = '/me/story/draft';
             } else {
-                window.location.href = '/story/published';
+                window.location.href = '/me/story/published';
             }
         });
 

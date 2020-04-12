@@ -18,7 +18,7 @@ class StoryPublishController(
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.STORY_PUBLISH
 
-    @GetMapping("/story/{id}/publish")
+    @GetMapping("/me/story/{id}/publish")
     fun index(@PathVariable id:Long, model: Model): String {
         val story = service.get(id)
         super.checkOwnership(story)
@@ -27,7 +27,7 @@ class StoryPublishController(
         return "page/story/publish"
     }
 
-    @GetMapping("/story/publish/submit")
+    @GetMapping("/me/story/publish/submit")
     fun submit(@ModelAttribute editor: PublishForm): String {
         try {
             service.publish(editor)

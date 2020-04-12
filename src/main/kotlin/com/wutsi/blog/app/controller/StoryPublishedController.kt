@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/story/published")
+@RequestMapping("/me/story/published")
 class StoryPublishedController(
         service: StoryService,
         requestContext: RequestContext

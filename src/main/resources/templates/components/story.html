@@ -9,13 +9,13 @@
 
 <ul th:fragment="tabs(status, totalDraftStories, totalPublishedStories)" class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="/story/draft"  th:classappend="${status} == 'draft' ? 'active' : null">
+        <a id="tab-draft" class="nav-link" href="/me/story/draft"  th:classappend="${status} == 'draft' ? 'active' : null">
             <span th:text="#{story.status.draft}">Draft</span>
             <span class="badge badge-light" th:text="${totalDraftStories}" th:if="${totalDraftStories} GT 0">9</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/story/published" th:classappend="${status} == 'published' ? 'active' : null">
+        <a id="tab-published" class="nav-link" href="/me/story/published" th:classappend="${status} == 'published' ? 'active' : null">
             <span th:text="#{story.status.published}">Published</span>
             <span class="badge badge-light" th:text="${totalPublishedStories}" th:if="${totalPublishedStories} GT 0">9</span>
         </a>
