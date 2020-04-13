@@ -5,7 +5,7 @@ class PageName{
         const val HOME = "page.home"
         const val LOGIN = "page.login"
         const val LOGOUT = "page.logout"
-        const val STORY_EDITOR = "page.story.editor"
+        const val EDITOR = "page.editor"
         const val STORY_DRAFT = "page.story.draft"
         const val STORY_PUBLISHED = "page.story.published"
         const val STORY_PUBLISH = "page.story.publish"

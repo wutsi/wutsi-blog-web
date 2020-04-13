@@ -7,7 +7,7 @@ function WutsiEJS (holderId, publishCallback){
 
     this.config = {
         autosave: 60000,
-        saveUrl: '/me/story/editor/save',
+        saveUrl: '/editor/save',
         selectors: {
             title: '#title',
             btnPreview: '#btn-preview',
@@ -27,6 +27,9 @@ function WutsiEJS (holderId, publishCallback){
         }
     };
 
+    this.init = function () {
+
+    };
 
     this.setup = function(story) {
         console.log('Initializing Editor');

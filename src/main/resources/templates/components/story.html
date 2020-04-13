@@ -4,7 +4,7 @@
 
 <div  th:fragment="toolbar">
     <a id="toolbar-syndicate" class="btn btn-light float-right" href="/me/syndicate" th:text="#{button.syndicate_story}">Syndicate Story</a>
-    <a id="toolbar-create" class="btn btn-primary margin-right float-right" href="/me/story/editor" th:text="#{button.create_story}">New Story</a>
+    <a id="toolbar-create" class="btn btn-primary margin-right float-right" href="/editor" th:text="#{button.create_story}">New Story</a>
     <div class="clearfix"></div>
 </div>
 
@@ -25,7 +25,7 @@
 
 <div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
 
-    <a th:href="${story.draft} ? '/me/story/' + ${story.id} + '/editor' : ${story.slug}">
+    <a th:href="${story.draft} ? '/editor/' + ${story.id} : ${story.slug}">
         <h3 class="title" th:text="${story.title}">Title</h3>
         <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
 

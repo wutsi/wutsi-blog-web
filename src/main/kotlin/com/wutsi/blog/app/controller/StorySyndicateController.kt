@@ -33,7 +33,7 @@ class StorySyndicateController(
     fun import(@RequestParam url: String): String {
         try {
             val id = service.import(url)
-            return "redirect:/me/story/$id/editor"
+            return "redirect:/editor/$id"
         } catch (ex: Exception) {
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)

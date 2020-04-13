@@ -15,27 +15,27 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-class StoryEditorController(
+class EditorController(
         private val service: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.STORY_EDITOR
+    override fun pageName() = PageName.EDITOR
 
-    @GetMapping("/me/story/editor")
+    @GetMapping("/editor")
     fun create(model: Model): String {
         model.addAttribute("storyId", 0)
-        return "page/story/editor"
+        return "page/editor"
     }
 
-    @GetMapping("/me/story/{id}/editor")
+    @GetMapping("/editor/{id}")
     fun update(@PathVariable id:Long, @RequestParam error:String?=null, model: Model): String {
         model.addAttribute("storyId", id)
         model.addAttribute("error", error)
-        return "page/story/editor"
+        return "page/editor"
     }
 
     @ResponseBody
-    @GetMapping("/me/story/{id}/editor/fetch", produces = ["application/json"])
+    @GetMapping("/editor/fetch/{id}", produces = ["application/json"])
     fun fetch(@PathVariable id:Long): StoryModel {
         val story = service.get(id)
         super.checkOwnership(story)
@@ -44,7 +44,7 @@ class StoryEditorController(
     }
 
     @ResponseBody
-    @PostMapping("/me/story/editor/save", produces = ["application/json"], consumes = ["application/json"])
+    @PostMapping("/editor/save", produces = ["application/json"], consumes = ["application/json"])
     fun save(@RequestBody editor: StoryForm): StoryForm {
         return service.save(editor)
     }

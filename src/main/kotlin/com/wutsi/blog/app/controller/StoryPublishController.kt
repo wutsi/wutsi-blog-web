@@ -33,7 +33,7 @@ class StoryPublishController(
             service.publish(editor)
             return "redirect:/me/story/${editor.id}/confirmation"
         } catch (ex: ConflictException) {
-            return "redirect:/story/${editor.id}/editor?error=publish_error"
+            return "redirect:/editor/${editor.id}?error=publish_error"
         }
     }
 }

@@ -69,11 +69,11 @@
 
     $(document).ready(function(){
         var editor = new WutsiEJS('editorjs', publish);
-        console.log('editor', editor);
+        console.log('templates.page.editor', editor);
 
         if (storyId > 0){
             console.log('Loading Story#' + storyId);
-            wutsi.httpGet('/me/story/' + storyId + '/editor/fetch', true)
+            wutsi.httpGet('/editor/fetch/' + storyId, true)
                 .then(function(story){
                     editor.setup(story);
                 })

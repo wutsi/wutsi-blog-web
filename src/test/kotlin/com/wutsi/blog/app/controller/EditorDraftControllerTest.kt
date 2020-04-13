@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class StoryEditorDraftControllerTest: SeleniumTestSupport() {
+class EditorDraftControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -27,7 +27,6 @@ class StoryEditorDraftControllerTest: SeleniumTestSupport() {
         assertElementHasClass("#story-load-error", "hidden")
         assertElementHasNotClass("#story-editor", "hidden")
     }
-
 
     @Test
     fun `user can close draft story`() {
@@ -91,15 +90,15 @@ class StoryEditorDraftControllerTest: SeleniumTestSupport() {
         click(".story:first-child a")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_EDITOR)
+        assertCurrentPageIs(PageName.EDITOR)
     }
 
     private fun gotoPage(storyId:Long) {
         login()
 
-        driver.get("$url/me/story/$storyId/editor")
+        driver.get("$url/editor/$storyId")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_EDITOR)
+        assertCurrentPageIs(PageName.EDITOR)
     }
 }

@@ -22,7 +22,7 @@ class StorySyndicateControllerTest : SeleniumTestSupport() {
         input("#url", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter/")
         click("#btn-submit")
 
-        assertCurrentPageIs(PageName.STORY_EDITOR)
+        assertCurrentPageIs(PageName.EDITOR)
         Thread.sleep(1000)  // Wait for data to be fectched
 
         assertElementAttribute("#title", "value", "Lorem Ipsum #100")
