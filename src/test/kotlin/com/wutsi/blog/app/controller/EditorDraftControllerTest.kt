@@ -14,18 +14,43 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-draft.json")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
-        stub(HttpMethod.POST, "/v1/story/20", HttpStatus.OK, "v1/story/save.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
+        stub(HttpMethod.POST, "/v1/story/20", HttpStatus.OK, "v1/story/save.json")
+        stub(HttpMethod.POST, "/v1/story", HttpStatus.OK, "v1/story/save.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
     @Test
-    fun `user can edit draft story`() {
+    fun `user can create and publish new story`() {
+        gotoPage(true)
+
+        assertElementHasClass("#story-load-error", "hidden")
+        assertElementHasNotClass("#story-editor", "hidden")
+
+        input("#title", "Hello world")
+        click(".ce-paragraph")
+        input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
+        click("#btn-publish")
+
+        Thread.sleep(1000)
+        assertCurrentPageIs(PageName.STORY_PUBLISH)
+    }
+
+    @Test
+    fun `user can edit and publish draft story`() {
         gotoPage()
 
         assertElementHasClass("#story-load-error", "hidden")
         assertElementHasNotClass("#story-editor", "hidden")
+
+        input("#title", "Hello world")
+        click(".ce-paragraph")
+        input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
+        click("#btn-publish")
+
+        Thread.sleep(1000)
+        assertCurrentPageIs(PageName.STORY_PUBLISH)
     }
 
     @Test
@@ -35,19 +60,6 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
         click("#btn-close")
 
         assertCurrentPageIs(PageName.STORY_DRAFT)
-    }
-
-    @Test
-    fun `user can publish draft story`() {
-        gotoPage()
-
-        input("#title", "Hello world")
-        click(".ce-paragraph")
-        input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
-        click("#btn-publish")
-
-        Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_PUBLISH)
     }
 
     @Test
@@ -82,12 +94,18 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
     }
 
 
-    private fun gotoPage() {
+    private fun gotoPage(new: Boolean = false) {
         login()
 
         click("nav .nav-item")
-        click("#navbar-draft")
-        click(".story:first-child a")
+
+        if (new) {
+            click("#navbar-editor")
+        } else {
+            click("#navbar-draft")
+            click(".story:first-child .dropdown .btn")
+            click(".story .menu-item-edit")
+        }
 
         Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR)

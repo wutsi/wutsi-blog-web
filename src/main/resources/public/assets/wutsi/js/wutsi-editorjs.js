@@ -10,7 +10,6 @@ function WutsiEJS (holderId, publishCallback){
         saveUrl: '/editor/save',
         selectors: {
             title: '#title',
-            btnPreview: '#btn-preview',
             btnPublish: '#btn-publish',
             btnClose: '#btn-close',
             storyStatus: '#story-status',
@@ -192,13 +191,6 @@ function WutsiEJS (holderId, publishCallback){
         // Editor Status
         $(this.config.selectors.editorStatus).text('');
 
-        // Preview
-        $(this.config.selectors.btnPreview).on('click', function () {
-            if (me.storyId > 0) {
-                window.open('/read/' + me.storyId + '?preview=true')
-            }
-        });
-
         // Publish button
         $(this.config.selectors.btnPublish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.saveAndPublish);
         $(this.config.selectors.btnPublish).on('click', function () {
@@ -230,11 +222,6 @@ function WutsiEJS (holderId, publishCallback){
             } else {
                 $(this.config.selectors.editorStatus).text(this.config.labels.saved);
             }
-        }
-
-        // Preview
-        if (this.storyId > 0){
-            $(this.config.selectors.btnPreview).removeAttr('disabled');
         }
     };
 

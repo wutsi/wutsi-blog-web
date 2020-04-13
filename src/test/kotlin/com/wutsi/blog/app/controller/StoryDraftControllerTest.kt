@@ -25,8 +25,15 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
     fun `user should see his draft stories`() {
         gotoPage()
 
-        assertCurrentPageIs(PageName.STORY_DRAFT)
         assertElementCount(".story", 4)
+    }
+
+    @Test
+    fun `user preview story`() {
+        gotoPage()
+
+        click(".story:first-child .menu-item-preview")
+        assertCurrentPageIs(PageName.READ)
     }
 
     fun gotoPage(login: Boolean = true) {
@@ -34,6 +41,7 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
             login()
             click("nav .nav-item")
             click("#navbar-draft")
+            assertCurrentPageIs(PageName.STORY_DRAFT)
         } else {
             driver.get("$url/me/draft")
         }

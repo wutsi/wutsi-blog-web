@@ -44,9 +44,10 @@
                 <i class="fas fa-ellipsis-h"></i>
             </a>
 
-            <div class="dropdown-menu" aria-labelledby="'story-menu' + ${story.id}">
-                <a class="dropdown-item" th:href="'/me/story/' + ${story.id} + '/editor'" th:text="#{button.edit}">Edit</a>
-                <a class="dropdown-item" th:href="'/me/story/' + ${story.id} + '/publish'" th:text="#{button.publish}" th:if="${story.draft}">Publish</a>
+            <div th:id="'story-menu' + ${story.id}" class="dropdown-menu" th:aria-labelledby="'story-menu' + ${story.id}">
+                <a class="dropdown-item menu-item-edit" th:href="'/editor/' + ${story.id}" th:text="#{button.edit}">Edit</a>
+                <a class="dropdown-item menu-item-preview" th:href="'/read/' + ${story.id} + '?preview=true'" th:text="#{button.preview}" th:if="${story.draft}">Preview</a>
+                <a class="dropdown-item menu-item-publish" th:href="'/me/story/' + ${story.id} + '/publish'" th:text="#{button.publish}" th:if="${story.draft}">Publish</a>
             </div>
         </div>
     </div>
