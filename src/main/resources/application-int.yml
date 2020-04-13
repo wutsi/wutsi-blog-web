@@ -18,10 +18,7 @@ wutsi:
 
   storage:
     s3:
-      region: "us-east-1"
-      bucket: "int-wutsi-blog"
-    servlet:
-      hostname: "int-com-wutsi-blog.herokuapp.com"
+      bucket: "int-wutsi"
 
   toggles:
     sso-facebook: true

@@ -31,7 +31,7 @@
 
         <wutsi-blog-client.version>1.4.0</wutsi-blog-client.version>
         <wutsi-core.version>1.2.0</wutsi-core.version>
-        <wutsi-core-aws.version>1.1.0</wutsi-core-aws.version>
+        <wutsi-core-aws.version>1.2.0</wutsi-core-aws.version>
         <wutsi-editorjs.version>1.4.0</wutsi-editorjs.version>
     </properties>
 
@@ -160,11 +160,11 @@
             <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
         </repository>
         <repository>
-            <id>github-wutsi-blog-core</id>
-            <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
+            <id>github-wutsi-core</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-core</url>
         </repository>
         <repository>
-            <id>github-wutsi-blog-core-aws</id>
+            <id>github-wutsi-core-aws</id>
             <url>https://maven.pkg.github.com/wutsi/wutsi-blog-core-aws</url>
         </repository>
         <repository>

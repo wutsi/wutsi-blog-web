@@ -3,7 +3,8 @@ package com.wutsi.blog.app.config
 import com.amazonaws.services.s3.AmazonS3
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.servlet.StorageServlet
-import com.wutsi.core.aws.service.AwsStorageService
+import com.wutsi.core.aws.health.S3HealthIndicator
+import com.wutsi.core.aws.service.S3StorageService
 import com.wutsi.core.http.Http
 import com.wutsi.core.http.HttpExceptionHandler
 import com.wutsi.core.http.RequestTraceContext
@@ -17,6 +18,7 @@ import com.wutsi.core.tracking.DeviceUIDFilter
 import com.wutsi.core.tracking.DeviceUIDProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.actuate.health.HealthIndicator
 import org.springframework.boot.web.servlet.ServletRegistrationBean
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
@@ -55,7 +57,8 @@ class CoreConfiguration(
     fun requestTraceContext(request: HttpServletRequest) = RequestTraceContext(request)
 
     @Bean
-    fun storageServlet(
+    @Profile("!aws")
+    fun localStorageServlet(
             @Value("\${wutsi.storage.local.directory}") directory: String,
             @Value("\${wutsi.storage.servlet.path}") servletPath: String
     ): ServletRegistrationBean<*> {
@@ -76,9 +79,23 @@ class CoreConfiguration(
     @Bean
     @Profile("aws")
     @Autowired
-    fun awsStorageService(s3: AmazonS3) : StorageService {
-        return AwsStorageService(s3)
+    fun s3StorageService(
+            s3: AmazonS3,
+            @Value("\${wutsi.storage.s3.bucket}") bucket: String
+    ) : StorageService {
+        return S3StorageService(s3, bucket)
     }
+
+    @Bean
+    @Profile("aws")
+    @Autowired
+    fun s3StorageHealth(
+            s3: AmazonS3,
+            @Value("\${wutsi.storage.s3.bucket}") bucket: String
+    ): HealthIndicator {
+        return S3HealthIndicator(s3, bucket)
+    }
+
 
     @Bean
     fun deviceUIDFilter () : DeviceUIDFilter {

@@ -24,3 +24,7 @@ wutsi:
   google:
     ga:
       code: "UA-120456146-1"
+
+  storage:
+    s3:
+      bucket: "prod-wutsi"

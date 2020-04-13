@@ -36,6 +36,10 @@ wutsi:
   domain: localhost
   base-url: "http://${wutsi.domain}:8081"
 
+  aws:
+    s3:
+      region: "us-east-1"
+
   backend:
     base-url: http://localhost:8080
     authentication:
@@ -78,8 +82,7 @@ wutsi:
       hostname: "localhost:${server.port}"
       url: "http://${wutsi.storage.servlet.hostname}${wutsi.storage.servlet.path}"
     s3:
-      region: "us-east-1"
-      bucket: "int-wutsi-track"
+      bucket:
 
   google:
     ga:
