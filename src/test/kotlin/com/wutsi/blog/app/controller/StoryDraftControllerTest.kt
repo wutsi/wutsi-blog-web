@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus
 class StoryDraftControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
+
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-draft.json")
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
     }
 
@@ -25,13 +28,14 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
     fun `user should see his draft stories`() {
         gotoPage()
 
-        assertElementCount(".story", 4)
+        assertElementCount(".story", 2)
     }
 
     @Test
     fun `user preview story`() {
         gotoPage()
 
+        click(".story:first-child .dropdown .btn")
         click(".story:first-child .menu-item-preview")
         assertCurrentPageIs(PageName.READ)
     }
