@@ -61,6 +61,7 @@ function WutsiEJS (holderId, publishCallback){
             this.editorjs
                 .save()
                 .then(function(data){
+                    console.log('Saved', data);
                     me.set_dirty(false);
 
                     const request = {
@@ -124,7 +125,10 @@ function WutsiEJS (holderId, publishCallback){
             delimiter: Delimiter,
             code: CodeTool,
 
-            list: List,
+            list: {
+                class: List,
+                inlineToolbar: true
+            },
             marker: Marker
 
             /*
@@ -141,7 +145,7 @@ function WutsiEJS (holderId, publishCallback){
              */
         };
         if (story) {
-            console.log('Initializing editor with Story#' + story.id);
+            console.log('Initializing editor with Story#' + story.id, JSON.parse(story.content));
             this.storyId = story.id;
             $(this.config.selectors.title).val(story.title);
             this.editorjs = new EditorJS({

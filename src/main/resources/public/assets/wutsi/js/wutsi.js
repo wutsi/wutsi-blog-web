@@ -13,23 +13,25 @@ function Wutsi (){
     };
 
     this.httpGet = function(url, json) {
-        return $.ajax({
-            method: 'GET',
-            url: url,
-            dataType: json ? 'json' : null,
-            contentType: json ? 'application/json': null,
-            headers: {
-                'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
-            },
-            success: function(data) {
-                console.log('GET ', url, data);
-                resolve(data)
-            },
-            error: function(error) {
-                console.error('GET ', url, error);
-                reject(error)
-            }
-        })
+        return new Promise(function(resolve, reject){
+            $.ajax({
+                method: 'GET',
+                url: url,
+                dataType: json ? 'json' : null,
+                contentType: json ? 'application/json': null,
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
+                },
+                success: function(data) {
+                    console.log('GET ', url, data);
+                    resolve(data)
+                },
+                error: function(error) {
+                    console.error('GET ', url, error);
+                    reject(error)
+                }
+            })
+        });
 
     };
 
