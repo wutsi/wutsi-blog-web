@@ -26,10 +26,6 @@ function WutsiEJS (holderId, publishCallback){
         }
     };
 
-    this.init = function () {
-
-    };
-
     this.setup = function(story) {
         console.log('Initializing Editor');
 
@@ -63,7 +59,7 @@ function WutsiEJS (holderId, publishCallback){
             this.editorjs
                 .save()
                 .then(function(data){
-                    console.log('Saved', data);
+                    console.log('Saving', data);
                     me.set_dirty(false);
 
                     const request = {
@@ -122,7 +118,6 @@ function WutsiEJS (holderId, publishCallback){
                     defaultLevel: 2
                 }
             },
-            image: SimpleImage,
             quote: Quote,
             delimiter: Delimiter,
             code: CodeTool,
@@ -131,20 +126,42 @@ function WutsiEJS (holderId, publishCallback){
                 class: List,
                 inlineToolbar: true
             },
-            marker: Marker
+            marker: Marker,
 
-            /*
-             * We are disabling for the moment because of bug that prevent to consume uploaded images
-             *
             image: {
                 class: ImageTool,
                 config:{
-                    endpoints: {
-                        byFile: '/upload?'
+                    uploader: {
+                        uploadByFile: function(file) {
+                            return wutsi.upload(file)
+                                .then(function(data){
+                                    return {
+                                        success: 1,
+                                        file: {
+                                            url: data.url,
+                                            width: data.width,
+                                            height: data.height
+                                        }
+                                    }
+                                })
+                        },
+
+                        uploadByUrl: function(url) {
+                            return wutsi.httpGet('/upload?url=' + url)
+                                .then(function(data){
+                                    return {
+                                        success: 1,
+                                        file: {
+                                            url: data.url,
+                                            width: data.width,
+                                            height: data.height
+                                        }
+                                    }
+                                })
+                        }
                     }
                 }
             }
-             */
         };
         if (story) {
             console.log('Initializing editor with Story#' + story.id, JSON.parse(story.content));

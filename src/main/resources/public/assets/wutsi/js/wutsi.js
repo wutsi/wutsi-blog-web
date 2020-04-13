@@ -60,6 +60,14 @@ function Wutsi (){
         });
     };
 
+    this.upload = function(file) {
+        console.log('Uploading ', file);
+
+        const form = new FormData();
+        form.append('file', file);
+        return wutsi.httpPost('/upload', form);
+    };
+
 
     this.cookie = function (name) {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));

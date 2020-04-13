@@ -69,20 +69,16 @@
     });
 
     $('#file-upload').change(function(){
-        const form = new FormData();
         const file = $(this).prop('files')[0];
 
         console.log('Uploading ', file);
         if (file.type.startsWith('image/')) {
-            form.append('file', file);
-
-            wutsi.httpPost('/upload', form)
-                .then(function (data) {
+            wutsi.upload(file)
+                .then(function(data){
                     save_attribute('pictureurl', data.url)
                         .then(function () {
                             $('#my-picture').attr('src', data.url)
                         });
-
                 });
         }
     });
