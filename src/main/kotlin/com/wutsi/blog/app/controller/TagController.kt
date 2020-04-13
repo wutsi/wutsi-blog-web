@@ -16,7 +16,7 @@ class TagController(
         private val service: TagService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.STORY_LIST_DRAFT
+    override fun pageName() = PageName.STORY_DRAFT
 
     @ResponseBody()
     @GetMapping("/search", produces = ["application/json"])

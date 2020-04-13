@@ -10,12 +10,12 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/me/story/draft")
+@RequestMapping("/me/draft")
 class StoryDraftController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryListController(service, requestContext) {
-    override fun pageName() = PageName.STORY_LIST_DRAFT
+    override fun pageName() = PageName.STORY_DRAFT
 
     override fun viewName() = "page/story/draft"
 

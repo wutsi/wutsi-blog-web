@@ -207,7 +207,7 @@ function WutsiEJS (holderId, publishCallback){
         // Close button
         $(this.config.selectors.btnClose).on('click', function () {
             if (!story || story.draft) {
-                window.location.href = '/me/story/draft';
+                window.location.href = '/me/draft';
             } else {
                 window.location.href = '/me/story/published';
             }
