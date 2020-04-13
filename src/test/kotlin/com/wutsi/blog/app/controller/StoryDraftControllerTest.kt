@@ -39,7 +39,16 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
 
         click(".story:first-child .dropdown .btn")
         click(".story:first-child .menu-item-preview")
-        assertCurrentPageIs(PageName.READ)
+
+        Thread.sleep(1000)
+
+        val parentWindow = driver.windowHandle
+        driver.windowHandles.forEach{
+            if (it != parentWindow) {
+                driver.switchTo().window(it)
+                assertCurrentPageIs(PageName.READ)
+            }
+        }
     }
 
     fun gotoPage(login: Boolean = true) {

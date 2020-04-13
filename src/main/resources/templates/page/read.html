@@ -33,7 +33,7 @@
     </div>
 
     <!-- Author -->
-    <div class="margin-top padding border-top">
+    <div class="padding border-top">
         <div th:replace="components/story :: author(story=${story}, showMeta=false, showBio=true)"></div>
     </div>
 </article>
@@ -45,7 +45,10 @@
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&lang=kotlin&lang=sql&lang=yaml"></script>
 
 <script>
+    var lastScrollPercent = -1;
+
     $(document).ready(function(){
+
         wutsi.track('readstart');
         window.addEventListener('beforeunload', function(){
             wutsi.track('readend');
@@ -54,6 +57,22 @@
         $('.content img[async-src]').each(function() {
             $(this).attr("src", $(this).attr("async-src"));
         });
+
+        $(window).on('scroll', function(){
+            var s = $(window).scrollTop(),
+                d = $(document).height(),
+                c = $(window).height();
+
+            var scrollPercent = ((s / (d - c)) * 100) | 0;
+            if (scrollPercent % 5 == 0 && scrollPercent != lastScrollPercent){
+                console.log('scroll %', scrollPercent);
+                wutsi.track('readend', scrollPercent)
+                    .then(function(){
+                        lastScrollPercent = scrollPercent;
+                    });
+            }
+        })
     });
+
 </script>
 </html>

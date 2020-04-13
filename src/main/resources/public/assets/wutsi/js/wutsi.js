@@ -48,12 +48,12 @@ function Wutsi (){
                 headers: {
                     'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
                 },
-                success: function(data) {
-                    console.log('POST ', url, data);
+                success: function(response) {
+                    console.log('POST ', url, data, response);
                     resolve(data)
                 },
                 error: function(error) {
-                    console.error('POST ', url, error);
+                    console.error('POST ', url, data, error);
                     reject(error)
                 }
             })
