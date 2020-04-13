@@ -2,7 +2,6 @@ package com.wutsi.blog.app.config
 
 import com.amazonaws.services.s3.AmazonS3
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.blog.app.servlet.StorageServlet
 import com.wutsi.core.aws.health.S3HealthIndicator
 import com.wutsi.core.aws.service.S3StorageService
 import com.wutsi.core.http.Http
@@ -14,6 +13,7 @@ import com.wutsi.core.logging.KVLoggerFilter
 import com.wutsi.core.logging.KVLoggerImpl
 import com.wutsi.core.storage.LocalStorageService
 import com.wutsi.core.storage.StorageService
+import com.wutsi.core.storage.StorageServlet
 import com.wutsi.core.tracking.DeviceUIDFilter
 import com.wutsi.core.tracking.DeviceUIDProvider
 import org.springframework.beans.factory.annotation.Autowired
