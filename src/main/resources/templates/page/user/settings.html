@@ -18,13 +18,13 @@
         </div>
         <div class="col-12 col-md-10">
             <div>
-                <div th:replace="components/form :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=30, type='input', placeholder=#{page.settings.username.placeholder})"></div>
+                <div th:replace="components/settings :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=128, control='input', type='text', placeholder=#{page.settings.username.placeholder})"></div>
             </div>
             <div class="border-top margin-top padding-top">
-                <div th:replace="components/form :: inline_input_form(title=#{label.email}, name='email', value=${user.email}, maxlen=100, type='input', placeholder=#{page.settings.email.placeholder})"></div>
+                <div th:replace="components/settings :: inline_input_form(title=#{label.email}, name='email', value=${user.email}, maxlen=100, control='input', type='email', placeholder=#{page.settings.email.placeholder})"></div>
             </div>
             <div class="border-top margin-top padding-top">
-                <div th:replace="components/form :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, type='textarea', placeholder=#{page.settings.bio.placeholder})"></div>
+                <div th:replace="components/settings :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, control='textarea', type='', placeholder=#{page.settings.bio.placeholder})"></div>
             </div>
         </div>
     </div>
@@ -59,9 +59,15 @@
             });
     });
 
+    $('.form-control').keyup(function(){
+        const key = $(this).attr('data-key');
+        validate(key);
+    });
+
     $('.btn-upload').click(function(){
         $('#file-upload').click();
     });
+
     $('#file-upload').change(function(){
         const form = new FormData();
         const file = $(this).prop('files')[0];
@@ -99,6 +105,8 @@
         $(selector + ' .form-control').focus();
 
         $(selector + ' .old-value').val( $(selector + ' .form-control').val() );
+
+        validate(key);
     }
 
     function cancel_edit(key) {
@@ -119,6 +127,18 @@
         $(selector + ' .old-value').val('');
 
         $(selector + ' .alert-danger').addClass('hidden');
+    }
+
+    function validate(key) {
+        const selector = form_selector(key);
+
+        if (!$(selector + ' .form-control')[0].checkValidity()){
+            console.log('not-valid');
+            $('.btn-save').attr('disabled', 'disabled');
+        } else {
+            console.log('valid');
+            $('.btn-save').removeAttr('disabled');
+        }
     }
 
     function show_error(key, error) {
