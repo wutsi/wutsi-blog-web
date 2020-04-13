@@ -35,6 +35,8 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
     fun `user preview story`() {
         gotoPage()
 
+        assertElementAttribute(".story:first-child .menu-item-preview", "target", "_new")
+
         click(".story:first-child .dropdown .btn")
         click(".story:first-child .menu-item-preview")
         assertCurrentPageIs(PageName.READ)
