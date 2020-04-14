@@ -12,6 +12,16 @@ function Wutsi (){
         return this.httpPost('/track', data, true);
     };
 
+    this.autotrack = function () {
+        $('[wutsi-track-event]').click(function(){
+            var event = $(this).attr("wutsi-track-event");
+            var value = $(this).attr("wutsi-track-value");
+            var productId = $(this).attr("wutsi-track-product-id");
+            wutsi.track(event, value, productId)
+        });
+    }
+
+
     this.httpGet = function(url, json) {
         return new Promise(function(resolve, reject){
             $.ajax({
@@ -86,12 +96,3 @@ function Wutsi (){
 }
 
 var wutsi = new Wutsi();
-
-function wutsi_bind_tracking () {
-    $('[wutsi-track-event]').click(function(){
-        var event = $(this).attr("wutsi-track-event");
-        var value = $(this).attr("wutsi-track-value");
-        var productId = $(this).attr("wutsi-track-product-id");
-        wutsi.track(event, value, productId)
-    });
-}
