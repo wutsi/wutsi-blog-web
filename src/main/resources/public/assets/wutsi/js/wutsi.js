@@ -50,7 +50,7 @@ function Wutsi (){
                 },
                 success: function(response) {
                     console.log('POST ', url, data, response);
-                    resolve(data)
+                    resolve(response)
                 },
                 error: function(error) {
                     console.error('POST ', url, data, error);

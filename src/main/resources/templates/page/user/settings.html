@@ -51,7 +51,9 @@
 
         save_attribute(name, value)
             .then(function(data){
+                console.log('then...', data);
                 if (data.error) {
+                    console.log('error');
                     show_error(key, data.error);
                 } else {
                     end_edit(key);
@@ -129,10 +131,8 @@
         const selector = form_selector(key);
 
         if (!$(selector + ' .form-control')[0].checkValidity()){
-            console.log('not-valid');
             $('.btn-save').attr('disabled', 'disabled');
         } else {
-            console.log('valid');
             $('.btn-save').removeAttr('disabled');
         }
     }
