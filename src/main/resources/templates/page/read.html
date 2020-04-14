@@ -65,8 +65,7 @@
 
             var scrollPercent = ((s / (d - c)) * 100) | 0;
             if (scrollPercent % 5 == 0 && scrollPercent != lastScrollPercent){
-                console.log('scroll %', scrollPercent);
-                wutsi.track('readend', scrollPercent)
+                wutsi.track('scroll', scrollPercent)
                     .then(function(){
                         lastScrollPercent = scrollPercent;
                     });
