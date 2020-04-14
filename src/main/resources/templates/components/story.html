@@ -56,17 +56,20 @@
 
 <div th:fragment="share(story)" class="share">
     <a target="_blank" class="margin-top share-twitter btn-share"
-       wutsi-track-event="share.twitter"
+       wutsi-track-event="share"
+       wutsi-track-value="twitter"
        th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
         <i class="fab fa-twitter"></i>
     </a>
     <a target="_blank" class="margin-top-2x share-facebook btn-share"
-       wutsi-track-event="share.facebook"
+       wutsi-track-event="share"
+       wutsi-track-value="facebook"
        th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
         <i class="fab fa-facebook-square"></i>
     </a>
     <a target="_blank" class="margin-top share-linkedin btn-share"
-       wutsi-track-event="share.linkedin"
+       wutsi-track-event="share"
+       wutsi-track-value="linkedin"
        th:href="'https://www.linkedin.com/shareArticle?mini=true&url=' + ${page.url}">
         <i class="fab fa-linkedin"></i>
     </a>

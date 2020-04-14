@@ -16,8 +16,7 @@ function Wutsi (){
         $('[wutsi-track-event]').click(function(){
             var event = $(this).attr("wutsi-track-event");
             var value = $(this).attr("wutsi-track-value");
-            var productId = $(this).attr("wutsi-track-product-id");
-            wutsi.track(event, value, productId)
+            wutsi.track(event, value)
         });
     }
 
