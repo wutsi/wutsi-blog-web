@@ -24,6 +24,7 @@ class StoryMapper(
                 thumbnailUrl = story.thumbnailUrl,
                 wordCount = story.wordCount,
                 sourceUrl = story.sourceUrl,
+                sourceSite = story.sourceSite,
                 readingMinutes = story.readingMinutes,
                 language = story.language,
                 summary = story.summary,

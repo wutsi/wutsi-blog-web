@@ -356,6 +356,11 @@ ul.step-indicator li.active {
     text-decoration: none;
 }
 
+.reader .imported-content-message {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
 
 .reader .content > *{
     margin: 0 0 1em 0;

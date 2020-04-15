@@ -9,6 +9,7 @@ data class StoryModel(
         val summary: String? = null,
         val thumbnailUrl: String? = null,
         val sourceUrl: String? = null,
+        val sourceSite: String? = null,
         val wordCount: Int = 0,
         val readingMinutes: Int = 0,
         val language: String? = null,

@@ -101,6 +101,15 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     @Test
+    fun `imported content`() {
+        stub(HttpMethod.GET, "/v1/story/10", HttpStatus.OK, "v1/story/get-story-imported.json")
+        driver.get("$url/read/10/lorem-ipsum")
+
+        assertElementPresent(".reader .imported-content-message")
+        assertElementAttribute("head link[rel=canonical]", "href", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter")
+    }
+
+    @Test
     fun `META headers`() {
         driver.get("$url/read/$PUBLISHED_ID/looks-good")
 
