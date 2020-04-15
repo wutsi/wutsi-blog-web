@@ -28,7 +28,7 @@
         <selenium.version>3.141.59</selenium.version>
         <wiremock.version>1.57</wiremock.version>
 
-        <wutsi-blog-client.version>1.6.0</wutsi-blog-client.version>
+        <wutsi-blog-client.version>1.7.0</wutsi-blog-client.version>
         <wutsi-core.version>1.4.0</wutsi-core.version>
         <wutsi-core-aws.version>1.2.0</wutsi-core-aws.version>
     </properties>

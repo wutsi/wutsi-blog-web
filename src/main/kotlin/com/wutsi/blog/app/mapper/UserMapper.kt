@@ -14,6 +14,7 @@ class UserMapper {
             biography = user.biography,
             fullName = user.fullName,
             pictureUrl = user.pictureUrl,
+            websiteUrl = user.websiteUrl,
             email = user.email,
             accounts = user.accounts.map { AccountModel(
                     id = it.id,

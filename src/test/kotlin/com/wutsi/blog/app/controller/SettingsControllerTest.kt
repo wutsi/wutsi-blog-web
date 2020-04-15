@@ -73,6 +73,18 @@ class SettingsControllerTest: SeleniumTestSupport() {
     }
 
 
+
+    @Test
+    fun `user can change website`() {
+        testUpdate("websiteurl", "https://www.me.com/ray.sponsible", "https://www.avatar.com/ray.sponsible")
+    }
+
+    @Test
+    fun `user can cancel website`() {
+        testCancel("websiteurl", "https://www.me.com/ray.sponsible", "...")
+    }
+
+
     private fun testUpdate(name: String, originalValue: String, newValue: String, error: String? = null) {
         val selector = "#$name-form"
 
