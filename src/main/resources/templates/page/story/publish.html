@@ -15,7 +15,7 @@
             <div class="float-left status-published" th:text="#{story.status.published}" th:if="${story.published}">Published</div>
 
             <div class="close">
-                <a th:href="'/me/story/' + ${story.id} + '/editor'">X</a>
+                <a th:href="'/editor/' + ${story.id}">X</a>
             </div>
         </div>
     </div>

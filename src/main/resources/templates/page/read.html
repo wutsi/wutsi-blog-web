@@ -21,7 +21,7 @@
 
     <!-- Content -->
     <div class="content margin-top" th:utext="${html}">This is a block</div>
-    <div class="imported-content-message"
+    <div class="imported-content-message text-right"
          th:if="${story.sourceUrl}"
          th:utext="#{story.originaly_posted(${story.sourceUrl},${story.sourceSite})}"
     >This story was originally posted on ....</div>
