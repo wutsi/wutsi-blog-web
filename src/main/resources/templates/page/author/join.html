@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body class="paper">
+
+<div th:replace="components/layout :: navbar"></div>
+
+    <div class="container margin-top-2x">
+        <div class="row">
+            <div class="col-12 col-md-6 box-filled padding-2x">
+                <h1>Bla... bla...bla...</h1>
+                <p>bobobo..bobobobo...bobobob</p>
+
+                <a class="btn btn-primary btn-lg" href="/me/welcome" th:text="#{button.create_blog}" wutsi-track-event="create_blog" wutsi-track-value="hero">Join Wutsi</a>
+            </div>
+            <div class="col-12 col-md-6">
+                <center>IMG HERE</center>
+            </div>
+        </div>
+    </div>
+
+    <div class="container margin-top-2x box-filled padding-2x">
+        <h1 th:text="#{page.join.how_it_work}" class="text-center">How it Works</h1>
+
+        <div class="row">
+            <div class="col-12 col-md-4 padding">
+                <h3><span>1</span> Ecrivez</h3>
+                <p>
+                    Partager vos opinions, vos états d'ame... Laissez libre cours à votre imagination
+                </p>
+            </div>
+            <div class="col-12 col-md-4 padding flex">
+                <h3><span>2</span> Publiez</h3>
+                <p>
+                    Publiez votre storie, elle va être partagée sur les réseaux sociaux, à votre liste de diffusion.
+                    Votre storie va être recommendée aux lecteurs interessé aux sujets abordés dans votre storie.
+                </p>
+            </div>
+            <div class="col-12 col-md-4 padding flex">
+                <h3><span>3</span> Etendez votre Réseau</h3>
+                <p>
+                    Continuez à écrire, publier pour rejoindre le plus de personnes possible, et étendre votre lectorat.
+                </p>
+            </div>
+        </div>
+        <div class="row margin-top">
+            <div class="col-12  text-center">
+                <a class="btn btn-primary btn-lg" href="/me/welcome" th:text="#{button.create_blog}" wutsi-track-event="create_blog" wutsi-track-value="how_it_works">Join Wutsi</a>
+            </div>
+        </div>
+    </div>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+</html>

@@ -1,5 +1,6 @@
-package com.wutsi.blog.app.controller
+package com.wutsi.blog.app.controller.story
 
+import com.wutsi.blog.app.controller.AbstractStoryListController
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -10,19 +11,19 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/me/draft")
-class StoryDraftController(
+@RequestMapping("/me/story/published")
+class StoryPublishedController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryListController(service, requestContext) {
-    override fun pageName() = PageName.STORY_DRAFT
+    override fun pageName() = PageName.STORY_PUBLISHED
 
-    override fun viewName() = "page/story/draft"
+    override fun viewName() = "page/story/published"
 
     override fun stories(limit: Int, offset: Int) = service.search(SearchStoryRequest(
             userId = requestContext.currentUser()?.id,
-            status = StoryStatus.draft,
-            sortBy = StorySortStrategy.modified,
+            status = StoryStatus.published,
+            sortBy = StorySortStrategy.published,
             limit = limit,
             offset = offset
     ))

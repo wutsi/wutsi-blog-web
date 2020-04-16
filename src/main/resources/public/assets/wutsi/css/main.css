@@ -33,7 +33,9 @@ a {
     color: var(--highlight-color)
 }
 
-
+.flex {
+    display: flex;
+}
 
 .hidden {
     display: none;
@@ -440,11 +442,14 @@ ul.step-indicator li.active {
 
 
 /* bootstrap override */
+.btn {
+    border-radius: 10px;
+}
+
 .btn-primary {
     background-color: var(--highlight-color);
-    border-radius: 0;
-    outline: 1px solid var(--highlight-color);
-    outline-offset: 1px;
+    /*outline: 1px solid var(--highlight-color);*/
+    /*outline-offset: 1px;*/
 }
 
 .btn-light {
