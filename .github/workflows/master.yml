@@ -94,7 +94,9 @@ jobs:
           src/main/resources/public/ s3://int-wutsi/static/wutsi-blog-web
 
     - name: int-healthcheck
-      run: curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+      run: |
+        sleep 60
+        curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
 
   #--------------------------
@@ -138,6 +140,8 @@ jobs:
           src/main/resources/public/ s3://prod-wutsi/static/wutsi-blog-web
 
     - name: prod-healthcheck
-      run: curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+      run: |
+        sleep 60
+        curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
 
