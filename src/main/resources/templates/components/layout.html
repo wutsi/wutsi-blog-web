@@ -120,7 +120,7 @@
             </div>
         </li>
 
-        <li class="nav-item dropdown" th:if="!${user} AND ${page.name != 'page.author.join'}">
+        <li class="nav-item dropdown" th:if="!${user} AND ${page.name != 'page.join'}">
             <a id="navbar-join" class="btn btn-primary" href="/join" wutsi-track-event="join" wutsi-track-value="navbar" th:text="#{button.create_blog}">Create your Blog</a>
         </li>
     </ul>
