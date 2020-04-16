@@ -1,5 +1,6 @@
-package com.wutsi.blog.app.controller
+package com.wutsi.blog.app.controller.user
 
+import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.UserAttributeForm
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.UserService

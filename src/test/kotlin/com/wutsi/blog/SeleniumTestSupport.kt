@@ -168,6 +168,10 @@ abstract class SeleniumTestSupport {
         assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute(name).startsWith(value))
     }
 
+    protected fun assertElementAttributeEndsWith(selector: String, name: String, value: String) {
+        assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute(name).endsWith(value))
+    }
+
     protected fun assertElementHasClass(selector: String, value: String) {
         assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute("class").contains(value))
     }

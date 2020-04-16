@@ -12,8 +12,8 @@ class PageName{
         const val STORY_CONFIRMATION = "page.story.confirmation"
         const val STORY_SHARE = "page.story.share"
         const val STORY_SYNDICATE = "page.story.syndicate"
-        const val AUTHOR_JOIN = "page.author.join"
-        const val AUTHOR_WELCOME = "page.author.welcome"
+        const val JOIN = "page.join"
+        const val ME = "page.me"
         const val READ = "page.read"
         const val SETTINGS = "page.settings"
 

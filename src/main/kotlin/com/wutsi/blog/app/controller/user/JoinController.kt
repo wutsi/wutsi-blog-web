@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.author
+package com.wutsi.blog.app.controller.user
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.service.RequestContext
@@ -8,14 +8,14 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class AuthorWelcomeController(
+class JoinController(
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.AUTHOR_WELCOME
+    override fun pageName() = PageName.JOIN
 
-    @GetMapping("/me/welcome")
+    @GetMapping("/join")
     fun index(model: Model): String {
-        return "page/author/welcome"
+        return "page/user/join"
     }
 
 }
