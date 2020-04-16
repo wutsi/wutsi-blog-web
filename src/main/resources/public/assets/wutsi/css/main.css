@@ -96,6 +96,9 @@ a {
 .margin-right {
     margin-right: 1em;
 }
+.margin-bottom {
+    margin-bottom: 1em;
+}
 .margin-top {
     margin-top: 1em;
 }
@@ -103,6 +106,12 @@ a {
     margin-top: 2em;
 }
 
+.text-small {
+    font-size: 0.8em;
+}
+.uppercase {
+    text-transform: uppercase;
+}
 
 /* ==== NAVBAR ==== */
 .navbar {
@@ -336,16 +345,14 @@ ul.step-indicator li.active {
     display: inline-block;
     vertical-align: top;
 }
-.reader .meta {
-    font-size: .8em;
-}
+
 
 .reader .share a {
     text-decoration: none;
 }
 .reader .share .fab {
     color: var(--text-color);
-    font-size: 1.5em;
+    font-size: 2em;
     margin-left: .5em;
 }
 

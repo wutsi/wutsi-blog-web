@@ -9,9 +9,8 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container main-content border margin-top padding-2x settings">
-
     <div class="row">
-        <div class="col-12 col-md-2 picture">
+        <div class="col-12 col-md-2 picture margin-bottom">
             <img id="my-picture" th:src="${user.pictureUrl}" />
             <button class="btn-upload btn btn-sm btn-light margin-top" th:text="#{button.change}">Upload Logo</button>
             <input id="file-upload" class="hidden" type="file" />

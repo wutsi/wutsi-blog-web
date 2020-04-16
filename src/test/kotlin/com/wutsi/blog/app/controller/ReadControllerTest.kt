@@ -74,9 +74,11 @@ class ReadControllerTest: SeleniumTestSupport() {
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
 
-        assertElementCount(".share .share-facebook", 2)
+        assertElementCount(".share .share-facebook", 1)
         assertElementAttribute(".share .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
         assertElementAttribute(".share .share-facebook", "target", "_blank")
+        assertElementAttribute(".share .share-facebook", "wutsi-track-event", "share")
+        assertElementAttribute(".share .share-facebook", "wutsi-track-value", "facebook")
     }
 
     @Test
@@ -85,9 +87,11 @@ class ReadControllerTest: SeleniumTestSupport() {
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
 
-        assertElementCount(".share .share-twitter", 2)
+        assertElementCount(".share .share-twitter", 1)
         assertElementAttribute(".share .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
-        assertElementAttribute(".share .share-facebook", "target", "_blank")
+        assertElementAttribute(".share .share-twitter", "target", "_blank")
+        assertElementAttribute(".share .share-twitter", "wutsi-track-event", "share")
+        assertElementAttribute(".share .share-twitter", "wutsi-track-value", "twitter")
     }
 
     @Test
@@ -96,8 +100,10 @@ class ReadControllerTest: SeleniumTestSupport() {
 
         val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
 
-        assertElementCount(".share .share-linkedin", 2)
+        assertElementCount(".share .share-linkedin", 1)
         assertElementAttribute(".share .share-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=$url")
+        assertElementAttribute(".share .share-linkedin", "wutsi-track-event", "share")
+        assertElementAttribute(".share .share-linkedin", "wutsi-track-value", "linkedin")
     }
 
     @Test

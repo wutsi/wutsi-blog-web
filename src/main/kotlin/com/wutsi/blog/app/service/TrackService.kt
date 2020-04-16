@@ -5,6 +5,7 @@ import com.wutsi.blog.app.model.PushTrackForm
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName
 import com.wutsi.blog.client.track.PushTrackRequest
+import com.wutsi.core.logging.KVLogger
 import org.springframework.stereotype.Service
 import javax.servlet.http.HttpServletRequest
 
@@ -13,10 +14,12 @@ import javax.servlet.http.HttpServletRequest
 class TrackService(
         private val backend: TrackBackend,
         private val request: HttpServletRequest,
-        private val requestContext: RequestContext
+        private val requestContext: RequestContext,
+        private val logger: KVLogger
 ) {
     fun push(form: PushTrackForm): String {
         val request = createRequest(form)
+        log(request)
         return backend.push(request).transactionId
     }
 
@@ -34,4 +37,15 @@ class TrackService(
             ua = request.getHeader("User-Agent"),
             duid = CookieHelper.get(CookieName.DEVICE_UID, request)
     )
+
+    private fun log(request: PushTrackRequest) {
+        logger.add("TrackEvent", request.event)
+        logger.add("TrackPage", request.page)
+        logger.add("TrackProductId", request.pid)
+        logger.add("TrackUserId", request.uid)
+        logger.add("TrackReferer", request.referer)
+        logger.add("TrackIP", request.ip)
+        logger.add("TrackLatitude", request.lat)
+        logger.add("TrackLongitude", request.long)
+    }
 }
