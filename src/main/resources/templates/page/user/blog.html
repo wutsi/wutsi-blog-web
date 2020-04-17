@@ -15,14 +15,12 @@
                 <div th:replace="components/story :: author(${blog})"></div>
             </div>
 
-            <div th:if="${user.id} == ${blog.id}">
-                <!-- Welcome message -->
-                <div id="welcome" class="alert alert-success margin-top-2x" th:if="${user.loginCount == 0}">
-                    <p th:utext="#{page.me.welcome(${blog.fullName})}">Welcome</p>
-                    <div>
-                        <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}" wutsi-track-event="create_story">Create Story</a>
-                        <a id="btn-syndicate-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}" wutsi-track-event="syndicate_story">Import a Story</a>
-                    </div>
+            <!-- Welcome message -->
+            <div id="welcome" class="alert alert-success margin-top-2x" th:if="${showWelcome}">
+                <p th:utext="#{page.me.welcome(${blog.fullName})}">Welcome</p>
+                <div>
+                    <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}" wutsi-track-event="create_story">Create Story</a>
+                    <a id="btn-syndicate-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}" wutsi-track-event="syndicate_story">Import a Story</a>
                 </div>
             </div>
 
@@ -40,7 +38,7 @@
 /*<![CDATA[*/
 
     var userId = /*[[${blog.id}]]*/'0';
-    var showCreatePanel = /*[[${blog.id} == ${user.id}]]*/ 'false';
+    var showCreatePanel = /*[[${showCreatePanel}]]*/ 'false';
 
     $(document).ready(function(){
         wutsi.httpGet('/story/cards?userId=' + userId + '&showCreatePanel=' + showCreatePanel)

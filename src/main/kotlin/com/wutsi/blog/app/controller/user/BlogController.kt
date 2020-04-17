@@ -23,9 +23,29 @@ class BlogController(
     @GetMapping("/@/{name}")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = service.get(name)
+        val user = requestContext.currentUser()
+
         model.addAttribute("blog", blog)
+        model.addAttribute("showWelcome", shouldShowWelcomeMessage(blog, user))
+        model.addAttribute("showCreatePanel", shouldShowCreatePanel(blog, user))
         model.addAttribute("page", page(blog))
         return "page/user/blog"
+    }
+
+    private fun shouldShowWelcomeMessage(blog: UserModel, user: UserModel?): Boolean {
+        if (user == null) {
+            return false
+        }
+
+        return user.id == blog.id && blog.loginCount == 0L
+    }
+
+    private fun shouldShowCreatePanel(blog: UserModel, user: UserModel?): Boolean {
+        if (user == null) {
+            return false
+        }
+
+        return user.id == blog.id && blog.loginCount > 0L
     }
 
     protected fun page(user: UserModel) = PageModel(

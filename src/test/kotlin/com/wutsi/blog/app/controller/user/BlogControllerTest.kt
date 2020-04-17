@@ -43,10 +43,11 @@ class BlogControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-first-login.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
-        gotoPage()
+        gotoPage(true)
 
         assertElementCount(".post", 0)
 
+        Thread.sleep(5000)
         assertElementPresent("#welcome")
         assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
         assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
@@ -54,11 +55,10 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementNotPresent("#create-first-story")
     }
 
-
     @Test
     fun `MY empty blog page` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-        gotoPage()
+        gotoPage(true)
 
         assertElementCount(".post", 0)
 
@@ -90,13 +90,13 @@ class BlogControllerTest: SeleniumTestSupport() {
 
     fun gotoPage(login: Boolean = false) {
         if (login) {
-            driver.get(url)
-        } else {
             login()
+            click("nav .nav-item")
+            click("nav .dropdown-item-user a")
+        } else {
+            driver.get("$url/@/ray.sponsible")
         }
 
-        click("nav .nav-item")
-        click("nav .dropdown-item-user a")
 
         assertCurrentPageIs(PageName.BLOG)
     }
