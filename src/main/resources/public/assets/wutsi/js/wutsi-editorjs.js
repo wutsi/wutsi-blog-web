@@ -21,8 +21,8 @@ function WutsiEJS (holderId, publishCallback){
             saving: 'Enregistrement en cours...',
             saved: 'Enregistré',
             modified: 'Modifié',
-            publish: 'Publiez',
-            saveAndPublish: 'Enregistrez et Publiez'
+            publish: 'Publie',
+            saveAndPublish: 'Enregistre et Publie'
         }
     };
 
