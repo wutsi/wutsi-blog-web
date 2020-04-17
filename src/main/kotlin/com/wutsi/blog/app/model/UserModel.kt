@@ -5,8 +5,10 @@ data class UserModel (
         val name: String = "",
         val fullName: String = "",
         val email: String? = null,
+        val loginCount: Long = 0,
         val pictureUrl: String? = null,
         val websiteUrl: String? = null,
         val biography: String? = null,
-        val accounts: List<AccountModel> = emptyList()
+        val accounts: List<AccountModel> = emptyList(),
+        val slug: String = ""
 )

@@ -2,6 +2,7 @@ package com.wutsi.blog.app.controller
 
 import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.core.exception.ForbiddenException
@@ -37,7 +38,7 @@ abstract class AbstractPageController(
 
     protected fun robots () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
 
-    protected fun page() = PageModel(
+    open protected fun page() = PageModel(
             name = pageName(),
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
@@ -49,6 +50,8 @@ abstract class AbstractPageController(
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug
+
+    protected fun url(user: UserModel) = baseUrl + "/u/" + user.name
 
     protected fun checkOwnership(story: StoryModel) {
         val user = requestContext.currentUser()

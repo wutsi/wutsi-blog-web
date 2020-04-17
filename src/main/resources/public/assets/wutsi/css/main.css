@@ -149,6 +149,11 @@ a {
 .navbar-nav .dropdown-item-user {
     padding: 0.5em 1em;
 }
+.navbar-nav .dropdown-item-user a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
 .navbar-nav .dropdown-item-user img {
     height: 64px;
     width: 64px;
@@ -306,49 +311,53 @@ ul.step-indicator li.active {
 
 
 /*======= POST =======*/
-.post-list .post a {
+.post {
+    border-radius: 3px;
+}
+.post a {
     color: var(--text-color);
     text-decoration: none;
 }
 
-.post-list .post .title {
+.post .title {
     font-size: 1.5em;
     margin-bottom: .5em;
 }
 
-.post-list .post img {
-    border: 1px solid var(--border-color);
-    width: 100%;
-    margin-bottom: .5em;
+.post .img-container {
+    height: 200px;
+    overflow: hidden;
 }
 
-.post-list .post .summary {
-    margin-bottom: .5em;
+.post img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
-.post-list .post .author {
+.post .author {
     font-size: 0.7em;
 }
 
-.post-list .post .meta {
+.post .meta {
     font-size: 0.7em;
     color: var(--text-color-gray);
 }
 
 
-/*======= READER =======*/
-.reader .author img {
+/*======= AUTHOR CARD =======*/
+.author img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
 }
 
-.reader .author .info {
-    display: inline-block;
+.author .info {
     vertical-align: top;
 }
 
 
+/*======= READER =======*/
 .reader .share a {
     text-decoration: none;
 }
@@ -448,16 +457,11 @@ ul.step-indicator li.active {
 
 .btn-primary {
     background-color: var(--highlight-color);
-    /*outline: 1px solid var(--highlight-color);*/
-    /*outline-offset: 1px;*/
 }
 
 .btn-light {
     color: var(--text-color);
     background-color: #fff;
-    border-radius: 0;
-    outline: 1px solid var(--border-color);
-    outline-offset: 1px;
 }
 
 .jumbotron {

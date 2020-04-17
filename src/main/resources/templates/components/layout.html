@@ -102,14 +102,17 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <div class="dropdown-item-user">
-                    <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
-                    <div class="user-info">
-                        <div><b th:text="${user.fullName}">Herve Tchepannou</b></div>
-                        <div>@<span th:text="${user.name}"></span></div>
-                    </div>
-                    <div class="clearfix"></div>
+
+                <div class="dropdown-item-user flex">
+                    <a href="/me" th:title="${user.fullName}">
+                        <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
+                        <div class="user-info">
+                            <div><b th:text="${user.fullName}">Herve Tchepannou</b></div>
+                            <div>@<span th:text="${user.name}"></span></div>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="dropdown-divider"></div>
                 <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}" wutsi-track-event="new-story" wutsi-track-value="navbar">New Story</a>
                 <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" wutsi-track-event="my-stories" wutsi-track-value="navbar">My Stories</a>

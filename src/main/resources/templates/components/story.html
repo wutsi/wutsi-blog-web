@@ -113,28 +113,31 @@
     </script>
 </div>
 
-<div th:fragment="author(story)" class="author">
-    <img class="margin-right float-left" th:src="${story.user.pictureUrl}" th:alt="${story.user.fullName}" />
-    <b th:text="${story.user.fullName}">Ray Sponsible</b>
-    <div class="text-small" th:if="${story.user.biography}" th:text="${story.user.biography}">Biography</div>
-    <div class="clearfix"></div>
+<div th:fragment="author(user)" class="author flex">
+    <img class="margin-right" th:src="${user.pictureUrl}" th:alt="${user.fullName}" />
+    <div>
+        <b th:text="${user.fullName}">Ray Sponsible</b>
+        <div class="text-small" th:if="${user.biography}" th:text="${user.biography}">Biography</div>
+    </div>
 </div>
 
-<div th:fragment="meta(story)" class="meta">
-    <span th:text="${story.publishedDateTime}">12 May</span>
-    -
-    <span th:text="#{story.read_time(${story.readingMinutes})}">3 min</span>
-</div>
+<section th:fragment="card(story)">
+    <a th:href="${story.slug}">
+        <h2 class="title" th:text="${story.title}">Title</h2>
+        <div class="img-container" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
+            <img class="border margin-top" th:src="${story.thumbnailUrl}" th:alt="${story.title}" />
+        </div>
+        <div class="summary margin-top" th:text="${story.summary}">Summary</div>
+        <div class="meta margin-top flex">
+            <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
+            <div>
+                <span th:text="${story.readingMinutes}">2</span>
+                <span th:text="#{label.minutes}">min</span>
+            </div>
+        </div>
+    </a>
+</section>
 
-<script>
-    $(document).ready(function(){
-        wutsi_bind_tracking();
-        wutsi.track('startread');
-        window.addEventListener('beforeunload', function(){
-            wutsi.track('endread')
-        });
-    });
-</script>
 
 </body>
 </html>

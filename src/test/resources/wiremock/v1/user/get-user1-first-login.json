@@ -1,0 +1,44 @@
+{
+  "user": {
+    "id": 1,
+    "name": "ray.sponsible",
+    "email": "ray.sponsible@gmail.com",
+    "fullName": "Ray Sponsible",
+    "biography": "Ray sponsible is a test user",
+    "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
+    "websiteUrl": "https://www.me.com/ray.sponsible",
+    "loginCount": 0,
+    "lastLoginDateTime": 1585334250000,
+    "creationDateTime": 1585325914000,
+    "modificationDateTime": 1585325914000,
+    "accounts": [
+      {
+        "id": 11,
+        "provider": "facebook",
+        "loginCount": 3,
+        "providerUserId": "ray.sponsible",
+        "lastLoginDateTime": 1585334250000,
+        "creationDateTime": 1585325914000,
+        "modificationDateTime": 1585325914000
+      },
+      {
+        "id": 12,
+        "provider": "facebook",
+        "loginCount": 2,
+        "providerUserId": "ray-sponsible",
+        "lastLoginDateTime": 1585334250000,
+        "creationDateTime": 1585325914000,
+        "modificationDateTime": 1585325914000
+      },
+      {
+        "id": 13,
+        "provider": "twitter",
+        "loginCount": 1,
+        "providerUserId": "raysponsible",
+        "lastLoginDateTime": 1585334250000,
+        "creationDateTime": 1585325914000,
+        "modificationDateTime": 1585325914000
+      }
+    ]
+  }
+}

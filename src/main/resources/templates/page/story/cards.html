@@ -1,0 +1,5 @@
+<section class="padding margin-top border post"
+         th:each="story: ${stories}"
+>
+    <div th:replace="components/story :: card(${story})"></div>
+</section>

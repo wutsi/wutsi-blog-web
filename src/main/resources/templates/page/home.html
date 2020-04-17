@@ -10,19 +10,7 @@
 
 <div class="container margin-top post-list">
     <section class="offset-md-3 col-md-6 padding border-bottom post" th:each="story: ${stories}">
-        <a th:href="${story.slug}">
-            <h2 class="title" th:text="${story.title}">Title</h2>
-            <img th:src="${story.thumbnailUrl}" th:alt="${story.title}" th:if="${story.thumbnailUrl}" />
-            <div class="summary" th:text="${story.summary}">Summary</div>
-            <div class="author">
-                <span th:text="${story.user.fullName}">Ray Sponsible</span>
-            </div>
-            <div class="meta">
-                <span th:text="${story.publishedDateTime}">12 May</span>
-                -
-                <span th:text="#{story.read_time(${story.readingMinutes})}">3 min</span>
-            </div>
-        </a>
+        <div th:replace="components/story :: card(${story})"></div>
     </section>
 </div>
 
