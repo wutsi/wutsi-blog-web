@@ -34,6 +34,6 @@ class StoryController(
         model.addAttribute("offset", limit)
         model.addAttribute("stories", stories)
         model.addAttribute("showCreatePanel", showCreatePanel)
-        return "/page/story/cards"
+        return "page/story/cards"
     }
 }
