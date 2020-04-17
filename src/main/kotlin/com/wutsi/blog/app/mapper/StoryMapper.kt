@@ -14,6 +14,10 @@ class StoryMapper(
         private val tagMapper: TagMapper,
         private val moment: Moment
 ) {
+    companion object {
+        const val MAX_TAGS: Int = 5
+    }
+
     fun toStoryModel(story: StoryDto, user: UserModel? = null): StoryModel {
         val fmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm.ss.SSSZ")
         return StoryModel(
@@ -37,8 +41,11 @@ class StoryMapper(
                 publishedDateTime = moment.format(story.publishedDateTime),
                 publishedDateTimeISO8601 = if (story.publishedDateTime == null) null else fmt.format(story.publishedDateTime),
                 modificationDateTimeISO8601 = fmt.format(story.modificationDateTime),
-                tags = story.tags.map { tagMapper.toTagModel(it) },
-                slug = story.slug
+                slug = story.slug,
+                tags = story.tags
+                        .sortedByDescending { it.totalStories }
+                        .take(MAX_TAGS)
+                        .map { tagMapper.toTagModel(it) }
         )
     }
 

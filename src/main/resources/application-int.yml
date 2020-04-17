@@ -8,13 +8,13 @@ wutsi:
 
   oauth:
       github:
-        client-id: 43bf80531cd351c84f5b
-        client-secret: 986634ef3a7c8ac6e66f9a75f5b0a1c4dec68918
+        client-id: "43bf80531cd351c84f5b"
+        client-secret: "986634ef3a7c8ac6e66f9a75f5b0a1c4dec68918"
       facebook:
-        client-id: 629340480740249
+        client-id: "629340480740249"
       google:
-        client-id: 806985813772-ae9dav3ankkfcpbq0optkkv7ve6g0q5c.apps.googleusercontent.com
-        client-secret: ySK8Wohv1go1xA7GPbwJG685
+        client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
+        client-secret: "6HiL0qMBfLN4x1tInO2VJYI-"
 
   storage:
     s3:
