@@ -44,9 +44,11 @@ class OAuthConfiguration {
     fun googleOAuthService(
             @Value ("\${wutsi.oauth.google.client-id}") clientId: String,
             @Value ("\${wutsi.oauth.google.client-secret}") clientSecret: String,
-            @Value ("\${wutsi.oauth.google.callback-url}") callbackUrl: String
+            @Value ("\${wutsi.oauth.google.callback-url}") callbackUrl: String,
+            @Value ("\${wutsi.oauth.google.scope}") scope: String
     ): OAuth20Service = ServiceBuilder(clientId)
             .apiSecret(clientSecret)
+            .withScope(scope)
             .callback(callbackUrl)
             .build(GoogleApi20.instance())
 }

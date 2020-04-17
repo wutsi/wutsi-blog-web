@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/login/google")
 class GoogleLoginController(
-        @Qualifier(OAuthConfiguration.GITHUB_OAUTH_SERVICE) private val oauth: OAuth20Service
+        @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) private val oauth: OAuth20Service
 ): AbstractOAuth20LoginController() {
     override fun getOAuthService() = oauth
 

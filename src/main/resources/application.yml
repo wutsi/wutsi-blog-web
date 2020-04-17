@@ -69,6 +69,7 @@ wutsi:
       client-id: 00000000
       client-secret: 0000000000000000
       callback-url: ${wutsi.base-url}/login/google/callback
+      scope: "https://www.googleapis.com/auth/userinfo.email"
     twitter:
       client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
       client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
