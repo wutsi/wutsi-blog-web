@@ -8,4 +8,8 @@ wutsi:
     baseurl: "${wiremock.url}"
 
   toggles:
+    sso-facebook: true
+    sso-google: true
+    sso-twitter: true
+    sso-github: true
     qa-login: true

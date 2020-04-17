@@ -30,6 +30,9 @@ class JoinControllerTest : SeleniumTestSupport() {
         driver.get(url)
 
         click("#navbar-join")
+
         assertCurrentPageIs(PageName.JOIN)
+
+        assertElementNotPresent("#navbar-join")
     }
 }

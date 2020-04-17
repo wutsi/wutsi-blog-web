@@ -49,7 +49,7 @@ abstract class SeleniumTestSupport {
 
     protected var url: String = ""
 
-    protected var timeout = 10L
+    protected var timeout = 2L
 
     lateinit protected var driver: WebDriver
 
