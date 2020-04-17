@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class CardsController(
+class StoryController(
         private val service: StoryService
 ) {
 
@@ -19,6 +19,7 @@ class CardsController(
             @RequestParam(required = false) userId: Long? = null,
             @RequestParam(required = false, defaultValue = "20") limit: Int,
             @RequestParam(required = false, defaultValue = "0") offset: Int,
+            @RequestParam(required = false, defaultValue = "false") showCreatePanel: Boolean,
             model: Model
     ): String {
         val stories = service.search(SearchStoryRequest(
@@ -32,6 +33,7 @@ class CardsController(
         model.addAttribute("limit", limit)
         model.addAttribute("offset", limit)
         model.addAttribute("stories", stories)
+        model.addAttribute("showCreatePanel", showCreatePanel)
         return "/page/story/cards"
     }
 }

@@ -9,20 +9,25 @@
     <div th:replace="components/layout :: navbar"></div>
 
     <div class="container">
-        <div class="margin-top-2x offset-md-2 col-md-8">
-            <div th:replace="components/story :: author(${user})"></div>
-        </div>
-
-        <div id="welcome" class="alert alert-success offset-md-2 col-md-8 margin-top-2x" th:if="${user.loginCount == 0}">
-            <p th:utext="#{page.me.welcome(${user.fullName})}">Welcome</p>
-            <div>
-                <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_story}" wutsi-track-event="create_story">Create Story</a>
-                <a id="btn-syndicate-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}" wutsi-track-event="syndicate_story">Import a Story</a>
+        <div class="offset-md-2 col-md-8">
+            <!-- Author -->
+            <div class="margin-top-2x">
+                <div th:replace="components/story :: author(${user})"></div>
             </div>
-        </div>
 
-        <div class="margin-top-2x offset-md-2 col-md-8">
-            <div id="stories"></div>
+            <!-- Welcome message -->
+            <div id="welcome" class="alert alert-success margin-top-2x" th:if="${user.loginCount == 0}">
+                <p th:utext="#{page.me.welcome(${user.fullName})}">Welcome</p>
+                <div>
+                    <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}" wutsi-track-event="create_story">Create Story</a>
+                    <a id="btn-syndicate-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}" wutsi-track-event="syndicate_story">Import a Story</a>
+                </div>
+            </div>
+
+            <!-- Stories -->
+            <div class="margin-top-2x">
+                <div id="stories"></div>
+            </div>
         </div>
     </div>
 
@@ -34,7 +39,7 @@
 
     var userId = /*[[${user.id}]]*/'0';
     $(document).ready(function(){
-        wutsi.httpGet('/story/cards?userId=' + userId)
+        wutsi.httpGet('/story/cards?showCreatePanel=true&userId=' + userId)
             .then(function(html){
                 $('#stories').html(html);
             });

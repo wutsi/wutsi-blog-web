@@ -14,6 +14,7 @@ class MeControllerTest : SeleniumTestSupport() {
 
         assertElementCount(".post", 4)
         assertElementNotPresent("#welcome")
+        assertElementNotPresent("#create-first-story")
     }
 
     @Test
@@ -22,11 +23,28 @@ class MeControllerTest : SeleniumTestSupport() {
 
         gotoPage()
 
+        assertElementCount(".post", 0)
+
         assertElementPresent("#welcome")
         assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
         assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
 
+        assertElementNotPresent("#create-first-story")
+    }
+
+
+    @Test
+    fun `user with no post` () {
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
+        gotoPage()
+
         assertElementCount(".post", 0)
+
+        assertElementNotPresent("#welcome")
+
+        assertElementPresent("#create-first-story")
+        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
+        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
     }
 
     @Test
@@ -44,7 +62,7 @@ class MeControllerTest : SeleniumTestSupport() {
 
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
-        assertElementAttribute("head meta[name='robots']", "content", "all")
+        assertElementAttribute("head meta[name='robots']", "content", "noindex,nofollow")
 
         assertElementAttribute("head meta[property='og:title']", "content", title)
         assertElementAttribute("head meta[property='og:description']","content", description)
