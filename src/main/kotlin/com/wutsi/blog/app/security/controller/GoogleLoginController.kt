@@ -6,6 +6,7 @@ import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.config.OAuthConfiguration
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 class GoogleLoginController(
         @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) private val oauth: OAuth20Service
 ): AbstractOAuth20LoginController() {
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(GoogleLoginController::class.java)
+    }
+
     override fun getOAuthService() = oauth
 
     override fun loadUser(accessToken: String): OAuthUser {
@@ -23,6 +28,8 @@ class GoogleLoginController(
         oauth.signRequest(accessToken, request)
 
         val response = oauth.execute(request)
+        LOGGER.info("GoogleResponse: " + response.body)
+
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return OAuthUser(
                 id = attrs["id"].toString(),
