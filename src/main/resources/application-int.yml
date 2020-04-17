@@ -13,8 +13,8 @@ wutsi:
       facebook:
         client-id: "629340480740249"
       google:
-        client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
-        client-secret: "6HiL0qMBfLN4x1tInO2VJYI-"
+        client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
+        client-secret: "aNs3wICkAVwudD17vB1_-ejf-"
 
   storage:
     s3:
