@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.security.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest
 abstract class AbstractOAuth20LoginController {
     protected val objectMapper = ObjectMapper()
 
+    protected val logger = LoggerFactory.getLogger(this::class.java)
+
     protected abstract fun loadUser(accessToken: String): OAuthUser
 
     protected abstract fun getOAuthService() : OAuth20Service
@@ -28,21 +31,30 @@ abstract class AbstractOAuth20LoginController {
 
     @GetMapping("/callback")
     fun callback(request: HttpServletRequest): String {
-        val error = getError(request)
-        if (error != null) {
-            return "redirect:/login?error=" + URLEncoder.encode(error, "utf-8")
-        }
+        try {
+            val error = getError(request)
+            if (error != null) {
+                return "redirect:/login?error=" + URLEncoder.encode(error, "utf-8")
+            }
 
-        val code = getCode(request)
-        val state = getState(request)
-        val accessToken = getOAuthService().getAccessToken(code).accessToken
-        val url = getSigninUrl(
-                accessToken = accessToken,
-                state = state,
-                user = loadUser(accessToken)
-        )
-        LoggerFactory.getLogger(javaClass).info("Redirecting to $url")
-        return "redirect:$url"
+            val code = getCode(request)
+            val state = getState(request)
+            val accessToken = getOAuthService().getAccessToken(code).accessToken
+            val url = getSigninUrl(
+                    accessToken = accessToken,
+                    state = state,
+                    user = loadUser(accessToken)
+            )
+            LoggerFactory.getLogger(javaClass).info("Redirecting to $url")
+            return "redirect:$url"
+        } catch(ex: OAuth2AccessTokenErrorResponse) {
+            logger.info("Authentication error", ex)
+            return redirectUrl(ex.error.errorString)
+        }
+    }
+
+    private fun redirectUrl(error: String) : String {
+        return "redirect:/login?error=" + URLEncoder.encode(error, "utf-8")
     }
 
     protected fun getSigninUrl(
