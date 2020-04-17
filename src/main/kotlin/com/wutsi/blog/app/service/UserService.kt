@@ -19,6 +19,11 @@ class UserService(
         return mapper.toUserModel(user)
     }
 
+    fun get(name: String): UserModel {
+        val user = backend.get(name).user
+        return mapper.toUserModel(user)
+    }
+
     fun search(request: SearchUserRequest) : List<UserModel> {
         val users = backend.search(request).users
         return users.map { mapper.toUserModel(it) }

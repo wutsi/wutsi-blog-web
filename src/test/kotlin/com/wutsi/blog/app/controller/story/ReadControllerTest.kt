@@ -8,18 +8,10 @@ import org.springframework.http.HttpStatus
 
 
 class ReadControllerTest: SeleniumTestSupport() {
-    companion object {
-        private const val PUBLISHED_ID = "10"
-        private const val DRAFT_ID = "20"
-        private const val PUBLISHED_NO_THUMBNAIL_ID = "30"
-    }
-
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_ID", HttpStatus.OK, "v1/story/get-story10-published.json")
-        stub(HttpMethod.GET, "/v1/story/$PUBLISHED_NO_THUMBNAIL_ID", HttpStatus.OK, "v1/story/get-story30-no_thumbnail.json")
-        stub(HttpMethod.GET, "/v1/story/$DRAFT_ID", HttpStatus.OK, "v1/story/get-story20-draft.json")
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
@@ -28,14 +20,15 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `published story`() {
-        driver.get("$url/read/$PUBLISHED_ID/looks-good")
+        gotoPage()
 
         assertCurrentPageIs(PageName.READ)
     }
 
     @Test
     fun `draft story`() {
-        driver.get("$url/read/$DRAFT_ID/looks-good")
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
+        driver.get("$url/read/20/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
     }
@@ -49,15 +42,13 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `preview story`() {
-        login()
-
-        driver.get("$url/read/$DRAFT_ID?preview=true")
+        gotoPreview(true)
         assertCurrentPageIs(PageName.READ)
     }
 
     @Test
     fun `anonymous user cannot preview story`() {
-        driver.get("$url/read/$DRAFT_ID?preview=true")
+        gotoPreview(false)
         assertCurrentPageIs(PageName.ERROR_403)
     }
 
@@ -70,9 +61,9 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `share to Facebook`() {
-        driver.get("$url/read/$PUBLISHED_ID/looks-good")
+        gotoPage()
 
-        val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
+        val url = "http://localhost:8081/read/20/lorem-ipsum"
 
         assertElementCount(".share .share-facebook", 1)
         assertElementAttribute(".share .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
@@ -83,9 +74,9 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `share to Twitter`() {
-        driver.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
+        gotoPage()
 
-        val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
+        val url = "http://localhost:8081/read/20/lorem-ipsum"
 
         assertElementCount(".share .share-twitter", 1)
         assertElementAttribute(".share .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
@@ -96,9 +87,9 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `share to LinkedIn`() {
-        driver.get("$url/read/$PUBLISHED_ID/lorem-ipsum")
+        gotoPage()
 
-        val url = "http://localhost:8081/read/$PUBLISHED_ID/lorem-ipsum"
+        val url = "http://localhost:8081/read/20/lorem-ipsum"
 
         assertElementCount(".share .share-linkedin", 1)
         assertElementAttribute(".share .share-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=$url")
@@ -108,8 +99,8 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `imported content`() {
-        stub(HttpMethod.GET, "/v1/story/10", HttpStatus.OK, "v1/story/get-story-imported.json")
-        driver.get("$url/read/10/lorem-ipsum")
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story-imported.json")
+        gotoPage()
 
         assertElementPresent(".reader .imported-content-message")
         assertElementAttribute("head link[rel=canonical]", "href", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter")
@@ -117,7 +108,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `META headers`() {
-        driver.get("$url/read/$PUBLISHED_ID/looks-good")
+        gotoPage()
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -129,7 +120,7 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:title']", "content", title)
         assertElementAttribute("head meta[property='og:description']","content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "article")
-        assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/read/10/lorem-ipsum")
+        assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/read/20/lorem-ipsum")
         assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
         assertElementAttribute("head meta[property='article:author']", "content", "Ray Sponsible")
@@ -140,7 +131,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `Twitter card summary_large_image`() {
-        driver.get("$url/read/$PUBLISHED_ID/looks-good")
+        gotoPage()
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -154,15 +145,33 @@ class ReadControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `Twitter card summary`() {
-        driver.get("$url/read/$PUBLISHED_NO_THUMBNAIL_ID/looks-good")
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story30-no_thumbnail.json")
+        gotoPage()
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+
+        assertElementNotPresent("head meta[property='og:image']")
 
         assertElementAttribute("head meta[name='twitter:title']", "content", title)
         assertElementAttribute("head meta[name='twitter:description']","content", description)
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary")
         assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
         assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
+    }
+
+    fun gotoPage() {
+        driver.get(url)
+
+        click(".post a")
+    }
+
+    fun gotoPreview(login: Boolean = true) {
+        if (login) {
+            login()
+        }
+
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
+        driver.get("$url/read/20?preview=true")
     }
 }

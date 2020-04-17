@@ -17,6 +17,7 @@ class UserMapper {
             websiteUrl = user.websiteUrl,
             email = user.email,
             loginCount = user.loginCount,
+            slug = "/@/${user.name}",
             accounts = user.accounts.map { AccountModel(
                     id = it.id,
                     provider = it.provider,
@@ -27,7 +28,9 @@ class UserMapper {
 
     fun toUserModel(user: UserSummaryDto) = UserModel(
             id = user.id,
+            name = user.name,
             fullName = user.fullName,
-            pictureUrl = user.pictureUrl
+            pictureUrl = user.pictureUrl,
+            slug = "/@/${user.name}"
     )
 }

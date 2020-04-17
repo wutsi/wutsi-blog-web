@@ -356,8 +356,11 @@ ul.step-indicator li.active {
     vertical-align: top;
 }
 
+.author a {
+    color: var(--text-color);
+}
 
-/*======= READER =======*/
+    /*======= READER =======*/
 .reader .share a {
     text-decoration: none;
 }
@@ -460,8 +463,9 @@ ul.step-indicator li.active {
 }
 
 .btn-light {
-    color: var(--text-color);
     background-color: #fff;
+    border-color: var(--highlight-color-light);
+    color: var(--text-color);
 }
 
 .jumbotron {

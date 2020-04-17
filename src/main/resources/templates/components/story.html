@@ -113,11 +113,11 @@
     </script>
 </div>
 
-<div th:fragment="author(user)" class="author flex">
-    <img class="margin-right" th:src="${user.pictureUrl}" th:alt="${user.fullName}" />
+<div th:fragment="author(me)" class="author flex">
+    <img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" />
     <div>
-        <b th:text="${user.fullName}">Ray Sponsible</b>
-        <div class="text-small" th:if="${user.biography}" th:text="${user.biography}">Biography</div>
+        <a th:href="${me.slug}"><b th:text="${me.fullName}">Ray Sponsible</b></a>
+        <p class="text-small" th:if="${me.biography}" th:text="${me.biography}">Biography</p>
     </div>
 </div>
 

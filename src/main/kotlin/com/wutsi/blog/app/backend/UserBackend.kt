@@ -17,6 +17,10 @@ class UserBackend (private val http: Http) {
         return http.get("$endpoint/$id", GetUserResponse::class.java).body
     }
 
+    fun get(name: String): GetUserResponse {
+        return http.get("$endpoint/@/$name", GetUserResponse::class.java).body
+    }
+
     fun search(request: SearchUserRequest): SearchUserResponse {
         return http.post("$endpoint/search", request, SearchUserResponse::class.java).body
     }

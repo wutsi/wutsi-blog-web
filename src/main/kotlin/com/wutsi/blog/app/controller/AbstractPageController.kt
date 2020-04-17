@@ -34,11 +34,11 @@ abstract class AbstractPageController(
     @ModelAttribute(ModelAttributeName.PAGE)
     fun getPage() = page()
 
-    open protected fun shouldBeIndexedByBots() = false
+    open fun shouldBeIndexedByBots() = false
 
     protected fun robots () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
 
-    open protected fun page() = PageModel(
+    open fun page() = PageModel(
             name = pageName(),
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
@@ -51,7 +51,7 @@ abstract class AbstractPageController(
 
     protected fun url(story: StoryModel) = baseUrl + story.slug
 
-    protected fun url(user: UserModel) = baseUrl + "/u/" + user.name
+    protected fun url(user: UserModel) = baseUrl + user.slug
 
     protected fun checkOwnership(story: StoryModel) {
         val user = requestContext.currentUser()

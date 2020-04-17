@@ -8,75 +8,31 @@ import org.springframework.http.HttpStatus
 
 
 class MeControllerTest : SeleniumTestSupport() {
-    @Test
-    fun `my page` () {
-        gotoPage()
+    override fun setupWiremock() {
+        super.setupWiremock()
 
-        assertElementCount(".post", 4)
-        assertElementNotPresent("#welcome")
-        assertElementNotPresent("#create-first-story")
-    }
-
-    @Test
-    fun `welcome new user` () {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-first-login.json")
-
-        gotoPage()
-
-        assertElementCount(".post", 0)
-
-        assertElementPresent("#welcome")
-        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
-        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
-
-        assertElementNotPresent("#create-first-story")
-    }
-
-
-    @Test
-    fun `user with no post` () {
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-        gotoPage()
-
-        assertElementCount(".post", 0)
-
-        assertElementNotPresent("#welcome")
-
-        assertElementPresent("#create-first-story")
-        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
-        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
     }
 
     @Test
     fun `anonymous user redirect to login` () {
-        driver.get("$url/me")
+        gotoPage(false)
         assertCurrentPageIs(PageName.LOGIN)
     }
 
     @Test
-    fun `META headers`() {
-        gotoPage()
-
-        val title = "Ray Sponsible"
-        val description = "Ray sponsible is a test user"
-
-        assertElementAttribute("head title", "text", title)
-        assertElementAttribute("head meta[name='description']", "content", description)
-        assertElementAttribute("head meta[name='robots']", "content", "noindex,nofollow")
-
-        assertElementAttribute("head meta[property='og:title']", "content", title)
-        assertElementAttribute("head meta[property='og:description']","content", description)
-        assertElementAttribute("head meta[property='og:type']", "content", "profile")
-        assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/u/ray.sponsible")
-        assertElementAttribute("head meta[property='og:image']", "content", "https://avatars3.githubusercontent.com/u/39621277?v=4")
-        assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
+    fun `logged user redirect to blog page` () {
+        gotoPage(true)
+        assertCurrentPageIs(PageName.BLOG)
     }
 
-    fun gotoPage() {
-        login()
-        click("nav .nav-item")
-        click("nav .dropdown-item-user a")
-
-        assertCurrentPageIs(PageName.ME)
+    fun gotoPage(login: Boolean) {
+        if (login) {
+            login()
+            click("nav .nav-item")
+            click("nav .dropdown-item-user a")
+        } else {
+            driver.get("$url/me")
+        }
     }
 }
