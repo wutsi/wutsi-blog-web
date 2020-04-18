@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.controller.story
 
 import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.model.TagListModel
+import com.wutsi.blog.app.model.TagModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.TagService
 import com.wutsi.blog.app.util.PageName
@@ -21,7 +21,7 @@ class TagController(
 
     @ResponseBody()
     @GetMapping("/search", produces = ["application/json"])
-    fun search(@RequestParam(name="q") query: String): TagListModel {
+    fun search(@RequestParam(name="q") query: String): List<TagModel> {
         return service.search(query)
     }
 }

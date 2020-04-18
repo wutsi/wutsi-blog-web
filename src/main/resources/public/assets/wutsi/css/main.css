@@ -372,8 +372,15 @@ ul.step-indicator li.active {
 
 .reader .tag {
     border: 1px solid var(--border-color);
-    border-radius: .2em;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    display: inline;
     padding: .2em 1em;
+    color: var(--text-color);
+}
+
+.reader .tag a {
+    color: var(--text-color);
     text-decoration: none;
 }
 

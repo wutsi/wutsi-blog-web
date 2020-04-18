@@ -79,7 +79,21 @@
     $('#tags').select2({
         ajax: {
             url: '/tag/search',
-            dataType: 'json'
+            dataType: 'json',
+            delay: 1000,
+            processResults: function (tags) {
+                const xtags = tags.map(function(tag){
+                    return {
+                        id: tag.name,
+                        text: tag.totalStories == 0
+                            ? tag.name
+                            : tag.name + ' (' + tag.totalStories + ')'
+                    }
+                });
+                return {
+                    results: xtags
+                };
+            }
         },
         tags: true,
         tokenSeparators: [','],

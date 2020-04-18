@@ -1,8 +1,7 @@
 package com.wutsi.blog.app.model
 
 data class TagModel (
-        val id: String = "",
-        val text: String = "",
+        val id: Long = -1,
         val name: String = "",
-        val totalStories: Int = 0
+        val totalStories: Long = 0
 )
