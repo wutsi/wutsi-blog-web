@@ -1,7 +1,5 @@
 package com.wutsi.blog.app.security.controller
 
-import com.github.scribejava.core.model.OAuthRequest
-import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.config.OAuthConfiguration
 import com.wutsi.blog.app.security.SecurityConfiguration
@@ -19,20 +17,15 @@ class FacebookLoginController(
 ) : AbstractOAuth20LoginController() {
     override fun getOAuthService() = oauth
 
-    override fun loadUser(accessToken: String): OAuthUser {
-        val request = OAuthRequest(Verb.GET, "https://graph.facebook.com/me")
-        oauth.signRequest(accessToken, request)
+    override fun getUserUrl() = "https://graph.facebook.com/me"
 
-        val response = oauth.execute(request)
-        val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
-        return OAuthUser(
+    override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
                 id = attrs["id"].toString(),
                 fullName = attrs["name"].toString(),
                 email = attrs["email"]?.toString(),
                 pictureUrl = "https://graph.facebook.com/" + attrs["id"] + "/picture?type=square",
                 provider = SecurityConfiguration.PROVIDER_FACEBOOK
         )
-    }
 
     override fun getError(request: HttpServletRequest) = request.getParameter("error_code")
 }

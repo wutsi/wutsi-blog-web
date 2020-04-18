@@ -2,6 +2,9 @@ package com.wutsi.blog.app.security.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
+import com.github.scribejava.core.model.OAuthRequest
+import com.github.scribejava.core.model.Response
+import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
@@ -12,16 +15,16 @@ import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
 
-
 abstract class AbstractOAuth20LoginController {
     protected val objectMapper = ObjectMapper()
 
     protected val logger = LoggerFactory.getLogger(this::class.java)
 
-    protected abstract fun loadUser(accessToken: String): OAuthUser
-
     protected abstract fun getOAuthService() : OAuth20Service
 
+    protected abstract fun getUserUrl(): String
+
+    protected abstract fun toOAuthUser(attrs: Map<String, Any>): OAuthUser
 
     @GetMapping()
     fun login (request: HttpServletRequest): String {
@@ -52,6 +55,23 @@ abstract class AbstractOAuth20LoginController {
             return redirectUrl(ex.error.errorString)
         }
     }
+
+    protected fun loadUser(accessToken: String): OAuthUser {
+        val response = fetchUser(accessToken)
+        logger.info("OAuth User: " + response.body)
+
+        val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
+        return toOAuthUser(attrs)
+    }
+
+    private fun fetchUser(accessToken: String): Response {
+        val request = OAuthRequest(Verb.GET, getUserUrl())
+        val oauth = getOAuthService()
+        oauth.signRequest(accessToken, request)
+
+        return oauth.execute(request)
+    }
+
 
     private fun redirectUrl(error: String) : String {
         return "redirect:/login?error=" + URLEncoder.encode(error, "utf-8")
