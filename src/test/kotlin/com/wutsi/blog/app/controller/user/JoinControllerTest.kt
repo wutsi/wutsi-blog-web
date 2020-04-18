@@ -16,6 +16,7 @@ class JoinControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.LOGIN)
     }
 
+
     @Test
     fun `should redirect on login page on join for anonymous users #2` () {
         gotoPage()
