@@ -63,6 +63,7 @@ abstract class SeleniumTestSupport {
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
         }
+        options.setCapability("resolution", "1920x1080");
 
         this.driver = ChromeDriver(options)
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
@@ -94,8 +95,11 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
     }
 
-    protected fun login() {
+    protected fun navigate(url: String) {
         driver.get(url)
+    }
+    protected fun login() {
+        navigate(url)
 
         val state = UUID.randomUUID().toString()
         driver.get(

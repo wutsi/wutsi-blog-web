@@ -122,7 +122,7 @@
                 <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
             </div>
         </li>
-        <li class="nav-item" th:if="!${user} AND ${page.name != 'page.join'}">
+        <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.join'}">
             <a id="navbar-join" class="btn btn-primary" href="/join" wutsi-track-event="join" wutsi-track-value="navbar" th:text="#{button.create_blog}">Create your Blog</a>
         </li>
         <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'}">

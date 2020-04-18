@@ -28,9 +28,8 @@ class JoinControllerTest : SeleniumTestSupport() {
     }
 
     private fun gotoPage() {
-        driver.get(url)
-
-        click("#navbar-join")
+        navigate("$url/join")
+//        click("#navbar-join")
 
         assertCurrentPageIs(PageName.JOIN)
 
