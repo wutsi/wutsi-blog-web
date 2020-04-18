@@ -29,7 +29,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
     fun `user change name - duplicate`() {
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.CONFLICT, "v1/user/error-duplicate_name.json")
 
-        val error = "Désolé, ce nom est assigné à un autre utilisateur."
+        val error = "Désolé, ce nom est assigné à un autre utilisateur!"
         testUpdate("name", "ray.sponsible", "ray.sponsible-" + System.currentTimeMillis(), error)
     }
 
@@ -48,7 +48,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
     fun `user change email - duplicate`() {
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.CONFLICT, "v1/user/error-duplicate_email.json")
 
-        val error = "Désolé, cette addresse email est assignée à un autre utilisateur."
+        val error = "Désolé, cette addresse email est assignée à un autre utilisateur!"
         testUpdate("email", "ray.sponsible@gmail.com", "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com", error)
     }
 
@@ -68,7 +68,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
     fun `user update - unexpected error`() {
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.INTERNAL_SERVER_ERROR)
 
-        val error = "Ooup! une erreur innatendue est survenue."
+        val error = "Ooup! une erreur innatendue est survenue!"
         testUpdate("biography", "Ray sponsible is a test user", "...", error)
     }
 
