@@ -9,6 +9,18 @@ class LoginControllerTest: SeleniumTestSupport() {
     fun `user login`() {
         gotoPage()
 
+        assertElementNotPresent(".alert-danger")
+        validateButton("google")
+        validateButton("facebook")
+        validateButton("github")
+        validateButton("twitter")
+    }
+
+    @Test
+    fun `login error`() {
+        gotoPage(true)
+
+        assertElementPresent(".alert-danger")
         validateButton("google")
         validateButton("facebook")
         validateButton("github")
@@ -21,10 +33,13 @@ class LoginControllerTest: SeleniumTestSupport() {
         assertElementAttribute("#btn-$name", "wutsi-track-value", name)
     }
 
-    private fun gotoPage() {
-        driver.get(url)
-
-        click("#navbar-login")
-        assertElementNotPresent("#navbar-login")
+    private fun gotoPage(error: Boolean=false) {
+        if (error){
+            driver.get("$url/login?error=invalid_client")
+        } else {
+            driver.get(url)
+            click("#navbar-login")
+            assertElementNotPresent("#navbar-login")
+        }
     }
 }

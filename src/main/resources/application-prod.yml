@@ -13,7 +13,6 @@ wutsi:
         client-id: 900cfd0accedc133ea5b
       google:
         client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
-        client-secret: "6HiL0qMBfLN4x1tInO2VJYI-"
 
   toggles:
     sso-facebook: true

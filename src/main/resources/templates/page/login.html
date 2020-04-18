@@ -18,6 +18,8 @@
                     Join Wutsi to receive great stories in your phone; and follow authors and topics that you love.
                 </p>
 
+                <div class="alert alert-danger padding-top" th:if="${error}" th:text="#{error.login}">Error</div>
+
                 <div class="row margin-top-2x">
                     <div class="col-12 offset-md-1 col-md-10">
                         <a id="btn-google" class="sso-button margin-top" href="/login/google" th:if="${toggles.ssoGoogle}" wutsi-track-event="login" wutsi-track-value="google">
