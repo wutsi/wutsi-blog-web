@@ -32,8 +32,8 @@
     >This story was originally posted on ....</div>
 
     <!-- Tags -->
-    <div class="margin-top">
-        <span class="tag margin-right" th:each="tag : ${story.tags}" th:text="${tag.text}">Tag</span>
+    <div class="flex margin-top">
+        <div class="tag margin-bottom margin-right" th:each="tag : ${story.tags}" th:text="${tag.text}">Tag</div>
     </div>
 
     <!-- Share -->
