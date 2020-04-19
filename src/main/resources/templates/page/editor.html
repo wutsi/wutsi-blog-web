@@ -20,8 +20,9 @@
 
     <div class="row border-bottom">
         <div class="col-12 padding">
-            <div id="story-status" class="float-left margin-right" th:text="#{story.status.draft}"></div>
-            <div id="editor-status" class="float-left"></div>
+            <div id="story-status-draft" class="hidden float-left margin-right" th:text="#{story.status.draft}"></div>
+            <div id="story-status-published" class="hidden float-left margin-right" th:text="#{story.status.published}"></div>
+            <div id="save-status" class="float-left hidden" th:text="#{label.saving}">Saving...</div>
 
             <div class="close">
                 <button id="btn-close">X</button>
@@ -72,30 +73,7 @@
     $(document).ready(function(){
         var editor = new WutsiEJS('editorjs', publish);
         console.log('templates.page.editor', editor);
-
-        if (storyId > 0){
-            console.log('Loading Story#' + storyId);
-            wutsi.httpGet('/editor/fetch/' + storyId, true)
-                .then(function(story){
-                    editor.setup(story);
-                })
-                .catch(function(error){
-                    var selector = '';
-                    if (error.status == 404) {
-                        selector = '#story-load-error .not-found';
-                    } else if (error.status == 403) {
-                        selector = '#story-load-error .permission-denied';
-                    } else {
-                        selector = '#story-load-error .unknown';
-                    }
-                    $(selector).removeClass('hidden');
-                    $('#story-load-error').removeClass('hidden');
-                    $('#story-editor').addClass('hidden');
-
-                });
-        } else {
-            editor.setup(null);
-        }
+        editor.setup(storyId);
     });
 
 

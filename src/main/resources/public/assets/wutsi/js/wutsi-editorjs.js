@@ -1,115 +1,106 @@
 function WutsiEJS (holderId, publishCallback){
     this.holderId = holderId;
-    this.storyId = '0';
-    this.dirty = false;
-    this.saving = false;
     this.editorjs = null;
+    this.model = {
+        id: 0,
+        title: '',
+        content: {},
+        draft: true,
+        dirty: false
+    };
 
     this.config = {
-        autosave: 60000,
+        autosave: 15000,
         saveUrl: '/editor/save',
         selectors: {
             title: '#title',
             btnPublish: '#btn-publish',
             btnClose: '#btn-close',
-            storyStatus: '#story-status',
-            editorStatus: '#editor-status'
+            storyStatusDraft: '#story-status-draft',
+            storyStatusPublished: '#story-status-published',
+            saveStatus: '#save-status'
         },
         labels: {
-            draft: 'Brouillon',
-            published: 'Publié',
-            saving: 'Enregistrement en cours...',
-            saved: 'Enregistré',
-            modified: 'Modifié',
             publish: 'Publie',
             saveAndPublish: 'Enregistre et Publie'
         }
     };
 
-    this.setup = function(story) {
-        console.log('Initializing Editor');
+    this.setup = function(storyId) {
+        console.log('Setup story', storyId);
 
-        const me = this;
+        /* load locally */
+        const data = window.localStorage.getItem("document-" + storyId);
+        if (data){
+            console.log('Initializing from local storage');
+            this.init(JSON.parse(data));
+        } else {
 
-        this.init_editorjs(story);
-        this.init_toolbar(story);
-        this.init_autosave(story);
+            /* load from server */
+            if (storyId == 0) {
+                console.log('Initializing with empty');
+                this.init({
+                    id: 0,
+                    title: '',
+                    content: {},
+                    draft: true
+                });
+            } else {
+                const me = this;
+                wutsi.httpGet('/editor/fetch/' + storyId, true)
+                    .then(function (story) {
+                        const model = {
+                            id: story.id,
+                            title: story.title,
+                            content: story.content.length > 0 ? JSON.parse(story.content) : {},
+                            draft: story.draft
+                        };
+                        console.log('Initializing from server');
+                        me.init(model);
+                    })
+                    .catch(function (error) {
+                        var selector = '';
+                        if (error.status == 404) {
+                            selector = '#story-load-error .not-found';
+                        } else if (error.status == 403) {
+                            selector = '#story-load-error .permission-denied';
+                        } else {
+                            selector = '#story-load-error .unknown';
+                        }
 
-        $(this.config.selectors.title).on('keydown', function(){ me.set_dirty(true)} );
+                        $(selector).removeClass('hidden');
+                        $('#story-load-error').removeClass('hidden');
+                        $('#story-editor').addClass('hidden');
 
-        window.addEventListener('beforeunload', function(){
-            if (!story || story.draft) {
-                /* Save on unload only fro draft stories */
-                console.log('Unloading the window');
-                me.editorjs_save();
+                    });
+
             }
+        }
+    };
+
+    this.init = function(model) {
+        console.log('Initializing', model);
+
+        this.model = model;
+        this.init_title(model);
+        this.init_editorjs(model);
+        this.init_toolbar();
+        this.init_autosave();
+
+        $(this.config.selectors.title).keypress(function(){
+            model.dirty = true;
         });
     };
 
+    this.init_title = function(model) {
+        console.log('Initializing title');
 
-    this.editorjs_save = function(callback) {
-        console.log('editorjs_save()');
-
-        this.saving = true;
-        if (this.dirty){
-            console.log("Document is dirty.Saving...");
-
-            const me = this;
-            this.show_status('#story-alert-saving', true);
-            this.editorjs
-                .save()
-                .then(function(data){
-                    console.log('Saving', data);
-                    me.set_dirty(false);
-
-                    const request = {
-                        id: me.storyId,
-                        title: $(me.config.selectors.title).val(),
-                        content: JSON.stringify(data)
-                    };
-
-                    wutsi.httpPost(me.config.saveUrl, request, true)
-                        .then(function(story){
-                            me.storyId = story.id;
-                            if (callback){
-                                callback();
-                            }
-                        })
-                        .catch(function(){
-                            me.set_dirty(true);
-                        })
-                        .finally(function(){
-                            me.saving = false;
-                            me.update_toolbar();
-                        });
-                })
-                .catch(function(error){
-                    console.error("Save Error", error);
-                });
-        } else {
-            console.log("Document not dirty. Nothing to save");
-            if (callback){
-                callback();
-            }
-        }
+        $(this.config.selectors.title).val(model.title);
     };
 
-    this.init_autosave = function(story) {
-        if (!story || story.draft) {
-            console.log('The Story in DRAFT. Enabling auto-save');
-            const me = this;
-            setInterval(function () {
-                me.editorjs_save()
-            }, this.config.autosave);
-        } else {
-            console.log('The Story in PUBLISHED. Disabling auto-save');
-        }
-    };
-
-    this.init_editorjs = function(story) {
+    this.init_editorjs = function(model) {
         console.log('Initializing EditorJS');
 
-        const me = this;
         const tools = {
             header: {
                 class: Header,
@@ -163,98 +154,115 @@ function WutsiEJS (holderId, publishCallback){
                 }
             }
         };
-        if (story) {
-            console.log('Initializing editor with Story#' + story.id, JSON.parse(story.content));
-            this.storyId = story.id;
-            $(this.config.selectors.title).val(story.title);
-            this.editorjs = new EditorJS({
-                holderId: this.holderId,
-                autofocus: true,
-                tools: tools,
-                data: JSON.parse(story.content),
-                onChange: function () {
-                    me.set_dirty(true);
-                }
-            });
 
-        } else {
-            console.log('Initializing empty editor');
-
-            this.editorjs = new EditorJS({
-                holderId: me.holderId,
-                autofocus: true,
-                tools: tools,
-                onChange: function () {
-                    me.set_dirty(true);
-                }
-            });
-        }
-
-        this.set_dirty(false);
+        this.editorjs = new EditorJS({
+            holderId: this.holderId,
+            autofocus: true,
+            tools: tools,
+            data: model.content,
+            onChange: function () {
+                model.dirty = true;
+            }
+        });
     };
 
-    this.init_toolbar = function(story) {
+    this.init_toolbar = function() {
         const me = this;
 
-        // Story Status
-        if (!story || story.draft) {
-            $(this.config.selectors.storyStatus).text(this.config.labels.draft);
-            $(this.config.selectors.storyStatus).addClass('status-draft');
-        } else {
-            $(this.config.selectors.storyStatus).text(this.config.labels.published);
-            $(this.config.selectors.storyStatus).addClass('status-published');
-        }
-
-        // Editor Status
-        $(this.config.selectors.editorStatus).text('');
-
         // Publish button
-        $(this.config.selectors.btnPublish).text( !story || story.draft ? this.config.labels.publish : this.config.labels.saveAndPublish);
+        if (this.model.draft){
+            $(this.config.selectors.storyStatusDraft).removeClass('hidden');
+        } else {
+            $(this.config.selectors.storyStatusPublished).removeClass('hidden');
+        }
         $(this.config.selectors.btnPublish).on('click', function () {
-            me.editorjs_save(function() {
-                publishCallback(me.storyId);
-            });
+            me.editorjs_server_save(function (story) {
+                publishCallback(story.id);
+            })
         });
 
         // Close button
         $(this.config.selectors.btnClose).on('click', function () {
-            if (!story || story.draft) {
-                window.location.href = '/me/draft';
-            } else {
-                window.location.href = '/me/story/published';
-            }
+            me.editorjs_server_save(function(){
+                if (me.model.draft) {
+                    window.location.href = '/me/draft';
+                } else {
+                    window.location.href = '/me/story/published';
+                }
+            });
         });
-
-
-        this.update_toolbar();
     };
 
-    this.update_toolbar = function () {
-        // Status
-        if (this.saving) {
-            $(this.config.selectors.editorStatus).text(this.config.labels.saving);
-        } else {
-            if (this.dirty) {
-                $(this.config.selectors.editorStatus).text(this.config.labels.modified);
-            } else {
-                $(this.config.selectors.editorStatus).text(this.config.labels.saved);
-            }
-        }
+    this.init_autosave = function() {
+        const me = this;
+        setInterval(function () {
+            me.editorjs_local_save()
+        }, this.config.autosave);
     };
 
-    this.set_dirty = function(value) {
-        console.log('set_dirty', value);
-        this.dirty = value;
-        if (this.dirty){
-            this.update_toolbar();
-        }
+
+    this.editorjs_server_save = function(resolve) {
+        console.log('Saving remotely');
+
+        const me = this;
+        const storyId = this.model.id;
+        const title = $(this.config.selectors.title).val();
+        const saveUrl = this.config.saveUrl;
+
+        this.saving();
+        return this.editorjs
+            .save()
+            .then(function(data){
+                const request = {
+                    id: storyId,
+                    title: title,
+                    content: JSON.stringify(data)
+                };
+
+                wutsi.httpPost(saveUrl, request, true)
+                    .then(function(story){
+                        window.localStorage.removeItem("document-" + storyId);
+
+                        me.storyId = story.id;
+                        me.saved();
+
+                        if (resolve) {
+                            resolve(story);
+                        }
+                    });
+            });
     };
 
-    this.show_status = function(selector, show){
-        if (show){
-            $(selector).css('display', 'inline-block');
-        } else {
-            $(selector).css('display', 'none');
+    this.editorjs_local_save = function() {
+        console.log('Saving locally. dirty=' + this.model.dirty);
+        if (this.model.dirty == false){
+            return;
         }
+
+        this.saving();
+
+        this.model.title = $(this.config.selectors.title).val();
+
+        const id = this.model.id;
+        const me = this;
+        this.editorjs
+            .save()
+            .then(function(data){
+                me.model.content = data;
+                window.localStorage.setItem('document-' + id, JSON.stringify(me.model));
+                me.saved();
+            })
+            .catch(function(error){
+                me.saved(error);
+            });
+    };
+
+    this.saving = function() {
+        $(this.config.selectors.saveStatus).removeClass('hidden');
+    };
+
+    this.saved = function(error) {
+        $(this.config.selectors.saveStatus).addClass('hidden');
+        this.model.dirty = (error != null);
     };
 }
