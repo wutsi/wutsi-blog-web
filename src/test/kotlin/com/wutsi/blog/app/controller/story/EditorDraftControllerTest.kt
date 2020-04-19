@@ -59,6 +59,7 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
 
         click("#btn-close")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.STORY_DRAFT)
     }
 
