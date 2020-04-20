@@ -13,10 +13,14 @@
         <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
 
             <div class="main-content border text-center padding-2x">
-                <h1 class="margin-top-2x" th:text="#{page.login.header1}">Join Wutsi</h1>
-                <p class="margin-top" th:text="#{page.login.info}">
-                    Join Wutsi to receive great stories in your phone; and follow authors and topics that you love.
-                </p>
+                <div id="join-panel" th:if="${join}">
+                    <h1 class="margin-top-2x" th:text="#{page.login.header1.join}">Create your Blog</h1>
+                    <p class="margin-top" th:text="#{page.login.info.join}"></p>
+                </div>
+                <div id="login-panel" th:if="!${join}">
+                    <h1 class="margin-top-2x" th:text="#{page.login.header1.login}">Login</h1>
+                    <p class="margin-top" th:text="#{page.login.info.login}"></p>
+                </div>
 
                 <div class="alert alert-danger padding-top" th:if="${error}" th:text="#{error.login}">Error</div>
 

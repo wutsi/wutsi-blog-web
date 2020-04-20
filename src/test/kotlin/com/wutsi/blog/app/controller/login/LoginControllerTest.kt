@@ -9,6 +9,7 @@ class LoginControllerTest: SeleniumTestSupport() {
     fun `user login`() {
         gotoPage()
 
+        assertElementPresent("#join-login")
         assertElementNotPresent(".alert-danger")
         validateButton("google")
         validateButton("facebook")

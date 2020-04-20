@@ -13,7 +13,9 @@ class JoinControllerTest : SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-join-1", "href", "/me")
 
         click("#btn-join-1")
+
         assertCurrentPageIs(PageName.LOGIN)
+        assertElementPresent("#join-panel")
     }
 
 
