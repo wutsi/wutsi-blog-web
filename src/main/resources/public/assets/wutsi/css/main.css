@@ -331,7 +331,7 @@ ul.step-indicator li.active {
     font-size: 1.5em;
 }
 
-.post .img {
+.post .img-container {
     height: 200px;
     overflow: hidden;
 }
