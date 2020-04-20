@@ -124,11 +124,14 @@
 <section th:fragment="card(story)">
     <a th:href="${story.slug}">
         <h2 class="title" th:text="${story.title}">Title</h2>
-        <div class="img-container" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-            <img class="border margin-top" th:src="${story.thumbnailUrl}" th:alt="${story.title}" />
+
+        <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
+            <img class="border" th:src="${story.thumbnailUrl}" th:alt="${story.title}" />
         </div>
-        <div class="summary margin-top" th:text="${story.summary}">Summary</div>
-        <div class="meta margin-top flex">
+
+        <p class="summary" th:text="${story.summary}">Summary</p>
+
+        <div class="meta flex">
             <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
             <div>
                 <span th:text="${story.readingMinutes}">2</span>

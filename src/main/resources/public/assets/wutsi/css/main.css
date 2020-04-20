@@ -23,7 +23,8 @@ body {
     --border-color: rgba(0,0,0,.125);
 
     background: var(--background-light);
-    color: var(--text-color)
+    color: var(--text-color);
+    font-family: 'PT Sans', sans-serif;
 }
 body.paper {
     background: white;
@@ -31,6 +32,10 @@ body.paper {
 
 a {
     color: var(--highlight-color)
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
 }
 
 .flex {
@@ -317,9 +322,6 @@ ul.step-indicator li.active {
 
 
 /*======= POST =======*/
-.post {
-    border-radius: 3px;
-}
 .post a {
     color: var(--text-color);
     text-decoration: none;
@@ -327,10 +329,9 @@ ul.step-indicator li.active {
 
 .post .title {
     font-size: 1.5em;
-    margin-bottom: .5em;
 }
 
-.post .img-container {
+.post .img {
     height: 200px;
     overflow: hidden;
 }
@@ -367,6 +368,11 @@ ul.step-indicator li.active {
 }
 
     /*======= READER =======*/
+
+.reader h1 {
+    font-size: 4em;
+}
+
 .reader .share a {
     text-decoration: none;
 }
@@ -396,12 +402,12 @@ ul.step-indicator li.active {
 }
 
 
-.reader .content > *{
-    margin: 0 0 1em 0;
+.reader .content > * {
+    margin-bottom: 10px;
 }
 
 .reader .content blockquote {
-    margin: 2em 0;
+    margin: 20px 0;
 }
 .reader .content blockquote p {
     font-size: 1.4em;

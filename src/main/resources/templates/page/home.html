@@ -8,8 +8,8 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container margin-top post-list">
-    <section class="offset-md-3 col-md-6 padding border-bottom post" th:each="story: ${stories}">
+<div class="container post-list">
+    <section class="offset-md-3 col-md-6 padding border post rounded margin-top" th:each="story: ${stories}">
         <div th:replace="components/story :: card(${story})"></div>
     </section>
 </div>
