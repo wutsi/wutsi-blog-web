@@ -425,7 +425,9 @@ ul.step-indicator li.active {
 .reader .content figure img {
     max-width: 100%;
     display: block;
+    height: auto;
     margin: 0 auto;
+    width: auto;
 }
 .reader .content figure img.stretched {
     width: 100%;
