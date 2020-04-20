@@ -8,41 +8,62 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-    <div class="container margin-top-2x">
+    <div class="container margin-top-2x margin-bottom-2x padding-2x">
         <div class="row">
-            <div class="col-12 col-md-6 box-filled padding-2x">
-                <h1>Bla... bla...bla...</h1>
-                <p>bobobo..bobobobo...bobobob</p>
-
-                <a id="btn-join-1" class="btn btn-primary btn-lg" href="/me" th:text="#{button.create_blog}" wutsi-track-event="create_blog" wutsi-track-value="hero">Join Wutsi</a>
-            </div>
-            <div class="col-12 col-md-6">
-                <center>IMG HERE</center>
+            <div class="col-12 offset-md-2 col-md-8 hero">
+                <h1 class="text-center margin-bottom">Une Plateforme pour Partager tes Idées</h1>
+                <h4 class="text-center margin-bottom">
+                    Crée ton Blog, Publie test Idées, Bati ton Audience.
+                </h4>
+                <p class="text-center">
+                    <a id="btn-join-1" class="btn btn-primary btn-lg" href="/me"  wutsi-track-event="create_blog">Démarre ton Blog</a>
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="container margin-top-2x box-filled padding-2x">
-        <h1 th:text="#{page.join.how_it_work}" class="text-center">How it Works</h1>
+    <div class="container margin-top-2x margin-bottom-2x padding-2x">
+        <div class="row">
+            <div class="col-12 col-md-5">
+                IMG
+            </div>
+
+            <div class="col-12 col-md-7 padding-2x box-filled">
+                <h1 class="margin-bottom">Ça Coûtte Combien?</h1>
+                <h4 class="margin-bottom">
+                    Rien du tout! C'est <strong class="highlight">Gratuit</strong>.
+                </h4>
+                <p class="margin-bottom">
+                    Partager ses Idées ne devrait pas avoir de prix.<br/>
+                    Il faut plutôt encourager leur diffusion pour améliorer notre société!
+                </p>
+                <p class="text-center">
+                    <a id="btn-join-3" class="btn btn-primary btn-lg" href="/me" wutsi-track-event="create_blog">Démarre ton Blog</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container margin-top-2x margin-bottom-2x padding-2x">
+        <h1 class="margin-bottom text-center">Ça Marche Comment?</h1>
 
         <div class="row">
             <div class="col-12 col-md-4 padding">
-                <h5><span>1.</span> Ecrivez</h5>
+                <h4>Ecris</h4>
                 <p>
-                    Partager vos opinions, vos états d'ame... Laissez libre cours à votre imagination
+                    Laisse libre cours à ton imagination pour écrire dans des Stories tes Idées, Opinions, Etats d'âme
                 </p>
             </div>
             <div class="col-12 col-md-4 padding">
-                <h5><span>2.</span> Publiez</h5>
+                <h4>Publie</h4>
                 <p>
-                    Publiez votre storie, elle va être partagée sur les réseaux sociaux, à votre liste de diffusion.
-                    Votre storie va être recommendée aux lecteurs interessé aux sujets abordés dans votre storie.
+                    Ta Storie va etre publiée sur les Réseaux Sociaux, Newsletters pour rejoindre une audience le plus large possible.
                 </p>
             </div>
             <div class="col-12 col-md-4 padding">
-                <h5><span>3.</span> Etendez votre Réseau</h5>
+                <h4>Analyse</h4>
                 <p>
-                    Continuez à écrire, publier pour rejoindre le plus de personnes possible, et étendre votre lectorat.
+                    Utilise les outils d'Analyses pour comprendre ton Audience et ses Intérets.
                 </p>
             </div>
         </div>
