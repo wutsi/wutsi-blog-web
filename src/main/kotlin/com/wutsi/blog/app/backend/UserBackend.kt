@@ -14,15 +14,15 @@ class UserBackend (private val http: Http) {
     private lateinit var endpoint: String
 
     fun get(id:Long): GetUserResponse {
-        return http.get("$endpoint/$id", GetUserResponse::class.java).body
+        return http.get("$endpoint/$id", GetUserResponse::class.java).body!!
     }
 
     fun get(name: String): GetUserResponse {
-        return http.get("$endpoint/@/$name", GetUserResponse::class.java).body
+        return http.get("$endpoint/@/$name", GetUserResponse::class.java).body!!
     }
 
     fun search(request: SearchUserRequest): SearchUserResponse {
-        return http.post("$endpoint/search", request, SearchUserResponse::class.java).body
+        return http.post("$endpoint/search", request, SearchUserResponse::class.java).body!!
     }
 
     fun update(id:Long, request: UpdateUserAttributeRequest) {

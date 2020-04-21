@@ -54,7 +54,7 @@ class UploadService(
         logger.add("ImageWidth", width)
         logger.add("ImageHeight", height)
         return UploadModel(
-                url = url,
+                url = url.toString(),
                 width = width,
                 height = height
         )

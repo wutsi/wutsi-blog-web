@@ -12,6 +12,6 @@ class TrackBackend (private val http: Http) {
     private lateinit var endpoint: String
 
     fun push(request: PushTrackRequest): PushTrackResponse {
-        return http.post(endpoint, request, PushTrackResponse::class.java).body
+        return http.post(endpoint, request, PushTrackResponse::class.java).body!!
     }
 }

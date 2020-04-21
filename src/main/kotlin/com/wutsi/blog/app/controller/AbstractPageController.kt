@@ -55,7 +55,7 @@ abstract class AbstractPageController(
 
     protected fun checkOwnership(story: StoryModel) {
         val user = requestContext.currentUser()
-        if (user == null || story.user.id != user?.id) {
+        if (user == null || story.user.id != user.id) {
             throw ForbiddenException("ownership_error")
         }
     }

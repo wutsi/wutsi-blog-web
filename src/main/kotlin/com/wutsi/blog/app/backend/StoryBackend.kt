@@ -20,30 +20,30 @@ class StoryBackend (private val http: Http) {
     private lateinit var endpoint: String
 
     fun create(request: SaveStoryRequest): SaveStoryResponse {
-        return http.post(endpoint, request, SaveStoryResponse::class.java).body
+        return http.post(endpoint, request, SaveStoryResponse::class.java).body!!
     }
 
     fun update(id: Long, request: SaveStoryRequest): SaveStoryResponse {
-        return http.post("$endpoint/$id", request, SaveStoryResponse::class.java).body
+        return http.post("$endpoint/$id", request, SaveStoryResponse::class.java).body!!
     }
 
     fun get(id:Long): GetStoryResponse {
-        return http.get("$endpoint/$id", GetStoryResponse::class.java).body
+        return http.get("$endpoint/$id", GetStoryResponse::class.java).body!!
     }
 
     fun search(request: SearchStoryRequest): SearchStoryResponse {
-        return http.post("$endpoint/search", request, SearchStoryResponse::class.java).body
+        return http.post("$endpoint/search", request, SearchStoryResponse::class.java).body!!
     }
 
     fun count(request: SearchStoryRequest): CountStoryResponse {
-        return http.post("$endpoint/count", request, CountStoryResponse::class.java).body
+        return http.post("$endpoint/count", request, CountStoryResponse::class.java).body!!
     }
 
     fun publish(id:Long, request: PublishStoryRequest): PublishStoryResponse {
-        return http.post("$endpoint/$id/publish", request, PublishStoryResponse::class.java).body
+        return http.post("$endpoint/$id/publish", request, PublishStoryResponse::class.java).body!!
     }
 
     fun import(request: ImportStoryRequest): ImportStoryResponse {
-        return http.post("$endpoint/import", request, ImportStoryResponse::class.java).body
+        return http.post("$endpoint/import", request, ImportStoryResponse::class.java).body!!
     }
 }

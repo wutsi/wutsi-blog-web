@@ -13,7 +13,7 @@ class AuthenticationBackend (private val http: Http) {
     private lateinit var endpoint: String
 
     fun login(request: AuthenticateRequest): AuthenticateResponse {
-        return http.post(endpoint, request, AuthenticateResponse::class.java).body
+        return http.post(endpoint, request, AuthenticateResponse::class.java).body!!
     }
 
     fun logout(token: String) {
@@ -22,6 +22,6 @@ class AuthenticationBackend (private val http: Http) {
     }
 
     fun session(token: String): GetSessionResponse {
-        return http.get("$endpoint/$token", GetSessionResponse::class.java).body
+        return http.get("$endpoint/$token", GetSessionResponse::class.java).body!!
     }
 }

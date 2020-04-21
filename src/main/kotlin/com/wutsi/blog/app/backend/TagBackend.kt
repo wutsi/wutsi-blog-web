@@ -11,6 +11,6 @@ class TagBackend (private val http: Http) {
     private lateinit var endpoint: String
 
     fun search(query:String): SearchTagResponse {
-        return http.get("$endpoint/search?query=$query", SearchTagResponse::class.java).body
+        return http.get("$endpoint/search?query=$query", SearchTagResponse::class.java).body!!
     }
 }
