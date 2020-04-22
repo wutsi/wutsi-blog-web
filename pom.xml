@@ -147,7 +147,7 @@
         </repository>
         <repository>
             <id>github-wutsi-core-aws</id>
-            <url>https://maven.pkg.github.com/wutsi/wutsi-blog-core-aws</url>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-core-aws</url>
         </repository>
     </repositories>
 

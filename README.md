@@ -41,11 +41,6 @@ WebApp for the wutsi blog platform
                 <username>YOUR_GITHIB_USERNAME</username>
                 <password>YOUR_GITHIB_TOKEN</password>
             </server>
-            <server>
-                <id>github-wutsi-editorjs</id>
-                <username>YOUR_GITHIB_USERNAME</username>
-                <password>YOUR_GITHIB_TOKEN</password>
-            </server>
         </servers>
     </settings>
 ```
