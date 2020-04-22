@@ -5,6 +5,7 @@ import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
+import com.wutsi.core.exception.ConflictException
 import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
 import org.springframework.beans.factory.annotation.Value
@@ -64,5 +65,15 @@ abstract class AbstractPageController(
         if (!story.published) {
             throw NotFoundException("story_not_published")
         }
+    }
+
+    protected fun errorKey(ex: Exception): String {
+        if (ex is ConflictException){
+            val message = ex.message
+            if (message == "duplicate_name" || message == "duplicate_email"){
+                return "error.$message"
+            }
+        }
+        return "error.unexpected"
     }
 }

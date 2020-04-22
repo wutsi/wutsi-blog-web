@@ -49,10 +49,11 @@ class SecurityConfiguration(
 		http
 
             .authorizeRequests()
-                .antMatchers("/me").authenticated()
                 .antMatchers("/me/**/*").authenticated()
                 .antMatchers("/editor").authenticated()
                 .antMatchers("/editor/**/*").authenticated()
+                .antMatchers("/welcome").authenticated()
+                .antMatchers("/welcome/**/*").authenticated()
                 .antMatchers(HttpMethod.POST, "/upload").authenticated()
 
                 .anyRequest().permitAll()

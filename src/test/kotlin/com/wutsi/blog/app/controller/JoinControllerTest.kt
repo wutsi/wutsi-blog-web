@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.user
+package com.wutsi.blog.app.controller
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
@@ -10,8 +10,6 @@ class JoinControllerTest : SeleniumTestSupport() {
     fun `should redirect on login page on join for anonymous users #1` () {
         gotoPage()
 
-        assertElementAttributeEndsWith("#btn-join-1", "href", "/me")
-
         click("#btn-join-1")
 
         assertCurrentPageIs(PageName.LOGIN)
@@ -22,8 +20,6 @@ class JoinControllerTest : SeleniumTestSupport() {
     @Test
     fun `should redirect on login page on join for anonymous users #2` () {
         gotoPage()
-
-        assertElementAttributeEndsWith("#btn-join-2", "href", "/me")
 
         click("#btn-join-2")
         assertCurrentPageIs(PageName.LOGIN)

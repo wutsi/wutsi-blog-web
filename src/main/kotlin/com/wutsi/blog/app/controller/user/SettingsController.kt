@@ -42,15 +42,4 @@ class SettingsController(
             )
         }
     }
-
-    private fun errorKey(ex: Exception): String {
-        if (ex is ConflictException){
-            val message = ex.message
-            if (message == "duplicate_name" || message == "duplicate_email"){
-                return "error.$message"
-            }
-        }
-        return "error.unexpected"
-    }
-
 }

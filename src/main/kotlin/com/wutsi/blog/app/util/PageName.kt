@@ -20,5 +20,10 @@ class PageName{
         const val STORY_CONFIRMATION = "page.story.confirmation"
         const val STORY_SHARE = "page.story.share"
         const val STORY_SYNDICATE = "page.story.syndicate"
+        const val WELCOME = "page.welcome"
+        const val WELCOME_FULLNAME = "page.welcome.fullname"
+        const val WELCOME_EMAIL = "page.welcome.fullname"
+        const val WELCOME_BIOGRAPHY = "page.welcome.biography"
+        const val WELCOME_PICTURE = "page.welcome.picture"
     }
 }
