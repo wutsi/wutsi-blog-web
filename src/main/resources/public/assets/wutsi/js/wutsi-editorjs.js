@@ -111,7 +111,6 @@ function WutsiEJS (holderId, publishCallback){
             },
             quote: Quote,
             delimiter: Delimiter,
-            code: CodeTool,
 
             list: {
                 class: List,
