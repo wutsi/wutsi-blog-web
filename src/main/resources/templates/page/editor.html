@@ -24,10 +24,13 @@
             <div id="story-status-published" class="hidden float-left margin-right" th:text="#{story.status.published}"></div>
             <div id="save-status" class="float-left hidden" th:text="#{label.saving}">Saving...</div>
 
-            <div class="close">
-                <button id="btn-close">X</button>
+            <div class="float-right">
+                <button id="btn-close" class="btn btn-light btn-sm" th:text="#{button.close}">Close</button>
             </div>
-            <button id="btn-publish" class="btn btn-primary btn-sm float-right" th:text="#{button.publish}">Publish</button>
+            <button id="btn-publish" class="btn btn-primary btn-sm float-right"
+                    th:text="#{button.publish}"
+                    th:if="${toggles.publish}"
+            >Publish</button>
         </div>
     </div>
 

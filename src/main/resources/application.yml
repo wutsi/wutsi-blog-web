@@ -92,6 +92,7 @@ wutsi:
       code:
 
   toggles:
+    publish: true
     sso-facebook: false
     sso-google: false
     sso-twitter: false

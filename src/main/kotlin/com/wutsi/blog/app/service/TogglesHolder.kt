@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 
 @ConfigurationProperties(prefix = "wutsi.toggles")
 class Toggles {
+    var publish: Boolean = false
     var ssoFacebook: Boolean = false
     var ssoGoogle: Boolean = false
     var ssoGithub: Boolean = false
