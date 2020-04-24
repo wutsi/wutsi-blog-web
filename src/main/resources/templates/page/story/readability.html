@@ -14,7 +14,7 @@
 
             <!-- Title -->
             <div class="margin-top-2x text-center">
-                <div th:replace="components/story :: wizard(4, 1)"></div>
+                <div th:replace="components/story :: wizard(3, 1)"></div>
                 <h1 class="margin-top" th:text="#{page.story.publish.header1}">Title</h1>
                 <h4 th:text="#{page.story.publish.readability}">Summary</h4>
             </div>
@@ -32,6 +32,7 @@
                 <p th:utext="#{'readability.' + ${rule.name} + '.description'}"></p>
             </div>
 
+            <!-- Toolbar -->
             <div class="margin-top padding-top border-top">
                 <a th:href="'/editor/' + ${story.id}" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
                 <a th:href="'/me/story/' + ${story.id} + '/tag'" class="btn btn-primary float-right" th:text="#{button.next}">Next</a>

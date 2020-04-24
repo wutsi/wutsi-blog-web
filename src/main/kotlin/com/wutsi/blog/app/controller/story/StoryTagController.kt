@@ -38,7 +38,7 @@ class StoryTagController(
     fun submit(@ModelAttribute editor: PublishForm): String {
         try {
             service.publish(editor)
-            return "redirect:/me/story/${editor.id}/confirmation"
+            return "redirect:/me/story/${editor.id}/share"
         } catch (ex: ConflictException) {
             return "redirect:/me/story/${editor.id}?error=publish_error"
         }
