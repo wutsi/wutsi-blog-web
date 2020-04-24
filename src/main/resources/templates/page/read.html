@@ -74,11 +74,17 @@
                 c = $(window).height();
 
             var scrollPercent = ((s / (d - c)) * 100) | 0;
-            if (scrollPercent % 5 == 0 && scrollPercent != lastScrollPercent){
+            if (scrollPercent % 20 == 0 && scrollPercent > lastScrollPercent){
+                const tmpScrollPercent = lastScrollPercent;
+                lastScrollPercent = scrollPercent;
+                console.log('ScrollPercent', scrollPercent);
                 wutsi.track('scroll', scrollPercent)
-                    .then(function(){
-                        lastScrollPercent = scrollPercent;
-                    });
+                    .catch(function(){
+                        lastScrollPercent = tmpScrollPercent;
+                    })
+                ;
+            } else {
+                lastScrollPercent = scrollPercent;
             }
         })
     });
