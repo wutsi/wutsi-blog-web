@@ -21,13 +21,17 @@
 
             <!-- Readability -->
             <h2 th:class="'text-center readability-score readability-' + ${readability.color}" th:text="${readability.score}">99</h2>
+            <div class="alert alert-primary">
+                <div th:utext="#{page.story.publish.readability.info1}">Info</div>
+                <div class="margin-top" th:utext="#{page.story.publish.readability.info2}">Info</div>
+            </div>
 
             <!-- Rules -->
             <div class="readability-rule margin-top padding-top" th:each="rule : ${readability.rules}">
                 <h5 class="border-bottom">
                     <strong th:text="#{'readability.' + ${rule.name} + '.title'}">Title</strong>
                     -
-                    <strong th:class="'readability-score readability-' + ${rule.color}" th:text="${rule.score}">99</strong>
+                    <strong> <span th:text="${rule.score}" th:class="'readability-score readability-' + ${rule.color}">99</span> / 100</strong>
                 </h5>
                 <p th:utext="#{'readability.' + ${rule.name} + '.description'}"></p>
             </div>
@@ -35,7 +39,15 @@
             <!-- Toolbar -->
             <div class="margin-top padding-top border-top">
                 <a th:href="'/editor/' + ${story.id}" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
-                <a th:href="'/me/story/' + ${story.id} + '/tag'" class="btn btn-primary float-right" th:text="#{button.next}">Next</a>
+                <a class="btn btn-primary float-right"
+                   th:href="'/me/story/' + ${story.id} + '/tag'"
+                   th:text="#{button.next}"
+                   th:if="${canPublish}"
+                >Next</a>
+                <button class="btn btn-primary float-right" disabled="disabled"
+                        th:text="#{button.next}"
+                        th:if="!${canPublish}"
+                >Next</a>
             </div>
         </div>
     </div>

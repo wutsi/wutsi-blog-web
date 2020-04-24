@@ -74,7 +74,7 @@ class StoryMapper(
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
             score = obj.score,
-            threshold = 75,
+            scoreThreshold = obj.scoreThreshold,
             color = readabilityColor(obj.score),
             rules = obj.rules.map { ReadabilityRuleModel(
                     name = it.name,
@@ -84,9 +84,9 @@ class StoryMapper(
     )
 
     private fun readabilityColor(score: Int): String {
-        if (score < 50) {
+        if (score <= 50) {
             return "red"
-        } else if (score < 80) {
+        } else if (score <= 75) {
             return "yellow"
         } else {
             return "green"

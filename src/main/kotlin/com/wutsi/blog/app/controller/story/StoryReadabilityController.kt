@@ -25,6 +25,8 @@ class StoryReadabilityController(
         val readability = service.readability(id)
         model.addAttribute("readability", readability)
 
+        model.addAttribute("canPublish", story.readabilityScore > readability.scoreThreshold)
+
         return "page/story/readability"
     }
 }
