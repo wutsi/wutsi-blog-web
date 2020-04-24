@@ -373,7 +373,7 @@ ul.step-indicator li.active {
     /*======= READER =======*/
 
 .reader h1 {
-    font-size: 4em;
+    font-size: 3em;
 }
 
 .reader .share a {
@@ -406,7 +406,7 @@ ul.step-indicator li.active {
 
 
 .reader .content > * {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .reader .content blockquote {
