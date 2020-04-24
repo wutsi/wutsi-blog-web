@@ -1,0 +1,35 @@
+{
+  "readability": {
+    "score": 57,
+    "rules": [
+      {
+        "name": "BulletRule",
+        "score": 0
+      },
+      {
+        "name": "ExternalSourceRule",
+        "score": 0
+      },
+      {
+        "name": "HeaderRule",
+        "score": 0
+      },
+      {
+        "name": "MinImageRule",
+        "score": 100
+      },
+      {
+        "name": "MinParagraphRule",
+        "score": 100
+      },
+      {
+        "name": "ShortParagraphRule",
+        "score": 100
+      },
+      {
+        "name": "ShortSentenceRule",
+        "score": 100
+      }
+    ]
+  }
+}

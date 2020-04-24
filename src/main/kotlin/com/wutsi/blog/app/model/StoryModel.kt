@@ -11,6 +11,7 @@ data class StoryModel(
         val sourceUrl: String? = null,
         val sourceSite: String? = null,
         val wordCount: Int = 0,
+        val readabilityScore: Int = 0,
         val readingMinutes: Int = 0,
         val language: String? = null,
         val content: String? = null,

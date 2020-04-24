@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.backend
 
 import com.wutsi.blog.client.story.CountStoryResponse
+import com.wutsi.blog.client.story.GetStoryReadabilityResponse
 import com.wutsi.blog.client.story.GetStoryResponse
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.ImportStoryResponse
@@ -29,6 +30,10 @@ class StoryBackend (private val http: Http) {
 
     fun get(id:Long): GetStoryResponse {
         return http.get("$endpoint/$id", GetStoryResponse::class.java).body!!
+    }
+
+    fun readability(id:Long): GetStoryReadabilityResponse {
+        return http.get("$endpoint/$id/readability", GetStoryReadabilityResponse::class.java).body!!
     }
 
     fun search(request: SearchStoryRequest): SearchStoryResponse {

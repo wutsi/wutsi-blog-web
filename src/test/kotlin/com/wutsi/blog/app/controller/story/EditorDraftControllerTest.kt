@@ -17,6 +17,7 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
         stub(HttpMethod.POST, "/v1/story/20", HttpStatus.OK, "v1/story/save.json")
         stub(HttpMethod.POST, "/v1/story", HttpStatus.OK, "v1/story/save.json")
+        stub(HttpMethod.GET, "/v1/story/[0-9]+/readability", HttpStatus.OK, "v1/story/readability.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
@@ -34,7 +35,7 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_PUBLISH)
+        assertCurrentPageIs(PageName.STORY_READABILITY)
     }
 
     @Test
@@ -50,7 +51,7 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_PUBLISH)
+        assertCurrentPageIs(PageName.STORY_READABILITY)
     }
 
     @Test

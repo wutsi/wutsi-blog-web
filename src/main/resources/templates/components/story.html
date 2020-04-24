@@ -146,5 +146,16 @@
 </section>
 
 
+<div class="wizard" th:fragment="wizard(steps, current)">
+    <ul class="step-indicator">
+        <li th:classappend="${current} GE 1 ? active" th:if="${steps} GE 1"></li>
+        <li th:classappend="${current} GE 2 ? active" th:if="${steps} GE 2"></li>
+        <li th:classappend="${current} GE 3 ? active" th:if="${steps} GE 3"></li>
+        <li th:classappend="${current} GE 4 ? active" th:if="${steps} GE 4"></li>
+        <li th:classappend="${current} GE 5 ? active" th:if="${steps} GE 5"></li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+
 </body>
 </html>

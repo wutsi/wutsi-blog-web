@@ -3,6 +3,7 @@ package com.wutsi.blog.app.service
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.PublishForm
+import com.wutsi.blog.app.model.ReadabilityModel
 import com.wutsi.blog.app.model.StoryForm
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
@@ -82,6 +83,11 @@ class StoryService(
                 accessToken = requestContext.accessToken()
         )
         return storyBackend.import(request).storyId
+    }
+
+    fun readability(id: Long): ReadabilityModel {
+        val result = storyBackend.readability(id).readability
+        return mapper.toReadabilityModel(result)
     }
 
 

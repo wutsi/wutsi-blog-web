@@ -1,8 +1,11 @@
 package com.wutsi.blog.app.mapper
 
+import com.wutsi.blog.app.model.ReadabilityModel
+import com.wutsi.blog.app.model.ReadabilityRuleModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.Moment
+import com.wutsi.blog.client.story.ReadabilityDto
 import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
@@ -41,6 +44,7 @@ class StoryMapper(
                 publishedDateTime = moment.format(story.publishedDateTime),
                 publishedDateTimeISO8601 = if (story.publishedDateTime == null) null else fmt.format(story.publishedDateTime),
                 modificationDateTimeISO8601 = fmt.format(story.modificationDateTime),
+                readabilityScore = story.readabilityScore,
                 slug = story.slug,
                 tags = story.tags
                         .sortedByDescending { it.totalStories }
@@ -67,4 +71,25 @@ class StoryMapper(
             publishedDateTime = moment.format(story.publishedDateTime),
             slug = story.slug
     )
+
+    fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
+            score = obj.score,
+            threshold = 75,
+            color = readabilityColor(obj.score),
+            rules = obj.rules.map { ReadabilityRuleModel(
+                    name = it.name,
+                    score = it.score,
+                    color = readabilityColor(it.score)
+            ) }
+    )
+
+    private fun readabilityColor(score: Int): String {
+        if (score < 50) {
+            return "red"
+        } else if (score < 80) {
+            return "yellow"
+        } else {
+            return "green"
+        }
+    }
 }

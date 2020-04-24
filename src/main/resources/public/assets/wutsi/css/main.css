@@ -301,13 +301,13 @@ a.sso-button .fab {
     display: inline-block;
     margin: 0 auto;
 }
-ul.step-indicator {
+.wizard ul.step-indicator {
     margin: 0;
     padding: 0;
     list-style: none;
     margin: 0 auto;
 }
-ul.step-indicator li {
+.wizard ul.step-indicator li {
     background: var(--border-color);
     border-radius: 5px;
     float: left;
@@ -315,14 +315,30 @@ ul.step-indicator li {
     padding: 5px;
     width: 10%;
 }
-ul.step-indicator li:last-child {
+.wizard ul.step-indicator li:last-child {
     margin-right: 0;
 }
-
-ul.step-indicator li.active {
+.wizard ul.step-indicator li.active {
     background: var(--highlight-color)
 }
 
+.readability-rule h5 {
+    background: var(--background-light);
+    font-weight: bold;
+    padding: 4px;
+}
+.readability-score {
+    font-weight: bold;
+}
+.readability-red {
+    color: darkred;
+}
+.readability-green {
+    color: green;
+}
+.readability-yellow {
+    color: darkgoldenrod;
+}
 
 /*======= POST =======*/
 .post a {
