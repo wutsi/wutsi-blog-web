@@ -74,7 +74,7 @@
                 c = $(window).height();
 
             var scrollPercent = ((s / (d - c)) * 100) | 0;
-            if (scrollPercent % 20 == 0 && scrollPercent > lastScrollPercent){
+            if (scrollPercent % 20 == 0 && scrollPercent > lastScrollPercent && scrollPercent > 0){
                 const tmpScrollPercent = lastScrollPercent;
                 lastScrollPercent = scrollPercent;
                 console.log('ScrollPercent', scrollPercent);
