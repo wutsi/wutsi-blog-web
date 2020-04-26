@@ -154,7 +154,7 @@
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-            <img class="border" th:src="${story.thumbnailUrl}" th:alt="${story.title}" />
+            <img class="border" th:async-src="${story.thumbnailUrl}" th:alt="${story.title}" />
         </div>
 
         <p class="summary" th:text="${story.summary}">Summary</p>

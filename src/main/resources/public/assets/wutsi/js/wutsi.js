@@ -12,14 +12,17 @@ function Wutsi (){
         return this.httpPost('/track', data, true);
     };
 
-    this.autotrack = function () {
+    this.domReady = function () {
         $('[wutsi-track-event]').click(function(){
             var event = $(this).attr("wutsi-track-event");
             var value = $(this).attr("wutsi-track-value");
             wutsi.track(event, value)
         });
-    }
 
+        $('img[async-src]').each(function() {
+            $(this).attr("src", $(this).attr("async-src"));
+        });
+    };
 
     this.httpGet = function(url, json) {
         return new Promise(function(resolve, reject){
