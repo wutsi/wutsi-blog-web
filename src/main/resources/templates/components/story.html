@@ -60,17 +60,12 @@
 
 <div th:fragment="share(story)" class="share">
 
-    <p th:utext="#{story.share.message}">
-        Did you enjoyed this story?
-        If yes, please share it to your network to encourage the author
-    </p>
-
-    <button class="btn btn-light btn-block hidden">
+    <button class="btn btn-primary btn-block hidden">
         <i class="fas fa-share-alt"></i>
         <span th:button="#{button.share}">Share</span>
     </button>
 
-    <div class="fallback hidden margin-top text-center">
+    <div class="fallback hidden text-right">
         <a target="_blank" class="margin-top share-twitter btn-share"
            wutsi-track-event="share"
            wutsi-track-value="twitter"

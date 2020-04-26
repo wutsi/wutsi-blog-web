@@ -396,9 +396,13 @@ a.sso-button .fab {
     text-decoration: none;
 }
 .reader .share .fab {
-    color: var(--text-color);
     font-size: 2em;
     margin-left: .5em;
+}
+
+.reader .share .btn {
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .reader .tag {
