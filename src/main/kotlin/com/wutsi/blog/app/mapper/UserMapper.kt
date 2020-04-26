@@ -18,6 +18,9 @@ class UserMapper {
             email = user.email,
             loginCount = user.loginCount,
             slug = "/@/${user.name}",
+            facebookUrl = facebookUrl(user),
+            linkedInUrl = linkedIn(user),
+            twitterUrl = twitter(user),
             accounts = user.accounts.map { AccountModel(
                     id = it.id,
                     provider = it.provider,
@@ -25,6 +28,21 @@ class UserMapper {
                     loginCount = it.loginCount
             ) }
     )
+
+    private fun facebookUrl(user: UserDto): String? {
+        val account = user.accounts.find { it.provider == "facebook" }
+        return if (account == null) null else "https://www.facebook.com/${account.providerUserId}"
+    }
+
+    private fun twitter(user: UserDto): String? {
+        val account = user.accounts.find { it.provider == "twitter" }
+        return if (account == null) null else "https://www.twitter.com/${account.providerUserId}"
+    }
+
+    private fun linkedIn(user: UserDto): String? {
+        val account = user.accounts.find { it.provider == "linkedin" }
+        return if (account == null) null else "https://www.linkedin.com/in/${account.providerUserId}"
+    }
 
     fun toUserModel(user: UserSummaryDto) = UserModel(
             id = user.id,

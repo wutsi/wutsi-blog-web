@@ -116,7 +116,41 @@
     <img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" />
     <div>
         <a th:href="${me.slug}"><b th:text="${me.fullName}">Ray Sponsible</b></a>
-        <p class="text-small" th:if="${me.biography}" th:text="${me.biography}">Biography</p>
+        <div class="text-small" th:if="${me.biography}" th:text="${me.biography}">Biography</p>
+        <div>
+            <a target="_new"
+               wutsi-track-event="link"
+               wutsi-track-value="website"
+               th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}"
+               th:href="${me.websiteUrl}"
+            >
+                <i class="fas fa-link"></i>
+            </a>
+            <a target="_new"
+               wutsi-track-event="link"
+               wutsi-track-value="facebook"
+               th:if="${me.facebookUrl} AND !${me.facebookUrl.isEmpty()}"
+               th:href="${me.facebookUrl}"
+            >
+                <i class="fab fa-facebook-square"></i>
+            </a>
+            <a target="_new"
+               wutsi-track-event="link"
+               wutsi-track-value="twitter"
+               th:if="${me.twitterUrl} AND !${me.twitterUrl.isEmpty()}"
+               th:href="${me.twitterUrl}"
+            >
+                <i class="fab fa-twitter-square"></i>
+            </a>
+            <a target="_new"
+               wutsi-track-event="link"
+               wutsi-track-value="linkedin"
+               th:if="${me.linkedInUrl} AND !${me.linkedInUrl.isEmpty()}"
+               th:href="${me.linkedInUrl}"
+            >
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
     </div>
 </div>
 

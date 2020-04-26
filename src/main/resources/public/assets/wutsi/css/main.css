@@ -365,6 +365,10 @@ a.sso-button .fab {
     font-size: 0.7em;
 }
 
+.post .author .fab{
+    color: var(--text-color-gray);
+}
+
 .post .meta {
     font-size: 0.7em;
     color: var(--text-color-gray);

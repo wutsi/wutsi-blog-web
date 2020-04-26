@@ -10,5 +10,8 @@ data class UserModel (
         val websiteUrl: String? = null,
         val biography: String? = null,
         val accounts: List<AccountModel> = emptyList(),
+        val facebookUrl: String? = null,
+        val twitterUrl: String? = null,
+        val linkedInUrl: String? = null,
         val slug: String = ""
 )
