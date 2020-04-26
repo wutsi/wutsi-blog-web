@@ -19,7 +19,11 @@ class BlogControllerTest: SeleniumTestSupport() {
 
         assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
         assertElementAttributeEndsWith(".author a", "href", "/@/ray.sponsible")
-        assertElementText(".author p", "Ray sponsible is a test user")
+        assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
+        assertElementText(".author .bio", "Ray sponsible is a test user")
+        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/raysponsible")
+        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
 
         assertElementCount(".post", 4)
         assertElementNotPresent("#welcome")

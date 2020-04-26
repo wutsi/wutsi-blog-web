@@ -70,7 +70,7 @@
            wutsi-track-event="share"
            wutsi-track-value="twitter"
            th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
-            <i class="fab fa-twitter"></i>
+            <i class="fab fa-twitter-square"></i>
         </a>
         <a target="_blank" class="margin-top-2x share-facebook btn-share"
            wutsi-track-event="share"
@@ -116,39 +116,34 @@
     <img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" />
     <div>
         <a th:href="${me.slug}"><b th:text="${me.fullName}">Ray Sponsible</b></a>
-        <div class="text-small" th:if="${me.biography}" th:text="${me.biography}">Biography</p>
+        <div class="text-small bio" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
         <div>
             <a target="_new"
-               wutsi-track-event="link"
-               wutsi-track-value="website"
-               th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}"
-               th:href="${me.websiteUrl}"
-            >
-                <i class="fas fa-link"></i>
-            </a>
-            <a target="_new"
+               class="social-link facebook"
                wutsi-track-event="link"
                wutsi-track-value="facebook"
                th:if="${me.facebookUrl} AND !${me.facebookUrl.isEmpty()}"
                th:href="${me.facebookUrl}"
             >
-                <i class="fab fa-facebook-square"></i>
+                <i class="fab fa-facebook-f"></i>
             </a>
             <a target="_new"
+               class="social-link twitter"
                wutsi-track-event="link"
                wutsi-track-value="twitter"
                th:if="${me.twitterUrl} AND !${me.twitterUrl.isEmpty()}"
                th:href="${me.twitterUrl}"
             >
-                <i class="fab fa-twitter-square"></i>
+                <i class="fab fa-twitter"></i>
             </a>
             <a target="_new"
+               class="social-link linkedin"
                wutsi-track-event="link"
                wutsi-track-value="linkedin"
                th:if="${me.linkedInUrl} AND !${me.linkedInUrl.isEmpty()}"
                th:href="${me.linkedInUrl}"
             >
-                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
     </div>

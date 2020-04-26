@@ -375,22 +375,32 @@ a.sso-button .fab {
 }
 
 
-/*======= AUTHOR CARD =======*/
+/*======= AUTHOR =======*/
 .author img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
 }
 
+.author > * {
+    margin-bottom: .5em;
+}
+
 .author .info {
     vertical-align: top;
 }
 
-.author a {
-    color: var(--text-color);
+.author a.social-link {
+    text-decoration: none;
 }
 
-    /*======= READER =======*/
+.author .fab, .author .fas {
+    color: var(--text-color);
+    font-size: 1.2em;
+    margin-right: .5em;
+}
+
+/*======= READER =======*/
 
 .reader h1 {
     font-size: 3em;

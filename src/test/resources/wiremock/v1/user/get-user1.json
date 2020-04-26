@@ -23,7 +23,7 @@
       },
       {
         "id": 12,
-        "provider": "facebook",
+        "provider": "google",
         "loginCount": 2,
         "providerUserId": "ray-sponsible",
         "lastLoginDateTime": 1585334250000,
@@ -35,6 +35,15 @@
         "provider": "twitter",
         "loginCount": 1,
         "providerUserId": "raysponsible",
+        "lastLoginDateTime": 1585334250000,
+        "creationDateTime": 1585325914000,
+        "modificationDateTime": 1585325914000
+      },
+      {
+        "id": 14,
+        "provider": "linkedin",
+        "loginCount": 0,
+        "providerUserId": "ray.sponsible",
         "lastLoginDateTime": 1585334250000,
         "creationDateTime": 1585325914000,
         "modificationDateTime": 1585325914000
