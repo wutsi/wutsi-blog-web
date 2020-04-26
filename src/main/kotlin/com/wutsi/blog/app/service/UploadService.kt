@@ -30,12 +30,13 @@ class UploadService(
 ) {
     companion object {
         private const val USER_AGENT = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2"
+        private const val TTL_1_YEAR = 31536000
         private val LOGGER = LoggerFactory.getLogger(UploadService::class.java)
     }
 
     fun upload(file: MultipartFile): UploadModel {
         val path = key(file)
-        val url = storage.store(path, file.inputStream, file.contentType)
+        val url = storage.store(path, file.inputStream, file.contentType, TTL_1_YEAR)
 
         var width = -1
         var height = -1
