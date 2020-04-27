@@ -176,6 +176,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         click("#btn-next")
         click("#btn-next")
 
+
         click("#btn-create-story")
         assertCurrentPageIs(PageName.STORY_DRAFT)
     }
