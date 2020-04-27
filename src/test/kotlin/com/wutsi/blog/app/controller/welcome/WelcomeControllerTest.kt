@@ -166,6 +166,8 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `success and create story` () {
+        stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
+
         gotoPage()
 
         click("#btn-next")
