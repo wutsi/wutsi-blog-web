@@ -38,7 +38,7 @@
 
                 <!-- Toolbar -->
                 <div class="margin-top padding-top border-top">
-                    <a th:href="'/editor/' + ${story.id} + '/readability'" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
+                    <a th:href="'/me/story/' + ${story.id} + '/readability'" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
 
                     <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
                             th:if="${story.draft}"
