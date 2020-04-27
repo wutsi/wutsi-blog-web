@@ -32,7 +32,6 @@ class WelcomeController(
             return "redirect:" + user.slug
         }
 
-        model.addAttribute("baseUrl", baseUrl)
         return super.index(model)
     }
 

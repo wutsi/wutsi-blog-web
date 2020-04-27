@@ -49,7 +49,7 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
 
-    var baseUrl = /*[[${baseUrl}]]*/'';
+    var baseUrl = /*[[${page.baseUrl}]]*/'';
 
     $('.form-control').on('input', function() {
         updateUrl(this.value);
