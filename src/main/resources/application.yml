@@ -55,6 +55,9 @@ wutsi:
     user:
       endpoint: ${wutsi.backend.base-url}/v1/user
 
+  cache:
+    story-ttl-seconds: 1800    # 30min
+
   http:
     client-id: wutsi-blog-web
 
