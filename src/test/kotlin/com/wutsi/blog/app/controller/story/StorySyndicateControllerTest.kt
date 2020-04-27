@@ -7,6 +7,8 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 class StorySyndicateControllerTest : SeleniumTestSupport() {
+    var i: Int = 0
+
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -23,7 +25,7 @@ class StorySyndicateControllerTest : SeleniumTestSupport() {
         click("#btn-submit")
 
         assertCurrentPageIs(PageName.EDITOR)
-        Thread.sleep(1000)  // Wait for data to be fectched
+        Thread.sleep(1000)  // Wait for data to be fetched
 
         assertElementAttribute("#title", "value", "Lorem Ipsum #100")
     }
@@ -44,8 +46,12 @@ class StorySyndicateControllerTest : SeleniumTestSupport() {
     fun gotoPage() {
         login()
         click("nav .nav-item")
-        click("#navbar-draft")
-        click("#toolbar-syndicate")
+        if (i++ % 2 == 0) {
+            click("#navbar-draft")
+            click("#toolbar-syndicate")
+        } else {
+            click("#navbar-syndicate")
+        }
 
         assertCurrentPageIs(PageName.STORY_SYNDICATE)
     }

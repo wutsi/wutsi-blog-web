@@ -22,10 +22,27 @@
             <input id="url" class="form-control" type="url" name="url" required="required" placeholder="http://www.votre-site.com/votre-storie" />
         </div>
 
-        <button id="btn-submit" class="btn btn-primary" type="submit" th:text="#{button.import}">Imprt</form>
+        <button id="btn-submit" class="btn btn-primary" type="submit" th:text="#{button.import}">Imprt</button>
     </form>
 
 
+    <div class="margin-top padding-top border-top">
+        <h1 class="text-center" th:text="#{page.story.syndicate.how}">How it works</h1>
+        <div class="row">
+            <div class="col-12 col-md-4 text-center padding-2x box-filled">
+                <h4>1</h4>
+                <p th:text="#{page.story.syndicate.step1}"></p>
+            </div>
+            <div class="col-12 col-md-4 text-center padding-2x">
+                <h4>2</h4>
+                <p th:text="#{page.story.syndicate.step3}"></p>
+            </div>
+            <div class="col-12 col-md-4 text-center padding-2x box-filled">
+                <h4>3</h4>
+                <p th:text="#{page.story.syndicate.step3}"></p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="components/layout :: footer"></div>
