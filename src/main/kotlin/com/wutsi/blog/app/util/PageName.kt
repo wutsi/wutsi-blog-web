@@ -25,5 +25,6 @@ class PageName{
         const val WELCOME_EMAIL = "page.welcome.fullname"
         const val WELCOME_BIOGRAPHY = "page.welcome.biography"
         const val WELCOME_PICTURE = "page.welcome.picture"
+        const val WELCOME_SUCCESS = "page.welcome.success"
     }
 }

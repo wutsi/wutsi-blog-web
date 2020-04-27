@@ -15,15 +15,6 @@
                 <div th:replace="components/story :: author(${blog})"></div>
             </div>
 
-            <!-- Welcome message -->
-            <div id="welcome" class="alert alert-success margin-top-2x" th:if="${showWelcome}">
-                <p th:utext="#{page.me.welcome(${blog.fullName})}">Welcome</p>
-                <div>
-                    <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}" wutsi-track-event="create_story">Create Story</a>
-                    <a id="btn-syndicate-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}" wutsi-track-event="syndicate_story">Import a Story</a>
-                </div>
-            </div>
-
             <!-- Stories -->
             <div class="margin-top-2x">
                 <div id="stories"></div>

@@ -139,7 +139,6 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `set picture` () {
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
         gotoPage()
 
         click("#btn-next")
@@ -148,8 +147,9 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         click("#btn-next")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.BLOG)
+        assertCurrentPageIs(PageName.WELCOME_SUCCESS)
     }
+
     @Test
     fun `set picture back` () {
         gotoPage()
@@ -162,6 +162,34 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         click("#btn-previous")
 
         assertCurrentPageIs(PageName.WELCOME_BIOGRAPHY)
+    }
+
+    @Test
+    fun `success and create story` () {
+        gotoPage()
+
+        click("#btn-next")
+        click("#btn-next")
+        click("#btn-next")
+        click("#btn-next")
+        click("#btn-next")
+
+        click("#btn-create-story")
+        assertCurrentPageIs(PageName.STORY_DRAFT)
+    }
+
+    @Test
+    fun `success and open blog` () {
+        gotoPage()
+
+        click("#btn-next")
+        click("#btn-next")
+        click("#btn-next")
+        click("#btn-next")
+        click("#btn-next")
+
+        click("#btn-my-blog")
+        assertCurrentPageIs(PageName.BLOG)
     }
 
     private fun gotoPage() {

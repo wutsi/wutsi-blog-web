@@ -26,51 +26,31 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
 
         assertElementCount(".post", 4)
-        assertElementNotPresent("#welcome")
         assertElementNotPresent("#create-first-story")
     }
 
     @Test
-    fun `empty blog page` () {
+    fun `an empty blog page` () {
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user99.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
         gotoPage()
 
+        Thread.sleep(1000)
         assertElementCount(".post", 0)
-        assertElementNotPresent("#welcome")
         assertElementNotPresent("#create-first-story")
     }
 
     @Test
-    fun `welcome new user` () {
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-first-login.json")
+    fun `my empty blog page` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
         gotoPage(true)
 
+        Thread.sleep(1000)
         assertElementCount(".post", 0)
-
-        Thread.sleep(5000)
-        assertElementPresent("#welcome")
-        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
-        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
-
-        assertElementNotPresent("#create-first-story")
-    }
-
-    @Test
-    fun `MY empty blog page` () {
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-        gotoPage(true)
-
-        assertElementCount(".post", 0)
-
-        assertElementNotPresent("#welcome")
-
         assertElementPresent("#create-first-story")
-        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
-        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
+        assertElementAttributeEndsWith("#btn-create-story", "href", "/me/draft")
     }
 
     @Test

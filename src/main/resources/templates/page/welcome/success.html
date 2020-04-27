@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row margin-top-2x">
+        <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6 margin-top-2x">
+
+            <div class="main-content border padding-2x text-center margin-top-2x">
+
+                <h1 class="margin-top" th:text="#{page.welcome.done.header1}">Login</h1>
+                <div class="margin-top alert alert-success text-center">
+                    <h2><i class="fas fa-check-circle"></i></h2>
+                    <h6 class="text-left" th:utext="#{page.welcome.done.info(${user.fullName})}"></h6>
+                </div>
+
+                <div class="margin-top">
+                    <a id="btn-my-blog" class="btn btn-light float-left" th:href="${user.slug}" th:text="#{button.my_blog}">My Blog</a>
+                    <a id="btn-create-story" class="btn btn-primary float-right" href="/me/draft" th:text="#{button.create_first_story}">Create Story</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+</html>
