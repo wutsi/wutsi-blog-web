@@ -11,12 +11,26 @@ class WelcomeControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-first-login.json")
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-first-login.json")
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
 
     @Test
+    fun `welcome existing user` () {
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
+
+        gotoPage()
+
+        assertCurrentPageIs(PageName.BLOG)
+    }
+
+
+    @Test
     fun `set name` () {
         gotoPage()
+        assertCurrentPageIs(PageName.WELCOME)
 
         input(".form-control", "ray.sponsible1")
         click("#btn-next")
@@ -33,8 +47,6 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.WELCOME)
     }
-
-
 
     @Test
     fun `set fullname` () {
@@ -157,6 +169,5 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         navigate("$url/welcome")
 
         assertElementNotPresent(".label-danger")
-        assertCurrentPageIs(PageName.WELCOME)
     }
 }

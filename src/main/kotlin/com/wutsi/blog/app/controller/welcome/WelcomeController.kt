@@ -26,6 +26,12 @@ class WelcomeController(
 
     @GetMapping
     override fun index(model: Model): String {
+        val user = requestContext.currentUser()!!
+        if (user.loginCount > 1) {
+            // User has already a blog!
+            return "redirect:" + user.slug
+        }
+
         model.addAttribute("baseUrl", baseUrl)
         return super.index(model)
     }
