@@ -165,23 +165,6 @@ class WelcomeControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `success and create story` () {
-        stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
-
-        gotoPage()
-
-        click("#btn-next")
-        click("#btn-next")
-        click("#btn-next")
-        click("#btn-next")
-        click("#btn-next")
-
-
-        click("#btn-create-story")
-        assertCurrentPageIs(PageName.STORY_DRAFT)
-    }
-
-    @Test
     fun `success and open blog` () {
         gotoPage()
 

@@ -27,6 +27,7 @@ class BlogControllerTest: SeleniumTestSupport() {
 
         assertElementCount(".post", 4)
         assertElementNotPresent("#create-first-story")
+        assertElementNotPresent("#create-syndicate-story")
     }
 
     @Test
@@ -39,6 +40,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         Thread.sleep(1000)
         assertElementCount(".post", 0)
         assertElementNotPresent("#create-first-story")
+        assertElementNotPresent("#create-syndicate-story")
     }
 
     @Test
@@ -50,7 +52,8 @@ class BlogControllerTest: SeleniumTestSupport() {
         Thread.sleep(1000)
         assertElementCount(".post", 0)
         assertElementPresent("#create-first-story")
-        assertElementAttributeEndsWith("#btn-create-story", "href", "/me/draft")
+        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
+        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
     }
 
     @Test
