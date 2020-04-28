@@ -7,14 +7,14 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class JoinController(
+class WriterController(
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.JOIN
+    override fun pageName() = PageName.WRITER
 
-    @GetMapping("/join")
+    @GetMapping("/writer")
     fun index(model: Model): String {
-        return "page/join"
+        return "page/writer"
     }
 
 }

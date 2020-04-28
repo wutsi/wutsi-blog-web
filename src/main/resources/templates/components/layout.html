@@ -115,18 +115,12 @@
                 <div class="dropdown-divider"></div>
                 <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" wutsi-track-event="my-stories" wutsi-track-value="navbar">My Stories</a>
                 <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}" wutsi-track-event="new-story" wutsi-track-value="navbar">New Story</a>
-                <a id="navbar-editor" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}" wutsi-track-event="syndicate-story" wutsi-track-value="navbar">Import Story</a>
+                <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}" wutsi-track-event="syndicate-story" wutsi-track-value="navbar">Import Story</a>
                 <div class="dropdown-divider"></div>
                 <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}" wutsi-track-event="settings" wutsi-track-value="navbar">Settings</a>
                 <div class="dropdown-divider"></div>
                 <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
             </div>
-        </li>
-        <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.join'}">
-            <a id="navbar-join" class="btn btn-primary" href="/join" wutsi-track-event="join" wutsi-track-value="navbar" th:text="#{button.create_blog}">Create your Blog</a>
-        </li>
-        <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.join'}">
-            <a id="navbar-login" class="btn btn-light" href="/login" wutsi-track-event="login" wutsi-track-value="navbar" th:text="#{button.login}">Login</a>
         </li>
     </ul>
 

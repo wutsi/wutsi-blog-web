@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body class="paper">
+
+<div th:replace="components/layout :: navbar"></div>
+
+    <div class="container margin-top-2x margin-bottom-2x">
+        <div class="row">
+            <div class="col-12 offset-md-2 col-md-8 padding-2x border box-filled">
+                <h1 class="text-center">Une Plateforme pour Diffuser tes Idées</h1>
+                <h4 class="margin-top-2x">
+                    <p>
+                        Crée ton Blog <strong class="highlight">Gratuitement</strong>.
+                    </p>
+                    <p>
+                        Publie tes Stories.
+                    </p>
+                    <p>
+                        Rejoins ton Audience via Email et Réseaux Sociaux.
+                    </p>
+                </h4>
+                <p class="text-center margin-top-2x">
+                    <a id="btn-join" class="btn btn-primary btn-lg" href="/welcome"  wutsi-track-event="create_blog">Démarre ton Blog</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+</html>

@@ -11,7 +11,7 @@ class PageName{
         const val HOME = "page.home"
         const val LOGIN = "page.login"
         const val LOGOUT = "page.logout"
-        const val JOIN = "page.join"
+        const val WRITER = "page.writer"
         const val READ = "page.read"
         const val SETTINGS = "page.settings"
         const val STORY_DRAFT = "page.story.draft"

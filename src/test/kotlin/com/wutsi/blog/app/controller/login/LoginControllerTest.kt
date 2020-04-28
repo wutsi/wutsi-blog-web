@@ -43,9 +43,7 @@ class LoginControllerTest: SeleniumTestSupport() {
         if (error){
             driver.get("$url/login?error=invalid_client")
         } else {
-            driver.get(url)
-            click("#navbar-login")
-            assertElementNotPresent("#navbar-login")
+            driver.get("$url/login")
         }
     }
 }
