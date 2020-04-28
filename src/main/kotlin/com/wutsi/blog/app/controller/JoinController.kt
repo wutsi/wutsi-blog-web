@@ -14,8 +14,7 @@ class JoinController(
 
     @GetMapping("/join")
     fun index(model: Model): String {
-        return "redirect:/welcome"
-        //return "page/join"
+        return "page/join"
     }
 
 }
