@@ -13,6 +13,5 @@ class LogoutControllerTest: SeleniumTestSupport() {
         driver.get("$url/logout")
 
         assertCurrentPageIs(PageName.HOME)
-        assertElementPresent("#navbar-login")
     }
 }
