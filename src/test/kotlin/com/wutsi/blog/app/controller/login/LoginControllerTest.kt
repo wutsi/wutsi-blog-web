@@ -10,7 +10,8 @@ class LoginControllerTest: SeleniumTestSupport() {
         gotoPage()
 
         assertElementPresent("#login-panel")
-        assertElementNotPresent("#join-panel")
+        assertElementNotPresent("#create-blog-panel")
+        assertElementNotPresent("#create-blog-wizard")
         assertElementNotPresent(".alert-danger")
         validateButton("google")
         validateButton("facebook")
@@ -23,7 +24,8 @@ class LoginControllerTest: SeleniumTestSupport() {
         gotoPage(true)
 
         assertElementPresent("#login-panel")
-        assertElementNotPresent("#join-panel")
+        assertElementNotPresent("#create-blog-panel")
+        assertElementNotPresent("#create-blog-wizard")
         assertElementPresent(".alert-danger")
         validateButton("google")
         validateButton("facebook")

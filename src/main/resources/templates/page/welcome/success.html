@@ -12,16 +12,14 @@
 
             <div class="main-content border padding-2x text-center margin-top-2x">
 
-                <h1 class="margin-top" th:text="#{page.welcome.done.header1}">Login</h1>
-                <div class="margin-top alert alert-success text-center">
-                    <h2><i class="fas fa-check-circle"></i></h2>
-                    <h6 class="text-left" th:utext="#{page.welcome.done.info(${user.fullName})}"></h6>
-                </div>
+                <h1 class="margin-top" th:text="#{page.welcome.header1}">Login</h1>
+                <h2><i class="fas fa-check-circle"></i></h2>
+                <h4 class="margin-top alert alert-success" th:utext="#{page.welcome.info.success(${user.fullName})}"></h4>
 
-                <div class="margin-top">
-                    <a id="btn-my-blog" class="btn btn-primary float-left" th:href="${user.slug}" th:text="#{button.my_blog}">My Blog</a>
+                <div class="margin-top-2x">
+                    <a id="btn-my-blog" class="btn btn-primary float-right" th:href="${user.slug}" th:text="#{button.my_blog}">My Blog</a>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
             </div>
         </div>
     </div>

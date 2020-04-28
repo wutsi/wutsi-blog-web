@@ -68,6 +68,9 @@ h1, h2, h3, h4, h5, h6 {
 .fa-twitter-square {
     color: #0084b4;
 }
+.fa-check-circle {
+    color: darkgreen;
+}
 
 .border {
     border: 1px solid var(--border-color);
@@ -311,7 +314,7 @@ a.sso-button .fab {
     background: var(--border-color);
     border-radius: 5px;
     float: left;
-    margin: 0 5px;
+    margin: 0 5px 0 0;
     padding: 5px;
     width: 10%;
 }

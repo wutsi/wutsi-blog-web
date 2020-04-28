@@ -13,13 +13,18 @@
         <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
 
             <div class="main-content border text-center padding-2x">
-                <div id="join-panel" th:if="${join}">
-                    <h1 class="margin-top-2x" th:text="#{page.login.header1.join}">Create your Blog</h1>
-                    <p class="margin-top" th:text="#{page.login.info.join}"></p>
+                <div id="create-blog-wizard" class="margin-top-2x" th:if="${createBlog}">
+                    <div th:replace="components/story :: wizard(6, 1)"></div>
                 </div>
-                <div id="login-panel" th:if="!${join}">
+
+                <div id="create-blog-panel" th:if="${createBlog}">
+                    <h1 class="margin-top" th:text="#{page.login.header1.create-blog}">Create your Blog</h1>
+                    <h4 class="margin-top" th:utext="#{page.login.info.create-blog}"></h4>
+                </div>
+
+                <div id="login-panel" th:if="!${createBlog}">
                     <h1 class="margin-top-2x" th:text="#{page.login.header1.login}">Login</h1>
-                    <p class="margin-top" th:text="#{page.login.info.login}"></p>
+                    <p class="margin-top" th:text="#{page.login.info.login}">Sign up</p>
                 </div>
 
                 <div class="alert alert-danger padding-top" th:if="${error}" th:text="#{error.login}">Error</div>
@@ -28,19 +33,23 @@
                     <div class="col-12 offset-md-1 col-md-10">
                         <a id="btn-google" class="sso-button margin-top" href="/login/google" th:if="${toggles.ssoGoogle}" wutsi-track-event="login" wutsi-track-value="google">
                             <i class="fab fa-google"></i>
-                            <span th:text="#{page.login.signin-google}">Sign in with Google</span>
+                            <span th:text="#{page.login.signin-google}" th:if="!${createBlog}">Sign in with Google</span>
+                            <span th:text="#{page.login.signup-google}" th:if="${createBlog}">Sign in with Google</span>
                         </a>
                         <a id="btn-facebook" class="sso-button margin-top" href="/login/facebook" th:if="${toggles.ssoFacebook}" wutsi-track-event="login" wutsi-track-value="facebook">
                             <i class="fab fa-facebook-square"></i>
-                            <span th:text="#{page.login.signin-facebook}">Sign in with Facebook</span>
+                            <span th:text="#{page.login.signin-facebook}" th:if="!${createBlog}">Sign in with Facebook</span>
+                            <span th:text="#{page.login.signup-facebook}" th:if="${createBlog}">Sign in with Facebook</span>
                         </a>
                         <a id="btn-twitter" class="sso-button margin-top" href="/login/twitter" th:if="${toggles.ssoTwitter}" wutsi-track-event="login" wutsi-track-value="twitter">
                             <i class="fab fa-twitter-square"></i>
-                            <span th:text="#{page.login.signin-twitter}">Sign in with Twitter</span>
+                            <span th:text="#{page.login.signin-twitter}" th:if="!${createBlog}">Sign in with Twitter</span>
+                            <span th:text="#{page.login.signup-twitter}" th:if="${createBlog}">Sign in with Twitter</span>
                         </a>
                         <a id="btn-github" class="sso-button margin-top" href="/login/github" th:if="${toggles.ssoGithub}" wutsi-track-event="login" wutsi-track-value="github">
                             <i class="fab fa-github-square"></i>
-                            <span th:text="#{page.login.signin-github}">Sign in with Github</span>
+                            <span th:text="#{page.login.signin-github}" th:if="!${createBlog}">Sign in with Github</span>
+                            <span th:text="#{page.login.signup-github}" th:if="${createBlog}">Sign in with Github</span>
                         </a>
                     </div>
                 </div>

@@ -13,7 +13,8 @@ class JoinControllerTest : SeleniumTestSupport() {
         click("#btn-join-1")
 
         assertCurrentPageIs(PageName.LOGIN)
-        assertElementPresent("#join-panel")
+        assertElementPresent("#create-blog-panel")
+        assertElementPresent("#create-blog-wizard")
     }
 
 
@@ -23,6 +24,8 @@ class JoinControllerTest : SeleniumTestSupport() {
 
         click("#btn-join-2")
         assertCurrentPageIs(PageName.LOGIN)
+        assertElementPresent("#create-blog-panel")
+        assertElementPresent("#create-blog-wizard")
     }
 
     private fun gotoPage() {

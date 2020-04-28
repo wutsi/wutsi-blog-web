@@ -30,13 +30,13 @@ class LoginController(
             request: HttpServletRequest
     ): String {
         model.addAttribute("error", error)
-        model.addAttribute("join", isJoin(request))
+        model.addAttribute("createBlog", isCreateBlog(request))
         return "page/login"
     }
 
     override fun pageName() = PageName.LOGIN
 
-    private fun isJoin(request: HttpServletRequest): Boolean {
+    private fun isCreateBlog(request: HttpServletRequest): Boolean {
         val savedRequest = request.session.getAttribute("SPRING_SECURITY_SAVED_REQUEST") as SavedRequest?
             ?: return false
 
