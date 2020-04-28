@@ -17,7 +17,6 @@ class WriterControllerTest : SeleniumTestSupport() {
         assertElementPresent("#create-blog-wizard")
     }
 
-
     private fun gotoPage() {
         navigate("$url/writer")
 
