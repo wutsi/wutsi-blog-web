@@ -63,8 +63,6 @@
 <!-- Footer            -->
 <!-- ################# -->
 <footer class="page-footer container-fluid" th:fragment="footer">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-
     <script async th:src="'https://www.googletagmanager.com/gtag/js?id=' + ${page.googleAnalyticsCode}" th:if="!${page.googleAnalyticsCode.isEmpty()}"></script>
     <script th:inline="javascript" th:if="!${page.googleAnalyticsCode.isEmpty()}">
     /*<![CDATA[*/
