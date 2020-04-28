@@ -24,11 +24,18 @@ class HomeController(
 
     @GetMapping()
     fun index(model: Model): String {
-        val stories = service.search(SearchStoryRequest(
-                status = StoryStatus.published,
-                sortBy = StorySortStrategy.published
-        ))
-        model.addAttribute("stories", stories)
-        return "page/home"
+        if (requestContext.toggles().comingSoon) {
+
+            return "page/coming-soon"
+
+        } else {
+
+            val stories = service.search(SearchStoryRequest(
+                    status = StoryStatus.published,
+                    sortBy = StorySortStrategy.published
+            ))
+            model.addAttribute("stories", stories)
+            return "page/home"
+        }
     }
 }

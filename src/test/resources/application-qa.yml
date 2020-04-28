@@ -8,6 +8,7 @@ wutsi:
     baseurl: "${wiremock.url}"
 
   toggles:
+    coming-soon: false
     publish: true
     sso-facebook: true
     sso-google: true
