@@ -27,9 +27,23 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
         assertElementAttributeEndsWith(".author a", "href", "/@/ray.sponsible")
         assertElementText(".author .bio", "Ray sponsible is a test user")
+
+        assertElementAttribute(".author .website", "href", "https://www.me.com/ray.sponsible")
+        assertElementAttribute(".author .website", "wutsi-track-event", "link")
+        assertElementAttribute(".author .website", "wutsi-track-value", "website")
+
         assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author .facebook", "wutsi-track-event", "link")
+        assertElementAttribute(".author .facebook", "wutsi-track-value", "facebook")
+
         assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/raysponsible")
+        assertElementAttribute(".author .twitter", "wutsi-track-event", "link")
+        assertElementAttribute(".author .twitter", "wutsi-track-value", "twitter")
+
         assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author .linkedin", "wutsi-track-event", "link")
+        assertElementAttribute(".author .linkedin", "wutsi-track-value", "linkedin")
+
     }
 
     @Test
@@ -67,36 +81,21 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `share to Facebook`() {
+    fun `share to Social Network`() {
         gotoPage()
 
         val url = "http://localhost:8081/read/20/lorem-ipsum"
 
-        assertElementCount(".share .share-facebook", 1)
         assertElementAttribute(".share .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
         assertElementAttribute(".share .share-facebook", "target", "_blank")
         assertElementAttribute(".share .share-facebook", "wutsi-track-event", "share")
         assertElementAttribute(".share .share-facebook", "wutsi-track-value", "facebook")
-    }
-
-    @Test
-    fun `share to Twitter`() {
-        gotoPage()
-
-        val url = "http://localhost:8081/read/20/lorem-ipsum"
 
         assertElementCount(".share .share-twitter", 1)
         assertElementAttribute(".share .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
         assertElementAttribute(".share .share-twitter", "target", "_blank")
         assertElementAttribute(".share .share-twitter", "wutsi-track-event", "share")
         assertElementAttribute(".share .share-twitter", "wutsi-track-value", "twitter")
-    }
-
-    @Test
-    fun `share to LinkedIn`() {
-        gotoPage()
-
-        val url = "http://localhost:8081/read/20/lorem-ipsum"
 
         assertElementCount(".share .share-linkedin", 1)
         assertElementAttribute(".share .share-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=$url")
@@ -109,7 +108,6 @@ class ReadControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story-imported.json")
         gotoPage()
 
-        assertElementPresent(".reader .imported-content-message")
         assertElementAttribute("head link[rel=canonical]", "href", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter")
     }
 
