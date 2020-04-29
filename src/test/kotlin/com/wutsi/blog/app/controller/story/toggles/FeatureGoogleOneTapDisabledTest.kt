@@ -24,7 +24,7 @@ class FeatureGoogleOneTapDisabledTest: SeleniumTestSupport() {
 
 
     @Test
-    fun `GoogleOneTab should showup for anonymous user`() {
+    fun `GoogleOneTap should showup for anonymous user`() {
         gotoPage(false)
 
         assertElementNotPresent("#g_id_onload")
@@ -33,7 +33,7 @@ class FeatureGoogleOneTapDisabledTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `GoogleOneTab not should showup for anonymous user`() {
+    fun `GoogleOneTap not should showup for anonymous user`() {
         gotoPage(true)
 
         assertElementNotPresent("#g_id_onload")
