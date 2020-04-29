@@ -19,10 +19,7 @@ wutsi:
     publish: true
     sso-facebook: true
     sso-google: true
-    sso-twitter: false
     sso-github: false
-    qa-login: false
-
   google:
     ga:
       code: "UA-120456146-1"

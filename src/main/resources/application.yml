@@ -95,7 +95,7 @@ wutsi:
       code:
 
   toggles:
-    coming-soon: true
+    coming-soon: false
     publish: true
     sso-facebook: false
     sso-google: false
