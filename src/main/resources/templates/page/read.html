@@ -8,6 +8,13 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
+<div id="g_id_onload"
+     data-callback="g_one_tap_callback"
+     th:data-client_id="${page.googleClientId}"
+     th:if="${googleOneTap}"
+>
+</div>
+
 <article class="container reader offset-md-2 col-md-8">
     <h1 class="title margin-top" th:text="${story.title}">Title</h1>
 
@@ -85,6 +92,13 @@
 </script>
 
 <div th:replace="components/layout :: footer"></div>
+
+<script id="g_one_tap_script" src="https://accounts.google.com/gsi/client" th:if="${googleOneTap}"></script>
+<script id="g_one_tap_callback" th:if="${googleOneTap}">
+    function g_one_tap_callback(response) {
+        console.log('g_one_tap_callback', response);
+    }
+</script>
 </body>
 
 </html>

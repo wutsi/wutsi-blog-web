@@ -10,6 +10,7 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,6 +26,10 @@ class ReadController(
         private val ejsFilters: EJSFilterSet,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
+
+    @Value("\${wutsi.oauth.google.client-id}")
+    protected lateinit var googleClientId: String
+
 
     override fun pageName() = PageName.READ
 
@@ -50,7 +55,20 @@ class ReadController(
 
         model.addAttribute(ModelAttributeName.PAGE, toPage(story))
         model.addAttribute("preview", preview)
+
+        activateGoogleOneTap(model)
         return "page/read"
+    }
+
+    private fun activateGoogleOneTap(model: Model) {
+        if (!requestContext.toggles().googleOneTabSignIn){
+            return
+        }
+
+        val accessToken = requestContext.accessToken()
+        if (accessToken == null){
+            model.addAttribute("googleOneTap", true)
+        }
     }
 
     private fun get(id: Long, preview: Boolean): StoryModel {
@@ -98,6 +116,7 @@ class ReadController(
             tags = story.tags.map { it.name },
             twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId,
             googleAnalyticsCode = this.googleAnalyticsCode,
+            googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl
     )
 
