@@ -61,7 +61,7 @@ class ReadController(
     }
 
     private fun activateGoogleOneTap(model: Model) {
-        if (!requestContext.toggles().googleOneTabSignIn){
+        if (!requestContext.toggles().googleOneTapSignIn){
             return
         }
 
