@@ -57,6 +57,13 @@ class BlogControllerTest: SeleniumTestSupport() {
     }
 
     @Test
+    fun `me page required logo` () {
+        driver.get("$url/me")
+
+        assertCurrentPageIs(PageName.LOGIN)
+    }
+
+    @Test
     fun `META headers`() {
         gotoPage()
 

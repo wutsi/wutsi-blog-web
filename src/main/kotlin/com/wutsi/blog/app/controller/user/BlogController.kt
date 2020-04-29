@@ -20,9 +20,20 @@ class BlogController(
 
     override fun shouldBeIndexedByBots() = true
 
+    @GetMapping("/me")
+    fun index(model: Model): String {
+        val user = requestContext.currentUser()!!
+        return blog(user, model)
+    }
+
     @GetMapping("/@/{name}")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = service.get(name)
+
+        return blog(blog, model)
+    }
+
+    private fun blog(blog:UserModel, model: Model): String {
         val user = requestContext.currentUser()
 
         model.addAttribute("blog", blog)
@@ -32,7 +43,6 @@ class BlogController(
     }
 
     private fun shouldShowCreatePanel(blog: UserModel, user: UserModel?) = user?.id == blog.id
-
 
     protected fun page(user: UserModel) = PageModel(
                 name = pageName(),

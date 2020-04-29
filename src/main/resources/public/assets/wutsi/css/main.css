@@ -377,6 +377,10 @@ a.sso-button .fab {
     color: var(--text-color-gray);
 }
 
+.post .author  a.website {
+    color: var(--text-color);
+    text-decoration: underline;
+}
 
 /*======= AUTHOR =======*/
 .author img {
