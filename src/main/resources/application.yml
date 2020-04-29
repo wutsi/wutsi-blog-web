@@ -80,6 +80,7 @@ wutsi:
       client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
       callback-url: ${wutsi.base-url}/login/twitter/callback
 
+
   storage:
     local:
       directory: "${user.home}/wutsi/upload"
