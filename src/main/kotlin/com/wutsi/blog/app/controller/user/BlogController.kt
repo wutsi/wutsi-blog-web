@@ -23,7 +23,7 @@ class BlogController(
     @GetMapping("/me")
     fun index(model: Model): String {
         val user = requestContext.currentUser()!!
-        return blog(user, model)
+        return "redirect:" + user.slug
     }
 
     @GetMapping("/@/{name}")

@@ -103,7 +103,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                 <div class="dropdown-item-user flex">
-                    <a href="/me" th:title="${user.fullName}">
+                    <a th:href="${user.slug}" th:title="${user.fullName}">
                         <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
                         <div class="user-info">
                             <div><b th:text="${user.fullName}">Herve Tchepannou</b></div>

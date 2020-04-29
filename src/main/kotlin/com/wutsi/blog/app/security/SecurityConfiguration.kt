@@ -62,7 +62,7 @@ class SecurityConfiguration(
             .and()
                 .formLogin()
                     .loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/")
+                    .defaultSuccessUrl("/me")
 		// @formatter:on
     }
 
