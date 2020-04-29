@@ -99,7 +99,7 @@
         console.log('g_one_tap_callback', response);
         wutsi.httpGet('/login/onetap/callback?credential=' + response.credential, true)
             .then(function(data){
-                jQuery.load(data.url);
+                $.load(data.url);
             });
     }
 </script>

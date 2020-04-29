@@ -9,6 +9,7 @@ import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.logging.KVLogger
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import java.net.URLEncoder
 import java.util.UUID
@@ -45,7 +46,7 @@ abstract class AbstractOAuth20LoginController(
             url = errorUrl(ex.error.errorString)
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)
-
+            LoggerFactory.getLogger(javaClass).error("Failure", ex)
         }
 
         logger.add("RedirectURL", url)
