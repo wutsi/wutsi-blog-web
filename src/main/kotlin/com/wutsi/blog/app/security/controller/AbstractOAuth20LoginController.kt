@@ -74,19 +74,20 @@ abstract class AbstractOAuth20LoginController(
         return "login?error=" + URLEncoder.encode(error, "utf-8")
     }
 
-    protected fun getSigninUrl(request: HttpServletRequest): String {
+    private fun getSigninUrl(request: HttpServletRequest): String {
         val code = getCode(request)
         val state = getState(request)
         val accessToken = getOAuthService().getAccessToken(code).accessToken
         val user = toOAuthUser(accessToken)
 
-        return SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
-                "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
-                "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
-                "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
-
+        return getSigninUrl(accessToken, state, user)
     }
 
+    protected fun getSigninUrl(accessToken: String, state: String, user: OAuthUser) =
+            SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
+                    "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
+                    "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
+                    "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
 
     open fun getState(request: HttpServletRequest) = request.getParameter("state")
 

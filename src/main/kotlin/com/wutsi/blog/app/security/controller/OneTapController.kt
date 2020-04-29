@@ -31,13 +31,14 @@ class OneTapController(
     @GetMapping("/callback")
     @ResponseBody
     override fun callback(request: HttpServletRequest): String {
-        generateState(request)
-        return super.callback(request)
+        val state = generateState(request)
+        val credential = request.getParameter("credential")
+        val user = toOAuthUser(credential)
+        val url = getSigninUrl(credential , state, user)
+
+        logger.add("RedirectURL", url)
+        return url
     }
-
-    override fun getState(request: HttpServletRequest) = request.session.getAttribute(SecurityConfiguration.SESSION_STATE) as String
-
-    override fun getCode(request: HttpServletRequest) = request.getParameter("credential")
 
     override fun toOAuthUser(credential: String): OAuthUser {
         val verifier = GoogleIdTokenVerifier.Builder(transport, jsonFactory)
