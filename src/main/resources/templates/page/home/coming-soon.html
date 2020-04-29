@@ -22,6 +22,7 @@
     <!-- Custom styles for this template -->
     <link th:href="${page.assetUrl} + '/assets/coming-soon/css/coming-soon.min.css'" rel="stylesheet">
 
+    <meta http-equiv="refresh" content="0;URL=https://www.wutsi.com/?mc_subscribe=1"/>
 </head>
 
 <body id="coming-soon">
@@ -49,7 +50,7 @@
                         <form style="width: 100%" class="validate" action="https://wutsi.us8.list-manage.com/subscribe/post?u=2242a5fe8d15832d2bd7b1bfe&amp;id=a43daebc4c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
                             <div class="form-group">
                                 <input type="email" class="form-control" name="EMAIL" placeholder="Ton Addresse Email..." aria-label="Ton Addresse Email..." aria-describedby="basic-addon">
-                                <button type="submit" class="btn btn-secondary mt-2">Notifiez Moi!</button>
+                                <button type="submit" name="submit" value="Subscribe" class="btn btn-secondary mt-2">Notifiez Moi!</button>
                             </div>
                         </form>
                     </div>
@@ -81,6 +82,15 @@
 <!-- Custom scripts for this template -->
 <script th:src="${page.assetUrl} + '/assets/coming-soon/js/coming-soon.min.js'"></script>
 
+<script th:inline="javascript" th:if="${subscribed}">
+/*<![CDATA[*/
+
+    $(document).ready(function(){
+        alert('Bienvenu à Wutsi. Vous atre maintenant abonné à notre liste de distribution');
+    });
+
+/*]]>*/
+</script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.toggles
+package com.wutsi.blog.app.controller.story.toggles
 
 import com.wutsi.blog.SeleniumTestSupport
 import org.junit.Test
