@@ -48,7 +48,7 @@ abstract class AbstractOAuth20LoginController {
                     state = state,
                     user = loadUser(accessToken)
             )
-            LoggerFactory.getLogger(javaClass).info("Redirecting to $url")
+            logger.info("Redirecting to $url")
             return "redirect:$url"
         } catch(ex: OAuth2AccessTokenErrorResponse) {
             logger.info("Authentication error", ex)
@@ -56,7 +56,7 @@ abstract class AbstractOAuth20LoginController {
         }
     }
 
-    protected fun loadUser(accessToken: String): OAuthUser {
+    private fun loadUser(accessToken: String): OAuthUser {
         val response = fetchUser(accessToken)
         logger.info("OAuth User: " + response.body)
 
