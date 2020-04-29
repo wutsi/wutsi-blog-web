@@ -8,6 +8,7 @@ import com.google.api.client.json.JsonFactory
 import com.wutsi.blog.app.config.OAuthConfiguration
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
+import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,33 +21,33 @@ import javax.servlet.http.HttpServletRequest
 @Controller
 @RequestMapping()
 class GoogleOneTapController(
+        logger: KVLogger,
         @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) oauth: OAuth20Service,
 
         private val transport: HttpTransport,
         private val jsonFactory: JsonFactory
-): GoogleLoginController(oauth) {
+): GoogleLoginController(logger, oauth) {
 
-    @GetMapping("/login/google/onetap")
+    @GetMapping("/login/google/onetap/callback")
     @ResponseBody
-    fun oneTap(request: HttpServletRequest): Map<String, String> {
-        val state = generateState(request)
-        val credential = request.getParameter("credential")
+    fun callback(request: HttpServletRequest): Map<String, String> {
+        generateState(request)
 
-        val url = getSigninUrl(
-                accessToken = credential,
-                state = state,
-                user = toOAuthUser(credential)
-        )
+        val url = getSigninUrl(request)
         return mapOf("url" to url)
     }
 
-    private fun toOAuthUser(credential: String): OAuthUser {
+    override fun getState(request: HttpServletRequest) = request.session.getAttribute(SecurityConfiguration.SESSION_STATE) as String
+
+    override fun getCode(request: HttpServletRequest) = request.getParameter("credential")
+
+    override fun toOAuthUser(credential: String): OAuthUser {
         val verifier = GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                 .setAudience(Collections.singletonList(CLIENT_ID))
                 .build()
 
         val idToken = verifier.verify(credential)
-        logger.info("Token=$idToken")
+        logger.add("Token", idToken)
 
         val payload = idToken.getPayload()
         return OAuthUser(
