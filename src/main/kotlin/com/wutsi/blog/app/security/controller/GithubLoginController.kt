@@ -4,6 +4,7 @@ import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.config.OAuthConfiguration
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
+import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/login/github")
 class GithubLoginController(
+        logger: KVLogger,
         @Qualifier(OAuthConfiguration.GITHUB_OAUTH_SERVICE) private val oauth: OAuth20Service
-): AbstractOAuth20LoginController() {
+): AbstractOAuth20LoginController(logger) {
     override fun getOAuthService() = oauth
 
     override fun getUserUrl() = "https://api.github.com/user"

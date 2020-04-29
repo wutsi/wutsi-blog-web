@@ -97,7 +97,7 @@
 <script id="g_one_tap_callback" th:if="${googleOneTap}">
     function g_one_tap_callback(response) {
         console.log('g_one_tap_callback', response);
-        wutsi.httpGet('/login/google/onetap?credential=' + response.credential, true)
+        wutsi.httpGet('/login/onetap/callback?credential=' + response.credential, true)
             .then(function(data){
                 jQuery.load(data.url);
             });

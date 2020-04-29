@@ -8,17 +8,17 @@ import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
-import org.slf4j.LoggerFactory
+import com.wutsi.core.logging.KVLogger
 import org.springframework.web.bind.annotation.GetMapping
 import java.net.URLEncoder
 import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
 
-abstract class AbstractOAuth20LoginController {
+abstract class AbstractOAuth20LoginController(
+        protected val logger: KVLogger
+) {
     protected val objectMapper = ObjectMapper()
-
-    protected val logger = LoggerFactory.getLogger(this::class.java)
 
     protected abstract fun getOAuthService() : OAuth20Service
 
@@ -33,32 +33,28 @@ abstract class AbstractOAuth20LoginController {
     }
 
     @GetMapping("/callback")
-    fun callback(request: HttpServletRequest): String {
+    open fun callback(request: HttpServletRequest): String {
+        var url: String
         try {
-            val error = getError(request)
-            if (error != null) {
-                return "redirect:/login?error=" + URLEncoder.encode(error, "utf-8")
-            }
 
-            val code = getCode(request)
-            val state = getState(request)
-            val accessToken = getOAuthService().getAccessToken(code).accessToken
-            val url = getSigninUrl(
-                    accessToken = accessToken,
-                    state = state,
-                    user = loadUser(accessToken)
-            )
-            logger.info("Redirecting to $url")
-            return "redirect:$url"
+            val error = getError(request)
+            url = if (error == null) getSigninUrl(request) else errorUrl(error)
+
         } catch(ex: OAuth2AccessTokenErrorResponse) {
-            logger.info("Authentication error", ex)
-            return redirectUrl(ex.error.errorString)
+
+            url = errorUrl(ex.error.errorString)
+            logger.add("Exception", ex.javaClass.name)
+            logger.add("ExceptionMessage", ex.message)
+
         }
+
+        logger.add("RedirectURL", url)
+        return "redirect:$url"
     }
 
-    private fun loadUser(accessToken: String): OAuthUser {
+    open fun toOAuthUser(accessToken: String): OAuthUser {
         val response = fetchUser(accessToken)
-        logger.info("OAuth User: " + response.body)
+        logger.add("OAuthUser", response.body)
 
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return toOAuthUser(attrs)
@@ -73,15 +69,16 @@ abstract class AbstractOAuth20LoginController {
     }
 
 
-    private fun redirectUrl(error: String) : String {
-        return "redirect:/login?error=" + URLEncoder.encode(error, "utf-8")
+    private fun errorUrl(error: String) : String {
+        return "login?error=" + URLEncoder.encode(error, "utf-8")
     }
 
-    protected fun getSigninUrl(
-            accessToken: String,
-            state: String,
-            user: OAuthUser
-    ): String {
+    protected fun getSigninUrl(request: HttpServletRequest): String {
+        val code = getCode(request)
+        val state = getState(request)
+        val accessToken = getOAuthService().getAccessToken(code).accessToken
+        val user = toOAuthUser(accessToken)
+
         return SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
                 "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
                 "&" + SecurityConfiguration.PARAM_STATE + "=$state" +

@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest
 
 
 @Controller
-@RequestMapping()
-class GoogleOneTapController(
+@RequestMapping("/login/onetap")
+class OneTapController(
         logger: KVLogger,
         @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) oauth: OAuth20Service,
 
@@ -28,13 +28,11 @@ class GoogleOneTapController(
         private val jsonFactory: JsonFactory
 ): GoogleLoginController(logger, oauth) {
 
-    @GetMapping("/login/google/onetap/callback")
+    @GetMapping("/callback")
     @ResponseBody
-    fun callback(request: HttpServletRequest): Map<String, String> {
+    override fun callback(request: HttpServletRequest): String {
         generateState(request)
-
-        val url = getSigninUrl(request)
-        return mapOf("url" to url)
+        return super.callback(request)
     }
 
     override fun getState(request: HttpServletRequest) = request.session.getAttribute(SecurityConfiguration.SESSION_STATE) as String
@@ -58,4 +56,5 @@ class GoogleOneTapController(
                 provider = SecurityConfiguration.PROVIDER_GOOGLE
         )
     }
+
 }
