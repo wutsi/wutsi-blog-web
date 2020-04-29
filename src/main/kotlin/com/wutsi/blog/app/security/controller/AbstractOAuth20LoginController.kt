@@ -85,7 +85,6 @@ abstract class AbstractOAuth20LoginController {
         return SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
                 "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
                 "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
-                "&" + SecurityConfiguration.PARAM_PROVIDER + "=" + SecurityConfiguration.PROVIDER_GITHUB +
                 "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
 
     }
@@ -103,7 +102,7 @@ abstract class AbstractOAuth20LoginController {
         return getOAuthService().getAuthorizationUrl(state)
     }
 
-    private fun generateState(request: HttpServletRequest): String {
+    protected fun generateState(request: HttpServletRequest): String {
         val state = UUID.randomUUID().toString()
         request.session.setAttribute(SecurityConfiguration.SESSION_STATE, state)
         return state
