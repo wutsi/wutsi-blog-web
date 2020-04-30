@@ -35,7 +35,7 @@ function Wutsi (){
                     'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
                 },
                 success: function(data) {
-                    console.log('GET ', url, data);
+                    console.log('GET ', url, json ? data : '');
                     resolve(data)
                 },
                 error: function(error) {
