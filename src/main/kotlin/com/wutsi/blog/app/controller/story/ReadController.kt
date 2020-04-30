@@ -1,5 +1,6 @@
-package com.wutsi.blog.app.controller
+package com.wutsi.blog.app.controller.story
 
+import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext

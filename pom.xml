@@ -120,29 +120,6 @@
             <version>${commons-io.version}</version>
         </dependency>
 
-        <!-- Google -->
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>${google-api-client.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client-jackson2</artifactId>
-            <version>${google-api-client.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client-servlet</artifactId>
-            <version>${google-api-client.version}</version>
-        </dependency>
-
 
         <!-- Selenium -->
         <dependency>
