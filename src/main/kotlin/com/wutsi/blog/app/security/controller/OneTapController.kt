@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
+import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
 
@@ -18,36 +19,34 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/login/onetap")
 class OneTapController(
         logger: KVLogger,
-        @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) oauth: OAuth20Service,
-
         private val http: Http
-): GoogleLoginController(logger, oauth) {
+): AbstractLoginController(logger) {
 
     @GetMapping("/callback")
-    @ResponseBody
-    override fun callback(request: HttpServletRequest): String {
+    @ResponseBody()
+    fun callback(request: HttpServletRequest): Map<String, String> {
         val state = generateState(request)
         val credential = request.getParameter("credential")
         val user = toOAuthUser(credential)
-        val url = getSigninUrl(credential , state, user)
+        val url = getSigninUrl(UUID.randomUUID().toString() , state, user)
 
         logger.add("RedirectURL", url)
-        return url
+        return mapOf("url" to url)
     }
 
-    override fun toOAuthUser(credential: String): OAuthUser {
+    private fun toOAuthUser(credential: String): OAuthUser {
         val url = "https://oauth2.googleapis.com/tokeninfo?id_token=$credential"
-        val response = http.get(url, Map::class.java).body
-        logger.add("TokenInfo", response?.toString())
+        val attrs = http.get(url, Map::class.java).body as Map<String, Any>
+        logger.add("TokenInfo", attrs)
 
-        return OAuthUser(
-                id = toString(response["id"]),
-                fullName = toString(response["name"]),
-                pictureUrl = toString(response["picture"]),
-                email = toString(response["email"]),
-                provider = SecurityConfiguration.PROVIDER_GOOGLE
-        )
+        return toOAuthUser(attrs)
     }
 
-    private fun toString(value: Any?): String = if (value == null) "" else value.toString()
+    override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
+            id = attrs["sub"].toString(),
+            fullName = attrs["name"].toString(),
+            pictureUrl = attrs["picture"].toString(),
+            email = attrs["email"].toString(),
+            provider = SecurityConfiguration.PROVIDER_GOOGLE
+    )
 }

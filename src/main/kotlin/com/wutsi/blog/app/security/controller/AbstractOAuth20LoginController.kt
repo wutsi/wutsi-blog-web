@@ -1,31 +1,24 @@
 package com.wutsi.blog.app.security.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Response
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
-import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import java.net.URLEncoder
-import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
 
 abstract class AbstractOAuth20LoginController(
-        protected val logger: KVLogger
-) {
-    protected val objectMapper = ObjectMapper()
-
+        logger: KVLogger
+) : AbstractLoginController(logger) {
     protected abstract fun getOAuthService() : OAuth20Service
 
     protected abstract fun getUserUrl(): String
-
-    protected abstract fun toOAuthUser(attrs: Map<String, Any>): OAuthUser
 
     @GetMapping()
     fun login (request: HttpServletRequest): String {
@@ -83,12 +76,6 @@ abstract class AbstractOAuth20LoginController(
         return getSigninUrl(accessToken, state, user)
     }
 
-    protected fun getSigninUrl(accessToken: String, state: String, user: OAuthUser) =
-            SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
-                    "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
-                    "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
-                    "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
-
     open fun getState(request: HttpServletRequest) = request.getParameter("state")
 
     open fun getCode(request: HttpServletRequest) = request.getParameter("code")
@@ -99,11 +86,5 @@ abstract class AbstractOAuth20LoginController(
     private fun getAuthorizationUrl (request: HttpServletRequest): String {
         val state = generateState(request)
         return getOAuthService().getAuthorizationUrl(state)
-    }
-
-    protected fun generateState(request: HttpServletRequest): String {
-        val state = UUID.randomUUID().toString()
-        request.session.setAttribute(SecurityConfiguration.SESSION_STATE, state)
-        return state
     }
 }
