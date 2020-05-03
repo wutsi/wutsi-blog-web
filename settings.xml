@@ -38,5 +38,10 @@
             <username>wutsi</username>
             <password>${GITHUB_TOKEN}</password>
         </server>
+        <server>
+            <id>github-wutsi-extractor</id>
+            <username>wutsi</username>
+            <password>${GITHUB_TOKEN}</password>
+        </server>
     </servers>
 </settings>

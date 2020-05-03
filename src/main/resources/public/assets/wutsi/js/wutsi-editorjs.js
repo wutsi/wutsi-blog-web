@@ -118,6 +118,13 @@ function WutsiEJS (holderId, publishCallback){
             },
             marker: Marker,
 
+            linkTool: {
+                class: LinkTool,
+                config: {
+                    endpoint: '/ejs/link/fetch'
+                }
+            },
+
             image: {
                 class: ImageTool,
                 config:{

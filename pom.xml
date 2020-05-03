@@ -28,9 +28,10 @@
         <selenium.version>3.141.59</selenium.version>
         <wiremock.version>1.57</wiremock.version>
 
-        <wutsi-blog-client.version>1.14.0</wutsi-blog-client.version>
+        <wutsi-blog-client.version>1.17.0</wutsi-blog-client.version>
         <wutsi-core.version>1.11.0</wutsi-core.version>
         <wutsi-core-aws.version>1.5.0</wutsi-core-aws.version>
+        <wutsi-extractor.version>1.8.0</wutsi-extractor.version>
     </properties>
 
     <dependencies>
@@ -48,6 +49,11 @@
             <groupId>com.wutsi</groupId>
             <artifactId>wutsi-core-aws</artifactId>
             <version>${wutsi-core-aws.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wutsi</groupId>
+            <artifactId>wutsi-extractor</artifactId>
+            <version>${wutsi-extractor.version}</version>
         </dependency>
 
 
@@ -148,6 +154,10 @@
         <repository>
             <id>github-wutsi-core-aws</id>
             <url>https://maven.pkg.github.com/wutsi/wutsi-core-aws</url>
+        </repository>
+        <repository>
+            <id>github-wutsi-extractor</id>
+            <url>https://maven.pkg.github.com/wutsi/wutsi-extractor</url>
         </repository>
     </repositories>
 

@@ -494,6 +494,44 @@ a.sso-button .fab {
     width: 100%;
 }
 
+.reader .content a.link-tool {
+    color: var(--text-color);
+    text-decoration: none;
+}
+.reader .content div.link-tool {
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 1em;
+}
+.reader .content div.meta h2 {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.reader .content div.meta p.description {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+.reader .content div.meta p.site {
+    font-size: 0.7em;
+    color: var(--text-color-gray);
+    margin-bottom: 0px;
+}
+
+.reader .content div.image {
+    margin-top: 0.5em;
+    width: 300px;
+}
+
+.reader .content div.image img {
+    max-width: 100%;
+    margin: 0 auto;
+    border: 1px solid var(--border-color);
+}
+
 .reader .content hr {
     margin: 2em auto;
     width: 75%;
