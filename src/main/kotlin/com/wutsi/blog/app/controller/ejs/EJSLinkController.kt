@@ -26,7 +26,7 @@ class EJSLinkController(
 ) {
 
     @ResponseBody
-    @GetMapping(value="/fetch", produces = ["application/json"])
+    @GetMapping(value=["/fetch"], produces = ["application/json"])
     fun fetch(@RequestParam url: String): EJSLinkResponse {
         val html = downloader.download(URL(url))
         return EJSLinkResponse(
