@@ -19,7 +19,8 @@
     "tags": [
       {
         "id": 11,
-        "name": "Techno",
+        "name": "techno",
+        "displayName": "Techno",
         "totalStories": 0
       }
     ],

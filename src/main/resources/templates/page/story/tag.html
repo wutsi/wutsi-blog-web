@@ -31,8 +31,8 @@
 
                 <div class="form-group margin-bottom">
                     <p th:text="#{page.story.publish.tag.info}">Information</p>
-                    <select id="tags" class="form-control" name="tags" multiple="multiple">
-                        <option selected="selected" th:value="${tag.name}" th:text="${tag.name}" th:each="tag : ${story.tags}">Tag</option>
+                    <select id="tags" class="form-control" name="tags" multiple="multiple" required="required">
+                        <option selected="selected" th:value="${tag.displayName}" th:text="${tag.displayName}" th:each="tag : ${story.tags}">Tag</option>
                     </select>
                 </div>
 
@@ -40,12 +40,12 @@
                 <div class="margin-top padding-top border-top">
                     <a th:href="'/me/story/' + ${story.id} + '/readability'" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
 
-                    <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
+                    <button id="btn-publish" type="submit" class="float-right btn btn-primary"
                             th:if="${story.draft}"
                             th:text="#{button.publish_now}"
                     >Publish Now</button>
 
-                    <button id="btn-publish" type="submit" class="float-right btn btn-primary" disabled="disabled"
+                    <button id="btn-publish" type="submit" class="float-right btn btn-primary"
                             th:if="${story.published}"
                             th:text="#{button.save}"
                     >Save</button>
@@ -71,10 +71,10 @@
             processResults: function (tags) {
                 const xtags = tags.map(function(tag){
                     return {
-                        id: tag.name,
+                        id: tag.displayName,
                         text: tag.totalStories == 0
-                            ? tag.name
-                            : tag.name + ' (' + tag.totalStories + ')'
+                            ? tag.displayName
+                            : tag.displayName + ' (' + tag.totalStories + ')'
                     }
                 });
                 return {
@@ -82,35 +82,9 @@
                 };
             }
         },
-        tags: true,
         tokenSeparators: [','],
-        minimumInputLength: 3
+        minimumInputLength: 3,
+        maximumSelectionLength: 5
     });
-
-    $('#tags').on('change', function(){
-        on_change();
-    });
-
-    $('#form-publish').submit(function(){
-        enable_publish(false);
-    });
-
-
-    function on_change(){
-        const data = $('#tags').select2('data');
-        enable_publish(data && data.length > 0);
-    }
-
-    function enable_publish(flag){
-        if (flag){
-            $('#btn-publish').removeAttr('disabled');
-        } else {
-            $('#btn-publish').attr('disabled', 'disabled');
-        }
-    }
-
-    $(document).ready(function (){
-        on_change();
-    })
 </script>
 </html>

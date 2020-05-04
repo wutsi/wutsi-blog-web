@@ -37,7 +37,7 @@
     <!-- Tags -->
     <div class="margin-top">
         <div class="tag margin-bottom margin-right margin-bottom float-left" th:each="tag : ${story.tags}">
-            <span th:text="${tag.name}">Tag</span>
+            <span th:text="${tag.displayName}">Tag</span>
         </div>
         <div class="clearfix"></div>
     </div>
