@@ -98,7 +98,7 @@ wutsi:
       code:
 
   toggles:
-    coming-soon: false              # Replace home page by coming-soon page
+    coming-soon: true              # Replace home page by coming-soon page
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     publish: true                   # Publish button enabled in the editor?
     sso-facebook: false

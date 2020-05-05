@@ -28,8 +28,8 @@ h6 {
 
 video {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 60%;
+  left: 70%;
   min-width: 100%;
   min-height: 100%;
   width: auto;
@@ -55,7 +55,7 @@ video {
   height: 100%;
   width: 100%;
   background-color: #cd9557;
-  opacity: 0.7;
+  opacity: 0.4;
   z-index: 1;
 }
 
