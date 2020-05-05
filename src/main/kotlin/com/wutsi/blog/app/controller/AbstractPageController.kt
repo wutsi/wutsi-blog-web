@@ -65,6 +65,9 @@ abstract class AbstractPageController(
         if (!story.published) {
             throw NotFoundException("story_not_published")
         }
+        if (!story.live) {
+            throw NotFoundException("story_not_live")
+        }
     }
 
     protected fun errorKey(ex: Exception): String {

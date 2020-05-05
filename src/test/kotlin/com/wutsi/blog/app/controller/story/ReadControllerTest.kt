@@ -55,6 +55,14 @@ class ReadControllerTest: SeleniumTestSupport() {
     }
 
     @Test
+    fun `not-live story`() {
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-not-live.json")
+        driver.get("$url/read/20/looks-good")
+
+        assertCurrentPageIs(PageName.ERROR_404)
+    }
+
+    @Test
     fun `invalid story`() {
         driver.get("$url/read/9999999/looks-good")
 

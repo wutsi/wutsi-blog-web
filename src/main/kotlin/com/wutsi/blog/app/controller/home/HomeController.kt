@@ -29,6 +29,7 @@ class HomeController(
     fun index(model: Model): String {
         val stories = service.search(SearchStoryRequest(
                 status = StoryStatus.published,
+                live = true,
                 sortBy = StorySortStrategy.published
         ))
         model.addAttribute("stories", stories)

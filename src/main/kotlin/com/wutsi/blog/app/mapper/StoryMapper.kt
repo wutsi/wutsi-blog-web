@@ -54,7 +54,9 @@ class StoryMapper(
                         .sortedByDescending { it.totalStories }
                         .take(MAX_TAGS)
                         .map { tagMapper.toTagModel(it) },
-                topic = if (story.topic == null) TopicModel() else topicMapper.toTopicMmodel(story.topic!!)
+                topic = if (story.topic == null) TopicModel() else topicMapper.toTopicMmodel(story.topic!!),
+                liveDateTime = moment.format(story.liveDateTime),
+                live = story.live
         )
     }
 
@@ -75,8 +77,10 @@ class StoryMapper(
             creationDateTime = moment.format(story.creationDateTime),
             publishedDateTime = moment.format(story.publishedDateTime),
             slug = story.slug,
-            topic = if (story.topicId == null) TopicModel() else nullToEmpty(topicService.get(story.topicId!!))
-    )
+            topic = if (story.topicId == null) TopicModel() else nullToEmpty(topicService.get(story.topicId!!)),
+            liveDateTime = moment.format(story.liveDateTime),
+            live = story.live
+        )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
             score = obj.score,
