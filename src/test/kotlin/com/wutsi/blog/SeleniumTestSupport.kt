@@ -89,6 +89,8 @@ abstract class SeleniumTestSupport {
 
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
 
+        stub(HttpMethod.GET, "/v1/topic", HttpStatus.OK, "v1/story/topics.json")
+
         stub(HttpMethod.POST, "/v1/track", HttpStatus.OK, "v1/track/push.json")
 
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")

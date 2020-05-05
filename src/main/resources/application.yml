@@ -46,10 +46,12 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/auth
     story:
       endpoint: ${wutsi.backend.base-url}/v1/story
-    tag:
-      endpoint: ${wutsi.backend.base-url}/v1/tag
     stats:
       endpoint: ${wutsi.backend.base-url}/v1/stats
+    tag:
+      endpoint: ${wutsi.backend.base-url}/v1/tag
+    topic:
+      endpoint: ${wutsi.backend.base-url}/v1/topic
     track:
       endpoint: ${wutsi.backend.base-url}/v1/track
     user:

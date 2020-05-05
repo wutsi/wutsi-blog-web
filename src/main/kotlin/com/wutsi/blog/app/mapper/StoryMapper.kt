@@ -3,8 +3,10 @@ package com.wutsi.blog.app.mapper
 import com.wutsi.blog.app.model.ReadabilityModel
 import com.wutsi.blog.app.model.ReadabilityRuleModel
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.model.TopicModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.Moment
+import com.wutsi.blog.app.service.TopicService
 import com.wutsi.blog.client.story.ReadabilityDto
 import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus
@@ -15,6 +17,8 @@ import java.text.SimpleDateFormat
 @Service
 class StoryMapper(
         private val tagMapper: TagMapper,
+        private val topicMapper: TopicMapper,
+        private val topicService: TopicService,
         private val moment: Moment
 ) {
     companion object {
@@ -49,7 +53,8 @@ class StoryMapper(
                 tags = story.tags
                         .sortedByDescending { it.totalStories }
                         .take(MAX_TAGS)
-                        .map { tagMapper.toTagModel(it) }
+                        .map { tagMapper.toTagModel(it) },
+                topic = if (story.topic == null) TopicModel() else topicMapper.toTopicMmodel(story.topic!!)
         )
     }
 
@@ -69,7 +74,8 @@ class StoryMapper(
             modificationDateTime = moment.format(story.modificationDateTime),
             creationDateTime = moment.format(story.creationDateTime),
             publishedDateTime = moment.format(story.publishedDateTime),
-            slug = story.slug
+            slug = story.slug,
+            topic = if (story.topicId == null) TopicModel() else nullToEmpty(topicService.get(story.topicId!!))
     )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
@@ -82,6 +88,10 @@ class StoryMapper(
                     color = readabilityColor(it.score)
             ) }
     )
+
+    private fun nullToEmpty(topic: TopicModel?): TopicModel {
+        return if (topic == null) TopicModel() else topic!!
+    }
 
     private fun readabilityColor(score: Int): String {
         if (score <= 50) {

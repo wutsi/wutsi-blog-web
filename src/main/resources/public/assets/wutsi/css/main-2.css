@@ -154,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-nav .dropdown-menu {
     position: fixed;
     float: none;
-    top: 62px;
+    top: 50px;
     left: auto;
     width: 350px;
     right: 10px;
@@ -567,7 +567,7 @@ a.sso-button .fab {
 
 .btn-light {
     background-color: #fff;
-    border-color: var(--highlight-color-light);
+    border-color: var(--highlight-color);
     color: var(--text-color);
 }
 

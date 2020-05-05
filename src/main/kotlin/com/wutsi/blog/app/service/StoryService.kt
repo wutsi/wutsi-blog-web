@@ -64,6 +64,7 @@ class StoryService(
 
     fun publish(editor: PublishForm){
         storyBackend.publish(editor.id, PublishStoryRequest(
+                topidId = editor.topicId.toLong(),
                 tags = editor.tags
         ))
     }

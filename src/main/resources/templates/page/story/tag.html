@@ -29,7 +29,20 @@
             <form id="form-publish" method="get" action="/me/story/tag/submit" autocomplete="off" class="margin-top-2x">
                 <input type="hidden" name="id" th:value="${story.id}" />
 
-                <div class="form-group margin-bottom">
+                <div class="form-group">
+                    <p th:text="#{page.story.publish.topic.info}">Information</p>
+                    <select id="topicId" class="form-control" name="topicId" required="required">
+                        <option value=""></option>
+                        <option
+                                th:attrappend="selected = ${topic.id} == ${story.topic.id} ? selected"
+                                th:value="${topic.id}"
+                                th:text="${topic.displayName}"
+                                th:each="topic : ${topics}"
+                        >Topic</option>
+                    </select>
+                </div>
+
+                <div class="form-group margin-top-2x">
                     <p th:text="#{page.story.publish.tag.info}">Information</p>
                     <select id="tags" class="form-control" name="tags" multiple="multiple" required="required">
                         <option selected="selected" th:value="${tag.displayName}" th:text="${tag.displayName}" th:each="tag : ${story.tags}">Tag</option>
@@ -37,7 +50,7 @@
                 </div>
 
                 <!-- Toolbar -->
-                <div class="margin-top padding-top border-top">
+                <div class="margin-top padding-top">
                     <a th:href="'/me/story/' + ${story.id} + '/readability'" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
 
                     <button id="btn-publish" type="submit" class="float-right btn btn-primary"
@@ -50,7 +63,6 @@
                             th:text="#{button.save}"
                     >Save</button>
                 </div>
-
             </form>
         </div>
     </div>
@@ -63,6 +75,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script>
+    $('#topicId').select2();
+
     $('#tags').select2({
         ajax: {
             url: '/tag/search',
