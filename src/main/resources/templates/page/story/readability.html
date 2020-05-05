@@ -22,8 +22,7 @@
             <!-- Readability -->
             <h2 th:class="'text-center readability-score readability-' + ${readability.color}" th:text="${readability.score}">99</h2>
             <div class="alert alert-primary">
-                <div th:utext="#{page.story.publish.readability.info1}">Info</div>
-                <div class="margin-top" th:utext="#{page.story.publish.readability.info2}">Info</div>
+                <div th:utext="#{page.story.publish.readability.info}">Info</div>
             </div>
 
             <!-- Rules -->
@@ -42,11 +41,6 @@
                 <a class="btn btn-primary float-right"
                    th:href="'/me/story/' + ${story.id} + '/tag'"
                    th:text="#{button.next}"
-                   th:if="${canPublish}"
-                >Next</a>
-                <button class="btn btn-primary float-right" disabled="disabled"
-                        th:text="#{button.next}"
-                        th:if="!${canPublish}"
                 >Next</a>
             </div>
         </div>
