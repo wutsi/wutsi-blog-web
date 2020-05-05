@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <p th:text="#{page.story.publish.topic.info}">Information</p>
-                    <select id="topicId" class="form-control" name="topicId" required="required">
+                    <select id="topic-id" class="form-control" name="topicId" required="required">
                         <option value=""></option>
                         <option
                                 th:attrappend="selected = ${topic.id} == ${story.topic.id} ? selected"
@@ -44,14 +44,14 @@
 
                 <div class="form-group margin-top-2x">
                     <p th:text="#{page.story.publish.tag.info}">Information</p>
-                    <select id="tags" class="form-control" name="tags" multiple="multiple" required="required">
+                    <select id="tags" class="form-control" name="tags" multiple="multiple">
                         <option selected="selected" th:value="${tag.displayName}" th:text="${tag.displayName}" th:each="tag : ${story.tags}">Tag</option>
                     </select>
                 </div>
 
                 <!-- Toolbar -->
                 <div class="margin-top padding-top">
-                    <a th:href="'/me/story/' + ${story.id} + '/readability'" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
+                    <a id="btn-previous" th:href="'/me/story/' + ${story.id} + '/readability'" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
 
                     <button id="btn-publish" type="submit" class="float-right btn btn-primary"
                             th:if="${story.draft}"

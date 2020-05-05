@@ -37,8 +37,8 @@
 
             <!-- Toolbar -->
             <div class="margin-top padding-top">
-                <a th:href="'/editor/' + ${story.id}" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
-                <a class="btn btn-primary float-right"
+                <a id="btn-previous" th:href="'/editor/' + ${story.id}" class="btn btn-light float-left" th:text="#{button.previous}">Previous</a>
+                <a id="btn-next" class="btn btn-primary float-right"
                    th:href="'/me/story/' + ${story.id} + '/tag'"
                    th:text="#{button.next}"
                 >Next</a>

@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class EditorDraftControllerTest: SeleniumTestSupport() {
+class EditorNewStoryControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -18,6 +18,7 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/story/20", HttpStatus.OK, "v1/story/save.json")
         stub(HttpMethod.POST, "/v1/story", HttpStatus.OK, "v1/story/save.json")
         stub(HttpMethod.GET, "/v1/story/[0-9]+/readability", HttpStatus.OK, "v1/story/readability.json")
+        stub(HttpMethod.POST, "/v1/story/[0-9]+/publish", HttpStatus.OK, "v1/story/publish.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
@@ -36,10 +37,52 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
 
         Thread.sleep(1000)
         assertCurrentPageIs(PageName.STORY_READABILITY)
+        assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
+        click("#btn-next")
+
+        assertCurrentPageIs(PageName.STORY_TAG)
+        assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
+        assertElementNotPresent(".alert-danger")
+        select("#topic-id", 1)
+
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-not-live.json")
+        click("#btn-publish")
+
+        assertCurrentPageIs(PageName.STORY_PUBLISHED)
+        assertElementPresent("#alert-published")
+        assertElementPresent("#alert-published-notification")
     }
 
     @Test
-    fun `user can edit and publish draft story`() {
+    fun `publish error`() {
+        gotoPage(true)
+
+        assertElementHasClass("#story-load-error", "hidden")
+        assertElementHasNotClass("#story-editor", "hidden")
+
+        input("#title", "Hello world")
+        click(".ce-paragraph")
+        input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
+        click("#btn-publish")
+
+        Thread.sleep(1000)
+        assertCurrentPageIs(PageName.STORY_READABILITY)
+        assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
+        click("#btn-next")
+
+        assertCurrentPageIs(PageName.STORY_TAG)
+        assertElementNotPresent(".alert-danger")
+        select("#topic-id", 1)
+
+        stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)
+        click("#btn-publish")
+
+        assertCurrentPageIs(PageName.STORY_TAG)
+        assertElementPresent(".alert-danger")
+    }
+
+    @Test
+    fun `user can edit and publish existing draft story`() {
         gotoPage()
 
         assertElementHasClass("#story-load-error", "hidden")
@@ -55,7 +98,7 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user can close draft story`() {
+    fun `close editor`() {
         gotoPage()
 
         click("#btn-close")
@@ -94,7 +137,6 @@ class EditorDraftControllerTest: SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.LOGIN)
     }
-
 
     private fun gotoPage(new: Boolean = false) {
         login()

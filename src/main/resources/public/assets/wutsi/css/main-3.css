@@ -280,6 +280,17 @@ a.sso-button .fab {
     margin-bottom: .5em;
 }
 
+.story-list .story .live {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+.story-list .story .live-on {
+    color: var(--highlight-color);
+}
+.story-list .story .live-off {
+    color: var(--text-color-gray);
+}
+
 .story-list .story .summary {
     margin-bottom: .5em;
 }

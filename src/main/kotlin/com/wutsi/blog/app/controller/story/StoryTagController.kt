@@ -7,7 +7,6 @@ import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.service.TopicService
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.core.exception.ConflictException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -54,9 +53,9 @@ class StoryTagController(
     fun submit(@ModelAttribute editor: PublishForm): String {
         try {
             service.publish(editor)
-            return "redirect:/me/story/${editor.id}/share"
-        } catch (ex: ConflictException) {
-            return "redirect:/me/story/${editor.id}?error=publish_error"
+            return "redirect:/me/story/published?pubid=${editor.id}"
+        } catch (ex: Exception) {
+            return "redirect:/me/story/${editor.id}/tag?error=publish_error"
         }
     }
 }

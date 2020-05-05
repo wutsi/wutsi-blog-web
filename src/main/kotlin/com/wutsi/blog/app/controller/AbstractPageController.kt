@@ -61,11 +61,11 @@ abstract class AbstractPageController(
         }
     }
 
-    protected fun checkPublished(story: StoryModel) {
+    protected fun checkPublished(story: StoryModel, live: Boolean=true) {
         if (!story.published) {
             throw NotFoundException("story_not_published")
         }
-        if (!story.live) {
+        if (live && !story.live) {
             throw NotFoundException("story_not_live")
         }
     }

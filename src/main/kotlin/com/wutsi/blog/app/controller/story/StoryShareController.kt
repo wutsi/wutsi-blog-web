@@ -19,7 +19,7 @@ class StoryShareController(
     @GetMapping("/me/story/{id}/share")
     fun index(@PathVariable id:Long, model: Model): String {
         val story = service.get(id)
-        checkPublished(story)
+        checkPublished(story, false)
         checkOwnership(story)
 
         model.addAttribute("url", url(story))

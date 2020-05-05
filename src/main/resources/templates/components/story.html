@@ -28,6 +28,12 @@
     <a th:href="${story.draft} ? '/editor/' + ${story.id} : ${story.slug}">
         <h3 class="title" th:text="${story.title}">Title</h3>
         <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
+        <div th:if="${story.published}" class="live" th:classappend="${story.live}? 'live-on' : 'live-off'">
+            <span th:if="${story.live}"> <i class="fas fa-toggle-on"></i> </span>
+            <span th:if="!${story.live}"> <i class="fas fa-toggle-off"></i> </span>
+
+            <span th:text="#{label.online}">Live</span>
+        </div>
 
         <div class="summary" th:text="${story.summary}">Summary</div>
         <div class="disabled" th:text="#{story.no_summary}" th:if="${story.summary.isEmpty()}">Summary</div>
