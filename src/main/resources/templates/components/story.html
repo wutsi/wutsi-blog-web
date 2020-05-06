@@ -25,7 +25,7 @@
 
 <div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
 
-    <a th:href="${story.draft} ? '/editor/' + ${story.id} : ${story.slug}">
+    <a th:href="${story.draft} OR !${story.live} ? '/editor/' + ${story.id} : ${story.slug}">
         <h3 class="title" th:text="${story.title}">Title</h3>
         <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
         <div th:if="${story.published}" class="live" th:classappend="${story.live}? 'live-on' : 'live-off'">
@@ -52,7 +52,7 @@
 
             <div th:id="'story-menu' + ${story.id}" class="dropdown-menu" th:aria-labelledby="'story-menu' + ${story.id}">
                 <a class="dropdown-item menu-item-edit" th:href="'/editor/' + ${story.id}" th:text="#{button.edit}">Edit</a>
-                <a class="dropdown-item menu-item-preview" target="_new" th:href="'/read/' + ${story.id} + '?preview=true'" th:text="#{button.preview}" th:if="${story.draft}">Preview</a>
+                <a class="dropdown-item menu-item-preview" target="_new" th:href="'/read/' + ${story.id} + '?preview=true'" th:text="#{button.preview}" th:if="${story.draft} OR !${story.live}">Preview</a>
                 <a class="dropdown-item menu-item-publish"
                    th:href="'/me/story/' + ${story.id} + '/publish'"
                    th:text="#{button.publish}"
