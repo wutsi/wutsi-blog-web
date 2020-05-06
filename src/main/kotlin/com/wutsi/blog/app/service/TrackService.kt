@@ -32,7 +32,7 @@ class TrackService(
             ip = form.ip,
             event = form.event,
             pid = form.pid,
-            uid = requestContext.currentUser()?.id.toString(),
+            uid = requestContext.currentUser()?.id?.toString(),
             referer = CookieHelper.get(CookieName.REFERER, request),
             ua = request.getHeader("User-Agent"),
             duid = CookieHelper.get(CookieName.DEVICE_UID, request)
