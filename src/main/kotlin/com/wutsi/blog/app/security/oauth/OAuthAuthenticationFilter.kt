@@ -2,6 +2,7 @@ package com.wutsi.blog.app.security.oauth
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.security.SecurityConfiguration
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationServiceException
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
@@ -13,7 +14,8 @@ class OAuthAuthenticationFilter(
         pattern: String
 ) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(pattern))
 {
-    private val mapper: ObjectMapper = ObjectMapper()
+    @Autowired
+    lateinit var mapper: ObjectMapper
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         val accessToken = getRequiredParameter(SecurityConfiguration.PARAM_ACCESS_TOKEN, request)

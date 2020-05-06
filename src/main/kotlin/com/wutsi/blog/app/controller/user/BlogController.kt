@@ -20,12 +20,6 @@ class BlogController(
 
     override fun shouldBeIndexedByBots() = true
 
-    @GetMapping("/me")
-    fun index(model: Model): String {
-        val user = requestContext.currentUser()!!
-        return "redirect:" + user.slug
-    }
-
     @GetMapping("/@/{name}")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = service.get(name)

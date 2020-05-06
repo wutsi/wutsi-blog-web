@@ -27,6 +27,7 @@ class StoryController(
                 limit = limit,
                 offset = offset,
                 status = StoryStatus.published,
+                live = true,
                 sortBy = StorySortStrategy.published
         ))
 

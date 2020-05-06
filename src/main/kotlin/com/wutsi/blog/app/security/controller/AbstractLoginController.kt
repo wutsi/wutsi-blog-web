@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.security.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.logging.KVLogger
+import org.springframework.beans.factory.annotation.Autowired
 import java.net.URLEncoder
 import java.util.UUID
 import javax.servlet.http.HttpServletRequest
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServletRequest
 abstract class AbstractLoginController(
         protected val logger: KVLogger
 ) {
-    protected val objectMapper = ObjectMapper()
+    @Autowired
+    protected lateinit var objectMapper: ObjectMapper
 
     protected abstract fun toOAuthUser(attrs: Map<String, Any>): OAuthUser
 

@@ -31,36 +31,37 @@ class BlogControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `an empty blog page` () {
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-
-        gotoPage()
-
-        Thread.sleep(1000)
-        assertElementCount(".post", 0)
-        assertElementNotPresent("#create-first-story")
-        assertElementNotPresent("#create-syndicate-story")
-    }
-
-    @Test
-    fun `my empty blog page` () {
+    fun `blog page with no post` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
         gotoPage(true)
 
         Thread.sleep(1000)
         assertElementCount(".post", 0)
+    }
+
+    @Test
+    fun `invite user to create post on his blog when empy` () {
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
+
+        gotoPage(true)
+
+        Thread.sleep(1000)
         assertElementPresent("#create-first-story")
         assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
         assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
     }
 
     @Test
-    fun `me page required logo` () {
-        driver.get("$url/me")
+    fun `invite user to create post on other people blog when empy` () {
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user99.json")
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
-        assertCurrentPageIs(PageName.LOGIN)
+        gotoPage()
+
+        Thread.sleep(1000)
+        assertElementNotPresent("#create-first-story")
+        assertElementNotPresent("#create-syndicate-story")
     }
 
     @Test
