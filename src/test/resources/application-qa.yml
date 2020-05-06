@@ -10,7 +10,6 @@ wutsi:
   toggles:
     coming-soon: false
     google-one-tap-sign-in: false
-    publish: true
     sso-facebook: true
     sso-google: true
     sso-twitter: true

@@ -56,7 +56,7 @@
                 <a class="dropdown-item menu-item-publish"
                    th:href="'/me/story/' + ${story.id} + '/publish'"
                    th:text="#{button.publish}"
-                   th:if="${story.draft} AND ${toggles.publish}"
+                   th:if="${story.draft}"
                 >Publish</a>
             </div>
         </div>
