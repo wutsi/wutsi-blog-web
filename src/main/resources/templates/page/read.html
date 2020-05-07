@@ -10,6 +10,7 @@
 
 <div id="g_id_onload"
      data-callback="g_one_tap_callback"
+     data-moment_callback="g_one_tap_moment"
      th:data-client_id="${page.googleClientId}"
      th:if="${googleOneTap}"
 >
@@ -100,6 +101,13 @@
             .then(function(data){
                 wutsi.httpGet(data.url, false);
             });
+    }
+
+    function g_one_tap_moment(notification) {
+        console.log('g_one_tap_moment', notification);
+        if (notification.isDisplayed()){
+            wutsi.track('g_one_tap_show');
+        }
     }
 </script>
 </body>
