@@ -22,7 +22,6 @@ class FeatureGoogleOneTapEnabledTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
-
     @Test
     fun `GoogleOneTap should showup for anonymous user`() {
         gotoPage(false)
