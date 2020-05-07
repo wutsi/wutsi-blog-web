@@ -5,5 +5,6 @@ class ModelAttributeName{
         const val USER = "user"
         const val TOGGLES = "toggles"
         const val PAGE = "page"
+        const val HITID = "hitId"
     }
 }

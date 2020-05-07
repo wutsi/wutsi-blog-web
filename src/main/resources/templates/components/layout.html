@@ -13,6 +13,7 @@
 
     <meta name="wutsi:page_name" th:content="${page.name}"/>
     <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
+    <meta name="wutsi:hit_id"  th:content="${hitId}" th:if="${hitId}"/>
 
     <title th:text="${page.title}"></title>
     <meta name="description" th:content="${page.description}" />

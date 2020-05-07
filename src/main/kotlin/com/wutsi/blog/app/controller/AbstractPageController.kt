@@ -10,6 +10,7 @@ import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.ModelAttribute
+import java.util.UUID
 
 abstract class AbstractPageController(
         protected val requestContext: RequestContext
@@ -34,6 +35,9 @@ abstract class AbstractPageController(
 
     @ModelAttribute(ModelAttributeName.PAGE)
     fun getPage() = page()
+
+    @ModelAttribute(ModelAttributeName.HITID)
+    fun getHitId() = UUID.randomUUID().toString()
 
     open fun shouldBeIndexedByBots() = false
 

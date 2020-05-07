@@ -6,7 +6,8 @@ function Wutsi (){
             event: event,
             page: this.page_name(),
             ua: navigator.userAgent,
-            value: (value ? value : null)
+            value: (value ? value : null),
+            hid: this.hit_id()
         };
 
         return this.httpPost('/track', data, true);
@@ -93,6 +94,11 @@ function Wutsi (){
 
     this.story_id = function () {
         var meta = document.head.querySelector("[name=wutsi\\:story_id]");
+        return meta ? meta.content : null
+    };
+
+    this.hit_id = function () {
+        var meta = document.head.querySelector("[name=wutsi\\:hit_id]");
         return meta ? meta.content : null
     };
 }
