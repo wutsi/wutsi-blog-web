@@ -26,9 +26,7 @@ body {
     color: var(--text-color);
     font-family: 'PT Sans', sans-serif;
 }
-body.paper {
-    background: white;
-}
+
 
 a {
     color: var(--highlight-color)
@@ -356,6 +354,9 @@ a.sso-button .fab {
 }
 
 /*======= POST =======*/
+.post {
+    background: white;
+}
 .post a {
     color: var(--text-color);
     text-decoration: none;
@@ -420,6 +421,10 @@ a.sso-button .fab {
 }
 
 /*======= READER =======*/
+
+.reader {
+    background: white;
+}
 
 .reader h1 {
     font-size: 3em;
@@ -588,7 +593,6 @@ a.sso-button .fab {
     border-radius: 0;
     padding: 2em;
 }
-
 
 .close a {
     color: var(--text-color-gray);
