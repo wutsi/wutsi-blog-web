@@ -26,12 +26,6 @@ abstract class AbstractStoryListController(
     ): String {
         model.addAttribute("stories", stories(limit, offset))
 
-        val totalDraftStories = service.count(StoryStatus.draft)
-        val totalPublishedStories = service.count(StoryStatus.published)
-        model.addAttribute("totalDraftStories", totalDraftStories)
-        model.addAttribute("totalPublishedStories", totalPublishedStories)
-        model.addAttribute("totalStories", totalDraftStories + totalPublishedStories)
-
         if (publishedId != null){
             loadPublishedStory(publishedId, model)
         }

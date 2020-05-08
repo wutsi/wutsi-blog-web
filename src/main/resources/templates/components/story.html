@@ -12,15 +12,35 @@
     <li class="nav-item">
         <a id="tab-draft" class="nav-link" href="/me/draft"  th:classappend="${status} == 'draft' ? 'active' : null">
             <span th:text="#{story.status.draft}">Draft</span>
-            <span class="badge badge-light" th:text="${totalDraftStories}" th:if="${totalDraftStories} GT 0">9</span>
+            <span class="story-count badge badge-light hidden">9</span>
         </a>
     </li>
     <li class="nav-item">
         <a id="tab-published" class="nav-link" href="/me/story/published" th:classappend="${status} == 'published' ? 'active' : null">
             <span th:text="#{story.status.published}">Published</span>
-            <span class="badge badge-light" th:text="${totalPublishedStories}" th:if="${totalPublishedStories} GT 0">9</span>
+            <span class="story-count badge badge-light hidden">9</span>
         </a>
     </li>
+
+    <script>
+        $(document).ready(function(){
+            update_story_count('draft');
+            update_story_count('published');
+        });
+
+        function update_story_count(status){
+            wutsi.httpGet('/story/count?status=' + status, true)
+                .then(function(response){
+                    var id = '#tab-' + status + ' .story-count';
+                    if (response.count > 0){
+                        $(id).removeClass('hidden');
+                        $(id).text(response.count)
+                    } else {
+                        $(id).addClass('hidden');
+                    }
+                })
+        }
+    </script>
 </ul>
 
 <div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">

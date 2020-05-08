@@ -29,7 +29,6 @@
     <div class="border jumbotron margin-top col-12 col-md-6"
          th:if="${stories.isEmpty()}"
     >
-        <p th:utext="#{page.story.draft.first_story}" th:if="${totalStories} == 0">You have not post any story yet.</p>
         <p th:utext="#{page.story.draft.no_story}"    th:if="${totalStories} GT 0">You have not post any story yet.</p>
 
         <a class="btn btn-primary" href="/editor" th:text="#{button.create_story}">Create a Story</a>

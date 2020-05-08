@@ -28,6 +28,7 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
     fun `user should see his draft stories`() {
         gotoPage()
 
+        assertElementText("#tab-draft .story-count", "11")
         assertElementCount(".story", 2)
     }
 

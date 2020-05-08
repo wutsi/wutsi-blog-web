@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class StoryController(
@@ -36,5 +37,12 @@ class StoryController(
         model.addAttribute("stories", stories)
         model.addAttribute("showCreatePanel", showCreatePanel)
         return "page/story/cards"
+    }
+
+    @GetMapping("/story/count")
+    @ResponseBody
+    fun count(@RequestParam status: StoryStatus): Map<String, Int> {
+        val count = service.count(status)
+        return mapOf("count" to count)
     }
 }
