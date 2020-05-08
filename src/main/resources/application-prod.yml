@@ -15,7 +15,7 @@ wutsi:
         client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
 
   toggles:
-    coming-soon: true
+    coming-soon: false
     publish: true
     sso-facebook: true
     sso-google: true
