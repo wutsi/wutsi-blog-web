@@ -6,6 +6,7 @@ import com.wutsi.core.exception.BadRequestException
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.core.logging.KVLogger
 import com.wutsi.core.storage.StorageService
+import org.apache.commons.io.FilenameUtils
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -103,7 +104,11 @@ class UploadService(
         fmt.timeZone = TimeZone.getTimeZone("UTC")
 
         val prefix = fmt.format(Date(clock.millis()))
-        return "upload/$prefix/${UUID.randomUUID()}-${file.originalFilename}"
+        var extension = FilenameUtils.getExtension(file.originalFilename)
+        if (extension.isNotEmpty()){
+            extension = ".$extension"
+        }
+        return "upload/$prefix/${UUID.randomUUID()}$extension"
     }
 
 }
