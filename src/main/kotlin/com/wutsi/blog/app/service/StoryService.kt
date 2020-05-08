@@ -59,7 +59,7 @@ class StoryService(
         }
 
         val users = searchUserMap(stories)
-        return stories.map { mapper.toStoryModel(it, users[it.id]) }
+        return stories.map { mapper.toStoryModel(it, users[it.userId]) }
     }
 
     fun publish(editor: PublishForm){
