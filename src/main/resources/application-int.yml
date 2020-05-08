@@ -19,7 +19,6 @@ wutsi:
       bucket: "int-wutsi"
 
   toggles:
-    google-one-tap-sign-in: true
     sso-facebook: true
     sso-google: true
-    sso-github: true
+    sso-github: false
