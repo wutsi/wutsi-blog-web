@@ -60,6 +60,7 @@ abstract class SeleniumTestSupport {
 
         val options = ChromeOptions()
         options.addArguments("--disable-web-security")  // To prevent CORS issues
+        options.addArguments("--lang=fr");
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
         }
