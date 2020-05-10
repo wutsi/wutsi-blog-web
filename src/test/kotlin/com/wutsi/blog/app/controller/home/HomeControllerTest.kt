@@ -23,7 +23,7 @@ class HomeControllerTest: SeleniumTestSupport() {
     @Test
     fun `home page should contains META headers`() {
         assertElementAttribute("head title", "text", META_TITLE)
-        assertElementAttribute("head meta[name='description']", "content", META_DESCRIPTION)
+        assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "all")
     }
 }

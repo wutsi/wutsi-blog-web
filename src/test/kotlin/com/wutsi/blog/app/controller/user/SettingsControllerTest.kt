@@ -101,7 +101,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
             assertElementHasClass("$selector .alert-danger", "hidden")
         } else {
             assertElementHasNotClass("$selector .alert-danger", "hidden")
-            assertElementText("$selector .alert-danger", error)
+            assertElementPresent("$selector .alert-danger")
         }
     }
 

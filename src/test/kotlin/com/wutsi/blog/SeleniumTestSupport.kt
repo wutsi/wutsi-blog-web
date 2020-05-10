@@ -64,7 +64,7 @@ abstract class SeleniumTestSupport {
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
         }
-        options.setCapability("resolution", "1920x1080");
+        options.setCapability("resolution", "1920x1080")
 
         this.driver = ChromeDriver(options)
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
