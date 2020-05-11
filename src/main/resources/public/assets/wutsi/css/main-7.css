@@ -432,6 +432,13 @@ a.sso-button .fab {
     font-size: 3em;
 }
 
+.reader h2,
+.reader h3,
+.reader h4,
+.reader h5 {
+    padding-top: 20px;
+}
+
 .reader .share a {
     text-decoration: none;
 }

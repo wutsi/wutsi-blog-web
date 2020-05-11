@@ -16,43 +16,49 @@
 >
 </div>
 
-<article class="container border padding-2x reader main-content margin-top offset-md-3 col-md-6">
-    <h1 class="title margin-top" th:text="${story.title}">Title</h1>
+<div class="container  offset-md-2 col-md-8">
+
+    <!-- Article -->
+    <article class="container border padding-2x reader main-content margin-top">
+        <h1 class="title" th:text="${story.title}">Title</h1>
+
+        <!-- Author -->
+        <div class="margin-top uppercase text-small">
+            <div>
+                <span th:text="#{label.by}">By</span>
+                <a th:href="${story.user.slug}">
+                    <b th:text="${story.user.fullName}">Ray Sponsible</b></a>
+            </div>
+            <div>
+                <span th:text="${story.readingMinutes}">2</span>
+                <span th:text="#{label.minutes}">min</span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content margin-top" th:utext="${html}">This is a block</div>
+
+        <!-- Tags -->
+        <div class="margin-top">
+            <div class="tag margin-bottom margin-right margin-bottom float-left" th:each="tag : ${story.tags}">
+                <span th:text="${tag.displayName}">Tag</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- Share -->
+        <div class="padding-top margin-top border-top text-center" th:if="${preview == false}">
+            <div th:replace="components/story :: share(story=${story})"></div>
+        </div>
+    </article>
 
     <!-- Author -->
-    <div class="margin-top uppercase text-small">
-        <div>
-            <span th:text="#{label.by}">By</span>
-            <a th:href="${story.user.slug}">
-                <b th:text="${story.user.fullName}">Ray Sponsible</b></a>
-        </div>
-        <div>
-            <span th:text="${story.readingMinutes}">2</span>
-            <span th:text="#{label.minutes}">min</span>
-        </div>
-    </div>
-
-    <!-- Content -->
-    <div class="content margin-top" th:utext="${html}">This is a block</div>
-
-    <!-- Tags -->
-    <div class="margin-top">
-        <div class="tag margin-bottom margin-right margin-bottom float-left" th:each="tag : ${story.tags}">
-            <span th:text="${tag.displayName}">Tag</span>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-
-    <!-- Share -->
-    <div class="padding-top margin-top border-top text-center" th:if="${preview == false}">
-        <div th:replace="components/story :: share(story=${story})"></div>
-    </div>
-
-    <!-- Author -->
-    <div class="border rounded padding margin-top">
+    <div class="container border rounded padding margin-top">
         <div th:replace="components/story :: author(${story.user})"></div>
     </div>
-</article>
+
+</div>
+
 
 <script>
     var lastScrollPercent = -1;
