@@ -96,7 +96,7 @@ class StoryBackend (
     }
 
     fun putToCache(story: StoryDto) {
-        if (story.status != StoryStatus.published) {
+        if (story.status != StoryStatus.published || !story.live) {
             return
         }
 
