@@ -33,6 +33,18 @@ class SettingsControllerTest: SeleniumTestSupport() {
         testUpdate("name", "ray.sponsible", "ray.sponsible-" + System.currentTimeMillis(), error)
     }
 
+    @Test
+    fun `user change blog name`() {
+        testUpdate("full_name", "Ray Sponsible", "Ray Blog")
+    }
+
+    @Test
+    fun `user cancel blog name`() {
+        testCancel("full_name", "Ray Sponsible", "Ray Blog")
+    }
+
+
+
 
     @Test
     fun `user can change email`() {
