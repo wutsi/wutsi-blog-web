@@ -45,7 +45,7 @@ class StoryMapper(
                 published = story.status == StoryStatus.published,
                 modificationDateTime = moment.format(story.modificationDateTime),
                 creationDateTime = moment.format(story.creationDateTime),
-                publishedDateTime = story.publishedDateTime,
+                publishedDateTimeAsDate = story.publishedDateTime,
                 publishedDateTime = moment.format(story.publishedDateTime),
                 publishedDateTimeISO8601 = if (story.publishedDateTime == null) null else fmt.format(story.publishedDateTime),
                 modificationDateTimeISO8601 = fmt.format(story.modificationDateTime),
