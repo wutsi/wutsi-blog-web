@@ -1,0 +1,34 @@
+{
+  "stats":[
+    {
+      "targetId": 20,
+      "date": 1585327543000,
+      "type": "viewers",
+      "value": 10
+    },
+    {
+      "targetId": 20,
+      "date": 1585327543100,
+      "type": "viewers",
+      "value": 20
+    },
+    {
+      "targetId": 20,
+      "date": 1585327543200,
+      "type": "viewers",
+      "value": 30
+    },
+    {
+      "targetId": 20,
+      "date": 1585327543300,
+      "type": "viewers",
+      "value": 40
+    },
+    {
+      "targetId": 20,
+      "date": 1585327543400,
+      "type": "viewers",
+      "value": 50
+    }
+  ]
+}

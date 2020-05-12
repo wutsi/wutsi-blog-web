@@ -52,6 +52,7 @@ class SecurityConfiguration(
                 .antMatchers("/me/**/*").authenticated()
                 .antMatchers("/editor").authenticated()
                 .antMatchers("/editor/**/*").authenticated()
+                .antMatchers("/stats/**/*").authenticated()
                 .antMatchers("/welcome").authenticated()
                 .antMatchers("/welcome/**/*").authenticated()
                 .antMatchers(HttpMethod.POST, "/upload").authenticated()

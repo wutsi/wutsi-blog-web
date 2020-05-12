@@ -78,6 +78,7 @@
                    th:text="#{button.publish}"
                    th:if="${story.draft}"
                 >Publish</a>
+                <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:text="#{button.stats}" th:if="${story.published}">Stats</a>
             </div>
         </div>
     </div>

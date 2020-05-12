@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container border main-content margin-top-2x padding-2x story-list">
+
+    <h1 th:text="${story.title}">Title</h1>
+
+    <h3 class="margin-top" th:text="#{page.stats.story.lifetime_summary}">Lifetime Summary</h3>
+    <p>
+        <span th:text="#{page.stats.story.published_on}">Published on</span>
+        <span th:text="#{story.publishedDateTime}">2093032/320932/320329</span>
+    </p>
+
+    <div class="row margin-top-2x">
+        <div class="col-12 col-md-3 border rounded padding margin-bottom">
+            <h5 th:text="#{page.stats.kpi.views}">Views</h5>
+            <h3 th:text="${stats.totalViews}">123</h3>
+        </div>
+        <div class="col-12 offset-md-1 col-md-3 border rounded padding margin-bottom">
+            <h5 th:text="#{page.stats.kpi.average_reading_time}">Average Reading Time</h5>
+            <h3 th:text="${stats.averageReadTimeText}">123</h3>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+
+</html>
