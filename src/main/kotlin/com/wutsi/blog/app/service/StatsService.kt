@@ -16,13 +16,15 @@ class StatsService(
 ) {
     fun story(story:StoryModel): StoryStatsModel {
         val viewers = backend.search(SearchStatsRequest(
-                targetId = story.id,
-                endDate = Date(),
-                type = StatsType.viewers
+            targetId = story.id,
+            startDate = story.publishedDateTimeAsDate,
+            endDate = Date(),
+            type = StatsType.viewers
         )).stats
 
         val readTime = backend.search(SearchStatsRequest(
             targetId = story.id,
+            startDate = story.publishedDateTimeAsDate,
             endDate = Date(),
             type = StatsType.read_time
         )).stats

@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.model
 
 import com.wutsi.blog.client.story.StoryStatus
+import java.util.Date
 
 data class StoryModel(
         val id: Long? = -1,
@@ -22,6 +23,7 @@ data class StoryModel(
         val creationDateTime: String = "",
         val modificationDateTime: String = "",
         val publishedDateTime: String = "",
+        val publishedDateTimeAsDate: Date? = null,
         val modificationDateTimeISO8601: String = "",
         val publishedDateTimeISO8601: String? = null,
         val tags: List<TagModel> = emptyList(),
