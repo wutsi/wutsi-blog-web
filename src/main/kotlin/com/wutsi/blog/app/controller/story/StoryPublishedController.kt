@@ -20,7 +20,7 @@ class StoryPublishedController(
 
     override fun viewName() = "page/story/published"
 
-    override fun stories(limit: Int, offset: Int) = service.search(SearchStoryRequest(
+    override fun fetchStories(limit: Int, offset: Int) = service.search(SearchStoryRequest(
             userId = requestContext.currentUser()?.id,
             status = StoryStatus.published,
             sortBy = StorySortStrategy.published,

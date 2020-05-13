@@ -47,7 +47,7 @@
         </div>
 
         <!-- Share -->
-        <div class="padding-top margin-top border-top text-center" th:if="${preview == false}">
+        <div class="padding-top margin-top border-top text-center" th:if="!${preview}">
             <div th:replace="components/story :: share(story=${story})"></div>
         </div>
     </article>

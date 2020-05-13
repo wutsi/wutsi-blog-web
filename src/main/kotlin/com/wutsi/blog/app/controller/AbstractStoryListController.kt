@@ -3,7 +3,6 @@ package com.wutsi.blog.app.controller
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
-import com.wutsi.blog.client.story.StoryStatus
 import org.slf4j.LoggerFactory
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,7 +14,7 @@ abstract class AbstractStoryListController(
 ): AbstractPageController(requestContext) {
     protected abstract fun viewName(): String
 
-    protected abstract fun stories(limit: Int, offset: Int): List<StoryModel>
+    protected abstract fun fetchStories(limit: Int, offset: Int): List<StoryModel>
 
     @GetMapping
     fun index(
@@ -24,7 +23,8 @@ abstract class AbstractStoryListController(
             @RequestParam(required = false, name="pubid") publishedId: Long? = null,
             model: Model
     ): String {
-        model.addAttribute("stories", stories(limit, offset))
+        val stories = fetchStories(limit, offset)
+        model.addAttribute("stories", stories)
 
         if (publishedId != null){
             loadPublishedStory(publishedId, model)

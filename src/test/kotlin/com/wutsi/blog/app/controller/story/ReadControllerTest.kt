@@ -51,7 +51,7 @@ class ReadControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         driver.get("$url/read/20/looks-good")
 
-        assertCurrentPageIs(PageName.ERROR_404)
+        assertCurrentPageIs(PageName.ERROR_403)
     }
 
     @Test
@@ -59,7 +59,7 @@ class ReadControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-not-live.json")
         driver.get("$url/read/20/looks-good")
 
-        assertCurrentPageIs(PageName.ERROR_404)
+        assertCurrentPageIs(PageName.ERROR_403)
     }
 
     @Test
@@ -67,25 +67,6 @@ class ReadControllerTest: SeleniumTestSupport() {
         driver.get("$url/read/9999999/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
-    }
-
-    @Test
-    fun `preview story`() {
-        gotoPreview(true)
-        assertCurrentPageIs(PageName.READ)
-    }
-
-    @Test
-    fun `anonymous user cannot preview story`() {
-        gotoPreview(false)
-        assertCurrentPageIs(PageName.ERROR_403)
-    }
-
-    @Test
-    fun `only owner can preview story`() {
-        login()
-        driver.get("$url/read/99?preview=true")
-        assertCurrentPageIs(PageName.ERROR_403)
     }
 
     @Test
@@ -180,14 +161,5 @@ class ReadControllerTest: SeleniumTestSupport() {
         driver.get(url)
 
         click(".post a")
-    }
-
-    fun gotoPreview(login: Boolean = true) {
-        if (login) {
-            login()
-        }
-
-        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
-        driver.get("$url/read/20?preview=true")
     }
 }

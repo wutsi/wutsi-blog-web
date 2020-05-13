@@ -21,21 +21,28 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
 
 
     @Test
-    fun `stats page`() {
+    fun `owner can view his stats`() {
         gotoPage()
-
         assertCurrentPageIs(PageName.STATS_STORY)
     }
 
     @Test
-    fun `anonymous cannot access stats page`() {
+    fun `superuser can view any`() {
+        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-user-superuser.json")
+        gotoPage()
+        assertCurrentPageIs(PageName.STATS_STORY)
+    }
+
+
+    @Test
+    fun `anonymous cannot view stats`() {
         driver.get("$url/stats/story/20")
 
         assertCurrentPageIs(PageName.LOGIN)
     }
 
     @Test
-    fun `cannot access stats page of another user story`() {
+    fun `user cannot view stats of another user`() {
         login()
         driver.get("$url/stats/story/99")
 

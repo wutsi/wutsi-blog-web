@@ -17,6 +17,7 @@ class PageName{
         const val STORY_DRAFT = "page.story.draft"
         const val STORY_READABILITY = "page.story.readability"
         const val STORY_TAG = "page.story.tag"
+        const val STORY_PREVIEW = "page.story.preview"
         const val STORY_PUBLISHED = "page.story.published"
         const val STORY_SYNDICATE = "page.story.syndicate"
         const val STATS_STORY = "page.stats.story"
