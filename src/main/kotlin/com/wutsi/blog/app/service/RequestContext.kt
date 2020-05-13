@@ -7,6 +7,7 @@ import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.core.exception.ForbiddenException
+import com.wutsi.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
@@ -24,7 +25,8 @@ class RequestContext(
         private val request: HttpServletRequest,
         private val tokenStorage: AccessTokenStorage,
         private val localization: LocalizationService,
-        private val securityManager: SecurityManager
+        private val securityManager: SecurityManager,
+        private val logger: KVLogger
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
@@ -61,6 +63,9 @@ class RequestContext(
 
     fun checkAccess(story: StoryModel, requiredPermissions: List<Permission>) {
         val permissions = securityManager.permissions(story, currentUser())
+
+        logger.add("PermissionsUser", permissions)
+        logger.add("PermissionsExpected", requiredPermissions)
         if (!permissions.containsAll(requiredPermissions)){
             LOGGER.error("required-permissions=$requiredPermissions - permissions=$permissions")
             throw ForbiddenException("permission_error")
