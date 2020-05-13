@@ -6,6 +6,7 @@ import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.StoryStatsModel
 import com.wutsi.blog.client.stats.SearchStatsRequest
 import com.wutsi.blog.client.stats.StatsType
+import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Service
 import java.util.Date
 
@@ -15,17 +16,20 @@ class StatsService(
         private val backend: StatsBackend
 ) {
     fun story(story:StoryModel): StoryStatsModel {
+        val startDate = story.publishedDateTimeAsDate
+        val endDate = DateUtils.addDays(Date(), -1)
+
         val viewers = backend.search(SearchStatsRequest(
             targetId = story.id,
-            startDate = story.publishedDateTimeAsDate,
-            endDate = Date(),
+            startDate = startDate,
+            endDate = endDate,
             type = StatsType.viewers
         )).stats
 
         val readTime = backend.search(SearchStatsRequest(
             targetId = story.id,
-            startDate = story.publishedDateTimeAsDate,
-            endDate = Date(),
+            startDate = startDate,
+            endDate = endDate,
             type = StatsType.read_time
         )).stats
         return mapper.toStoryStatsModel(viewers, readTime)
