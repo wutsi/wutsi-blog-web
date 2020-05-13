@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.controller.story
 
-import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.model.StoryForm
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class EditorController(
-        private val service: StoryService,
+        service: StoryService,
         requestContext: RequestContext
-): AbstractPageController(requestContext) {
+): AbstractStoryController(service, requestContext) {
     override fun pageName() = PageName.EDITOR
+
+    override fun requiredPermissions() = listOf(Permission.editor)
 
     @GetMapping("/editor")
     fun create(model: Model): String {
@@ -38,10 +40,7 @@ class EditorController(
     @ResponseBody
     @GetMapping("/editor/fetch/{id}", produces = ["application/json"])
     fun fetch(@PathVariable id:Long): StoryModel {
-        val story = service.get(id)
-        super.checkOwnership(story)
-
-        return story
+        return getStory(id)
     }
 
     @ResponseBody

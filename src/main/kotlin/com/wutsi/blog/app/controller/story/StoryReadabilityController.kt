@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.controller.story
 
-import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
 class StoryReadabilityController(
-        private val service: StoryService,
+        service: StoryService,
         requestContext: RequestContext
-): AbstractPageController(requestContext) {
+): AbstractStoryController(service, requestContext) {
     override fun pageName() = PageName.STORY_READABILITY
+
+    override fun requiredPermissions() = listOf(Permission.editor)
 
     @GetMapping("/me/story/{id}/readability")
     fun index(@PathVariable id:Long, model: Model): String {
-        val story = service.get(id)
-        super.checkOwnership(story)
+        val story = getStory(id)
         model.addAttribute("story", story)
 
         val readability = service.readability(id)

@@ -24,8 +24,8 @@ abstract class AbstractPageController(
     @Value("\${wutsi.google.ga.code}")
     protected lateinit var googleAnalyticsCode: String
 
-    protected abstract fun pageName(): String
 
+    protected abstract fun pageName(): String
 
     @ModelAttribute(ModelAttributeName.USER)
     fun getUser() = requestContext.currentUser()

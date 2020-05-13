@@ -3,7 +3,10 @@ package com.wutsi.blog.app.service
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.backend.UserBackend
 import com.wutsi.blog.app.mapper.UserMapper
+import com.wutsi.blog.app.model.Permission
+import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
+import com.wutsi.core.exception.ForbiddenException
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
@@ -20,7 +23,8 @@ class RequestContext(
         private val togglesHolder: TogglesHolder,
         private val request: HttpServletRequest,
         private val tokenStorage: AccessTokenStorage,
-        private val localization: LocalizationService
+        private val localization: LocalizationService,
+        private val securityManager: SecurityManager
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
@@ -55,4 +59,11 @@ class RequestContext(
 
     fun getMessage(key: String) = localization.getMessage(key)
 
+    fun checkAccess(story: StoryModel, requiredPermissions: List<Permission>) {
+        val permissions = securityManager.permissions(story, currentUser())
+        if (!permissions.containsAll(requiredPermissions)){
+            LOGGER.error("required-permissions=$requiredPermissions - permissions=$permissions")
+            throw ForbiddenException("permission_error")
+        }
+    }
 }

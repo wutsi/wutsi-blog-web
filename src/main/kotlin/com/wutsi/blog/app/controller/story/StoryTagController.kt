@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.controller.story
 
-import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.model.PublishForm
 import com.wutsi.blog.app.model.TopicModel
 import com.wutsi.blog.app.service.RequestContext
@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class StoryTagController(
-        private val service: StoryService,
         private val topicService: TopicService,
+        service: StoryService,
         requestContext: RequestContext
-): AbstractPageController(requestContext) {
+): AbstractStoryController(service, requestContext) {
     override fun pageName() = PageName.STORY_TAG
+
+    override fun requiredPermissions() = listOf(Permission.editor)
 
     @GetMapping("/me/story/{id}/tag")
     fun index(
@@ -28,8 +30,7 @@ class StoryTagController(
             @RequestParam(required=false) error: String? = null,
             model: Model
     ): String {
-        val story = service.get(id)
-        super.checkOwnership(story)
+        val story = getStory(id)
 
         val topics = topicService.all()
                 .filter { it.parentId != -1L }

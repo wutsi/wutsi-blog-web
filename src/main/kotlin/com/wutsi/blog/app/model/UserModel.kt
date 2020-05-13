@@ -13,5 +13,6 @@ data class UserModel (
         val facebookUrl: String? = null,
         val twitterUrl: String? = null,
         val linkedInUrl: String? = null,
-        val slug: String = ""
+        val slug: String = "",
+        val superUser: Boolean = false
 )

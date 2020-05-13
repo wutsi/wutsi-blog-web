@@ -21,6 +21,7 @@ class UserMapper {
             facebookUrl = facebookUrl(user),
             linkedInUrl = linkedIn(user),
             twitterUrl = twitter(user),
+            superUser = false,
             accounts = user.accounts.map { AccountModel(
                     id = it.id,
                     provider = it.provider,
