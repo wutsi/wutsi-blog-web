@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service
 @Service
 class StatsMapper {
     fun toStoryStatsModel(viewers: List<StatsDto>, readTime: List<StatsDto>): StoryStatsModel {
-        val viewers = viewers.size
-        val readTime = readTime.sumByDouble { it.value.toDouble() }.toLong()
-        val averageReadingTime = if (viewers == 0) 0 else readTime/viewers
+        val totalViews = viewers.sumByDouble { it.value.toDouble() }.toLong()
+        val totalReadTime = readTime.sumByDouble { it.value.toDouble() }.toLong()
+        val averageReadTime = if (totalViews == 0L) 0 else totalReadTime/totalViews
         return StoryStatsModel(
 
-                totalViews = viewers.toLong(),
-                averageReadTime = averageReadingTime,
-                averageReadTimeText = displayTime(averageReadingTime)
+                totalViews = totalViews,
+                averageReadTime = averageReadTime,
+                averageReadTimeText = displayTime(averageReadTime)
         )
     }
 
