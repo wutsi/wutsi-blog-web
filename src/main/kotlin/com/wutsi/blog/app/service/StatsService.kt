@@ -4,6 +4,7 @@ import com.wutsi.blog.app.backend.StatsBackend
 import com.wutsi.blog.app.mapper.StatsMapper
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.StoryStatsModel
+import com.wutsi.blog.app.model.toastui.BarChartModel
 import com.wutsi.blog.client.stats.SearchStatsRequest
 import com.wutsi.blog.client.stats.StatsType
 import org.apache.commons.lang.time.DateUtils
@@ -17,7 +18,7 @@ class StatsService(
 ) {
     fun story(story:StoryModel): StoryStatsModel {
         val startDate = story.publishedDateTimeAsDate
-        val endDate = DateUtils.addDays(Date(), -1)
+        val endDate = DateUtils.addDays(Date(), 1)
 
         val viewers = backend.search(SearchStatsRequest(
             targetId = story.id,
@@ -33,6 +34,19 @@ class StatsService(
             type = StatsType.read_time
         )).stats
         return mapper.toStoryStatsModel(viewers, readTime)
+    }
+
+    fun barChartData(story: StoryModel, type: StatsType): BarChartModel {
+        val startDate = story.publishedDateTimeAsDate!!
+        val endDate = DateUtils.addDays(Date(), 1)
+
+        val stats = backend.search(SearchStatsRequest(
+                targetId = story.id,
+                startDate = startDate,
+                endDate = endDate,
+                type = StatsType.viewers
+        )).stats
+        return mapper.toBarChartModel(startDate, endDate, stats)
     }
 }
 

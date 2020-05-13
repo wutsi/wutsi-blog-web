@@ -24,6 +24,7 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
     fun `owner can view his stats`() {
         gotoPage()
         assertCurrentPageIs(PageName.STATS_STORY)
+        Thread.sleep(100000)
     }
 
     @Test

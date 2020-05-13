@@ -29,9 +29,53 @@
         </div>
     </div>
 
+    <div id="chart-area"></div>
 </div>
 
 <div th:replace="components/layout :: footer"></div>
+
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
+<script src="https://uicdn.toast.com/tui.chart/latest/tui-chart-all.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    const storyId = /*[[${story.id}]]*/'0';
+    const title = /*[[#{page.stats.kpi.daily_views}]]*/'';
+
+    function refresh_chart(type) {
+        const url = '/stats/story/' + storyId + '/bar-chart-data?type=' + type;
+        wutsi.httpGet(url, true)
+            .then(function(data){
+                const container = document.getElementById('chart-area');
+                var options = {
+                    chart: {
+                        width: 600,
+                        height: 400,
+                        title: type,
+                        format: '1,000'
+                    },
+                    yAxis: {
+                        title: title
+                    },
+                    xAxis: {
+                        title: 'Date'
+                    },
+                    series: {
+                        showLabel: false
+                    }
+                };
+                tui.chart.columnChart(container, data, options);
+            })
+    }
+
+    $(document).ready(function(){
+        refresh_chart('viewers');
+    });
+
+
+    /*]]>*/
+</script>
+
 </body>
 
 </html>
