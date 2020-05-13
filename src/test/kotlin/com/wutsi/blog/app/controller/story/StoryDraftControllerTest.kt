@@ -33,25 +33,6 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
         assertElementCount(".story", 2)
     }
 
-    @Test
-    fun `user preview story`() {
-        gotoPage()
-
-        assertElementAttribute(".story:first-child .menu-item-preview", "target", "_new")
-
-        click(".story:first-child .dropdown .btn")
-        click(".story:first-child .menu-item-preview")
-
-        Thread.sleep(1000)
-
-        val parentWindow = driver.windowHandle
-        driver.windowHandles.forEach{
-            if (it != parentWindow) {
-                driver.switchTo().window(it)
-                assertCurrentPageIs(PageName.READ)
-            }
-        }
-    }
 
     fun gotoPage(login: Boolean = true) {
         if (login){
