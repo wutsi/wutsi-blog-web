@@ -56,7 +56,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-7.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-8.css'" />
 </div>
 
 
@@ -106,48 +106,53 @@
 <!-- ################# -->
 <!-- Navbar            -->
 <!-- ################# -->
-<nav class="navbar navbar-expand-lg navbar-light border-bottom" th:fragment="navbar">
-    <a class="navbar-brand" href="/">
-        <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name.png'" alt="Wutsi" title="Wutsi"/></a>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom" th:fragment="navbar">
+        <a class="navbar-brand" href="/">
+            <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name.png'" alt="Wutsi" title="Wutsi"/></a>
 
 
-    <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
-        <li class="nav-item dropdown" th:if="${user}">
-            <a class="nav-link user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
-            </a>
+        <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
+            <li class="nav-item dropdown" th:if="${user}">
+                <a class="nav-link user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
+                </a>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                <div class="dropdown-item-user flex">
-                    <a th:href="${user.slug}" th:title="${user.fullName}">
-                        <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
-                        <div class="user-info">
-                            <div><b th:text="${user.fullName}">Herve Tchepannou</b></div>
-                            <div>@<span th:text="${user.name}"></span></div>
-                        </div>
-                    </a>
+                    <div class="dropdown-item-user flex">
+                        <a th:href="${user.slug}" th:title="${user.fullName}">
+                            <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
+                            <div class="user-info">
+                                <div><b th:text="${user.fullName}">Herve Tchepannou</b></div>
+                                <div>@<span th:text="${user.name}"></span></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+                    <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}">My Stories</a>
+                    <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
+                    <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
+                    <div class="dropdown-divider"></div>
+                    <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
                 </div>
-
-                <div class="dropdown-divider"></div>
-                <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}">My Stories</a>
-                <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
-                <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
-                <div class="dropdown-divider"></div>
-                <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
-            </div>
-        </li>
-        <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
-            <a id="navbar-join" class="btn btn-primary" href="/welcome" th:text="#{button.create_blog}">Create your Blog</a>
-        </li>
-        <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
-            <a id="navbar-login" class="btn btn-light" href="/login" th:text="#{button.login}">Login</a>
-        </li>
-    </ul>
-
-</nav>
+            </li>
+            <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
+                <a id="navbar-join" class="btn btn-primary" href="/welcome" th:text="#{button.create_blog}">Create your Blog</a>
+            </li>
+            <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
+                <a id="navbar-login" class="btn btn-light" href="/login" th:text="#{button.login}">Login</a>
+            </li>
+        </ul>
+    </nav>
+    <div id="super-user-banner" class="text-center" th:if="${user} AND ${user.superUser}">
+        <b>SUPER USER MODE</b>
+        <div>With Great Power comes Great Responsabilities</div>
+    </div>
+</div>
 
 
 </body>

@@ -17,6 +17,15 @@ class ReadControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
+    @Test
+    fun `super-user banner`() {
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
+        gotoPage(true)
+
+        assertCurrentPageIs(PageName.READ)
+        assertElementPresent("#super-user-banner")
+    }
+
 
     @Test
     fun `published story`() {
@@ -44,6 +53,7 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author .linkedin", "wutsi-track-event", "link")
         assertElementAttribute(".author .linkedin", "wutsi-track-value", "linkedin")
 
+        assertElementNotPresent("#super-user-banner")
     }
 
     @Test
@@ -157,9 +167,12 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
     }
 
-    fun gotoPage() {
-        driver.get(url)
+    fun gotoPage(login: Boolean = false) {
+        if (login){
+            login()
+        }
 
+        driver.get(url)
         click(".post a")
     }
 }

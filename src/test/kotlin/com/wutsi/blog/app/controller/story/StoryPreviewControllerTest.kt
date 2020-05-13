@@ -28,9 +28,11 @@ class StoryPreviewControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `superuser can preview any draft story`() {
-        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-user-superuser.json")
+        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-superuser.json")
         gotoPage()
+
         assertElementCount(".share", 0)
+        assertElementPresent("#super-user-banner")
 //        assertCurrentPageIs(PageName.STORY_PREVIEW)
     }
 

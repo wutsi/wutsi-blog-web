@@ -28,7 +28,7 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `superuser can view any`() {
-        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-user-superuser.json")
+        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-superuser.json")
         gotoPage()
         assertCurrentPageIs(PageName.STATS_STORY)
     }
