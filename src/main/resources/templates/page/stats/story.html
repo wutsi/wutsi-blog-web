@@ -14,8 +14,9 @@
 
     <h3 class="margin-top" th:text="#{page.stats.story.lifetime_summary}">Lifetime Summary</h3>
     <p>
-        <span th:text="#{page.stats.story.published_on}">Published on</span>
-        <span th:text="${story.publishedDateTime}">2093032/320932/320329</span>
+        <span th:text="#{page.stats.story.published_on(${story.publishedDateTime})}">Published on</span>
+        -
+        <span th:text="#{story.read_time(${story.readingMinutes})}">6 min</span>
     </p>
 
     <div class="row margin-top-2x">
