@@ -46,29 +46,10 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
 
-    - name: Upload wutsi-blog-web.jar
-      uses: actions/upload-artifact@v2
-      with:
-        name: jar
-        path: target/wutsi-blog-web.jar
-
 
   #--------------------------
   # INT DEPLOYMENT
   #--------------------------
-  deploy-int:
-    runs-on: ubuntu-latest
-    needs: [build]
-
-    steps:
-    - name: checkout
-      uses: actions/checkout@v1
-
-    - name: Download wutsi-blog-web.jar
-      uses: actions/download-artifact@v2
-      with:
-        name: jar
-
     - name: int-deploy
       env:
         HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
@@ -77,10 +58,7 @@ jobs:
         curl https://cli-assets.heroku.com/install.sh | sh
         heroku plugins:install java
         heroku buildpacks:clear --app ${HEROKU_APP}
-        heroku deploy:jar jar/wutsi-blog-web.jar --app ${HEROKU_APP}
-
-    - name: checkout
-      uses: actions/checkout@v1
+        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
 
     - name: int-asset-deploy
       env:
@@ -102,19 +80,6 @@ jobs:
   #--------------------------
   # PROD DEPLOYMENT
   #--------------------------
-  deploy-prod:
-    runs-on: ubuntu-latest
-    needs: [deploy-int]
-
-    steps:
-    - name: checkout
-      uses: actions/checkout@v1
-
-    - name: Download wutsi-blog-web.jar
-      uses: actions/download-artifact@v1
-      with:
-        name: jar
-
     - name: prod-deploy
       env:
         HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
@@ -123,10 +88,7 @@ jobs:
         curl https://cli-assets.heroku.com/install.sh | sh
         heroku plugins:install java
         heroku buildpacks:clear --app ${HEROKU_APP}
-        heroku deploy:jar jar/wutsi-blog-web.jar --app ${HEROKU_APP}
-
-    - name: checkout
-      uses: actions/checkout@v1
+        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
 
     - name: prod-assets-deploy
       env:
