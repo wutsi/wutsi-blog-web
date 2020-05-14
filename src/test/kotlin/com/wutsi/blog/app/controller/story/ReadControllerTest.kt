@@ -15,6 +15,8 @@ class ReadControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
+
+        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
     }
 
     @Test
@@ -25,7 +27,6 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.READ)
         assertElementPresent("#super-user-banner")
     }
-
 
     @Test
     fun `published story`() {
@@ -165,6 +166,33 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary")
         assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
         assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
+    }
+
+    @Test
+    fun `show recommendations when available`() {
+        gotoPage()
+
+        Thread.sleep(1000)
+        assertElementCount("#recommendation-container .post", 4)
+        assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "recommendation-clicked")
+    }
+
+    @Test
+    fun `show no recommendations when none are available`() {
+        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search-none.json")
+        gotoPage()
+
+        Thread.sleep(1000)
+        assertElementCount("#recommendation-container .post", 0)
+    }
+
+    @Test
+    fun `show no recommendations on backend errors`() {
+        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.INTERNAL_SERVER_ERROR)
+        gotoPage()
+
+        Thread.sleep(1000)
+        assertElementCount("#recommendation-container .post", 0)
     }
 
     fun gotoPage(login: Boolean = false) {

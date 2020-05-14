@@ -382,11 +382,16 @@ a.sso-button .fab {
     overflow: hidden;
 }
 
-.post img {
+.post img.large {
     max-width: 100%;
     display: block;
     margin: 0 auto;
 }
+.post img.small {
+    max-width: 30%;
+    max-height: 96px;
+}
+
 
 .post .author {
     font-size: 0.7em;
@@ -612,6 +617,7 @@ a.sso-button .fab {
     color: var(--text-color-gray);
     text-decoration: none;
 }
+
 
 
 /* editorjs override */

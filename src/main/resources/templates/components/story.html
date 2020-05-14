@@ -189,12 +189,12 @@
     </div>
 </div>
 
-<section th:fragment="card(story)">
+<div th:fragment="card(story)">
     <a th:href="${story.slug}">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-            <img class="border" th:async-src="${story.thumbnailUrl}" th:alt="${story.title}" />
+            <img class="border large" th:async-src="${story.thumbnailUrl}" th:alt="${story.title}" />
         </div>
 
         <p class="summary" th:text="${story.summary}">Summary</p>
@@ -208,7 +208,27 @@
             </div>
         </div>
     </a>
-</section>
+</div>
+
+<div th:fragment="small-card(story, trackEvent)">
+    <a class="flex" th:href="${story.slug}" th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+        <img class="margin-right small"
+             th:src="${story.thumbnailUrl}"
+             th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
+        />
+        <div>
+            <h4 class="title" th:text="${story.title}">Title</h4>
+            <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
+            <div class="meta flex">
+                <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
+                <div>
+                    <span th:text="${story.readingMinutes}">2</span>
+                    <span th:text="#{label.minutes}">min</span>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
 
 
 <div class="wizard" th:fragment="wizard(steps, current)">

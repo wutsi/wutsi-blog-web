@@ -57,9 +57,13 @@
         <div th:replace="components/story :: author(${story.user})"></div>
     </div>
 
+    <!-- Recommendations -->
+    <div id="recommendation-container" th:if="${toggles.recommendation}"></div>
+
 </div>
 
 <script>
+
     var lastScrollPercent = -1;
 
     $(document).ready(function(){
@@ -94,6 +98,7 @@
         })
     });
 
+
 </script>
 
 <div th:replace="components/layout :: footer"></div>
@@ -115,6 +120,19 @@
         }
     }
 </script>
+
+<script th:inline="javascript" th:if="${toggles.recommendation}">
+/*<![CDATA[*/
+
+    var storyId = /*[[${story.id}]]*/'0';
+    wutsi.httpGet('/read/recommend/' + storyId, false)
+        .then(function(html){
+            $('#recommendation-container').html(html);
+        })
+
+/*]]>*/
+</script>
+
 </body>
 
 </html>

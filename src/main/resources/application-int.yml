@@ -21,4 +21,4 @@ wutsi:
   toggles:
     sso-facebook: true
     sso-google: true
-    sso-github: false
+    sso-github: true

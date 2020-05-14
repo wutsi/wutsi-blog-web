@@ -42,7 +42,14 @@ class ReadController(
     ): String {
         loadPage(id, model)
         loadGoogleOneTap(model)
-        return "page/read"
+        return "page/story/read"
+    }
+
+    @GetMapping("/read/recommend/{id}")
+    fun recommend(@PathVariable id: Long, model: Model): String {
+        val stories = service.recommend(id)
+        model.addAttribute("stories", stories)
+        return "page/story/recommend"
     }
 
     private fun loadGoogleOneTap(model: Model) {
