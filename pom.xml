@@ -34,7 +34,6 @@
         <wutsi-extractor.version>1.11.0</wutsi-extractor.version>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>com.wutsi</groupId>
