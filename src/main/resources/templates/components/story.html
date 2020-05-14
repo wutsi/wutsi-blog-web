@@ -211,9 +211,12 @@
 </div>
 
 <div th:fragment="small-card(story, trackEvent)">
-    <a class="flex" th:href="${story.slug}" th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+    <a class="flex" th:href="${story.slug}"
+       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+       th:attrappend="wutsi-track-value= ${trackEvent} ? ${story.id}"
+    >
         <img class="margin-right small"
-             th:src="${story.thumbnailUrl}"
+             th:async-src="${story.thumbnailUrl}"
              th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
         />
         <div>

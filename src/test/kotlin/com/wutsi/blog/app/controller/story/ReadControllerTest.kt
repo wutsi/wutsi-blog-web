@@ -174,7 +174,7 @@ class ReadControllerTest: SeleniumTestSupport() {
 
         Thread.sleep(1000)
         assertElementCount("#recommendation-container .post", 4)
-        assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "recommendation-clicked")
+        assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "xread")
     }
 
     @Test
