@@ -3,6 +3,7 @@ package com.wutsi.blog.app.mapper
 import com.wutsi.blog.app.model.StoryStatsModel
 import com.wutsi.blog.app.model.toastui.BarChartModel
 import com.wutsi.blog.app.model.toastui.BarChartSerieModel
+import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.client.stats.StatsDto
 import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Service
@@ -10,7 +11,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 @Service
-class StatsMapper {
+class StatsMapper(
+        private val requestContext: RequestContext
+) {
     fun toStoryStatsModel(viewers: List<StatsDto>, readTime: List<StatsDto>): StoryStatsModel {
         val totalViews = viewers.sumByDouble { it.value.toDouble() }.toLong()
         val totalReadTime = readTime.sumByDouble { it.value.toDouble() }.toLong()
@@ -34,7 +37,7 @@ class StatsMapper {
                 categories = dates.map { fmt.format(it) },
                 series = arrayListOf(
                         BarChartSerieModel(
-                                name = "Viewers",
+                                name = requestContext.getMessage("page.stats.kpi.daily_views"),
                                 data = toSerieData(dates, stats)
                         )
                 )
