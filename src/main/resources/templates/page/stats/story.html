@@ -50,7 +50,7 @@
                 const container = document.getElementById('chart-area');
                 var options = {
                     chart: {
-                        width: 600,
+                        width: 800,
                         height: 400,
                         title: type,
                         format: '1,000'
@@ -63,6 +63,13 @@
                     },
                     series: {
                         showLabel: false
+                    },
+                    chartExportMenu: {
+                        visible: false
+                    },
+                    legend: {
+                        visible: false,
+                        showCheckbox: false
                     }
                 };
                 tui.chart.columnChart(container, data, options);
