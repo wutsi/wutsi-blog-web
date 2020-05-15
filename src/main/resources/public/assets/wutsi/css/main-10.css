@@ -388,8 +388,8 @@ a.sso-button .fab {
     margin: 0 auto;
 }
 .post img.small {
-    max-width: 30%;
     max-height: 96px;
+    max-width: 100%;
 }
 
 

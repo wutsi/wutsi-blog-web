@@ -211,23 +211,30 @@
 </div>
 
 <div th:fragment="small-card(story, trackEvent)">
-    <a class="flex" th:href="${story.slug}"
+    <a th:href="${story.slug}"
        th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
        th:wutsi-track-value = "${story.id}"
     >
-        <img class="margin-right small"
-             th:async-src="${story.thumbnailUrl}"
-             th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
-        />
-        <div>
-            <h6 th:text="${story.title}">Title</h6>
-            <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
-            <div class="meta flex">
-                <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
-                <div>
-                    <span th:text="${story.readingMinutes}">2</span>
-                    <span th:text="#{label.minutes}">min</span>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3">
+                    <img class="margin-right small"
+                         th:async-src="${story.thumbnailUrl}"
+                         th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
+                    />
                 </div>
+                <div class="col-sm-9">
+                    <h6 th:text="${story.title}">Title</h6>
+                    <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
+                    <div class="meta flex">
+                        <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
+                        <div>
+                            <span th:text="${story.readingMinutes}">2</span>
+                            <span th:text="#{label.minutes}">min</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </a>
