@@ -95,6 +95,8 @@ abstract class SeleniumTestSupport {
 
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
+
+        stub(HttpMethod.POST, "/v1/view/search", HttpStatus.OK, "v1/view/search.json")
     }
 
     protected fun navigate(url: String) {
