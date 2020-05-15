@@ -22,7 +22,7 @@
 
     <div class="offset-md-3 col-md-6" th:if="!${toggles.homeMainCard}">
         <section class="padding border post rounded margin-top" th:each="story: ${stories}">
-            <div th:replace="components/story :: card(${mainStory})"></div>
+            <div th:replace="components/story :: card(${story})"></div>
         </section>
     </div>
 
