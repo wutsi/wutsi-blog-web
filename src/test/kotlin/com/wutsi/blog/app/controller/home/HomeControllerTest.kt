@@ -4,6 +4,8 @@ import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Before
 import org.junit.Test
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
 
 
 class HomeControllerTest: SeleniumTestSupport() {
@@ -13,6 +15,13 @@ class HomeControllerTest: SeleniumTestSupport() {
 
         driver.get("$url")
     }
+
+    override fun setupWiremock() {
+        super.setupWiremock()
+
+        stub(HttpMethod.POST, "/v1/view/search", HttpStatus.OK, "v1/view/search.json")
+    }
+
 
     @Test
     fun `user should view recent stories in home page`() {

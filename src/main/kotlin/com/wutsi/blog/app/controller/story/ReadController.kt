@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.controller.story
 
 import com.wutsi.blog.app.model.Permission
+import com.wutsi.blog.app.service.RecommendationService
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.service.editorjs.EJSFilterSet
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class ReadController(
+        private val recommendations: RecommendationService,
         ejsJsonReader: EJSJsonReader,
         ejsHtmlWriter: EJSHtmlWriter,
         ejsFilters: EJSFilterSet,
@@ -47,7 +49,7 @@ class ReadController(
 
     @GetMapping("/read/recommend/{id}")
     fun recommend(@PathVariable id: Long, model: Model): String {
-        val stories = service.recommend(id)
+        val stories = recommendations.search(id)
         model.addAttribute("stories", stories)
         return "page/story/recommend"
     }

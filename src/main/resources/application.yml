@@ -58,6 +58,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/track
     user:
       endpoint: ${wutsi.backend.base-url}/v1/user
+    view:
+      endpoint: ${wutsi.backend.base-url}/v1/view
 
   cache:
     story-ttl-seconds: 1800    # 30min

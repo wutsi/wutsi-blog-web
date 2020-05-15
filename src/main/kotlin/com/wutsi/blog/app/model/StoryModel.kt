@@ -4,7 +4,7 @@ import com.wutsi.blog.client.story.StoryStatus
 import java.util.Date
 
 data class StoryModel(
-        val id: Long? = -1,
+        val id: Long = -1,
         val user: UserModel = UserModel(),
         val title: String? = null,
         val summary: String? = null,

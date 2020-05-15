@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.backend
 
-import com.wutsi.blog.client.story.RecommendStoryRequest
-import com.wutsi.blog.client.story.RecommendStoryResponse
+import com.wutsi.blog.client.recommendation.RecommendStoryRequest
+import com.wutsi.blog.client.recommendation.RecommendStoryResponse
 import com.wutsi.core.http.Http
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service

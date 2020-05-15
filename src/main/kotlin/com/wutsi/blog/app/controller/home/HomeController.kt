@@ -4,6 +4,7 @@ import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
+import com.wutsi.blog.app.service.ViewService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/")
 class HomeController(
-        private val service: StoryService,
+        private val storyService: StoryService,
+        private val viewService: ViewService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.HOME
@@ -26,26 +28,63 @@ class HomeController(
 
     @GetMapping()
     fun index(model: Model): String {
-        val stories = service.search(SearchStoryRequest(
+        val stories = storyService.search(SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 limit = 50
         ))
-
-        val main = mainStory(stories)
-        val featured = featuredStories(stories, main)
-
         model.addAttribute("stories", stories)
-        model.addAttribute("mainStory", main)
-        model.addAttribute("featuredStories", featured)
+
+        if (getToggles().homeMainCard) {
+            loadHomeCards(stories, model)
+        }
         return "page/home/index"
     }
 
-    fun mainStory(stories: List<StoryModel>) = stories
-            .filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
-            .firstOrNull()
+    private fun loadHomeCards(stories: List<StoryModel>, model: Model) {
+        val viewedIds = viewService.search(stories.map { it.id })
+        val main = mainStory(stories, viewedIds)
 
-    fun featuredStories(stories: List<StoryModel>, main: StoryModel?) = stories
-            .filter{ it.id != main?.id}
+        val featured = featuredStories(stories, main)
+
+        model.addAttribute("mainStory", main)
+        model.addAttribute("featuredStories", bubbleUpNonViewedStories(featured, viewedIds))
+    }
+
+    private fun mainStory(stories: List<StoryModel>, viewedIds: List<Long>): StoryModel? {
+        if (stories.isEmpty()){
+            return null
+        }
+
+        val main = stories
+                .filter { !viewedIds.contains(it.id) }
+                .filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
+                .firstOrNull()
+
+        return if (main == null) stories[0] else main
+    }
+
+    private fun featuredStories(stories: List<StoryModel>, main: StoryModel?) = stories
+            .filter{ it.id != main?.id }
+
+    private fun bubbleUpNonViewedStories(stories: List<StoryModel>, viewedIds: List<Long>): List<StoryModel> {
+        if (stories.size <= 1 || viewedIds.isEmpty()){
+            return stories
+        }
+
+        val result = mutableListOf<StoryModel>()
+
+        // Add non viewed stories
+        stories
+                .filter { !viewedIds.contains(it.id) }
+                .forEach { result.add(it) }
+
+        // Add viewed stories
+        stories
+                .filter { viewedIds.contains(it.id) }
+                .forEach { result.add(it) }
+
+        return result
+    }
 }

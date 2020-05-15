@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.service
 
-import com.wutsi.blog.app.backend.RecommendationBackend
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.PublishForm
@@ -10,7 +9,6 @@ import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
-import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
@@ -28,7 +26,6 @@ class StoryService(
         private val requestContext: RequestContext,
         private val mapper: StoryMapper,
         private val storyBackend: StoryBackend,
-        private val recommendationBackend: RecommendationBackend,
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val userService: UserService
@@ -92,21 +89,6 @@ class StoryService(
     fun readability(id: Long): ReadabilityModel {
         val result = storyBackend.readability(id).readability
         return mapper.toReadabilityModel(result)
-    }
-
-    fun recommend(id: Long): List<StoryModel> {
-        val response = recommendationBackend.search(RecommendStoryRequest(
-                storyId = id,
-                userId = requestContext.currentUser()?.id,
-                limit = 3
-        ))
-        if (response.storyIds.isEmpty()) {
-            return emptyList()
-        }
-
-        return search(SearchStoryRequest(
-                storyIds = response.storyIds
-        ))
     }
 
     private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
