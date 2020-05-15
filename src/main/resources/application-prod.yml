@@ -15,7 +15,7 @@ wutsi:
         client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
 
   toggles:
-    recommendation: true
+    recommendation: false
     home-main-card: false
     coming-soon: false
     publish: true
