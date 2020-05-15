@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.controller.home
 
 import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -28,9 +29,23 @@ class HomeController(
         val stories = service.search(SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
-                sortBy = StorySortStrategy.published
+                sortBy = StorySortStrategy.published,
+                limit = 50
         ))
+
+        val main = mainStory(stories)
+        val featured = featuredStories(stories, main)
+
         model.addAttribute("stories", stories)
+        model.addAttribute("mainStory", main)
+        model.addAttribute("featuredStories", featured)
         return "page/home/index"
     }
+
+    fun mainStory(stories: List<StoryModel>) = stories
+            .filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
+            .firstOrNull()
+
+    fun featuredStories(stories: List<StoryModel>, main: StoryModel?) = stories
+            .filter{ it.id != main?.id}
 }

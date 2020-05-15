@@ -16,6 +16,7 @@ wutsi:
 
   toggles:
     recommendation: true
+    home-main-card: false
     coming-soon: false
     publish: true
     sso-facebook: true

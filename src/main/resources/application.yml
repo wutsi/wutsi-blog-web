@@ -101,8 +101,9 @@ wutsi:
 
   toggles:
     google-one-tap-sign-in: true    # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
-    recommendation: true
-    sso-facebook: false
+    recommendation: true            # Show recommendation in reader
+    home-main-card: true            # Show Main card in home page
+    sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false
     sso-github: true
