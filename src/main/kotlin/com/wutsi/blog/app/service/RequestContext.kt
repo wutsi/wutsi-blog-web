@@ -11,7 +11,9 @@ import com.wutsi.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Component
+import java.util.Locale
 import javax.servlet.http.HttpServletRequest
 
 
@@ -57,6 +59,10 @@ class RequestContext(
 
     fun accessToken(): String? {
         return tokenStorage.get(request)
+    }
+
+    fun storyLocale(): Locale? {
+        return LocaleContextHolder.getLocale()
     }
 
     fun getMessage(key: String) = localization.getMessage(key)

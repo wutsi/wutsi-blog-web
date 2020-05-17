@@ -30,6 +30,7 @@ class HomeController(
     fun index(model: Model): String {
         val stories = storyService.search(SearchStoryRequest(
                 status = StoryStatus.published,
+                language = requestContext.storyLocale()?.language,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 limit = 50

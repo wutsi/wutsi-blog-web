@@ -10,6 +10,10 @@ class ViewService(
         private val backend: ViewBackend
 ) {
     fun search(storyIds: List<Long>): List<Long> {
+        if (storyIds.isEmpty()){
+            return emptyList()
+        }
+
         return backend.search(SearchViewRequest(
                 storyIds = storyIds,
                 userId = requestContext.currentUser()?.id
