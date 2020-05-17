@@ -81,7 +81,7 @@
     </div>
 
     <script async th:src="'https://www.googletagmanager.com/gtag/js?id=' + ${page.googleAnalyticsCode}" th:if="!${page.googleAnalyticsCode.isEmpty()}"></script>
-    <script th:inline="javascript" th:if="!${page.googleAnalyticsCode.isEmpty()}">
+    <script id="ga-code" th:inline="javascript" th:if="!${page.googleAnalyticsCode.isEmpty()}">
     /*<![CDATA[*/
 
         var code = /*[[${page.googleAnalyticsCode}]]*/'0';
@@ -94,6 +94,29 @@
 
     /*]]>*/
     </script>
+
+    <!-- Facebook Pixel Code -->
+    <script id="fb-pixel-code" th:inline="javascript" th:if="!${page.facebookPixelCode.isEmpty()}">
+    /*<![CDATA[*/
+
+        var code = /*[[${page.facebookPixelCode}]]*/'0';
+
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', code);
+        fbq('track', 'PageView');
+
+    /*]]>*/
+    </script>
+
+    <!-- End Facebook Pixel Code -->
+
 
     <script>
         $(document).ready(function(){

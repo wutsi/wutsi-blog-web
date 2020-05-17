@@ -195,6 +195,19 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementCount("#recommendation-container .post", 0)
     }
 
+
+    @Test
+    fun `home page Google Analytics`() {
+        gotoPage()
+        assertElementPresent("script#ga-code")
+    }
+
+    @Test
+    fun `home page Facebook Pixel`() {
+        gotoPage()
+        assertElementPresent("script#fb-pixel-code")
+    }
+
     fun gotoPage(login: Boolean = false) {
         if (login){
             login()

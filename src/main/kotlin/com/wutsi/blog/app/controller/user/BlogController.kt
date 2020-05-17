@@ -48,6 +48,7 @@ class BlogController(
                 baseUrl = baseUrl,
                 assetUrl = assetUrl,
                 robots = robots(),
-                googleAnalyticsCode = this.googleAnalyticsCode
-        )
+                googleAnalyticsCode = this.googleAnalyticsCode,
+                facebookPixelCode = this.facebookPixelId
+            )
 }

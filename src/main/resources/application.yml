@@ -101,6 +101,10 @@ wutsi:
     ga:
       code:
 
+  facebook:
+    pixel:
+      code:
+
   toggles:
     google-one-tap-sign-in: true    # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     recommendation: true            # Show recommendation in reader

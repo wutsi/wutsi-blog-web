@@ -24,6 +24,9 @@ abstract class AbstractPageController(
     @Value("\${wutsi.google.ga.code}")
     protected lateinit var googleAnalyticsCode: String
 
+    @Value("\${wutsi.facebook.pixel.code}")
+    protected lateinit var facebookPixelId: String
+
 
     protected abstract fun pageName(): String
 
@@ -51,7 +54,8 @@ abstract class AbstractPageController(
             robots = robots(),
             baseUrl = baseUrl,
             assetUrl = assetUrl,
-            googleAnalyticsCode = this.googleAnalyticsCode
+            googleAnalyticsCode = this.googleAnalyticsCode,
+            facebookPixelCode = this.facebookPixelId
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

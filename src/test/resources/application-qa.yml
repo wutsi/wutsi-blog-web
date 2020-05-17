@@ -15,3 +15,11 @@ wutsi:
     sso-twitter: true
     sso-github: true
     qa-login: true
+
+  google:
+    ga:
+      code: "test"
+
+  facebook:
+    pixel:
+      code: "test"

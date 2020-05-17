@@ -66,6 +66,7 @@ abstract class AbstractStoryReadController(
             robots = robots(),
             tags = story.tags.map { it.name },
             twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId,
+            facebookPixelCode = this.facebookPixelId,
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl

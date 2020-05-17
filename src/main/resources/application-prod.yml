@@ -22,9 +22,14 @@ wutsi:
     sso-facebook: true
     sso-google: true
     sso-github: false
+
   google:
     ga:
       code: "UA-120456146-1"
+
+  facebook:
+    pixel:
+      code: "553466401984152"
 
   storage:
     s3:

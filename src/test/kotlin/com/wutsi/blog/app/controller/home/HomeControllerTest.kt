@@ -25,10 +25,22 @@ class HomeControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `home page should contains META headers`() {
+    fun `home page META headers`() {
         driver.get("$url")
         assertElementAttribute("head title", "text", META_TITLE)
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "all")
+    }
+
+    @Test
+    fun `home page Google Analytics`() {
+        driver.get("$url")
+        assertElementPresent("script#ga-code")
+    }
+
+    @Test
+    fun `home page Facebook Pixel`() {
+        driver.get("$url")
+        assertElementPresent("script#fb-pixel-code")
     }
 }
