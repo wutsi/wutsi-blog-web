@@ -16,15 +16,10 @@ class HomeControllerTest: SeleniumTestSupport() {
         driver.get("$url")
     }
 
-    override fun setupWiremock() {
-        super.setupWiremock()
-
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-    }
-
 
     @Test
     fun `empty home page`() {
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".post", 0)
     }
