@@ -2,6 +2,7 @@ package com.wutsi.blog.app.controller.home
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.service.ViewService
@@ -25,7 +26,6 @@ class HomeController(
 
     override fun shouldBeIndexedByBots() = true
 
-
     @GetMapping()
     fun index(model: Model): String {
         val stories = storyService.search(SearchStoryRequest(
@@ -35,22 +35,15 @@ class HomeController(
                 sortBy = StorySortStrategy.published,
                 limit = 50
         ))
-        model.addAttribute("stories", stories)
 
-        if (getToggles().homeMainCard) {
-            loadHomeCards(stories, model)
-        }
-        return "page/home/index"
-    }
-
-    private fun loadHomeCards(stories: List<StoryModel>, model: Model) {
         val viewedIds = viewService.search(stories.map { it.id })
         val main = mainStory(stories, viewedIds)
+        val featured = featuredStories(stories, viewedIds, main)
 
-        val featured = featuredStories(stories, main)
-
+        model.addAttribute("stories", stories)
         model.addAttribute("mainStory", main)
         model.addAttribute("featuredStories", bubbleUpNonViewedStories(featured, viewedIds))
+        return "page/home/index"
     }
 
     private fun mainStory(stories: List<StoryModel>, viewedIds: List<Long>): StoryModel? {
@@ -66,8 +59,24 @@ class HomeController(
         return if (main == null) stories[0] else main
     }
 
-    private fun featuredStories(stories: List<StoryModel>, main: StoryModel?) = stories
-            .filter{ it.id != main?.id }
+    private fun featuredStories(
+            stories: List<StoryModel>,
+            viewedIds: List<Long>,
+            main: StoryModel?
+    ): List<StoryModel> {
+
+        val result = LinkedHashMap<UserModel, StoryModel>()
+        bubbleUpNonViewedStories(stories, viewedIds)
+                .filter{ it.id != main?.id }
+                .forEach{
+                    val user = it.user
+                    if (!result.containsKey(user) && user.id != main?.user?.id){
+                        result[user] = it
+                    }
+                }
+
+        return result.values.toList()
+    }
 
     private fun bubbleUpNonViewedStories(stories: List<StoryModel>, viewedIds: List<Long>): List<StoryModel> {
         if (stories.size <= 1 || viewedIds.isEmpty()){

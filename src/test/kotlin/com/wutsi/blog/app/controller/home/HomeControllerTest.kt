@@ -21,7 +21,7 @@ class HomeControllerTest: SeleniumTestSupport() {
     fun `user should view recent stories in home page`() {
         driver.get("$url")
         assertCurrentPageIs(PageName.HOME)
-        assertElementCount(".post", 4)
+        assertElementCount(".post", 3)
     }
 
     @Test

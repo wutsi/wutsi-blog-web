@@ -10,7 +10,7 @@
 
 <div class="container post-list">
 
-    <div class="offset-md-3 col-md-6" th:if="${toggles.homeMainCard}">
+    <div class="offset-md-3 col-md-6">
         <section class="padding border post rounded margin-top" th:if="${mainStory}">
             <div th:replace="components/story :: card(${mainStory})"></div>
         </section>
@@ -22,12 +22,6 @@
 
         <section class="padding border post rounded margin-top" th:each="story: ${featuredStories}">
             <div th:replace="components/story :: small-card(${story}, null)"></div>
-        </section>
-    </div>
-
-    <div class="offset-md-3 col-md-6" th:if="!${toggles.homeMainCard}">
-        <section class="padding border post rounded margin-top" th:each="story: ${stories}">
-            <div th:replace="components/story :: card(${story})"></div>
         </section>
     </div>
 
