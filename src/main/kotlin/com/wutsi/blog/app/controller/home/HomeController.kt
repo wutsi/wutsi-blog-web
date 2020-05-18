@@ -39,10 +39,12 @@ class HomeController(
         val viewedIds = viewService.search(stories.map { it.id })
         val main = mainStory(stories, viewedIds)
         val featured = featuredStories(stories, viewedIds, main)
+        val authors = featuredAuthors(stories)
 
         model.addAttribute("stories", stories)
         model.addAttribute("mainStory", main)
         model.addAttribute("featuredStories", bubbleUpNonViewedStories(featured, viewedIds))
+        model.addAttribute("authors", authors)
         return "page/home/index"
     }
 
@@ -77,6 +79,11 @@ class HomeController(
 
         return result.values.toList()
     }
+
+    private fun featuredAuthors(stories: List<StoryModel>): List<UserModel> = stories
+            .map { it.user }
+            .toSet()
+            .take(5)
 
     private fun bubbleUpNonViewedStories(stories: List<StoryModel>, viewedIds: List<Long>): List<StoryModel> {
         if (stories.size <= 1 || viewedIds.isEmpty()){

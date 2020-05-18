@@ -18,10 +18,11 @@ class HomeControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user should view recent stories in home page`() {
+    fun `user should view recent stories and authors in home page`() {
         driver.get("$url")
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".post", 3)
+        assertElementCount(".featured-authors .author", 3)
     }
 
     @Test

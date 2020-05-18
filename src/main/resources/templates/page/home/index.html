@@ -8,23 +8,34 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container post-list">
+<div class="container">
 
-    <div class="offset-md-3 col-md-6">
-        <section class="padding border post rounded margin-top" th:if="${mainStory}">
-            <div th:replace="components/story :: card(${mainStory})"></div>
-        </section>
+    <div class="row">
+        <div class="col-md-6">
+            <section class="padding border post rounded margin-top" th:if="${mainStory}">
+                <div th:replace="components/story :: story-card(${mainStory})"></div>
+            </section>
 
-        <div id="read-all-languages"></div>
-        <script>
-            $('#read-all-languages').load('/language/read-all');
-        </script>
+            <div id="read-all-languages"></div>
+            <script>
+                $('#read-all-languages').load('/language/read-all');
+            </script>
 
-        <section class="padding border post rounded margin-top" th:each="story: ${featuredStories}">
-            <div th:replace="components/story :: small-card(${story}, null)"></div>
-        </section>
+            <section class="padding border post rounded margin-top" th:each="story: ${featuredStories}">
+                <div th:replace="components/story :: story-summary-card(${story}, null)"></div>
+            </section>
+        </div>
+
+        <div class="col-md-4 margin-top">
+            <div class="padding border rounded featured-authors">
+                <h4>Featured Blogs</h4>
+                <div class="margin-top padding-top border-top" th:each="author:${authors}">
+                    <div th:replace="components/story :: author-summary-card(${author})"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
-
 </div>
 
 <div th:replace="components/layout :: footer"></div>

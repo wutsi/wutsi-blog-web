@@ -412,6 +412,14 @@ a.sso-button .fab {
 }
 
 /*======= AUTHOR =======*/
+.featured-authors {
+    background: white;
+}
+.featured-authors .author img {
+    width: 48px;
+    height: 48px;
+}
+
 .author img {
     width: 64px;
     height: 64px;
