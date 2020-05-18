@@ -15,6 +15,11 @@
             <div th:replace="components/story :: card(${mainStory})"></div>
         </section>
 
+        <div id="read-all-languages"></div>
+        <script>
+            $('#read-all-languages').load('/language/read-all');
+        </script>
+
         <section class="padding border post rounded margin-top" th:each="story: ${featuredStories}">
             <div th:replace="components/story :: small-card(${story}, null)"></div>
         </section>

@@ -22,6 +22,7 @@ class UserMapper {
             linkedInUrl = linkedIn(user),
             twitterUrl = twitter(user),
             superUser = user.superUser,
+            readAllLanguages = user.readAllLanguages,
             accounts = user.accounts.map { AccountModel(
                     id = it.id,
                     provider = it.provider,
