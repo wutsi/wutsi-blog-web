@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Component
-import java.util.Locale
 import javax.servlet.http.HttpServletRequest
 
 
@@ -61,8 +60,9 @@ class RequestContext(
         return tokenStorage.get(request)
     }
 
-    fun storyLocale(): Locale? {
-        return LocaleContextHolder.getLocale()
+    fun language(): String {
+        val language = currentUser()?.language
+        return if (language == null) LocaleContextHolder.getLocale().language else language
     }
 
     fun getMessage(key: String) = localization.getMessage(key)

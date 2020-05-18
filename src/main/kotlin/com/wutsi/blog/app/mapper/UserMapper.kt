@@ -23,6 +23,7 @@ class UserMapper {
             twitterUrl = twitter(user),
             superUser = user.superUser,
             readAllLanguages = user.readAllLanguages,
+            language = user.language,
             accounts = user.accounts.map { AccountModel(
                     id = it.id,
                     provider = it.provider,

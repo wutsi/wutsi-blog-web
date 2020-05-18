@@ -10,7 +10,7 @@
             const value = $(this).attr('data-value');
             wutsi.httpGet('/language/read-all/set?value=' + value, false)
                 .finally(function(){
-                    $('#read-all-language-panel').fadeOut();
+                    $('#read-all-languages-panel').fadeOut();
                 });
         });
     </script>

@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.controller.story
 
-import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class StoryController(
-        private val service: StoryService,
-        private val requestContext: RequestContext
+        private val service: StoryService
 ) {
 
     @GetMapping("/story/cards")
@@ -27,7 +25,7 @@ class StoryController(
     ): String {
         val stories = service.search(SearchStoryRequest(
                 userId = userId,
-                language = requestContext.storyLocale()?.language,
+                language = service.searchLanguage(),
                 limit = limit,
                 offset = offset,
                 status = StoryStatus.published,

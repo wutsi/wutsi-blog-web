@@ -48,7 +48,6 @@ class UserService(
 
     fun canReadStoriesInAllLanguages(): Boolean? {
         val user = requestContext.currentUser()
-        val readAll: Boolean?
         if (user != null){
             return user.readAllLanguages
         } else {

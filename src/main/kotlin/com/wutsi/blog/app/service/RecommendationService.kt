@@ -16,7 +16,7 @@ class RecommendationService(
         val response = backend.search(RecommendStoryRequest(
                 storyId = storyId,
                 userId = requestContext.currentUser()?.id,
-                language = requestContext.storyLocale()?.language,
+                language = stories.searchLanguage(),
                 limit = 3
         ))
         if (response.storyIds.isEmpty()) {
