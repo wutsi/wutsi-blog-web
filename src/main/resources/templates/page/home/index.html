@@ -28,7 +28,7 @@
 
         <div class="col-md-4 margin-top">
             <div class="padding border rounded featured-authors">
-                <h4>Featured Blogs</h4>
+                <h4 th:text="#{page.home.feature-blogs}">Featured Blogs</h4>
                 <div class="margin-top padding-top border-top" th:each="author:${authors}">
                     <div th:replace="components/story :: author-summary-card(${author})"></div>
                 </div>

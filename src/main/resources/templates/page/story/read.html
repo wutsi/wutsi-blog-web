@@ -58,7 +58,7 @@
     </div>
 
     <!-- Recommendations -->
-    <div id="recommendation-container" th:if="${toggles.recommendation}"></div>
+    <div id="recommendation-container"></div>
 
 </div>
 
@@ -121,7 +121,7 @@
     }
 </script>
 
-<script th:inline="javascript" th:if="${toggles.recommendation}">
+<script th:inline="javascript">
 /*<![CDATA[*/
 
     var storyId = /*[[${story.id}]]*/'0';

@@ -77,7 +77,9 @@ class HomeController(
                     }
                 }
 
-        return result.values.toList()
+        return result.values
+                .toList()
+                .sortedBy { it.modificationDateTime }
     }
 
     private fun featuredAuthors(stories: List<StoryModel>): List<UserModel> = stories
