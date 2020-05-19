@@ -79,7 +79,7 @@ class HomeController(
 
         return result.values
                 .toList()
-                .sortedBy { it.publishedDateTime }
+                .sortedByDescending { it.publishedDateTime }
     }
 
     private fun featuredAuthors(stories: List<StoryModel>): List<UserModel> = stories
