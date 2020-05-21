@@ -226,7 +226,7 @@
     >
         <div class="container-fluid">
             <div class="row">
-                <div class="col-9">
+                <div class="col-9 padding-none">
                     <h6 th:text="${story.title}">Title</h6>
                     <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
                     <div class="meta flex">
@@ -237,7 +237,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 text-right" >
+                <div class="col-3 text-right padding-none">
                     <img class="small"
                          th:async-src="${story.thumbnailUrl}"
                          th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
