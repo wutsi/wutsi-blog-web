@@ -81,7 +81,15 @@ abstract class AbstractPageController(
     protected fun errorKey(ex: Exception): String {
         if (ex is ConflictException){
             val message = ex.message
-            if (message == "duplicate_name" || message == "duplicate_email"){
+            if (
+                    message == "duplicate_name" ||
+                    message == "duplicate_email" ||
+                    message == "syndicate_error" ||
+                    message == "publish_error" ||
+                    message == "story_already_imported" ||
+                    message == "title_missing" ||
+                    message == "duplicate_mobile_number"
+            ){
                 return "error.$message"
             }
         }

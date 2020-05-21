@@ -65,7 +65,8 @@ class UserService(
         }
 
         /* update cookie */
-        CookieHelper.put(CookieName.READ_ALL_LANGUAGE, value.toString(), request, response)
+        val maxAge = 86400 * 365 * 10   // 10 years
+        CookieHelper.put(CookieName.READ_ALL_LANGUAGE, value.toString(), request, response, maxAge)
     }
 }
 

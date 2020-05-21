@@ -44,6 +44,8 @@ wutsi:
     base-url: http://localhost:8080
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
+    partner:
+      endpoint: ${wutsi.backend.base-url}/v1/partner
     recommendation:
       endpoint: ${wutsi.backend.base-url}/v1/recommendation
     story:
@@ -112,3 +114,4 @@ wutsi:
     sso-twitter: false
     sso-github: true
     qa-login: false
+    wpp: true
