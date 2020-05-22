@@ -458,7 +458,16 @@ a.sso-button .fab {
 /*======= READER =======*/
 
 .reader h1 {
-    font-size: 3em;
+    font-size: 2em;
+}
+.reader h2 {
+    font-size: 1.7em;
+}
+.reader h3 {
+    font-size: 1.3em;
+}
+.reader h4 {
+    font-size: 1em;
 }
 
 .reader h2,

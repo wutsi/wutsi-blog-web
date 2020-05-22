@@ -33,6 +33,8 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 
+
+
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("qa")
@@ -64,6 +66,9 @@ abstract class SeleniumTestSupport {
             options.addArguments("--headless")
         }
         options.setCapability("resolution", "1920x1080")
+        options.setExperimentalOption("mobileEmulation", mapOf(
+                "deviceName" to "Nexus 5"
+        ))
 
         this.driver = ChromeDriver(options)
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)

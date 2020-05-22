@@ -97,10 +97,10 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".share .share-twitter", "wutsi-track-event", "share")
         assertElementAttribute(".share .share-twitter", "wutsi-track-value", "twitter")
 
-//        assertElementCount(".share .share-whatsapp", 1)
-//        assertElementAttribute(".share .share-linkedin", "href", "whatsapp://send?text=$url")
-//        assertElementAttribute(".share .share-linkedin", "wutsi-track-event", "share")
-//        assertElementAttribute(".share .share-linkedin", "wutsi-track-value", "whatsapp")
+        assertElementCount(".share .share-whatsapp", 1)
+        assertElementAttribute(".share .share-whatsapp", "href", "whatsapp://send?text=$url")
+        assertElementAttribute(".share .share-whatsapp", "wutsi-track-event", "share")
+        assertElementAttribute(".share .share-whatsapp", "wutsi-track-value", "whatsapp")
     }
 
     @Test
