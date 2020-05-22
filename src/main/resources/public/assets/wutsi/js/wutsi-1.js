@@ -25,6 +25,12 @@ function Wutsi (){
         });
     };
 
+
+    this.isMobile = function () {
+        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    };
+
+
     this.httpGet = function(url, json) {
         return new Promise(function(resolve, reject){
             $.ajax({
