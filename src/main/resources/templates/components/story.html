@@ -93,32 +93,69 @@
 
 <div th:fragment="share(story)" class="share">
 
-    <a target="_blank" class="margin-top share-whatapp btn-share hidden"
-       wutsi-track-event="share"
-       wutsi-track-value="whatsapp"
-       data-action="share/whatsapp/share"
-       th:href="'whatsapp://send?text=' + ${page.url}">
-        <i class="fab fa-whatsapp-square"></i>
-    </a>
-    <a target="_blank" class="margin-top-2x share-facebook btn-share"
-       wutsi-track-event="share"
-       wutsi-track-value="facebook"
-       th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
-        <i class="fab fa-facebook-square"></i>
-    </a>
-    <a target="_blank" class="margin-top share-twitter btn-share"
-       wutsi-track-event="share"
-       wutsi-track-value="twitter"
-       th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
-        <i class="fab fa-twitter-square"></i>
-    </a>
+    <button class="btn btn-primary btn-block hidden">
+        <i class="fas fa-share-alt"></i>
+        <span th:text="#{button.share}">Share</span>
+    </button>
 
-    <script>
+    <div class="fallback hidden">
+        <a target="_blank" class="margin-top share-whatsapp btn-share hidden"
+           wutsi-track-event="share"
+           wutsi-track-value="whatsapp"
+           data-action="share/whatsapp/share"
+           th:href="'whatsapp://send?text=' + ${page.url}">
+            <i class="fab fa-whatsapp-square"></i>
+        </a>
+        <a target="_blank" class="margin-top-2x share-facebook btn-share"
+           wutsi-track-event="share"
+           wutsi-track-value="facebook"
+           th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
+            <i class="fab fa-facebook-square"></i>
+        </a>
+        <a target="_blank" class="margin-top share-twitter btn-share"
+           wutsi-track-event="share"
+           wutsi-track-value="twitter"
+           th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
+            <i class="fab fa-twitter-square"></i>
+        </a>
+        <script>
+            $(document).ready(function(){
+                if (wutsi.isMobile()){
+                    $('.share-whatapp').removeClass('hidden');
+                }
+            });
+        </script>
+    </div>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+
+        const shareButton = /*[[${toggles.shareButton}]]*/'0';
+
         $(document).ready(function(){
-            if (wutsi.isMobile()){
-                $('.share-whatapp').removeClass('hidden');
+            if (shareButton && navigator.share){
+                $('.share button').removeClass('hidden');
+            } else {
+                $('.share .fallback').removeClass('hidden');
             }
+
+            $('.share button').click(function(){
+                const request = {
+                    title: $("meta[property=og\\:title]").attr("content"),
+                    url: $("meta[property=og\\:url]").attr("content")
+                };
+
+                console.log('Shading ', request);
+                navigator.share(request).then(function(event){
+                    console.log('Share succeed', event);
+                    wutsi.track('share');
+                }).catch(function(error){
+                    console.error('Share failed', error);
+                });
+            });
         });
+
+    /*]]>*/
     </script>
 </div>
 
