@@ -99,20 +99,20 @@
     </button>
 
     <div class="fallback hidden">
-        <a target="_blank" class="margin-top share-whatsapp btn-share hidden"
+        <a target="_blank" class="share-whatsapp btn-share hidden"
            wutsi-track-event="share"
            wutsi-track-value="whatsapp"
            data-action="share/whatsapp/share"
            th:href="'whatsapp://send?text=' + ${page.url}">
             <i class="fab fa-whatsapp-square"></i>
         </a>
-        <a target="_blank" class="margin-top-2x share-facebook btn-share"
+        <a target="_blank" class="share-facebook btn-share"
            wutsi-track-event="share"
            wutsi-track-value="facebook"
            th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
             <i class="fab fa-facebook-square"></i>
         </a>
-        <a target="_blank" class="margin-top share-twitter btn-share"
+        <a target="_blank" class="share-twitter btn-share"
            wutsi-track-event="share"
            wutsi-track-value="twitter"
            th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">

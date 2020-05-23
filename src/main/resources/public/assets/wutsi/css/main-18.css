@@ -458,17 +458,17 @@ a.sso-button .fab {
 /*======= READER =======*/
 
 .reader h1 {
-    font-size: 3em;
+    font-size: 2em;
 }
-/*.reader h2 {*/
-    /*font-size: 1.7em;*/
-/*}*/
-/*.reader h3 {*/
-    /*font-size: 1.3em;*/
-/*}*/
-/*.reader h4 {*/
-    /*font-size: 1em;*/
-/*}*/
+.reader h2 {
+    font-size: 1.7em;
+}
+.reader h3 {
+    font-size: 1.3em;
+}
+.reader h4 {
+    font-size: 1em;
+}
 
 .reader h2,
 .reader h3,
@@ -490,11 +490,16 @@ a.sso-button .fab {
     margin: 0 auto;
 }
 
-.reader .tag {
+.reader .tag-container {
+    height: 1.8em;
+    overflow: hidden;
+}
+.reader .tag-container .tag {
     border: 1px solid var(--border-color);
     background-color: var(--border-color);
     border-radius: 5px;
-    display: inline;
+    display: inline-block;
+    font-size: .8em;
     padding: .2em 1em;
     color: var(--text-color);
 }
@@ -644,6 +649,13 @@ a.sso-button .fab {
 .close a {
     color: var(--text-color-gray);
     text-decoration: none;
+}
+
+@media (max-width: 978px) {
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 
