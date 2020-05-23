@@ -66,9 +66,9 @@ abstract class SeleniumTestSupport {
             options.addArguments("--headless")
         }
         options.setCapability("resolution", "1920x1080")
-        options.setExperimentalOption("mobileEmulation", mapOf(
-                "deviceName" to "Nexus 5"
-        ))
+//        options.setExperimentalOption("mobileEmulation", mapOf(
+//                "deviceName" to "Nexus 5"
+//        ))
 
         this.driver = ChromeDriver(options)
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
