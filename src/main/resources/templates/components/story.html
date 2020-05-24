@@ -159,12 +159,14 @@
     </script>
 </div>
 
-<div th:fragment="author-card(me)" class="author flex">
+<div th:fragment="author-card(me)" class="author flex" th:with="inBlogPage=${page.name == 'page.blog'}">
     <a th:href="${me.slug}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
-        <a th:href="${me.slug}"><b th:text="${me.fullName}">Ray Sponsible</b></a>
-        <div class="text-small bio" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
-        <div class="text-small" th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}">
+        <h1 th:text="${me.fullName}" th:if="${inBlogPage}">Ray Sponsible</h1>
+        <a th:href="${me.slug}" th:if="!${inBlogPage}"><b th:text="${me.fullName}" >Ray Sponsible</b></a>
+
+        <div class="bio" th:if="${me.biography}" th:text="${me.biography}" classappend="!${inBlogPage} ? text-small">Biography</div>
+        <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}" classappend="!${inBlogPage} ? text-small">
             <a class="website"
                wutsi-track-event="link"
                wutsi-track-value="website"

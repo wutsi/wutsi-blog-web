@@ -8,14 +8,16 @@
 
     <div th:replace="components/layout :: navbar"></div>
 
-    <div class="container">
-        <div class="offset-md-2 col-md-8">
-            <!-- Author -->
+    <div class="container-fluid padding border-bottom">
+        <div class="container">
             <div class="margin-top-2x padding border rounded box-filled-white">
                 <div th:replace="components/story :: author-card(${blog})"></div>
             </div>
+        </div>
+    </div>
 
-            <!-- Stories -->
+    <div class="container">
+        <div class="offset-md-2 col-md-8">
             <div class="margin-top-2x">
                 <div id="stories"></div>
             </div>

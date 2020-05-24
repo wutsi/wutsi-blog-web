@@ -169,7 +169,7 @@
                 <a id="navbar-join" class="btn btn-primary" href="/welcome" th:text="#{button.create_blog}">Create your Blog</a>
             </li>
             <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
-                <a id="navbar-login" class="btn btn-light" href="/login" th:text="#{button.login}">Login</a>
+                <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
         </ul>
     </nav>
