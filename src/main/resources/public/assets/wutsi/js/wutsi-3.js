@@ -28,7 +28,7 @@ function Wutsi (){
 
     this.isMobile = function () {
         const ua = navigator.userAgent;
-        return /iPhone|iPad|iPod|Android/i.test(ui)
+        return /iPhone|iPad|iPod|Android/i.test(ua)
             || ((ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1))  /* Facebook in-app browser */
         ;
     };
