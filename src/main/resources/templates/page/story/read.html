@@ -51,16 +51,15 @@
         </div>
     </article>
 
+    <!-- Recommendations -->
+    <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}"></div>
+
     <!-- Author -->
     <div class="container border rounded main-content margin-top">
         <div class="padding">
             <div th:replace="components/story :: author-card(${story.user})"></div>
         </div>
     </div>
-
-    <!-- Recommendations -->
-    <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}"></div>
-
 </div>
 
 <script>
