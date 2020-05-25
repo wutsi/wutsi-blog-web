@@ -20,11 +20,7 @@
 
     <!-- Published -->
     <div id="alert-published" class="alert alert-success margin-top" th:if="${publishedStory}">
-        <div th:utext="#{page.story.published.success(${publishedStory.title})}">Congrats</div>
-        <div id="alert-published-notification"
-            th:utext="#{page.story.published.notify(${user.email})}"
-            th:if="!${publishedStory.live}"
-        >You'll be notified</div>
+        <div th:utext="#{page.story.published.success(${publishedStory.title}, ${publishedStory.slug})}">Congrats</div>
     </div>
 
     <!-- Stories -->

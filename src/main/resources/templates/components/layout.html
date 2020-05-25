@@ -157,7 +157,7 @@
                     <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}">My Stories</a>
                     <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
                     <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider" th:if="${toggles.wpp}"></div>
                     <a id="navbar-wpp" class="dropdown-item" href="/partner" rel="nofollow" th:text="#{navbar.wpp}" th:if="${toggles.wpp}">Wutsi Partner Program</a>
                     <div class="dropdown-divider"></div>
                     <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>

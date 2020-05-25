@@ -47,7 +47,6 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.STORY_PUBLISHED)
         assertElementPresent("#alert-published")
-        assertElementNotPresent("#alert-published-notification")
     }
 
     @Test
