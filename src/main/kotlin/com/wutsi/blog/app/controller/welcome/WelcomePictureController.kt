@@ -18,7 +18,7 @@ class WelcomePictureController(
 
     override fun redirectUrl() = "/welcome/success"
 
-    override fun attributeName() = "pictureurl"
+    override fun attributeName() = "picture_url"
 
     override fun value() = requestContext.currentUser()?.pictureUrl
 }

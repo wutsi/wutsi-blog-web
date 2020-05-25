@@ -82,7 +82,7 @@
         if (file.type.startsWith('image/')) {
             wutsi.upload(file)
                 .then(function(data){
-                    save_attribute('pictureurl', data.url)
+                    save_attribute('picture_url', data.url)
                         .then(function () {
                             $('#my-picture').attr('src', data.url)
                         });
