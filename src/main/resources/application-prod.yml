@@ -16,6 +16,7 @@ wutsi:
 
   toggles:
     recommendation: true
+    pwa: false
     share-button: false
     publish: true
     sso-facebook: true
