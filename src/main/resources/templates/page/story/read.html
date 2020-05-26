@@ -53,6 +53,17 @@
 
     <!-- Recommendations -->
     <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}"></div>
+    <script th:inline="javascript" th:if="${toggles.recommendation}">
+        /*<![CDATA[*/
+
+        var storyId = /*[[${story.id}]]*/'0';
+        wutsi.httpGet('/read/recommend/' + storyId, false)
+            .then(function(html){
+                $('#recommendation-container').html(html);
+            })
+
+        /*]]>*/
+    </script>
 
     <!-- Author -->
     <div class="container border rounded main-content margin-top">
@@ -61,6 +72,46 @@
         </div>
     </div>
 </div>
+
+
+<div th:replace="components/layout :: footer"></div>
+
+<script id="g_one_tap_script" src="https://accounts.google.com/gsi/client" th:if="${googleOneTap}"></script>
+<script id="g_one_tap_callback" th:if="${googleOneTap}">
+    function g_one_tap_callback(response) {
+        console.log('g_one_tap_callback', response);
+        wutsi.httpGet('/login/onetap/callback?credential=' + response.credential, true)
+            .then(function(data){
+                wutsi.httpGet(data.url, false);
+            });
+    }
+
+    function g_one_tap_moment(notification) {
+        console.log('g_one_tap_moment', notification);
+        if (notification.isDisplayed()){
+            wutsi.track('g_one_tap_show');
+        }
+    }
+</script>
+
+
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+    $(document).ready(function(){
+        $('.tweet').each( function( t, tweet ) {
+
+            var id = jQuery(this).attr('data-id');
+            twttr.widgets.createTweet(
+                id, tweet,
+                {
+                    conversation : 'none',    // or all
+                    cards        : 'hidden',  // or visible
+                    linkColor    : '#1D7EDF', // default is blue
+                    theme        : 'light'    // or dark
+                });
+        });
+    });
+</script>
 
 <script>
 
@@ -96,57 +147,6 @@
 
 
 </script>
-
-<div th:replace="components/layout :: footer"></div>
-
-<script id="g_one_tap_script" src="https://accounts.google.com/gsi/client" th:if="${googleOneTap}"></script>
-<script id="g_one_tap_callback" th:if="${googleOneTap}">
-    function g_one_tap_callback(response) {
-        console.log('g_one_tap_callback', response);
-        wutsi.httpGet('/login/onetap/callback?credential=' + response.credential, true)
-            .then(function(data){
-                wutsi.httpGet(data.url, false);
-            });
-    }
-
-    function g_one_tap_moment(notification) {
-        console.log('g_one_tap_moment', notification);
-        if (notification.isDisplayed()){
-            wutsi.track('g_one_tap_show');
-        }
-    }
-</script>
-
-<script th:inline="javascript">
-/*<![CDATA[*/
-
-    var storyId = /*[[${story.id}]]*/'0';
-    wutsi.httpGet('/read/recommend/' + storyId, false)
-        .then(function(html){
-            $('#recommendation-container').html(html);
-        })
-
-/*]]>*/
-</script>
-
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script>
-    $(document).ready(function(){
-        $('.tweet').each( function( t, tweet ) {
-
-            var id = jQuery(this).attr('data-id');
-            twttr.widgets.createTweet(
-                id, tweet,
-                {
-                    conversation : 'none',    // or all
-                    cards        : 'hidden',  // or visible
-                    linkColor    : '#1D7EDF', // default is blue
-                    theme        : 'light'    // or dark
-                });
-        });
-    });
-</script>
-
 </body>
 
 </html>
