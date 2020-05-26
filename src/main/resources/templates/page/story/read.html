@@ -73,10 +73,6 @@
             wutsi.track('readend');
         });
 
-        $('.content img[async-src]').each(function() {
-            $(this).attr("src", $(this).attr("async-src"));
-        });
-
         $(window).on('scroll', function(){
             var s = $(window).scrollTop(),
                 d = $(document).height(),
@@ -133,6 +129,7 @@
 /*]]>*/
 </script>
 
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>
     $(document).ready(function(){
         $('.tweet').each( function( t, tweet ) {
@@ -150,7 +147,6 @@
     });
 </script>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 
 </html>
