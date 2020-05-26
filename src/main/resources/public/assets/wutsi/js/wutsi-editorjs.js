@@ -125,6 +125,18 @@ function WutsiEJS (holderId, publishCallback){
                 }
             },
 
+            embed: {
+                class: Embed,
+                config: {
+                    inlineToolbar: true,
+                    services: {
+                        youtube: false,
+                        twitter: true,
+                        instagram: false
+                    }
+                }
+            },
+
             image: {
                 class: ImageTool,
                 config:{
