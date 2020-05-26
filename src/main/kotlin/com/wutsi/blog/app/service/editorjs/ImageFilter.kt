@@ -11,7 +11,8 @@ class ImageFilter: Filter{
     private fun filter(img: Element) {
         val src = img.attr("src")
         if (src.isNotEmpty()) {
-            img.attr("async-src", img.attr("src"))
+            img.addClass("lozad")
+            img.attr("data-src", img.attr("src"))
             img.removeAttr("src")
         }
     }

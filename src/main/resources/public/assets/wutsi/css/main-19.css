@@ -606,6 +606,10 @@ a.sso-button .fab {
     width: 75%;
 }
 
+.reader .content .twitter-tweet {
+    margin: 0 auto;
+}
+
 
 .settings .form-control {
     border: none;

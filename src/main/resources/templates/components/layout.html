@@ -48,15 +48,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lora&display=swap" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-3.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-18.css'" />
+    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-4.js'"></script>
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-19.css'" />
 </div>
 
 
@@ -115,10 +115,11 @@
     /*]]>*/
     </script>
 
-    <!-- End Facebook Pixel Code -->
-
-
+    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
     <script>
+        const observer = lozad();
+        observer.observe();
+
         $(document).ready(function(){
             wutsi.domReady();
         });

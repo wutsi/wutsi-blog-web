@@ -219,7 +219,7 @@
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-            <img class="border large" th:async-src="${story.thumbnailUrl}" th:alt="${story.title}" />
+            <img class="border large lozad" th:data-src="${story.thumbnailUrl}" th:alt="${story.title}" />
         </div>
 
         <p class="summary" th:text="${story.summary}">Summary</p>
@@ -254,8 +254,8 @@
                     </div>
                 </div>
                 <div class="col-3 text-right padding-none">
-                    <img class="small"
-                         th:async-src="${story.thumbnailUrl}"
+                    <img class="small lozad"
+                         th:src="${story.thumbnailUrl}"
                          th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
                     />
                 </div>

@@ -19,10 +19,6 @@ function Wutsi (){
             var value = $(this).attr("wutsi-track-value");
             wutsi.track(event, value)
         });
-
-        $('img[async-src]').each(function() {
-            $(this).attr("src", $(this).attr("async-src"));
-        });
     };
 
 
