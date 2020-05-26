@@ -163,7 +163,7 @@
     <a th:href="${me.slug}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
         <h1 th:text="${me.fullName}" th:if="${inBlogPage}">Ray Sponsible</h1>
-        <a th:href="${me.slug}" th:if="!${inBlogPage}"><b th:text="${me.fullName}" >Ray Sponsible</b></a>
+        <a th:href="${me.slug}" th:if="!${inBlogPage}" th:text="${me.fullName}">Ray Sponsible</a>
 
         <div class="bio" th:if="${me.biography}" th:text="${me.biography}" classappend="!${inBlogPage} ? text-small">Biography</div>
         <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}" classappend="!${inBlogPage} ? text-small">
@@ -208,7 +208,7 @@
 <div th:fragment="author-summary-card(me)" class="author flex">
     <a th:href="${me.slug}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
-        <a th:href="${me.slug}"><b th:text="${me.fullName}">Ray Sponsible</b></a>
+        <a th:href="${me.slug}" th:text="${me.fullName}">Ray Sponsible</a>
         <div class="text-small bio" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
 </div>

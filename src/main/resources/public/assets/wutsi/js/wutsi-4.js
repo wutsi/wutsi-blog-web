@@ -14,6 +14,11 @@ function Wutsi (){
     };
 
     this.domReady = function () {
+        /* lozad */
+        const observer = lozad();
+        observer.observe();
+
+        /* tracking */
         $('[wutsi-track-event]').click(function(){
             var event = $(this).attr("wutsi-track-event");
             var value = $(this).attr("wutsi-track-value");
