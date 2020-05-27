@@ -23,6 +23,6 @@ class PartnerBackend (
 
     fun save(request: SavePartnerRequest): SavePartnerResponse {
         val id = requestContext.currentUser()?.id
-        return http.post("$endpoint/user/$id", request, SavePartnerResponse::class.java).body
+        return http.post("$endpoint/user/$id", request, SavePartnerResponse::class.java).body!!
     }
 }

@@ -95,7 +95,7 @@ class StoryMapper(
     )
 
     private fun nullToEmpty(topic: TopicModel?): TopicModel {
-        return if (topic == null) TopicModel() else topic!!
+        return if (topic == null) TopicModel() else topic
     }
 
     private fun readabilityColor(score: Int): String {
