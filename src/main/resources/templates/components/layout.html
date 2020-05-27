@@ -8,8 +8,11 @@
 <div th:fragment="head" th:remove="tag">
     <meta charset="utf-8" />
 
-    <meta name="theme-color" content="#ffffff" />
+    <link rel="manifest" th:href="${page.assetUrl} + '/assets/wutsi/manifest.json'" th:if="${toggles.pwa}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_512x512.png'" />
+    <meta name="apple-mobile-web-app-status-bar" content="#f8f8f8" />
+    <meta name="theme-color" content="#f8f8f8">
 
     <meta name="wutsi:page_name" th:content="${page.name}"/>
     <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
@@ -57,11 +60,6 @@
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-4.js'"></script>
     <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-20.css'" />
-
-    <link rel="manifest" th:href="${page.assetUrl} + '/assets/wutsi/manifest.json'" th:if="${toggles.pwa}"/>
-    <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_512x512.png'" />
-    <meta name="apple-mobile-web-app-status-bar" content="#f8f8f8" />
-    <meta name="theme-color" content="#f8f8f8">
 </div>
 
 
@@ -127,7 +125,7 @@
         });
     </script>
 
-    <script th:if="${toggles.pwa}">
+    <script id="pwa-code" th:if="${toggles.pwa}">
         if('serviceWorker' in navigator){
             navigator
                 .serviceWorker.register('/sw.js')
