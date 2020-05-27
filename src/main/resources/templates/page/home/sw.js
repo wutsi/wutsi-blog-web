@@ -28,14 +28,14 @@ self.addEventListener('activate', function (event) {
 
 self.addEventListener('fetch', function(event)  {
     const url = event.request.url;
-    console.log('Fetching', url);
+    // console.log('Fetching', url);
 
     event.respondWith(
         caches.match(event.request)
             .then(function(response){
                 return response || fetch(event.request)
                         .then(function(response){
-                            console.log(url, 'resolved from network');
+                            // console.log(url, 'resolved from network');
                             if (shouldCache(url)){
                                 const clone = response.clone();
                                 caches.open(wutsiCacheName).then(function(cache){

@@ -7,6 +7,7 @@ import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.core.exception.ForbiddenException
+import com.wutsi.core.exception.NotFoundException
 import com.wutsi.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 
 @Component
@@ -27,7 +29,8 @@ class RequestContext(
         private val tokenStorage: AccessTokenStorage,
         private val localization: LocalizationService,
         private val securityManager: SecurityManager,
-        private val logger: KVLogger
+        private val logger: KVLogger,
+        private val response: HttpServletResponse
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
@@ -48,6 +51,9 @@ class RequestContext(
                 user = mapper.toUserModel(usr)
             } catch (e: Exception){
                 LOGGER.warn("Unable to resolve user associate with access_token ${token}", e)
+                if (e is NotFoundException){
+                    tokenStorage.delete(response)
+                }
                 return null
             }
         }
