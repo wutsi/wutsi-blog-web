@@ -9,7 +9,11 @@
         $('button.btn-read-all-languages').click(function(){
             const value = $(this).attr('data-value');
             wutsi.httpGet('/language/read-all/set?value=' + value, false)
-                .finally(function(){
+                .then(function(){
+                    if (value == 'true'){
+                        window.location.reload();
+                    }
+                }).finally(function(){
                     $('#read-all-languages-panel').fadeOut();
                 });
         });

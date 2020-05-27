@@ -11,7 +11,7 @@ class HomeControllerTest: SeleniumTestSupport() {
     @Test
     fun `empty home page`() {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-        driver.get("$url")
+        driver.get(url)
 
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".post", 0)
@@ -19,7 +19,7 @@ class HomeControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user should view recent stories and authors in home page`() {
-        driver.get("$url")
+        driver.get(url)
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".post", 3)
         assertElementCount(".featured-authors .author", 3)
@@ -27,7 +27,7 @@ class HomeControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `home page META headers`() {
-        driver.get("$url")
+        driver.get(url)
         assertElementAttribute("head title", "text", META_TITLE)
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "all")
@@ -35,13 +35,13 @@ class HomeControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `home page Google Analytics`() {
-        driver.get("$url")
+        driver.get(url)
         assertElementPresent("script#ga-code")
     }
 
     @Test
     fun `home page Facebook Pixel`() {
-        driver.get("$url")
+        driver.get(url)
         assertElementPresent("script#fb-pixel-code")
     }
 }
