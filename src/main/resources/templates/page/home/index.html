@@ -25,8 +25,8 @@
                 <div th:replace="components/story :: story-summary-card(${story}, null)"></div>
             </section>
 
-            <section id="a2hs-container" class="margin-top alert alert-info rounded">
-                <div th:utext="#{panel.a2hs.message}">Message</div>
+            <section id="a2hs-container" th:if="${toggles.addToHomeScreen}">
+                <div th:utext="#{page.home.a2hs}">Message</div>
                 <button id="btn-a2hs" class="btn btn-primary margin-top" th:text="#{button.install}">Install</button>
             </section>
         </div>

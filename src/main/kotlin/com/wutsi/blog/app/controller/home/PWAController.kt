@@ -20,9 +20,15 @@ class PWAController(
     }
 
     @GetMapping("/a2hs.js", produces = ["text/javascript"])
-    fun a2hs(): String {
+    fun a2hsjs(): String {
         return "page/home/a2hs.js"
     }
+
+    @GetMapping("/a2hs")
+    fun a2hs(): String {
+        return "page/home/a2hs"
+    }
+
 
     @GetMapping("/manifest.json", produces = ["application/json"])
     @ResponseBody

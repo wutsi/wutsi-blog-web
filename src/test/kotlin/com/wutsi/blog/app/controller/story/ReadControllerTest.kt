@@ -1,13 +1,13 @@
 package com.wutsi.blog.app.controller.story
 
-import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class ReadControllerTest: SeleniumTestSupport() {
+class ReadControllerTest: SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -97,10 +97,10 @@ class ReadControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".share .share-twitter", "wutsi-track-event", "share")
         assertElementAttribute(".share .share-twitter", "wutsi-track-value", "twitter")
 
-//        assertElementCount(".share .share-whatsapp", 1)
-//        assertElementAttribute(".share .share-whatsapp", "href", "whatsapp://send?text=$url")
-//        assertElementAttribute(".share .share-whatsapp", "wutsi-track-event", "share")
-//        assertElementAttribute(".share .share-whatsapp", "wutsi-track-value", "whatsapp")
+        assertElementCount(".share .share-whatsapp", 1)
+        assertElementAttribute(".share .share-whatsapp", "href", "whatsapp://send?text=$url")
+        assertElementAttribute(".share .share-whatsapp", "wutsi-track-event", "share")
+        assertElementAttribute(".share .share-whatsapp", "wutsi-track-value", "whatsapp")
     }
 
     @Test
