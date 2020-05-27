@@ -21,4 +21,9 @@ class PWAControllerTest: SeleniumTestSupport() {
     fun `service worker`() {
         driver.get("$url/sw.js")
     }
+
+    @Test
+    fun `manifest`() {
+        driver.get("$url/manifest.json")
+    }
 }
