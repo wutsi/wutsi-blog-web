@@ -14,6 +14,10 @@ wutsi:
       google:
         client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
 
+  pwa:
+    manifest:
+      name: "Wutsi - Int"
+
   storage:
     s3:
       bucket: "int-wutsi"

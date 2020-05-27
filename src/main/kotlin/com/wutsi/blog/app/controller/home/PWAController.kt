@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody
 @RequestMapping()
 class PWAController(
         @Value("\${wutsi.base-url}") private val baseUrl: String,
-        @Value("\${wutsi.asset-url}") private val assetUrl: String
+        @Value("\${wutsi.asset-url}") private val assetUrl: String,
+        @Value("\${wutsi.pwa.manifest.name}") private val name: String
+
 ) {
     @GetMapping("/sw.js", produces = ["text/javascript"])
     fun sw(): String {
@@ -26,8 +28,8 @@ class PWAController(
     @ResponseBody
     fun manifest(): Manifest {
         return Manifest(
-                name = "Wutsi",
-                short_name = "Wutsi",
+                name = name,
+                short_name = name,
                 start_url = baseUrl,
                 display = "standalone",
                 background_color = "#f8f8f8",

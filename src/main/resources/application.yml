@@ -66,6 +66,14 @@ wutsi:
   cache:
     story-ttl-seconds: 1800    # 30min
 
+  facebook:
+    pixel:
+      code:
+
+  google:
+    ga:
+      code:
+
   http:
     client-id: wutsi-blog-web
 
@@ -88,6 +96,9 @@ wutsi:
       client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
       callback-url: ${wutsi.base-url}/login/twitter/callback
 
+  pwa:
+    manifest:
+      name: "Wutsi"
 
   storage:
     local:
@@ -98,14 +109,6 @@ wutsi:
       url: "http://${wutsi.storage.servlet.hostname}${wutsi.storage.servlet.path}"
     s3:
       bucket:
-
-  google:
-    ga:
-      code:
-
-  facebook:
-    pixel:
-      code:
 
   toggles:
     add-to-home-screen: true        # Add to Homescreen
