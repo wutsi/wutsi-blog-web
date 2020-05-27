@@ -15,6 +15,7 @@ wutsi:
         client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
 
   toggles:
+    add-to-home-screen: false
     recommendation: true
     pwa: false
     share-button: false

@@ -11,8 +11,11 @@
     <link rel="manifest" href="/manifest.json" th:if="${toggles.pwa}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" />
-    <meta name="apple-mobile-web-app-status-bar" content="#f8f8f8" />
     <meta name="theme-color" content="#f8f8f8">
+    <meta name="apple-mobile-web-app-status-bar" content="#f8f8f8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Wutsi" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
     <meta name="wutsi:page_name" th:content="${page.name}"/>
     <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
@@ -59,7 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-4.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-20.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-21.css'" />
 </div>
 
 
@@ -133,6 +136,8 @@
                 .catch(err => console.log('service worker not registered', err));
         }
     </script>
+
+    <script id="a2hs-code" src="/a2hs.js" th:if="${toggles.addToHomeScreen}"></script>
 </footer>
 
 

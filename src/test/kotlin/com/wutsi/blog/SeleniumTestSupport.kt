@@ -55,22 +55,23 @@ abstract class SeleniumTestSupport {
     lateinit protected var driver: WebDriver
 
 
-    @Before
-    fun setUp() {
-        this.url = "http://localhost:$port"
-
+    protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security")  // To prevent CORS issues
         options.addArguments("--lang=fr");
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
         }
-        options.setCapability("resolution", "1920x1080")
-//        options.setExperimentalOption("mobileEmulation", mapOf(
-//                "deviceName" to "Nexus 5"
-//        ))
+//        options.setCapability("resolution", "1920x1080")
+        return options
+    }
 
-        this.driver = ChromeDriver(options)
+
+    @Before
+    fun setUp() {
+        this.url = "http://localhost:$port"
+
+        this.driver = ChromeDriver(driverOptions())
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
 
         if (wiremock == null) {

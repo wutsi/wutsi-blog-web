@@ -20,6 +20,9 @@ class PWAControllerTest: SeleniumTestSupport() {
         assertElementAttributeEndsWith("head link[rel=manifest]", "href", "/manifest.json")
         assertElementAttributeEndsWith("head link[rel=apple-touch-icon]", "href", "/assets/wutsi/img/logo/logo_96x96.png")
         assertElementAttribute("head meta[name=apple-mobile-web-app-status-bar]", "content", "#f8f8f8")
+        assertElementAttribute("head meta[name=apple-mobile-web-app-title]", "content", "Wutsi")
+        assertElementAttribute("head meta[name=apple-mobile-web-app-capable]", "content", "yes")
+        assertElementAttribute("head meta[name=mobile-web-app-capable]", "content", "yes")
         assertElementAttribute("head meta[name=theme-color]", "content", "#f8f8f8")
         assertElementAttribute("head meta[name=viewport]", "content", "width=device-width, initial-scale=1")
 
@@ -29,6 +32,12 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `service worker`() {
         driver.get("$url/sw.js")
+    }
+
+
+    @Test
+    fun `add to homescreen`() {
+        driver.get("$url/a2hs.js")
     }
 
     @Test

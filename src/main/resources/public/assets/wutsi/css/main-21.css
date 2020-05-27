@@ -631,6 +631,10 @@ a.sso-button .fab {
     border: 1px solid var(--border-color)
 }
 
+#a2hs-container {
+    display: none;
+}
+
 
 /* bootstrap override */
 .btn {

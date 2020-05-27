@@ -108,6 +108,7 @@ wutsi:
       code:
 
   toggles:
+    add-to-home-screen: true        # Add to Homescreen
     google-one-tap-sign-in: true    # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA enabled?
     recommendation: true            # Show articles recommendations in reader

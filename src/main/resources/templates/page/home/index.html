@@ -24,6 +24,11 @@
             <section class="padding border post rounded margin-top" th:each="story: ${featuredStories}">
                 <div th:replace="components/story :: story-summary-card(${story}, null)"></div>
             </section>
+
+            <section id="a2hs-container" class="margin-top alert alert-info rounded">
+                <div th:utext="#{panel.a2hs.message}">Message</div>
+                <button id="btn-a2hs" class="btn btn-primary margin-top" th:text="#{button.install}">Install</button>
+            </section>
         </div>
 
         <div class="col-md-4 margin-top" th:if="!${authors.isEmpty()}">
