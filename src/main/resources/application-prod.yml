@@ -16,6 +16,7 @@ wutsi:
 
   toggles:
     add-to-home-screen: false
+    imagekit: false
     recommendation: true
     pwa: false
     share-button: false

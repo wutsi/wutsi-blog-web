@@ -77,6 +77,10 @@ wutsi:
   http:
     client-id: wutsi-blog-web
 
+  imagekit:   # Configuration of integration with imagekit.io
+    origin-url: "https://s3.amazonaws.com/int-wutsi"
+    endpoint-url: "https://ik.imagekit.io/cx8qxsgz4d"
+
   oauth:
     github:
       client-id: 2430c202b7d87c5eddce
@@ -116,6 +120,7 @@ wutsi:
     pwa: true                       # PWA
     recommendation: true            # Show articles recommendations in reader
     share-button: false             # Show single share button, instead of individual social share buttons
+    imagekit: true                  # Integration with imagekit.io
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false
