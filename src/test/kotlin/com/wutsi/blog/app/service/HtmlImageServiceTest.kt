@@ -19,18 +19,18 @@ class HtmlImageServiceTest {
     @Test
     fun sizes() {
         val value  = service.sizes()
-        assertEquals("(max-width: 576px) 576px,(max-width: 768px) 768px,992px", value)
+        assertEquals("", value)
     }
 
     @Test
     fun srcset() {
         val url = "http://foo.com/1.png"
         `when`(imageKit.accept(url)).thenReturn(true)
-        `when`(imageKit.transform(url, "576")).thenReturn("http://foo.com/576/1.png")
-        `when`(imageKit.transform(url, "768")).thenReturn("http://foo.com/768/1.png")
-        `when`(imageKit.transform(url, "992")).thenReturn("http://foo.com/992/1.png")
+        `when`(imageKit.transform(url, "320")).thenReturn("http://foo.com/576/1.png")
+        `when`(imageKit.transform(url, "640")).thenReturn("http://foo.com/768/1.png")
+        `when`(imageKit.transform(url, "1024")).thenReturn("http://foo.com/992/1.png")
 
         val value  = service.srcset(url)
-        assertEquals("http://foo.com/576/1.png 576w, http://foo.com/768/1.png 768w, http://foo.com/992/1.png 992w", value)
+        assertEquals("http://foo.com/576/1.png 320w, http://foo.com/768/1.png 640w, http://foo.com/992/1.png 1024w", value)
     }
 }

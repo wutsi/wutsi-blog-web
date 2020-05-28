@@ -2,18 +2,19 @@ package com.wutsi.blog.app.mapper
 
 import com.wutsi.blog.app.model.AccountModel
 import com.wutsi.blog.app.model.UserModel
+import com.wutsi.blog.app.service.ImageKitService
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
 import org.springframework.stereotype.Service
 
 @Service
-class UserMapper {
+class UserMapper(private val imageKit: ImageKitService) {
     fun toUserModel(user: UserDto) = UserModel(
             id = user.id,
             name = user.name,
             biography = user.biography,
             fullName = user.fullName,
-            pictureUrl = user.pictureUrl,
+            pictureUrl = pictureUrl(user.pictureUrl),
             websiteUrl = user.websiteUrl,
             email = user.email,
             loginCount = user.loginCount,
@@ -51,7 +52,9 @@ class UserMapper {
             id = user.id,
             name = user.name,
             fullName = user.fullName,
-            pictureUrl = user.pictureUrl,
+            pictureUrl = pictureUrl(user.pictureUrl),
             slug = "/@/${user.name}"
     )
+
+    private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")
 }
