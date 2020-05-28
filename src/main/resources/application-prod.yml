@@ -6,6 +6,11 @@ wutsi:
   backend:
     baseurl: https://com-wutsi-blog.herokuapp.com
 
+
+  image-kit:   # Configuration of integration with imagekit.io
+    origin-url: "https://s3.amazonaws.com/prod-wutsi"
+    endpoint-url: "https://ik.imagekit.io/toifevuwjn/"
+
   oauth:
       facebook:
         client-id: "466330503408293"
@@ -16,7 +21,7 @@ wutsi:
 
   toggles:
     add-to-home-screen: false
-    imagekit: false
+    imagekit: true
     recommendation: true
     pwa: false
     share-button: false
