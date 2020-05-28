@@ -23,9 +23,8 @@ class FeatureA2HSDisabledTest: SeleniumTestSupport() {
     fun `add to homescreen in homepage`() {
         driver.get(url)
 
+        assertElementPresent("script#a2hs-code")
         assertElementNotPresent("link#a2hs-css")
-        assertElementNotPresent("script#a2hs-code-1")
-        assertElementNotPresent("script#a2hs-code-2")
         assertElementNotPresent("#a2hs-container")
     }
 
@@ -33,8 +32,7 @@ class FeatureA2HSDisabledTest: SeleniumTestSupport() {
     fun `add to homescreen in reader`() {
         driver.get("$url/read/20/test")
 
-        Thread.sleep(1000)
-        assertElementNotPresent("script#a2hs-code")
+        assertElementPresent("script#a2hs-code")
         assertElementNotPresent("#a2hs-container")
     }
 

@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.controller.home
 
+import com.wutsi.blog.app.service.RequestContext
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 class PWAController(
         @Value("\${wutsi.base-url}") private val baseUrl: String,
         @Value("\${wutsi.asset-url}") private val assetUrl: String,
-        @Value("\${wutsi.pwa.manifest.name}") private val name: String
-
+        @Value("\${wutsi.pwa.manifest.name}") private val name: String,
+        private val requestContext: RequestContext
 ) {
     @GetMapping("/sw.js", produces = ["text/javascript"])
     fun sw(): String {
@@ -21,7 +22,7 @@ class PWAController(
 
     @GetMapping("/a2hs.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
-        return "page/home/a2hs.js"
+        return if (requestContext.toggles().addToHomeScreen) "page/home/a2hs.js" else "page/home/a2hs-disabled.js"
     }
 
     @GetMapping("/a2hs")
