@@ -1,10 +1,12 @@
 package com.wutsi.blog.app.service.editorjs
 
-import com.wutsi.blog.app.service.ImageKitService
+import com.wutsi.blog.app.service.HtmlImageService
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class ImageKitFilter(private val service: ImageKitService): Filter{
+class ImageKitFilter(
+        private val sizes: HtmlImageService
+): Filter {
     override fun filter(html: Document) {
         html.select("img")
                 .forEach { filter(it) }
@@ -12,12 +14,10 @@ class ImageKitFilter(private val service: ImageKitService): Filter{
 
     private fun filter(img: Element) {
         val url = img.attr("src")
-        if (!service.accept(url)) {
-            return
+        val srcset = sizes.srcset(url)
+        if (srcset.isNotEmpty()) {
+            img.attr("srcset", srcset)
+            img.attr("sizes", sizes.sizes())
         }
-
-        val src480 = service.transform(url, "480px")
-        val src800 = service.transform(url, "800px")
-        img.attr("srcset", "$src480 480w, $src800 800w")
     }
 }

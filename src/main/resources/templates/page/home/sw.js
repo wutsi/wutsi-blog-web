@@ -53,6 +53,7 @@ self.addEventListener('fetch', function(event)  {
 function shouldCache(url) {
     return url.includes('/assets/wutsi') ||
         url.includes('//fonts.googleapis.com') ||
+        url.includes('//ik.imagekit.io') ||
         url.endsWith('.js') ||
         url.endsWith('.css');
 }

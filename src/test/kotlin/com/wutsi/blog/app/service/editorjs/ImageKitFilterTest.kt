@@ -1,11 +1,12 @@
 package com.wutsi.blog.app.service.editorjs
 
-import com.wutsi.blog.app.service.ImageKitService
+import com.wutsi.blog.app.service.HtmlImageService
 import org.jsoup.Jsoup
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
@@ -13,33 +14,34 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class ImageKitFilterTest {
     @Mock
-    private lateinit var service: ImageKitService
+    private lateinit var size: HtmlImageService
+
+    @InjectMocks
+    private lateinit var filter: ImageKitFilter
 
     @Test
     fun filter() {
-        val filter = ImageKitFilter(service)
+        `when`(size.srcset("foo.gif")).thenReturn("foo-480px.gif 480w, foo-800px.gif 800w")
+        `when`(size.sizes()).thenReturn("yo-man")
 
-        `when`(service.accept("foo.gif")).thenReturn(true)
-        `when`(service.transform("foo.gif", "480px", null)).thenReturn("foo-480px.gif")
-        `when`(service.transform("foo.gif", "800px", null)).thenReturn("foo-800px.gif")
         val doc = Jsoup.parse("<body>Hello <img src='foo.gif'/>world</body>")
         filter.filter(doc)
 
         doc.select("img").forEach {
             assertEquals("foo-480px.gif 480w, foo-800px.gif 800w", it.attr("srcset"))
+            assertEquals("yo-man", it.attr("sizes"))
         }
     }
 
     @Test
-    fun filterImageKitNotEnaled() {
-        val filter = ImageKitFilter(service)
-
-        `when`(service.accept("foo.gif")).thenReturn(false)
+    fun filterNoSource() {
+        `when`(size.srcset("foo.gif")).thenReturn("")
         val doc = Jsoup.parse("<body>Hello <img src='foo.gif'/>world</body>")
         filter.filter(doc)
 
         doc.select("img").forEach {
             assertFalse(it.hasAttr("srcset"))
+            assertFalse(it.hasAttr("sizes"))
         }
     }
 }

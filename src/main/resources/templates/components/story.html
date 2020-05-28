@@ -218,8 +218,13 @@
     <a th:href="${story.slug}">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
-        <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-            <img class="border large lozad" th:data-src="${story.thumbnailUrl}" th:alt="${story.title}" />
+        <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
+            <img class="border large lozad"
+                 th:data-src="${story.thumbnailImage.src}"
+                 th:data-srcset="${story.thumbnailImage.srcset}"
+                 th:sizes="${story.thumbnailImage.sizes}"
+                 th:alt="${story.title}"
+            />
         </div>
 
         <p class="summary" th:text="${story.summary}">Summary</p>
@@ -242,7 +247,9 @@
     >
         <div class="container-fluid">
             <div class="row">
-                <div class="col-9 padding-none">
+                <div class="padding-none"
+                     th:classappend="${story.thumbnailImage} ? col-9"
+                >
                     <h6 th:text="${story.title}">Title</h6>
                     <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
                     <div class="meta flex">
@@ -253,9 +260,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 text-right padding-none">
+                <div class="col-3 text-right padding-none" th:if="${story.thumbnailImage}">
                     <img class="small lozad"
-                         th:src="${story.thumbnailUrl}"
+                         th:data-src="${story.thumbnailImage.src}"
+                         th:data-srcset="${story.thumbnailImage.srcset}"
+                         th:sizes="${story.thumbnailImage.sizes}"
                          th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
                     />
                 </div>

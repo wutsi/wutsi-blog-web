@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.blog.app.service.ImageKitService
+import com.wutsi.blog.app.service.HtmlImageService
 import com.wutsi.blog.app.service.editorjs.EJSFilterSet
 import com.wutsi.blog.app.service.editorjs.ImageKitFilter
 import com.wutsi.blog.app.service.editorjs.ImageLozadFilter
@@ -35,9 +35,9 @@ class EditorJSConfiguration(private val objectMapper: ObjectMapper) {
 
     @Autowired
     @Bean
-    fun ejsFilterSet(imageKit: ImageKitService) = EJSFilterSet(arrayListOf(
+    fun ejsFilterSet(imageSize: HtmlImageService) = EJSFilterSet(arrayListOf(
             LinkFilter(),
-            ImageKitFilter(imageKit),
+            ImageKitFilter(imageSize),
             ImageLozadFilter()  /* should be the LAST image filter */
     ))
 

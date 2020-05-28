@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import java.util.UUID
 
 abstract class AbstractPageController(
-        protected val requestContext: RequestContext
+        @ModelAttribute(ModelAttributeName.REQUEST_CONTEXT) protected val requestContext: RequestContext
 ) {
     @Value("\${wutsi.asset-url}")
     protected lateinit var assetUrl: String
@@ -41,6 +41,7 @@ abstract class AbstractPageController(
 
     @ModelAttribute(ModelAttributeName.HITID)
     fun getHitId() = UUID.randomUUID().toString()
+
 
     open fun shouldBeIndexedByBots() = false
 

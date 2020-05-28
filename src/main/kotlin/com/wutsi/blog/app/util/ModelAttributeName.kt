@@ -6,5 +6,6 @@ class ModelAttributeName{
         const val TOGGLES = "toggles"
         const val PAGE = "page"
         const val HITID = "hitId"
+        const val REQUEST_CONTEXT = "requestContext"
     }
 }

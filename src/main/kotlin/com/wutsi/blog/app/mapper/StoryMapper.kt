@@ -19,7 +19,8 @@ class StoryMapper(
         private val tagMapper: TagMapper,
         private val topicMapper: TopicMapper,
         private val topicService: TopicService,
-        private val moment: Moment
+        private val moment: Moment,
+        private val htmlImageMapper: HtmlImageModelMapper
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -33,6 +34,7 @@ class StoryMapper(
                 title = story.title,
                 contentType = story.contentType,
                 thumbnailUrl = story.thumbnailUrl,
+                thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
                 wordCount = story.wordCount,
                 sourceUrl = story.sourceUrl,
                 sourceSite = story.sourceSite,
