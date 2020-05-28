@@ -10,6 +10,7 @@ class Toggles {
     var googleOneTapSignIn: Boolean = false
     var pwa: Boolean = false
     var recommendation: Boolean = false
+    var imageKit: Boolean = false
     var shareButton: Boolean = true
     var ssoFacebook: Boolean = false
     var ssoGoogle: Boolean = false

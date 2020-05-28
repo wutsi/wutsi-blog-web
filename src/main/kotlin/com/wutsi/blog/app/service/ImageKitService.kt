@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service
 
 @Service
 class ImageKitService(
-        @Value("\${wutsi.toggles.imagekit}") private val enabled: Boolean,
-        @Value("\${wutsi.imagekit.origin-url}") private val originUrl: String,
-        @Value("\${wutsi.imagekit.endpoint-url}") private val endpoint: String
+        @Value("\${wutsi.toggles.image-kit}") private val enabled: Boolean,
+        @Value("\${wutsi.image-kit.origin-url}") private val originUrl: String,
+        @Value("\${wutsi.image-kit.endpoint-url}") private val endpoint: String
 ) {
     fun accept(url: String) = enabled && url.startsWith(originUrl)
 
     fun transform(url: String, width: String?=null, height: String?=null): String {
-        if (accept(url)){
+        if (!accept(url)){
             return url
         }
 
