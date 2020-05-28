@@ -4,6 +4,7 @@ import com.wutsi.blog.app.service.RequestContext
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import java.text.SimpleDateFormat
@@ -20,27 +21,27 @@ class PWAController(
         private val response: HttpServletResponse
 ) {
     private val lastModified: String = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").format(Date())
+    private val maxAge = 86400 * 365 * 10   // 10 years
 
-    @GetMapping("/sw.js", produces = ["text/javascript"])
-    fun sw(): String {
-        setLastModified()
+    @GetMapping("/sw-{version}.js", produces = ["text/javascript"])
+    fun sw(@PathVariable version: String): String {
+        setUpCaching()
         return "page/home/sw.js"
     }
 
-    @GetMapping("/a2hs.js", produces = ["text/javascript"])
+    @GetMapping("/a2hs-{version}.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
-        setLastModified()
+        setUpCaching()
         return if (requestContext.toggles().addToHomeScreen) "page/home/a2hs.js" else "page/home/a2hs-disabled.js"
     }
 
     @GetMapping("/a2hs")
     fun a2hs(): String {
-        setLastModified()
         return "page/home/a2hs"
     }
 
 
-    @GetMapping("/manifest.json", produces = ["application/json"])
+    @GetMapping("/manifest-{version}.json", produces = ["application/json"])
     @ResponseBody
     fun manifest(): Manifest {
         return Manifest(
@@ -66,8 +67,9 @@ class PWAController(
         )
     }
 
-    private fun setLastModified() {
+    private fun setUpCaching() {
         response.setHeader("Last-Modified", lastModified)
+        response.setHeader("Cache-Control", "private, max-age=$maxAge")
     }
 }
 

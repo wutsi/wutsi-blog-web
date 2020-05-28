@@ -51,5 +51,5 @@ self.addEventListener('fetch', function(event)  {
 });
 
 function shouldCache(url) {
-    return url.includes('/assets/wutsi');
+    return false;
 }

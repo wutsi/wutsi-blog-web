@@ -17,7 +17,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `pwa headers`() {
         driver.get(url)
-        assertElementAttributeEndsWith("head link[rel=manifest]", "href", "/manifest.json")
+        assertElementAttributeEndsWith("head link[rel=manifest]", "href", "/manifest-1.json")
         assertElementAttributeEndsWith("head link[rel=apple-touch-icon]", "href", "/assets/wutsi/img/logo/logo_96x96.png")
         assertElementAttribute("head meta[name=apple-mobile-web-app-status-bar]", "content", "#f8f8f8")
         assertElementAttribute("head meta[name=apple-mobile-web-app-title]", "content", "Wutsi")
@@ -31,7 +31,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `service worker`() {
-        driver.get("$url/sw.js")
+        driver.get("$url/sw-1.js")
     }
 
 
@@ -43,7 +43,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `manifest`() {
         val rest = RestTemplate()
-        val response = rest.getForEntity("$url/manifest.json", Manifest::class.java)
+        val response = rest.getForEntity("$url/manifest-1.json", Manifest::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
 

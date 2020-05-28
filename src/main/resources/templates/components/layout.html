@@ -8,7 +8,7 @@
 <div th:fragment="head" th:remove="tag">
     <meta charset="utf-8" />
 
-    <link rel="manifest" href="/manifest.json" th:if="${toggles.pwa}"/>
+    <link rel="manifest" href="/manifest-1.json" th:if="${toggles.pwa}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" />
     <meta name="theme-color" content="#f8f8f8">
@@ -131,12 +131,12 @@
     <script id="pwa-code" th:if="${toggles.pwa}">
         if('serviceWorker' in navigator){
             navigator
-                .serviceWorker.register('/sw.js')
+                .serviceWorker.register('/sw-1.js')
                 .then(reg => console.log('service worker registered'))
                 .catch(err => console.log('service worker not registered', err));
         }
     </script>
-    <script id="a2hs-code" src="/a2hs.js"></script>
+    <script id="a2hs-code" src="/a2hs-1.js"></script>
 </footer>
 
 
