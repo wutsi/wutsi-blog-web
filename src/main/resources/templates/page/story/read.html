@@ -39,7 +39,7 @@
         <div class="content margin-top" th:utext="${html}">This is a block</div>
 
         <!-- Add to homescreen -->
-        <section id="a2hs-container" th:if="${toggles.addToHomeScreen}">
+        <section id="a2hs-container alert alert-info margin-top rounded" th:if="${toggles.addToHomeScreen}">
             <div th:utext="#{page.reader.a2hs}">Message</div>
             <button id="btn-a2hs" class="btn btn-primary margin-top" th:text="#{button.install}">Install</button>
         </section>

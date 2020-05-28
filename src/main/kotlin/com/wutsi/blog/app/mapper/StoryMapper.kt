@@ -67,6 +67,7 @@ class StoryMapper(
             id = story.id!!,
             title = story.title,
             thumbnailUrl = story.thumbnailUrl,
+            thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
             wordCount = story.wordCount,
             sourceUrl = story.sourceUrl,
             readingMinutes = story.readingMinutes,
