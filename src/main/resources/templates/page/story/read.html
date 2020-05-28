@@ -101,8 +101,8 @@
 </script>
 
 
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script>
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8" th:if="${twitterEmbed}"></script>
+<script th:if="${twitterEmbed}">
     $(document).ready(function(){
         $('.tweet').each( function( t, tweet ) {
 

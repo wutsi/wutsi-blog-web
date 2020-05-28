@@ -6,6 +6,8 @@ import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.service.editorjs.EJSFilterSet
 import com.wutsi.blog.app.util.ModelAttributeName
+import com.wutsi.editorjs.dom.BlockType
+import com.wutsi.editorjs.dom.EJSDocument
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
@@ -26,24 +28,27 @@ abstract class AbstractStoryReadController(
 
     protected fun loadPage(id: Long, model: Model) {
         val story = getStory(id)
-        val html = toHtml(story)
-        val page = toPage(story)
-
         model.addAttribute("story", story)
-        model.addAttribute("html", html)
+
+        val page = toPage(story)
         model.addAttribute(ModelAttributeName.PAGE, page)
+
+        loadContent(story, model)
     }
 
-    private fun toHtml(story: StoryModel): String {
+    private fun loadContent(story: StoryModel, model: Model) {
         if (story.content == null){
-            return ""
+            return
         }
 
         val ejs = ejsJsonReader.read(story.content)
         val html = StringWriter()
         ejsHtmlWriter.write(ejs, html)
-        return filter(html.toString())
+        model.addAttribute("html", filter(html.toString()))
+        model.addAttribute("twitterEmbed", hasTwitterEmbed(ejs))
     }
+
+    private fun hasTwitterEmbed(doc: EJSDocument) = doc.blocks.find { it.type == BlockType.embed && it.data.service == "twitter" }
 
     private fun filter(html: String): String {
         val doc = Jsoup.parse(html)
