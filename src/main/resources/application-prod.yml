@@ -20,7 +20,7 @@ wutsi:
         client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
 
   toggles:
-    add-to-home-screen: false
+    add-to-home-screen: true
     imagekit: true
     recommendation: true
     pwa: true
