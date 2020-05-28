@@ -45,10 +45,12 @@ abstract class AbstractStoryReadController(
         val html = StringWriter()
         ejsHtmlWriter.write(ejs, html)
         model.addAttribute("html", filter(html.toString()))
-        model.addAttribute("twitterEmbed", hasTwitterEmbed(ejs))
+        model.addAttribute("twitterEmbed", twitterEmbed(ejs) != null)
     }
 
-    private fun hasTwitterEmbed(doc: EJSDocument) = doc.blocks.find { it.type == BlockType.embed && it.data.service == "twitter" }
+    private fun twitterEmbed(doc: EJSDocument) = doc
+            .blocks
+            .find { it.type == BlockType.embed && it.data.service == "twitter" }
 
     private fun filter(html: String): String {
         val doc = Jsoup.parse(html)
