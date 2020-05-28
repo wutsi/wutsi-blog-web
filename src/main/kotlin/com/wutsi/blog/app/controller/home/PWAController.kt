@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
+import java.text.SimpleDateFormat
+import java.util.Date
+import javax.servlet.http.HttpServletResponse
 
 @Controller
 @RequestMapping()
@@ -13,22 +16,26 @@ class PWAController(
         @Value("\${wutsi.base-url}") private val baseUrl: String,
         @Value("\${wutsi.asset-url}") private val assetUrl: String,
         @Value("\${wutsi.pwa.manifest.name}") private val name: String,
-        private val requestContext: RequestContext
+        private val requestContext: RequestContext,
+        private val response: HttpServletResponse
 ) {
-    private val startUpTime = System.currentTimeMillis()
+    private val lastModified: String = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").format(Date())
 
     @GetMapping("/sw.js", produces = ["text/javascript"])
     fun sw(): String {
+        setLastModified()
         return "page/home/sw.js"
     }
 
     @GetMapping("/a2hs.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
+        setLastModified()
         return if (requestContext.toggles().addToHomeScreen) "page/home/a2hs.js" else "page/home/a2hs-disabled.js"
     }
 
     @GetMapping("/a2hs")
     fun a2hs(): String {
+        setLastModified()
         return "page/home/a2hs"
     }
 
@@ -57,6 +64,10 @@ class PWAController(
                         )
                 )
         )
+    }
+
+    private fun setLastModified() {
+        response.setHeader("Last-Modified", lastModified)
     }
 }
 
