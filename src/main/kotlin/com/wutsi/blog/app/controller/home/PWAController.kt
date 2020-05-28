@@ -32,7 +32,7 @@ class PWAController(
     @GetMapping("/a2hs-{version}.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
         setUpCaching()
-        return if (requestContext.toggles().addToHomeScreen) "page/home/a2hs.js" else "page/home/a2hs-disabled.js"
+        return "page/home/a2hs.js"
     }
 
     @GetMapping("/a2hs")

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 
 @ConfigurationProperties(prefix = "wutsi.toggles")
 class Toggles {
-    var addToHomeScreen: Boolean = true
     var googleOneTapSignIn: Boolean = false
     var pwa: Boolean = false
     var recommendation: Boolean = false
