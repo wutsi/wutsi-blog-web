@@ -15,6 +15,8 @@ class PWAController(
         @Value("\${wutsi.pwa.manifest.name}") private val name: String,
         private val requestContext: RequestContext
 ) {
+    private val startUpTime = System.currentTimeMillis()
+
     @GetMapping("/sw.js", produces = ["text/javascript"])
     fun sw(): String {
         return "page/home/sw.js"
