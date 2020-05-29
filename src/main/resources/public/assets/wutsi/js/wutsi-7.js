@@ -1,4 +1,4 @@
-function Wutsi (ga){
+function Wutsi (){
 
     this.track = function (event, value){
         this.track_ga(event, value);
@@ -8,11 +8,15 @@ function Wutsi (ga){
     this.track_ga = function(event, value) {
         console.log('Sending to GA', event, value);
         try {
-            ga('send', 'event', event, this.page_name(), value);
+            gtag('event', event, {
+                'page': this.page_name(),
+                'value': (value ? value : null)
+            });
         } catch (err) {
             console.error('Unable to push event to Google Analytics', err);
         }
     };
+
 
     this.track_wutsi = function(event, value) {
         const page = this.page_name();
