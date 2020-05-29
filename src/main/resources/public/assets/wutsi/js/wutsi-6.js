@@ -6,13 +6,11 @@ function Wutsi (ga){
     };
 
     this.track_ga = function(event, value) {
-        if ((window._gaq && window._gaq._getTracker) || window.urchinTracker) {
-            console.log('Sending to GA', event, value);
-            try {
-                ga('send', 'event', event, this.page_name(), value);
-            } catch (err) {
-                console.error('Unable to push event to Google Analytics', err);
-            }
+        console.log('Sending to GA', event, value);
+        try {
+            ga('send', 'event', event, this.page_name(), value);
+        } catch (err) {
+            console.error('Unable to push event to Google Analytics', err);
         }
     };
 
