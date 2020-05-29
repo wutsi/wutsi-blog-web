@@ -6,10 +6,10 @@ function Wutsi (ga){
     };
 
     this.track_ga = function(event, value) {
-        if (ga) {
+        if ((window._gaq && window._gaq._getTracker) || window.urchinTracker) {
             console.log('Sending to GA', event, value);
             try {
-                ga('send', 'event', event, null, value);
+                ga('send', 'event', event, this.page_name(), value);
             } catch (err) {
                 console.error('Unable to push event to Google Analytics', err);
             }
@@ -170,4 +170,13 @@ setInterval(function () {
 }, 30000);
 
 // Handle all errors
+window.onerror = function() {
+    window.onerror = function(msg, url, line, col, error) {
+        var position = line + (!col ? '' : ':' + col);
+        var message = !error ? '' : error;
+
+        // Push the error to Google Analytics
+        wutsi.track_ga('error', position + ' - ' + message)
+    };
+};
 
