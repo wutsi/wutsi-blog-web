@@ -38,7 +38,7 @@ class StatsService(
 
     fun barChartData(story: StoryModel, type: StatsType): BarChartModel {
         val startDate = story.publishedDateTimeAsDate!!
-        val endDate = DateUtils.addDays(Date(), 1)
+        val endDate = Date()
 
         val stats = backend.search(SearchStatsRequest(
                 targetId = story.id,

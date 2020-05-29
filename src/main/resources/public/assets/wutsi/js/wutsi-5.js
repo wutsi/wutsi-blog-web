@@ -1,16 +1,65 @@
-function Wutsi (){
+function Wutsi (ga){
+
     this.track = function (event, value){
+        this.track_ga(event, value);
+        return this.track_wutsi(event, value, false);
+    };
+
+    this.track_ga = function(event, value) {
+        if (ga) {
+            console.log('Sending to GA', event, value);
+            try {
+                ga('send', 'event', event, null, value);
+            } catch (err) {
+                console.error('Unable to push event to Google Analytics', err);
+            }
+        }
+    };
+
+    this.track_wutsi = function(event, value) {
+        const page = this.page_name();
+        if (page != 'page.read') {  // Only push to wutsi story events
+            return
+        }
+
         const data = {
             time: new Date().getTime(),
             pid:  this.story_id(),
             event: event,
-            page: this.page_name(),
+            page: page,
             ua: navigator.userAgent,
             value: (value ? value : null),
             hid: this.hit_id()
         };
+        return this.httpPost('/track', data, true)
+            .catch(function(){
+                const key = 'track.' + data.time;
+                const value = JSON.stringify(data);
+                console.log('Adding into LocalStorage', key, value);
+                localStorage.setItem(key, value);
+            });
+    };
 
-        return this.httpPost('/track', data, true);
+    this.track_wutsi_job = function(){
+        console.log('Running the track Job');
+
+        for (var i = 0; i < localStorage.length; i++){
+            const key = localStorage.key(i);
+            if (key.startsWith('track.')){
+                try {
+                    const data = JSON.parse(localStorage.getItem(key));
+                    console.log('Pushing stored tracking event', key, data);
+                    this.httpPost('/track', data, true)
+                        .then (function(){
+                            console.log('track-event', key, ' sent');
+                            console.log('Removing from LocalStorage', key);
+                            localStorage.removeItem(key);
+                        })
+                } catch (err) {
+                    console.error(key, err);
+                }
+            }
+        }
     };
 
     this.domReady = function () {
@@ -114,3 +163,11 @@ function Wutsi (){
 }
 
 var wutsi = new Wutsi();
+
+// Push stores track events periodically
+setInterval(function () {
+    wutsi.track_wutsi_job()
+}, 30000);
+
+// Handle all errors
+
