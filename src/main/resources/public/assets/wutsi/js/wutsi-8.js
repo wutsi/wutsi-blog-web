@@ -9,7 +9,8 @@ function Wutsi (){
         console.log('Sending to GA', event, value);
         try {
             gtag('event', event, {
-                'page': this.page_name(),
+                'event_category': wutsi.page_name(),
+                'event_label': event,
                 'value': (value ? value : null)
             });
         } catch (err) {
