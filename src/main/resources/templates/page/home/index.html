@@ -29,7 +29,7 @@
                 </section>
             </section>
 
-            <section class="margin-top" th:if="${toggles.pwa} AND ${featuredStories.size LT 3}">
+            <section class="margin-top" th:if="${toggles.pwa} AND ${featuredStories.size() LT 3}">
                 <div th:replace="components/pwa :: a2hs-card"></div>
             </section>
         </div>
