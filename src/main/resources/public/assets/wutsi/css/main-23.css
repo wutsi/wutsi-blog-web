@@ -76,6 +76,10 @@ h1, h2, h3, h4, h5, h6 {
 .border {
     border: 1px solid var(--border-color);
 }
+.border-hightlight {
+    border: 1px solid var(--highlight-color)
+}
+
 .border-bottom {
     border-bottom: 1px solid var(--border-color);
 }
@@ -638,7 +642,6 @@ a.sso-button .fab {
 }
 .a2hs-card {
     background: white;
-    border: 1px solid var(--highlight-color)
 }
 .a2hs-card h2 {
     font-size: 1.5em;
