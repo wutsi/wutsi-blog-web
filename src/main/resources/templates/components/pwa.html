@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="a2hs-card" id="a2hs-container" class="a2hs-card border rounded padding">
+    <div class="flex">
+        <div class="margin-right"><i class="fas fa-mobile-alt fa-3x"></i></div>
+        <div>
+            <div th:utext="#{component.pwa.a2hs.message}">Message</div>
+            <button id="btn-a2hs" class="btn btn-primary margin-top" th:text="#{button.install}">Install</button>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -39,9 +39,8 @@
         <div class="content margin-top" th:utext="${html}">This is a block</div>
 
         <!-- Add to homescreen -->
-        <section id="a2hs-container" class="alert alert-info margin-top rounded" th:if="${toggles.pwa}">
-            <div th:utext="#{page.reader.a2hs}">Message</div>
-            <button id="btn-a2hs" class="btn btn-primary margin-top" th:text="#{button.install}">Install</button>
+        <section class="margin-top" th:if="${toggles.pwa}">
+            <div th:replace="components/pwa :: a2hs-card"></div>
         </section>
 
         <!-- Tags -->

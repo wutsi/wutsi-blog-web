@@ -631,8 +631,17 @@ a.sso-button .fab {
     border: 1px solid var(--border-color)
 }
 
+
+/* add 2 homescreen */
 #a2hs-container {
     display: none;
+}
+.a2hs-card {
+    background: white;
+    border: 1px solid var(--highlight-color)
+}
+.a2hs-card h2 {
+    font-size: 1.5em;
 }
 
 
