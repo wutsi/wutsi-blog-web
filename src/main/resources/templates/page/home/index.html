@@ -11,7 +11,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-12 offset-md-1 col-md-6">
             <section class="padding border post rounded margin-top" th:if="${mainStory}">
                 <div th:replace="components/story :: story-card(${mainStory})"></div>
             </section>
@@ -36,7 +36,7 @@
             </section>
         </div>
 
-        <div class="col-md-4 margin-top" th:if="!${authors.isEmpty()}">
+        <div class="col-12 col-md-4 margin-top" th:if="!${authors.isEmpty()}">
             <div class="padding border rounded featured-authors">
                 <h4 th:text="#{page.home.feature-blogs}">Featured Blogs</h4>
                 <div class="margin-top padding-top border-top" th:each="author:${authors}">
