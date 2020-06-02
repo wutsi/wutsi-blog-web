@@ -21,13 +21,15 @@
                 $('#read-all-languages').load('/language/read-all');
             </script>
 
-            <section class="padding border post rounded margin-top" th:each="story,it: ${featuredStories}">
-                <div th:replace="components/story :: story-summary-card(${story}, null)"></div>
+            <div th:each="story,it: ${featuredStories}">
+                <section class="padding border post rounded margin-top">
+                    <div th:replace="components/story :: story-summary-card(${story}, null)"></div>
+                </section>
 
                 <section class="margin-top" th:if="${toggles.pwa} AND ${it.index == 2}">
                     <div th:replace="components/pwa :: a2hs-card"></div>
                 </section>
-            </section>
+            </div>
 
             <section class="margin-top" th:if="${toggles.pwa} AND ${featuredStories.size() LT 3}">
                 <div th:replace="components/pwa :: a2hs-card"></div>
