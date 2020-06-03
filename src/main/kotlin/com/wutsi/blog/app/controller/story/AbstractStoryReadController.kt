@@ -23,9 +23,6 @@ abstract class AbstractStoryReadController(
         requestContext: RequestContext
 ): AbstractStoryController(service, requestContext) {
 
-    @Value("\${wutsi.oauth.google.client-id}")
-    protected lateinit var googleClientId: String
-
     protected fun loadPage(id: Long, model: Model) {
         val story = getStory(id)
         model.addAttribute("story", story)
