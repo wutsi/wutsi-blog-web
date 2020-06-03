@@ -47,7 +47,7 @@ class BlogController(
                 imageUrl = user.pictureUrl,
                 baseUrl = baseUrl,
                 assetUrl = assetUrl,
-                robots = robots(),
+                robots = getPageRobotsHeader(),
                 googleAnalyticsCode = this.googleAnalyticsCode,
                 facebookPixelCode = this.facebookPixelId
             )

@@ -30,7 +30,7 @@ class HomeControllerTest: SeleniumTestSupport() {
         driver.get(url)
         assertElementAttribute("head title", "text", META_TITLE)
         assertElementPresent("head meta[name='description']")
-        assertElementAttribute("head meta[name='robots']", "content", "all")
+        assertElementAttribute("head meta[name='getPageRobotsHeader']", "content", "all")
     }
 
     @Test

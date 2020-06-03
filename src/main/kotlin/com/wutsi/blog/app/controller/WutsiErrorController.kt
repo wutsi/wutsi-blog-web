@@ -55,7 +55,7 @@ class WutsiErrorController(
             type = "website",
             assetUrl = assetUrl,
             baseUrl = baseUrl,
-            robots = robots(),
+            robots = getPageRobotsHeader(),
             googleAnalyticsCode = this.googleAnalyticsCode,
             facebookPixelCode = this.facebookPixelId
     )

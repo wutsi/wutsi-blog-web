@@ -120,7 +120,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
-        assertElementAttribute("head meta[name='robots']", "content", "all")
+        assertElementAttribute("head meta[name='getPageRobotsHeader']", "content", "all")
 
         assertElementAttribute("head meta[property='og:title']", "content", title)
         assertElementAttribute("head meta[property='og:description']","content", description)

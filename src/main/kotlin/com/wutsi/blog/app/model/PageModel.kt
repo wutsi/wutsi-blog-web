@@ -18,6 +18,7 @@ data class PageModel (
         val googleAnalyticsCode: String,
         val facebookPixelCode: String,
         val canonicalUrl: String? = null,
-        val googleClientId: String? = null
+        val googleClientId: String? = null,
+        val showGoogleOneTap: Boolean = false
 )
 

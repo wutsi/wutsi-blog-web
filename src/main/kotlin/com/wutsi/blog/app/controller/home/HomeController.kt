@@ -26,8 +26,15 @@ class HomeController(
 
     override fun shouldBeIndexedByBots() = true
 
+    override fun shouldShowGoogleOneTap() = true
+
     @GetMapping()
     fun index(model: Model): String {
+        loadStories(model)
+        return "page/home/index"
+    }
+
+    private fun loadStories(model: Model) {
         val stories = storyService.search(SearchStoryRequest(
                 status = StoryStatus.published,
                 language = storyService.searchLanguage(),
@@ -45,7 +52,6 @@ class HomeController(
         model.addAttribute("mainStory", main)
         model.addAttribute("featuredStories", bubbleUpNonViewedStories(featured, viewedIds))
         model.addAttribute("authors", authors)
-        return "page/home/index"
     }
 
     private fun mainStory(stories: List<StoryModel>, viewedIds: List<Long>): StoryModel? {

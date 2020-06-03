@@ -23,8 +23,8 @@ class FeatureGoogleOneTapEnabledTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `GoogleOneTap should showup for anonymous user`() {
-        gotoPage(false)
+    fun `GoogleOneTap should showup for anonymous user in Home`() {
+        gotoHome(false)
 
         assertElementPresent("#g_id_onload")
         assertElementPresent("#g_one_tap_script")
@@ -32,21 +32,49 @@ class FeatureGoogleOneTapEnabledTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `GoogleOneTap not should showup for anonymous user`() {
-        gotoPage(true)
+    fun `GoogleOneTap not should showup for anonymous user in Home`() {
+        gotoHome(false)
 
         assertElementNotPresent("#g_id_onload")
         assertElementNotPresent("#g_one_tap_script")
         assertElementNotPresent("#g_one_tap_callback")
     }
 
-    fun gotoPage(login: Boolean) {
+
+    @Test
+    fun `GoogleOneTap should showup for anonymous user in Reader`() {
+        gotoStory(false)
+
+        assertElementPresent("#g_id_onload")
+        assertElementPresent("#g_one_tap_script")
+        assertElementPresent("#g_one_tap_callback")
+    }
+
+    @Test
+    fun `GoogleOneTap not should showup for anonymous user in Reader`() {
+        gotoStory(true)
+
+        assertElementNotPresent("#g_id_onload")
+        assertElementNotPresent("#g_one_tap_script")
+        assertElementNotPresent("#g_one_tap_callback")
+    }
+
+
+    private fun gotoStory(login: Boolean) {
+        if (login) {
+            login()
+            click(".post a")
+        } else {
+            driver.get("$url/read/20/hello-world")
+        }
+    }
+
+    private fun gotoHome(login: Boolean) {
         if (login) {
             login()
         } else {
             driver.get(url)
         }
-        click(".post a")
     }
 
 }

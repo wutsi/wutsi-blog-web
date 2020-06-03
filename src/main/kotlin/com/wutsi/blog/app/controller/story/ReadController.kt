@@ -30,6 +30,8 @@ class ReadController(
 
     override fun shouldBeIndexedByBots() = true
 
+    override fun shouldShowGoogleOneTap() = true
+
 
     @GetMapping("/read/{id}/{title}")
     fun read(@PathVariable id: Long, @PathVariable title: String, model: Model): String {
@@ -43,7 +45,6 @@ class ReadController(
             model: Model
     ): String {
         loadPage(id, model)
-        loadGoogleOneTap(model)
         return "page/story/read"
     }
 
@@ -52,16 +53,5 @@ class ReadController(
         val stories = recommendations.search(id)
         model.addAttribute("stories", stories)
         return "page/story/recommend"
-    }
-
-    private fun loadGoogleOneTap(model: Model) {
-        if (!requestContext.toggles().googleOneTapSignIn){
-            return
-        }
-
-        val accessToken = requestContext.accessToken()
-        if (accessToken == null){
-            model.addAttribute("googleOneTap", true)
-        }
     }
 }

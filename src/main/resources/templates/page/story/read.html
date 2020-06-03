@@ -8,14 +8,6 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div id="g_id_onload"
-     data-callback="g_one_tap_callback"
-     data-moment_callback="g_one_tap_moment"
-     th:data-client_id="${page.googleClientId}"
-     th:if="${googleOneTap}"
->
-</div>
-
 <div class="container offset-md-2 col-md-8">
 
     <!-- Article -->
@@ -79,25 +71,8 @@
 </div>
 
 
+<div th:replace="components/google :: one_tap"></div>
 <div th:replace="components/layout :: footer"></div>
-
-<script id="g_one_tap_script" src="https://accounts.google.com/gsi/client" th:if="${googleOneTap}"></script>
-<script id="g_one_tap_callback" th:if="${googleOneTap}">
-    function g_one_tap_callback(response) {
-        console.log('g_one_tap_callback', response);
-        wutsi.httpGet('/login/onetap/callback?credential=' + response.credential, true)
-            .then(function(data){
-                wutsi.httpGet(data.url, false);
-            });
-    }
-
-    function g_one_tap_moment(notification) {
-        console.log('g_one_tap_moment', notification);
-        if (notification.isDisplayed()){
-            wutsi.track('g_one_tap_show');
-        }
-    }
-</script>
 
 
 <script src="https://platform.twitter.com/widgets.js" charset="utf-8" th:if="${twitterEmbed}"></script>

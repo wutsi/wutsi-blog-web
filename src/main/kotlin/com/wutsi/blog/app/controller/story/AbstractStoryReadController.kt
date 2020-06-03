@@ -70,13 +70,14 @@ abstract class AbstractStoryReadController(
             modifiedTime = story.modificationDateTimeISO8601,
             baseUrl = baseUrl,
             assetUrl = assetUrl,
-            robots = robots(),
+            robots = getPageRobotsHeader(),
             tags = story.tags.map { it.name },
             twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId,
             facebookPixelCode = this.facebookPixelId,
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleClientId = this.googleClientId,
-            canonicalUrl = story.sourceUrl
+            canonicalUrl = story.sourceUrl,
+            showGoogleOneTap = getPageGoogleOneTap()
     )
 
 }

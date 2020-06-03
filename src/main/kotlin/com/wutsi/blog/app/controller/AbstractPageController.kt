@@ -6,8 +6,6 @@ import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.core.exception.ConflictException
-import com.wutsi.core.exception.ForbiddenException
-import com.wutsi.core.exception.NotFoundException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.ModelAttribute
 import java.util.UUID
@@ -27,7 +25,6 @@ abstract class AbstractPageController(
     @Value("\${wutsi.facebook.pixel.code}")
     protected lateinit var facebookPixelId: String
 
-
     protected abstract fun pageName(): String
 
     @ModelAttribute(ModelAttributeName.USER)
@@ -42,42 +39,32 @@ abstract class AbstractPageController(
     @ModelAttribute(ModelAttributeName.HITID)
     fun getHitId() = UUID.randomUUID().toString()
 
-
     open fun shouldBeIndexedByBots() = false
 
-    protected fun robots () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
+    open fun shouldShowGoogleOneTap() = false
+
+    protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
+
+    protected fun getPageGoogleOneTap() = shouldShowGoogleOneTap()
+            && requestContext.toggles().googleOneTapSignIn
+            && requestContext.accessToken() == null
 
     open fun page() = PageModel(
             name = pageName(),
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
             type = "website",
-            robots = robots(),
+            robots = getPageRobotsHeader(),
             baseUrl = baseUrl,
             assetUrl = assetUrl,
             googleAnalyticsCode = this.googleAnalyticsCode,
-            facebookPixelCode = this.facebookPixelId
+            facebookPixelCode = this.facebookPixelId,
+            showGoogleOneTap = getPageGoogleOneTap()
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug
 
     protected fun url(user: UserModel) = baseUrl + user.slug
-
-    protected fun checkOwnership(story: StoryModel) {
-        val user = requestContext.currentUser()
-        if (user == null || story.user.id != user.id) {
-            throw ForbiddenException("ownership_error")
-        }
-    }
-
-    protected fun checkPublished(story: StoryModel, live: Boolean=true) {
-        if (!story.published) {
-            throw NotFoundException("story_not_published")
-        }
-        if (live && !story.live) {
-            throw NotFoundException("story_not_live")
-        }
-    }
 
     protected fun errorKey(ex: Exception): String {
         if (ex is ConflictException){

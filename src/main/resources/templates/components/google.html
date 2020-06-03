@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div  th:fragment="one_tap">
+
+    <div id="g_id_onload"
+         data-callback="g_one_tap_callback"
+         data-moment_callback="g_one_tap_moment"
+         th:data-client_id="${page.googleClientId}"
+         th:if="${page.showGoogleOneTap}"
+    >
+    </div>
+    <script id="g_one_tap_script" src="https://accounts.google.com/gsi/client" th:if="${page.showGoogleOneTap}"></script>
+    <script id="g_one_tap_callback" th:if="${page.showGoogleOneTap}">
+        function g_one_tap_callback(response) {
+            console.log('g_one_tap_callback', response);
+            wutsi.httpGet('/login/onetap/callback?credential=' + response.credential, true)
+                .then(function(data){
+                    wutsi.httpGet(data.url, false);
+                });
+        }
+
+        function g_one_tap_moment(notification) {
+            console.log('g_one_tap_moment', notification);
+            if (notification.isDisplayed()){
+                wutsi.track('g_one_tap_show');
+            }
+        }
+    </script>
+
+</div>
+
+
+</body>
+</html>
