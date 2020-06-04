@@ -28,7 +28,7 @@ wutsi:
     sso-facebook: true
     sso-google: true
     sso-github: false
-    wpp: false
+    wpp: true
 
   google:
     ga:
