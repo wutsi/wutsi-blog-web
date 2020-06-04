@@ -273,6 +273,15 @@
     </a>
 </div>
 
+<script th:inline="javascript" th:fragment="track-impression(story)">
+/*<![CDATA[*/
+    $(document).ready(function(){
+        const storyId = /*[[${story.id}]]*/'0';
+        wutsi.track('impression.' + storyId);
+    })
+/*]]>*/
+</script>
+
 
 <div class="wizard" th:fragment="wizard(steps, current)">
     <ul class="step-indicator">
