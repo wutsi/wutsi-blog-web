@@ -88,7 +88,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:fragment="share(story)" class="share">
@@ -238,6 +237,7 @@
             </div>
         </div>
     </a>
+    <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
 
 <div th:fragment="story-summary-card(story, trackEvent)">
@@ -271,6 +271,7 @@
             </div>
         </div>
     </a>
+    <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
 
 <script th:inline="javascript" th:fragment="track-impression(story)">
