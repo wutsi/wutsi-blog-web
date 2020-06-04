@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.service
 
+import com.wutsi.blog.app.backend.SortBackend
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.mapper.StoryMapper
 import com.wutsi.blog.app.model.PublishForm
@@ -12,6 +13,8 @@ import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.SortAlgorithmType
+import com.wutsi.blog.client.story.SortStoryRequest
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -26,6 +29,7 @@ class StoryService(
         private val requestContext: RequestContext,
         private val mapper: StoryMapper,
         private val storyBackend: StoryBackend,
+        private val sortBackend: SortBackend,
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val userService: UserService
@@ -60,6 +64,20 @@ class StoryService(
 
         val users = searchUserMap(stories)
         return stories.map { mapper.toStoryModel(it, users[it.userId]) }
+    }
+
+    fun sort(stories: List<StoryModel>, algorithm: SortAlgorithmType): List<StoryModel> {
+        val response = sortBackend.sort(SortStoryRequest(
+                storyIds = stories.map { it.id },
+                bubbleDownViewedStories = true,
+                userId = requestContext.currentUser()?.id,
+                algorithm = algorithm
+        ))
+        val storyMap = stories.map { it.id to it }.toMap()
+        return response.storyIds
+                .map { storyMap[it] }
+                .filter { it != null } as List<StoryModel>
+
     }
 
     fun publish(editor: PublishForm){

@@ -21,14 +21,14 @@ class StatsService(
         val endDate = DateUtils.addDays(Date(), 1)
 
         val viewers = backend.search(SearchStatsRequest(
-            targetId = story.id,
+            targetIds = arrayListOf(story.id),
             startDate = startDate,
             endDate = endDate,
             type = StatsType.viewers
         )).stats
 
         val readTime = backend.search(SearchStatsRequest(
-            targetId = story.id,
+            targetIds = arrayListOf(story.id),
             startDate = startDate,
             endDate = endDate,
             type = StatsType.read_time
@@ -41,7 +41,7 @@ class StatsService(
         val endDate = Date()
 
         val stats = backend.search(SearchStatsRequest(
-                targetId = story.id,
+                targetIds = arrayListOf(story.id),
                 startDate = startDate,
                 endDate = endDate,
                 type = StatsType.viewers
