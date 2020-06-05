@@ -393,7 +393,7 @@ a.sso-button .fab {
 }
 
 .post .img-container {
-    height: 180px;
+    height: 250px;
     overflow: hidden;
 }
 
@@ -678,6 +678,11 @@ a.sso-button .fab {
     .container {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .post .img-container {
+        height: 180px;
+        overflow: hidden;
     }
 }
 
