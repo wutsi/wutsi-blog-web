@@ -1,0 +1,33 @@
+{
+  "stats":[
+    {
+      "storyId": 20,
+      "month": 4,
+      "year": 2020,
+      "type": "viewers",
+      "value": 10
+    },
+    {
+      "storyId": 20,
+      "month": 4,
+      "year": 2020,
+      "type": "read_time",
+      "value": 1000
+    },
+    {
+      "storyId": 21,
+      "month": 4,
+      "year": 2020,
+      "type": "read_time",
+      "value": 1000
+    },
+    {
+      "storyId": 21,
+      "month": 4,
+      "year": 2020,
+      "type": "read_time",
+      "value": 1000
+    }
+
+  ]
+}

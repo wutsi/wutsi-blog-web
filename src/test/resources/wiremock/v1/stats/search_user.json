@@ -1,0 +1,18 @@
+{
+  "stats":[
+    {
+      "userId": 1,
+      "month": 4,
+      "year": 2020,
+      "type": "viewers",
+      "value": 10
+    },
+    {
+      "userId": 1,
+      "month": 4,
+      "year": 2020,
+      "type": "read_time",
+      "value": 1000
+    }
+  ]
+}
