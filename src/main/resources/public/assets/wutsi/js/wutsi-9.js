@@ -1,16 +1,15 @@
 function Wutsi (){
 
     this.track = function (event, value){
-        this.track_ga(event, value);
-        return this.track_wutsi(event, value, false);
+        this.track_ga(event, value, event);
+        return this.track_wutsi(event, value);
     };
 
-    this.track_ga = function(event, value) {
-        console.log('Sending to GA', event, value);
+    this.track_ga = function(event, value, label) {
         try {
             gtag('event', event, {
                 'event_category': wutsi.page_name(),
-                'event_label': event,
+                'event_label': label,
                 'value': (value ? value : null)
             });
         } catch (err) {
@@ -44,7 +43,7 @@ function Wutsi (){
     };
 
     this.track_wutsi_job = function(){
-        console.log('Running the track Job');
+        // console.log('Running the track Job');
 
         for (var i = 0; i < localStorage.length; i++){
             const key = localStorage.key(i);
@@ -179,7 +178,7 @@ window.onerror = function() {
         var message = !error ? '' : error;
 
         // Push the error to Google Analytics
-        wutsi.track_ga('error', position + ' - ' + message)
+        wutsi.track_ga('error', null, position + ' - ' + message)
     };
 };
 
