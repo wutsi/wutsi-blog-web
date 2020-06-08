@@ -54,7 +54,7 @@ class PWAControllerTest: SeleniumTestSupport() {
         assertEquals("portrait-primary", manifest.orientation)
         assertEquals("#f8f8f8", manifest.theme_color)
         assertEquals("#f8f8f8", manifest.background_color)
-        assertEquals(baseUrl, manifest.start_url)
+        assertEquals(baseUrl, manifest.start_url  + "?utm_source=pwa")
 
         assertEquals(2, manifest.icons.size)
         assertEquals("192x192", manifest.icons[0].sizes)

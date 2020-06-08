@@ -47,7 +47,7 @@ class PWAController(
         return Manifest(
                 name = name,
                 short_name = name,
-                start_url = baseUrl,
+                start_url = "$baseUrl?utm_medium=pwa",
                 display = "standalone",
                 background_color = "#f8f8f8",
                 theme_color = "#f8f8f8",
