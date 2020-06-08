@@ -19,10 +19,6 @@ function WutsiEJS (holderId, publishCallback){
             storyStatusDraft: '#story-status-draft',
             storyStatusPublished: '#story-status-published',
             saveStatus: '#save-status'
-        },
-        labels: {
-            publish: 'Publie',
-            saveAndPublish: 'Enregistre et Publie'
         }
     };
 
