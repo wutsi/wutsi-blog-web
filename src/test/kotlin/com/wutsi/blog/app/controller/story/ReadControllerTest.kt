@@ -20,7 +20,34 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `super-user banner`() {
+    fun `story menu available for super-user`() {
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
+        gotoPage(true)
+        assertElementPresent("#story-menu")
+    }
+
+    @Test
+    fun `story menu available for story owner`() {
+        gotoPage(true)
+        assertElementPresent("#story-menu")
+    }
+
+    @Test
+    fun `story menu not available for non-story owner`() {
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
+        gotoPage(true)
+        assertElementNotPresent("#story-menu")
+    }
+
+    @Test
+    fun `story menu not available for anonymous`() {
+        gotoPage()
+        assertElementNotPresent("#story-menu")
+    }
+
+
+    @Test
+    fun `super-user`() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
         gotoPage(true)
 
@@ -55,6 +82,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute(".author .linkedin", "wutsi-track-value", "linkedin")
 
         assertElementNotPresent("#super-user-banner")
+        assertElementNotPresent("#story-menu")
     }
 
     @Test
