@@ -54,6 +54,7 @@ class SecurityConfiguration(
                 .antMatchers("/editor/**/*").authenticated()
                 .antMatchers("/partner").authenticated()
                 .antMatchers("/partner/**/*").authenticated()
+                .antMatchers("/stats").authenticated()
                 .antMatchers("/stats/**/*").authenticated()
                 .antMatchers("/welcome").authenticated()
                 .antMatchers("/welcome/**/*").authenticated()

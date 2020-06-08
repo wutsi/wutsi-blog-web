@@ -1,40 +1,29 @@
 package com.wutsi.blog.app.controller.stats
 
-import com.wutsi.blog.app.controller.story.AbstractStoryController
-import com.wutsi.blog.app.model.Permission
-import com.wutsi.blog.app.model.StoryModel
-import com.wutsi.blog.app.model.toastui.BarChartModel
+import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StatsService
-import com.wutsi.blog.app.service.StoryService
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.blog.client.stats.StatsType
 import org.apache.commons.lang3.time.DateUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
 @Controller
 @RequestMapping()
-class StatsStoryController(
+class StatsUserController(
         private val stats: StatsService,
-        service: StoryService,
         requestContext: RequestContext
-): AbstractStoryController(service, requestContext) {
-    override fun pageName() = PageName.STATS_STORY
+): AbstractPageController(requestContext) {
+    override fun pageName() = PageName.STATS_USER
 
-    override fun requiredPermissions() = listOf(Permission.owner)
-
-    @GetMapping("/stats/story/{id}")
+    @GetMapping("/stats")
     fun index(
-            @PathVariable id: Long,
             @RequestParam(required = false) year: Int? = null,
             @RequestParam(required = false) month: Int? = null,
             model: Model
@@ -43,34 +32,21 @@ class StatsStoryController(
         val currentYear = if (year == null) cal.get(Calendar.YEAR) else year
         val currentMonth = if (month == null) cal.get(Calendar.MONTH)+1 else month
 
-        val story = getStory(id)
-        model.addAttribute("story", story)
-
-        loadPagination(story, currentYear, currentMonth, model)
-        loadSummary(story, currentYear, currentMonth, model)
-
-        return "page/stats/story"
+        loadUserSummary(currentYear, currentMonth, model)
+        loadPagination(currentYear, currentMonth, model)
+        loadStoriesSummary(currentYear, currentMonth, model)
+        return "page/stats/user"
     }
 
-    @ResponseBody
-    @GetMapping(value=["/stats/story/{id}/bar-chart-data"], produces = ["application/json"])
-    fun barChartData(
-            @PathVariable id: Long,
-            @RequestParam type: StatsType,
-            @RequestParam(required = false) year: Int,
-            @RequestParam(required = false) month: Int
-    ): BarChartModel {
-        val story = getStory(id)
-        return stats.barChartData(story, type, year, month)
-    }
-
-
-    private fun loadSummary(story: StoryModel, currentYear: Int, currentMonth: Int, model: Model) {
-        val summary = stats.story(story, currentYear, currentMonth)
+    private fun loadUserSummary(currentYear: Int, currentMonth: Int, model: Model) {
+        val summary = stats.user(
+                year = currentYear,
+                month = currentMonth
+        )
         model.addAttribute("summary", summary)
     }
 
-    private fun loadPagination(story: StoryModel, currentYear: Int, currentMonth: Int, model: Model) {
+    private fun loadPagination(currentYear: Int, currentMonth: Int, model: Model) {
         val fmt = SimpleDateFormat("MMM yyyy")
 
         val cal = Calendar.getInstance()
@@ -82,24 +58,28 @@ class StatsStoryController(
 
         val nextMonth = DateUtils.addMonths(today, 1)
         model.addAttribute("nextMonth", fmt.format(nextMonth))
-        model.addAttribute("nextMonthUrl", url(story, nextMonth))
+        model.addAttribute("nextMonthUrl", url(nextMonth))
 
         val previousMonth = DateUtils.addMonths(today, -1)
         model.addAttribute("previousMonth", fmt.format(previousMonth))
-        model.addAttribute("previousMonthUrl", url(story, previousMonth))
+        model.addAttribute("previousMonthUrl", url(previousMonth))
 
         model.addAttribute("year", currentYear)
         model.addAttribute("month", currentMonth)
     }
 
+    private fun loadStoriesSummary(currentYear: Int, currentMonth: Int, model: Model) {
+        val storiesSummary = stats.stories(currentYear, currentMonth)
+                .sortedBy { it.title }
+        model.addAttribute("storySummaries", storiesSummary)
+    }
 
-    private fun url(story: StoryModel, date: Date): String {
+    private fun url(date: Date): String {
         val cal = Calendar.getInstance()
         cal.time = date
 
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)+1
-        return "/stats/story/${story.id}?year=$year&month=$month"
+        return "/stats?year=$year&month=$month"
     }
-
 }

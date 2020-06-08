@@ -25,6 +25,7 @@ class PageName{
         const val STORY_PUBLISHED = "page.story.published"
         const val STORY_SYNDICATE = "page.story.syndicate"
         const val STATS_STORY = "page.stats.story"
+        const val STATS_USER = "page.stats.user"
         const val WELCOME = "page.welcome"
         const val WELCOME_FULLNAME = "page.welcome.fullname"
         const val WELCOME_EMAIL = "page.welcome.fullname"

@@ -42,7 +42,9 @@ class HomeController(
                 limit = 50
         ))
 
-        stories = storyService.sort(stories, SortAlgorithmType.most_recent)
+        if (!stories.isEmpty()) {
+            stories = storyService.sort(stories, SortAlgorithmType.most_recent)
+        }
         val main = mainStory(stories)
         val featured = featuredStories(stories, main)
         val authors = featuredAuthors(stories)

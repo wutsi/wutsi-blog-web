@@ -64,7 +64,7 @@ class StoryMapper(
     }
 
     fun toStoryModel(story: StorySummaryDto, user: UserModel? = null) = StoryModel(
-            id = story.id!!,
+            id = story.id,
             title = story.title,
             thumbnailUrl = story.thumbnailUrl,
             thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),

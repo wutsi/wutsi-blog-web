@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container border main-content margin-top-2x padding-2x story-list">
+
+    <h1 th:text="#{page.stats.title}">Stats</h1>
+
+    <ul class="pagination">
+        <li class="margin-right prev"> <a th:href="${previousMonthUrl}" th:text="${previousMonth}">Apr 2020</a></li>
+        <li class="margin-right current"> <b th:text="${currentMonth}">May 2020</b></li>
+        <li class="next"> <a  th:href="${nextMonthUrl}" th:text="${nextMonth}">Jun 2020</a></li>
+    </ul>
+
+    <div class="row margin-top-2x">
+        <div class="col-12 col-md-3 border rounded padding margin-bottom">
+            <h5 class="text-center" th:text="#{page.stats.kpi.total_read_time}">Total Reading Time</h5>
+            <h3 class="text-center" th:text="${summary.totalReadTimeText}">1,235</h3>
+        </div>
+        <div class="col-12 offset-md-1 col-md-3 border rounded padding margin-bottom">
+            <h5 class="text-center" th:text="#{page.stats.kpi.total_views}">Total Views</h5>
+            <h3 class="text-center" th:text="${summary.totalViewsText}">1h30m</h3>
+        </div>
+        <div class="col-12 offset-md-1 col-md-3 border rounded padding margin-bottom">
+            <h5 class="text-center" th:text="#{page.stats.kpi.average_read_time}">Average Reading Time</h5>
+            <h3 class="text-center" th:text="${summary.averageReadTimeText}">1,235</h3>
+        </div>
+    </div>
+
+    <div  class="margin-top" th:if="!${storySummaries.isEmpty()}">
+        <h2>Stories</h2>
+        <table class="table">
+            <tr>
+                <th width="50%"></th>
+                <th class="text-center" th:text="#{page.stats.kpi.total_read_time}">Total Read Time</th>
+                <th class="text-center"  th:text="#{page.stats.kpi.total_views}">Total Views</th>
+                <th class="text-center"  th:view="#{page.stats.kpi.average_read_time}">Avg. Reading Time</th>
+            </tr>
+            <tr th:each="storySummary: ${storySummaries}">
+                <td>
+                    <a th:href="'/stats/story/' + ${storySummary.storyId} + '?year=' + ${year} + '&month=' + ${month}"
+                       th:text="${storySummary.title}"
+                    >Story #1</a>
+                </td>
+                <td class="text-center"  th:text="${storySummary.totalReadTimeText}">3h 30m</td>
+                <td class="text-center"  th:text="${storySummary.totalViewsText}">1,443</td>
+                <td class="text-center"  th:text="${storySummary.averageReadTimeText}" >1m 40s</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

@@ -1,10 +1,18 @@
 package com.wutsi.blog.app.mapper
 
-import com.wutsi.blog.app.model.StoryStatsModel
+import com.wutsi.blog.app.model.StatsStorySummaryModel
+import com.wutsi.blog.app.model.StatsUserSummaryModel
+import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.toastui.BarChartModel
 import com.wutsi.blog.app.model.toastui.BarChartSerieModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.client.stats.StatsDto
+import com.wutsi.blog.client.stats.StatsStoryDto
+import com.wutsi.blog.client.stats.StatsType
+import com.wutsi.blog.client.stats.StatsUserDto
+import com.wutsi.blog.client.story.StorySummaryDto
+import com.wutsi.core.util.DurationUtils
+import com.wutsi.core.util.NumberUtils
 import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
@@ -14,15 +22,70 @@ import java.util.Date
 class StatsMapper(
         private val requestContext: RequestContext
 ) {
-    fun toStoryStatsModel(viewers: List<StatsDto>, readTime: List<StatsDto>): StoryStatsModel {
+    fun toStatsUserSummaryModel(stats: List<StatsUserDto>): StatsUserSummaryModel {
+        val totalViews = stats
+                .filter { it.type == StatsType.viewers }
+                .sumByDouble { it.value.toDouble() }.toLong()
+
+        val totalReadTime = stats
+                .filter { it.type == StatsType.read_time }
+                .sumByDouble { it.value.toDouble() }.toLong()
+
+        val averageReadTime = if (totalViews == 0L) 0 else totalReadTime/totalViews
+
+        return StatsUserSummaryModel(
+                totalViews = totalViews,
+                totalViewsText = NumberUtils.toHumanReadable(totalViews),
+                totalReadTime = totalReadTime,
+                totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime),
+                averageReadTime = averageReadTime,
+                averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime)
+        )
+    }
+
+    fun toStatsStorySummaryModel(story: StorySummaryDto, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+        return toStatsStorySummaryModel(story.id, story.title, stats)
+    }
+
+    fun toStatsStorySummaryModel(story: StoryModel, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+        return toStatsStorySummaryModel(story.id, story.title, stats)
+    }
+
+    fun toStatsStorySummaryModel(id: Long, title: String?, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+        val totalViews = stats
+                .filter { it.type == StatsType.viewers && it.storyId == id }
+                .sumByDouble { it.value.toDouble() }.toLong()
+
+        val totalReadTime = stats
+                .filter { it.type == StatsType.read_time&& it.storyId == id  }
+                .sumByDouble { it.value.toDouble() }.toLong()
+
+        val averageReadTime = if (totalViews == 0L) 0 else totalReadTime/totalViews
+
+        return StatsStorySummaryModel(
+                storyId = id,
+                title = title,
+                totalViews = totalViews,
+                totalViewsText = NumberUtils.toHumanReadable(totalViews),
+                totalReadTime = totalReadTime,
+                totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime),
+                averageReadTime = averageReadTime,
+                averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime)
+        )
+    }
+
+    fun toStoryStatsModel(viewers: List<StatsDto>, readTime: List<StatsDto>): StatsUserSummaryModel {
         val totalViews = viewers.sumByDouble { it.value.toDouble() }.toLong()
         val totalReadTime = readTime.sumByDouble { it.value.toDouble() }.toLong()
         val averageReadTime = if (totalViews == 0L) 0 else totalReadTime/totalViews
-        return StoryStatsModel(
+        return StatsUserSummaryModel(
 
                 totalViews = totalViews,
+                totalViewsText = NumberUtils.toHumanReadable(totalViews),
                 averageReadTime = averageReadTime,
-                averageReadTimeText = displayTime(averageReadTime)
+                averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime),
+                totalReadTime = totalReadTime,
+                totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime)
         )
     }
 
@@ -66,19 +129,5 @@ class StatsMapper(
             }
         }
         return result
-    }
-
-    private fun displayTime(value: Long): String {
-        if (value == 0L) {
-            return ""
-        }
-        if (value < 60) {
-            return "${value}s"
-        } else {
-            val minute = value / 60
-            val seconds = value % 60
-
-            return if (seconds == 0L) "${minute}m" else "${minute}m${seconds}s"
-        }
     }
 }
