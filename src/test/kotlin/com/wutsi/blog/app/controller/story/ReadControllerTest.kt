@@ -209,6 +209,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     fun `show no recommendations when none are available`() {
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search-none.json")
         gotoPage()
+        gotoPage()
 
         Thread.sleep(1000)
         assertElementCount("#recommendation-container .post", 0)

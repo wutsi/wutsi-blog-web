@@ -25,7 +25,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/raysponsible")
         assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
 
-        assertElementCount(".post", 4)
+        assertElementCount(".post", 7)
         assertElementNotPresent("#create-first-story")
         assertElementNotPresent("#create-syndicate-story")
     }
