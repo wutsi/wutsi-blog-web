@@ -34,25 +34,32 @@ class HomeController(
     }
 
     private fun loadStories(model: Model) {
-        var stories = storyService.search(SearchStoryRequest(
+        val stories = findRecentStories()
+        if (stories.isEmpty()) {
+            return
+        }
+
+        val mainStory = mainStory(stories)
+        val featuredStories = findFeaturedStories(stories, mainStory)
+        val popularStories = findPopularStories(stories, featuredStories, mainStory)
+        val authors = featuredAuthors(stories)
+
+        model.addAttribute("stories", stories)
+        model.addAttribute("mainStory", mainStory)
+        model.addAttribute("featuredStories", featuredStories)
+        model.addAttribute("popularStories", popularStories)
+        model.addAttribute("authors", authors)
+    }
+
+    private fun findRecentStories(): List<StoryModel> {
+        val stories = storyService.search(SearchStoryRequest(
                 status = StoryStatus.published,
                 language = storyService.searchLanguage(),
                 live = true,
                 sortBy = StorySortStrategy.published,
                 limit = 50
         ))
-
-        if (!stories.isEmpty()) {
-            stories = storyService.sort(stories, SortAlgorithmType.most_recent)
-        }
-        val main = mainStory(stories)
-        val featured = featuredStories(stories, main)
-        val authors = featuredAuthors(stories)
-
-        model.addAttribute("stories", stories)
-        model.addAttribute("mainStory", main)
-        model.addAttribute("featuredStories", featured)
-        model.addAttribute("authors", authors)
+        return storyService.sort(stories, SortAlgorithmType.most_recent)
     }
 
     private fun mainStory(stories: List<StoryModel>): StoryModel? {
@@ -67,7 +74,7 @@ class HomeController(
         return if (main == null) stories[0] else main
     }
 
-    private fun featuredStories(
+    private fun findFeaturedStories(
             stories: List<StoryModel>,
             main: StoryModel?
     ): List<StoryModel> {
@@ -85,6 +92,20 @@ class HomeController(
         return result.values
                 .toList()
                 .sortedByDescending { it.publishedDateTime }
+    }
+
+    private fun findPopularStories(
+            stories: List<StoryModel>,
+            featuredStories: List<StoryModel>,
+            main: StoryModel?
+    ): List<StoryModel> {
+        // Most popular stories of the 7 last days
+        val result = storyService.sort(stories, SortAlgorithmType.most_viewed, 24*7)
+
+        val featuredIds = featuredStories.map { it.id }
+        return result
+                .filter {  main?.id != it.id && !featuredIds.contains(it.id) }
+                .take(5)
     }
 
     private fun featuredAuthors(stories: List<StoryModel>): List<UserModel> = stories

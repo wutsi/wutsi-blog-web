@@ -12,32 +12,43 @@
 
     <div class="row">
         <div class="col-12 offset-md-1 col-md-6">
-            <section class="padding border post rounded margin-top" th:if="${mainStory}">
-                <div th:replace="components/story :: story-card(${mainStory})"></div>
-            </section>
+            <div id="main-post" th:if="${mainStory}">
+                <section class="padding border post rounded margin-top">
+                    <div th:replace="components/story :: story-card(${mainStory})"></div>
+                </section>
+            </div>
 
             <div id="read-all-languages"></div>
             <script>
                 $('#read-all-languages').load('/language/read-all');
             </script>
 
-            <div th:each="story,it: ${featuredStories}">
-                <section class="padding border post rounded margin-top">
-                    <div th:replace="components/story :: story-summary-card(${story}, null)"></div>
-                </section>
+            <div id="featured-posts" th:if="${featuredStories} AND !${featuredStories.isEmpty()}">
+                <div th:each="story,it: ${featuredStories}">
+                    <section class="padding border post rounded margin-top">
+                        <div th:replace="components/story :: story-summary-card(${story}, true, null)"></div>
+                    </section>
+                    <section class="margin-top" th:if="${toggles.pwa} AND ${it.index == 2}">
+                        <div th:replace="components/pwa :: a2hs-card"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
 
-                <section class="margin-top" th:if="${toggles.pwa} AND ${it.index == 2}">
-                    <div th:replace="components/pwa :: a2hs-card"></div>
+        <div class="col-12 col-md-4">
+            <div id="popular-posts" class="margin-top padding border rounded"
+                 th:if="${popularStories} AND !${popularStories.isEmpty()}"
+            >
+                <h4 th:text="#{page.home.popular-stories}">Popular Stories</h4>
+
+                <section class="margin-top padding-top border-top post" th:each="story: ${popularStories}">
+                    <div th:replace="components/story :: story-summary-card(${story}, false, null)"></div>
                 </section>
             </div>
 
-            <section class="margin-top" th:if="${toggles.pwa} AND ${featuredStories.size() LT 3}">
-                <div th:replace="components/pwa :: a2hs-card"></div>
-            </section>
-        </div>
-
-        <div class="col-12 col-md-4 margin-top" th:if="!${authors.isEmpty()}">
-            <div class="padding border rounded featured-authors">
+            <div id="featured-authors" class="margin-top padding border rounded"
+                 th:if="${authors} AND !${authors.isEmpty()}"
+            >
                 <h4 th:text="#{page.home.feature-blogs}">Featured Blogs</h4>
                 <div class="margin-top padding-top border-top" th:each="author:${authors}">
                     <div th:replace="components/story :: author-summary-card(${author})"></div>

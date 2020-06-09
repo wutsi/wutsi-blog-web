@@ -14,15 +14,20 @@ class HomeControllerTest: SeleniumTestSupport() {
         driver.get(url)
 
         assertCurrentPageIs(PageName.HOME)
-        assertElementCount(".post", 0)
+        assertElementCount("#main-post", 0)
+        assertElementCount("#featured-posts", 0)
+        assertElementCount("#popular-posts", 0)
+        assertElementCount("#featured-authors", 0)
     }
 
     @Test
     fun `user should view recent stories and authors in home page`() {
         driver.get(url)
         assertCurrentPageIs(PageName.HOME)
-        assertElementCount(".post", 3)
-        assertElementCount(".featured-authors .author", 3)
+        assertElementCount("#main-post .post", 1)
+        assertElementCount("#featured-posts .post", 4)
+        assertElementCount("#popular-posts .post", 2)
+        assertElementCount("#featured-authors .author", 5)
     }
 
     @Test

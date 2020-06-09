@@ -159,7 +159,7 @@
 </div>
 
 <div th:fragment="author-card(me)" class="author flex" th:with="inBlogPage=${page.name == 'page.blog'}">
-    <a th:href="${me.slug}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
+    <a th:href="${me.slug}" th:title="${me.fullName}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
         <h1 th:text="${me.fullName}" th:if="${inBlogPage}">Ray Sponsible</h1>
         <a th:href="${me.slug}" th:if="!${inBlogPage}" th:text="${me.fullName}">Ray Sponsible</a>
@@ -207,14 +207,14 @@
 <div th:fragment="author-summary-card(me)" class="author flex">
     <a th:href="${me.slug}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
-        <a th:href="${me.slug}" th:text="${me.fullName}">Ray Sponsible</a>
+        <a th:href="${me.slug}" th:title="${me.fullName}" th:text="${me.fullName}">Ray Sponsible</a>
         <div class="text-small bio" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
 </div>
 
 
 <div th:fragment="story-card(story)">
-    <a th:href="${story.slug}">
+    <a th:href="${story.slug}" th:title="${story.title}" th:wutsi-track-value = "${story.id}">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
@@ -227,31 +227,36 @@
         </div>
 
         <p class="summary" th:text="${story.summary}">Summary</p>
-
-        <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
-        <div class="meta flex">
-            <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
-            <div>
-                <span th:text="${story.readingMinutes}">2</span>
-                <span th:text="#{label.minutes}">min</span>
-            </div>
-        </div>
     </a>
+
+    <a th:href="${story.user.slug}" th:title="${story.user.fullName}">
+        <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
+    </a>
+
+    <div class="meta flex">
+        <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
+        <div>
+            <span th:text="${story.readingMinutes}">2</span>
+            <span th:text="#{label.minutes}">min</span>
+        </div>
+    </div>
+
     <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
 
-<div th:fragment="story-summary-card(story, trackEvent)">
-    <a th:href="${story.slug}"
-       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
-       th:wutsi-track-value = "${story.id}"
-    >
+<div th:fragment="story-summary-card(story, showAuthor, trackEvent)">
         <div class="container-fluid">
             <div class="row">
                 <div class="padding-none"
-                     th:classappend="${story.thumbnailImage} ? col-9"
+                     th:classappend="${story.thumbnailImage} AND ${showAuthor} ? col-9"
                 >
-                    <h6 th:text="${story.title}">Title</h6>
-                    <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
+                    <a th:href="${story.slug}" th:wutsi-track-value = "${story.id}" th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+                        <h6 th:text="${story.title}">Title</h6>
+                    </a>
+
+                    <a th:href="${story.user.slug}" th:title="${story.user.fullName}">
+                        <div class="author margin-top-2x" th:text="${story.user.fullName}">Ray Sponsible</div>
+                    </a>
                     <div class="meta flex">
                         <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
                         <div>
@@ -260,19 +265,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 text-right padding-none" th:if="${story.thumbnailImage}">
-                    <img class="small lozad"
-                         th:data-src="${story.thumbnailImage.src}"
-                         th:data-srcset="${story.thumbnailImage.srcset}"
-                         th:sizes="${story.thumbnailImage.sizes}"
-                         th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
-                    />
+                <div class="col-3 text-right padding-none" th:if="${story.thumbnailImage} AND ${showAuthor}">
+                    <a th:href="${story.slug}" th:wutsi-track-value = "${story.id}" th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+                        <img class="small lozad"
+                             th:data-src="${story.thumbnailImage.src}"
+                             th:data-srcset="${story.thumbnailImage.srcset}"
+                             th:sizes="${story.thumbnailImage.sizes}"
+                             th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
+                        />
+                    </a>
                 </div>
             </div>
         </div>
     </a>
     <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
+
 
 <script th:inline="javascript" th:fragment="track-impression(story)">
 /*<![CDATA[*/
@@ -282,7 +290,6 @@
     })
 /*]]>*/
 </script>
-
 
 <div class="wizard" th:fragment="wizard(steps, current)">
     <ul class="step-indicator">

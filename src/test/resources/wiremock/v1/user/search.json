@@ -10,13 +10,27 @@
     {
       "id": 2,
       "fullName": "Yvon Larose",
-      "pictureUrl": "https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-1/p720x720/32359652_10156451050668054_8419501532256403456_n.jpg?_nc_cat=106&_nc_sid=dbb9e7&_nc_oc=AQka6eogilCbIRDGt0Ot3CBYNHQkXWIjGZfsiOc6aZnJoCmw4tupasnvBxbrljX8jlQ&_nc_ht=scontent-lga3-1.xx&_nc_tp=6&oh=2a11db50978b5a36a21e6da4f1ca1410&oe=5EA5F07A",
+      "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
       "creationDateTime": 1585325914000,
       "modificationDateTime": 1585325914000
     },
     {
       "id": 3,
       "fullName": "Herve T.",
+      "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
+      "creationDateTime": 1585325914000,
+      "modificationDateTime": 1585325914000
+    },
+    {
+      "id": 4,
+      "fullName": "Omam Mbiyick",
+      "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
+      "creationDateTime": 1585325914000,
+      "modificationDateTime": 1585325914000
+    },
+    {
+      "id": 5,
+      "fullName": "Roger Milla",
       "pictureUrl": null,
       "creationDateTime": 1585325914000,
       "modificationDateTime": 1585325914000
