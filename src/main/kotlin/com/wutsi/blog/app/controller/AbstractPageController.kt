@@ -48,10 +48,6 @@ abstract class AbstractPageController(
 
     protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
 
-    protected fun getPageGoogleOneTap() = shouldShowGoogleOneTap()
-            && requestContext.toggles().googleOneTapSignIn
-            && requestContext.accessToken() == null
-
     open fun page() = PageModel(
             name = pageName(),
             title = requestContext.getMessage("wutsi.title"),
@@ -63,7 +59,7 @@ abstract class AbstractPageController(
             googleAnalyticsCode = this.googleAnalyticsCode,
             facebookPixelCode = this.facebookPixelId,
             googleClientId = this.googleClientId,
-            showGoogleOneTap = getPageGoogleOneTap()
+            showGoogleOneTap = shouldShowGoogleOneTap()
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

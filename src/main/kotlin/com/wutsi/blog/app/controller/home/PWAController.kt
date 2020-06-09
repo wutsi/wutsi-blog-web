@@ -1,10 +1,9 @@
 package com.wutsi.blog.app.controller.home
 
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.util.PWAHelper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import java.text.SimpleDateFormat
@@ -17,19 +16,23 @@ class PWAController(
         @Value("\${wutsi.base-url}") private val baseUrl: String,
         @Value("\${wutsi.asset-url}") private val assetUrl: String,
         @Value("\${wutsi.pwa.manifest.name}") private val name: String,
-        private val requestContext: RequestContext,
         private val response: HttpServletResponse
 ) {
+    companion object {
+        private const val VERSION = PWAHelper.VERSION
+    }
+
     private val lastModified: String = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").format(Date())
     private val maxAge = 86400 * 365 * 10   // 10 years
 
-    @GetMapping("/sw-{version}.js", produces = ["text/javascript"])
-    fun sw(@PathVariable version: String): String {
+
+    @GetMapping("/sw-$VERSION.js", produces = ["text/javascript"])
+    fun sw(): String {
         setUpCaching()
         return "page/home/sw.js"
     }
 
-    @GetMapping("/a2hs-{version}.js", produces = ["text/javascript"])
+    @GetMapping("/a2hs-$VERSION.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
         setUpCaching()
         return "page/home/a2hs.js"
@@ -41,9 +44,10 @@ class PWAController(
     }
 
 
-    @GetMapping("/manifest-{version}.json", produces = ["application/json"])
+    @GetMapping("/manifest-$VERSION.json", produces = ["application/json"])
     @ResponseBody
     fun manifest(): Manifest {
+        setUpCaching()
         return Manifest(
                 name = name,
                 short_name = name,

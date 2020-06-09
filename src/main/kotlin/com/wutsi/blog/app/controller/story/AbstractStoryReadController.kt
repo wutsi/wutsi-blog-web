@@ -11,7 +11,6 @@ import com.wutsi.editorjs.dom.EJSDocument
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.ui.Model
 import java.io.StringWriter
 
@@ -74,7 +73,7 @@ abstract class AbstractStoryReadController(
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl,
-            showGoogleOneTap = getPageGoogleOneTap()
+            showGoogleOneTap = shouldShowGoogleOneTap()
     )
 
 }

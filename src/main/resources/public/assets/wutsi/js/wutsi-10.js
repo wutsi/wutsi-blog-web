@@ -1,5 +1,4 @@
 function Wutsi (){
-
     this.track = function (event, value){
         this.track_ga(event, value, event);
         return this.track_wutsi(event, value);
@@ -173,12 +172,12 @@ setInterval(function () {
 
 // Handle all errors
 window.onerror = function() {
-    window.onerror = function(msg, url, line, col, error) {
+    window.onerror = function(msg, source, line, col, error) {
         var position = line + (!col ? '' : ':' + col);
         var message = !error ? '' : error;
 
         // Push the error to Google Analytics
-        wutsi.track_ga('error', null, position + ' - ' + message)
+        wutsi.track_ga('error', null, source + ':' + position + ' - ' + message)
     };
 };
 

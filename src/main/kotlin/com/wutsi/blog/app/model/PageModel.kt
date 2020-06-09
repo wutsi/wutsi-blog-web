@@ -1,5 +1,7 @@
 package com.wutsi.blog.app.model
 
+import com.wutsi.blog.app.util.PWAHelper
+
 data class PageModel (
         val name: String = "",
         val title: String = "",
@@ -19,6 +21,7 @@ data class PageModel (
         val facebookPixelCode: String,
         val canonicalUrl: String? = null,
         val googleClientId: String? = null,
-        val showGoogleOneTap: Boolean = false
+        val showGoogleOneTap: Boolean = false,
+        val pwaVersion: String = PWAHelper.VERSION
 )
 

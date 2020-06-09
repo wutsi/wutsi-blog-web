@@ -117,7 +117,7 @@ wutsi:
       bucket:
 
   toggles:
-    google-one-tap-sign-in: true    # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
+    google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA
     recommendation: true            # Show articles recommendations in reader
     share-button: false             # Show single share button, instead of individual social share buttons

@@ -1,4 +1,4 @@
-const wutsiCacheName = 'wutsi-v2';
+const wutsiCacheName = 'wutsi-v3';
 
 self.addEventListener('install', function(event) {
     console.log('Installing service worker');
