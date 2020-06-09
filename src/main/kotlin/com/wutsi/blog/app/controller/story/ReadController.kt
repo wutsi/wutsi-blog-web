@@ -50,7 +50,10 @@ class ReadController(
 
     @GetMapping("/read/recommend/{id}")
     fun recommend(@PathVariable id: Long, model: Model): String {
-        val stories = recommendations.search(id)
+        val stories = recommendations
+                .search(id)
+                .take(3)
+
         model.addAttribute("stories", stories)
         return "page/story/recommend"
     }

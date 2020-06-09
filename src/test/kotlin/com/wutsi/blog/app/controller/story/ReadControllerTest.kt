@@ -201,7 +201,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         gotoPage()
 
         Thread.sleep(1000)
-        assertElementCount("#recommendation-container .post", 4)
+        assertElementCount("#recommendation-container .post", 3)
         assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "xread")
     }
 
