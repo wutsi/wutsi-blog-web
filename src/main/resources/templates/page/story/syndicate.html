@@ -16,7 +16,7 @@
 
     <!-- Form -->
     <form method="GET" action="/me/syndicate/import" class="margin-top-2x">
-        <div class="alert alert-danger" th:if="${error}" th:text="#{error.syndicate_error}">Error</div>
+        <div class="alert alert-danger" th:if="${error}" th:text="${error}">Error</div>
 
         <div class="form-group">
             <input id="url" class="form-control" type="url" name="url" required="required" placeholder="http://www.votre-site.com/votre-storie" />

@@ -71,7 +71,19 @@ class RequestContext(
         return if (language == null) LocaleContextHolder.getLocale().language else language
     }
 
-    fun getMessage(key: String) = localization.getMessage(key)
+    fun getMessage(key: String, defaultKey: String? = null): String {
+        try {
+            return localization.getMessage(key)
+        } catch (ex: Exception){
+            if (defaultKey != null){
+                try {
+                    return localization.getMessage(defaultKey)
+                } catch(ex2: Exception){
+                }
+            }
+            return key
+        }
+    }
 
     fun checkAccess(story: StoryModel, requiredPermissions: List<Permission>) {
         val permissions = securityManager.permissions(story, currentUser())

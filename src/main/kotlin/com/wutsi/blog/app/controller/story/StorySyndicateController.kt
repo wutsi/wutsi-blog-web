@@ -10,7 +10,6 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.net.URLEncoder
 
 @Controller
 @RequestMapping("/me/syndicate")
@@ -26,7 +25,9 @@ class StorySyndicateController(
             @RequestParam(required = false) error: String?=null,
             model: Model
     ): String {
-        model.addAttribute("error", error)
+        if (error != null) {
+            model.addAttribute("error", requestContext.getMessage(error, "error.syndicate_error"))
+        }
         return "page/story/syndicate"
     }
 
@@ -38,7 +39,7 @@ class StorySyndicateController(
         } catch (ex: Exception) {
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)
-            return "redirect:/me/syndicate?error=" + URLEncoder.encode(ex.message, "utf-8")
+            return "redirect:/me/syndicate?error=" + errorKey(ex)
         }
     }
 }
