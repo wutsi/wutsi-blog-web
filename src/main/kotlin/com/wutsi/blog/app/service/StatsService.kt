@@ -55,7 +55,7 @@ class StatsService(
 
     fun story(story: StoryModel, year: Int, month: Int) : StatsStorySummaryModel {
         val stats = backend.search(SearchStatsStoryRequest(
-                userId = requestContext.currentUser()?.id,
+                userId = story.user.id,
                 year = year,
                 month = month,
                 storyIds = arrayListOf(story.id)
