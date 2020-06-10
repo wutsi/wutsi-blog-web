@@ -30,7 +30,14 @@ class StatsService(
                 year = year,
                 month = month
         )).stats
-        return mapper.toStatsUserSummaryModel(stats)
+
+        val overallTRT = backend.search(SearchStatsStoryRequest(
+                storyIds = arrayListOf(-1),
+                year = year,
+                month = month,
+                type = StatsType.read_time
+        )).stats
+        return mapper.toStatsUserSummaryModel(stats, if (overallTRT.isEmpty()) null else overallTRT[0])
     }
 
     fun stories(year: Int, month: Int) : List<StatsStorySummaryModel> {
