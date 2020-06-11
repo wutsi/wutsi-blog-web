@@ -31,7 +31,7 @@ class LoginController(
     ): String {
         model.addAttribute("error", error)
         model.addAttribute("createBlog", isCreateBlog(request))
-        return "page/login"
+        return "page/login/index"
     }
 
     override fun pageName() = PageName.LOGIN

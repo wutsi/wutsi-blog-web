@@ -10,6 +10,7 @@ class PageName{
         const val ERROR_500 = "page.error.500"
         const val HOME = "page.home"
         const val LOGIN = "page.login"
+        const val RUN_AS = "page.run.as"
         const val LOGOUT = "page.logout"
         const val WRITER = "page.writer"
         const val READ = "page.read"

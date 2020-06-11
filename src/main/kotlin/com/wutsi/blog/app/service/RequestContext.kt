@@ -2,8 +2,10 @@ package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.backend.UserBackend
+import com.wutsi.blog.app.mapper.SessionMapper
 import com.wutsi.blog.app.mapper.UserMapper
 import com.wutsi.blog.app.model.Permission
+import com.wutsi.blog.app.model.SessionModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.core.exception.ForbiddenException
@@ -29,6 +31,7 @@ class RequestContext(
         private val tokenStorage: AccessTokenStorage,
         private val localization: LocalizationService,
         private val securityManager: SecurityManager,
+        private val sessionMapper: SessionMapper,
         private val logger: KVLogger,
         private val response: HttpServletResponse
 ) {
@@ -37,28 +40,80 @@ class RequestContext(
     }
 
     private var user: UserModel? = null
+    private var superUser: UserModel? = null
+    private var session: SessionModel? = null
+
+    fun currentSuperUser(): UserModel? {
+        if (superUser != null) {
+            return superUser
+        }
+
+        val user = currentUser()
+        if (user != null && user.superUser) {
+            superUser = user
+        } else {
+            val session = currentSession()
+                ?: return null
+
+            if (session.runAsUserId != null){
+                superUser = mapper.toUserModel(
+                        userBackend.get(session.runAsUserId).user
+                )
+            }
+        }
+
+        return superUser
+    }
 
     fun currentUser(): UserModel? {
         if (user != null) {
             return user
         }
 
-        val token = accessToken()
-        if (token != null) {
-            try {
-                val response = authBackend.session(token)
-                val usr = userBackend.get(response.session.userId).user
-                user = mapper.toUserModel(usr)
-            } catch (e: Exception){
-                LOGGER.warn("Unable to resolve user associate with access_token ${token}", e)
-                if (e is NotFoundException){
-                    tokenStorage.delete(response)
-                }
-                return null
+        val session = currentSession()
+                ?: return null
+
+        try {
+            if (session.runAsUserId != null) {
+                user = mapper.toUserModel(
+                        userBackend.get(session.runAsUserId).user
+                )
+            } else {
+                user = mapper.toUserModel(
+                        userBackend.get(session.userId).user
+                )
+            }
+        } catch (e: Exception){
+            LOGGER.warn("Unable to resolve user ${session.userId}", e)
+            if (e is NotFoundException){
+                tokenStorage.delete(response)
             }
         }
+
         return user
     }
+
+    fun currentSession(): SessionModel? {
+        if (session != null) {
+            return session
+        }
+
+        val token = accessToken()
+                ?: return null
+        try {
+            session = sessionMapper.toSessionModel(
+                    authBackend.session(token).session
+            )
+        } catch (e: Exception){
+            LOGGER.warn("Unable to resolve user associate with access_token $token", e)
+            if (e is NotFoundException){
+                tokenStorage.delete(response)
+            }
+        }
+
+        return session
+    }
+
 
     fun toggles() = togglesHolder.get()
 

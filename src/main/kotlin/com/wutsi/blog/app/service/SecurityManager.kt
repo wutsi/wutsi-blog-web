@@ -14,7 +14,7 @@ class SecurityManager {
         if (story.published && story.live) {
             permissions.add(Permission.reader)
         }
-        if (user?.superUser == true || story.user.id == user?.id){
+        if (story.user.id == user?.id){
             permissions.add(Permission.editor)
             permissions.add(Permission.previewer)
             permissions.add(Permission.owner)

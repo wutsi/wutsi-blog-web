@@ -182,6 +182,7 @@
                     <div class="dropdown-divider"></div>
                     <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
                     <div class="dropdown-divider"></div>
+                    <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
                     <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
                 </div>
             </li>
@@ -193,7 +194,7 @@
             </li>
         </ul>
     </nav>
-    <div id="super-user-banner" class="text-center" th:if="${user} AND ${user.superUser}">
+    <div id="super-user-banner" class="text-center" th:if="${superUser}">
         <b>SUPER USER MODE</b>
         <div>With Great Power comes Great Responsabilities</div>
     </div>
