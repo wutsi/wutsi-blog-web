@@ -2,6 +2,8 @@ package com.wutsi.blog.app.controller.login
 
 import com.wutsi.blog.SeleniumTestSupport
 import org.junit.Test
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
 
 
 class LoginControllerTest: SeleniumTestSupport() {
@@ -31,6 +33,14 @@ class LoginControllerTest: SeleniumTestSupport() {
         validateButton("facebook")
         validateButton("github")
         validateButton("twitter")
+    }
+
+    @Test
+    fun `login super-user`() {
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
+        gotoPage()
+
+        assertElementPresent("#super-user-banner")
     }
 
     private fun validateButton(name: String) {

@@ -20,13 +20,6 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `story menu available for super-user`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
-        gotoPage(true)
-        assertElementPresent("#story-menu")
-    }
-
-    @Test
     fun `story menu available for story owner`() {
         gotoPage(true)
         assertElementPresent("#story-menu")
@@ -45,15 +38,6 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementNotPresent("#story-menu")
     }
 
-
-    @Test
-    fun `super-user`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
-        gotoPage(true)
-
-        assertCurrentPageIs(PageName.READ)
-        assertElementPresent("#super-user-banner")
-    }
 
     @Test
     fun `published story`() {

@@ -12,21 +12,24 @@ class RunAsControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
         stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.POST, "/v1/auth/as", HttpStatus.OK, "v1/session/as.json")
     }
 
     @Test
     fun `super user can run as another user`() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
         gotoPage()
-
         assertCurrentPageIs(PageName.RUN_AS)
 
+        stub(HttpMethod.POST, "/v1/auth/as", HttpStatus.OK, "v1/session/as.json")
+        stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session-run-as.json")
         input("#name", "john.smith")
         click("#btn-submit")
 
         assertCurrentPageIs(PageName.BLOG)
+        assertElementPresent("#super-user-banner")
+        assertElementAttribute(".dropdown-item-user img", "title", "John Smith")
     }
 
     @Test

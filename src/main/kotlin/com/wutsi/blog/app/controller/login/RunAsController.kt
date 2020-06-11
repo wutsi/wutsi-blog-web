@@ -55,8 +55,7 @@ class RunAsController(
     }
 
     private fun ensureSuperUser(){
-        val user = requestContext.currentUser()
-        if (user?.superUser != true){
+        if (requestContext.currentUser() == null){
             throw ForbiddenException("permission_denied")
         }
     }
