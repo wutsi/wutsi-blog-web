@@ -110,10 +110,6 @@ class StoryService(
         return mapper.toReadabilityModel(result)
     }
 
-    fun searchLanguage(): String? {
-        return if (userService.canReadStoriesInAllLanguages() == true) null else requestContext.language()
-    }
-
     private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
 
     private fun shouldCreate(editor: StoryForm) = (editor.id == null || editor.id == 0L) && !isEmpty(editor)

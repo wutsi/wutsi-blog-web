@@ -25,7 +25,6 @@ class StoryController(
     ): String {
         val stories = service.search(SearchStoryRequest(
                 userId = userId,
-                language = service.searchLanguage(),
                 limit = limit,
                 offset = offset,
                 status = StoryStatus.published,

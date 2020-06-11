@@ -18,11 +18,6 @@
                 </section>
             </div>
 
-            <div id="read-all-languages"></div>
-            <script>
-                $('#read-all-languages').load('/language/read-all');
-            </script>
-
             <div id="featured-posts" th:if="${featuredStories} AND !${featuredStories.isEmpty()}">
                 <div th:each="story,it: ${featuredStories}">
                     <section class="padding border post rounded margin-top">

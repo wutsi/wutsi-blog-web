@@ -54,7 +54,6 @@ class HomeController(
     private fun findRecentStories(): List<StoryModel> {
         val stories = storyService.search(SearchStoryRequest(
                 status = StoryStatus.published,
-                language = storyService.searchLanguage(),
                 live = true,
                 sortBy = StorySortStrategy.published,
                 limit = 50

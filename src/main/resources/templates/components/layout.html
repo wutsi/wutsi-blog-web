@@ -62,7 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-10.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-26.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-27.css'" />
 </div>
 
 
@@ -90,13 +90,11 @@
     <script id="ga-code" th:inline="javascript" th:if="!${page.googleAnalyticsCode.isEmpty()}">
     /*<![CDATA[*/
 
-        var code = /*[[${page.googleAnalyticsCode}]]*/'0';
-
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', code);
+        gtag('config', /*[[${page.googleAnalyticsCode}]]*/'0');
 
     /*]]>*/
     </script>
@@ -104,8 +102,6 @@
     <!-- Facebook Pixel Code -->
     <script id="fb-pixel-code" th:inline="javascript" th:if="!${page.facebookPixelCode.isEmpty()}">
     /*<![CDATA[*/
-
-        const code = /*[[${page.facebookPixelCode}]]*/'0';
 
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -115,7 +111,7 @@
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', code);
+        fbq('init', /*[[${page.facebookPixelCode}]]*/'0');
         fbq('track', 'PageView');
 
     /*]]>*/
@@ -166,8 +162,9 @@
                         <a th:href="${user.slug}" th:title="${user.fullName}">
                             <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
                             <div class="user-info">
-                                <div><b th:text="${user.fullName}">Herve Tchepannou</b></div>
-                                <div>@<span th:text="${user.name}"></span></div>
+                                <b th:text="${user.fullName}">Herve Tchepannou</b>
+                                <br/>
+                                @<span th:text="${user.name}"></span>
                             </div>
                         </a>
                     </div>
