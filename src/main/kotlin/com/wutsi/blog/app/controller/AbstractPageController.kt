@@ -79,7 +79,8 @@ abstract class AbstractPageController(
                     message == "publish_error" ||
                     message == "story_already_imported" ||
                     message == "title_missing" ||
-                    message == "duplicate_mobile_number"
+                    message == "duplicate_mobile_number" ||
+                    message == "permission_denied"
             ){
                 return "error.$message"
             }

@@ -30,6 +30,21 @@ class RunAsControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.BLOG)
         assertElementPresent("#super-user-banner")
         assertElementAttribute(".dropdown-item-user img", "title", "John Smith")
+        assertElementNotPresent(".alert")
+    }
+
+    @Test
+    fun `run as fails`() {
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
+        gotoPage()
+        assertCurrentPageIs(PageName.RUN_AS)
+
+        stub(HttpMethod.POST, "/v1/auth/as", HttpStatus.CONFLICT)
+        input("#name", "john.smith")
+        click("#btn-submit")
+
+        assertCurrentPageIs(PageName.RUN_AS)
+        assertElementPresent(".alert")
     }
 
     @Test

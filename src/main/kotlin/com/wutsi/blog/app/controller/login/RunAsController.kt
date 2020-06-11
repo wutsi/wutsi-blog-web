@@ -55,7 +55,7 @@ class RunAsController(
     }
 
     private fun ensureSuperUser(){
-        if (requestContext.currentUser() == null){
+        if (requestContext.currentSuperUser() == null){
             throw ForbiddenException("permission_denied")
         }
     }

@@ -36,9 +36,9 @@ class LoginControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `login super-user`() {
+    fun `super-user signs in`() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
-        gotoPage()
+        login()
 
         assertElementPresent("#super-user-banner")
     }
