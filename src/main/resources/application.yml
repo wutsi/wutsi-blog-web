@@ -127,4 +127,4 @@ wutsi:
     sso-twitter: false
     sso-github: true
     qa-login: false
-    wpp: false                       # Wutsi Partner Program
+    wpp: true                       # Wutsi Partner Program
