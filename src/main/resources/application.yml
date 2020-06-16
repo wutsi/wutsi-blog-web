@@ -121,10 +121,10 @@ wutsi:
     pwa: true                       # PWA
     recommendation: true            # Show articles recommendations in reader
     share-button: false             # Show single share button, instead of individual social share buttons
-    image-kit: true                  # Integration with imagekit.io
+    image-kit: true                 # Integration with imagekit.io
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false
     sso-github: true
     qa-login: false
-    wpp: true                       # Wutsi Partner Program
+    wpp: false                       # Wutsi Partner Program
