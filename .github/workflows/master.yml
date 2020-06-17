@@ -56,7 +56,7 @@ jobs:
         HEROKU_APP: int-com-wutsi-blog-web
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
-        heroku plugins:install java
+        heroku plugins:install @heroku-cli/plugin-java
         heroku buildpacks:clear --app ${HEROKU_APP}
         heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
 
@@ -87,7 +87,7 @@ jobs:
         HEROKU_APP: com-wutsi-blog-web
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
-        heroku plugins:install java
+        heroku plugins:install @heroku-cli/plugin-java
         heroku buildpacks:clear --app ${HEROKU_APP}
         heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
 
