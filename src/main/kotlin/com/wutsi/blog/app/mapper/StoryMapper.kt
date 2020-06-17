@@ -5,6 +5,7 @@ import com.wutsi.blog.app.model.ReadabilityRuleModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.model.TopicModel
 import com.wutsi.blog.app.model.UserModel
+import com.wutsi.blog.app.service.ImageKitService
 import com.wutsi.blog.app.service.Moment
 import com.wutsi.blog.app.service.TopicService
 import com.wutsi.blog.client.story.ReadabilityDto
@@ -20,7 +21,8 @@ class StoryMapper(
         private val topicMapper: TopicMapper,
         private val topicService: TopicService,
         private val moment: Moment,
-        private val htmlImageMapper: HtmlImageModelMapper
+        private val htmlImageMapper: HtmlImageModelMapper,
+        private val imageKit: ImageKitService
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -33,7 +35,7 @@ class StoryMapper(
                 content = story.content,
                 title = story.title,
                 contentType = story.contentType,
-                thumbnailUrl = story.thumbnailUrl,
+                thumbnailUrl = if (story.thumbnailUrl == null) null else imageKit.transform(story.thumbnailUrl!!, "504px", "294px"),
                 thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
                 wordCount = story.wordCount,
                 sourceUrl = story.sourceUrl,
