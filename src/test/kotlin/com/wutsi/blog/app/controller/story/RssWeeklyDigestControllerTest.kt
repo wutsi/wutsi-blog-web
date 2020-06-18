@@ -17,6 +17,13 @@ class RssWeeklyDigestControllerTest: SeleniumTestSupport() {
 
         val items = response.body.items
         assertEquals(7, items.size)
+
+        val item = items[0]
+        assertEquals("Lorem Ipsum", item.title)
+        assertEquals("Ray Sponsible", item.author)
+        assertEquals("http://localhost:8081/read/20/lorem-ipsum", item.link)
+        assertEquals("Lorem Ipsum is simply dummy text of the printing and typesetting industry", item.description.value)
+
     }
 
 }

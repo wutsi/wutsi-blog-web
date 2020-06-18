@@ -39,6 +39,7 @@ class RssWeeklyDigestView(
 
             val item = Item()
             item.author = it.user.fullName
+            item.title = it.title
             item.link = "${baseUrl}${it.slug}"
             item.description = description
             item.pubDate = it.publishedDateTimeAsDate
