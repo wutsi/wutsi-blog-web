@@ -57,7 +57,8 @@ class WutsiErrorController(
             baseUrl = baseUrl,
             robots = getPageRobotsHeader(),
             googleAnalyticsCode = this.googleAnalyticsCode,
-            facebookPixelCode = this.facebookPixelId
+            facebookPixelCode = this.facebookPixelId,
+            termsAndConditionUrl = termsAndConditionUrl
     )
 
     private fun pageName(code: Int?): String {

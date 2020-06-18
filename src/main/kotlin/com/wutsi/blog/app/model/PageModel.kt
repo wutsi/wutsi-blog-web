@@ -22,6 +22,7 @@ data class PageModel (
         val canonicalUrl: String? = null,
         val googleClientId: String? = null,
         val showGoogleOneTap: Boolean = false,
-        val pwaVersion: String = PWAHelper.VERSION
+        val pwaVersion: String = PWAHelper.VERSION,
+        val termsAndConditionUrl: String
 )
 

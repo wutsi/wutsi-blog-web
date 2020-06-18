@@ -221,10 +221,16 @@ footer.page-footer {
     width: 100%;
 }
 
+footer.page-footer a {
+    color: white;
+    text-decoration: underline;
+}
+
 footer.page-footer .follow-us .fab {
     color: white;
     font-size: 1.5em;
     margin-left: 0.5em;
+    text-decoration: none;
 }
 
 

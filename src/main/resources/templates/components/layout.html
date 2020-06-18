@@ -62,7 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-10.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-28.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-29.css'" />
 </div>
 
 
@@ -72,18 +72,22 @@
 <footer class="page-footer container-fluid padding-2x margin-top-4x border-top" th:fragment="footer">
 
     <div class="container">
-        <p class="row">
-            Copyright &copy; Wutsi
-        </p>
-        <p class="text-right follow-us">
-            <span th:text="#{footer.follow_us}">Suivez Nous:</span>
-            <a href="https://www.facebook.com/2502022716689613">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.twitter.com/wutsi2">
-                <i class="fab fa-twitter"></i>
-            </a>
-        </p>
+        <div class="row">
+            <div class="col-12 col-md-9">
+                &copy; Wutsi.
+                <br/>
+                <a target="_new" class="text-small" th:href="${page.termsAndConditionUrl}" th:text="#{label.terms_conditions}">Terms and Condition</a>
+            </div>
+            <div class="col-12 col-md-3 text-right follow-us">
+                <span th:text="#{footer.follow_us}">Suivez Nous:</span>
+                <a target="_new" href="https://www.facebook.com/2502022716689613">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a target="_new" href="https://www.twitter.com/wutsi2">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
     </div>
 
     <script async th:src="'https://www.googletagmanager.com/gtag/js?id=' + ${page.googleAnalyticsCode}" th:if="!${page.googleAnalyticsCode.isEmpty()}"></script>
