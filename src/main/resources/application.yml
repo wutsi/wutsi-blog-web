@@ -45,6 +45,8 @@ wutsi:
     base-url: http://localhost:8080
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
+    mail:
+      endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
       endpoint: ${wutsi.backend.base-url}/v1/partner
     recommendation:

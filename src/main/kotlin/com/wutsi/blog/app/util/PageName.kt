@@ -12,6 +12,7 @@ class PageName{
         const val LOGIN = "page.login"
         const val RUN_AS = "page.run.as"
         const val LOGOUT = "page.logout"
+        const val MAIL_UNSUBSCRIBE = "page.mail.unsubscribe"
         const val WRITER = "page.writer"
         const val READ = "page.read"
         const val SETTINGS = "page.settings"
