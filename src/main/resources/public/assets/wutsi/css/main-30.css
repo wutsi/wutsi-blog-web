@@ -586,6 +586,8 @@ a.sso-button .fab {
     width: 100%;
 }
 
+
+
 .reader .content a.link-tool {
     color: var(--text-color);
     text-decoration: none;
@@ -598,27 +600,34 @@ a.sso-button .fab {
     margin-bottom: 20px;
     padding: 1em;
 }
-.reader .content div.meta h2 {
+
+.reader .content div.link-tool div.meta {
+    width: 70%;
+}
+.reader .content div.link-tool div.meta h2 {
     font-size: 1em;
     font-weight: bold;
     margin-bottom: 10px;
+    padding-top: 0;
 }
-.reader .content div.meta p.description {
-    font-size: 0.9em;
-    margin-bottom: 10px;
+.reader .content div.link-tool div.meta p {
+    margin: 0 0 0 0;
 }
-.reader .content div.meta p.site {
-    font-size: 0.7em;
+.reader .content div.link-tool div.meta p.description {
+    max-height: 40px;
+    overflow: hidden;
+}
+.reader .content div.link-tool div.meta p.site {
     color: var(--text-color-gray);
-    margin-bottom: 0px;
 }
 
-.reader .content div.image {
-    margin-top: 0.5em;
-    width: 300px;
-}
 
-.reader .content div.image img {
+.reader .content div.link-tool div.image {
+    width: 30%;
+    max-height: 90px;
+    overflow: hidden;
+}
+.reader .content div.link-tool div.image img {
     max-width: 100%;
     margin: 0 auto;
     border: 1px solid var(--border-color);
