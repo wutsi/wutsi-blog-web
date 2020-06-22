@@ -13,7 +13,7 @@ import org.apache.commons.lang.time.DateUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.view.feed.AbstractRssFeedView
-import java.util.Date
+import java.util.Calendar
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -49,14 +49,20 @@ class RssWeeklyDigestView(
     }
 
     private fun findStories(): List<StoryModel> {
-        val now = Date()
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
+
+        val yesterday = DateUtils.addDays(today.time, -1)
         val stories = service.search(SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
                 limit = 30,
                 sortBy = StorySortStrategy.published,
-                publishedStartDate = DateUtils.addDays(now, -7),
-                publishedEndDate = now
+                publishedStartDate = DateUtils.addDays(yesterday, -7),
+                publishedEndDate = yesterday
         ))
 
         return if (stories.isNotEmpty()){
