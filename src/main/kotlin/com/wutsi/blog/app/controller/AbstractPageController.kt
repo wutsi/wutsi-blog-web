@@ -28,9 +28,6 @@ abstract class AbstractPageController(
     @Value("\${wutsi.oauth.google.client-id}")
     protected lateinit var googleClientId: String
 
-    @Value("\${wutsi.terms-conditions-url}")
-    protected lateinit var termsAndConditionUrl: String
-
     protected abstract fun pageName(): String
 
     @ModelAttribute(ModelAttributeName.USER)
@@ -65,8 +62,7 @@ abstract class AbstractPageController(
             googleAnalyticsCode = this.googleAnalyticsCode,
             facebookPixelCode = this.facebookPixelId,
             googleClientId = this.googleClientId,
-            showGoogleOneTap = shouldShowGoogleOneTap(),
-            termsAndConditionUrl = termsAndConditionUrl
+            showGoogleOneTap = shouldShowGoogleOneTap()
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

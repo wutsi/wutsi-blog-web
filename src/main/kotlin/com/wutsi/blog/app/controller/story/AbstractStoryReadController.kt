@@ -73,8 +73,7 @@ abstract class AbstractStoryReadController(
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl,
-            showGoogleOneTap = shouldShowGoogleOneTap(),
-            termsAndConditionUrl = termsAndConditionUrl
+            showGoogleOneTap = shouldShowGoogleOneTap()
     )
 
 }
