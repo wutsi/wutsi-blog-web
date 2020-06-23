@@ -67,6 +67,10 @@ class StoryService(
     }
 
     fun sort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int = 7): List<StoryModel> {
+        if (stories.size <= 1) {
+            return stories
+        }
+
         val response = sortBackend.sort(SortStoryRequest(
                 storyIds = stories.map { it.id },
                 bubbleDownViewedStories = true,

@@ -18,7 +18,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             websiteUrl = user.websiteUrl,
             email = user.email,
             loginCount = user.loginCount,
-            slug = "/@/${user.name}",
+            slug = slug(user),
             facebookUrl = facebookUrl(user),
             linkedInUrl = linkedIn(user),
             twitterUrl = twitter(user),
@@ -32,6 +32,10 @@ class UserMapper(private val imageKit: ImageKitService) {
                     loginCount = it.loginCount
             ) }
     )
+
+    fun slug(user: UserDto) = "/@/${user.name}"
+
+    fun slug(user: UserSummaryDto) = "/@/${user.name}"
 
     private fun facebookUrl(user: UserDto): String? {
         val account = user.accounts.find { it.provider == "facebook" }
@@ -53,7 +57,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             name = user.name,
             fullName = user.fullName,
             pictureUrl = pictureUrl(user.pictureUrl),
-            slug = "/@/${user.name}"
+            slug = slug(user)
     )
 
     private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")
