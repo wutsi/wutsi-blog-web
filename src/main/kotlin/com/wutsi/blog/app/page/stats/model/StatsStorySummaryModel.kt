@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.model
+package com.wutsi.blog.app.page.stats.model
 
 data class StatsStorySummaryModel (
         val storyId: Long = -1,

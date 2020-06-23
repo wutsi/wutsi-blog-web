@@ -30,7 +30,7 @@ class SitemapView(
     }
 
     override fun render(model: MutableMap<String, *>?, request: HttpServletRequest?, response: HttpServletResponse?) {
-        response?.contentType = "text/xml"
+        response?.contentType = "application/xml"
         response?.characterEncoding = "utf-8"
 
         val sitemap = get()

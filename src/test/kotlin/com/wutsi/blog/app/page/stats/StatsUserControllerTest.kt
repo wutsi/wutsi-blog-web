@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.stats
+package com.wutsi.blog.app.page.stats
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class StatsStoryControllerTest: SeleniumTestSupport() {
+class StatsUserControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -15,49 +15,29 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
         stub(HttpMethod.POST, "/v1/stats/search", HttpStatus.OK, "v1/stats/search.json")
+        stub(HttpMethod.POST, "/v1/stats/search/user", HttpStatus.OK, "v1/stats/search_user.json")
         stub(HttpMethod.POST, "/v1/stats/search/story", HttpStatus.OK, "v1/stats/search_story.json")
-
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
 
     @Test
-    fun `owner can view his stats`() {
+    fun `user can view his stats`() {
         gotoPage()
-        assertCurrentPageIs(PageName.STATS_STORY)
+        assertCurrentPageIs(PageName.STATS_USER)
     }
-
-    @Test
-    fun `superuser can view any`() {
-        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-superuser.json")
-        gotoPage()
-        assertCurrentPageIs(PageName.STATS_STORY)
-    }
-
 
     @Test
     fun `anonymous cannot view stats`() {
-        driver.get("$url/stats/story/20")
+        driver.get("$url/stats")
 
         assertCurrentPageIs(PageName.LOGIN)
-    }
-
-    @Test
-    fun `user cannot view stats of another user`() {
-        login()
-        driver.get("$url/stats/story/99")
-
-        assertCurrentPageIs(PageName.ERROR_403)
     }
 
     fun gotoPage() {
         login()
         click("nav .nav-item")
 
-        click("#navbar-draft")
-        click("#tab-published")
-        click(".story:first-child .dropdown .btn")
-        click(".story .menu-item-stats")
+        click("#navbar-stats")
     }
 
 }

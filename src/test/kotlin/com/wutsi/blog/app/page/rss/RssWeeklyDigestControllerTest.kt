@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.story
+package com.wutsi.blog.app.page.rss
 
 import com.rometools.rome.feed.rss.Channel
 import com.wutsi.blog.SeleniumTestSupport

@@ -1,8 +1,8 @@
-package com.wutsi.blog.app.controller.stats
+package com.wutsi.blog.app.page.stats
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.service.RequestContext
-import com.wutsi.blog.app.service.StatsService
+import com.wutsi.blog.app.page.stats.service.StatsService
 import com.wutsi.blog.app.util.PageName
 import org.apache.commons.lang3.time.DateUtils
 import org.springframework.stereotype.Controller

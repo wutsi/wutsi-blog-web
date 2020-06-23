@@ -9,5 +9,5 @@ import javax.xml.bind.annotation.XmlRootElement
 @XmlRootElement(name = "urlset")
 @XmlAccessorType(XmlAccessType.FIELD)
 data class SitemapModel (
-        @XmlElement val url: List<UrlModel> = emptyList()
+        @XmlElement val url: List<UrlModel> = mutableListOf()
 )

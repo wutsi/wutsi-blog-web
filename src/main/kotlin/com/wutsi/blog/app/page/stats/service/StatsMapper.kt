@@ -1,10 +1,10 @@
-package com.wutsi.blog.app.mapper
+package com.wutsi.blog.app.page.stats.service
 
-import com.wutsi.blog.app.model.StatsStorySummaryModel
-import com.wutsi.blog.app.model.StatsUserSummaryModel
+import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
+import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.model.StoryModel
-import com.wutsi.blog.app.model.toastui.BarChartModel
-import com.wutsi.blog.app.model.toastui.BarChartSerieModel
+import com.wutsi.blog.app.page.stats.model.BarChartModel
+import com.wutsi.blog.app.page.stats.model.BarChartSerieModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.client.stats.StatsDto
 import com.wutsi.blog.client.stats.StatsStoryDto

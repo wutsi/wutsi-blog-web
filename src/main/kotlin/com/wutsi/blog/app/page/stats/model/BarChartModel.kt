@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.model.toastui
+package com.wutsi.blog.app.page.stats.model
 
 data class BarChartModel (
         val categories: List<String>,
