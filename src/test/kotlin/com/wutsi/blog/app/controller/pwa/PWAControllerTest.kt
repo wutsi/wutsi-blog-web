@@ -1,9 +1,9 @@
-package com.wutsi.blog.app.controller.home
+package com.wutsi.blog.app.controller.pwa
 
 import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.app.page.pwa.model.ManifestModel
 import com.wutsi.blog.app.util.PWAHelper
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -52,7 +52,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `manifest`() {
-        val response = rest.getForEntity("$url/manifest-${PWAHelper.VERSION}.json", Manifest::class.java)
+        val response = rest.getForEntity("$url/manifest-${PWAHelper.VERSION}.json", ManifestModel::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
 

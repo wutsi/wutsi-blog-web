@@ -1,5 +1,7 @@
-package com.wutsi.blog.app.controller.home
+package com.wutsi.blog.app.page.pwa
 
+import com.wutsi.blog.app.page.pwa.model.IconModel
+import com.wutsi.blog.app.page.pwa.model.ManifestModel
 import com.wutsi.blog.app.util.PWAHelper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
@@ -29,26 +31,26 @@ class PWAController(
     @GetMapping("/sw-$VERSION.js", produces = ["text/javascript"])
     fun sw(): String {
         setUpCaching()
-        return "page/home/sw.js"
+        return "page/pwa/sw.js"
     }
 
     @GetMapping("/a2hs-$VERSION.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
         setUpCaching()
-        return "page/home/a2hs.js"
+        return "page/pwa/a2hs.js"
     }
 
     @GetMapping("/a2hs")
     fun a2hs(): String {
-        return "page/home/a2hs"
+        return "page/pwa/a2hs"
     }
 
 
     @GetMapping("/manifest-$VERSION.json", produces = ["application/json"])
     @ResponseBody
-    fun manifest(): Manifest {
+    fun manifest(): ManifestModel {
         setUpCaching()
-        return Manifest(
+        return ManifestModel(
                 name = name,
                 short_name = name,
                 start_url = "$baseUrl?utm_medium=pwa",
@@ -57,13 +59,13 @@ class PWAController(
                 theme_color = "#f8f8f8",
                 orientation = "portrait-primary",
                 icons = arrayListOf(
-                        Icon(
-                                src ="$assetUrl/assets/wutsi/img/logo/logo_192x192.png",
+                        IconModel(
+                                src = "$assetUrl/assets/wutsi/img/logo/logo_192x192.png",
                                 type = "image/png",
                                 sizes = "192x192"
                         ),
-                        Icon(
-                                src ="$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
+                        IconModel(
+                                src = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
                                 type = "image/png",
                                 sizes = "512x512"
                         )
@@ -77,19 +79,6 @@ class PWAController(
     }
 }
 
-data class Manifest (
-        val name: String,
-        val short_name: String,
-        val start_url: String,
-        val display: String,
-        val background_color: String,
-        val theme_color: String,
-        val orientation: String,
-        val icons: List<Icon>
-);
+;
 
-data class Icon (
-        val type: String,
-        val sizes: String,
-        val src: String
-);
+;

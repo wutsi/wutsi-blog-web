@@ -1,17 +1,11 @@
-package com.wutsi.blog.app.controller.home.toggles
+package com.wutsi.blog.app.controller.pwa
 
-import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.SeleniumMobileTestSupport
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
-import org.springframework.test.context.TestPropertySource
 
-@TestPropertySource(
-        properties = [
-            "wutsi.toggles.pwa=false"
-        ]
-)
-class FeaturePWADisabledTest: SeleniumTestSupport() {
+class A2HSControllerTest: SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -20,27 +14,20 @@ class FeaturePWADisabledTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `pwa headers`() {
-        driver.get(url)
-        assertElementNotPresent("head link[rel='manifest']")
-        assertElementNotPresent("script#pwa-code")
-    }
-
-    @Test
     fun `add to homescreen in homepage`() {
         driver.get(url)
 
+        Thread.sleep(1000)
         assertElementPresent("script#a2hs-code")
-        assertElementNotPresent("link#a2hs-css")
-        assertElementNotPresent("#a2hs-container")
+        assertElementPresent("#a2hs-container")
     }
 
     @Test
     fun `add to homescreen in reader`() {
         driver.get("$url/read/20/test")
 
+        Thread.sleep(1000)
         assertElementPresent("script#a2hs-code")
-        assertElementNotPresent("#a2hs-container")
+        assertElementPresent("#a2hs-container")
     }
-
 }
