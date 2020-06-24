@@ -4,7 +4,7 @@ import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.service.RecommendationService
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
-import com.wutsi.blog.app.service.editorjs.EJSFilterSet
+import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader

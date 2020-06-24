@@ -4,7 +4,7 @@ import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
-import com.wutsi.blog.app.service.editorjs.EJSFilterSet
+import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.editorjs.dom.BlockType
 import com.wutsi.editorjs.dom.EJSDocument
