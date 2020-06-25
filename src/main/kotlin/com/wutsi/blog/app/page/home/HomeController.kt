@@ -58,7 +58,12 @@ class HomeController(
                 sortBy = StorySortStrategy.published,
                 limit = 50
         ))
-        return storyService.sort(stories, SortAlgorithmType.most_recent)
+        return storyService.sort(
+                stories = stories,
+                algorithm = SortAlgorithmType.most_recent,
+                statsHoursOffset = 24*1, // 1 days
+                bubbleDownViewedStories = true
+        )
     }
 
     private fun mainStory(stories: List<StoryModel>): StoryModel? {
@@ -98,8 +103,12 @@ class HomeController(
             featuredStories: List<StoryModel>,
             main: StoryModel?
     ): List<StoryModel> {
-        // Most popular stories of the 7 last days
-        val result = storyService.sort(stories, SortAlgorithmType.most_viewed, 24*7)
+        val result = storyService.sort(
+                stories = stories,
+                algorithm = SortAlgorithmType.most_viewed,
+                statsHoursOffset = 24*7, // 7 days
+                bubbleDownViewedStories = false
+        )
 
         val featuredIds = featuredStories.map { it.id }
         return result
