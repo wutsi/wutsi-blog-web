@@ -73,7 +73,7 @@ class BlogControllerTest: SeleniumTestSupport() {
 
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
-        assertElementAttribute("head meta[name='robots']", "content", "follow,index")
+        assertElementAttribute("head meta[name='robots']", "content", "index,follow")
 
         assertElementAttribute("head meta[property='og:title']", "content", title)
         assertElementAttribute("head meta[property='og:description']","content", description)
