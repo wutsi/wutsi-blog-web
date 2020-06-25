@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.controller.partner
 
 import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
@@ -15,8 +16,25 @@ class PartnerController(
 ): AbstractPageController( requestContext) {
     override fun pageName() = PageName.PARTNER
 
+    override fun shouldBeIndexedByBots() = true
+
     @GetMapping("/partner")
     fun index(model: Model): String {
         return "page/partner/index"
     }
+
+    override fun page() = PageModel(
+            name = pageName(),
+            title = "Wutsi Partner Program",
+            description = requestContext.getMessage("page.partner.description"),
+            type = "website",
+            robots = getPageRobotsHeader(),
+            baseUrl = baseUrl,
+            assetUrl = assetUrl,
+            googleAnalyticsCode = this.googleAnalyticsCode,
+            facebookPixelCode = this.facebookPixelId,
+            googleClientId = this.googleClientId,
+            showGoogleOneTap = shouldShowGoogleOneTap()
+    )
+
 }
