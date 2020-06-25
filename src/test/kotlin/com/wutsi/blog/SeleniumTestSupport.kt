@@ -42,7 +42,7 @@ abstract class SeleniumTestSupport {
     companion object {
         var wiremock: WireMockServer? = null
 
-        const val META_TITLE = "Wutsi"
+        const val META_TITLE = "Welcome to Wutsi"
     }
 
     @LocalServerPort

@@ -49,7 +49,7 @@ abstract class AbstractPageController(
 
     open fun shouldShowGoogleOneTap() = false
 
-    protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "all" else "noindex,nofollow"
+    protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "index,follow" else "noindex,nofollow"
 
     open fun page() = PageModel(
             name = pageName(),
