@@ -89,9 +89,8 @@
 <div th:replace="components/google :: one-tap"></div>
 <div th:replace="components/layout :: footer"></div>
 
-
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8" th:if="${twitterEmbed}"></script>
-<script th:if="${twitterEmbed}">
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8" th:if="${hasTwitterEmbed}"></script>
+<script th:if="${hasTwitterEmbed}">
     $(document).ready(function(){
         $('.tweet').each( function( t, tweet ) {
 
@@ -108,8 +107,13 @@
     });
 </script>
 
-<script>
+<link rel="stylesheet" type="text/css" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'"  th:if="${hasCode} OR ${hasRaw}" />
+<script th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'" th:if="${hasCode} OR ${hasRaw}"></script>
 
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    var prettify = /*[[${hasCode} OR ${hasRaw}]]*/'0';
     var lastScrollPercent = -1;
 
     $(document).ready(function(){
@@ -118,6 +122,10 @@
         window.addEventListener('beforeunload', function(){
             wutsi.track('readend');
         });
+
+        if (prettify){
+            PR.prettyPrint();
+        }
 
         $(window).on('scroll', function(){
             var s = $(window).scrollTop(),
@@ -140,7 +148,7 @@
         })
     });
 
-
+/*]]>*/
 </script>
 </body>
 

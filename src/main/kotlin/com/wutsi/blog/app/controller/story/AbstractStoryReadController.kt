@@ -2,9 +2,9 @@ package com.wutsi.blog.app.controller.story
 
 import com.wutsi.blog.app.model.PageModel
 import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
-import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.editorjs.dom.BlockType
 import com.wutsi.editorjs.dom.EJSDocument
@@ -41,12 +41,22 @@ abstract class AbstractStoryReadController(
         val html = StringWriter()
         ejsHtmlWriter.write(ejs, html)
         model.addAttribute("html", filter(html.toString()))
-        model.addAttribute("twitterEmbed", twitterEmbed(ejs) != null)
+        model.addAttribute("hasTwitterEmbed", hasTwitterEmbed(ejs))
+        model.addAttribute("hasCode", hasCode(ejs))
+        model.addAttribute("hasRaw", hasRaw(ejs))
     }
 
-    private fun twitterEmbed(doc: EJSDocument) = doc
+    private fun hasTwitterEmbed(doc: EJSDocument) = doc
             .blocks
-            .find { it.type == BlockType.embed && it.data.service == "twitter" }
+            .find { it.type == BlockType.embed && it.data.service == "twitter" } != null
+
+    private fun hasCode(doc: EJSDocument) = doc
+            .blocks
+            .find { it.type == BlockType.code } != null
+
+    private fun hasRaw(doc: EJSDocument) = doc
+            .blocks
+            .find { it.type == BlockType.raw } != null
 
     private fun filter(html: String): String {
         val doc = Jsoup.parse(html)

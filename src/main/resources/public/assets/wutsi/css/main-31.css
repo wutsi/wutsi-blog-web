@@ -650,6 +650,10 @@ a.sso-button .fab {
     width: 30%;
 }
 
+.reader code.inline-code {
+    font-size: 87.5%;
+    color: #e83e8c;
+}
 
 .settings .form-control {
     border: none;

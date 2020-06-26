@@ -166,7 +166,11 @@ function WutsiEJS (holderId, publishCallback){
                         }
                     }
                 }
-            }
+            },
+
+            inlineCode: InlineCode,
+            code: CodeTool,
+            raw: RawTool
         };
 
         this.editorjs = new EditorJS({
