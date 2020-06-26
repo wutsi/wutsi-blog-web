@@ -1,13 +1,13 @@
 function Wutsi (){
     this.track = function (event, value){
-        this.track_ga(event, value, event);
-        return this.track_wutsi(event, value);
+        this.track_ga(wutsi.page_name(), event, value, event);
+        return this.track_wutsi(event, value, window.location.href);
     };
 
-    this.track_ga = function(event, value, label) {
+    this.track_ga = function(category, event, value, label) {
         try {
             gtag('event', event, {
-                'event_category': wutsi.page_name(),
+                'event_category': category,
                 'event_label': label,
                 'value': (value ? value : null)
             });
@@ -171,13 +171,8 @@ setInterval(function () {
 }, 30000);
 
 // Handle all errors
-window.onerror = function() {
-    window.onerror = function(msg, source, line, col, error) {
-        var position = line + (!col ? '' : ':' + col);
-        var message = !error ? '' : error;
-
-        // Push the error to Google Analytics
-        wutsi.track_ga('error', null, source + ':' + position + ' - ' + message)
-    };
+window.onerror = function(message, source, line, col, error) {
+    const label = source + ' - ' + line + ':' + col + ' ' + message;
+    wutsi.track_ga('error', 'error', null, label)
 };
 
