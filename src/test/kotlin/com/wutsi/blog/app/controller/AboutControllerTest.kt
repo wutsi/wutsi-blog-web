@@ -8,6 +8,6 @@ class AboutControllerTest: SeleniumTestSupport() {
     @Test
     fun `open terms and condition`() {
         driver.get("$url/about")
-        assertCurrentPageIs(PageName.READ)
+        assertCurrentPageIs(PageName.LEGAL_ABOUT)
     }
 }

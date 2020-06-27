@@ -51,11 +51,16 @@ abstract class AbstractPageController(
 
     protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "index,follow" else "noindex,nofollow"
 
-    open fun page() = PageModel(
-            name = pageName(),
+    open fun page() = createPage(
             title = requestContext.getMessage("wutsi.title"),
-            description = requestContext.getMessage("wutsi.description"),
-            type = "website",
+            description = requestContext.getMessage("wutsi.description")
+    )
+
+    protected fun createPage(title: String, description: String, type: String = "website") = PageModel(
+            name = pageName(),
+            title = title,
+            description = description,
+            type = type,
             robots = getPageRobotsHeader(),
             baseUrl = baseUrl,
             assetUrl = assetUrl,

@@ -35,8 +35,6 @@ wutsi:
   asset-url: ""
   domain: localhost
   base-url: "http://${wutsi.domain}:8081"
-  about-url: "https://www.wutsi.com/read/57/a-propos"
-  terms-conditions-url: "https://www.wutsi.com/read/53/termes-et-conditions"
 
   aws:
     s3:

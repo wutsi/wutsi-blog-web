@@ -11,7 +11,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-12 offset-md-1 col-md-6">
+        <div class="col-12 offset-lg-1 col-lg-6">
             <div id="main-post" th:if="${mainStory}">
                 <section class="padding border post rounded margin-top">
                     <div th:replace="components/story :: story-card(${mainStory})"></div>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-lg-4">
             <div id="popular-posts" class="margin-top padding border rounded"
                  th:if="${popularStories} AND !${popularStories.isEmpty()}"
             >
@@ -50,7 +50,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

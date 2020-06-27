@@ -1,16 +1,26 @@
 package com.wutsi.blog.app.page.legal
 
-import org.springframework.beans.factory.annotation.Value
+import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class TermsAndConditionController{
-    @Value("\${wutsi.terms-conditions-url}")
-    protected lateinit var url: String
+class TermsAndConditionController(
+        requestContext: RequestContext
+): AbstractLegalController(requestContext){
+    override fun contentPath() = "/html/legal/terms"
+
+    override fun pageName() = PageName.LEGAL_TERMS
+
+    override fun page() = createPage(
+            title = requestContext.getMessage("page.terms.title"),
+            description = requestContext.getMessage("page.terms.description")
+    )
 
     @GetMapping("/terms")
-    fun index(): String {
-       return "redirect:$url"
+    override fun index(model: Model): String {
+        return super.index(model)
     }
 }
