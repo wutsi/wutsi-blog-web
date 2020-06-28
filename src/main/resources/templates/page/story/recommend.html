@@ -1,8 +1,8 @@
 <div class="container border rounded main-content" th:if="!${stories.isEmpty()}">
     <div class="padding">
         <h3 th:text="#{label.read_also}">Read Also</h3>
-        <section class="padding-top margin-top border-top post" th:each="story : ${stories}">
-            <div th:replace="components/story :: story-summary-card(${story}, true, 'xread')"></div>
+        <section class="padding-top margin-top border-top post" th:each="story,it : ${stories}">
+            <div th:replace="components/story :: story-summary-card(${story}, true, 'xread', ${it.index})"></div>
         </section>
     </div>
 </div>

@@ -1,8 +1,8 @@
 <section class="padding margin-top border post rounded"
-         th:each="story: ${stories}"
+         th:each="story, it: ${stories}"
          th:if="!${stories.isEmpty()}"
 >
-    <div th:replace="components/story :: story-card(${story})"></div>
+    <div th:replace="components/story :: story-card(${story}, 'read', ${it.index})"></div>
 </section>
 
 <!-- 1st post -->

@@ -1,10 +1,14 @@
 function Wutsi (){
-    this.track = function (event, value){
-        this.track_ga(wutsi.page_name(), event, value, event);
-        return this.track_wutsi(event, value, window.location.href);
+    this.track = function (event, value, label){
+        this.track_ga(wutsi.page_name(), event, value, label);
+        return this.track_wutsi(event, value);
     };
 
     this.track_ga = function(category, event, value, label) {
+        if (typeof gtag != 'function') {
+            return
+        }
+
         try {
             gtag('event', event, {
                 'event_category': category,
@@ -70,9 +74,15 @@ function Wutsi (){
 
         /* tracking */
         $('[wutsi-track-event]').click(function(){
-            var event = $(this).attr("wutsi-track-event");
-            var value = $(this).attr("wutsi-track-value");
-            wutsi.track(event, value)
+            const event = $(this).attr("wutsi-track-event");
+            const value = $(this).attr("wutsi-track-value");
+            const title = $(this).attr("title");
+            wutsi.track(event, value, title);
+
+            const rank = $(this).attr("wutsi-track-rank");
+            if (rank) {
+                wutsi.track_ga(wutsi.page_name(), event + '.' + rank, rank, title);
+            }
         });
     };
 

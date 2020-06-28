@@ -213,8 +213,12 @@
 </div>
 
 
-<div th:fragment="story-card(story)">
-    <a th:href="${story.slug}" th:title="${story.title}" th:wutsi-track-value = "${story.id}">
+<div th:fragment="story-card(story, trackEvent, rank)">
+    <a th:href="${story.slug}"
+       th:title="${story.title}"
+       th:wutsi-track-value = "${story.id}"
+       th:wutsi-track-rank = "${rank}"
+       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
@@ -244,13 +248,17 @@
     <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
 
-<div th:fragment="story-summary-card(story, showAuthor, trackEvent)">
+<div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">
         <div class="container-fluid">
             <div class="row">
                 <div class="padding-none"
                      th:classappend="${story.thumbnailImage} AND ${showAuthor} ? col-9"
                 >
-                    <a th:href="${story.slug}" th:wutsi-track-value = "${story.id}" th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+                    <a th:href="${story.slug}"
+                       th:title="${story.title}"
+                       th:wutsi-track-value = "${story.id}"
+                       th:wutsi-track-rank = "${rank}"
+                       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
                         <h6 th:text="${story.title}">Title</h6>
                     </a>
 
@@ -266,7 +274,11 @@
                     </div>
                 </div>
                 <div class="col-3 text-right padding-none" th:if="${story.thumbnailImage} AND ${showAuthor}">
-                    <a th:href="${story.slug}" th:wutsi-track-value = "${story.id}" th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+                    <a th:href="${story.slug}"
+                       th:title="${story.title}"
+                       th:wutsi-track-value = "${story.id}"
+                       th:wutsi-track-rank = "${rank}"
+                       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
                         <img class="small lozad"
                              th:data-src="${story.thumbnailImage.src}"
                              th:data-srcset="${story.thumbnailImage.srcset}"
