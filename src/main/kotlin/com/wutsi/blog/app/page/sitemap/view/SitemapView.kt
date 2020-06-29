@@ -56,7 +56,8 @@ class SitemapView(
     private fun pageUrls(): List<UrlModel> = arrayListOf(
             mapper.toUrlModel("/"),
             mapper.toUrlModel("/about"),
-            mapper.toUrlModel("/partner")
+            mapper.toUrlModel("/partner"),
+            mapper.toUrlModel("/create")
     )
 
     private fun storyUrls(stories: List<StorySummaryDto>): List<UrlModel> {
