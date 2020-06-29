@@ -7,13 +7,17 @@ import com.wutsi.blog.client.user.UserSummaryDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
+import java.util.Date
 
 @Service
 class SitemapMapper(
         private val userMapper: UserMapper,
         @Value("\${wutsi.base-url}") private val baseUrl: String
 ) {
-    fun toUrlModel(path: String) = UrlModel(loc="${baseUrl}${path}")
+    fun toUrlModel(path: String) = UrlModel(
+            loc="${baseUrl}${path}",
+            lastmod = SimpleDateFormat("yyyy-MM-dd").format(Date())
+    )
 
     fun toUrlModel(story: StorySummaryDto) = UrlModel(
             loc="${baseUrl}${story.slug}",
