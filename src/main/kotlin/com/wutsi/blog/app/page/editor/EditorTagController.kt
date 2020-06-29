@@ -1,5 +1,6 @@
-package com.wutsi.blog.app.controller.story
+package com.wutsi.blog.app.page.editor
 
+import com.wutsi.blog.app.controller.story.AbstractStoryController
 import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.model.PublishForm
 import com.wutsi.blog.app.model.TopicModel
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class StoryTagController(
+class EditorTagController(
         private val topicService: TopicService,
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryController(service, requestContext) {
-    override fun pageName() = PageName.STORY_TAG
+    override fun pageName() = PageName.EDITOR_TAG
 
     override fun requiredPermissions() = listOf(Permission.editor)
 

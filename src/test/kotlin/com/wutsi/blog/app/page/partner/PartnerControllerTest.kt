@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.partner
+package com.wutsi.blog.app.page.partner
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
@@ -11,6 +11,13 @@ class PartnerControllerTest: SeleniumTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/save.json")
+    }
+
+
+    @Test
+    fun anonymousCanAccessWPP() {
+        gotoPage(false)
+        assertCurrentPageIs(PageName.PARTNER)
     }
 
     @Test
@@ -109,15 +116,17 @@ class PartnerControllerTest: SeleniumTestSupport() {
     @Test
     fun `home page META headers`() {
         gotoPage()
+        assertElementAttribute("html", "lang", "fr")
         assertElementAttribute("head title", "text", "Wutsi Partner Program")
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
     }
 
 
-    private fun gotoPage(){
-        login()
-
+    private fun gotoPage(login: Boolean = true){
+        if (login) {
+            login()
+        }
         click("nav .nav-item")
         click("#navbar-wpp")
     }}

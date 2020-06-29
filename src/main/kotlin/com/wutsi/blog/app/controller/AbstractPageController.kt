@@ -7,6 +7,7 @@ import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.core.exception.ConflictException
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.bind.annotation.ModelAttribute
 import java.util.UUID
 
@@ -67,7 +68,8 @@ abstract class AbstractPageController(
             googleAnalyticsCode = this.googleAnalyticsCode,
             facebookPixelCode = this.facebookPixelId,
             googleClientId = this.googleClientId,
-            showGoogleOneTap = shouldShowGoogleOneTap()
+            showGoogleOneTap = shouldShowGoogleOneTap(),
+            language = LocaleContextHolder.getLocale().language
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

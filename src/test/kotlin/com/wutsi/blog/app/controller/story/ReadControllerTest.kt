@@ -130,6 +130,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 
+        assertElementAttribute("html", "lang", "fr")
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")

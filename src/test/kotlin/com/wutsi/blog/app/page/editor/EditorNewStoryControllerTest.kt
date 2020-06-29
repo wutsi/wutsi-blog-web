@@ -36,11 +36,11 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_READABILITY)
+        assertCurrentPageIs(PageName.EDITOR_READABILITY)
         assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.STORY_TAG)
+        assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
@@ -65,18 +65,18 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_READABILITY)
+        assertCurrentPageIs(PageName.EDITOR_READABILITY)
         assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.STORY_TAG)
+        assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
 
         stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)
         click("#btn-publish")
 
-        assertCurrentPageIs(PageName.STORY_TAG)
+        assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementPresent(".alert-danger")
     }
 
@@ -93,7 +93,7 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         Thread.sleep(1000)
-        assertCurrentPageIs(PageName.STORY_READABILITY)
+        assertCurrentPageIs(PageName.EDITOR_READABILITY)
     }
 
     @Test

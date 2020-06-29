@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.servlet
+package com.wutsi.blog.app.page.track.servlet
 
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName

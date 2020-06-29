@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.partner.toggles
+package com.wutsi.blog.app.page.partner.toggles
 
 import com.wutsi.blog.SeleniumTestSupport
 import org.junit.Test

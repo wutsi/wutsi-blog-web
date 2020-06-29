@@ -33,7 +33,8 @@ class HomeControllerTest: SeleniumTestSupport() {
     @Test
     fun `home page META headers`() {
         driver.get(url)
-        assertElementAttribute("head title", "text", META_TITLE)
+        assertElementAttribute("html", "lang", "fr")
+        assertElementPresent("head title")
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
     }

@@ -1,11 +1,10 @@
-package com.wutsi.blog.app.service
+package com.wutsi.blog.app.page.partner.service
 
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.wutsi.blog.app.backend.PartnerBackend
-import com.wutsi.blog.app.mapper.PartnerMapper
-import com.wutsi.blog.app.model.PartnerForm
-import com.wutsi.blog.app.model.PartnerModel
+import com.wutsi.blog.app.page.partner.model.PartnerForm
+import com.wutsi.blog.app.page.partner.model.PartnerModel
 import com.wutsi.blog.client.wpp.SavePartnerRequest
 import org.springframework.stereotype.Service
 

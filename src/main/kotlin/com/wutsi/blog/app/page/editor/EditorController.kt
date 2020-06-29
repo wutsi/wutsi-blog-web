@@ -28,14 +28,14 @@ class EditorController(
     @GetMapping("/editor")
     fun create(model: Model): String {
         model.addAttribute("storyId", 0)
-        return "page/editor"
+        return "page/editor/index"
     }
 
     @GetMapping("/editor/{id}")
     fun update(@PathVariable id:Long, @RequestParam error:String?=null, model: Model): String {
         model.addAttribute("storyId", id)
         model.addAttribute("error", error)
-        return "page/editor"
+        return "page/editor/index"
     }
 
     @ResponseBody

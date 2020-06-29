@@ -1,13 +1,14 @@
-package com.wutsi.blog.app.controller.partner
+package com.wutsi.blog.app.page.partner
 
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.model.PartnerForm
-import com.wutsi.blog.app.service.PartnerService
+import com.wutsi.blog.app.page.partner.model.PartnerForm
+import com.wutsi.blog.app.page.partner.service.PartnerService
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.wpp.MobileProvider
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -76,7 +77,7 @@ class PartnerPaymentController(
     }
 
     private fun loadCountries (model: Model) {
-        val language = requestContext.language()
+        val language = LocaleContextHolder.getLocale().language
         model.addAttribute("countries", arrayListOf(
                 Locale(language, "CM")
         ))

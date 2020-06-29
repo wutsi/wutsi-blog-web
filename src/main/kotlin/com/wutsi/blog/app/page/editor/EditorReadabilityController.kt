@@ -1,5 +1,6 @@
-package com.wutsi.blog.app.controller.story
+package com.wutsi.blog.app.page.editor
 
+import com.wutsi.blog.app.controller.story.AbstractStoryController
 import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.StoryService
@@ -10,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
-class StoryReadabilityController(
+class EditorReadabilityController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryController(service, requestContext) {
-    override fun pageName() = PageName.STORY_READABILITY
+    override fun pageName() = PageName.EDITOR_READABILITY
 
     override fun requiredPermissions() = listOf(Permission.editor)
 
@@ -28,6 +29,6 @@ class StoryReadabilityController(
 
         model.addAttribute("canPublish", story.readabilityScore > readability.scoreThreshold)
 
-        return "page/story/readability"
+        return "page/editor/readability"
     }
 }

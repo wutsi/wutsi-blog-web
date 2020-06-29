@@ -1,6 +1,6 @@
-package com.wutsi.blog.app.mapper
+package com.wutsi.blog.app.page.partner.service
 
-import com.wutsi.blog.app.model.PartnerModel
+import com.wutsi.blog.app.page.partner.model.PartnerModel
 import com.wutsi.blog.client.wpp.PartnerDto
 import org.springframework.stereotype.Service
 

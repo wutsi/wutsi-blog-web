@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.model
+package com.wutsi.blog.app.page.partner.model
 
 import com.wutsi.blog.client.wpp.MobileProvider
 

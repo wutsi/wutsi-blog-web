@@ -4,6 +4,8 @@ class PageName{
     companion object {
         const val BLOG = "page.blog"
         const val EDITOR = "page.editor"
+        const val EDITOR_READABILITY = "page.editor.readability"
+        const val EDITOR_TAG = "page.editor.tag"
         const val ERROR_400 = "page.error.400"
         const val ERROR_403 = "page.error.403"
         const val ERROR_404 = "page.error.404"
@@ -19,8 +21,6 @@ class PageName{
         const val READ = "page.read"
         const val SETTINGS = "page.settings"
         const val STORY_DRAFT = "page.story.draft"
-        const val STORY_READABILITY = "page.story.readability"
-        const val STORY_TAG = "page.story.tag"
         const val PARTNER = "page.partner"
         const val PARTNER_JOIN = "page.partner.join"
         const val PARTNER_PAYMENT = "page.partner.payment"

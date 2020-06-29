@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.servlet
+package com.wutsi.blog.app.page.track.servlet
 
 import com.wutsi.core.logging.KVLogger
 import org.junit.Assert.assertEquals
