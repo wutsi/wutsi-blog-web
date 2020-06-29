@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.welcome
+package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class WelcomeControllerTest : SeleniumTestSupport() {
+class CreateControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -16,8 +16,18 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
 
+
     @Test
-    fun `welcome existing user` () {
+    fun `create` () {
+        gotoPage(false)
+        assertCurrentPageIs(PageName.CREATE)
+
+        click("#btn-create")
+        assertCurrentPageIs(PageName.LOGIN)
+    }
+
+    @Test
+    fun `existing user` () {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
 
@@ -26,16 +36,16 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.BLOG)
     }
 
-
     @Test
     fun `set name` () {
         gotoPage()
-        assertCurrentPageIs(PageName.WELCOME)
+
+        assertCurrentPageIs(PageName.CREATE_NAME)
 
         input(".form-control", "ray.sponsible1")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME_FULLNAME)
+        assertCurrentPageIs(PageName.CREATE_FULLNAME)
     }
 
     @Test
@@ -45,7 +55,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         input(".form-control", "")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME)
+        assertCurrentPageIs(PageName.CREATE_NAME)
     }
 
     @Test
@@ -57,7 +67,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         input(".form-control", "Ray S.")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME_EMAIL)
+        assertCurrentPageIs(PageName.CREATE_EMAIL)
     }
 
     @Test
@@ -69,7 +79,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         input(".form-control", "")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME_EMAIL)
+        assertCurrentPageIs(PageName.CREATE_EMAIL)
     }
 
     @Test
@@ -80,7 +90,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
         click("#btn-previous")
 
-        assertCurrentPageIs(PageName.WELCOME)
+        assertCurrentPageIs(PageName.CREATE_NAME)
     }
 
 
@@ -95,7 +105,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         input(".form-control", "ray.sponsible1@gmail.com")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME_BIOGRAPHY)
+        assertCurrentPageIs(PageName.CREATE_BIOGRAPHY)
     }
 
     @Test
@@ -107,7 +117,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
         click("#btn-previous")
 
-        assertCurrentPageIs(PageName.WELCOME_FULLNAME)
+        assertCurrentPageIs(PageName.CREATE_FULLNAME)
     }
 
     @Test
@@ -121,7 +131,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         input(".form-control", "This is a nice bio")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME_PICTURE)
+        assertCurrentPageIs(PageName.CREATE_PICTURE)
     }
 
     @Test
@@ -134,7 +144,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
         click("#btn-previous")
 
-        assertCurrentPageIs(PageName.WELCOME_EMAIL)
+        assertCurrentPageIs(PageName.CREATE_EMAIL)
     }
 
     @Test
@@ -147,7 +157,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         click("#btn-next")
         click("#btn-next")
 
-        assertCurrentPageIs(PageName.WELCOME_SUCCESS)
+        assertCurrentPageIs(PageName.CREATE_SUCCESS)
     }
 
     @Test
@@ -161,7 +171,7 @@ class WelcomeControllerTest : SeleniumTestSupport() {
 
         click("#btn-previous")
 
-        assertCurrentPageIs(PageName.WELCOME_BIOGRAPHY)
+        assertCurrentPageIs(PageName.CREATE_BIOGRAPHY)
     }
 
     @Test
@@ -178,10 +188,13 @@ class WelcomeControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.BLOG)
     }
 
-    private fun gotoPage() {
-        login()
-        navigate("$url/welcome")
-
-        assertElementNotPresent(".label-danger")
+    private fun gotoPage(login: Boolean = true) {
+        if (login){
+            login()
+            navigate("$url/create/name")
+        } else {
+            driver.get(url)
+            click("#navbar-create")
+        }
     }
 }

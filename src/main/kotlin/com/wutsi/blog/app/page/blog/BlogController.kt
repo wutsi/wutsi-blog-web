@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.user
+package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.PageModel
@@ -33,7 +33,7 @@ class BlogController(
         model.addAttribute("blog", blog)
         model.addAttribute("showCreatePanel", shouldShowCreatePanel(blog, user))
         model.addAttribute("page", page(blog))
-        return "page/user/blog"
+        return "page/blog/index"
     }
 
     private fun shouldShowCreatePanel(blog: UserModel, user: UserModel?) = user?.id == blog.id

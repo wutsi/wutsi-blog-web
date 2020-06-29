@@ -55,9 +55,7 @@ class SecurityConfiguration(
                 .antMatchers("/partner/**/*").authenticated()
                 .antMatchers("/stats").authenticated()
                 .antMatchers("/stats/**/*").authenticated()
-                .antMatchers("/welcome").authenticated()
-                .antMatchers("/welcome/**/*").authenticated()
-                .antMatchers("/welcome/**/*").authenticated()
+                .antMatchers("/create/**/*").authenticated()
                 .antMatchers(HttpMethod.POST, "/upload").authenticated()
 
                 .anyRequest().permitAll()

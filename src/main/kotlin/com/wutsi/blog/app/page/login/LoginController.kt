@@ -41,6 +41,6 @@ class LoginController(
             ?: return false
 
         val url = URL(savedRequest.redirectUrl)
-        return domain.equals(url.host) && url.file == "/welcome"
+        return domain.equals(url.host) && url.file == "/create/name"
     }
 }

@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.user
+package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
@@ -71,6 +71,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         val title = "Ray Sponsible"
         val description = "Ray sponsible is a test user"
 
+        assertElementAttribute("html", "lang", "fr")
         assertElementAttribute("head title", "text", title)
         assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")

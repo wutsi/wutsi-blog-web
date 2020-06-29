@@ -1,11 +1,10 @@
-package com.wutsi.blog.app.controller.user
+package com.wutsi.blog.app.page.settings
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.UserAttributeForm
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.UserService
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.core.exception.ConflictException
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,7 +22,7 @@ class SettingsController(
 
     @GetMapping
     fun index(): String {
-        return "page/user/settings"
+        return "page/settings/index"
     }
 
     @ResponseBody

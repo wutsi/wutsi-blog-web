@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.welcome
+package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.service.RequestContext
@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/welcome/success")
-class WelcomeSuccessController(
+@RequestMapping("/create/success")
+class CreateSuccessController(
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.WELCOME_SUCCESS
+    override fun pageName() = PageName.CREATE_SUCCESS
 
     @GetMapping
     fun index(): String {
-        return "page/welcome/success"
+        return "page/create/success"
     }
 
 }

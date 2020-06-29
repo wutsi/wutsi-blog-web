@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.welcome
+package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.service.UserService
@@ -7,16 +7,16 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/welcome/fullname")
-class WelcomeFullnameController(
+@RequestMapping("/create/fullname")
+class CreateFullnameController(
         userService: UserService,
         requestContext: RequestContext
-): AbstractWelcomeController(userService, requestContext) {
-    override fun pageName() = PageName.WELCOME_FULLNAME
+): AbstractCreateController(userService, requestContext) {
+    override fun pageName() = PageName.CREATE_FULLNAME
 
-    override fun pagePath() = "page/welcome/fullname"
+    override fun pagePath() = "page/create/fullname"
 
-    override fun redirectUrl() = "/welcome/email"
+    override fun redirectUrl() = "/create/email"
 
     override fun attributeName() = "fullname"
 

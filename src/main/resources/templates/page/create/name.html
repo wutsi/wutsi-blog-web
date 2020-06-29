@@ -11,20 +11,21 @@
         <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6 margin-top-2x">
 
             <div class="main-content border padding-2x text-center margin-top-2x">
-                <div th:replace="components/story :: wizard(6, 3)"></div>
+                <div th:replace="components/story :: wizard(6, 2)"></div>
 
-                <h1 class="margin-top" th:text="#{page.welcome.header1}">Login</h1>
-                <h4 class="margin-top" th:utext="#{page.welcome.info.fullname}"></h4>
+                <h1 class="margin-top" th:text="#{page.create.header1}">Login</h1>
+                <h4 class="margin-top" th:utext="#{page.create.info.name}"></h4>
 
                 <div class="alert alert-danger padding-top" th:if="${error}" th:text="${error}">Error</div>
 
-                <form class="margin-top-2x" method="GET" action="/welcome/fullname/submit">
-                    <input class="form-control margin-bottom" required="required" maxlength="100"
+                <form class="margin-top-2x" method="GET" action="/create/name/submit">
+                    <input class="form-control" required="required" pattern="^[A-Za-z0-9_.]{1,30}$" maxlength="30"
                            name="value"
                            th:value="${value}"
                     />
+                    <div class="form-text text-muted" th:text="${page.baseUrl} + '/@/' + ${value}"></div>
+
                     <div class="margin-top-2x">
-                        <a id="btn-previous" class="btn btn-light float-left" href="/welcome" th:text="#{button.previous}">Previous</a>
                         <button id="btn-next" type="submit" class="btn btn-primary float-right" th:text="#{button.next}">Next</button>
                     </div>
                 </form>
@@ -35,5 +36,22 @@
 </div>
 
 <div th:replace="components/layout :: footer"></div>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    var baseUrl = /*[[${page.baseUrl}]]*/'';
+
+    $('.form-control').on('input', function() {
+        updateUrl(this.value);
+    });
+
+    function updateUrl(value) {
+        console.log('changing...', value);
+        $('.form-text').text(baseUrl + '/@/' + value);
+    }
+/*]]>*/
+</script>
+
 </body>
 </html>

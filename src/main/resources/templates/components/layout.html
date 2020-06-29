@@ -75,14 +75,16 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9 margin-bottom">
                 &copy; Wutsi.
                 <br/>
-                <a target="_new" class="text-small" href="/about" th:text="#{label.about}">About</a>
+                <a class="text-small" href="/about" th:text="#{label.about}">About</a>
                 |
-                <a target="_new" class="text-small" href="/terms" th:text="#{label.terms_conditions}">Terms and Condition</a>
+                <a class="text-small" href="/create" th:text="#{label.create_blog}">Create Blog</a>
                 |
-                <a target="_new" class="text-small" href="/partner" th:if="${toggles.wpp}">Wutsi Partner Program</a>
+                <a class="text-small" href="/partner" th:if="${toggles.wpp}">Wutsi Partner Program</a>
+                |
+                <a class="text-small" href="/terms" th:text="#{label.terms_conditions}">Terms and Condition</a>
             </div>
             <div class="col-12 col-md-3 text-right follow-us">
                 <a target="_new" href="https://www.facebook.com/2502022716689613">
@@ -193,7 +195,7 @@
                 </div>
             </li>
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
-                <a id="navbar-join" class="btn btn-primary" href="/welcome" th:text="#{button.create_blog}">Create your Blog</a>
+                <a id="navbar-create" class="btn btn-primary" href="/create" th:text="#{button.create_blog}">Create your Blog</a>
             </li>
             <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
                 <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>

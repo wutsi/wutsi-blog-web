@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container">
+    <div class="row margin-bottom-4x">
+        <div class="col-12 offset-md-1 col-md-10 margin-top-2x">
+
+            <div class="main-content border padding-2x text-center margin-top-2x">
+                <h1 th:text="#{page.create.header1}">Login</h1>
+                <p th:text="#{page.create.description}">Description</p>
+
+                <h2 class="margin-top" th:text="#{page.create.how_to_create}">How does it work</h2>
+                <div class="container-fluid margin-top-2x">
+                    <div class="row">
+                        <div class="col-12 col-md-5 padding box-filled rounded border">
+                            <h5>1. <span th:text="#{page.create.how_to_create.1}">Step</span></h5>
+                            <div th:text="#{page.create.how_to_create.1.details}"></div>
+                        </div>
+                        <div class="col-12 col-md-2 padding">
+                        </div>
+                        <div class="col-12 col-md-5 padding box-filled rounded border">
+                            <h5>2. <span th:text="#{page.create.how_to_create.2}">Step</span></h5>
+                            <div th:text="#{page.create.how_to_create.2.details}"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="margin-top-2x text-center">
+                    <a id="btn-create" class="btn btn-primary" href="/create/name" th:text="#{button.create_blog}">Create your Blog</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+
+</body>
+</html>

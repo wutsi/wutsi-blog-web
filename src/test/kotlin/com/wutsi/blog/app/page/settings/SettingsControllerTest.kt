@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.user
+package com.wutsi.blog.app.page.settings
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName

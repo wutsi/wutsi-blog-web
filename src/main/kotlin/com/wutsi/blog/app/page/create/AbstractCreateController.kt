@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.welcome
+package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.app.controller.AbstractPageController
 import com.wutsi.blog.app.model.UserAttributeForm
@@ -9,11 +9,11 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
-abstract class AbstractWelcomeController(
+abstract class AbstractCreateController(
         private val userService: UserService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.WELCOME_FULLNAME
+    override fun pageName() = PageName.CREATE_FULLNAME
 
     abstract fun pagePath(): String
 

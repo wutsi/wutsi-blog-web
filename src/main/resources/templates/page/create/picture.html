@@ -13,22 +13,22 @@
             <div class="main-content border padding-2x text-center margin-top-2x">
                 <div th:replace="components/story :: wizard(6, 6)"></div>
 
-                <h1 class="margin-top" th:text="#{page.welcome.header1}">Login</h1>
-                <h4 class="margin-top" th:utext="#{page.welcome.info.picture}"></h4>
+                <h1 class="margin-top" th:text="#{page.create.header1}">Login</h1>
+                <h4 class="margin-top" th:utext="#{page.create.info.picture}"></h4>
 
                 <div class="alert alert-danger padding-top" th:if="${error}" th:text="${error}">Error</div>
 
-                <form class="margin-top-2x" method="GET" action="/welcome/picture/submit">
+                <form class="margin-top-2x" method="GET" action="/create/picture/submit">
                     <div class="text-center">
                         <img class="logo" th:src="${value}" width="64" height="64"/>
                         <input id="file-upload" class="hidden" type="file" />
                     </div>
 
                     <input id="picture-url" type="hidden" name="value" th:value="${value}" />
-                    <div class="form-text text-muted" th:text="#{page.welcome.hint.picture}"></div>
+                    <div class="form-text text-muted" th:text="#{page.create.hint.picture}"></div>
 
                     <div class="margin-top-2x">
-                        <a id="btn-previous" class="btn btn-light float-left" href="/welcome/biography" th:text="#{button.previous}">Previous</a>
+                        <a id="btn-previous" class="btn btn-light float-left" href="/create/biography" th:text="#{button.previous}">Previous</a>
                         <button id="btn-next" type="submit" class="btn btn-primary float-right" th:text="#{button.next}">Next</button>
                     </div>
                 </form>
