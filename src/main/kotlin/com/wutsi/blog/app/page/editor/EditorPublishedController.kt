@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.controller.story
+package com.wutsi.blog.app.page.editor
 
 import com.wutsi.blog.app.controller.AbstractStoryListController
 import com.wutsi.blog.app.service.RequestContext
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/me/story/published")
-class StoryPublishedController(
+class EditorPublishedController(
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryListController(service, requestContext) {
     override fun pageName() = PageName.STORY_PUBLISHED
 
-    override fun viewName() = "page/story/published"
+    override fun viewName() = "page/editor/published"
 
     override fun fetchStories(limit: Int, offset: Int) = service.search(SearchStoryRequest(
             userId = requestContext.currentUser()?.id,

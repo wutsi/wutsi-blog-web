@@ -48,7 +48,7 @@ class EditorTagController(
 
         model.addAttribute("story", story)
         model.addAttribute("error", error)
-        return "page/story/tag"
+        return "page/editor/tag"
     }
 
     @GetMapping("/me/story/tag/submit")

@@ -126,7 +126,9 @@ class PartnerControllerTest: SeleniumTestSupport() {
     private fun gotoPage(login: Boolean = true){
         if (login) {
             login()
+            click("nav .nav-item")
+            click("#navbar-wpp")
+        } else {
+            driver.get("$url/partner")
         }
-        click("nav .nav-item")
-        click("#navbar-wpp")
     }}
