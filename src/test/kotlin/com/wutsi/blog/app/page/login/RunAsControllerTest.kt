@@ -30,7 +30,6 @@ class RunAsControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.BLOG)
         assertElementPresent("#super-user-banner")
         assertElementAttribute(".dropdown-item-user img", "title", "John Smith")
-        assertElementNotPresent(".alert")
     }
 
     @Test

@@ -88,12 +88,12 @@ class SettingsControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user can change website`() {
-        testUpdate("websiteurl", "https://www.me.com/ray.sponsible", "https://www.avatar.com/ray.sponsible")
+        testUpdate("website_url", "https://www.me.com/ray.sponsible", "https://www.avatar.com/ray.sponsible")
     }
 
     @Test
     fun `user can cancel website`() {
-        testCancel("websiteurl", "https://www.me.com/ray.sponsible", "...")
+        testCancel("website_url", "https://www.me.com/ray.sponsible", "...")
     }
 
 
