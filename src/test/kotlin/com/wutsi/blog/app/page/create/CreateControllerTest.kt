@@ -193,8 +193,7 @@ class CreateControllerTest : SeleniumTestSupport() {
             login()
             navigate("$url/create/name")
         } else {
-            driver.get(url)
-            click("#navbar-create")
+            navigate("$url/create")
         }
     }
 }
