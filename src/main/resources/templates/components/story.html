@@ -192,11 +192,20 @@
                 <i class="fab fa-twitter"></i>
             </a>
             <a target="_new"
+               class="social-link youtube"
+               wutsi-track-event="link"
+               wutsi-track-value="youtube"
+               th:if="${me.youtubeUrl} AND !${me.youtubeUrl.isEmpty()}"
+               th:href="${me.youtubeUrl}"
+            >
+                <i class="fab fa-youtube-square"></i>
+            </a>
+            <a target="_new"
                class="social-link linkedin"
                wutsi-track-event="link"
                wutsi-track-value="linkedin"
-               th:if="${me.linkedInUrl} AND !${me.linkedInUrl.isEmpty()}"
-               th:href="${me.linkedInUrl}"
+               th:if="${me.linkedinUrl} AND !${me.linkedinUrl.isEmpty()}"
+               th:href="${me.linkedinUrl}"
             >
                 <i class="fab fa-linkedin-in"></i>
             </a>

@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.mapper
 
-import com.wutsi.blog.app.model.AccountModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.ImageKitService
 import com.wutsi.blog.client.user.UserDto
@@ -20,17 +19,16 @@ class UserMapper(private val imageKit: ImageKitService) {
             loginCount = user.loginCount,
             slug = slug(user),
             facebookUrl = facebookUrl(user),
-            linkedInUrl = linkedIn(user),
-            twitterUrl = twitter(user),
+            linkedinUrl = linkedinUrl(user),
+            twitterUrl = twitterUrl(user),
+            youtubeUrl = youtubeUrl(user),
             superUser = user.superUser,
             readAllLanguages = user.readAllLanguages,
             language = user.language,
-            accounts = user.accounts.map { AccountModel(
-                    id = it.id,
-                    provider = it.provider,
-                    providerUserId = it.providerUserId,
-                    loginCount = it.loginCount
-            ) }
+            facebookId = user.facebookId,
+            twitterId = user.twitterId,
+            linkedinId = user.linkedinId,
+            youtubeId = user.youtubeId
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
@@ -38,18 +36,19 @@ class UserMapper(private val imageKit: ImageKitService) {
     fun slug(user: UserSummaryDto) = "/@/${user.name}"
 
     private fun facebookUrl(user: UserDto): String? {
-        val account = user.accounts.find { it.provider == "facebook" }
-        return if (account == null) null else "https://www.facebook.com/${account.providerUserId}"
+        return if (user.facebookId == null) null else "https://www.facebook.com/${user.facebookId}"
     }
 
-    private fun twitter(user: UserDto): String? {
-        val account = user.accounts.find { it.provider == "twitter" }
-        return if (account == null) null else "https://www.twitter.com/${account.providerUserId}"
+    private fun twitterUrl(user: UserDto): String? {
+        return if (user.twitterId == null) null else "https://www.twitter.com/${user.twitterId}"
     }
 
-    private fun linkedIn(user: UserDto): String? {
-        val account = user.accounts.find { it.provider == "linkedin" }
-        return if (account == null) null else "https://www.linkedin.com/in/${account.providerUserId}"
+    private fun linkedinUrl(user: UserDto): String? {
+        return if (user.linkedinId == null) null else "https://www.linkedin.com/in/${user.linkedinId}"
+    }
+
+    private fun youtubeUrl(user: UserDto): String? {
+        return if (user.youtubeId == null) null else "https://www.youtube.com/user/${user.youtubeId}"
     }
 
     fun toUserModel(user: UserSummaryDto) = UserModel(

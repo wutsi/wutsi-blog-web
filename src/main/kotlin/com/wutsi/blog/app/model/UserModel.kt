@@ -9,12 +9,16 @@ data class UserModel (
         val pictureUrl: String? = null,
         val websiteUrl: String? = null,
         val biography: String? = null,
-        val accounts: List<AccountModel> = emptyList(),
         val facebookUrl: String? = null,
         val twitterUrl: String? = null,
-        val linkedInUrl: String? = null,
+        val linkedinUrl: String? = null,
+        val youtubeUrl: String? = null,
         val slug: String = "",
         val superUser: Boolean = false,
         val language: String? = null,
-        val readAllLanguages: Boolean? = null
+        val readAllLanguages: Boolean? = null,
+        val facebookId: String? = null,
+        val twitterId: String? = null,
+        val linkedinId: String? = null,
+        val youtubeId: String? = null
 )

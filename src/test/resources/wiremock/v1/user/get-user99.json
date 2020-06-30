@@ -7,35 +7,6 @@
     "loginCount": 4,
     "lastLoginDateTime": 1585334250000,
     "creationDateTime": 1585325914000,
-    "modificationDateTime": 1585325914000,
-    "accounts": [
-      {
-        "id": 21,
-        "provider": "facebook",
-        "loginCount": 3,
-        "providerUserId": "john.smith",
-        "lastLoginDateTime": 1585334250000,
-        "creationDateTime": 1585325914000,
-        "modificationDateTime": 1585325914000
-      },
-      {
-        "id": 22,
-        "provider": "facebook",
-        "loginCount": 2,
-        "providerUserId": "john.smith",
-        "lastLoginDateTime": 1585334250000,
-        "creationDateTime": 1585325914000,
-        "modificationDateTime": 1585325914000
-      },
-      {
-        "id": 23,
-        "provider": "twitter",
-        "loginCount": 1,
-        "providerUserId": "john.smith",
-        "lastLoginDateTime": 1585334250000,
-        "creationDateTime": 1585325914000,
-        "modificationDateTime": 1585325914000
-      }
-    ]
+    "modificationDateTime": 1585325914000
   }
 }

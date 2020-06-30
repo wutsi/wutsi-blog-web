@@ -63,6 +63,9 @@ h1, h2, h3, h4, h5, h6 {
 .fa-linkedin {
     color: #0e76a8;
 }
+.fa-youtube-square {
+    color: #ff0000;
+}
 .fa-twitter-square {
     color: #0084b4;
 }
@@ -675,8 +678,14 @@ a.sso-button .fab {
     border: 1px solid var(--border-color)
 }
 
+.settings .input-group-text {
+    background-color: white;
+    border: none;
+    color: var(--text-color);
+}
 
-/* add 2 homescreen */
+
+    /* add 2 homescreen */
 #a2hs-container {
     display: none;
 }

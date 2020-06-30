@@ -29,7 +29,14 @@
                 <div th:replace="components/settings :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, control='textarea', type='', placeholder=#{page.settings.bio.placeholder})"></div>
             </div>
             <div class="border-top margin-top padding-top">
-                <div th:replace="components/settings :: inline_input_form(title=#{label.website}, name='websiteurl', value=${user.websiteUrl}, maxlen=200, control='input', type='url', placeholder=#{page.settings.website.placeholder})"></div>
+                <div th:replace="components/settings :: inline_input_form(title=#{label.website}, name='website_url', value=${user.websiteUrl}, maxlen=200, control='input', type='url', placeholder=#{page.settings.website.placeholder})"></div>
+            </div>
+            <div class="border-top margin-top padding-top">
+                <h4 th:text="#{label.social_media}">Social Links</h4>
+                <div th:replace="components/settings :: inline_social_input_form(title='https://www.facebook.com/', name='facebook_id', value=${user.facebookId}, placeholder=#{page.settings.facebook.placeholder})"></div>
+                <div th:replace="components/settings :: inline_social_input_form(title='https://www.twitter.com/', name='twitter_id', value=${user.twitterId}, placeholder=#{page.settings.twitter.placeholder})"></div>
+                <div th:replace="components/settings :: inline_social_input_form(title='https://www.youtube.com/user/', name='youtube_id', value=${user.youtubeId}, placeholder=#{page.settings.youtube.placeholder})"></div>
+                <div th:replace="components/settings :: inline_social_input_form(title='https://www.linked.com/in/', name='linked_id', value=${user.linkedinId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
             </div>
         </div>
     </div>

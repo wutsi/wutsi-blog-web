@@ -49,7 +49,45 @@
     </div>
 </div>
 
+<div th:id="${name} + '-form'"
+     th:fragment="inline_social_input_form(title, name, value, placeholder)">
+    <div class="alert alert-danger hidden"></div>
+    <input type="hidden" class="old-value" />
+    <div class="row">
+        <div class="col-12 col-md-8 margin-bottom">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="${title}">https://www.fdlfkd.com</span>
+                </div>
+                <input class="form-control" disabled="disabled"
+                       th:data-key="${name}"
+                       th:name="${name}"
+                       th:value="${value}"
+                       th:placeholder="${placeholder}"
+                       th:maxlength="50"
+                />
+            </div>
+        </div>
+        <div class="col-12 col-md-4 text-right margin-bottom">
+            <button class="btn btn-light btn-sm btn-edit"
+                    th:data-key="${name}"
+                    th:text="#{button.edit}"
+            >Edit</button>
 
+            <div class="hidden toolbar">
+                <button class="btn btn-primary btn-sm margin-right btn-save"
+                        th:data-key="${name}"
+                        th:text="#{button.save}"
+                >Save</button>
+
+                <button class="btn btn-light btn-sm btn-cancel"
+                        th:data-key="${name}"
+                        th:text="#{button.cancel}"
+                >Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

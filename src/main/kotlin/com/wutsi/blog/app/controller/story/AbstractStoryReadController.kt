@@ -78,7 +78,7 @@ abstract class AbstractStoryReadController(
             assetUrl = assetUrl,
             robots = getPageRobotsHeader(),
             tags = story.tags.map { it.name },
-            twitterUserId = story.user.accounts.find { it.provider == "twitter" }?.providerUserId,
+            twitterUserId = story.user.twitterId,
             facebookPixelCode = this.facebookPixelId,
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleClientId = this.googleClientId,

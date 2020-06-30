@@ -10,35 +10,6 @@
     "loginCount": 0,
     "lastLoginDateTime": 1585334250000,
     "creationDateTime": 1585325914000,
-    "modificationDateTime": 1585325914000,
-    "accounts": [
-      {
-        "id": 11,
-        "provider": "facebook",
-        "loginCount": 3,
-        "providerUserId": "ray.sponsible",
-        "lastLoginDateTime": 1585334250000,
-        "creationDateTime": 1585325914000,
-        "modificationDateTime": 1585325914000
-      },
-      {
-        "id": 12,
-        "provider": "facebook",
-        "loginCount": 2,
-        "providerUserId": "ray-sponsible",
-        "lastLoginDateTime": 1585334250000,
-        "creationDateTime": 1585325914000,
-        "modificationDateTime": 1585325914000
-      },
-      {
-        "id": 13,
-        "provider": "twitter",
-        "loginCount": 1,
-        "providerUserId": "raysponsible",
-        "lastLoginDateTime": 1585334250000,
-        "creationDateTime": 1585325914000,
-        "modificationDateTime": 1585325914000
-      }
-    ]
+    "modificationDateTime": 1585325914000
   }
 }

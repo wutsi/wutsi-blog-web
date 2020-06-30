@@ -57,7 +57,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute(".author .facebook", "wutsi-track-event", "link")
         assertElementAttribute(".author .facebook", "wutsi-track-value", "facebook")
 
-        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/raysponsible")
+        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
         assertElementAttribute(".author .twitter", "wutsi-track-event", "link")
         assertElementAttribute(".author .twitter", "wutsi-track-value", "twitter")
 
@@ -160,8 +160,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute("head meta[name='twitter:title']", "content", title)
         assertElementAttribute("head meta[name='twitter:description']","content", description)
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary_large_image")
-        assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
-        assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
+        assertElementAttribute("head meta[name='twitter:site']", "content", "@ray.sponsible")
+        assertElementAttribute("head meta[name='twitter:creator']", "content", "@ray.sponsible")
     }
 
     @Test
@@ -177,8 +177,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute("head meta[name='twitter:title']", "content", title)
         assertElementAttribute("head meta[name='twitter:description']","content", description)
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary")
-        assertElementAttribute("head meta[name='twitter:site']", "content", "@raysponsible")
-        assertElementAttribute("head meta[name='twitter:creator']", "content", "@raysponsible")
+        assertElementAttribute("head meta[name='twitter:site']", "content", "@ray.sponsible")
+        assertElementAttribute("head meta[name='twitter:creator']", "content", "@ray.sponsible")
     }
 
     @Test
