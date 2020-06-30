@@ -144,7 +144,7 @@
                     url: $("meta[property=og\\:url]").attr("content")
                 };
 
-                console.log('Shading ', request);
+                console.log('sharing ', request);
                 navigator.share(request).then(function(event){
                     console.log('Share succeed', event);
                     wutsi.track('share');
@@ -253,8 +253,6 @@
             <span th:text="#{label.minutes}">min</span>
         </div>
     </div>
-
-    <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
 
 <div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">
@@ -299,18 +297,8 @@
             </div>
         </div>
     </a>
-    <div th:replace="components/story :: track-impression(${story})"></div>
 </div>
 
-
-<script th:inline="javascript" th:fragment="track-impression(story)">
-/*<![CDATA[*/
-    $(document).ready(function(){
-        const storyId = /*[[${story.id}]]*/'0';
-        wutsi.track('impression.' + storyId);
-    })
-/*]]>*/
-</script>
 
 <div class="wizard" th:fragment="wizard(steps, current)">
     <ul class="step-indicator">
