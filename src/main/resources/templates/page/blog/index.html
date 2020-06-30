@@ -10,9 +10,19 @@
 
     <div class="container-fluid padding border-bottom box-filled-white">
         <div th:replace="components/story :: author-card(${blog})"></div>
+
     </div>
 
     <div class="container">
+        <div class="row margin-top" th:if="${showSocialLinkPanel}">
+            <div class="col-12 offset-md-2 col-md-8">
+                <div id="alert-no-social-link" class="alert alert-info">
+                    <p th:utext="#{label.no_social_links}">Message</p>
+                    <a id="btn-no-social-link" class="btn btn-light" href="/me/settings" th:text="#{button.connect_your_blog}">Connect your Blog</a>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12 offset-md-2 col-md-8">
                 <div id="stories"></div>

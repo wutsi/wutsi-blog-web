@@ -21,13 +21,31 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttributeEndsWith(".author a", "href", "/@/ray.sponsible")
         assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
         assertElementText(".author .bio", "Ray sponsible is a test user")
-//        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
-//        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/raysponsible")
-//        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
+        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/user/ray.sponsible")
+        assertElementNotPresent("#alert-no-social-link")
 
+        Thread.sleep(1000)
         assertElementCount(".post", 7)
         assertElementNotPresent("#create-first-story")
         assertElementNotPresent("#create-syndicate-story")
+    }
+
+    @Test
+    fun `user blog page with no social links` () {
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-no-social-link.json")
+        gotoPage(true)
+
+        assertElementNotPresent(".author .facebook")
+        assertElementNotPresent(".author .twitter")
+        assertElementNotPresent(".author .linkedin")
+        assertElementNotPresent(".author .youtube")
+
+        assertElementPresent("#alert-no-social-link")
+        click("#btn-no-social-link")
+        assertCurrentPageIs(PageName.SETTINGS)
     }
 
     @Test
