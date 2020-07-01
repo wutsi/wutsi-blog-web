@@ -6,8 +6,8 @@ import java.util.Date
 data class StoryModel(
         val id: Long = -1,
         val user: UserModel = UserModel(),
-        val title: String? = null,
-        val summary: String? = null,
+        val title: String = "",
+        val summary: String = "",
         val thumbnailImage: HtmlImageModel? = null,
         val thumbnailUrl: String? = null,
         val sourceUrl: String? = null,

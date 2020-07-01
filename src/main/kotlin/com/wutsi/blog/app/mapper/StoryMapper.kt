@@ -33,7 +33,7 @@ class StoryMapper(
         return StoryModel(
                 id = story.id,
                 content = story.content,
-                title = story.title,
+                title = nullToEmpty(story.title),
                 contentType = story.contentType,
                 thumbnailUrl = if (story.thumbnailUrl == null) null else imageKit.transform(story.thumbnailUrl!!, "504px", "294px"),
                 thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
@@ -42,7 +42,7 @@ class StoryMapper(
                 sourceSite = story.sourceSite,
                 readingMinutes = story.readingMinutes,
                 language = story.language,
-                summary = story.summary,
+                summary = nullToEmpty(story.summary),
                 user = if (user == null) UserModel(id = story.userId) else user,
                 status = story.status,
                 draft = story.status == StoryStatus.draft,
@@ -67,14 +67,14 @@ class StoryMapper(
 
     fun toStoryModel(story: StorySummaryDto, user: UserModel? = null) = StoryModel(
             id = story.id,
-            title = story.title,
+            title = nullToEmpty(story.title),
             thumbnailUrl = story.thumbnailUrl,
             thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
             wordCount = story.wordCount,
             sourceUrl = story.sourceUrl,
             readingMinutes = story.readingMinutes,
             language = story.language,
-            summary = story.summary,
+            summary = nullToEmpty(story.summary),
             user = if (user == null) UserModel(id = story.userId) else user,
             status = story.status,
             draft = story.status == StoryStatus.draft,
@@ -98,6 +98,10 @@ class StoryMapper(
                     color = readabilityColor(it.score)
             ) }
     )
+
+    private fun nullToEmpty(value: String?): String {
+        return if (value == null) "" else value
+    }
 
     private fun nullToEmpty(topic: TopicModel?): TopicModel {
         return if (topic == null) TopicModel() else topic
