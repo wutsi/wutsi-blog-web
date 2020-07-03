@@ -1,12 +1,12 @@
 package com.wutsi.blog.app.page.stats
 
-import com.wutsi.blog.app.controller.story.AbstractStoryController
+import com.wutsi.blog.app.page.story.AbstractStoryController
 import com.wutsi.blog.app.model.Permission
-import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.stats.model.BarChartModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.page.stats.service.StatsService
-import com.wutsi.blog.app.service.StoryService
+import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.stats.StatsType
 import org.apache.commons.lang3.time.DateUtils

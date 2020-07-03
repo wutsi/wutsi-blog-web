@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.page.track
 
-import com.wutsi.blog.app.model.PushTrackForm
+import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping

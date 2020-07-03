@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.controller
 
 import com.wutsi.blog.app.model.PageModel
-import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName

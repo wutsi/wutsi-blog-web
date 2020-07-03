@@ -1,12 +1,12 @@
 package com.wutsi.blog.app.page.editor
 
-import com.wutsi.blog.app.controller.story.AbstractStoryController
+import com.wutsi.blog.app.page.story.AbstractStoryController
 import com.wutsi.blog.app.model.Permission
-import com.wutsi.blog.app.model.PublishForm
-import com.wutsi.blog.app.model.TopicModel
+import com.wutsi.blog.app.page.editor.model.PublishForm
+import com.wutsi.blog.app.page.story.model.TopicModel
 import com.wutsi.blog.app.service.RequestContext
-import com.wutsi.blog.app.service.StoryService
-import com.wutsi.blog.app.service.TopicService
+import com.wutsi.blog.app.page.story.service.StoryService
+import com.wutsi.blog.app.page.story.service.TopicService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

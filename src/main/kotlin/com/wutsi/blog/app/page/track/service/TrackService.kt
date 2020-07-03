@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.track.service
 
 import com.wutsi.blog.app.backend.TrackBackend
-import com.wutsi.blog.app.model.PushTrackForm
+import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName

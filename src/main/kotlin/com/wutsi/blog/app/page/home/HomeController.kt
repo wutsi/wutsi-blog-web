@@ -1,10 +1,10 @@
 package com.wutsi.blog.app.page.home
 
 import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.RequestContext
-import com.wutsi.blog.app.service.StoryService
+import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType

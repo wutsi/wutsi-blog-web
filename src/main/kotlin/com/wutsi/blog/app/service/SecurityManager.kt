@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.service
 
 import com.wutsi.blog.app.model.Permission
-import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import org.springframework.stereotype.Component
 

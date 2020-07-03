@@ -6,7 +6,7 @@ import com.wutsi.blog.app.mapper.SessionMapper
 import com.wutsi.blog.app.mapper.UserMapper
 import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.model.SessionModel
-import com.wutsi.blog.app.model.StoryModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
 import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
