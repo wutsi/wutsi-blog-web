@@ -42,11 +42,15 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
-
         click("#btn-publish")
 
-        assertCurrentPageIs(PageName.STORY_PUBLISHED)
-        assertElementPresent("#alert-published")
+        assertCurrentPageIs(PageName.EDITOR_SHARE)
+        assertElementAttributeStartsWith("#btn-facebook", "href", "https://www.facebook.com/sharer/sharer.php?u=")
+        assertElementAttributeStartsWith("#btn-twitter", "href", "https://twitter.com/intent/tweet?url=")
+        assertElementAttributeStartsWith("#btn-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=")
+
+        click("#btn-read")
+        assertCurrentPageIs(PageName.READ)
     }
 
     @Test

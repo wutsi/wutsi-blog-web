@@ -1,12 +1,12 @@
 package com.wutsi.blog.app.page.editor
 
-import com.wutsi.blog.app.page.story.AbstractStoryController
 import com.wutsi.blog.app.model.Permission
 import com.wutsi.blog.app.page.editor.model.PublishForm
+import com.wutsi.blog.app.page.story.AbstractStoryController
 import com.wutsi.blog.app.page.story.model.TopicModel
-import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.page.story.service.TopicService
+import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -55,7 +55,7 @@ class EditorTagController(
     fun submit(@ModelAttribute editor: PublishForm): String {
         try {
             service.publish(editor)
-            return "redirect:/me/story/published?pubid=${editor.id}"
+            return "redirect:/me/story/${editor.id}/share"
         } catch (ex: Exception) {
             return "redirect:/me/story/${editor.id}/tag?error=publish_error"
         }

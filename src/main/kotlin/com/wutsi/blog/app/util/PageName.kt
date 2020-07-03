@@ -15,6 +15,7 @@ class PageName{
         const val EDITOR = "page.editor"
         const val EDITOR_READABILITY = "page.editor.readability"
         const val EDITOR_TAG = "page.editor.tag"
+        const val EDITOR_SHARE = "page.editor.share"
 
         const val ERROR_400 = "page.error.400"
         const val ERROR_403 = "page.error.403"
