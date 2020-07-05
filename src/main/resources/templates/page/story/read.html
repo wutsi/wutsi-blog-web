@@ -45,11 +45,6 @@
         <!-- Content -->
         <div class="content margin-top" th:utext="${html}">This is a block</div>
 
-        <!-- Add to homescreen -->
-        <section class="margin-top" th:if="${toggles.pwa}">
-            <div th:replace="components/pwa :: a2hs-card"></div>
-        </section>
-
         <!-- Tags -->
         <div class="tag-container margin-top">
             <div class="tag margin-bottom margin-right" th:each="tag : ${story.tags}">
@@ -69,7 +64,7 @@
         /*<![CDATA[*/
 
         var storyId = /*[[${story.id}]]*/'0';
-        wutsi.httpGet('/read/recommend/' + storyId, false)
+        wutsi.httpGet('/read/recommend/' + storyId + '?layout=card', false)
             .then(function(html){
                 $('#recommendation-container').html(html);
             })
@@ -82,6 +77,11 @@
         <div class="padding">
             <div th:replace="components/story :: author-card(${story.user})"></div>
         </div>
+    </div>
+
+    <!-- Install -->
+    <div class="container border rounded main-content margin-top" th:if="${toggles.pwa}">
+        <div th:replace="components/pwa :: a2hs-card"></div>
     </div>
 </div>
 

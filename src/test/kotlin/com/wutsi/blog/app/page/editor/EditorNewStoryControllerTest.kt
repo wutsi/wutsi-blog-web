@@ -45,7 +45,7 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
 
-        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-not-live.json")
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
 
         assertCurrentPageIs(PageName.EDITOR_SHARE)
@@ -53,6 +53,7 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         assertElementAttributeStartsWith("#btn-twitter", "href", "https://twitter.com/intent/tweet?url=")
         assertElementAttributeStartsWith("#btn-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=")
 
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         click("#btn-read")
         assertCurrentPageIs(PageName.READ)
     }
