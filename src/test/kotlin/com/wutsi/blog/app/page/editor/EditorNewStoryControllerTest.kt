@@ -48,8 +48,13 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-not-live.json")
         click("#btn-publish")
 
-        assertCurrentPageIs(PageName.STORY_PUBLISHED)
-        assertElementPresent("#alert-published")
+        assertCurrentPageIs(PageName.EDITOR_SHARE)
+        assertElementAttributeStartsWith("#btn-facebook", "href", "https://www.facebook.com/sharer/sharer.php?u=")
+        assertElementAttributeStartsWith("#btn-twitter", "href", "https://twitter.com/intent/tweet?url=")
+        assertElementAttributeStartsWith("#btn-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=")
+
+        click("#btn-read")
+        assertCurrentPageIs(PageName.READ)
     }
 
     @Test
