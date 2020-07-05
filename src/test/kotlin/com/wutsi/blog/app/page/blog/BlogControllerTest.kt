@@ -90,7 +90,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         val description = "Ray sponsible is a test user"
 
         assertElementAttribute("html", "lang", "fr")
-        assertElementAttribute("head title", "text", title)
+        assertElementAttribute("head title", "text", "$title | Wutsi")
         assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
 

@@ -117,7 +117,7 @@ class PartnerControllerTest: SeleniumTestSupport() {
     fun `home page META headers`() {
         gotoPage()
         assertElementAttribute("html", "lang", "fr")
-        assertElementAttribute("head title", "text", "Wutsi Partner Program")
+        assertElementAttribute("head title", "text", "Wutsi Partner Program | Wutsi")
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
     }
