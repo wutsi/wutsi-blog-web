@@ -1,8 +1,8 @@
 package com.wutsi.blog.app.controller
 
 import com.wutsi.blog.app.model.PageModel
-import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.core.exception.ConflictException
@@ -57,7 +57,12 @@ abstract class AbstractPageController(
             description = requestContext.getMessage("wutsi.description")
     )
 
-    protected fun createPage(title: String, description: String, type: String = "website") = PageModel(
+    protected fun createPage(
+            title: String,
+            description: String,
+            type: String = "website",
+            imageUrl: String = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png"
+    ) = PageModel(
             name = pageName(),
             title = title,
             description = description,
@@ -69,7 +74,8 @@ abstract class AbstractPageController(
             facebookPixelCode = this.facebookPixelId,
             googleClientId = this.googleClientId,
             showGoogleOneTap = shouldShowGoogleOneTap(),
-            language = LocaleContextHolder.getLocale().language
+            language = LocaleContextHolder.getLocale().language,
+            imageUrl = imageUrl
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

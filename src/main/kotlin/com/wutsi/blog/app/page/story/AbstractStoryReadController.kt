@@ -1,10 +1,10 @@
 package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.model.PageModel
-import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
+import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.editorjs.dom.BlockType
 import com.wutsi.editorjs.dom.EJSDocument
@@ -66,8 +66,8 @@ abstract class AbstractStoryReadController(
 
     protected fun toPage(story: StoryModel)= PageModel(
             name = pageName(),
-            title = story.title!!,
-            description = story.summary!!,
+            title = story.title,
+            description = story.summary,
             type = "article",
             url = url(story),
             imageUrl = story.thumbnailUrl,
