@@ -2,11 +2,11 @@ package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.mapper.HtmlImageModelMapper
 import com.wutsi.blog.app.mapper.TopicMapper
+import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.model.TopicModel
-import com.wutsi.blog.app.model.UserModel
 import com.wutsi.blog.app.service.ImageKitService
 import com.wutsi.blog.app.service.Moment
 import com.wutsi.blog.client.story.ReadabilityDto
@@ -36,7 +36,7 @@ class StoryMapper(
                 content = story.content,
                 title = nullToEmpty(story.title),
                 contentType = story.contentType,
-                thumbnailUrl = if (story.thumbnailUrl == null) null else imageKit.transform(story.thumbnailUrl!!, "504px", "294px"),
+                thumbnailUrl = if (story.thumbnailUrl == null) null else story.thumbnailUrl,
                 thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
                 wordCount = story.wordCount,
                 sourceUrl = story.sourceUrl,
