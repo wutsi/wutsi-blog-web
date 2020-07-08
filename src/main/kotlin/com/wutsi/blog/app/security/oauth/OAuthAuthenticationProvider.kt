@@ -39,6 +39,7 @@ class OAuthAuthenticationProvider(
         ))
 
         authentication.setAuthenticated(true)
+        request.getSession(true).maxInactiveInterval = 84600    // 1d
         return authentication
     }
 
