@@ -110,7 +110,7 @@
 <link rel="stylesheet" type="text/css" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'"  th:if="${hasCode} OR ${hasRaw}" />
 <script th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'" th:if="${hasCode} OR ${hasRaw}"></script>
 
-<script th:inline="javascript">
+<script id="track-script" th:inline="javascript" th:if="!${user} OR ${user.id} != ${story.user.id}">
 /*<![CDATA[*/
 
     var prettify = /*[[${hasCode} OR ${hasRaw}]]*/'0';

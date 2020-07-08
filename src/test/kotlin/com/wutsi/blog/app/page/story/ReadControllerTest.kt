@@ -40,6 +40,27 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
 
     @Test
+    fun `story tracking not available for story owner`() {
+        gotoPage(true)
+        assertElementNotPresent("#track-script")
+    }
+
+    @Test
+    fun `story tracking available for non-story owner`() {
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
+        gotoPage(true)
+        assertElementPresent("#track-script")
+    }
+
+    @Test
+    fun `story tracking available for anonymous`() {
+        gotoPage()
+        assertElementPresent("#track-script")
+    }
+
+
+
+    @Test
     fun `published story`() {
         gotoPage()
 
