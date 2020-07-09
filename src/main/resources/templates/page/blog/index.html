@@ -13,8 +13,8 @@
 
     </div>
 
-    <div class="container" th:if="${user} AND ${user.id} == ${blog.id}">
-        <div class="row margin-top">
+    <div class="container">
+        <div class="row margin-top" th:if="${user} AND ${user.id} == ${blog.id}">
             <div class="col-12 offset-md-2 col-md-8">
                 <div th:replace="components/user :: update-profile"></div>
             </div>
