@@ -7,30 +7,30 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
-class StoryDraftControllerTest: SeleniumTestSupport() {
+class StoryPublishedControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-draft.json")
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-published.json")
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
     }
 
 
     @Test
-    fun `anonymous user should not see draft stories`() {
+    fun `anonymous user should not see published stories`() {
         gotoPage(false)
 
         assertCurrentPageIs(PageName.LOGIN)
     }
 
     @Test
-    fun `user should see his draft stories`() {
+    fun `user should see his published stories`() {
         gotoPage()
 
         Thread.sleep(1000)
         assertElementText("#tab-draft .story-count", "11")
-        assertElementCount(".story", 2)
+        assertElementCount(".story", 3)
     }
 
     @Test
@@ -56,9 +56,10 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
             login()
             click("nav .nav-item")
             click("#navbar-draft")
-            assertCurrentPageIs(PageName.STORY_DRAFT)
+            click("#tab-published")
+            assertCurrentPageIs(PageName.STORY_PUBLISHED)
         } else {
-            driver.get("$url/me/draft")
+            driver.get("$url/me/published")
         }
     }
 }

@@ -28,7 +28,11 @@ class UserMapper(private val imageKit: ImageKitService) {
             facebookId = user.facebookId,
             twitterId = user.twitterId,
             linkedinId = user.linkedinId,
-            youtubeId = user.youtubeId
+            youtubeId = user.youtubeId,
+            hasSocialLinks = user.facebookId != null
+                    || user.youtubeId != null
+                    || user.linkedinId != null
+                    || user.twitterId != null
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"

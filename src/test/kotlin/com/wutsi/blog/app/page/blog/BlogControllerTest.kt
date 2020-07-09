@@ -35,6 +35,7 @@ class BlogControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user blog page with no social links` () {
+        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-no-social-link.json")
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-no-social-link.json")
         gotoPage(true)
 

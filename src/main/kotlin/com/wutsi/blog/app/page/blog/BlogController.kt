@@ -32,16 +32,9 @@ class BlogController(
 
         model.addAttribute("blog", blog)
         model.addAttribute("showCreatePanel", shouldShowCreatePanel(blog, user))
-        model.addAttribute("showSocialLinkPanel", showShowSocialLinkPanel(blog, user))
         model.addAttribute("page", page(blog))
         return "page/blog/index"
     }
-
-    private fun showShowSocialLinkPanel(blog: UserModel, user: UserModel?): Boolean = user?.id == blog.id &&
-            blog.facebookId == null &&
-            blog.twitterId == null &&
-            blog.linkedinId == null &&
-            blog.youtubeId == null
 
     private fun shouldShowCreatePanel(blog: UserModel, user: UserModel?) = user?.id == blog.id
 
