@@ -16,7 +16,7 @@
             <div class="margin-top-2x text-center">
                 <div th:replace="components/story :: wizard(3, 3)"></div>
                 <h1 class="margin-top" th:text="#{page.share.header1}">Title</h1>
-                <p th:utext="#{page.share.description(${story.title})}">Summary</p>
+                <p th:utext="#{page.share.description(${story.title}, ${user.slug})}">Summary</p>
             </div>
 
             <!-- Share -->

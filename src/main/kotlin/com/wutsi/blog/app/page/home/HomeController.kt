@@ -1,10 +1,10 @@
 package com.wutsi.blog.app.page.home
 
 import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.model.UserModel
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
+import com.wutsi.blog.app.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
@@ -56,7 +56,8 @@ class HomeController(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
-                limit = 50
+                limit = 50,
+                minViewers = StoryService.RECOMMENDATION_MIN_VIEWERS
         ))
         return storyService.sort(
                 stories = stories,
