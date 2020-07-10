@@ -1,10 +1,11 @@
 package com.wutsi.blog.app.page.story
 
-import com.wutsi.blog.app.security.model.Permission
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.story.service.RecommendationService
+import com.wutsi.blog.app.page.story.service.StorySchemasGenerator
 import com.wutsi.blog.app.page.story.service.StoryService
-import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class ReadController(
         private val recommendations: RecommendationService,
+        private val schemas: StorySchemasGenerator,
         ejsJsonReader: EJSJsonReader,
         ejsHtmlWriter: EJSHtmlWriter,
         ejsFilters: EJSFilterSet,
@@ -44,7 +46,8 @@ class ReadController(
             @RequestParam(required = false, defaultValue = "false") preview: Boolean = false,
             model: Model
     ): String {
-        loadPage(id, model)
+        val story = loadPage(id, model)
+        model.addAttribute("schemas", schemas.generate(story))
         return "page/story/read"
     }
 

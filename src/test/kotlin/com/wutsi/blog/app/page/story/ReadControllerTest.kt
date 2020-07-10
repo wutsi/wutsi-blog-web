@@ -243,6 +243,13 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementPresent("script#fb-pixel-code")
     }
 
+    @Test
+    fun `Schemas script`() {
+        gotoPage()
+
+        assertElementPresent("script[type='application/ld+json']")
+    }
+
     fun gotoPage(login: Boolean = false) {
         if (login){
             login()

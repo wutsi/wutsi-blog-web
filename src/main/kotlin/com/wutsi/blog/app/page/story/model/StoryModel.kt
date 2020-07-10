@@ -26,6 +26,7 @@ data class StoryModel(
         val modificationDateTime: String = "",
         val publishedDateTime: String = "",
         val publishedDateTimeAsDate: Date? = null,
+        val creationDateTimeISO8601: String = "",
         val modificationDateTimeISO8601: String = "",
         val publishedDateTimeISO8601: String? = null,
         val tags: List<TagModel> = emptyList(),

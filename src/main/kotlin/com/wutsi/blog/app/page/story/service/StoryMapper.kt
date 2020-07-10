@@ -1,12 +1,12 @@
 package com.wutsi.blog.app.page.story.service
 
-import com.wutsi.blog.app.page.settings.model.UserModel
-import com.wutsi.blog.app.page.editor.model.ReadabilityModel
-import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
-import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.story.model.TopicModel
 import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.Moment
+import com.wutsi.blog.app.page.editor.model.ReadabilityModel
+import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
+import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.page.story.model.TopicModel
 import com.wutsi.blog.client.story.ReadabilityDto
 import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus
@@ -50,6 +50,7 @@ class StoryMapper(
                 creationDateTime = moment.format(story.creationDateTime),
                 publishedDateTimeAsDate = story.publishedDateTime,
                 publishedDateTime = moment.format(story.publishedDateTime),
+                creationDateTimeISO8601 = fmt.format(story.creationDateTime),
                 publishedDateTimeISO8601 = if (story.publishedDateTime == null) null else fmt.format(story.publishedDateTime),
                 modificationDateTimeISO8601 = fmt.format(story.modificationDateTime),
                 readabilityScore = story.readabilityScore,

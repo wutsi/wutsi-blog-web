@@ -103,6 +103,13 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
     }
 
+    @Test
+    fun `Schemas script`() {
+        gotoPage()
+
+        assertElementPresent("script[type='application/ld+json']")
+    }
+
     fun gotoPage(login: Boolean = false) {
         if (login) {
             login()
