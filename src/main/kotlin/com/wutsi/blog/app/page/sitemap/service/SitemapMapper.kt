@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.page.sitemap.service
 
-import com.wutsi.blog.app.mapper.UserMapper
+import com.wutsi.blog.app.page.settings.service.UserMapper
 import com.wutsi.blog.app.page.sitemap.model.UrlModel
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.UserSummaryDto

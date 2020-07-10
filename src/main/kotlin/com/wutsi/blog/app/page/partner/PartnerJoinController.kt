@@ -1,8 +1,8 @@
 package com.wutsi.blog.app.page.partner
 
-import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.page.partner.service.PartnerService
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

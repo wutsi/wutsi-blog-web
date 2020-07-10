@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.security.oauth
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
-import com.wutsi.blog.app.security.SecurityConfiguration
+import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.client.user.AuthenticateRequest
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.authentication.AuthenticationProvider

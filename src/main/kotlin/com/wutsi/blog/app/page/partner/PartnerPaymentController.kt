@@ -2,10 +2,10 @@ package com.wutsi.blog.app.page.partner
 
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.wutsi.blog.app.controller.AbstractPageController
+import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.page.partner.model.PartnerForm
 import com.wutsi.blog.app.page.partner.service.PartnerService
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.wpp.MobileProvider
 import org.springframework.context.i18n.LocaleContextHolder

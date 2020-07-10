@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.backend
 
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.wpp.GetPartnerResponse
 import com.wutsi.blog.client.wpp.SavePartnerRequest
 import com.wutsi.blog.client.wpp.SavePartnerResponse

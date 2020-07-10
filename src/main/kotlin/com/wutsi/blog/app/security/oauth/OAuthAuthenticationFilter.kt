@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.security.oauth
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.blog.app.security.SecurityConfiguration
+import com.wutsi.blog.app.security.config.SecurityConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationServiceException
 import org.springframework.security.core.Authentication

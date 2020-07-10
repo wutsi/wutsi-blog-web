@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.page.editor.service
 
-import com.wutsi.blog.app.service.HtmlImageService
+import com.wutsi.blog.app.page.story.service.HtmlImageService
 import org.jsoup.Jsoup
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.security.qa
 
-import com.wutsi.blog.app.security.SecurityConfiguration
+import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthPrincipal
 import com.wutsi.blog.app.security.oauth.OAuthTokenAuthentication
 import com.wutsi.blog.app.security.oauth.OAuthUser

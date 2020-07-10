@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.login
 
-import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.web.savedrequest.SavedRequest

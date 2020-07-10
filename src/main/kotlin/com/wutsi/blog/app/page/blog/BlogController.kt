@@ -1,10 +1,10 @@
 package com.wutsi.blog.app.page.blog
 
-import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.model.PageModel
-import com.wutsi.blog.app.model.UserModel
-import com.wutsi.blog.app.service.RequestContext
-import com.wutsi.blog.app.service.UserService
+import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.model.PageModel
+import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -27,7 +27,7 @@ class BlogController(
         return blog(blog, model)
     }
 
-    private fun blog(blog:UserModel, model: Model): String {
+    private fun blog(blog: UserModel, model: Model): String {
         val user = requestContext.currentUser()
 
         model.addAttribute("blog", blog)

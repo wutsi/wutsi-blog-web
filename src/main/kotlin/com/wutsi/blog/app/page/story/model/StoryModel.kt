@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.page.story.model
 
-import com.wutsi.blog.app.model.HtmlImageModel
-import com.wutsi.blog.app.model.UserModel
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.story.StoryStatus
 import java.util.Date
 

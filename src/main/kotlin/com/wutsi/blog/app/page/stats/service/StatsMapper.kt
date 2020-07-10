@@ -5,7 +5,7 @@ import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.stats.model.BarChartModel
 import com.wutsi.blog.app.page.stats.model.BarChartSerieModel
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.stats.StatsDto
 import com.wutsi.blog.client.stats.StatsStoryDto
 import com.wutsi.blog.client.stats.StatsType

@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.story
 
-import com.wutsi.blog.app.model.Permission
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.security.model.Permission
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.util.PageName

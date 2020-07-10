@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.backend.RecommendationBackend
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.service.RequestContext
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SearchStoryRequest
 import org.springframework.stereotype.Service

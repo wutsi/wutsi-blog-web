@@ -6,9 +6,9 @@ import com.wutsi.blog.app.page.editor.model.PublishForm
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.model.UserModel
-import com.wutsi.blog.app.service.RequestContext
-import com.wutsi.blog.app.service.UserService
+import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest

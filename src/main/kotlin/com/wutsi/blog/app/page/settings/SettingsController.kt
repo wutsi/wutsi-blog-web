@@ -1,9 +1,9 @@
 package com.wutsi.blog.app.page.settings
 
-import com.wutsi.blog.app.controller.AbstractPageController
-import com.wutsi.blog.app.model.UserAttributeForm
-import com.wutsi.blog.app.service.RequestContext
-import com.wutsi.blog.app.service.UserService
+import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.service.UserService
+import com.wutsi.blog.app.page.settings.model.UserAttributeForm
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping

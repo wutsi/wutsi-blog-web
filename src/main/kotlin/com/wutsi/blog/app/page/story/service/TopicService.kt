@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.backend.TopicBackend
-import com.wutsi.blog.app.mapper.TopicMapper
 import com.wutsi.blog.app.page.story.model.TopicModel
 import org.springframework.stereotype.Service
 

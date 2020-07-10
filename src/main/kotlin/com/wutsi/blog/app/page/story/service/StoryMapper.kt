@@ -1,14 +1,12 @@
 package com.wutsi.blog.app.page.story.service
 
-import com.wutsi.blog.app.mapper.HtmlImageModelMapper
-import com.wutsi.blog.app.mapper.TopicMapper
-import com.wutsi.blog.app.model.UserModel
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.model.TopicModel
-import com.wutsi.blog.app.service.ImageKitService
-import com.wutsi.blog.app.service.Moment
+import com.wutsi.blog.app.common.service.ImageKitService
+import com.wutsi.blog.app.common.service.Moment
 import com.wutsi.blog.client.story.ReadabilityDto
 import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus

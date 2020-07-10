@@ -10,7 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
-import com.wutsi.blog.app.security.SecurityConfiguration
+import com.wutsi.blog.app.security.config.SecurityConfiguration
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
