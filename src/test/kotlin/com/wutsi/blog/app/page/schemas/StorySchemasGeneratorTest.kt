@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.schemas
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.model.TagModel
@@ -11,6 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -24,13 +26,16 @@ class StorySchemasGeneratorTest {
         val topic = createTopic(11L, 1L, "Topic11")
         `when`(topics.get(1L)).thenReturn(parent)
 
+        val requestContext = mock(RequestContext::class.java)
+
         val baseUrl = "https://www.wutsi.com"
+        val om = ObjectMapper()
         val generator = StorySchemasGenerator(
                 ObjectMapper(),
                 topics,
-                PersonSchemasGenerator(ObjectMapper(), baseUrl),
-                baseUrl,
-                "https://www.wutsi.com/assets"
+                PersonSchemasGenerator(om, baseUrl),
+                WutsiSchemasGenerator(om, requestContext, baseUrl, "https://www.wutsi.com/assets"),
+                baseUrl
         )
 
         var story = StoryModel(
@@ -66,7 +71,7 @@ class StorySchemasGeneratorTest {
         assertEquals(story.thumbnailUrl, map["image"])
         assertEquals(story.summary, map["description"])
         assertEquals("true", map["isAccessibleForFree"])
-        assertEquals("true", map["mainEntityOfPage"])
+        assertEquals("https://www.wutsi.com/read/11/troirto", map["mainEntityOfPage"])
         assertEquals("fr-FR", map["inLanguage"])
 
     }

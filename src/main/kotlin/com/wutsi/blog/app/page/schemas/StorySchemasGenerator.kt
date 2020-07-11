@@ -12,20 +12,22 @@ class StorySchemasGenerator(
         private val objectMapper: ObjectMapper,
         private val topics: TopicService,
         private val persons: PersonSchemasGenerator,
+        private val wutsi: WutsiSchemasGenerator,
 
-        @Value("\${wutsi.base-url}") private val baseUrl: String,
-        @Value("\${wutsi.asset-url}") private val assetUrl: String
+        @Value("\${wutsi.base-url}") private val baseUrl: String
 ) {
 
     fun generate(story: StoryModel): String {
         val schemas = mutableMapOf<String, Any>()
         val name = if (story.title.length <= 110) story.title else story.title.substring(0, 110)
+        val url = "${baseUrl}${story.slug}"
+
         schemas["@context"] = "https://schema.org/"
         schemas["@type"] = "BlogPosting"
-        schemas["mainEntityOfPage"] = entity(story)
         schemas["author"] = author(story.user)
         schemas["publisher"] = publisher()
-        schemas["url"] = "${baseUrl}${story.slug}"
+        schemas["url"] = url
+        schemas["mainEntityOfPage"] = url
         schemas["headline"] = name
         schemas["name"] = name
         schemas["identifier"] = story.id.toString()
@@ -33,7 +35,6 @@ class StorySchemasGenerator(
         schemas["dateCreated"] = story.creationDateTimeISO8601
         schemas["dateModified"] = story.modificationDateTimeISO8601
         schemas["keywords"] = keywords(story)
-        schemas["mainEntityOfPage"] = "true"
         schemas["isAccessibleForFree"] = "true"
         schemas["inLanguage"] = language(story)
         schemas["hasPart"] = part(story)
@@ -71,23 +72,9 @@ class StorySchemasGenerator(
         return keywords
     }
 
-    private fun entity(story: StoryModel): Map<String, Any> {
-        val schemas = mutableMapOf<String, Any>()
-        schemas["@type"] = "WebPage"
-        schemas["@id"] = "${baseUrl}/read/${story.id}"
-        return schemas
-    }
-
     private fun author(user: UserModel): Map<String, Any> = persons.generateMap(user)
 
-    private fun publisher(): Map<String, Any> {
-        val schemas = mutableMapOf<String, Any>()
-        schemas["@type"] = "Organization"
-        schemas["name"] = "Wutsi"
-        schemas["url"] = "https://www.wutsi.com"
-        schemas["logo"] = "${assetUrl}/assets/wutsi/img/logo/logo-512x512.png"
-        return schemas
-    }
+    private fun publisher(): Map<String, Any> = wutsi.generateMap()
 
     private fun language(story: StoryModel): String {
         return if (story.language == "fr") "fr-FR" else "en-US"

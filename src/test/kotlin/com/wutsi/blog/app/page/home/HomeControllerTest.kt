@@ -51,4 +51,12 @@ class HomeControllerTest: SeleniumTestSupport() {
         driver.get(url)
         assertElementPresent("script#fb-pixel-code")
     }
+
+    @Test
+    fun `Schemas script`() {
+        driver.get(url)
+
+        assertElementPresent("script[type='application/ld+json']")
+    }
+
 }

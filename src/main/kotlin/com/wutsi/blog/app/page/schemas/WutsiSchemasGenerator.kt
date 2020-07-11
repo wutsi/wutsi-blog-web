@@ -1,0 +1,32 @@
+package com.wutsi.blog.app.page.schemas
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.wutsi.blog.app.common.service.RequestContext
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+
+@Service
+class WutsiSchemasGenerator(
+        private val objectMapper: ObjectMapper,
+        private val requestContext: RequestContext,
+
+        @Value("\${wutsi.base-url}") private val baseUrl: String,
+        @Value("\${wutsi.asset-url}") private val assetUrl: String
+) {
+
+    fun generate(): String {
+        val schemas = generateMap()
+        return objectMapper.writeValueAsString(schemas)
+    }
+
+    fun generateMap(): Map<String, Any> {
+        val schemas = mutableMapOf<String, Any>()
+        schemas["@context"] = "https://schema.org/"
+        schemas["@type"] = "Organization"
+        schemas["name"] = "Wutsi"
+        schemas["description"] = requestContext.getMessage("wutsi.description", "")
+        schemas["url"] = baseUrl
+        schemas["logo"] = "${assetUrl}/assets/wutsi/img/logo/logo-512x512.png"
+        return schemas
+    }
+}

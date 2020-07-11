@@ -1,10 +1,11 @@
 package com.wutsi.blog.app.page.home
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.schemas.WutsiSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/")
 class HomeController(
         private val storyService: StoryService,
+        private val schemas: WutsiSchemasGenerator,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.HOME
@@ -26,6 +28,12 @@ class HomeController(
     override fun shouldBeIndexedByBots() = true
 
     override fun shouldShowGoogleOneTap() = true
+
+    override fun page() = createPage(
+            title = requestContext.getMessage("wutsi.title"),
+            description = requestContext.getMessage("wutsi.description"),
+            schemas = schemas.generate()
+    )
 
     @GetMapping()
     fun index(model: Model): String {
