@@ -19,11 +19,13 @@ class PersonSchemasGenerator(
         val schemas = mutableMapOf<String, Any>()
         schemas["@context"] = "https://schema.org/"
         schemas["@type"] = "Person"
-        schemas["identifier"] = author.id.toString()
         schemas["name"] = author.fullName
         schemas["url"] = "${baseUrl}${author.slug}"
         if (author.pictureUrl != null) {
             schemas["image"] = author.pictureUrl
+        }
+        if (author.biography != null){
+            schemas["description"] = author.biography
         }
         if (author.hasSocialLinks) {
             schemas["sameAs"] = arrayListOf(
