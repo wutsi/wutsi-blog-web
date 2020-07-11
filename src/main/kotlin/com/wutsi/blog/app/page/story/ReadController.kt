@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class ReadController(
         private val recommendations: RecommendationService,
-        private val schemas: StorySchemasGenerator,
+        schemas: StorySchemasGenerator,
         ejsJsonReader: EJSJsonReader,
         ejsHtmlWriter: EJSHtmlWriter,
         ejsFilters: EJSFilterSet,
         service: StoryService,
         requestContext: RequestContext
-): AbstractStoryReadController(ejsJsonReader, ejsHtmlWriter, ejsFilters, service, requestContext) {
+): AbstractStoryReadController(ejsJsonReader, ejsHtmlWriter, ejsFilters, schemas, service, requestContext) {
 
     override fun pageName() = PageName.READ
 
@@ -46,8 +46,7 @@ class ReadController(
             @RequestParam(required = false, defaultValue = "false") preview: Boolean = false,
             model: Model
     ): String {
-        val story = loadPage(id, model)
-        model.addAttribute("schemas", schemas.generate(story))
+        loadPage(id, model)
         return "page/story/read"
     }
 

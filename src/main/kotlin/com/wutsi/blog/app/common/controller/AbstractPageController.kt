@@ -1,9 +1,9 @@
 package com.wutsi.blog.app.common.controller
 
 import com.wutsi.blog.app.common.model.PageModel
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.core.exception.ConflictException
 import org.springframework.beans.factory.annotation.Value
@@ -61,7 +61,8 @@ abstract class AbstractPageController(
             title: String,
             description: String,
             type: String = "website",
-            imageUrl: String = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png"
+            imageUrl: String = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
+            schemas: String? = null
     ) = PageModel(
             name = pageName(),
             title = title,
@@ -75,7 +76,8 @@ abstract class AbstractPageController(
             googleClientId = this.googleClientId,
             showGoogleOneTap = shouldShowGoogleOneTap(),
             language = LocaleContextHolder.getLocale().language,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            schemas = schemas
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

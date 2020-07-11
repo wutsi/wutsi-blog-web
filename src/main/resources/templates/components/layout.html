@@ -65,6 +65,8 @@
     <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-33.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <script type="application/ld+json" th:utext="${page.schemas}" th:if="${page.schemas}"></script>
 </div>
 
 

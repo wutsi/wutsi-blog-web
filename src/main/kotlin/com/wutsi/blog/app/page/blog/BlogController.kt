@@ -25,8 +25,6 @@ class BlogController(
     @GetMapping("/@/{name}")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = service.get(name)
-
-        model.addAttribute("schemas", schemas.generate(blog))
         return blog(blog, model)
     }
 
@@ -52,6 +50,7 @@ class BlogController(
                 assetUrl = assetUrl,
                 robots = getPageRobotsHeader(),
                 googleAnalyticsCode = this.googleAnalyticsCode,
-                facebookPixelCode = this.facebookPixelId
+                facebookPixelCode = this.facebookPixelId,
+                schemas = schemas.generate(user)
             )
 }

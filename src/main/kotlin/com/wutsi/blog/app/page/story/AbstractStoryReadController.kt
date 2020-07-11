@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.page.story.service.StorySchemasGenerator
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.editorjs.dom.BlockType
@@ -18,6 +19,7 @@ abstract class AbstractStoryReadController(
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val ejsFilters: EJSFilterSet,
+        private val schemas: StorySchemasGenerator,
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryController(service, requestContext) {
@@ -84,7 +86,8 @@ abstract class AbstractStoryReadController(
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl,
-            showGoogleOneTap = shouldShowGoogleOneTap()
+            showGoogleOneTap = shouldShowGoogleOneTap(),
+            schemas = schemas.generate(story)
     )
 
 }

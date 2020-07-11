@@ -23,6 +23,7 @@ data class PageModel (
         val googleClientId: String? = null,
         val showGoogleOneTap: Boolean = false,
         val pwaVersion: String = PWAHelper.VERSION,
-        val language: String = "fr"
+        val language: String = "fr",
+        val schemas: String? = null
 )
 
