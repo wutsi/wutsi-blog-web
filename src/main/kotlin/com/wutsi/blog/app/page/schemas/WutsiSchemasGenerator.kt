@@ -26,7 +26,16 @@ class WutsiSchemasGenerator(
         schemas["name"] = "Wutsi"
         schemas["description"] = requestContext.getMessage("wutsi.description", "")
         schemas["url"] = baseUrl
-        schemas["logo"] = "${assetUrl}/assets/wutsi/img/logo/logo-512x512.png"
+        schemas["logo"] = logo()
+        return schemas
+    }
+
+    private fun logo(): Map<String, String> {
+        val schemas = mutableMapOf<String, String>()
+        schemas["@type"] = "ImageObject"
+        schemas["url"] = "${assetUrl}//assets/wutsi/img/logo/logo-512x512.png"
+        schemas["width"] = "512"
+        schemas["height"] = "512"
         return schemas
     }
 }

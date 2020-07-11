@@ -29,7 +29,6 @@ class WutsiSchemasGeneratorTest {
         assertEquals("Ze Description", map["description"])
         assertEquals("Ze Description", map["description"])
         assertEquals("https://www.wutsi.com", map["url"])
-        assertEquals("https://www.wutsi.com/assets/assets/wutsi/img/logo/logo-512x512.png", map["logo"])
     }
 
 }
