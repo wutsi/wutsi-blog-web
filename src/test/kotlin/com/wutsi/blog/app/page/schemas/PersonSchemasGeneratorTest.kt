@@ -1,12 +1,12 @@
-package com.wutsi.blog.app.page.blog.service
+package com.wutsi.blog.app.page.schemas
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.page.settings.model.UserModel
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class AuthorSchemasGeneratorTest {
-    private val generator = AuthorSchemasGenerator(
+class PersonSchemasGeneratorTest {
+    private val generator = PersonSchemasGenerator(
             ObjectMapper(),
             "https://www.wutsi.com"
     )
@@ -29,7 +29,9 @@ class AuthorSchemasGeneratorTest {
 
         val expected = "{" +
                 "\"@context\":\"https://schema.org/\"," +
-                "\"@type\":\"Person\",\"name\":\"Ray Sponsible\"," +
+                "\"@type\":\"Person\"," +
+                "\"identifier\":\"1\"," +
+                "\"name\":\"Ray Sponsible\"," +
                 "\"url\":\"https://www.wutsi.com/@/ray.sponsible\"," +
                 "\"image\":\"https://www.picture.com/ray.sponsible.png\"," +
                 "\"sameAs\":[" +

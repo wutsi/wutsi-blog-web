@@ -3,7 +3,7 @@ package com.wutsi.blog.app.page.blog
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.blog.service.AuthorSchemasGenerator
+import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable
 @Controller
 class BlogController(
         private val service: UserService,
-        private val schemas: AuthorSchemasGenerator,
+        private val schemas: PersonSchemasGenerator,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.BLOG

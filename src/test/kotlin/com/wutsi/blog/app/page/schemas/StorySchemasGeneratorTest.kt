@@ -1,11 +1,12 @@
-package com.wutsi.blog.app.page.story.service
+package com.wutsi.blog.app.page.schemas
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.model.TagModel
 import com.wutsi.blog.app.page.story.model.TopicModel
-import org.junit.Assert
+import com.wutsi.blog.app.page.story.service.TopicService
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -23,10 +24,12 @@ class StorySchemasGeneratorTest {
         val topic = createTopic(11L, 1L, "Topic11")
         `when`(topics.get(1L)).thenReturn(parent)
 
+        val baseUrl = "https://www.wutsi.com"
         val generator = StorySchemasGenerator(
                 ObjectMapper(),
                 topics,
-                "https://www.wutsi.com",
+                PersonSchemasGenerator(ObjectMapper(), baseUrl),
+                baseUrl,
                 "https://www.wutsi.com/assets"
         )
 
@@ -37,6 +40,7 @@ class StorySchemasGeneratorTest {
                 slug = "/read/11/troirto",
                 topic = topic,
                 language = "fr",
+                thumbnailUrl = "https://www.wutsi.com/assets/foo/1.png",
                 user = createUser(1, "Ray Sponsible", "/@/ray.sponsible"),
                 modificationDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
                 publishedDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
@@ -49,35 +53,22 @@ class StorySchemasGeneratorTest {
         )
         val json = generator.generate(story)
 
-        val expected = "{" +
-                "\"@context\":\"https://schema.org/\"," +
-                "\"@type\":\"BlogPosting\"," +
-                "\"mainEntityOfPage\":\"true\"," +
-                "\"author\":{" +
-                "\"@type\":\"Person\"," +
-                "\"name\":\"Ray Sponsible\"," +
-                "\"url\":\"https://www.wutsi.com/@/ray.sponsible\"" +
-                "}," +
-                "\"publisher\":{" +
-                "\"@type\":\"Organization\"," +
-                "\"name\":\"Wutsi\"," +
-                "\"url\":\"https://www.wutsi.com\"," +
-                "\"logo\":{" +
-                "\"@type\":\"ImageObject\"," +
-                "\"name\":\"Wutsi\"," +
-                "\"url\":\"https://www.wutsi.com/assets//assets/wutsi/img/logo/logo-512x512.png\"," +
-                "\"width\":\"512\"" +
-                "}" +
-                "}," +
-                "\"url\":\"https://www.wutsi.com/read/11/troirto\"," +
-                "\"headline\":\"This is the title\"," +
-                "\"description\":\"This is summary\"," +
-                "\"dateCreated\":\"1994-11-05T08:15:30-05:00\"," +
-                "\"dateModified\":\"1994-11-05T08:15:30-05:00\"," +
-                "\"keywords\":[\"Topic11\",\"Topic1\",\"Art\",\"Comics\"]," +
-                "\"datePublished\":\"1994-11-05T08:15:30-05:00\"" +
-                "}"
-        Assert.assertEquals(expected, json)
+        val map = ObjectMapper().readValue(json, Map::class.java) as Map<String, Any>
+        assertEquals("BlogPosting", map["@type"])
+        assertEquals("https://schema.org/", map["@context"])
+        assertEquals(story.id.toString(), map["identifier"])
+        assertEquals(story.title, map["name"])
+        assertEquals(story.title, map["headline"])
+        assertEquals(story.creationDateTimeISO8601, map["dateCreated"])
+        assertEquals(story.modificationDateTimeISO8601, map["dateModified"])
+        assertEquals(story.publishedDateTimeISO8601, map["datePublished"])
+        assertEquals("https://www.wutsi.com/read/11/troirto", map["url"])
+        assertEquals(story.thumbnailUrl, map["image"])
+        assertEquals(story.summary, map["description"])
+        assertEquals("true", map["isAccessibleForFree"])
+        assertEquals("true", map["mainEntityOfPage"])
+        assertEquals("fr-FR", map["inLanguage"])
+
     }
 
     private fun createTopic(id: Long, parentId: Long, name: String) = TopicModel(
