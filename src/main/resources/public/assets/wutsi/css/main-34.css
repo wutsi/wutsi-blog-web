@@ -481,8 +481,8 @@ a.sso-button .fab {
 
 .author .fab, .author .fas {
     color: var(--text-color);
-    font-size: 1.2em;
-    margin-right: .5em;
+    font-size: 1.5em;
+    margin-right: 1em;
 }
 
 /*======= READER =======*/

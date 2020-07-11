@@ -9,7 +9,12 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container border main-content margin-top-2x padding-2x story-list">
-
+    <div>
+        <a href="/stats">
+            <i class="fas fa-arrow-left"></i>
+            <span th:text="#{page.stats.title}">Stats</span>
+        </a>
+    </div>
     <h1 th:text="${story.title}">Title</h1>
     <p>
         <span th:text="#{page.stats.story.published_on(${story.publishedDateTime})}">Published on</span>

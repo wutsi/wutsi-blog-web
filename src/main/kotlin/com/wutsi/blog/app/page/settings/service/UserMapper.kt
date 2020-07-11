@@ -52,7 +52,7 @@ class UserMapper(private val imageKit: ImageKitService) {
     }
 
     private fun youtubeUrl(user: UserDto): String? {
-        return if (user.youtubeId == null) null else "https://www.youtube.com/user/${user.youtubeId}"
+        return if (user.youtubeId == null) null else "https://www.youtube.com/channel/${user.youtubeId}"
     }
 
     fun toUserModel(user: UserSummaryDto) = UserModel(

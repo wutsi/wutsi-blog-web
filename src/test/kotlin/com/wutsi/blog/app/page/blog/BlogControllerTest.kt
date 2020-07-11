@@ -24,7 +24,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
         assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
         assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
-        assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/user/ray.sponsible")
+        assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
         assertElementNotPresent("#alert-no-social-link")
 
         Thread.sleep(1000)

@@ -35,7 +35,7 @@
                 <h4 th:text="#{label.social_media}">Social Links</h4>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.facebook.com/', name='facebook_id', value=${user.facebookId}, placeholder=#{page.settings.facebook.placeholder})"></div>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.twitter.com/', name='twitter_id', value=${user.twitterId}, placeholder=#{page.settings.twitter.placeholder})"></div>
-                <div th:replace="components/settings :: inline_social_input_form(title='https://www.youtube.com/user/', name='youtube_id', value=${user.youtubeId}, placeholder=#{page.settings.youtube.placeholder})"></div>
+                <div th:replace="components/settings :: inline_social_input_form(title='https://www.youtube.com/channel/', name='youtube_id', value=${user.youtubeId}, placeholder=#{page.settings.youtube.placeholder})"></div>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.linked.com/in/', name='linked_id', value=${user.linkedinId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
             </div>
         </div>
