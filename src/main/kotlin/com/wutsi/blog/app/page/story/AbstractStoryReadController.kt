@@ -19,7 +19,6 @@ abstract class AbstractStoryReadController(
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val ejsFilters: EJSFilterSet,
-        private val schemas: StorySchemasGenerator,
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryController(service, requestContext) {
@@ -34,6 +33,8 @@ abstract class AbstractStoryReadController(
         loadContent(story, model)
         return story
     }
+
+    protected open fun generateSchemas(story: StoryModel): String? = null
 
     private fun loadContent(story: StoryModel, model: Model) {
         if (story.content == null){
@@ -87,7 +88,7 @@ abstract class AbstractStoryReadController(
             googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl,
             showGoogleOneTap = shouldShowGoogleOneTap(),
-            schemas = schemas.generate(story)
+            schemas = generateSchemas(story)
     )
 
 }
