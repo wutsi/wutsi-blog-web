@@ -47,6 +47,6 @@ abstract class AbstractOAuthLoginController(
     }
 
     private fun errorUrl(error: String) : String {
-        return "login?error=" + URLEncoder.encode(error, "utf-8")
+        return "/login?error=" + URLEncoder.encode(error, "utf-8")
     }
 }

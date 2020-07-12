@@ -55,6 +55,7 @@ class TwitterLoginController(
 
     private fun fetchUser(request: HttpServletRequest): Response {
         val verifier = request.getParameter("oauth_verifier")
+        logger.add("verifier", verifier)
         val accessToken = oauth.getAccessToken(oauth.requestToken, verifier)
 
         val oauthRequest = OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json")
