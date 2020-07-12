@@ -22,13 +22,11 @@ class TwitterLoginController(
         objectMapper: ObjectMapper,
         @Qualifier(OAuthConfiguration.TWITTER_OAUTH_SERVICE) private val oauth: OAuth10aService
 ) : AbstractOAuthLoginController(logger, objectMapper) {
-    override fun getAuthorizationUrl(request: HttpServletRequest): String {
-        val requestToken = oauth.getRequestToken()
-        return oauth.getAuthorizationUrl(requestToken)
-    }
+    override fun getAuthorizationUrl(request: HttpServletRequest) = oauth.getAuthorizationUrl(oauth.requestToken)
+
 
     override fun getError(request: HttpServletRequest): String? {
-        return request.getParameter("error")
+        return request.getParameter("denied")
     }
 
     override fun getSigninUrl(request: HttpServletRequest): String {
@@ -43,7 +41,7 @@ class TwitterLoginController(
             fullName = attrs["name"].toString(),
             email = attrs["email"]?.toString(),
             pictureUrl = "https://graph.facebook.com/" + attrs["id"] + "/picture?type=square",
-            provider = SecurityConfiguration.PROVIDER_FACEBOOK
+            provider = SecurityConfiguration.PROVIDER_TWITTER
         )
 
 
@@ -56,13 +54,12 @@ class TwitterLoginController(
     }
 
     private fun fetchUser(request: HttpServletRequest): Response {
-        val requestToken = oauth.getRequestToken()
         val verifier = request.getParameter("oauth_verifier")
-        val accessToken = oauth.getAccessToken(requestToken, verifier)
+        val accessToken = oauth.getAccessToken(oauth.requestToken, verifier)
 
-        val request = OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json")
-        oauth.signRequest(accessToken, request)
+        val oauthRequest = OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json")
+        oauth.signRequest(accessToken, oauthRequest)
 
-        return oauth.execute(request)
+        return oauth.execute(oauthRequest)
     }
 }
