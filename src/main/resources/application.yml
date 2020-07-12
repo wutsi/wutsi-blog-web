@@ -102,7 +102,7 @@ wutsi:
     twitter:
       client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
       client-secret: "vKWfai4Ms8p3C5CliphAK6ShGrACOqRtxo6KqaAccrOnPI6paN"
-      callback-url: ${wutsi.base-url}/login/twitter/callback
+      callback-url: "https://www.wutsi.com/login/twitter/callback"
 
   pwa:
     manifest:
