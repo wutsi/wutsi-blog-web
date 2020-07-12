@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.controller
+package com.wutsi.blog.app.security
 
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.config.OAuthConfiguration

@@ -27,3 +27,4 @@ wutsi:
     sso-facebook: true
     sso-google: true
     sso-github: true
+    sso-twitter: true

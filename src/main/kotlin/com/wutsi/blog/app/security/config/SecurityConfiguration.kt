@@ -33,6 +33,7 @@ class SecurityConfiguration(
         const val PROVIDER_GITHUB = "github"
         const val PROVIDER_FACEBOOK = "facebook"
         const val PROVIDER_GOOGLE = "google"
+        const val PROVIDER_TWITTER = "twitter"
         const val PROVIDER_QA = "qa"
     }
 

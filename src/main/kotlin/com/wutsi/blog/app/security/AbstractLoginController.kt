@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.controller
+package com.wutsi.blog.app.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.security.config.SecurityConfiguration

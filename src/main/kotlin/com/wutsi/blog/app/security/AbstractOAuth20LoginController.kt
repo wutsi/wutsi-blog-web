@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.security.controller
+package com.wutsi.blog.app.security
 
 import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
 import com.github.scribejava.core.model.OAuthRequest
@@ -54,6 +54,13 @@ abstract class AbstractOAuth20LoginController(
         return toOAuthUser(attrs)
     }
 
+    open fun getState(request: HttpServletRequest) = request.getParameter("state")
+
+    open fun getCode(request: HttpServletRequest) = request.getParameter("code")
+
+    open fun getError(request: HttpServletRequest) = request.getParameter("error")
+
+
     private fun fetchUser(accessToken: String): Response {
         val request = OAuthRequest(Verb.GET, getUserUrl())
         val oauth = getOAuthService()
@@ -61,7 +68,6 @@ abstract class AbstractOAuth20LoginController(
 
         return oauth.execute(request)
     }
-
 
     private fun errorUrl(error: String) : String {
         return "login?error=" + URLEncoder.encode(error, "utf-8")
@@ -75,13 +81,6 @@ abstract class AbstractOAuth20LoginController(
 
         return getSigninUrl(accessToken, state, user)
     }
-
-    open fun getState(request: HttpServletRequest) = request.getParameter("state")
-
-    open fun getCode(request: HttpServletRequest) = request.getParameter("code")
-
-    open fun getError(request: HttpServletRequest) = request.getParameter("error")
-
 
     private fun getAuthorizationUrl (request: HttpServletRequest): String {
         val state = generateState(request)

@@ -3,7 +3,9 @@ package com.wutsi.blog.app.security.config
 import com.github.scribejava.apis.FacebookApi
 import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.apis.GoogleApi20
+import com.github.scribejava.apis.TwitterApi
 import com.github.scribejava.core.builder.ServiceBuilder
+import com.github.scribejava.core.oauth.OAuth10aService
 import com.github.scribejava.core.oauth.OAuth20Service
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -15,9 +17,8 @@ class OAuthConfiguration {
         const val GITHUB_OAUTH_SERVICE: String = "GITHUB_OAUTH_SERVICE"
         const val FACEBOOK_OAUTH_SERVICE: String = "FACEBOOK_OAUTH_SERVICE"
         const val GOOGLE_OAUTH_SERVICE: String = "GOOGLE_OAUTH_SERVICE"
+        const val TWITTER_OAUTH_SERVICE: String = "TWITTER_OAUTH_SERVICE"
     }
-
-
 
     @Bean(GITHUB_OAUTH_SERVICE)
     fun githubOAuthService(
@@ -39,7 +40,6 @@ class OAuthConfiguration {
             .callback(callbackUrl)
             .build(FacebookApi.instance())
 
-
     @Bean(GOOGLE_OAUTH_SERVICE)
     fun googleOAuthService(
             @Value ("\${wutsi.oauth.google.client-id}") clientId: String,
@@ -51,4 +51,14 @@ class OAuthConfiguration {
             .withScope(scope)
             .callback(callbackUrl)
             .build(GoogleApi20.instance())
+
+    @Bean(TWITTER_OAUTH_SERVICE)
+    fun twitterOAuthService(
+            @Value ("\${wutsi.oauth.twitter.client-id}") clientId: String,
+            @Value ("\${wutsi.oauth.twitter.client-secret}") clientSecret: String,
+            @Value ("\${wutsi.oauth.twitter.callback-url}") callbackUrl: String
+    ): OAuth10aService = ServiceBuilder(clientId)
+            .apiSecret(clientSecret)
+            .callback(callbackUrl)
+            .build(TwitterApi.instance())
 }

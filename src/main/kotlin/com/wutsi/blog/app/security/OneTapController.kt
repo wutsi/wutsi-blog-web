@@ -1,12 +1,9 @@
-package com.wutsi.blog.app.security.controller
+package com.wutsi.blog.app.security
 
-import com.github.scribejava.core.oauth.OAuth20Service
-import com.wutsi.blog.app.security.config.OAuthConfiguration
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.http.Http
 import com.wutsi.core.logging.KVLogger
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
