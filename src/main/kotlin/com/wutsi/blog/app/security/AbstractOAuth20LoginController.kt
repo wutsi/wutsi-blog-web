@@ -1,54 +1,41 @@
 package com.wutsi.blog.app.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Response
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.logging.KVLogger
-import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.GetMapping
-import java.net.URLEncoder
 import javax.servlet.http.HttpServletRequest
 
 
 abstract class AbstractOAuth20LoginController(
         logger: KVLogger,
         objectMapper: ObjectMapper
-) : AbstractLoginController(logger, objectMapper) {
+) : AbstractOAuthLoginController (logger, objectMapper) {
     protected abstract fun getOAuthService() : OAuth20Service
 
     protected abstract fun getUserUrl(): String
 
-    @GetMapping()
-    fun login (request: HttpServletRequest): String {
-        val url = getAuthorizationUrl(request)
-        return "redirect:$url"
+    override fun getAuthorizationUrl (request: HttpServletRequest): String {
+        val state = generateState(request)
+        return getOAuthService().getAuthorizationUrl(state)
     }
 
-    @GetMapping("/callback")
-    open fun callback(request: HttpServletRequest): String {
-        var url: String
-        try {
+    override fun getSigninUrl(request: HttpServletRequest): String {
+        val code = request.getParameter("code")
+        val state = request.getParameter("state")
+        val accessToken = getOAuthService().getAccessToken(code).accessToken
+        val user = toOAuthUser(accessToken)
 
-            val error = getError(request)
-            url = if (error == null) getSigninUrl(request) else errorUrl(error)
-
-        } catch(ex: OAuth2AccessTokenErrorResponse) {
-
-            url = errorUrl(ex.error.errorString)
-            logger.add("Exception", ex.javaClass.name)
-            logger.add("ExceptionMessage", ex.message)
-            LoggerFactory.getLogger(javaClass).error("Failure", ex)
-        }
-
-        logger.add("RedirectURL", url)
-        return "redirect:$url"
+        return getSigninUrl(accessToken, state, user)
     }
 
-    open fun toOAuthUser(accessToken: String): OAuthUser {
+    override fun getError(request: HttpServletRequest) = request.getParameter("error")
+
+
+    private fun toOAuthUser(accessToken: String): OAuthUser {
         val response = fetchUser(accessToken)
         logger.add("OAuthUser", response.body)
 
@@ -56,36 +43,11 @@ abstract class AbstractOAuth20LoginController(
         return toOAuthUser(attrs)
     }
 
-    open fun getState(request: HttpServletRequest) = request.getParameter("state")
-
-    open fun getCode(request: HttpServletRequest) = request.getParameter("code")
-
-    open fun getError(request: HttpServletRequest) = request.getParameter("error")
-
-
     private fun fetchUser(accessToken: String): Response {
         val request = OAuthRequest(Verb.GET, getUserUrl())
         val oauth = getOAuthService()
         oauth.signRequest(accessToken, request)
 
         return oauth.execute(request)
-    }
-
-    private fun errorUrl(error: String) : String {
-        return "login?error=" + URLEncoder.encode(error, "utf-8")
-    }
-
-    private fun getSigninUrl(request: HttpServletRequest): String {
-        val code = getCode(request)
-        val state = getState(request)
-        val accessToken = getOAuthService().getAccessToken(code).accessToken
-        val user = toOAuthUser(accessToken)
-
-        return getSigninUrl(accessToken, state, user)
-    }
-
-    private fun getAuthorizationUrl (request: HttpServletRequest): String {
-        val state = generateState(request)
-        return getOAuthService().getAuthorizationUrl(state)
     }
 }

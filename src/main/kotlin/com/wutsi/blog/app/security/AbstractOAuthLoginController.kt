@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
+import com.github.scribejava.core.exceptions.OAuthException
 import com.wutsi.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
@@ -34,9 +34,9 @@ abstract class AbstractOAuthLoginController(
             val error = getError(request)
             url = if (error == null) getSigninUrl(request) else errorUrl(error)
 
-        } catch(ex: OAuth2AccessTokenErrorResponse) {
+        } catch(ex: OAuthException) {
 
-            url = errorUrl(ex.error.errorString)
+            url = errorUrl(ex.message!!)
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)
             LoggerFactory.getLogger(javaClass).error("Failure", ex)
