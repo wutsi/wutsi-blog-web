@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.scribejava.core.model.OAuth1AccessToken
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Response
 import com.github.scribejava.core.model.Verb
@@ -22,7 +23,11 @@ class TwitterLoginController(
         objectMapper: ObjectMapper,
         @Qualifier(OAuthConfiguration.TWITTER_OAUTH_SERVICE) private val oauth: OAuth10aService
 ) : AbstractOAuthLoginController(logger, objectMapper) {
-    override fun getAuthorizationUrl(request: HttpServletRequest) = oauth.getAuthorizationUrl(oauth.requestToken)
+    override fun getAuthorizationUrl(request: HttpServletRequest): String {
+        val requestToken = oauth.requestToken
+        logger.add("requestToken", requestToken.token)
+        return oauth.getAuthorizationUrl(requestToken)
+    }
 
 
     override fun getError(request: HttpServletRequest): String? {
@@ -30,10 +35,14 @@ class TwitterLoginController(
     }
 
     override fun getSigninUrl(request: HttpServletRequest): String {
-        val accessToken = request.getParameter("oauth_token")
+        val requestToken = oauth.requestToken
+        logger.add("requestToken", requestToken.token)
+
+        val verifier = request.getParameter("oauth_verifier")
+        val accessToken = oauth.getAccessToken(requestToken, verifier)
+        val user = toOAuthUser(accessToken)
         val state = generateState(request)
-        val user = toOAuthUser(request)
-        return getSigninUrl(accessToken, state, user)
+        return getSigninUrl(accessToken.token, state, user)
     }
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
@@ -45,22 +54,17 @@ class TwitterLoginController(
         )
 
 
-    private fun toOAuthUser(request: HttpServletRequest): OAuthUser {
-        val response = fetchUser(request)
+    private fun toOAuthUser(accessToken: OAuth1AccessToken): OAuthUser {
+        val response = fetchUser(accessToken)
         logger.add("OAuthUser", response.body)
 
         val attrs = objectMapper.readValue(response.body, Map::class.java) as Map<String, Any>
         return toOAuthUser(attrs)
     }
 
-    private fun fetchUser(request: HttpServletRequest): Response {
-        val verifier = request.getParameter("oauth_verifier")
-        logger.add("verifier", verifier)
-        val accessToken = oauth.getAccessToken(oauth.requestToken, verifier)
-
+    private fun fetchUser(accessToken: OAuth1AccessToken): Response {
         val oauthRequest = OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json")
         oauth.signRequest(accessToken, oauthRequest)
-
         return oauth.execute(oauthRequest)
     }
 }
