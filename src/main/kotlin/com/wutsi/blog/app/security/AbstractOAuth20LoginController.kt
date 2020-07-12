@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.security
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.model.OAuth2AccessTokenErrorResponse
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Response
@@ -14,8 +15,9 @@ import javax.servlet.http.HttpServletRequest
 
 
 abstract class AbstractOAuth20LoginController(
-        logger: KVLogger
-) : AbstractLoginController(logger) {
+        logger: KVLogger,
+        objectMapper: ObjectMapper
+) : AbstractLoginController(logger, objectMapper) {
     protected abstract fun getOAuthService() : OAuth20Service
 
     protected abstract fun getUserUrl(): String

@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.security
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.config.OAuthConfiguration
 import com.wutsi.blog.app.security.config.SecurityConfiguration
@@ -15,8 +16,9 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/login/facebook")
 class FacebookLoginController(
         logger: KVLogger,
+        objectMapper: ObjectMapper,
         @Qualifier(OAuthConfiguration.FACEBOOK_OAUTH_SERVICE) private val oauth: OAuth20Service
-) : AbstractOAuth20LoginController(logger) {
+) : AbstractOAuth20LoginController(logger, objectMapper) {
     override fun getOAuthService() = oauth
 
     override fun getUserUrl() = "https://graph.facebook.com/me"

@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.security
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.http.Http
@@ -16,8 +17,9 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/login/onetap")
 class OneTapController(
         logger: KVLogger,
+        objectMapper: ObjectMapper,
         private val http: Http
-): AbstractLoginController(logger) {
+): AbstractLoginController(logger, objectMapper) {
 
     @GetMapping("/callback")
     @ResponseBody()

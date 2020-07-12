@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.security
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.config.OAuthConfiguration
 import com.wutsi.blog.app.security.config.SecurityConfiguration
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/login/google")
 class GoogleLoginController(
         logger: KVLogger,
+        objectMapper: ObjectMapper,
         @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) private val oauth: OAuth20Service
-): AbstractOAuth20LoginController(logger) {
+): AbstractOAuth20LoginController(logger, objectMapper) {
     override fun getOAuthService() = oauth
 
     override fun getUserUrl() = "https://www.googleapis.com/oauth2/v3/userinfo"
