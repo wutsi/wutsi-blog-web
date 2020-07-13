@@ -47,11 +47,13 @@
                             <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
                         </h6>
                         <div class="flex padding border rounded">
-                            <img width="48" height="48" th:src="${channel.pictureUrl}" />
-                            <div><b th:text="${channel.name}">Name</b></div>
-                            <a class="btn btn-light btn-sm" th:href="'/me/channel/disconnect?channelId=' + ${channel.id}">
-                                <span th:text="#{button.disconnect}">Connect</span>
-                            </a>
+                            <img width="48" height="48" class="margin-right" th:src="${channel.pictureUrl}" />
+                            <div>
+                                <div><b th:text="${channel.name}">Name</b></div>
+                                <a class="btn btn-light btn-sm" th:href="'/me/channel/disconnect?channelId=' + ${channel.id}">
+                                    <span th:text="#{button.disconnect}">Connect</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
