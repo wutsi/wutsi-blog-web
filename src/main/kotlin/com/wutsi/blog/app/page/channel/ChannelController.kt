@@ -47,6 +47,7 @@ class ChannelController(
     }
 
 
+    @GetMapping("/create")
     fun create(
             @RequestParam accessToken: String,
             @RequestParam name: String,
