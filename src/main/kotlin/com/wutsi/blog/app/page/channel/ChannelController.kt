@@ -43,7 +43,7 @@ class ChannelController(
             @RequestParam channelId: Long
     ): String {
         service.delete(channelId)
-        return "redirect:/channel"
+        return "redirect:/me/channel"
     }
 
 
@@ -55,6 +55,6 @@ class ChannelController(
             @RequestParam type: ChannelType
     ): String {
         service.create(accessToken, name, pictureUrl, type)
-        return "redirect:/channel"
+        return "redirect:/me/channel"
     }
 }

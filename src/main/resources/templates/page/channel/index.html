@@ -36,22 +36,26 @@
                         </a>
                     </div>
                 </div>
-                <div th:if="${channel.connected}">
-                    <h6>
-                        <span th:text="#{page.channel.connected.prefix}">You are connected to</span>
-                        <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
-                    </h6>
-                    <div class="flex">
-                        <img width="64" height="64" th:src="${channel.pictureUrl}" />
-                        <div>
-                            <p><b th:text="${channel.name}">Name</b></p>
-                            <a class="btn btn-sm" th:href="'/me/channel/disconnect?channelId=' + ${channel.id}">
-                                <i th:class="'fab fa-' + ${channel.type.name()}"></i>
+
+                <div th:if="${channel.connected}" class="flex">
+                    <img width="24" height="24" class="margin-right"
+                         th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type.name()} + '.png'"
+                    />
+                    <div>
+                        <h6>
+                            <span th:text="#{page.channel.connected.prefix}">You are connected to</span>
+                            <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
+                        </h6>
+                        <div class="flex padding border rounded">
+                            <img width="48" height="48" th:src="${channel.pictureUrl}" />
+                            <div><b th:text="${channel.name}">Name</b></div>
+                            <a class="btn btn-light btn-sm" th:href="'/me/channel/disconnect?channelId=' + ${channel.id}">
                                 <span th:text="#{button.disconnect}">Connect</span>
                             </a>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
