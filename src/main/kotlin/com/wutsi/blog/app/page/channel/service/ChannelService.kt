@@ -50,7 +50,6 @@ class ChannelService(
     }
 
     fun channelTypes() = arrayListOf(
-            ChannelType.facebook,
             ChannelType.twitter
     )
 }
