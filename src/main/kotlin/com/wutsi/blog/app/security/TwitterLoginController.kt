@@ -10,6 +10,7 @@ import com.github.scribejava.core.oauth.OAuth10aService
 import com.wutsi.blog.app.security.config.OAuthConfiguration
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
+import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
@@ -24,9 +25,6 @@ class TwitterLoginController(
         objectMapper: ObjectMapper,
         @Qualifier(OAuthConfiguration.TWITTER_OAUTH_SERVICE) private val oauth: OAuth10aService
 ) : AbstractOAuthLoginController(logger, objectMapper) {
-    companion object {
-        private const val REQUEST_TOKEN_KEY = "com.wutsi.requesst_token"
-    }
 
     override fun getAuthorizationUrl(request: HttpServletRequest): String {
         val requestToken = oauth.requestToken
@@ -40,20 +38,27 @@ class TwitterLoginController(
         return request.getParameter("denied")
     }
 
+    override fun getConnectUrl(request: HttpServletRequest): String {
+        val requestToken = getRequestToken(request)
+        val verifier = request.getParameter("oauth_verifier")
+        val accessToken = oauth.getAccessToken(requestToken, verifier)
+        val user = toOAuthUser(accessToken)
+
+        return "/channel/connect?" +
+                "accessToken=${accessToken.token}" +
+                "&name=${user.fullName}" +
+                "&pictureUrl=${user.pictureUrl}" +
+                "&type=" + ChannelType.twitter
+    }
+
     override fun getSigninUrl(request: HttpServletRequest): String {
-        val requestToken = request.session.getAttribute(REQUEST_TOKEN_KEY) as OAuth1RequestToken
-        logger.add("requestToken", requestToken.token)
-        try {
+        val requestToken = getRequestToken(request)
+        val verifier = request.getParameter("oauth_verifier")
+        val accessToken = oauth.getAccessToken(requestToken, verifier)
+        val user = toOAuthUser(accessToken)
 
-            val verifier = request.getParameter("oauth_verifier")
-            val accessToken = oauth.getAccessToken(requestToken, verifier)
-            val user = toOAuthUser(accessToken)
-            val state = generateState(request)
-            return getSigninUrl(accessToken.token, state, user)
-
-        } finally {
-            request.session.removeAttribute(REQUEST_TOKEN_KEY)
-        }
+        val state = generateState(request)
+        return getSigninUrl(accessToken.token, state, user)
     }
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
@@ -76,4 +81,6 @@ class TwitterLoginController(
         oauth.signRequest(accessToken, oauthRequest)
         return oauth.execute(oauthRequest)
     }
+
+    private fun getRequestToken(request: HttpServletRequest) = request.session.getAttribute(REQUEST_TOKEN_KEY) as OAuth1RequestToken
 }

@@ -37,7 +37,7 @@ class StorySchemasGenerator(
         schemas["keywords"] = keywords(story)
         schemas["isAccessibleForFree"] = "true"
         schemas["inLanguage"] = language(story)
-        schemas["hasPart"] = part(story)
+        schemas["hasPart"] = part()
 
         if (story.publishedDateTimeISO8601 != null) {
             schemas["datePublished"] = story.publishedDateTimeISO8601
@@ -49,7 +49,7 @@ class StorySchemasGenerator(
         return objectMapper.writeValueAsString(schemas)
     }
 
-    private fun part(story: StoryModel): Map<String, Any> {
+    private fun part(): Map<String, Any> {
         val schemas = mutableMapOf<String, Any>()
         schemas["@type"] = "WebPageElement"
         schemas["isAccessibleForFree"] = "isAccessibleForFree"
@@ -64,7 +64,7 @@ class StorySchemasGenerator(
 
         val parentTopic = topics.get(story.topic.parentId)
         if (parentTopic != null) {
-            keywords.add(parentTopic?.displayName)
+            keywords.add(parentTopic.displayName)
         }
 
         keywords.addAll(story.tags.map { it.displayName })

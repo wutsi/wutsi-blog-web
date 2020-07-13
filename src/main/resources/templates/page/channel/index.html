@@ -8,38 +8,48 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<div class="container main-content border margin-top padding-2x settings">
+<div class="container margin-top padding-2x settings">
     <div class="row">
-        <div class="col-12 col-md-2 picture margin-bottom">
-            <img id="my-picture" th:src="${user.pictureUrl}" />
-            <button class="btn-upload btn btn-sm btn-light margin-top" th:text="#{button.change}">Upload Logo</button>
-            <input id="file-upload" class="hidden" type="file" />
-        </div>
-        <div class="col-12 col-md-10">
-            <h1 th:text="#{page.settings.title}">Blog Setting</h1>
+        <div class="col-12 offset-md-2 col-md-10 main-content border padding-2x">
+            <h1 th:text="#{page.channel.title}">Connections</h1>
+            <p th:text="#{page.channel.description}">Description</p>
 
-            <div>
-                <div th:replace="components/settings :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=128, control='input', type='text', placeholder=#{page.settings.username.placeholder})"></div>
+            <div class="alert alert-danger" th:if="${error}" th:text="#{error.channel_connect_failed}">
+                Error
             </div>
-            <div class="border-top margin-top padding-top">
-                <div th:replace="components/settings :: inline_input_form(title=#{label.blogname}, name='full_name', value=${user.fullName}, maxlen=100, control='input', type='text', placeholder=#{page.settings.fullname.placeholder})"></div>
+
+            <div class="margin-top padding-top border-top" th:each="channel : ${channels}">
+
+                <div th:if="!${channel.connected}">
+                    <h6>
+                        <span th:text="#{page.channel.disconnected.prefix}">You are connected to</span>
+                        <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
+                    </h6>
+                    <a class="btn btn-primary"
+                        th:href="'/channel/subscribe?channelId=' + ${channel.id}"
+                    >
+                        <i th:class="'fab fa-' + ${channel.type.name()}"></i>
+                        <span th:text="#{button.connect}">Connect</span>
+                    </a>
+                </div>
+                <div th:if="${channel.connected}">
+                    <h6>
+                        <span th:text="#{page.channel.connected.prefix}">You are connected to</span>
+                        <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
+                    </h6>
+                    <div class="flex">
+                        <img width="64" height="64" th:src="${channel.pictureUrl}" />
+                        <div>
+                            <p><b th:text="${channel.name}">Name</b></p>
+                            <a th:href="'/channel/unsubhscribe?channelId=' + ${channel.id}">
+                                <i th:class="'fab fa-' + ${channel.type.name()}"></i>
+                                <span th:text="#{button.disconnect}">Connect</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="border-top margin-top padding-top">
-                <div th:replace="components/settings :: inline_input_form(title=#{label.email}, name='email', value=${user.email}, maxlen=100, control='input', type='email', placeholder=#{page.settings.email.placeholder})"></div>
-            </div>
-            <div class="border-top margin-top padding-top">
-                <div th:replace="components/settings :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, control='textarea', type='', placeholder=#{page.settings.bio.placeholder})"></div>
-            </div>
-            <div class="border-top margin-top padding-top">
-                <div th:replace="components/settings :: inline_input_form(title=#{label.website}, name='website_url', value=${user.websiteUrl}, maxlen=200, control='input', type='url', placeholder=#{page.settings.website.placeholder})"></div>
-            </div>
-            <div class="border-top margin-top padding-top">
-                <h4 th:text="#{label.social_media}">Social Links</h4>
-                <div th:replace="components/settings :: inline_social_input_form(title='https://www.facebook.com/', name='facebook_id', value=${user.facebookId}, placeholder=#{page.settings.facebook.placeholder})"></div>
-                <div th:replace="components/settings :: inline_social_input_form(title='https://www.twitter.com/', name='twitter_id', value=${user.twitterId}, placeholder=#{page.settings.twitter.placeholder})"></div>
-                <div th:replace="components/settings :: inline_social_input_form(title='https://www.youtube.com/channel/', name='youtube_id', value=${user.youtubeId}, placeholder=#{page.settings.youtube.placeholder})"></div>
-                <div th:replace="components/settings :: inline_social_input_form(title='https://www.linked.com/in/', name='linked_id', value=${user.linkedinId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
-            </div>
+
         </div>
     </div>
 </div>

@@ -13,6 +13,10 @@ abstract class AbstractOAuthLoginController(
         logger: KVLogger,
         objectMapper: ObjectMapper
 ) : AbstractLoginController(logger, objectMapper) {
+    companion object {
+        const val CONNECT_KEY = "com.wutsi.connect"
+        const val REQUEST_TOKEN_KEY = "com.wutsi.request_token"
+    }
 
     abstract protected fun getAuthorizationUrl (request: HttpServletRequest): String
 
@@ -20,8 +24,22 @@ abstract class AbstractOAuthLoginController(
 
     abstract protected fun getSigninUrl(request: HttpServletRequest): String
 
+    open protected fun getConnectUrl(request: HttpServletRequest): String {
+       return getSigninUrl(request)
+    }
+
+    open protected fun cleanup (request: HttpServletRequest) {
+        request.session.removeAttribute(CONNECT_KEY)
+        request.session.removeAttribute(REQUEST_TOKEN_KEY)
+    }
+
     @GetMapping()
     fun login (request: HttpServletRequest): String {
+        val connect = request.getParameter("connect")
+        if (connect != null) {
+            request.session.setAttribute(CONNECT_KEY, connect)
+        }
+
         val url = getAuthorizationUrl(request)
         return "redirect:$url"
     }
@@ -31,8 +49,17 @@ abstract class AbstractOAuthLoginController(
         var url: String
         try {
 
+            var url: String = ""
             val error = getError(request)
-            url = if (error == null) getSigninUrl(request) else errorUrl(error)
+            val connect = request.session.getAttribute(CONNECT_KEY)
+            if (connect == null) {
+                url = if (error == null) getSigninUrl(request) else "/login?error=" + URLEncoder.encode(error, "utf-8")
+            } else {
+                url = if (error == null) getConnectUrl(request) else "/channel?error=" + URLEncoder.encode(error, "utf-8")
+            }
+
+            logger.add("URL", url)
+            return url
 
         } catch(ex: OAuthException) {
 
@@ -40,6 +67,11 @@ abstract class AbstractOAuthLoginController(
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)
             LoggerFactory.getLogger(javaClass).error("Failure", ex)
+
+        } finally {
+
+            cleanup(request)
+
         }
 
         logger.add("RedirectURL", url)

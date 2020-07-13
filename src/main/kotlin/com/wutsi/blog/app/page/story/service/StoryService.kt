@@ -2,13 +2,13 @@ package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.backend.SortBackend
 import com.wutsi.blog.app.backend.StoryBackend
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.model.PublishForm
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
+import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.settings.model.UserModel
-import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
@@ -87,8 +87,8 @@ class StoryService(
         val storyMap = stories.map { it.id to it }.toMap()
         return response.storyIds
                 .map { storyMap[it] }
-                .filter { it != null } as List<StoryModel>
-
+                .filter { it != null }
+                as List<StoryModel>
     }
 
     fun publish(editor: PublishForm){

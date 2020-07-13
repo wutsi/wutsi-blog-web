@@ -44,6 +44,8 @@ wutsi:
     base-url: http://localhost:8080
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
+    channel:
+      endpoint: ${wutsi.backend.base-url}/v1/channel
     mail:
       endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
@@ -119,6 +121,7 @@ wutsi:
       bucket:
 
   toggles:
+    channel: true                   # Enable publication channels
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA
     recommendation: true            # Show articles recommendations in reader
