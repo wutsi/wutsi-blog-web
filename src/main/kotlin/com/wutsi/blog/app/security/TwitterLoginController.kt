@@ -2,6 +2,7 @@ package com.wutsi.blog.app.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.model.OAuth1AccessToken
+import com.github.scribejava.core.model.OAuth1RequestToken
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Response
 import com.github.scribejava.core.model.Verb
@@ -23,9 +24,14 @@ class TwitterLoginController(
         objectMapper: ObjectMapper,
         @Qualifier(OAuthConfiguration.TWITTER_OAUTH_SERVICE) private val oauth: OAuth10aService
 ) : AbstractOAuthLoginController(logger, objectMapper) {
+    companion object {
+        private const val REQUEST_TOKEN_KEY = "com.wutsi.requesst_token"
+    }
     override fun getAuthorizationUrl(request: HttpServletRequest): String {
         val requestToken = oauth.requestToken
         logger.add("requestToken", requestToken.token)
+
+        request.session.setAttribute(REQUEST_TOKEN_KEY, requestToken)
         return oauth.getAuthorizationUrl(requestToken)
     }
 
@@ -35,14 +41,19 @@ class TwitterLoginController(
     }
 
     override fun getSigninUrl(request: HttpServletRequest): String {
-        val requestToken = oauth.requestToken
+        val requestToken = request.session.getAttribute(REQUEST_TOKEN_KEY) as OAuth1RequestToken
         logger.add("requestToken", requestToken.token)
+        try {
 
-        val verifier = request.getParameter("oauth_verifier")
-        val accessToken = oauth.getAccessToken(requestToken, verifier)
-        val user = toOAuthUser(accessToken)
-        val state = generateState(request)
-        return getSigninUrl(accessToken.token, state, user)
+            val verifier = request.getParameter("oauth_verifier")
+            val accessToken = oauth.getAccessToken(requestToken, verifier)
+            val user = toOAuthUser(accessToken)
+            val state = generateState(request)
+            return getSigninUrl(accessToken.token, state, user)
+
+        } finally {
+            request.session.removeAttribute(REQUEST_TOKEN_KEY)
+        }
     }
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
