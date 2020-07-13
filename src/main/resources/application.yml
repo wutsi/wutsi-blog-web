@@ -96,6 +96,7 @@ wutsi:
       client-id: "00000000"
       client-secret: "00000000"
       callback-url: "${wutsi.base-url}/login/facebook/callback"
+      scope: "email,pages_manage_posts"
     google:
       client-id: "00000000"
       client-secret: "00000000"
