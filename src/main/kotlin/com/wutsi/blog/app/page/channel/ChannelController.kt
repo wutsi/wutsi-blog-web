@@ -33,11 +33,19 @@ class ChannelController(
 
     @GetMapping("/connect")
     fun connect(
+            @RequestParam type: ChannelType
+    ): String {
+        return "redirect:/login/" + type.name + "?connect=1"
+    }
+
+    @GetMapping("/disconnect")
+    fun disconnect(
             @RequestParam channelId: Long
     ): String {
-        val channel = service.get(channelId)
-        return "redirect:/login/" + channel.type.name + "?connect=1"
+        service.delete(channelId)
+        return "redirect:/channel"
     }
+
 
     fun create(
             @RequestParam accessToken: String,
@@ -46,14 +54,6 @@ class ChannelController(
             @RequestParam type: ChannelType
     ): String {
         service.create(accessToken, name, pictureUrl, type)
-        return "redirect:/channel"
-    }
-
-    @GetMapping("/disconnect")
-    fun disconnect(
-            @RequestParam channelId: Long
-    ): String {
-        service.delete(channelId)
         return "redirect:/channel"
     }
 }

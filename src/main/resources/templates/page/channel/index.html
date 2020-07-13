@@ -20,17 +20,21 @@
 
             <div class="margin-top padding-top border-top" th:each="channel : ${channels}">
 
-                <div th:if="!${channel.connected}">
-                    <h6>
-                        <span th:text="#{page.channel.disconnected.prefix}">You are connected to</span>
-                        <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
-                    </h6>
-                    <a class="btn btn-primary"
-                        th:href="'/channel/subscribe?channelId=' + ${channel.id}"
-                    >
-                        <i th:class="'fab fa-' + ${channel.type.name()}"></i>
-                        <span th:text="#{button.connect}">Connect</span>
-                    </a>
+                <div th:if="!${channel.connected}" class="flex">
+                    <img width="24" height="24" class="margin-right"
+                         th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type.name()} + '.png'"
+                    />
+                    <div>
+                        <h6>
+                            <span th:text="#{page.channel.disconnected.prefix}">You are connected to</span>
+                            <span th:text="#{'social-network.' + ${channel.type.name()}}">Facebook</span>
+                        </h6>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="'/me/channel/connect?type=' + ${channel.type.name()}"
+                        >
+                            <span th:text="#{button.connect}">Connect</span>
+                        </a>
+                    </div>
                 </div>
                 <div th:if="${channel.connected}">
                     <h6>
@@ -41,7 +45,7 @@
                         <img width="64" height="64" th:src="${channel.pictureUrl}" />
                         <div>
                             <p><b th:text="${channel.name}">Name</b></p>
-                            <a th:href="'/channel/unsubhscribe?channelId=' + ${channel.id}">
+                            <a class="btn btn-sm" th:href="'/me/channel/disconnect?channelId=' + ${channel.id}">
                                 <i th:class="'fab fa-' + ${channel.type.name()}"></i>
                                 <span th:text="#{button.disconnect}">Connect</span>
                             </a>
