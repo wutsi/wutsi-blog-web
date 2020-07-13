@@ -27,6 +27,7 @@ class TwitterLoginController(
     companion object {
         private const val REQUEST_TOKEN_KEY = "com.wutsi.requesst_token"
     }
+
     override fun getAuthorizationUrl(request: HttpServletRequest): String {
         val requestToken = oauth.requestToken
         logger.add("requestToken", requestToken.token)
@@ -34,7 +35,6 @@ class TwitterLoginController(
         request.session.setAttribute(REQUEST_TOKEN_KEY, requestToken)
         return oauth.getAuthorizationUrl(requestToken)
     }
-
 
     override fun getError(request: HttpServletRequest): String? {
         return request.getParameter("denied")
@@ -59,11 +59,9 @@ class TwitterLoginController(
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
             id = attrs["id"].toString(),
             fullName = attrs["name"].toString(),
-            email = attrs["email"]?.toString(),
-            pictureUrl = "https://graph.facebook.com/" + attrs["id"] + "/picture?type=square",
+            pictureUrl = attrs["profile_image_url_https"]?.toString(),
             provider = SecurityConfiguration.PROVIDER_TWITTER
         )
-
 
     private fun toOAuthUser(accessToken: OAuth1AccessToken): OAuthUser {
         val response = fetchUser(accessToken)
