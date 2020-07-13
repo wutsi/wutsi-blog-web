@@ -59,7 +59,7 @@ abstract class AbstractOAuthLoginController(
             }
 
             logger.add("URL", url)
-            return url
+            return "redirect:$url"
 
         } catch(ex: OAuthException) {
 
