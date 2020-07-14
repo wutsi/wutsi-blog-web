@@ -46,6 +46,7 @@ class TwitterLoginController(
 
         return "/me/channel/create?" +
                 "accessToken=${accessToken.token}" +
+                "&accessTokenSecret=${accessToken.tokenSecret}" +
                 "&name=${user.fullName}" +
                 "&pictureUrl=${user.pictureUrl}" +
                 "&type=" + ChannelType.twitter

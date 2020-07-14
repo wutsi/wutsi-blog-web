@@ -32,12 +32,14 @@ class ChannelService(
 
     fun create(
             accessToken: String,
+            accessTokenSecret: String,
             name: String,
             pictureUrl: String,
             type: ChannelType
     ) {
         backend.create(CreateChannelRequest(
                 accessToken = accessToken,
+                accessTokenSecret = accessTokenSecret,
                 name = name,
                 pictureUrl = pictureUrl,
                 type = type,
