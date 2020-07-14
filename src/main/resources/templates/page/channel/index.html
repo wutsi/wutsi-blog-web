@@ -31,19 +31,25 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-4">
-                            <a id="btn-disconnect" class="btn btn-light float-right"
-                               th:if="${channel.connected}"
-                               th:href="'/me/channel/disconnect?channelId=' + ${channel.id}"
-                            >
-                                <span th:text="#{button.disconnect}">Connect</span>
-                            </a>
-
                             <a id="btn-connect" class="btn btn-primary float-right"
                                th:if="!${channel.connected}"
                                th:href="'/me/channel/connect?type=' + ${channel.type.name()}"
                             >
-                                <span th:text="#{button.connect}">Connect</span>
+                                <span th:text="#{button.connect_your_blog}">Connect</span>
                             </a>
+
+                            <div th:if="${channel.connected}">
+                                <div class="float-right">
+                                    <b th:text="${connect.name}">Name</b>
+                                    <br/>
+                                    <a id="btn-disconnect"
+                                       th:href="'/me/channel/disconnect?channelId=' + ${channel.id}"
+                                       th:text="#{button.disconnect_your_blog}">
+                                        Connect
+                                    </a>
+                                </div>
+                                <img class="float-right margin-right" width="48" height="48" th:src="${src.pictureUrl}" />
+                            </div>
                         </div>
                     </div>
                 </div>
