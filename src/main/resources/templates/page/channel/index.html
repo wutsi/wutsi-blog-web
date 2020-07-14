@@ -19,7 +19,7 @@
 
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-md-8 flex">
+                        <div class="col-12 col-md-7 flex">
                             <img width="24" height="24" class="margin-right"
                                  th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type.name()} + '.png'"
                             />
@@ -30,7 +30,7 @@
                                 <div class="text-small" th:text="#{'page.channel.' + ${channel.type.name()} + '.description'}">Description</div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-5">
                             <a id="btn-connect" class="btn btn-primary float-right"
                                th:if="!${channel.connected}"
                                th:href="'/me/channel/connect?type=' + ${channel.type.name()}"
@@ -42,7 +42,7 @@
                                 <div class="float-right">
                                     <b th:text="${channel.name}">Name</b>
                                     <br/>
-                                    <a id="btn-disconnect"
+                                    <a id="btn-disconnect" class="text-small"
                                        th:href="'/me/channel/disconnect?channelId=' + ${channel.id}"
                                        th:text="#{button.disconnect_your_blog}">
                                         Connect
