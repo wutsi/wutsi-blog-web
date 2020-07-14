@@ -30,6 +30,7 @@ class PageName{
 
         const val LEGAL_ABOUT = "page.legal.about"
         const val LEGAL_TERMS = "page.legal.about"
+        const val LEGAL_PRIVACY = "page.legal.privacy"
         const val LOGOUT = "page.logout"
 
         const val MAIL_UNSUBSCRIBE = "page.mail.unsubscribe"
