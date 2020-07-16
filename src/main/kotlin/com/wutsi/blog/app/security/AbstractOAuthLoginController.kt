@@ -49,7 +49,6 @@ abstract class AbstractOAuthLoginController(
         var url: String
         try {
 
-            var url: String = ""
             val error = getError(request)
             val connect = request.session.getAttribute(CONNECT_KEY)
             if (connect == null) {
