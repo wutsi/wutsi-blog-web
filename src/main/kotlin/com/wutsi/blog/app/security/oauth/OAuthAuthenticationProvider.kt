@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
+import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
 
@@ -29,7 +30,7 @@ class OAuthAuthenticationProvider(
     private fun authenticate(authentication: OAuthTokenAuthentication): Authentication {
         val user = authentication.principal.user
         backend.login(AuthenticateRequest(
-                accessToken = authentication.accessToken,
+                accessToken = UUID.randomUUID().toString(),
                 provider = authentication.principal.user.provider,
                 pictureUrl = user.pictureUrl,
                 fullName = user.fullName,
