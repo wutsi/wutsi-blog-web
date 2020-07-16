@@ -53,9 +53,9 @@ abstract class AbstractOAuthLoginController(
             val error = getError(request)
             val connect = request.session.getAttribute(CONNECT_KEY)
             if (connect == null) {
-                url = if (error == null) getSigninUrl(request) else "/login?error=" + URLEncoder.encode(error, "utf-8")
+                url = if (error == null) getSigninUrl(request) else getErrorUrl(error, request)
             } else {
-                url = if (error == null) getConnectUrl(request) else "/channel?error=" + URLEncoder.encode(error, "utf-8")
+                url = if (error == null) getConnectUrl(request) else getErrorUrl(error, request)
             }
 
             logger.add("URL", url)
@@ -63,7 +63,7 @@ abstract class AbstractOAuthLoginController(
 
         } catch(ex: OAuthException) {
 
-            url = errorUrl(ex.message!!)
+            url = getErrorUrl(ex.message, request)
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)
             LoggerFactory.getLogger(javaClass).error("Failure", ex)
@@ -78,7 +78,9 @@ abstract class AbstractOAuthLoginController(
         return "redirect:$url"
     }
 
-    private fun errorUrl(error: String) : String {
-        return "/login?error=" + URLEncoder.encode(error, "utf-8")
+    private fun getErrorUrl(error: String?, request: HttpServletRequest) : String {
+        val connect = request.session.getAttribute(CONNECT_KEY)
+        val err = if (error == null) "failed" else URLEncoder.encode(error, "utf-8")
+        return if (connect == null) "/login?error=$err" else "/me/connect?error=$err"
     }
 }
