@@ -35,11 +35,6 @@ class StoryService(
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val userService: UserService
 ) {
-    companion object {
-        const val RECOMMENDATION_MIN_VIEWERS = 10
-    }
-
-
     fun save(editor: StoryForm): StoryForm {
         var response = SaveStoryResponse()
         val request = toSaveStoryRequest(editor)

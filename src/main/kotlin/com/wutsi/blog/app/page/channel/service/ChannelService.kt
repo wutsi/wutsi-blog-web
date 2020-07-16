@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.channel.service
 
 import com.wutsi.blog.app.backend.ChannelBackend
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.CreateChannelRequest
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service
 class ChannelService(
         private val backend: ChannelBackend,
         private val mapper: ChannelMapper,
-        private val requestContext: RequestContext
+        private val requestContext: RequestContext,
+        private val toggles: Toggles
 ) {
     fun all(): List<ChannelModel> {
         val channels = backend.search(SearchChannelRequest(
@@ -51,7 +53,14 @@ class ChannelService(
         backend.delete(id)
     }
 
-    fun channelTypes() = arrayListOf(
-            ChannelType.twitter
-    )
+    fun channelTypes(): List<ChannelType> {
+        val types = mutableListOf<ChannelType>()
+        if (toggles.channelTwitter){
+            types.add(ChannelType.twitter)
+        }
+        if (toggles.channelFacebook){
+            types.add(ChannelType.facebook)
+        }
+        return types
+    }
 }

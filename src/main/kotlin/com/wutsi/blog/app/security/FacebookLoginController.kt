@@ -31,5 +31,16 @@ class FacebookLoginController(
                 provider = SecurityConfiguration.PROVIDER_FACEBOOK
         )
 
+    override fun getConnectUrl(request: HttpServletRequest): String {
+        val code = request.getParameter("code")
+        val accessToken = getOAuthService().getAccessToken(code).accessToken
+        val user = toOAuthUser(accessToken)
+
+        return "/me/channel/facebook?" +
+                "accessToken=$accessToken" +
+                "&name=${user.fullName}" +
+                "&pictureUrl=${user.pictureUrl}"
+    }
+
     override fun getError(request: HttpServletRequest) = request.getParameter("error_code")
 }

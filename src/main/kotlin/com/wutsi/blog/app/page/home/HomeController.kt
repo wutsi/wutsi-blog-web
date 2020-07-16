@@ -64,8 +64,7 @@ class HomeController(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
-                limit = 50,
-                minViewers = StoryService.RECOMMENDATION_MIN_VIEWERS
+                limit = 50
         ))
         return storyService.sort(
                 stories = stories,

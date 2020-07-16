@@ -22,6 +22,9 @@ wutsi:
         client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
 
   toggles:
+    channel: true
+    channelTwitter: true
+    channelFacebook: true
     google-one-tap-sign-in: true
     imagekit: true
     pwa: true

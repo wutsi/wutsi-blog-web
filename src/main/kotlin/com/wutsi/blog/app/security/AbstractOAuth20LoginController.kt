@@ -35,7 +35,7 @@ abstract class AbstractOAuth20LoginController(
     override fun getError(request: HttpServletRequest) = request.getParameter("error")
 
 
-    private fun toOAuthUser(accessToken: String): OAuthUser {
+    protected fun toOAuthUser(accessToken: String): OAuthUser {
         val response = fetchUser(accessToken)
         logger.add("OAuthUser", response.body)
 

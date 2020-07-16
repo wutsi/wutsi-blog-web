@@ -127,6 +127,8 @@ wutsi:
 
   toggles:
     channel: true                   # Enable publication channels
+    channel-twitter: true           # Enable Twitter Channel
+    channel-facebook: true          # Enable Facebook Channel
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA
     recommendation: true            # Show articles recommendations in reader

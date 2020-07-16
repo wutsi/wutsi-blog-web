@@ -17,7 +17,7 @@
 
             <div class="margin-top padding-top border-top" th:each="channel : ${channels}">
 
-                <div class="container">
+                <div class="container channel" th:id="'channel-' + ${channel.type.name()}">
                     <div class="row">
                         <div class="col-12 col-md-7 flex">
                             <img width="24" height="24" class="margin-right"
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-5">
-                            <a id="btn-connect" class="btn btn-primary float-right"
+                            <a class="btn btn-primary float-right btn-connect"
                                th:if="!${channel.connected}"
                                th:href="'/me/channel/connect?type=' + ${channel.type.name()}"
                             >
@@ -42,7 +42,7 @@
                                 <div class="float-right">
                                     <b th:text="${channel.name}">Name</b>
                                     <br/>
-                                    <a id="btn-disconnect" class="text-small"
+                                    <a class="text-small btn-disconnect"
                                        th:href="'/me/channel/disconnect?channelId=' + ${channel.id}"
                                        th:text="#{button.disconnect_your_blog}">
                                         Connect
