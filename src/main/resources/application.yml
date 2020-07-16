@@ -1,3 +1,7 @@
+twitter:
+  consumer-key: "000000"
+  consumer-secret: "0000000"
+
 spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
@@ -104,7 +108,7 @@ wutsi:
       scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
     twitter:
       client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
-      client-secret: "G8InvcJtO56N6PMonqAOuJ8X91lpl5BZDTi6lmcWXy9OufDJGY"
+      client-secret: "0000000000"
       callback-url: "${wutsi.base-url}/login/twitter/callback"
 
   pwa:
