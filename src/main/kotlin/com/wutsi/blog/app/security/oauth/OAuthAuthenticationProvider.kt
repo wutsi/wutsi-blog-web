@@ -27,6 +27,7 @@ class OAuthAuthenticationProvider(
     }
 
     private fun authenticate(authentication: OAuthTokenAuthentication): Authentication {
+        val user = authentication.principal.user
         backend.login(AuthenticateRequest(
                 accessToken = authentication.accessToken,
                 provider = authentication.principal.user.provider,
