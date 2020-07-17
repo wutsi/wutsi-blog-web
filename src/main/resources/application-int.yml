@@ -7,12 +7,14 @@ wutsi:
     baseurl: https://int-com-wutsi-blog.herokuapp.com
 
   oauth:
-      github:
-        client-id: "43bf80531cd351c84f5b"
-      facebook:
-        client-id: "629340480740249"
-      google:
-        client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
+    github:
+      client-id: "43bf80531cd351c84f5b"
+    facebook:
+      client-id: "629340480740249"
+    google:
+      client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
+    twitter:
+      client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
 
   pwa:
     manifest:

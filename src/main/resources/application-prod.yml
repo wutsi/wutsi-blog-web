@@ -23,8 +23,8 @@ wutsi:
 
   toggles:
     channel: true
-    channelTwitter: true
-    channelFacebook: true
+    channel-twitter: true
+    channel-facebook: false
     google-one-tap-sign-in: true
     imagekit: true
     pwa: true
