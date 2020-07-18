@@ -41,6 +41,9 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
+        input("#title", "This is the title")
+        input("#tagline", "This is the tagline")
+        input("#summary", "This is the Summary")
         select("#topic-id", 1)
         click("#btn-publish")
 
@@ -72,6 +75,9 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementNotPresent(".alert-danger")
+        input("#title", "This is the title")
+        input("#tagline", "This is the tagline")
+        input("#summary", "This is the Summary")
         select("#topic-id", 1)
 
         stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)

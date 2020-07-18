@@ -9,6 +9,7 @@ data class StoryModel(
         val user: UserModel = UserModel(),
         val title: String = "",
         val summary: String = "",
+        val tagline: String = "",
         val thumbnailImage: HtmlImageModel? = null,
         val thumbnailUrl: String? = null,
         val sourceUrl: String? = null,

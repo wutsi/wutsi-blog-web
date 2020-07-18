@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12 main-content offset-md-2 col-md-8 border padding-2x">
 
-            <!-- Title -->
+            <!-- Wizzard -->
             <div class="margin-top-2x text-center">
                 <div th:replace="components/story :: wizard(3, 2)"></div>
                 <h1 class="margin-top" th:text="#{page.story.publish.header1}">Title</h1>
@@ -28,6 +28,23 @@
             <!-- Publish Form -->
             <form id="form-publish" method="get" action="/me/story/tag/submit" autocomplete="off" class="margin-top-2x">
                 <input type="hidden" name="id" th:value="${story.id}" />
+
+                <div class="form-group">
+                    <label><span th:text="#{page.story.publish.title}">Title</span> <b class="required">*</b></label>
+                    <input id="title" name="title" required="required" maxlength="200" class="form-control" th:value="${story.title}" />
+                </div>
+
+                <div class="form-group">
+                    <label th:text="#{page.story.publish.tagline}">Tagline</label>
+                    <input id="tagline" name="tagline" maxlength="200" class="form-control" th:value="${story.tagline}" />
+                    <small class="form-text text-muted" th:text="#{page.story.publish.tagline.hint}">Help Text</small>
+                </div>
+
+                <div class="form-group">
+                    <label><span th:text="#{page.story.publish.summary}">Summary</span> <b class="required">*</b></label>
+                    <textarea id="summary" name="summary"  required="required" class="form-control" maxlength="255" rows="3"  th:text="${story.summary}"></textarea>
+                    <small class="form-text text-muted" th:text="#{page.story.publish.summary.hint}">Help Text</small>
+                </div>
 
                 <div class="form-group">
                     <p th:text="#{page.story.publish.topic.info}">Information</p>

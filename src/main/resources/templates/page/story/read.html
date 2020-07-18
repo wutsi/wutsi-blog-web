@@ -29,6 +29,8 @@
 
         <h1 class="title" th:text="${story.title}">Title</h1>
 
+        <h2 class="tagline text-center" th:text="${story.tagline}" th:if="!${story.tagline.isEmpty()}">Tagline</h2>
+
         <!-- Author -->
         <div class="margin-top uppercase text-small">
             <div>

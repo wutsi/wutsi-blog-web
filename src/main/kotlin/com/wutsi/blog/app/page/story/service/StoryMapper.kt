@@ -33,6 +33,7 @@ class StoryMapper(
                 id = story.id,
                 content = story.content,
                 title = nullToEmpty(story.title),
+                tagline = nullToEmpty(story.tagline),
                 contentType = story.contentType,
                 thumbnailUrl = if (story.thumbnailUrl == null) null else story.thumbnailUrl,
                 thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
@@ -68,6 +69,7 @@ class StoryMapper(
     fun toStoryModel(story: StorySummaryDto, user: UserModel? = null) = StoryModel(
             id = story.id,
             title = nullToEmpty(story.title),
+            tagline = nullToEmpty(story.tagline),
             thumbnailUrl = story.thumbnailUrl,
             thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
             wordCount = story.wordCount,

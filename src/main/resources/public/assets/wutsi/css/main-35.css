@@ -490,6 +490,12 @@ a.sso-button .fab {
 .reader h1 {
     font-size: 2em;
 }
+.reader h2.tagline {
+    font-size: 1.3em;
+    font-style: italic;
+    color: var(--text-color-gray);
+    padding-top: 0px;
+}
 .reader h2 {
     font-size: 1.7em;
 }

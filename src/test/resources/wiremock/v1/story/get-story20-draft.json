@@ -4,6 +4,7 @@
     "userId": 1,
     "title": "Lorem Ipsum",
     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    "tagline": "This is awesome story!",
     "thumbnailUrl": "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg",
     "sourceUrl": null,
     "wordCount": 179,

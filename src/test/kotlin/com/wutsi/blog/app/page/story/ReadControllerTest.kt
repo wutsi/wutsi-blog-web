@@ -22,6 +22,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `story menu available for story owner`() {
         gotoPage(true)
+
         assertElementPresent("#story-menu")
     }
 
@@ -85,6 +86,9 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
         assertElementAttribute(".author .linkedin", "wutsi-track-event", "link")
         assertElementAttribute(".author .linkedin", "wutsi-track-value", "linkedin")
+
+        assertElementText("h1", "Lorem Ipsum")
+        assertElementText("h2.tagline", "This is awesome story!")
 
         assertElementNotPresent("#super-user-banner")
         assertElementNotPresent("#story-menu")
