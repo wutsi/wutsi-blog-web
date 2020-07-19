@@ -30,9 +30,10 @@ class PersonSchemasGeneratorTest {
         val expected = "{" +
                 "\"@context\":\"https://schema.org/\"," +
                 "\"@type\":\"Person\"," +
+                "\"id\":\"https://www.wutsi.com/person/1\"," +
                 "\"name\":\"Ray Sponsible\"," +
-                "\"url\":\"https://www.wutsi.com/@/ray.sponsible\"," +
                 "\"image\":\"https://www.picture.com/ray.sponsible.png\"," +
+                "\"url\":\"https://www.wutsi.com/@/ray.sponsible\"," +
                 "\"sameAs\":[" +
                     "\"https://www.facebook.com/ray.sponsible\"," +
                     "\"https://www.linkedin.com/user/ray.sponsible\"," +

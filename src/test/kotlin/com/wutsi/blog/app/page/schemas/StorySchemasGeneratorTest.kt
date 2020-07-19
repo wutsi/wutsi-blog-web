@@ -7,6 +7,7 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.model.TagModel
 import com.wutsi.blog.app.page.story.model.TopicModel
 import com.wutsi.blog.app.page.story.service.TopicService
+import com.wutsi.editorjs.json.EJSJsonReader
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,16 +32,18 @@ class StorySchemasGeneratorTest {
         val baseUrl = "https://www.wutsi.com"
         val om = ObjectMapper()
         val generator = StorySchemasGenerator(
-                ObjectMapper(),
+                om,
                 topics,
                 PersonSchemasGenerator(om, baseUrl),
                 WutsiSchemasGenerator(om, requestContext, baseUrl, "https://www.wutsi.com/assets"),
+                EJSJsonReader(om),
                 baseUrl
         )
 
         var story = StoryModel(
                 id = 123L,
                 title = "This is the title",
+                tagline = "This is awesome",
                 summary = "This is summary",
                 slug = "/read/11/troirto",
                 topic = topic,
@@ -62,16 +65,17 @@ class StorySchemasGeneratorTest {
         assertEquals("BlogPosting", map["@type"])
         assertEquals("https://schema.org/", map["@context"])
         assertEquals(story.id.toString(), map["identifier"])
+        assertEquals("https://www.wutsi.com/story/${story.id}", map["id"])
+        assertEquals("https://www.wutsi.com/read/11/troirto", map["url"])
+        assertEquals("https://www.wutsi.com/read/11/troirto", map["mainEntityOfPage"])
         assertEquals(story.title, map["name"])
         assertEquals(story.title, map["headline"])
+        assertEquals(story.tagline, map["alternativeHeadline"])
+        assertEquals(story.summary, map["description"])
         assertEquals(story.creationDateTimeISO8601, map["dateCreated"])
         assertEquals(story.modificationDateTimeISO8601, map["dateModified"])
         assertEquals(story.publishedDateTimeISO8601, map["datePublished"])
-        assertEquals("https://www.wutsi.com/read/11/troirto", map["url"])
-        assertEquals(story.thumbnailUrl, map["image"])
-        assertEquals(story.summary, map["description"])
         assertEquals("true", map["isAccessibleForFree"])
-        assertEquals("https://www.wutsi.com/read/11/troirto", map["mainEntityOfPage"])
         assertEquals("fr-FR", map["inLanguage"])
 
     }

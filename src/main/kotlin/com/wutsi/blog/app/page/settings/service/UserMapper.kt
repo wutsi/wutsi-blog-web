@@ -23,6 +23,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             twitterUrl = twitterUrl(user),
             youtubeUrl = youtubeUrl(user),
             superUser = user.superUser,
+            blog = user.blog,
             readAllLanguages = user.readAllLanguages,
             language = user.language,
             facebookId = user.facebookId,

@@ -10,29 +10,33 @@ class PersonSchemasGenerator(
         private val objectMapper: ObjectMapper,
         @Value("\${wutsi.base-url}") private val baseUrl: String
 ) {
-    fun generate(author: UserModel): String {
-        val schemas = generateMap(author)
+    fun generate(person: UserModel): String {
+        val schemas = generateMap(person)
         return objectMapper.writeValueAsString(schemas)
     }
 
-    fun generateMap(author: UserModel): Map<String, Any> {
+    fun generateMap(person: UserModel): Map<String, Any> {
         val schemas = mutableMapOf<String, Any>()
+
         schemas["@context"] = "https://schema.org/"
         schemas["@type"] = "Person"
-        schemas["name"] = author.fullName
-        schemas["url"] = "${baseUrl}${author.slug}"
-        if (author.pictureUrl != null) {
-            schemas["image"] = author.pictureUrl
+        schemas["id"] = "${baseUrl}/person/${person.id}"
+        schemas["name"] = person.fullName
+
+        if (person.pictureUrl != null) {
+            schemas["image"] = person.pictureUrl
         }
-        if (author.biography != null){
-            schemas["description"] = author.biography
+        if (person.biography != null){
+            schemas["description"] = person.biography
         }
-        if (author.hasSocialLinks) {
+
+        schemas["url"] = "${baseUrl}${person.slug}"
+        if (person.hasSocialLinks) {
             schemas["sameAs"] = arrayListOf(
-                    author.facebookUrl,
-                    author.linkedinUrl,
-                    author.youtubeUrl,
-                    author.twitterUrl
+                    person.facebookUrl,
+                    person.linkedinUrl,
+                    person.youtubeUrl,
+                    person.twitterUrl
             ).filter { it != null }
         }
         return schemas
