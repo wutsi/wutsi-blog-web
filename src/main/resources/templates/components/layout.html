@@ -189,11 +189,15 @@
                     <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
                     <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
                     <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}">Stats</a>
+
                     <div class="dropdown-divider" th:if="${toggles.wpp}"></div>
                     <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp}">Wutsi Partner Program</a>
+                    <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning}">Earnings</a>
+
                     <div class="dropdown-divider"></div>
+                    <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel}">Channels</a>
                     <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
-                    <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}">Channels</a>
+
                     <div class="dropdown-divider"></div>
                     <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
                     <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>

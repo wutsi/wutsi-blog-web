@@ -25,6 +25,14 @@ class ChannelControllerTest: SeleniumTestSupport() {
     }
 
     @Test
+    fun `anonymous cannot connect page`() {
+        driver.get("$url/me/channel")
+
+        assertCurrentPageIs(PageName.LOGIN)
+    }
+
+
+    @Test
     fun `disconnect from channel`() {
         stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search.json")
 

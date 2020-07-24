@@ -1,0 +1,41 @@
+package com.wutsi.blog.app.page.payment
+
+import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.app.util.PageName
+import org.junit.Test
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+
+class EarningControllerTest: SeleniumTestSupport()  {
+    override fun setupWiremock() {
+        super.setupWiremock()
+
+        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search.json")
+    }
+
+    @Test
+    fun `user can view his earnings`() {
+        gotoPage()
+
+        Thread.sleep(5000)
+        assertElementPresent(".tui-chart")
+    }
+
+    @Test
+    fun `anonymous cannot view his earnings`() {
+        driver.get("$url/me/earning")
+
+        assertCurrentPageIs(PageName.LOGIN)
+    }
+
+
+
+    fun gotoPage() {
+        login()
+        click("nav .nav-item")
+        click("#navbar-earnings")
+
+        assertCurrentPageIs(PageName.EARNING)
+    }
+
+}

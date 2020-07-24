@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.stats.model
+package com.wutsi.blog.app.common.model.tui
 
 data class BarChartSerieModel (
         val name: String,

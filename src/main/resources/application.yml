@@ -48,6 +48,8 @@ wutsi:
     base-url: http://localhost:8080
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
+    earning:
+      endpoint: ${wutsi.backend.base-url}/v1/earning
     channel:
       endpoint: ${wutsi.backend.base-url}/v1/channel
     mail:
@@ -129,6 +131,7 @@ wutsi:
     channel: true                   # Enable publication channels
     channel-twitter: true           # Enable Twitter Channel
     channel-facebook: true          # Enable Facebook Channel
+    earning: true                   # Show Earnings
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA
     recommendation: true            # Show articles recommendations in reader

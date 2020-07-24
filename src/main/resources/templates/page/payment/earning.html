@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container border main-content margin-top-2x padding-2x story-list">
+
+    <h1 th:text="#{page.earning.title}">Stats</h1>
+
+    <ul class="pagination">
+        <li class="margin-right prev"> <a th:href="${previousYearUrl}" th:text="${previousYear}">Apr 2020</a></li>
+        <li class="margin-right current"> <b th:text="${year}">May 2020</b></li>
+        <li class="next"> <a  th:href="${nextYearhUrl}" th:text="${nextYear}">Jun 2020</a></li>
+    </ul>
+
+    <div id="chart-area"></div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
+<script src="https://uicdn.toast.com/tui.chart/latest/tui-chart-all.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    const title = /*[[#{page.earning.kpi.earnings}]]*/'';
+    const year = /*[[${year}]]*/'';
+
+    function refresh_chart() {
+        const url = '/me/earning/bar-chart-data?year=' + year;
+        wutsi.httpGet(url, true)
+            .then(function(data){
+                const container = document.getElementById('chart-area');
+                var options = {
+                    chart: {
+                        width: 800,
+                        height: 400,
+                        title: title,
+                        format: '1,000'
+                    },
+                    yAxis: {
+                        title: title
+                    },
+                    xAxis: {
+                        title: 'Date'
+                    },
+                    series: {
+                        showLabel: false
+                    },
+                    chartExportMenu: {
+                        visible: false
+                    },
+                    legend: {
+                        visible: false,
+                        showCheckbox: false
+                    }
+                };
+                tui.chart.columnChart(container, data, options);
+            })
+    }
+
+    $(document).ready(function(){
+        refresh_chart();
+    });
+
+
+    /*]]>*/
+</script>
+
+
+</body>
+
+</html>

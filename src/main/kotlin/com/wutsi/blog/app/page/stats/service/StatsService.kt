@@ -2,11 +2,11 @@ package com.wutsi.blog.app.page.stats.service
 
 import com.wutsi.blog.app.backend.StatsBackend
 import com.wutsi.blog.app.backend.StoryBackend
+import com.wutsi.blog.app.common.model.tui.BarChartModel
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.stats.model.BarChartModel
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.stats.SearchStatsRequest
 import com.wutsi.blog.client.stats.SearchStatsStoryRequest
 import com.wutsi.blog.client.stats.SearchStatsUserRequest

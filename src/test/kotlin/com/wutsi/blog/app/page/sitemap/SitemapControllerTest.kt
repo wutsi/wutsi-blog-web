@@ -5,13 +5,10 @@ import com.wutsi.blog.app.page.sitemap.model.SitemapModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
-import org.springframework.web.client.RestTemplate
 import java.net.URL
 import javax.xml.bind.JAXB
 
 class SitemapControllerTest: SeleniumTestSupport() {
-    val rest = RestTemplate()
-
     @Test
     fun `sitemap content`() {
         val sitemap = JAXB.unmarshal(URL("$url/sitemap.xml"), SitemapModel::class.java)

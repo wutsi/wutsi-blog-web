@@ -5,6 +5,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 @RequestMapping("/me/channel")
+@ConditionalOnProperty(value="wutsi.toggles.channel", havingValue = "true")
 class ChannelController(
         private val service: ChannelService,
         requestContext: RequestContext

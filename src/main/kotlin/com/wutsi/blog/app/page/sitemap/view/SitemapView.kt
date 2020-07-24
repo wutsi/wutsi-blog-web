@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.sitemap.view
 
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.backend.UserBackend
+import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.sitemap.model.SitemapModel
 import com.wutsi.blog.app.page.sitemap.model.UrlModel
 import com.wutsi.blog.app.page.sitemap.service.SitemapMapper
@@ -22,7 +23,8 @@ import javax.xml.bind.Marshaller
 class SitemapView(
         private val storyBackend: StoryBackend,
         private val userBackend: UserBackend,
-        private val mapper: SitemapMapper
+        private val mapper: SitemapMapper,
+        private val toggles: Toggles
 ): View {
     companion object {
         const val LIMIT = 100
@@ -53,12 +55,17 @@ class SitemapView(
         )
     }
 
-    private fun pageUrls(): List<UrlModel> = arrayListOf(
-            mapper.toUrlModel("/"),
-            mapper.toUrlModel("/about"),
-            mapper.toUrlModel("/partner"),
-            mapper.toUrlModel("/create")
-    )
+    private fun pageUrls(): List<UrlModel> {
+        val urls = mutableListOf(
+                mapper.toUrlModel("/"),
+                mapper.toUrlModel("/about"),
+                mapper.toUrlModel("/create")
+        )
+        if (toggles.wpp) {
+            urls.add(mapper.toUrlModel("/partner"))
+        }
+        return urls
+    }
 
     private fun storyUrls(stories: List<StorySummaryDto>): List<UrlModel> {
         return stories.map { mapper.toUrlModel(it) }

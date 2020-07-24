@@ -1,11 +1,11 @@
 package com.wutsi.blog.app.page.stats.service
 
+import com.wutsi.blog.app.common.model.tui.BarChartModel
+import com.wutsi.blog.app.common.model.tui.BarChartSerieModel
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.stats.model.BarChartModel
-import com.wutsi.blog.app.page.stats.model.BarChartSerieModel
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.stats.StatsDto
 import com.wutsi.blog.client.stats.StatsStoryDto
 import com.wutsi.blog.client.stats.StatsType
@@ -83,19 +83,6 @@ class StatsMapper(
         )
     }
 
-    fun toStoryStatsModel(viewers: List<StatsDto>, readTime: List<StatsDto>): StatsStorySummaryModel {
-        val totalViews = viewers.sumByDouble { it.value.toDouble() }.toLong()
-        val totalReadTime = readTime.sumByDouble { it.value.toDouble() }.toLong()
-        val averageReadTime = if (totalViews == 0L) 0 else totalReadTime/totalViews
-        return StatsStorySummaryModel(
-                totalViews = totalViews,
-                totalViewsText = NumberUtils.toHumanReadable(totalViews),
-                averageReadTime = averageReadTime,
-                averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime),
-                totalReadTime = totalReadTime,
-                totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime)
-        )
-    }
 
     fun toBarChartModel(
             startDate: Date,
