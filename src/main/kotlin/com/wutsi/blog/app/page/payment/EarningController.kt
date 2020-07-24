@@ -3,6 +3,7 @@ package com.wutsi.blog.app.page.payment
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.model.tui.BarChartModel
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.partner.service.PartnerService
 import com.wutsi.blog.app.page.payment.service.EarningService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -19,6 +20,7 @@ import java.time.LocalDate
 @ConditionalOnProperty(value=["wutsi.toggles.earning"], havingValue = "true")
 class EarningController(
         private val service: EarningService,
+        private val partnerService: PartnerService,
         requestContext: RequestContext
 ): AbstractPageController( requestContext) {
     override fun pageName() = PageName.EARNING
@@ -29,19 +31,38 @@ class EarningController(
             model: Model
     ): String {
         val currentYear = toYear(year)
-        val nextYear = toYear(year)+1
-        val previousYear = toYear(year)-1
-        model.addAttribute("year", currentYear)
+        loadYear(currentYear, model)
+        loadTotal(currentYear, model)
+        loadTotal(currentYear, model)
+
+        model.addAttribute("joinWPP", shouldJoinWPP())
+        return "page/payment/earning"
+    }
+
+    private fun loadYear(year: Int, model: Model){
+        val nextYear = year+1
+        val previousYear = year-1
+        model.addAttribute("year", year)
         model.addAttribute("nextYear", nextYear)
         model.addAttribute("nextYearUrl", "/earning?year=$nextYear")
         model.addAttribute("previousYear", previousYear)
         model.addAttribute("previousYearUrl", "/earning?year=$previousYear")
+    }
 
-        val total = service.total(currentYear)
+    private fun loadTotal(year: Int, model: Model){
+        val total = service.total(year)
         if (!total.isEmpty()) {
             model.addAttribute("total", total)
         }
-        return "page/payment/earning"
+    }
+
+    private fun shouldJoinWPP(): Boolean {
+        try {
+            partnerService.get()
+            return false
+        } catch(ex: Exception){
+            return true
+        }
     }
 
     @ResponseBody

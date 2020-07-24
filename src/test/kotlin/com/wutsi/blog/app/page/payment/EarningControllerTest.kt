@@ -11,6 +11,7 @@ class EarningControllerTest: SeleniumTestSupport()  {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search.json")
+        stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/save.json")
     }
 
     @Test
@@ -31,6 +32,16 @@ class EarningControllerTest: SeleniumTestSupport()  {
         assertElementNotPresent(".tui-chart")
         assertElementNotPresent(".total-earning")
         assertElementPresent(".no-earning")
+    }
+
+
+    @Test
+    fun `invite user to join wpp`() {
+        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
+        stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
+        gotoPage()
+
+        assertElementPresent("#wpp")
     }
 
     @Test
