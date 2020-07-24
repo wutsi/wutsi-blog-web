@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping()
-@ConditionalOnProperty(value="wutsi.toggles.wpp", havingValue = "true")
+@ConditionalOnProperty(value=["wutsi.toggles.wpp"], havingValue = "true")
 class PartnerController(
         requestContext: RequestContext
 ): AbstractPageController( requestContext) {

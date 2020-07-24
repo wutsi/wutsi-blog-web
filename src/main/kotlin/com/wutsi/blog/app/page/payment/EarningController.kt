@@ -16,7 +16,7 @@ import java.time.LocalDate
 
 @Controller
 @RequestMapping("/me/earning")
-@ConditionalOnProperty(value="wutsi.toggles.earning", havingValue = "true")
+@ConditionalOnProperty(value=["wutsi.toggles.earning"], havingValue = "true")
 class EarningController(
         private val service: EarningService,
         requestContext: RequestContext

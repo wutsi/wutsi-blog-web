@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 @RequestMapping("/me/channel")
-@ConditionalOnProperty(value="wutsi.toggles.channel", havingValue = "true")
+@ConditionalOnProperty(value=["wutsi.toggles.channel"], havingValue = "true")
 class ChannelController(
         private val service: ChannelService,
         requestContext: RequestContext
