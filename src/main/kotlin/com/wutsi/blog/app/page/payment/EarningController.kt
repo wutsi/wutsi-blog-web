@@ -46,9 +46,9 @@ class EarningController(
         val previousYear = year-1
         model.addAttribute("year", year)
         model.addAttribute("nextYear", nextYear)
-        model.addAttribute("nextYearUrl", "/earning?year=$nextYear")
+        model.addAttribute("nextYearUrl", "/me/earning?year=$nextYear")
         model.addAttribute("previousYear", previousYear)
-        model.addAttribute("previousYearUrl", "/earning?year=$previousYear")
+        model.addAttribute("previousYearUrl", "/me/earning?year=$previousYear")
     }
 
     private fun loadTotal(year: Int, model: Model){
