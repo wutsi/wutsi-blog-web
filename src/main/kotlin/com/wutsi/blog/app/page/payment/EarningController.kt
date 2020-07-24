@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.model.tui.BarChartModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.partner.service.PartnerService
+import com.wutsi.blog.app.page.payment.service.ContractService
 import com.wutsi.blog.app.page.payment.service.EarningService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -20,7 +21,8 @@ import java.time.LocalDate
 @ConditionalOnProperty(value=["wutsi.toggles.earning"], havingValue = "true")
 class EarningController(
         private val service: EarningService,
-        private val partnerService: PartnerService,
+        private val partners: PartnerService,
+        private val contracts: ContractService,
         requestContext: RequestContext
 ): AbstractPageController( requestContext) {
     override fun pageName() = PageName.EARNING
@@ -56,14 +58,7 @@ class EarningController(
         }
     }
 
-    private fun shouldJoinWPP(): Boolean {
-        try {
-            partnerService.get()
-            return false
-        } catch(ex: Exception){
-            return true
-        }
-    }
+    private fun shouldJoinWPP() = !contracts.hasContract() && !partners.isPartner()
 
     @ResponseBody
     @GetMapping(value=["/bar-chart-data"], produces = ["application/json"])

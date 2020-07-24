@@ -13,6 +13,16 @@ class PartnerService(
         private val backend: PartnerBackend,
         private val mapper: PartnerMapper
 ) {
+
+    fun isPartner() : Boolean {
+        try {
+            backend.get().partner
+            return true
+        } catch (ex: Exception){
+            return false
+        }
+    }
+
     fun get(): PartnerModel {
         val partner = backend.get().partner
         return mapper.toPartnerModel(partner)

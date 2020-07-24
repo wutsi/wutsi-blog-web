@@ -11,7 +11,7 @@ class EarningControllerTest: SeleniumTestSupport()  {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search.json")
-        stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/save.json")
+        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/get.json")
     }
 
     @Test
@@ -38,10 +38,22 @@ class EarningControllerTest: SeleniumTestSupport()  {
     @Test
     fun `invite user to join wpp`() {
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
-        stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
+        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
+        stub(HttpMethod.GET, "/v1/contract/user/1", HttpStatus.NOT_FOUND)
         gotoPage()
 
         assertElementPresent("#wpp")
+    }
+
+
+    @Test
+    fun `never invite contractory to join wpp`() {
+        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
+        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
+        stub(HttpMethod.GET, "/v1/contract/user/1", HttpStatus.OK, "v1/contract/get.json")
+        gotoPage()
+
+        assertElementNotPresent("#wpp")
     }
 
     @Test

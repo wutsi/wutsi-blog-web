@@ -48,10 +48,12 @@ wutsi:
     base-url: http://localhost:8080
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
-    earning:
-      endpoint: ${wutsi.backend.base-url}/v1/earning
     channel:
       endpoint: ${wutsi.backend.base-url}/v1/channel
+    contract:
+      endpoint: ${wutsi.backend.base-url}/v1/contract
+    earning:
+      endpoint: ${wutsi.backend.base-url}/v1/earning
     mail:
       endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
