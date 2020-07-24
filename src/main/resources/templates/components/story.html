@@ -46,7 +46,10 @@
 <div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
 
     <a th:href="${story.draft} OR !${story.live} ? '/editor/' + ${story.id} : ${story.slug}">
-        <h3 class="title" th:text="${story.title}">Title</h3>
+        <h3 class="title">
+            <span th:text="${story.title}">Title</span>
+            <span th:replace="components/story :: wpp-badge(${story})"></span>
+        </h3>
         <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
         <div th:if="${story.published}" class="live" th:classappend="${story.live}? 'live-on' : 'live-off'">
             <span th:if="${story.live}"> <i class="fas fa-toggle-on"></i> </span>
@@ -311,6 +314,22 @@
     </ul>
     <div class="clearfix"></div>
 </div>
+
+<span th:fragment="wpp-badge(story)">
+    <i th:if="${story.wppStatus} AND ${story.wppStatus.name()} == 'approved'"
+       class="fas fa-dollar-sign story-wpp-approved"
+       data-toggle="popover"
+       title="Wutsi Partner Program"
+       th:data-content="#{story.wpp.approved}"
+    ></i>
+
+    <i th:if="${story.wppStatus} AND ${story.wppStatus.name()} == 'rejected'"
+       class="fas fa-dollar-sign story-wpp-rejected"
+       data-toggle="popover"
+       title="Wutsi Partner Program"
+       th:data-content="#{story.wpp.rejected}"
+    ></i>
+</span>
 
 </body>
 </html>

@@ -350,6 +350,13 @@ a.sso-button .fab {
     background-color: #fff;
 }
 
+.story-wpp-approved {
+    color: darkgreen;
+}
+.story-wpp-rejected {
+    color: red;
+}
+
 .wizard {
     display: inline-block;
     margin: 0 auto;

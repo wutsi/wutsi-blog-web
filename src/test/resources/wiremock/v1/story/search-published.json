@@ -15,7 +15,8 @@
       "creationDateTime": 1585327543000,
       "modificationDateTime": 1585334571000,
       "publishedDateTime": 1585327747000,
-      "slug": "/read/20/lorem-ipsum"
+      "slug": "/read/20/lorem-ipsum",
+      "wppStatus": "approved"
     },
     {
       "id": 21,
@@ -47,7 +48,8 @@
       "creationDateTime": 1585327543000,
       "modificationDateTime": 1585334571000,
       "publishedDateTime": 1585327747000,
-      "slug": "/read/21/lorem-ipsum"
+      "slug": "/read/21/lorem-ipsum",
+      "wppStatus": "rejected"
     }
 
   ]

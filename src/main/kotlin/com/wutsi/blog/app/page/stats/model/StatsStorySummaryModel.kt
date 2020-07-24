@@ -1,10 +1,10 @@
 package com.wutsi.blog.app.page.stats.model
 
 import com.wutsi.blog.app.common.model.MoneyModel
+import com.wutsi.blog.app.page.story.model.StoryModel
 
 data class StatsStorySummaryModel (
-        val storyId: Long = -1,
-        val title: String? = "",
+        val story: StoryModel = StoryModel(),
         val totalViews: Long = 0,
         val totalViewsText: String = "",
         val totalReadTime: Long = 0,

@@ -47,9 +47,10 @@
             </tr>
             <tr th:each="storySummary: ${storySummaries}">
                 <td>
-                    <a th:href="'/stats/story/' + ${storySummary.storyId} + '?year=' + ${year} + '&month=' + ${month}"
-                       th:text="${storySummary.title}"
+                    <a th:href="'/stats/story/' + ${storySummary.story.id} + '?year=' + ${year} + '&month=' + ${month}"
+                       th:text="${storySummary.story.title}"
                     >Story #1</a>
+                    <span th:replace="components/story :: wpp-badge(${storySummary.story})"></span>
                 </td>
                 <td class="text-center"  th:text="${storySummary.totalReadTimeText}">3h 30m</td>
                 <td class="text-center"  th:text="${storySummary.totalViewsText}">1,443</td>

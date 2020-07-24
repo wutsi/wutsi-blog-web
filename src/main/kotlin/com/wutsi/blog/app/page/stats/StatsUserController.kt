@@ -70,7 +70,7 @@ class StatsUserController(
 
     private fun loadStoriesSummary(currentYear: Int, currentMonth: Int, model: Model) {
         val storiesSummary = stats.stories(currentYear, currentMonth)
-                .sortedBy { it.title }
+                .sortedBy { it.story.title }
         model.addAttribute("storySummaries", storiesSummary)
     }
 

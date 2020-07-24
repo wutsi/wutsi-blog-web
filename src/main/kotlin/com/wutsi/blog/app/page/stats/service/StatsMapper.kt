@@ -7,6 +7,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.client.stats.StatsDto
 import com.wutsi.blog.client.stats.StatsStoryDto
 import com.wutsi.blog.client.stats.StatsType
@@ -23,6 +24,7 @@ import java.util.Date
 
 @Service
 class StatsMapper(
+        private val storyMapper: StoryMapper,
         private val requestContext: RequestContext
 ) {
     fun toStatsUserSummaryModel(stats: List<StatsUserDto>, overallTRL: StatsStoryDto?): StatsUserSummaryModel {
@@ -55,14 +57,12 @@ class StatsMapper(
     }
 
     fun toStatsStorySummaryModel(story: StorySummaryDto, stats: List<StatsStoryDto>): StatsStorySummaryModel {
-        return toStatsStorySummaryModel(story.id, story.title, story.wppStatus, stats)
+        val model = storyMapper.toStoryModel(story)
+        return toStatsStorySummaryModel(model, stats)
     }
 
     fun toStatsStorySummaryModel(story: StoryModel, stats: List<StatsStoryDto>): StatsStorySummaryModel {
-        return toStatsStorySummaryModel(story.id, story.title, story.wppStatus, stats)
-    }
-
-    private fun toStatsStorySummaryModel(id: Long, title: String?, wppStatus: WPPStatus?, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+        val id = story.id
         val totalViews = stats
                 .filter { it.type == StatsType.viewers && it.storyId == id }
                 .sumByDouble { it.value.toDouble() }.toLong()
@@ -78,15 +78,14 @@ class StatsMapper(
                 .sumByDouble { it.value.toDouble() }.toLong()
 
         return StatsStorySummaryModel(
-                storyId = id,
-                title = title,
+                story = story,
                 totalViews = totalViews,
                 totalViewsText = NumberUtils.toHumanReadable(totalViews),
                 totalReadTime = totalReadTime,
                 totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime),
                 averageReadTime = averageReadTime,
                 averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime),
-                earnings = if (wppStatus == WPPStatus.approved) MoneyModel(totalEarnings, "XAF") else null
+                earnings = if (story.wppStatus == WPPStatus.approved) MoneyModel(totalEarnings, "XAF") else null
         )
     }
 

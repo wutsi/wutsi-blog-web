@@ -68,6 +68,11 @@ function Wutsi (){
     };
 
     this.domReady = function () {
+        /* popover */
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover'
+        });
+
         /* lozad */
         const observer = lozad();
         observer.observe();
