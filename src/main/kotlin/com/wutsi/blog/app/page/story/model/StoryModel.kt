@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.story.model
 
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.story.StoryStatus
+import com.wutsi.blog.client.story.WPPStatus
 import java.util.Date
 
 data class StoryModel(
@@ -34,5 +35,6 @@ data class StoryModel(
         val slug: String = "",
         val topic: TopicModel = TopicModel(),
         val live: Boolean = false,
-        val liveDateTime: String = ""
+        val liveDateTime: String = "",
+        val wppStatus: WPPStatus? = null
 )

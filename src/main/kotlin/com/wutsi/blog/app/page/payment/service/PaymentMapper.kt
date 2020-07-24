@@ -1,12 +1,12 @@
 package com.wutsi.blog.app.page.payment.service
 
+import com.wutsi.blog.app.common.model.MoneyModel
 import com.wutsi.blog.app.common.model.tui.BarChartModel
 import com.wutsi.blog.app.common.model.tui.BarChartSerieModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.payment.model.EarningModel
 import com.wutsi.blog.client.payment.EarningDto
 import org.springframework.stereotype.Service
-import java.text.DecimalFormat
 
 @Service
 class PaymentMapper(private val requestContext: RequestContext){
@@ -14,9 +14,7 @@ class PaymentMapper(private val requestContext: RequestContext){
             id = obj.id,
             year = obj.year,
             month = obj.month,
-            amount = obj.amount,
-            currency = obj.currency,
-            amountText = formatMoney(obj.amount, obj.currency)
+            amount = MoneyModel(obj.amount, obj.currency)
     )
 
     fun toBarChartModel(
@@ -47,10 +45,5 @@ class PaymentMapper(private val requestContext: RequestContext){
         return months.map {
             if (it<10) "$year-0$it" else "$year-$it"
         }
-    }
-
-    fun formatMoney(amount: Long, currency: String): String {
-        val fmt = DecimalFormat()
-        return fmt.format(amount) + " " + currency
     }
 }

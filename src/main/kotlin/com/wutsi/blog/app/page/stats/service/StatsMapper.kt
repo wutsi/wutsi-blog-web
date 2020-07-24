@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.page.stats.service
 
+import com.wutsi.blog.app.common.model.MoneyModel
 import com.wutsi.blog.app.common.model.tui.BarChartModel
 import com.wutsi.blog.app.common.model.tui.BarChartSerieModel
 import com.wutsi.blog.app.common.service.RequestContext
@@ -11,6 +12,7 @@ import com.wutsi.blog.client.stats.StatsStoryDto
 import com.wutsi.blog.client.stats.StatsType
 import com.wutsi.blog.client.stats.StatsUserDto
 import com.wutsi.blog.client.story.StorySummaryDto
+import com.wutsi.blog.client.story.WPPStatus
 import com.wutsi.core.util.DurationUtils
 import com.wutsi.core.util.NumberUtils
 import org.apache.commons.lang.time.DateUtils
@@ -39,8 +41,8 @@ class StatsMapper(
         } else {
             0.0
         }
-        val fmt = NumberFormat.getPercentInstance()
 
+        val fmt = NumberFormat.getPercentInstance()
         return StatsUserSummaryModel(
                 totalViews = totalViews,
                 totalViewsText = NumberUtils.toHumanReadable(totalViews),
@@ -53,23 +55,27 @@ class StatsMapper(
     }
 
     fun toStatsStorySummaryModel(story: StorySummaryDto, stats: List<StatsStoryDto>): StatsStorySummaryModel {
-        return toStatsStorySummaryModel(story.id, story.title, stats)
+        return toStatsStorySummaryModel(story.id, story.title, story.wppStatus, stats)
     }
 
     fun toStatsStorySummaryModel(story: StoryModel, stats: List<StatsStoryDto>): StatsStorySummaryModel {
-        return toStatsStorySummaryModel(story.id, story.title, stats)
+        return toStatsStorySummaryModel(story.id, story.title, story.wppStatus, stats)
     }
 
-    fun toStatsStorySummaryModel(id: Long, title: String?, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+    private fun toStatsStorySummaryModel(id: Long, title: String?, wppStatus: WPPStatus?, stats: List<StatsStoryDto>): StatsStorySummaryModel {
         val totalViews = stats
                 .filter { it.type == StatsType.viewers && it.storyId == id }
                 .sumByDouble { it.value.toDouble() }.toLong()
 
         val totalReadTime = stats
-                .filter { it.type == StatsType.read_time&& it.storyId == id  }
+                .filter { it.type == StatsType.read_time && it.storyId == id  }
                 .sumByDouble { it.value.toDouble() }.toLong()
 
         val averageReadTime = if (totalViews == 0L) 0 else totalReadTime/totalViews
+
+        val totalEarnings = stats
+                .filter { it.type == StatsType.wpp_earning && it.storyId == id  }
+                .sumByDouble { it.value.toDouble() }.toLong()
 
         return StatsStorySummaryModel(
                 storyId = id,
@@ -79,7 +85,8 @@ class StatsMapper(
                 totalReadTime = totalReadTime,
                 totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime),
                 averageReadTime = averageReadTime,
-                averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime)
+                averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime),
+                earnings = if (wppStatus == WPPStatus.approved) MoneyModel(totalEarnings, "XAF") else null
         )
     }
 

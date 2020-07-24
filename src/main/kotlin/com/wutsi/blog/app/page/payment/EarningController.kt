@@ -53,7 +53,7 @@ class EarningController(
 
     private fun loadTotal(year: Int, model: Model){
         val total = service.total(year)
-        if (!total.isEmpty()) {
+        if (total != null) {
             model.addAttribute("total", total)
         }
     }

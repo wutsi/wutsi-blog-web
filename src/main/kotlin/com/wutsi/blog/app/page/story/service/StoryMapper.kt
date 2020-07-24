@@ -62,7 +62,8 @@ class StoryMapper(
                         .map { tagMapper.toTagModel(it) },
                 topic = if (story.topic == null) TopicModel() else topicMapper.toTopicMmodel(story.topic!!),
                 liveDateTime = moment.format(story.liveDateTime),
-                live = story.live
+                live = story.live,
+                wppStatus = story.wppStatus
         )
     }
 
@@ -87,7 +88,8 @@ class StoryMapper(
             slug = story.slug,
             topic = if (story.topicId == null) TopicModel() else nullToEmpty(topicService.get(story.topicId!!)),
             liveDateTime = moment.format(story.liveDateTime),
-            live = story.live
+            live = story.live,
+            wppStatus = story.wppStatus
     )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
