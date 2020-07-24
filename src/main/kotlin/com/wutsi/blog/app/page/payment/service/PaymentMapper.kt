@@ -50,7 +50,7 @@ class PaymentMapper(private val requestContext: RequestContext){
     }
 
     fun formatMoney(amount: Long, currency: String): String {
-        val fmt = DecimalFormat("#,#")
+        val fmt = DecimalFormat()
         return fmt.format(amount) + " " + currency
     }
 }

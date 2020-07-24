@@ -19,6 +19,18 @@ class EarningControllerTest: SeleniumTestSupport()  {
 
         Thread.sleep(5000)
         assertElementPresent(".tui-chart")
+        assertElementPresent(".total-earning")
+        assertElementNotPresent(".no-earning")
+    }
+
+    @Test
+    fun `user has no earning`() {
+        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
+        gotoPage()
+
+        assertElementNotPresent(".tui-chart")
+        assertElementNotPresent(".total-earning")
+        assertElementPresent(".no-earning")
     }
 
     @Test

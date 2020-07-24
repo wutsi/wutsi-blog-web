@@ -18,14 +18,25 @@
         <li class="next"> <a  th:href="${nextYearhUrl}" th:text="${nextYear}">Jun 2020</a></li>
     </ul>
 
-    <div id="chart-area"></div>
+    <div class="container-fluid">
+        <div class="row margin-top-2x">
+            <div class="col-12 col-md-6 padding margin-bottom">
+                <h5 th:text="#{page.earning.kpi.total_earnings}">Total Earnings</h5>
+                <h3 class="total-earning highlight" th:text="${total}" th:if="${total}">1,235</h3>
+                <div class="no-earning" th:text="#{label.no_earning}" th:if="!${total}">No Revenu</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="chart-area" th:if="${total}"></div>
 </div>
 
 <div th:replace="components/layout :: footer"></div>
 
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
-<script src="https://uicdn.toast.com/tui.chart/latest/tui-chart-all.js"></script>
-<script th:inline="javascript">
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css"  th:if="${total}">
+<script src="https://uicdn.toast.com/tui.chart/latest/tui-chart-all.js"  th:if="${total}"></script>
+<script th:inline="javascript" th:if="${total}">
     /*<![CDATA[*/
 
     const title = /*[[#{page.earning.kpi.earnings}]]*/'';
@@ -40,7 +51,6 @@
                     chart: {
                         width: 800,
                         height: 400,
-                        title: title,
                         format: '1,000'
                     },
                     yAxis: {

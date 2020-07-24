@@ -12,6 +12,19 @@ class EarningService(
         private val backend: EarningBackend,
         private val requestContext: RequestContext
 ) {
+    fun total(year: Int): String {
+        val earnings = backend.search(SearchEarningRequest(
+                userId = requestContext.currentUser()?.id,
+                year = year
+        )).earnings
+        if (earnings.isEmpty()) {
+            return ""
+        }
+
+        val amount = earnings.sumByDouble { it.amount.toDouble() }.toLong()
+        val currency = earnings[0].currency
+        return mapper.formatMoney(amount, currency)
+    }
     fun barChartData(year: Int): BarChartModel {
         val earnings = backend.search(SearchEarningRequest(
                 userId = requestContext.currentUser()?.id,

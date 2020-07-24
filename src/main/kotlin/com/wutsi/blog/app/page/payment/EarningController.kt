@@ -31,12 +31,16 @@ class EarningController(
         val currentYear = toYear(year)
         val nextYear = toYear(year)+1
         val previousYear = toYear(year)-1
-
         model.addAttribute("year", currentYear)
         model.addAttribute("nextYear", nextYear)
         model.addAttribute("nextYearUrl", "/earning?year=$nextYear")
         model.addAttribute("previousYear", previousYear)
         model.addAttribute("previousYearUrl", "/earning?year=$previousYear")
+
+        val total = service.total(currentYear)
+        if (!total.isEmpty()) {
+            model.addAttribute("total", total)
+        }
         return "page/payment/earning"
     }
 
