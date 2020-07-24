@@ -24,8 +24,8 @@
                                  th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type.name()} + '.png'"
                             />
                             <div>
-                                <h6 th:if="${channel.connected}" th:text="#{'page.channel.' + ${channel.type.name()} + '.disconnected'}">Title</h6>
-                                <h6 th:if="!${channel.connected}" th:text="#{'page.channel.' + ${channel.type.name()} + '.connected'}">Title</h6>
+                                <h6 th:if="${channel.connected}" th:text="#{'page.channel.' + ${channel.type.name()} + '.connected'}">Title</h6>
+                                <h6 th:if="!${channel.connected}" th:text="#{'page.channel.' + ${channel.type.name()} + '.disconnected'}">Title</h6>
 
                                 <div class="text-small" th:text="#{'page.channel.' + ${channel.type.name()} + '.description'}">Description</div>
                             </div>
