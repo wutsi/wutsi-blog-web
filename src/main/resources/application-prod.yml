@@ -25,7 +25,7 @@ wutsi:
     channel: true
     channel-twitter: true
     channel-facebook: false
-    earning: false
+    earning: true
     google-one-tap-sign-in: true
     imagekit: true
     pwa: true
