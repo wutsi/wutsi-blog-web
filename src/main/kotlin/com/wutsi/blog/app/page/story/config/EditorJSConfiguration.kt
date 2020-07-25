@@ -1,11 +1,12 @@
 package com.wutsi.blog.app.page.story.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.blog.app.page.story.service.HtmlImageService
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.editor.service.ImageKitFilter
 import com.wutsi.blog.app.page.editor.service.ImageLozadFilter
-import com.wutsi.blog.app.page.editor.service.LinkFilter
+import com.wutsi.blog.app.page.editor.service.LinkTargetFilter
+import com.wutsi.blog.app.page.editor.service.LinkUTMFilter
+import com.wutsi.blog.app.page.story.service.HtmlImageService
 import com.wutsi.editorjs.html.EJSHtmlReader
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.html.tag.TagProvider
@@ -36,11 +37,12 @@ class EditorJSConfiguration(private val objectMapper: ObjectMapper) {
     @Autowired
     @Bean
     fun ejsFilterSet(imageSize: HtmlImageService) = EJSFilterSet(arrayListOf(
-            LinkFilter(),
+            LinkTargetFilter(),
+            LinkUTMFilter(),
             ImageKitFilter(imageSize),
             ImageLozadFilter()  /* should be the LAST image filter */
     ))
 
     @Bean
-    fun linkFilter() = LinkFilter()
+    fun linkFilter() = LinkTargetFilter()
 }

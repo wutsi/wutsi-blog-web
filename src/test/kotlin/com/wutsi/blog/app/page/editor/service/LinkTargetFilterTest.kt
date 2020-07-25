@@ -4,8 +4,8 @@ import org.jsoup.Jsoup
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class LinkFilterTest {
-    private val filter = LinkFilter()
+class LinkTargetFilterTest {
+    private val filter = LinkTargetFilter()
 
     @Test
     fun filter() {
