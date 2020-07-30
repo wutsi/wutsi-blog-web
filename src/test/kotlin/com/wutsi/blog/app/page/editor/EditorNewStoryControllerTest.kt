@@ -11,6 +11,8 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
+
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-draft.json")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
@@ -44,7 +46,8 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
-
+        input("#tagline", "This is tagline")
+        input("#summary", "This is summary")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
 
@@ -56,6 +59,28 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         click("#btn-read")
         assertCurrentPageIs(PageName.READ)
+    }
+
+    @Test
+    fun `share with channel Twitter`() {
+        gotoPage(true)
+
+        input("#title", "Hello world")
+        click(".ce-paragraph")
+        input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
+        click("#btn-publish")
+
+        Thread.sleep(1000)
+        assertCurrentPageIs(PageName.EDITOR_READABILITY)
+        click("#btn-next")
+
+        assertCurrentPageIs(PageName.EDITOR_TAG)
+        select("#topic-id", 1)
+        click("#btn-publish")
+
+        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_twitter.json")
+        assertCurrentPageIs(PageName.EDITOR_SHARE)
+        assertElementNotPresent("#btn-twitter")
     }
 
     @Test
@@ -78,6 +103,8 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
+        input("#tagline", "This is tagline")
+        input("#summary", "This is summary")
 
         stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)
         click("#btn-publish")

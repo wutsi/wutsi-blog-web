@@ -1,0 +1,12 @@
+{
+  "channels":[
+    {
+      "id": 12,
+      "modificationDateTime": 1585327543000,
+      "name": "Channel 12",
+      "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
+      "userId": 1,
+      "type": "twitter"
+    }
+  ]
+}
