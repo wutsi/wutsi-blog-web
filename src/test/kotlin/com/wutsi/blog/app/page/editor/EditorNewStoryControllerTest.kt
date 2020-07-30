@@ -63,6 +63,8 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `share with channel Twitter`() {
+        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_twitter.json")
+
         gotoPage(true)
 
         input("#title", "Hello world")
@@ -76,9 +78,10 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.EDITOR_TAG)
         select("#topic-id", 1)
+        input("#tagline", "This is tagline")
+        input("#summary", "This is summary")
         click("#btn-publish")
 
-        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_twitter.json")
         assertCurrentPageIs(PageName.EDITOR_SHARE)
         assertElementNotPresent("#btn-twitter")
     }
