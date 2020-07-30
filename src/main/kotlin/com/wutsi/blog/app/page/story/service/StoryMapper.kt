@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.page.story.service
 
-import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.Moment
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
@@ -20,8 +19,7 @@ class StoryMapper(
         private val topicMapper: TopicMapper,
         private val topicService: TopicService,
         private val moment: Moment,
-        private val htmlImageMapper: HtmlImageModelMapper,
-        private val imageKit: ImageKitService
+        private val htmlImageMapper: HtmlImageModelMapper
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -85,6 +83,7 @@ class StoryMapper(
             modificationDateTime = moment.format(story.modificationDateTime),
             creationDateTime = moment.format(story.creationDateTime),
             publishedDateTime = moment.format(story.publishedDateTime),
+            publishedDateTimeAsDate = story.publishedDateTime,
             slug = story.slug,
             topic = if (story.topicId == null) TopicModel() else nullToEmpty(topicService.get(story.topicId!!)),
             liveDateTime = moment.format(story.liveDateTime),
