@@ -12,9 +12,7 @@ self.addEventListener('beforeinstallprompt', function (e) {
     // Update UI notify the user they can install the PWA
     $('#a2hs-container').show();
 
-    $('#btn-a2hs').click(function () {
-        console.log('#btn-a2hs');
-
+    $('#a2hs-container .btn-install').click(function () {
         // Hide the app provided install promotion
         $('#a2hs-container').hide();
 

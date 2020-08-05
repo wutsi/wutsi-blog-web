@@ -698,26 +698,19 @@ a.sso-button .fab {
 }
 
 
-/* add 2 homescreen */
-#a2hs-container {
+/* Ads cards */
+#a2hs-container, #push-container {
     display: none;
-}
-.a2hs-card {
-    background: white;
-}
-.a2hs-card h2 {
-    font-size: 1.5em;
 }
 
-/* push notification container */
-#push-container {
-    display: none;
-}
-.push-card {
+.ads-card {
     background: var(--highlight-color-light);
 }
-.push-card h2 {
+.ads-card h2 {
     font-size: 1.2em;
+}
+.ads-card p {
+    font-size: 0.8em;
 }
 
 

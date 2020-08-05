@@ -60,6 +60,11 @@
         </div>
     </article>
 
+    <!-- Push Notification -->
+    <div class="container border main-content margin-top">
+        <div th:replace="components/pwa :: push-card"></div>
+    </div>
+
     <!-- Recommendations -->
     <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}"></div>
     <script th:inline="javascript" th:if="${toggles.recommendation}">
@@ -75,7 +80,7 @@
     </script>
 
     <!-- Author -->
-    <div class="container border rounded main-content margin-top">
+    <div class="container border main-content margin-top">
         <div class="padding">
             <div th:replace="components/story :: author-card(${story.user})"></div>
         </div>

@@ -6,6 +6,7 @@ import com.wutsi.blog.app.util.PWAHelper
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
@@ -17,7 +18,18 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Value("\${wutsi.asset-url}")
     lateinit private var assetUrl: String
 
+    @Value("\${wutsi.pwa.firebase.sender-id}")
+    lateinit private var senderId: String
+
     val rest = RestTemplate()
+
+    override fun setupWiremock() {
+        super.setupWiremock()
+
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
+        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
+    }
+
 
     @Test
     fun `pwa headers`() {
@@ -32,9 +44,6 @@ class PWAControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name=viewport]", "content", "width=device-width, initial-scale=1")
 
         assertElementPresent("script#pwa-js")
-        assertElementPresent("script#firebase-app-js")
-        assertElementPresent("script#firebase-messaging-js")
-        assertElementPresent("script#firebase-js")
     }
 
     @Test
@@ -46,11 +55,51 @@ class PWAControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `add to homescreen`() {
+    fun `add to homescreen script`() {
         val response = rest.getForEntity("$url/a2hs-${PWAHelper.VERSION}.js", String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
         assertHeaderEquals(response,"Content-Type", "application/javascript;charset=UTF-8")
+    }
+
+    @Test
+    fun `add to homescreen in homepage`() {
+        driver.get(url)
+
+        Thread.sleep(1000)
+        assertElementPresent("script#a2hs-js")
+        assertElementPresent("#a2hs-container")
+    }
+
+    @Test
+    fun `add to homescreen in reader`() {
+        driver.get("$url/read/20/test")
+
+        Thread.sleep(1000)
+        assertElementPresent("script#a2hs-js")
+        assertElementPresent("#a2hs-container")
+    }
+
+    @Test
+    fun `push notification in homepage`() {
+        driver.get(url)
+
+        Thread.sleep(1000)
+        assertElementPresent("script#firebase-app-js")
+        assertElementPresent("script#firebase-messaging-js")
+        assertElementPresent("script#firebase-js")
+        assertElementPresent("#push-container")
+    }
+
+    @Test
+    fun `push notification in reader`() {
+        driver.get("$url/read/20/test")
+
+        Thread.sleep(1000)
+        assertElementPresent("script#firebase-app-js")
+        assertElementPresent("script#firebase-messaging-js")
+        assertElementPresent("script#firebase-js")
+        assertElementPresent("#push-container")
     }
 
     @Test
@@ -67,6 +116,7 @@ class PWAControllerTest: SeleniumTestSupport() {
         assertEquals("#f8f8f8", manifest.theme_color)
         assertEquals("#f8f8f8", manifest.background_color)
         assertEquals("$baseUrl?utm_medium=pwa&utm_source=app", manifest.start_url)
+        assertEquals(senderId, manifest.gcm_sender_id)
 
         assertEquals(2, manifest.icons.size)
         assertEquals("192x192", manifest.icons[0].sizes)
