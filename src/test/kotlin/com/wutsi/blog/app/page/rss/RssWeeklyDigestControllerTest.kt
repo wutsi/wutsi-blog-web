@@ -16,7 +16,7 @@ class RssWeeklyDigestControllerTest: SeleniumTestSupport() {
         val response = rest.getForEntity("$url/rss/digest/weekly", Channel::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
 
-        val items = response.body.items
+        val items = response.body?.items!!
         assertEquals(7, items.size)
 
         val item = items[0]

@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.page.story
 
-import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.story.model.StoryModel
@@ -35,6 +34,8 @@ abstract class AbstractStoryReadController(
 
     protected open fun generateSchemas(story: StoryModel): String? = null
 
+    protected open fun showNotificationOptIn(): Boolean = false
+
     private fun loadContent(story: StoryModel, model: Model) {
         if (story.content == null){
             return
@@ -67,7 +68,7 @@ abstract class AbstractStoryReadController(
         return doc.html()
     }
 
-    protected fun toPage(story: StoryModel)= PageModel(
+    protected fun toPage(story: StoryModel)= createPage(
             name = pageName(),
             title = story.title,
             description = story.summary,
@@ -77,17 +78,11 @@ abstract class AbstractStoryReadController(
             author = story.user.fullName,
             publishedTime = story.publishedDateTimeISO8601,
             modifiedTime = story.modificationDateTimeISO8601,
-            baseUrl = baseUrl,
-            assetUrl = assetUrl,
-            robots = getPageRobotsHeader(),
             tags = story.tags.map { it.name },
             twitterUserId = story.user.twitterId,
-            facebookPixelCode = this.facebookPixelId,
-            googleAnalyticsCode = this.googleAnalyticsCode,
-            googleClientId = this.googleClientId,
             canonicalUrl = story.sourceUrl,
-            showGoogleOneTap = shouldShowGoogleOneTap(),
-            schemas = generateSchemas(story)
+            schemas = generateSchemas(story),
+            showNotificationOptIn = showNotificationOptIn()
     )
 
 }

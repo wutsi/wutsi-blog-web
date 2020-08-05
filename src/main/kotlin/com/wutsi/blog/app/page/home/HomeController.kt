@@ -32,7 +32,8 @@ class HomeController(
     override fun page() = createPage(
             title = requestContext.getMessage("wutsi.title"),
             description = requestContext.getMessage("wutsi.description"),
-            schemas = schemas.generate()
+            schemas = schemas.generate(),
+            showNotificationOptIn = true
     )
 
     @GetMapping()

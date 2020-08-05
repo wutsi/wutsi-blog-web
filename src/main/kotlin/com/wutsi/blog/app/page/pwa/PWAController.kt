@@ -1,11 +1,15 @@
 package com.wutsi.blog.app.page.pwa
 
+import com.wutsi.blog.app.backend.PushSubscriptionBackend
 import com.wutsi.blog.app.page.pwa.model.IconModel
 import com.wutsi.blog.app.page.pwa.model.ManifestModel
 import com.wutsi.blog.app.util.PWAHelper
+import com.wutsi.blog.client.channel.CreatePushSubscriptionRequest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import java.text.SimpleDateFormat
@@ -15,10 +19,13 @@ import javax.servlet.http.HttpServletResponse
 @Controller
 @RequestMapping()
 class PWAController(
+        private val backend: PushSubscriptionBackend,
+        private val response: HttpServletResponse,
+
         @Value("\${wutsi.base-url}") private val baseUrl: String,
         @Value("\${wutsi.asset-url}") private val assetUrl: String,
         @Value("\${wutsi.pwa.manifest.name}") private val name: String,
-        private val response: HttpServletResponse
+        @Value("\${wutsi.pwa.firebase.sender-id}") private val senderId: String
 ) {
     companion object {
         private const val VERSION = PWAHelper.VERSION
@@ -45,9 +52,8 @@ class PWAController(
         return "page/pwa/a2hs"
     }
 
-
-    @GetMapping("/manifest-$VERSION.json", produces = ["application/json"])
     @ResponseBody
+    @GetMapping("/manifest-$VERSION.json", produces = ["application/json"])
     fun manifest(): ManifestModel {
         setUpCaching()
         return ManifestModel(
@@ -58,6 +64,7 @@ class PWAController(
                 background_color = "#f8f8f8",
                 theme_color = "#f8f8f8",
                 orientation = "portrait-primary",
+                gcm_sender_id = senderId,
                 icons = arrayListOf(
                         IconModel(
                                 src = "$assetUrl/assets/wutsi/img/logo/logo_192x192.png",
@@ -71,6 +78,13 @@ class PWAController(
                         )
                 )
         )
+    }
+
+    @ResponseBody
+    @PostMapping( "/push/subscription", produces = ["application/json"])
+    fun subscribe(@RequestBody form: Map<String, Any>): Map<String, Long> {
+        val response = backend.create(CreatePushSubscriptionRequest(token=form["token"].toString()))
+        return mapOf("id" to response.id)
     }
 
     private fun setUpCaching() {

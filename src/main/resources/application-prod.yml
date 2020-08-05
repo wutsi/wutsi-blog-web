@@ -21,6 +21,11 @@ wutsi:
       twitter:
         client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
 
+  pwa:
+    firebase:
+      server-key: "AAAABocQ47c:APA91bGCAAEFCibq-Apvjc_7_rzyWdeymOoh-A_3-9qBQ93Q0q5YvnLLUFrHVxXvDF6P_umcOScEEQLVuYifmZVyUaR3GeRGzJGD8los54kwTmXLrUsUmHUGi9qg0z8pL6n_8Ye5-YtT"
+      sender-id: "28035834807"
+
   toggles:
     channel: true
     channel-twitter: true
@@ -29,6 +34,7 @@ wutsi:
     google-one-tap-sign-in: true
     imagekit: true
     pwa: true
+    pwa-push-notification: false
     recommendation: true
     share-button: false
     publish: true

@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.common.controller
 
-import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
@@ -48,16 +47,10 @@ class WutsiErrorController(
         return "/error"
     }
 
-    private fun toPage(code: Int?) = PageModel(
+    private fun toPage(code: Int?) = createPage(
             name = pageName(code),
             title = requestContext.getMessage("wutsi.title"),
-            description = requestContext.getMessage("wutsi.description"),
-            type = "website",
-            assetUrl = assetUrl,
-            baseUrl = baseUrl,
-            robots = getPageRobotsHeader(),
-            googleAnalyticsCode = this.googleAnalyticsCode,
-            facebookPixelCode = this.facebookPixelId
+            description = requestContext.getMessage("wutsi.description")
     )
 
     private fun pageName(code: Int?): String {

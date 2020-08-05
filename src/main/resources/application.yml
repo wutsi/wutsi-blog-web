@@ -58,6 +58,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
       endpoint: ${wutsi.backend.base-url}/v1/partner
+    push_subscription:
+      endpoint: ${wutsi.backend.base-url}/v1/push/subscription
     recommendation:
       endpoint: ${wutsi.backend.base-url}/v1/recommendation
     sort:
@@ -118,6 +120,12 @@ wutsi:
   pwa:
     manifest:
       name: "Wutsi"
+    firebase:
+      project-id: "wutsi-int-274521"
+      api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
+      sender-id: "255903690741"
+      app-id: "1:255903690741:web:87ac16910084876e07fabc"
+      public-vapid-key: "BFmAST-JbJbs_viT2GQQ2iS36HSioZ2B-Q0xgETvjKJyBGVZdfE2DqO9VmWycDe5JEYQ3tDaGuqz_fA0PN_4ZPs"
 
   storage:
     local:
@@ -136,6 +144,7 @@ wutsi:
     earning: true                   # Show Earnings
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA
+    pwa-push-notification: true     # Enable PWA Push Notification?
     recommendation: true            # Show articles recommendations in reader
     share-button: false             # Show single share button, instead of individual social share buttons
     image-kit: true                 # Integration with imagekit.io

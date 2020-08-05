@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="a2hs-card" id="a2hs-container" class="a2hs-card border-highlight rounded padding">
+<div th:fragment="a2hs-card" id="a2hs-container" class="a2hs-card border-highlight padding">
     <div class="flex">
         <div class="margin-right"><i class="fas fa-mobile-alt fa-3x"></i></div>
         <div>
@@ -12,6 +12,15 @@
     </div>
 </div>
 
+<div th:fragment="push-card" id="push-container" class="push-card border-highlight padding">
+    <div class="flex">
+        <div class="margin-right"><i class="fas fa-sync-alt fa-2x"></i></div>
+        <div>
+            <div th:utext="#{component.pwa.push.message}">Message</div>
+            <button class="btn btn-primary btn-allow" th:text="#{button.allow}">Install</button>
+        </div>
+    </div>
+</div>
 
 
 </body>

@@ -8,5 +8,6 @@ data class ManifestModel (
         val background_color: String,
         val theme_color: String,
         val orientation: String,
-        val icons: List<IconModel>
+        val icons: List<IconModel>,
+        val gcm_sender_id: String
 )

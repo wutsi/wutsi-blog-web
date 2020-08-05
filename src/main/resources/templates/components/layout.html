@@ -62,7 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-13.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-36.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-37.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -139,20 +139,44 @@
         });
     </script>
 
-    <script id="pwa-code" th:inline="javascript" th:if="${toggles.pwa}">
+
+    <script id="firebase-app-js" src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js" th:if="${toggles.pwaPushNotification}"></script>
+    <script id="firebase-messaging-js" src="https://www.gstatic.com/firebasejs/7.10.0/firebase-messaging.js" th:if="${toggles.pwaPushNotification}"></script>
+    <script id="firebase-js" th:src="${page.assetUrl} + '/assets/wutsi/js/firebase-1.0.js'" th:if="${toggles.pwaPushNotification}"></script>
+    <script id="pwa-js" th:inline="javascript" th:if="${toggles.pwa}">
     /*<![CDATA[*/
 
         const version = /*[[${page.pwaVersion}]]*/'0';
+        const pushNotificationEnabled = /*[[${toggles.pwaPushNotification}]]*/'false';
+        const showNotificationOptIn = /*[[${page.showNotificationOptIn}]]*/'false';
+
         if('serviceWorker' in navigator){
-            navigator
-                .serviceWorker.register('/sw-' + version + '.js')
-                .then(function(reg) { console.log('service worker registered') })
-                .catch(function (err) { console.log('service worker not registered', err) });
+            navigator.serviceWorker
+                .register('/sw-' + version + '.js')
+                .then(function(reg) {
+                    console.log('service worker registered', reg);
+
+                    if (pushNotificationEnabled){
+                        const firebaseVapidKey = /*[[${page.firebaseConfig.publicVapidKey}]]*/'';
+                        const firebaseConfig = {
+                            apiKey: /*[[${page.firebaseConfig.apiKey}]]*/ '',
+                            projectId: /*[[${page.firebaseConfig.projectId}]]*/ '',
+                            messagingSenderId: /*[[${page.firebaseConfig.senderId}]]*/ '',
+                            appId: /*[[${page.firebaseConfig.appId}]]*/ ''
+                        };
+                        firebase_setup(reg, firebaseConfig, firebaseVapidKey, showNotificationOptIn)
+                    }
+
+                })
+                .catch(function (err) {
+                    console.error('service worker not registered', err);
+                });
         }
 
     /*]]>*/
     </script>
-    <script id="a2hs-code" th:src="'/a2hs-' + ${page.pwaVersion} + '.js'"></script>
+
+    <script id="a2hs-js" th:src="'/a2hs-' + ${page.pwaVersion} + '.js'"></script>
 </footer>
 
 

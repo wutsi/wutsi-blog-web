@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
-import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -39,18 +38,12 @@ class BlogController(
 
     private fun shouldShowCreatePanel(blog: UserModel, user: UserModel?) = user?.id == blog.id
 
-    protected fun page(user: UserModel) = PageModel(
-                name = pageName(),
-                title = user.fullName,
-                description = if (user.biography == null) "" else user.biography,
-                type = "profile",
-                url = url(user),
-                imageUrl = user.pictureUrl,
-                baseUrl = baseUrl,
-                assetUrl = assetUrl,
-                robots = getPageRobotsHeader(),
-                googleAnalyticsCode = this.googleAnalyticsCode,
-                facebookPixelCode = this.facebookPixelId,
-                schemas = schemas.generate(user)
-            )
+    protected fun page(user: UserModel) = createPage(
+            name = pageName(),
+            title = user.fullName,
+            description = if (user.biography == null) "" else user.biography,
+            type = "profile",
+            url = url(user),
+            imageUrl = user.pictureUrl
+    )
 }

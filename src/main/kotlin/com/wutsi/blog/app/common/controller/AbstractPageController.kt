@@ -1,15 +1,18 @@
 package com.wutsi.blog.app.common.controller
 
+import com.wutsi.blog.app.common.model.FirebaseConfigModel
 import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.util.ModelAttributeName
+import com.wutsi.blog.app.util.PWAHelper
 import com.wutsi.core.exception.ConflictException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.bind.annotation.ModelAttribute
 import java.util.UUID
+
 
 abstract class AbstractPageController(
         @ModelAttribute(ModelAttributeName.REQUEST_CONTEXT) protected val requestContext: RequestContext
@@ -28,6 +31,22 @@ abstract class AbstractPageController(
 
     @Value("\${wutsi.oauth.google.client-id}")
     protected lateinit var googleClientId: String
+
+    @Value("\${wutsi.pwa.firebase.public-vapid-key}")
+    private lateinit var firebasePublicVapidKey: String
+
+    @Value("\${wutsi.pwa.firebase.app-id}")
+    private lateinit var firebaseAppId: String
+
+    @Value("\${wutsi.pwa.firebase.project-id}")
+    private lateinit var firebaseProjectId: String
+
+    @Value("\${wutsi.pwa.firebase.api-key}")
+    private lateinit var firebaseApiKey: String
+
+    @Value("\${wutsi.pwa.firebase.sender-id}")
+    private lateinit var firebaseSenderId: String
+
 
     protected abstract fun pageName(): String
 
@@ -58,16 +77,33 @@ abstract class AbstractPageController(
     )
 
     protected fun createPage(
+            name: String = pageName(),
             title: String,
             description: String,
             type: String = "website",
-            imageUrl: String = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
-            schemas: String? = null
+            imageUrl: String? = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
+            schemas: String? = null,
+            url: String? = null,
+            author: String? = null,
+            publishedTime: String? = null,
+            modifiedTime: String? = null,
+            twitterUserId: String? = null,
+            canonicalUrl: String? = null,
+            tags: List<String> = emptyList(),
+            showNotificationOptIn: Boolean = false
     ) = PageModel(
-            name = pageName(),
+            name = name,
             title = title,
             description = description,
             type = type,
+            url = url,
+            author = author,
+            publishedTime = publishedTime,
+            modifiedTime = modifiedTime,
+            twitterUserId = twitterUserId,
+            canonicalUrl = canonicalUrl,
+            schemas = schemas,
+            tags = tags,
             robots = getPageRobotsHeader(),
             baseUrl = baseUrl,
             assetUrl = assetUrl,
@@ -77,7 +113,15 @@ abstract class AbstractPageController(
             showGoogleOneTap = shouldShowGoogleOneTap(),
             language = LocaleContextHolder.getLocale().language,
             imageUrl = imageUrl,
-            schemas = schemas
+            pwaVersion = PWAHelper.VERSION,
+            showNotificationOptIn = showNotificationOptIn,
+            firebaseConfig = FirebaseConfigModel(
+                    apiKey = firebaseApiKey,
+                    appId = firebaseAppId,
+                    senderId = firebaseSenderId,
+                    projectId = firebaseProjectId,
+                    publicVapidKey = firebasePublicVapidKey
+            )
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug

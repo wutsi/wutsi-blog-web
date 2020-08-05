@@ -31,7 +31,10 @@ class PWAControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name=theme-color]", "content", "#f8f8f8")
         assertElementAttribute("head meta[name=viewport]", "content", "width=device-width, initial-scale=1")
 
-        assertElementPresent("script#pwa-code")
+        assertElementPresent("script#pwa-js")
+        assertElementPresent("script#firebase-app-js")
+        assertElementPresent("script#firebase-messaging-js")
+        assertElementPresent("script#firebase-js")
     }
 
     @Test

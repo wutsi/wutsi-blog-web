@@ -698,7 +698,7 @@ a.sso-button .fab {
 }
 
 
-    /* add 2 homescreen */
+/* add 2 homescreen */
 #a2hs-container {
     display: none;
 }
@@ -707,6 +707,17 @@ a.sso-button .fab {
 }
 .a2hs-card h2 {
     font-size: 1.5em;
+}
+
+/* push notification container */
+#push-container {
+    display: none;
+}
+.push-card {
+    background: var(--highlight-color-light);
+}
+.push-card h2 {
+    font-size: 1.2em;
 }
 
 

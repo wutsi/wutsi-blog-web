@@ -39,7 +39,7 @@ class StorySchemasGenerator(
 
         schemas["name"] = name
         schemas["headline"] = name
-        if (story.tagline != null) {
+        if (story.tagline.isNotEmpty()) {
             schemas["alternativeHeadline"] = story.tagline
         }
         schemas["description"] = story.summary

@@ -1,7 +1,5 @@
 package com.wutsi.blog.app.common.model
 
-import com.wutsi.blog.app.util.PWAHelper
-
 data class PageModel (
         val name: String = "",
         val title: String = "",
@@ -22,8 +20,10 @@ data class PageModel (
         val canonicalUrl: String? = null,
         val googleClientId: String? = null,
         val showGoogleOneTap: Boolean = false,
-        val pwaVersion: String = PWAHelper.VERSION,
-        val language: String = "fr",
-        val schemas: String? = null
+        val pwaVersion: String,
+        val language: String,
+        val schemas: String?,
+        val firebaseConfig: FirebaseConfigModel,
+        val showNotificationOptIn: Boolean = false
 )
 
