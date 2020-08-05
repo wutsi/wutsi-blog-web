@@ -3,6 +3,7 @@ package com.wutsi.blog.app.page.pwa
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.pwa.model.ManifestModel
 import com.wutsi.blog.app.util.PWAHelper
+import com.wutsi.blog.app.util.PageName
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Value
@@ -65,6 +66,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `add to homescreen in homepage`() {
         driver.get(url)
+        assertCurrentPageIs(PageName.HOME)
 
         Thread.sleep(1000)
         assertElementPresent("script#a2hs-js")
@@ -74,6 +76,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `add to homescreen in reader`() {
         driver.get("$url/read/20/test")
+        assertCurrentPageIs(PageName.READ)
 
         Thread.sleep(1000)
         assertElementPresent("script#a2hs-js")
@@ -83,6 +86,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `push notification in homepage`() {
         driver.get(url)
+        assertCurrentPageIs(PageName.HOME)
 
         Thread.sleep(1000)
         assertElementPresent("script#firebase-app-js")
@@ -94,6 +98,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `push notification in reader`() {
         driver.get("$url/read/20/test")
+        assertCurrentPageIs(PageName.READ)
 
         Thread.sleep(1000)
         assertElementPresent("script#firebase-app-js")

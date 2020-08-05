@@ -61,7 +61,7 @@
     </article>
 
     <!-- Push Notification -->
-    <div class="container border main-content margin-top">
+    <div class="container border main-content margin-top" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}">
         <div th:replace="components/pwa :: push-card"></div>
     </div>
 

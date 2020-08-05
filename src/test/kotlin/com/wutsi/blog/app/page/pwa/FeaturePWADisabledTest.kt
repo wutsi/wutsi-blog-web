@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.pwa
 
 import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.app.util.PageName
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -27,20 +28,45 @@ class FeaturePWADisabledTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `add to homescreen in homepage`() {
+    fun `add to homescreen not visible in homepage`() {
         driver.get(url)
+        assertCurrentPageIs(PageName.HOME)
 
-        assertElementPresent("script#a2hs-code")
+        assertElementPresent("script#a2hs-js")
         assertElementNotPresent("link#a2hs-css")
         assertElementNotPresent("#a2hs-container")
     }
 
     @Test
-    fun `add to homescreen in reader`() {
+    fun `add to homescreen not visible in reader`() {
         driver.get("$url/read/20/test")
+        assertCurrentPageIs(PageName.READ)
 
-        assertElementPresent("script#a2hs-code")
+        assertElementPresent("script#a2hs-js")
         assertElementNotPresent("#a2hs-container")
     }
 
+    @Test
+    fun `push notification not visible in homepage`() {
+        driver.get(url)
+        assertCurrentPageIs(PageName.HOME)
+
+        Thread.sleep(1000)
+        assertElementNotPresent("script#firebase-app-js")
+        assertElementNotPresent("script#firebase-messaging-js")
+        assertElementNotPresent("script#firebase-js")
+        assertElementNotPresent("#push-container")
+    }
+
+    @Test
+    fun `push notification not visible in reader`() {
+        driver.get("$url/read/20/test")
+        assertCurrentPageIs(PageName.READ)
+
+        Thread.sleep(1000)
+        assertElementNotPresent("script#firebase-app-js")
+        assertElementNotPresent("script#firebase-messaging-js")
+        assertElementNotPresent("script#firebase-js")
+        assertElementNotPresent("#push-container")
+    }
 }

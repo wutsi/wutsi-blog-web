@@ -44,6 +44,7 @@ class BlogController(
             description = if (user.biography == null) "" else user.biography,
             type = "profile",
             url = url(user),
-            imageUrl = user.pictureUrl
+            imageUrl = user.pictureUrl,
+            schemas = schemas.generate(user)
     )
 }
