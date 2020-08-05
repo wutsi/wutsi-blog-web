@@ -18,7 +18,7 @@ class A2HSControllerTest: SeleniumMobileTestSupport() {
         driver.get(url)
 
         Thread.sleep(1000)
-        assertElementPresent("script#a2hs-code")
+        assertElementPresent("script#a2hs-js")
         assertElementPresent("#a2hs-container")
     }
 
@@ -27,7 +27,7 @@ class A2HSControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/test")
 
         Thread.sleep(1000)
-        assertElementPresent("script#a2hs-code")
+        assertElementPresent("script#a2hs-js")
         assertElementPresent("#a2hs-container")
     }
 }

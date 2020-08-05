@@ -47,11 +47,6 @@ class PWAController(
         return "page/pwa/a2hs.js"
     }
 
-    @GetMapping("/a2hs")
-    fun a2hs(): String {
-        return "page/pwa/a2hs"
-    }
-
     @ResponseBody
     @GetMapping("/manifest-$VERSION.json", produces = ["application/json"])
     fun manifest(): ManifestModel {
