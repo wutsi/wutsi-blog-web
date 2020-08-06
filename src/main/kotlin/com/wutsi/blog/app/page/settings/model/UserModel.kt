@@ -22,5 +22,5 @@ data class UserModel (
         val linkedinId: String? = null,
         val youtubeId: String? = null,
         val hasSocialLinks: Boolean = true,
-        val blog:  Boolean = true
+        val blog: Boolean = true
 )

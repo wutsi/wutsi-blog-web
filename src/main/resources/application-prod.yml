@@ -34,7 +34,7 @@ wutsi:
     google-one-tap-sign-in: true
     imagekit: true
     pwa: true
-    pwa-push-notification: false
+    pwa-push-notification: true
     recommendation: true
     share-button: false
     publish: true
