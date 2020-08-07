@@ -1,19 +1,14 @@
-const wutsiCacheName = 'wutsi-v5';
+const wutsiCacheName = 'wutsi-cache';
 
 self.addEventListener('install', function(event) {
     console.log('Installing service worker', event);
-
-});
-
-self.addEventListener('activate', function (event) {
-    console.log('Activating new service worker...');
 
     const cacheWhitelist = [wutsiCacheName];
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
                 cacheNames.map(function (cacheName) {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    if (cacheWhitelist.indexOf(cacheName) >= 0) {
                         console.log('Purging cache:', cacheName);
                         return caches.delete(cacheName);
                     }
@@ -21,6 +16,10 @@ self.addEventListener('activate', function (event) {
             );
         })
     );
+});
+
+self.addEventListener('activate', function (event) {
+    console.log('Activating new service worker...');
 });
 
 self.addEventListener('push', function(event) {
@@ -42,33 +41,47 @@ self.addEventListener('notificationclick', function(event) {
 });
 
 self.addEventListener('fetch', function(event)  {
-    // console.log('Fetching', event);
-    const url = event.request.url;
-    const method = event.request.method;
+    // console.log('Fetching', event.request.method, event.request.url);
 
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response){
-                if (response) {
-                    console.log(method, url, 'Fetched from Cache');
-                    return response;
-                }
-                return fetch(event.request)
-                        .then(function(response){
-                            console.log(method, url, 'Fetched from Network');
-                            if (sw_should_cache(event.request)){
-                                const clone = response.clone();
-                                caches.open(wutsiCacheName).then(function(cache){
-                                    console.log('Caching', url);
-                                    cache.put(url, clone);
-                                    return response;
-                                });
-                            }
-                            return response;
-                        });
-            })
-    );
+    sw_fetch_from_cache(event).catch(function(){
+        return sw_fetch_from_network(event)
+    });
 });
+
+
+
+/*==========[ Private methods ]===============*/
+function sw_fetch_from_cache(event){
+    return caches
+        .open(wutsiCacheName)
+        .then(function (cache) {
+            return cache.match(event.request).then(function (matching) {
+                if (matching){
+                    // console.log('Fetched from Cache', event.request.method, event.request.url);
+                    return matching;
+                }
+                return Promise.reject('no-match');
+            });
+        });
+}
+
+function sw_fetch_from_network(event) {
+    return fetch(event.request)
+        .then(function(response){
+            // console.log('Fetched from Network', event.request.method, event.request.url);
+
+            if (sw_should_cache(event.request)){
+                // console.log('Caching', event.request.method, event.request.url);
+                const clone = response.clone();
+                caches.open(wutsiCacheName).then(function(cache){
+                    cache.put(event.request.url, clone);
+                    return response;
+                });
+            }
+
+            return response;
+        });
+}
 
 function sw_show_notification(data) {
     if (sw_should_show_notification(data)){
@@ -103,15 +116,16 @@ function sw_should_show_notification(data) {
 }
 
 function sw_should_cache(request) {
-    if (request.method == 'POST'){
+    const url = request.url;
+    if (request.method == 'POST' || url.endsWith('sw.js')){
         return false
     }
 
-    const url = request.url;
     return url.endsWith(".png") ||
         url.endsWith(".jpg") ||
         url.endsWith(".json") ||
         url.endsWith(".js") ||
-        url.endsWith(".css")
+        url.endsWith(".css") ||
+        url.endsWith(".ico")
     ;
 }

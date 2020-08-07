@@ -20,7 +20,6 @@ data class PageModel (
         val canonicalUrl: String? = null,
         val googleClientId: String? = null,
         val showGoogleOneTap: Boolean = false,
-        val pwaVersion: String,
         val language: String,
         val schemas: String?,
         val firebaseConfig: FirebaseConfigModel,

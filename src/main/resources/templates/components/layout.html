@@ -8,7 +8,7 @@
 <div th:fragment="head" th:remove="tag">
     <meta charset="utf-8" />
 
-    <link rel="manifest" th:href="'/manifest-' + ${page.pwaVersion} + '.json'" th:if="${toggles.pwa}"/>
+    <link rel="manifest" href="/manifest.json" th:if="${toggles.pwa}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" />
     <meta name="theme-color" content="#f8f8f8">
@@ -146,16 +146,32 @@
     <script id="pwa-js" th:inline="javascript" th:if="${toggles.pwa}">
     /*<![CDATA[*/
 
-        const version = /*[[${page.pwaVersion}]]*/'0';
         const pushNotificationEnabled = /*[[${toggles.pwaPushNotification}]]*/'false';
         const showNotificationOptIn = /*[[${page.showNotificationOptIn}]]*/'false';
 
         if('serviceWorker' in navigator){
             navigator.serviceWorker
-                .register('/sw-' + version + '.js')
+                .register('/sw.js')
                 .then(function(reg) {
-                    console.log('service worker registered', reg);
+                    console.log('Service Worker registered', reg);
 
+                    // Upgrade
+                    reg.addEventListener('updatefound', function() {
+                        console.log('Upgrading Service Worker...');
+
+                        newWorker = reg.installing;
+                        newWorker.addEventListener('statechange', function() {
+                            // Has service worker state changed?
+                            switch (newWorker.state) {
+                                case 'installed':
+                                    reg.update();
+                                    console.log('Service Worker updated');
+                                    break;
+                                }
+                        });
+                    });
+
+                    // Push Notification
                     if (pushNotificationEnabled){
                         const firebaseVapidKey = /*[[${page.firebaseConfig.publicVapidKey}]]*/'';
                         const firebaseConfig = {
@@ -176,7 +192,7 @@
     /*]]>*/
     </script>
 
-    <script id="a2hs-js" th:src="'/a2hs-' + ${page.pwaVersion} + '.js'"></script>
+    <script id="a2hs-js" src="/a2hs.js"></script>
 </footer>
 
 

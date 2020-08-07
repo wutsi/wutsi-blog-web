@@ -3,8 +3,8 @@ package com.wutsi.blog.app.page.pwa
 import com.wutsi.blog.app.backend.PushSubscriptionBackend
 import com.wutsi.blog.app.page.pwa.model.IconModel
 import com.wutsi.blog.app.page.pwa.model.ManifestModel
-import com.wutsi.blog.app.util.PWAHelper
 import com.wutsi.blog.client.channel.CreatePushSubscriptionRequest
+import org.apache.commons.lang.time.DateUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,28 +27,24 @@ class PWAController(
         @Value("\${wutsi.pwa.manifest.name}") private val name: String,
         @Value("\${wutsi.pwa.firebase.sender-id}") private val senderId: String
 ) {
-    companion object {
-        private const val VERSION = PWAHelper.VERSION
-    }
-
-    private val lastModified: String = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").format(Date())
-    private val maxAge = 86400 * 365 * 10   // 10 years
+    private val lastModified = Date()
+    private val maxAge = 60   // 1 hour
 
 
-    @GetMapping("/sw-$VERSION.js", produces = ["text/javascript"])
+    @GetMapping("/sw.js", produces = ["text/javascript"])
     fun sw(): String {
         setUpCaching()
         return "page/pwa/sw.js"
     }
 
-    @GetMapping("/a2hs-$VERSION.js", produces = ["text/javascript"])
+    @GetMapping("/a2hs.js", produces = ["text/javascript"])
     fun a2hsjs(): String {
         setUpCaching()
         return "page/pwa/a2hs.js"
     }
 
     @ResponseBody
-    @GetMapping("/manifest-$VERSION.json", produces = ["application/json"])
+    @GetMapping("/manifest.json", produces = ["application/json"])
     fun manifest(): ManifestModel {
         setUpCaching()
         return ManifestModel(
@@ -83,8 +79,12 @@ class PWAController(
     }
 
     private fun setUpCaching() {
-        response.setHeader("Last-Modified", lastModified)
-        response.setHeader("Cache-Control", "private, max-age=$maxAge")
+        val fmt = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+        val expires = DateUtils.addSeconds(lastModified, maxAge)
+
+        response.setHeader("Last-Modified", fmt.format(lastModified))
+        response.setHeader("Expires", fmt.format(expires))
+        response.setHeader("Cache-Control", "public, max-age=$maxAge")
     }
 }
 

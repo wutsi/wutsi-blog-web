@@ -6,7 +6,6 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.util.ModelAttributeName
-import com.wutsi.blog.app.util.PWAHelper
 import com.wutsi.core.exception.ConflictException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
@@ -113,7 +112,6 @@ abstract class AbstractPageController(
             showGoogleOneTap = shouldShowGoogleOneTap(),
             language = LocaleContextHolder.getLocale().language,
             imageUrl = imageUrl,
-            pwaVersion = PWAHelper.VERSION,
             showNotificationOptIn = showNotificationOptIn,
             firebaseConfig = FirebaseConfigModel(
                     apiKey = firebaseApiKey,

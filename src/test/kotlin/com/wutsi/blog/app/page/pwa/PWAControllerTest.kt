@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.pwa
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.pwa.model.ManifestModel
-import com.wutsi.blog.app.util.PWAHelper
 import com.wutsi.blog.app.util.PageName
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -35,7 +34,7 @@ class PWAControllerTest: SeleniumTestSupport() {
     @Test
     fun `pwa headers`() {
         driver.get(url)
-        assertElementAttributeEndsWith("head link[rel=manifest]", "href", "/manifest-${PWAHelper.VERSION}.json")
+        assertElementAttributeEndsWith("head link[rel=manifest]", "href", "/manifest.json")
         assertElementAttributeEndsWith("head link[rel=apple-touch-icon]", "href", "/assets/wutsi/img/logo/logo_96x96.png")
         assertElementAttribute("head meta[name=apple-mobile-web-app-status-bar]", "content", "#f8f8f8")
         assertElementAttribute("head meta[name=apple-mobile-web-app-title]", "content", "Wutsi")
@@ -49,7 +48,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `service worker`() {
-        val response = rest.getForEntity("$url/sw-${PWAHelper.VERSION}.js", String::class.java)
+        val response = rest.getForEntity("$url/sw.js", String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
         assertHeaderEquals(response,"Content-Type", "application/javascript;charset=UTF-8")
@@ -57,7 +56,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `add to homescreen script`() {
-        val response = rest.getForEntity("$url/a2hs-${PWAHelper.VERSION}.js", String::class.java)
+        val response = rest.getForEntity("$url/a2hs.js", String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
         assertHeaderEquals(response,"Content-Type", "application/javascript;charset=UTF-8")
@@ -109,7 +108,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `manifest`() {
-        val response = rest.getForEntity("$url/manifest-${PWAHelper.VERSION}.json", ManifestModel::class.java)
+        val response = rest.getForEntity("$url/manifest.json", ManifestModel::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
 
