@@ -44,7 +44,7 @@ function firebase_request_permission(registration, messaging, showNotificationOp
             console.log('User subscription', subscription);
             if (subscription === null){
                 console.log('Showing Notification OptIn panel');
-                $('#push-container').show('slow', function(){
+                $('#push-container').show(0, function(){
                     console.log('Notification OptIn is visible');
                     wutsi.track('pwa_push_show');
                 });
@@ -60,7 +60,10 @@ function firebase_request_permission(registration, messaging, showNotificationOp
 function firebase_get_token(messaging) {
     messaging.getToken()
         .then(function(token){
-            wutsi.track('pwa_push_allow');
-            wutsi.httpPost('/push/subscription', { token: token }, true);
+            wutsi
+                .httpPost('/push/subscription', { token: token }, true)
+                .then(function(){
+                    wutsi.track('pwa_push_allow');
+                });
         });
 }

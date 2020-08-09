@@ -519,6 +519,12 @@ a.sso-button .fab {
 .reader h5 {
     padding-top: 20px;
 }
+.reader h2:first-child,
+.reader h3:first-child,
+.reader h4:first-child,
+.reader h5:first-child {
+    padding-top: 0;
+}
 
 .reader .share a {
     text-decoration: none;
@@ -552,11 +558,9 @@ a.sso-button .fab {
     text-decoration: none;
 }
 
-.reader .imported-content-message {
-    font-size: 0.9em;
-    font-style: italic;
+.reader .ads-card {
+    border: 1px solid var(--highlight-color)
 }
-
 
 .reader .content > * {
     margin-bottom: 20px;

@@ -11,7 +11,7 @@ self.addEventListener('beforeinstallprompt', function (e) {
 
     // Show UI notify the user they can install the PWA
     console.log('Showing PWA App Installer');
-    $('#a2hs-container').show('slow', function(){
+    $('#a2hs-container').show(0, function(){
         console.log('PWA App Installer is visible');
         wutsi.track('pwa_a2hs_show');
     });

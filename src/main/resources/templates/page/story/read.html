@@ -45,7 +45,7 @@
         </div>
 
         <!-- PWA Install -->
-        <div class="margin-top border-highlight" th:if="${toggles.pwa}">
+        <div class="margin-top" th:if="${toggles.pwa}">
             <div th:replace="components/pwa :: a2hs-card"></div>
         </div>
 
@@ -65,7 +65,7 @@
         </div>
 
         <!-- PWA Push Notification -->
-        <div class="border-highlight" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}">
+        <div th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}">
             <div th:replace="components/pwa :: push-card"></div>
         </div>
     </article>
