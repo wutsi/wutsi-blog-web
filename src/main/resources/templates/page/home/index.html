@@ -14,22 +14,22 @@
         <div class="col-12 offset-lg-1 col-lg-6">
 
             <div id="main-post" th:if="${mainStory}">
-                <section class="post padding border rounded margin-top">
+                <section class="post padding border margin-top">
                     <div th:replace="components/story :: story-card(${mainStory}, 'read', 0)"></div>
                 </section>
             </div>
 
-            <section class="margin-top" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}">
-                <div th:replace="components/pwa :: push-card"></div>
+            <section th:if="${toggles.pwa}">
+                <div th:replace="components/pwa :: a2hs-card"></div>
             </section>
 
             <div id="featured-posts" th:if="${featuredStories} AND !${featuredStories.isEmpty()}">
                 <div th:each="story,it: ${featuredStories}">
-                    <section class="post padding border rounded margin-top">
+                    <section class="post padding border">
                         <div th:replace="components/story :: story-summary-card(${story}, true, 'read', ${it.count})"></div>
                     </section>
-                    <section class="margin-top" th:if="${toggles.pwa} AND ${it.index == 2}">
-                        <div th:replace="components/pwa :: a2hs-card"></div>
+                    <section th:if="${toggles.pwa} AND ${toggles.pwaPushNotification} AND ${it.index == 2}">
+                        <div th:replace="components/pwa :: push-card"></div>
                     </section>
                 </div>
             </div>

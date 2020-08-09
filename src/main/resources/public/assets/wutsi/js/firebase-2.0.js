@@ -23,7 +23,6 @@ function firebase_request_permission(registration, messaging, showNotificationOp
     $('#push-container .btn-allow').click(function(){
         try {
             messaging.requestPermission();
-            wutsi.track('pwapush');
 
             // Get token
             firebase_get_token(messaging);
@@ -44,8 +43,11 @@ function firebase_request_permission(registration, messaging, showNotificationOp
         .then(function(subscription) {
             console.log('User subscription', subscription);
             if (subscription === null){
-                console.log('Show Notification OptIn panel');
-                $('#push-container').show();
+                console.log('Showing Notification OptIn panel');
+                $('#push-container').show('slow', function(){
+                    console.log('Notification OptIn is visible');
+                    wutsi.track('pwa_push_show');
+                });
             }
 
             // Refetsh token
@@ -58,7 +60,7 @@ function firebase_request_permission(registration, messaging, showNotificationOp
 function firebase_get_token(messaging) {
     messaging.getToken()
         .then(function(token){
-            console.log('Token Refreshed', token);
+            wutsi.track('pwa_push_allow');
             wutsi.httpPost('/push/subscription', { token: token }, true);
         });
 }

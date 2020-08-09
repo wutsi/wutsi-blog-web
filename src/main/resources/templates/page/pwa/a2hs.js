@@ -9,8 +9,12 @@ self.addEventListener('beforeinstallprompt', function (e) {
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
 
-    // Update UI notify the user they can install the PWA
-    $('#a2hs-container').show();
+    // Show UI notify the user they can install the PWA
+    console.log('Showing PWA App Installer');
+    $('#a2hs-container').show('slow', function(){
+        console.log('PWA App Installer is visible');
+        wutsi.track('pwa_a2hs_show');
+    });
 
     $('#a2hs-container .btn-install').click(function () {
         // Hide the app provided install promotion
@@ -33,6 +37,6 @@ self.addEventListener('beforeinstallprompt', function (e) {
 
 
 self.addEventListener('appinstalled', function () {
-    console.log('appinstalled');
-    wutsi.track('pwainstalled');
+    console.log('PWA App install');
+    wutsi.track('pwa_a2hs_install');
 });

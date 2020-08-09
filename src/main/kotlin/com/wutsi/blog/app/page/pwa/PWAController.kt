@@ -28,7 +28,7 @@ class PWAController(
         @Value("\${wutsi.pwa.firebase.sender-id}") private val senderId: String
 ) {
     private val lastModified = Date()
-    private val maxAge = 60   // 1 hour
+    private val maxAge = 86400   // 1 day
 
 
     @GetMapping("/sw.js", produces = ["text/javascript"])
