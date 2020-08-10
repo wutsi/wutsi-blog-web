@@ -6,8 +6,7 @@ import org.springframework.security.core.GrantedAuthority
 
 class OAuthTokenAuthentication(
         private val principal: OAuthPrincipal,
-        val accessToken: String,
-        val state: String
+        val accessToken: String
 ) : Authentication {
     private var authenticated = false
 
@@ -15,7 +14,7 @@ class OAuthTokenAuthentication(
 
     override fun getAuthorities(): Collection<GrantedAuthority> = emptyList()
 
-    override fun getCredentials() = state
+    override fun getCredentials() = null
 
     override fun getDetails() = null
 

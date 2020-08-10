@@ -22,8 +22,7 @@ class OAuthAuthenticationFilter(
         val user = getUserAttributes(request)
         return authenticationManager.authenticate(OAuthTokenAuthentication(
                 principal = OAuthPrincipal(accessToken, user),
-                accessToken = accessToken,
-                state = getRequiredParameter(SecurityConfiguration.PARAM_STATE, request)
+                accessToken = accessToken
         ))
     }
 
