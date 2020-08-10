@@ -1,12 +1,9 @@
 package com.wutsi.blog.app.security.oauth
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
-import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.client.user.AuthenticateRequest
-import com.wutsi.core.logging.KVLogger
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.authentication.AuthenticationProvider
-import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
@@ -15,17 +12,11 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class OAuthAuthenticationProvider(
         private val backend: AuthenticationBackend,
-        private val request: HttpServletRequest,
-        private val logger: KVLogger
+        private val request: HttpServletRequest
 ) : AuthenticationProvider {
     override fun authenticate(auth: Authentication): Authentication {
-        try {
-            validateState()
-            val authentication = auth as OAuthTokenAuthentication
-            return authenticate(authentication)
-        } finally {
-            clearState()
-        }
+        val authentication = auth as OAuthTokenAuthentication
+        return authenticate(authentication)
     }
 
     private fun authenticate(authentication: OAuthTokenAuthentication): Authentication {
@@ -46,18 +37,4 @@ class OAuthAuthenticationProvider(
     }
 
     override fun supports(clazz: Class<*>) = OAuthTokenAuthentication::class.java == clazz
-
-    private fun validateState() {
-        val state = request.getParameter("state")
-        val sessionState = request.session.getAttribute(SecurityConfiguration.SESSION_STATE)
-        logger.add("StateRequest", state)
-        logger.add("StateSession", sessionState)
-        if (state == null || state.isEmpty() || state != sessionState){
-            throw BadCredentialsException("invalid_state")
-        }
-    }
-
-    private fun clearState() {
-        request.session.removeAttribute(SecurityConfiguration.SESSION_STATE)
-    }
 }

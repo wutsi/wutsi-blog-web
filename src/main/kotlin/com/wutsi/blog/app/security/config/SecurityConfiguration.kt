@@ -24,8 +24,6 @@ class SecurityConfiguration(
         const val OAUTH_SIGNIN_PATTERN = "/login/oauth/signin"
         const val QA_SIGNIN_PATTERN = "/login/qa/signin"
 
-        const val SESSION_STATE = "wusti.social.state"
-
         const val PARAM_ACCESS_TOKEN = "token"
         const val PARAM_STATE = "state"
         const val PARAM_USER = "user"

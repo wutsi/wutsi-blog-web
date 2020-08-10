@@ -24,10 +24,9 @@ class OneTapController(
     @GetMapping("/callback")
     @ResponseBody()
     fun callback(request: HttpServletRequest): Map<String, String> {
-        val state = generateState(request)
         val credential = request.getParameter("credential")
         val user = toOAuthUser(credential)
-        val url = getSigninUrl(UUID.randomUUID().toString() , state, user)
+        val url = getSigninUrl(UUID.randomUUID().toString() , user)
 
         logger.add("RedirectURL", url)
         return mapOf("url" to url)

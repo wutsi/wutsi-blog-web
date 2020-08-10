@@ -21,20 +21,13 @@ class QAAuthenticationFilter(
     @Throws(AuthenticationException::class)
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         val accessToken = generateAccessToken()
-        val state = createState(request)
-        val auth = createAuthentication(accessToken, state)
+        val auth = createAuthentication(accessToken)
         return authenticationManager.authenticate(auth)
     }
 
     private fun generateAccessToken() = UUID.randomUUID().toString()
 
-    private fun createState(request: HttpServletRequest): String {
-        val state = request.getParameter(SecurityConfiguration.PARAM_STATE)
-        request.session.setAttribute(SecurityConfiguration.SESSION_STATE, state)
-        return state
-    }
-
-    private fun createAuthentication(accessToken: String, state: String) = OAuthTokenAuthentication(
+    private fun createAuthentication(accessToken: String) = OAuthTokenAuthentication(
             principal = OAuthPrincipal(
                     accessToken = accessToken,
                     user = OAuthUser(
@@ -46,6 +39,6 @@ class QAAuthenticationFilter(
                     )
             ),
             accessToken = accessToken,
-            state = state
+            state = ""
     )
 }

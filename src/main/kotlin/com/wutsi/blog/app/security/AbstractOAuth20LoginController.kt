@@ -19,17 +19,15 @@ abstract class AbstractOAuth20LoginController(
     protected abstract fun getUserUrl(): String
 
     override fun getAuthorizationUrl (request: HttpServletRequest): String {
-        val state = generateState(request)
-        return getOAuthService().getAuthorizationUrl(state)
+        return getOAuthService().getAuthorizationUrl()
     }
 
     override fun getSigninUrl(request: HttpServletRequest): String {
         val code = request.getParameter("code")
-        val state = request.getParameter("state")
         val accessToken = getOAuthService().getAccessToken(code).accessToken
         val user = toOAuthUser(accessToken)
 
-        return getSigninUrl(accessToken, state, user)
+        return getSigninUrl(accessToken, user)
     }
 
     override fun getError(request: HttpServletRequest) = request.getParameter("error")
