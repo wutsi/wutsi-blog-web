@@ -106,6 +106,7 @@ wutsi:
       client-id: "00000000"
       client-secret: "00000000"
       callback-url: "${wutsi.base-url}/login/facebook/callback"
+      scope: "public_profile"
     google:
       client-id: "00000000"
       client-secret: "00000000"
