@@ -34,11 +34,9 @@ class OAuthConfiguration {
     fun facebookOAuthService(
             @Value ("\${wutsi.oauth.facebook.client-id}") clientId: String,
             @Value ("\${wutsi.oauth.facebook.client-secret}") clientSecret: String,
-            @Value ("\${wutsi.oauth.facebook.callback-url}") callbackUrl: String,
-            @Value ("\${wutsi.oauth.facebook.scope}") scope: String
+            @Value ("\${wutsi.oauth.facebook.callback-url}") callbackUrl: String
     ): OAuth20Service = ServiceBuilder(clientId)
             .apiSecret(clientSecret)
-            .withScope(scope)
             .callback(callbackUrl)
             .build(FacebookApi.instance())
 
