@@ -16,11 +16,13 @@ abstract class AbstractLoginController(
     protected abstract fun toOAuthUser(attrs: Map<String, Any>): OAuthUser
 
 
-    protected fun getSigninUrl(accessToken: String, state: String, user: OAuthUser) =
-            SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
-                    "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$accessToken" +
-                    "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
-                    "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
+    protected fun getSigninUrl(accessToken: String, state: String, user: OAuthUser): String {
+        val token = UUID.randomUUID().toString()
+        return SecurityConfiguration.OAUTH_SIGNIN_PATTERN +
+                "?" + SecurityConfiguration.PARAM_ACCESS_TOKEN + "=$token" +
+                "&" + SecurityConfiguration.PARAM_STATE + "=$state" +
+                "&" + SecurityConfiguration.PARAM_USER + "=" + URLEncoder.encode(objectMapper.writeValueAsString(user), "utf-8")
+    }
 
     protected fun generateState(request: HttpServletRequest): String {
         val state = UUID.randomUUID().toString()
