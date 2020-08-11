@@ -264,7 +264,7 @@
         <div id="wutsi-announcement" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="7000">
             <div class="toast-header">
                 <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" class="rounded mr-2" width="16" height="16">
-                <strong class="mr-auto">Wutsi</strong>
+                <strong class="mr-auto" th:text="#{label.notification}">Wutsi</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
