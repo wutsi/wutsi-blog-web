@@ -16,6 +16,7 @@ class AnnouncementService(
     companion object {
         private const val ONE_DAY_SECONDS = 84600
     }
+
     fun get(page: String, request: HttpServletRequest, response: HttpServletResponse): AnnouncementResponse {
         val announcement = announcements.find { shouldDisplay(page, it, request) }
         if (announcement == null) {
@@ -36,7 +37,7 @@ class AnnouncementService(
     }
 
     private fun shouldDisplay(page: String, announcement: Announcement, request: HttpServletRequest): Boolean {
-        return !hasCookie(announcement, request) && announcement.supports(page) && announcement.show()
+        return !hasCookie(announcement, request) && announcement.show()
     }
 
     private fun hasCookie(announcement: Announcement, request: HttpServletRequest): Boolean {

@@ -3,7 +3,6 @@ package com.wutsi.blog.app.announcement.service.impl
 import com.wutsi.blog.app.announcement.service.Announcement
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.channel.service.ChannelService
-import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import org.springframework.stereotype.Service
 
@@ -13,9 +12,6 @@ class TwitterAnnouncement(
         private val requestContext: RequestContext,
         private val channels: ChannelService
 ): Announcement {
-    override fun supports(pageName: String) = PageName.BLOG.equals(pageName)
-        || PageName.HOME.equals(pageName)
-
     override fun show(): Boolean {
         val twitter = channels.all().find { it.connected && it.type == ChannelType.twitter }
         val toggles = requestContext.toggles()

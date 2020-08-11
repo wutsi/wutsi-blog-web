@@ -40,17 +40,6 @@ class StoryPublishedControllerTest: SeleniumTestSupport() {
         assertElementNotPresent("#alert-no-social-link")
     }
 
-    @Test
-    fun `user with no social links` () {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-no-social-link.json")
-        gotoPage()
-
-        assertElementPresent("#alert-no-social-link")
-        click("#btn-no-social-link")
-        assertCurrentPageIs(PageName.SETTINGS)
-    }
-
-
     fun gotoPage(login: Boolean = true) {
         if (login){
             login()

@@ -34,22 +34,6 @@ class BlogControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user blog page with no social links` () {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-no-social-link.json")
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-no-social-link.json")
-        gotoPage(true)
-
-        assertElementNotPresent(".author .facebook")
-        assertElementNotPresent(".author .twitter")
-        assertElementNotPresent(".author .linkedin")
-        assertElementNotPresent(".author .youtube")
-
-        assertElementPresent("#alert-no-social-link")
-        click("#btn-no-social-link")
-        assertCurrentPageIs(PageName.SETTINGS)
-    }
-
-    @Test
     fun `blog page with no post` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
