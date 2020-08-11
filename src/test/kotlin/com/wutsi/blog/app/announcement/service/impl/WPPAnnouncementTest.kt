@@ -3,6 +3,7 @@ package com.wutsi.blog.app.announcement.service.impl
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.partner.service.PartnerService
+import com.wutsi.blog.app.page.payment.service.ContractService
 import com.wutsi.blog.app.page.settings.model.UserModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -22,6 +23,9 @@ class WPPAnnouncementTest {
     @Mock
     private lateinit var partners: PartnerService
 
+    @Mock
+    private lateinit var contracts: ContractService
+
     @InjectMocks
     lateinit var announcement: WPPAnnouncement
 
@@ -33,6 +37,7 @@ class WPPAnnouncementTest {
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
 
         Mockito.`when`(partners.isPartner()).thenReturn(false)
+        Mockito.`when`(contracts.hasContract()).thenReturn(false)
 
         assertTrue(announcement.show())
     }
@@ -45,6 +50,19 @@ class WPPAnnouncementTest {
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
 
         Mockito.`when`(partners.isPartner()).thenReturn(true)
+
+        assertFalse(announcement.show())
+    }
+
+    @Test
+    fun `never show when registered has a contract`() {
+        val user = UserModel(blog=true)
+        val toggles = createToggles()
+        Mockito.`when`(requestContext.currentUser()).thenReturn(user)
+        Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
+
+        Mockito.`when`(partners.isPartner()).thenReturn(false)
+        Mockito.`when`(contracts.hasContract()).thenReturn(true)
 
         assertFalse(announcement.show())
     }
