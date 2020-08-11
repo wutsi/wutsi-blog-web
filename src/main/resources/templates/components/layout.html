@@ -62,7 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-13.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-39.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-40.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -74,7 +74,6 @@
 <!-- Footer            -->
 <!-- ################# -->
 <footer class="page-footer container-fluid padding-2x margin-top-4x border-top" th:fragment="footer">
-
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-9 margin-bottom">
@@ -101,6 +100,8 @@
         </div>
     </div>
 
+    <span th:replace="components/layout :: announcement"></span>
+
     <script async th:src="'https://www.googletagmanager.com/gtag/js?id=' + ${page.googleAnalyticsCode}" th:if="!${page.googleAnalyticsCode.isEmpty()}"></script>
     <script id="ga-code" th:inline="javascript" th:if="!${page.googleAnalyticsCode.isEmpty()}">
     /*<![CDATA[*/
@@ -114,7 +115,6 @@
     /*]]>*/
     </script>
 
-    <!-- Facebook Pixel Code -->
     <script id="fb-pixel-code" th:inline="javascript" th:if="!${page.facebookPixelCode.isEmpty()}">
     /*<![CDATA[*/
 
@@ -138,7 +138,6 @@
             wutsi.domReady();
         });
     </script>
-
 
     <script id="firebase-app-js" src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}"></script>
     <script id="firebase-messaging-js" src="https://www.gstatic.com/firebasejs/7.10.0/firebase-messaging.js" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}"></script>
@@ -191,7 +190,6 @@
 
     /*]]>*/
     </script>
-
     <script id="a2hs-js" src="/a2hs.js"></script>
 </footer>
 
@@ -257,6 +255,54 @@
     </div>
 </div>
 
+
+<!-- ################# -->
+<!-- Announcement      -->
+<!-- ################# -->
+<div th:fragment="announcement">
+    <div id="wutsi-announcement-container" style="position:absolute; bottom: 25px; left: 25px;" th:if="${toggles.announcement}">
+        <div id="wutsi-announcement" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="7000">
+            <div class="toast-header">
+                <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" class="rounded mr-2" width="16" height="16">
+                <strong class="mr-auto">Wutsi</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div class="message mb-1">Message</div>
+                <div class="action" style="display: none">
+                    <a class="btn btn-sm btn-primary" href="#" th:text="#{button.learn_more}">Learn More...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript" th:if="${toggles.announcement}">
+    /*<![CDATA[*/
+
+        $(document).ready(function(){
+            const page = /*[[${page.name}]]*/'';
+            wutsi.httpGet('/announcement?page=' + page, true).then(function(data){
+                console.log('announcement', data);
+                if (data.show){
+                    const announcement = data.announcement;
+
+                    $('#wutsi-announcement .toast-body .message').text(announcement.message);
+                    if (announcement.actionUrl) {
+                        $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
+                        $('#wutsi-announcement .toast-body .action').show();
+                    }
+                    $('.toast').toast('show');
+                    $('#wutsi-announcement').on('shown.bs.toast', function () {
+                        wutsi.track('announcement_' + announcement.name + '_show');
+                    })
+                }
+            });
+        });
+
+    /*]]>*/
+    </script>
+</div>
 
 </body>
 </html>

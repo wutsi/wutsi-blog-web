@@ -138,6 +138,7 @@ wutsi:
       bucket:
 
   toggles:
+    announcement: true              # Enable announcenement
     channel: true                   # Enable publication channels
     channel-twitter: true           # Enable Twitter Channel
     channel-facebook: true          # Enable Facebook Channel

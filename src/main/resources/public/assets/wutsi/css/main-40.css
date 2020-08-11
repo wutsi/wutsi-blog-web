@@ -744,6 +744,14 @@ a.sso-button .fab {
     text-decoration: none;
 }
 
+.toast-body {
+    color: var(--text-color);
+}
+.toast-body a {
+    text-decoration: none !important;
+}
+
+
 @media (max-width: 978px) {
     .container {
         padding-left: 0;

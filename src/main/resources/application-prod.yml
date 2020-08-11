@@ -27,6 +27,7 @@ wutsi:
       sender-id: "28035834807"
 
   toggles:
+    announcement: false
     channel: true
     channel-twitter: true
     channel-facebook: false
