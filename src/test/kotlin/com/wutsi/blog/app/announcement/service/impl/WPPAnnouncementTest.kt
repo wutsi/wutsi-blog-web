@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.partner.service.PartnerService
 import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.util.PageName
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -27,7 +28,10 @@ class WPPAnnouncementTest {
 
     @Test
     fun supports() {
-        assertTrue(announcement.supports("xxx"))
+        assertTrue(announcement.supports(PageName.HOME))
+        assertTrue(announcement.supports(PageName.BLOG))
+        assertFalse(announcement.supports(PageName.READ))
+        assertFalse(announcement.supports("xxx"))
     }
 
     @Test

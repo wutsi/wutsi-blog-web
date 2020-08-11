@@ -277,7 +277,7 @@
             </div>
         </div>
     </div>
-    <script th:inline="javascript" th:if="${toggles.announcement}">
+    <script id="wutsi-announcement-js" th:inline="javascript" th:if="${toggles.announcement}">
     /*<![CDATA[*/
 
         $(document).ready(function(){
@@ -293,8 +293,12 @@
                         $('#wutsi-announcement .toast-body .action').show();
                     }
                     $('.toast').toast('show');
+
                     $('#wutsi-announcement').on('shown.bs.toast', function () {
                         wutsi.track('announcement_' + announcement.name + '_show');
+                    })
+                    $('#wutsi-announcement .btn').click(function () {
+                        wutsi.track('announcement_' + announcement.name + '_click');
                     })
                 }
             });

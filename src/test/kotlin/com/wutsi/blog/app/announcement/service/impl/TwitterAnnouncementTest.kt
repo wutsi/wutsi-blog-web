@@ -5,6 +5,7 @@ import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -29,7 +30,10 @@ class TwitterAnnouncementTest {
 
     @Test
     fun supports() {
-        assertTrue(announcement.supports("xxx"))
+        assertTrue(announcement.supports(PageName.HOME))
+        assertTrue(announcement.supports(PageName.BLOG))
+        assertFalse(announcement.supports(PageName.READ))
+        assertFalse(announcement.supports("xxx"))
     }
 
     @Test
