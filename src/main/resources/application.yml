@@ -123,9 +123,9 @@ wutsi:
     firebase:
       project-id: "wutsi-int-274521"
       api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
-      sender-id: "255903690741"
       app-id: "1:255903690741:web:87ac16910084876e07fabc"
       public-vapid-key: "BFmAST-JbJbs_viT2GQQ2iS36HSioZ2B-Q0xgETvjKJyBGVZdfE2DqO9VmWycDe5JEYQ3tDaGuqz_fA0PN_4ZPs"
+      sender-id: "255903690741"
 
   storage:
     local:
