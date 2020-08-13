@@ -770,11 +770,6 @@ a.sso-button .fab {
 
 @media screen
   and (min-device-width: 1200px) {
-    .container {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
     .post .img-container {
         height: 320px;
         overflow: hidden;
