@@ -93,74 +93,6 @@
     </div>
 </div>
 
-<div th:fragment="share(story)" class="share">
-
-    <button class="btn btn-primary btn-block hidden">
-        <i class="fas fa-share-alt"></i>
-        <span th:text="#{button.share}">Share</span>
-    </button>
-
-    <div class="fallback hidden">
-        <a target="_blank" class="share-whatsapp btn-share hidden"
-           wutsi-track-event="share"
-           wutsi-track-value="whatsapp"
-           data-action="share/whatsapp/share"
-           th:href="'whatsapp://send?text=' + ${page.url}">
-            <i class="fab fa-whatsapp-square"></i>
-        </a>
-        <a target="_blank" class="share-facebook btn-share"
-           wutsi-track-event="share"
-           wutsi-track-value="facebook"
-           th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
-            <i class="fab fa-facebook-square"></i>
-        </a>
-        <a target="_blank" class="share-twitter btn-share"
-           wutsi-track-event="share"
-           wutsi-track-value="twitter"
-           th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
-            <i class="fab fa-twitter-square"></i>
-        </a>
-        <script>
-            $(document).ready(function(){
-                if (wutsi.isMobile()){
-                    $('.share-whatsapp').removeClass('hidden');
-                }
-            });
-        </script>
-    </div>
-
-    <script th:inline="javascript">
-    /*<![CDATA[*/
-
-        const shareButton = /*[[${toggles.shareButton}]]*/'0';
-
-        $(document).ready(function(){
-            if (shareButton && navigator.share){
-                $('.share button').removeClass('hidden');
-            } else {
-                $('.share .fallback').removeClass('hidden');
-            }
-
-            $('.share button').click(function(){
-                const request = {
-                    title: $("meta[property=og\\:title]").attr("content"),
-                    url: $("meta[property=og\\:url]").attr("content")
-                };
-
-                console.log('sharing ', request);
-                navigator.share(request).then(function(event){
-                    console.log('Share succeed', event);
-                    wutsi.track('share');
-                }).catch(function(error){
-                    console.error('Share failed', error);
-                });
-            });
-        });
-
-    /*]]>*/
-    </script>
-</div>
-
 <div th:fragment="author-card(me)" class="author flex" th:with="inBlogPage=${page.name == 'page.blog'}">
     <a th:href="${me.slug}" th:title="${me.fullName}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
@@ -330,6 +262,132 @@
        th:data-content="#{story.wpp.rejected}"
     ></i>
 </span>
+
+<div th:fragment="share(story)" class="share">
+
+    <button class="btn btn-primary btn-block hidden">
+        <i class="fas fa-share-alt"></i>
+        <span th:text="#{button.share}">Share</span>
+    </button>
+
+    <div class="fallback hidden">
+        <a target="_blank" class="share-whatsapp btn-share hidden"
+           wutsi-track-event="share"
+           wutsi-track-value="whatsapp"
+           data-action="share/whatsapp/share"
+           th:href="'whatsapp://send?text=' + ${page.url}">
+            <i class="fab fa-whatsapp-square"></i>
+        </a>
+        <a target="_blank" class="share-facebook btn-share"
+           wutsi-track-event="share"
+           wutsi-track-value="facebook"
+           th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
+            <i class="fab fa-facebook-square"></i>
+        </a>
+        <a target="_blank" class="share-twitter btn-share"
+           wutsi-track-event="share"
+           wutsi-track-value="twitter"
+           th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
+            <i class="fab fa-twitter-square"></i>
+        </a>
+        <script>
+            $(document).ready(function(){
+                if (wutsi.isMobile()){
+                    $('.share-whatsapp').removeClass('hidden');
+                }
+            });
+        </script>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        const shareButton = /*[[${toggles.shareButton}]]*/'0';
+
+        $(document).ready(function(){
+            if (shareButton && navigator.share){
+                $('.share button').removeClass('hidden');
+            } else {
+                $('.share .fallback').removeClass('hidden');
+            }
+
+            $('.share button').click(function(){
+                const request = {
+                    title: $("meta[property=og\\:title]").attr("content"),
+                    url: $("meta[property=og\\:url]").attr("content")
+                };
+
+                console.log('sharing ', request);
+                navigator.share(request).then(function(event){
+                    console.log('Share succeed', event);
+                    wutsi.track('share');
+                }).catch(function(error){
+                    console.error('Share failed', error);
+                });
+            });
+        });
+
+        /*]]>*/
+    </script>
+</div>
+
+
+<div th:fragment="comment(story)" class="comment-tool">
+    <a href="javascript: comment_show()" th:title="#{comment.title}">
+        <i class="fas fa-comment-alt fa-2x"></i>
+        <span id="comment-count"></span>
+    </a>
+    <div id="comment-widget" class="border"></div>
+
+    <script id="comment-script" th:inline="javascript">
+    /*<![CDATA[*/
+        var comment_visible = false;
+
+        $(document).ready(function(){
+            comment_text();
+
+            $(document).mouseup(function(e) {
+                if (!comment_visible) {
+                    return;
+                }
+                var container = $('#comment-widget');
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                    comment_hide();
+                }
+            });
+        });
+
+        function comment_text() {
+            const storyId = /*[[${story.id}]]*/ '0';
+            wutsi.httpGet('/comment/count?storyId=' + storyId, true)
+                .then(function (count){
+                    $('#comment-count').html(count.text);
+                })
+                .catch(function(error){
+                    $('#comment-count').html('');
+                });
+        }
+
+        function comment_show() {
+            var storyId = /*[[${story.id}]]*/'0';
+
+            wutsi.httpGet('/comment/widget?storyId=' + storyId, false)
+                .then(function(html){
+                    $("#comment-widget").show();
+                    $('#comment-widget').html(html);
+                    comment_visible = true;
+                });
+        }
+
+        function comment_hide() {
+            comment_text();
+            $("#comment-widget").hide();
+            comment_visible = false
+        }
+
+    /*]]>*/
+    </script>
+</div>
 
 </body>
 </html>

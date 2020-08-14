@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.backend
 
+import com.wutsi.blog.client.comment.CountCommentResponse
 import com.wutsi.blog.client.comment.CreateCommentRequest
 import com.wutsi.blog.client.comment.CreateCommentResponse
 import com.wutsi.blog.client.comment.SearchCommentRequest
@@ -14,6 +15,10 @@ import org.springframework.stereotype.Service
 class CommentBackend (private val http: Http) {
     @Value("\${wutsi.backend.comment.endpoint}")
     private lateinit var endpoint: String
+
+    fun count(storyId: Long): CountCommentResponse {
+        return http.get("$endpoint/count?storyId=$storyId", CountCommentResponse::class.java).body!!
+    }
 
     fun search(request: SearchCommentRequest): SearchCommentResponse {
         return http.post("$endpoint/search", request, SearchCommentResponse::class.java).body!!

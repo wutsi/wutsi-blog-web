@@ -59,9 +59,13 @@
             </div>
         </div>
 
-        <!-- Share -->
-        <div class="padding-top margin-top border-top text-center" th:if="!${preview}">
-            <div th:replace="components/story :: share(story=${story})"></div>
+        <!-- Comment/Share -->
+        <div class="padding-top margin-top border-top flex" th:if="!${preview}">
+            <div th:if="${toggles.comment}">
+                <div th:replace="components/story :: comment(${story})"></div>
+            </div>
+
+            <div th:replace="components/story :: share(${story})"></div>
         </div>
 
         <!-- PWA Push Notification -->
@@ -136,6 +140,10 @@
         }
 
         $(window).on('scroll', function(){
+            if (!should_track_scroll()) {
+                return;
+            }
+
             var s = $(window).scrollTop(),
                 d = $(document).height(),
                 c = $(window).height();
@@ -145,20 +153,24 @@
                 const tmpScrollPercent = lastScrollPercent;
                 lastScrollPercent = scrollPercent;
                 console.log('ScrollPercent', scrollPercent);
+
                 wutsi.track('scroll', scrollPercent)
-                    .catch(function(){
+                    .catch(function () {
                         lastScrollPercent = tmpScrollPercent;
                     })
                 ;
             } else {
                 lastScrollPercent = scrollPercent;
             }
-        })
-    });
+        });
 
+        function should_track_scroll() {
+            return !$('#comment-widget').is(':visible')
+        }
+    });
 /*]]>*/
 </script>
 
-</body>
+    </body>
 
 </html>

@@ -1,0 +1,81 @@
+<div class="container-fluid comment-widget-inner">
+    <div class="row">
+        <div id="comment-editor" class="col-12 padding">
+            <div class="text-right">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <h3 th:text="#{comment.title}">Comments</h3>
+
+            <input id='comment-story-id' type="hidden" name="storyId" class="form-control" th:value="${story.id}" />
+            <textarea id='comment-text' name="text" maxlength="255" rows="1" readonly="readonly" th:placeholder="#{comment.placeholder}" ></textarea>
+
+            <button id='comment-submit' class="btn btn-block btn-primary margin-top" th:text="#{button.publish}">Publish</button>
+        </div>
+    </div>
+    <div id="comment-list-container" class="row"></div>
+
+</div>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+    function comment_begin_edit(){
+        $('#comment-text').removeAttr('readonly');
+        $('#comment-text').attr('rows', '3');
+        $('#comment-submit').show();
+    }
+
+    function comment_end_edit(){
+        $('#comment-text').attr('readonly', 'readonly');
+        $('#comment-text').attr('rows', '1');
+        $('#comment-text').val('');
+        $('#comment-submit').hide();
+    }
+
+    function comment_load_items(storyId) {
+        wutsi.httpGet('/comment/list?storyId=' + storyId, false)
+            .then(function(html){
+                $('#comment-list-container').html(html);
+            });
+    }
+
+    $(document).ready(function(){
+        var storyId = /*[[${story.id}]]*/'0';
+        comment_end_edit();
+        comment_load_items(storyId);
+
+        $('#comment-text').click(function(){
+            if ($(this).is('[readonly]')) {
+                comment_begin_edit();
+            }
+        });
+
+        $('.comment-widget-inner .close').click(function(){
+            comment_begin_edit();
+            comment_hide();
+        });
+
+        $('#comment-submit').click(function(){
+            console.log('saving comment...');
+
+            const data = {
+                storyId: $('#comment-story-id').attr("value"),
+                text: $('#comment-text').val()
+            };
+            wutsi.httpPost('/comment', data, true)
+                .then(function(){
+                    comment_load_items(storyId);
+                })
+                .catch(function(error){
+                    console.log('Unable to create comment', error);
+                })
+                .finally(function(){
+                    comment_end_edit();
+                });
+        });
+    });
+
+/*]]>*/
+</script>

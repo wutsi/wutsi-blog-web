@@ -10,6 +10,7 @@ class Toggles {
     var channel: Boolean = false
     var channelTwitter: Boolean = false
     var channelFacebook: Boolean = false
+    var comment: Boolean = false
     var earning: Boolean = false
     var googleOneTapSignIn: Boolean = false
     var pwa: Boolean = false

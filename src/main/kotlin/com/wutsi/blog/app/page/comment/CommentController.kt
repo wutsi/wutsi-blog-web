@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.comment
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.comment.model.CommentCountModel
 import com.wutsi.blog.app.page.comment.model.CreateCommentForm
 import com.wutsi.blog.app.page.comment.service.CommentService
 import com.wutsi.blog.app.page.story.service.StoryService
@@ -29,10 +30,20 @@ class CommentController(
             @RequestParam storyId: Long,
             model: Model
     ): String {
+        model.addAttribute("storyId", storyId)
+
+        return "page/comment/index"
+    }
+
+    @GetMapping("/widget")
+    fun widget(
+            @RequestParam storyId: Long,
+            model: Model
+    ): String {
         val story = stories.get(storyId)
         model.addAttribute("story", story)
 
-        return "page/comment/index"
+        return "page/comment/widget"
     }
 
     @GetMapping("/list")
@@ -53,5 +64,11 @@ class CommentController(
     fun create(@RequestBody form: CreateCommentForm): Map<String, Long> {
         val id = comments.create(form)
         return mapOf("commentId" to id)
+    }
+
+    @ResponseBody
+    @GetMapping("/count", produces = ["application/json"])
+    fun count(@RequestParam storyId: Long): CommentCountModel {
+        return comments.count(storyId)
     }
 }
