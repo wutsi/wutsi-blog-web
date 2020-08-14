@@ -41,48 +41,36 @@ self.addEventListener('notificationclick', function(event) {
 });
 
 self.addEventListener('fetch', function(event)  {
-    // console.log('Fetching', event.request.method, event.request.url);
+    console.log('Fetching', event);
+    const url = event.request.url;
 
-    sw_fetch_from_cache(event).catch(function(){
-        return sw_fetch_from_network(event)
-    });
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response){
+                if (response) {
+                    console.log(url, 'Fetched from Cache');
+                    return response;
+                }
+                return fetch(event.request)
+                    .then(function(response){
+                        console.log(url, 'Fetched from Network');
+                        if (sw_should_cache(event.request)){
+                            const clone = response.clone();
+                            caches.open(wutsiCacheName).then(function(cache){
+                                console.log('Caching', url);
+                                cache.put(url, clone);
+                                return response;
+                            });
+                        }
+                        return response;
+                    });
+            })
+    );
 });
 
 
 
 /*==========[ Private methods ]===============*/
-function sw_fetch_from_cache(event){
-    return caches
-        .open(wutsiCacheName)
-        .then(function (cache) {
-            return cache.match(event.request).then(function (matching) {
-                if (matching){
-                    // console.log('Fetched from Cache', event.request.method, event.request.url);
-                    return matching;
-                }
-                return Promise.reject('no-match');
-            });
-        });
-}
-
-function sw_fetch_from_network(event) {
-    return fetch(event.request)
-        .then(function(response){
-            // console.log('Fetched from Network', event.request.method, event.request.url);
-
-            if (sw_should_cache(event.request)){
-                // console.log('Caching', event.request.method, event.request.url);
-                const clone = response.clone();
-                caches.open(wutsiCacheName).then(function(cache){
-                    cache.put(event.request.url, clone);
-                    return response;
-                });
-            }
-
-            return response;
-        });
-}
-
 function sw_show_notification(data) {
     if (sw_should_show_notification(data)){
         const title = 'Wutsi: ' + data.author;

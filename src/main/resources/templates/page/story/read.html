@@ -121,10 +121,10 @@
 <script id="track-script" th:inline="javascript" th:if="!${user} OR ${user.id} != ${story.user.id}">
 /*<![CDATA[*/
 
-    var prettify = /*[[${hasCode} OR ${hasRaw}]]*/'0';
-    var lastScrollPercent = -1;
-
     $(document).ready(function(){
+
+        var prettify = /*[[${hasCode} OR ${hasRaw}]]*/'0';
+        var lastScrollPercent = -1;
 
         wutsi.track('readstart');
         window.addEventListener('beforeunload', function(){

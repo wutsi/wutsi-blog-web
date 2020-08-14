@@ -50,6 +50,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/auth
     channel:
       endpoint: ${wutsi.backend.base-url}/v1/channel
+    comment:
+      endpoint: ${wutsi.backend.base-url}/v1/comment
     contract:
       endpoint: ${wutsi.backend.base-url}/v1/contract
     earning:
@@ -142,6 +144,7 @@ wutsi:
     channel: true                   # Enable publication channels
     channel-twitter: true           # Enable Twitter Channel
     channel-facebook: true          # Enable Facebook Channel
+    comment: true                   # Enable Comments
     earning: true                   # Show Earnings
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     pwa: true                       # PWA

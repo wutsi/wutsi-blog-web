@@ -1,0 +1,7 @@
+<div class="row margin-top border-top padding" th:each="comment: ${comments}">
+    <div class="col-12 comment">
+        <div class="author" th:text="${comment.user.fullName}" th:if="${comment.user}">Ray Sponsible</div>
+        <div class="text" th:text="${comment.text}" />
+        <div class="date" th:text="${comment.modificationDateTime}">2 days ago</div>
+    </div>
+</div>

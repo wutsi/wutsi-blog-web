@@ -7,6 +7,8 @@ class PageName{
         const val CHANNEL = "page.channel"
         const val CHANNEL_FACEBOOK = "page.channel_facebook"
 
+        const val COMMENT = "page.comment"
+
         const val CREATE = "page.create"
         const val CREATE_NAME = "page.create.name"
         const val CREATE_FULLNAME = "page.create.fullname"

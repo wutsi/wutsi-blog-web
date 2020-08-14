@@ -36,6 +36,7 @@ wutsi:
     channel: true
     channel-twitter: true
     channel-facebook: false
+    comment: false
     earning: true
     google-one-tap-sign-in: true
     imagekit: true

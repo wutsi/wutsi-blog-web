@@ -679,6 +679,21 @@ a.sso-button .fab {
     color: #e83e8c;
 }
 
+/*===== Comments ============*/
+#comment-editor textarea {
+    background: white;
+    border: 1px solid var(--border-color);
+    padding: 0.5em;
+    width: 100%;
+}
+#comment-editor textarea:read-only {
+    background: var(--background-light);
+}
+#comment-editor .btn {
+    display: none;
+}
+
+/*===== Settings ============*/
 .settings .form-control {
     border: none;
     border-radius: 0;
