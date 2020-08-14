@@ -341,50 +341,19 @@
 
     <script id="comment-script" th:inline="javascript">
     /*<![CDATA[*/
-        var comment_visible = false;
+        var wcomment;
 
         $(document).ready(function(){
-            comment_text();
-
-            $(document).mouseup(function(e) {
-                if (!comment_visible) {
-                    return;
-                }
-                var container = $('#comment-widget');
-                if (!container.is(e.target) && container.has(e.target).length === 0) {
-                    comment_hide();
-                }
-            });
+            wcomment = new WutsiComment(/*[[${story.id}]]*/ '0');
+            wcomment.load();
         });
 
-        function comment_text() {
-            const storyId = /*[[${story.id}]]*/ '0';
-            wutsi.httpGet('/comment/count?storyId=' + storyId, true)
-                .then(function (count){
-                    $('#comment-count').html(count.text);
-                })
-                .catch(function(error){
-                    $('#comment-count').html('');
-                });
+        function comment_show(){
+            wcomment.show();
         }
-
-        function comment_show() {
-            var storyId = /*[[${story.id}]]*/'0';
-
-            wutsi.httpGet('/comment/widget?storyId=' + storyId, false)
-                .then(function(html){
-                    $("#comment-widget").show();
-                    $('#comment-widget').html(html);
-                    comment_visible = true;
-                });
+        function comment_hide(){
+            wcomment.hide();
         }
-
-        function comment_hide() {
-            comment_text();
-            $("#comment-widget").hide();
-            comment_visible = false
-        }
-
     /*]]>*/
     </script>
 </div>
