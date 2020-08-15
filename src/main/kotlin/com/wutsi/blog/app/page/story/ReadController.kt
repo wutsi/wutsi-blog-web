@@ -40,17 +40,23 @@ class ReadController(
     override fun showNotificationOptIn(): Boolean = true
 
     @GetMapping("/read/{id}/{title}")
-    fun read(@PathVariable id: Long, @PathVariable title: String, model: Model): String {
-        return read(id, false, model)
+    fun read(
+            @PathVariable id: Long,
+            @PathVariable title: String,
+            @RequestParam(required = false) comment: String? = null,
+            model: Model): String {
+        return read(id, false, comment, model)
     }
 
     @GetMapping("/read/{id}")
     fun read(
             @PathVariable id: Long,
             @RequestParam(required = false, defaultValue = "false") preview: Boolean = false,
+            @RequestParam(required = false) comment: String? = null,
             model: Model
     ): String {
         loadPage(id, model)
+        model.addAttribute("showComment", comment != null);
         return "page/story/read"
     }
 

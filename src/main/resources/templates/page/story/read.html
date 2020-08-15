@@ -122,8 +122,6 @@
 <link rel="stylesheet" type="text/css" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'"  th:if="${hasCode} OR ${hasRaw}" />
 <script th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'" th:if="${hasCode} OR ${hasRaw}"></script>
 
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-1.js'" th:if="${toggles.comment}"></script>
-
 <script id="track-script" th:inline="javascript" th:if="!${user} OR ${user.id} != ${story.user.id}">
 /*<![CDATA[*/
 
@@ -170,9 +168,36 @@
             return !$('#comment-widget').is(':visible')
         }
     });
+
 /*]]>*/
 </script>
 
-    </body>
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-1.js'" th:if="${toggles.comment}"></script>
+<script id="comment-script" th:inline="javascript" th:if="${toggles.comment}">
+/*<![CDATA[*/
 
+    var wcomment;
+
+    $(document).ready(function(){
+        wcomment = new WutsiComment(/*[[${story.id}]]*/ '0');
+        wcomment.load();
+    });
+
+    function comment_show(){
+        wcomment.show();
+    }
+
+    function comment_hide(){
+        wcomment.hide();
+    }
+
+/*]]>*/
+</script>
+<script th:inline="javascript" th:if="${showComment} AND ${toggles.comment}">
+    $(document).ready(function(){
+        comment_show();
+    });
+</script>
+
+</body>
 </html>

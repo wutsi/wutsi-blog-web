@@ -18,14 +18,25 @@
 
 </div>
 
-<script th:inline="javascript">
+<script th:inline="javascript" th:if="!${user}">
 /*<![CDATA[*/
 
+    function comment_begin_edit(){
+        var redirect = /*[[${story.slug}]]*/'';
+        window.location.href = '/login?redirect=' + encodeURI(redirect + '?comment=1');
+    }
+
+/*]]>*/
+</script>
+<script th:if="${user}">
     function comment_begin_edit(){
         $('#comment-text').removeAttr('readonly');
         $('#comment-text').attr('rows', '3');
         $('#comment-submit').show();
     }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[*/
 
     function comment_end_edit(){
         $('#comment-text').attr('readonly', 'readonly');

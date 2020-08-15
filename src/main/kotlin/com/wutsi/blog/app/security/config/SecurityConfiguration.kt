@@ -3,6 +3,7 @@ package com.wutsi.blog.app.security.config
 import com.wutsi.blog.app.security.oauth.OAuthAuthenticationFilter
 import com.wutsi.blog.app.security.oauth.OAuthRememberMeService
 import com.wutsi.blog.app.security.qa.QAAuthenticationFilter
+import com.wutsi.blog.app.security.service.AuthenticationSuccessHandlerImpl
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -10,6 +11,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 
 
 @Configuration
@@ -45,7 +47,6 @@ class SecurityConfiguration(
     override fun configure(http: HttpSecurity) {
         // @formatter:off
 		http
-
             .authorizeRequests()
                 .antMatchers("/me").authenticated()
                 .antMatchers("/me/**/*").authenticated()
@@ -62,7 +63,7 @@ class SecurityConfiguration(
             .and()
                 .formLogin()
                     .loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/")
+                    .successHandler(successHandler())
 		// @formatter:on
     }
 
@@ -71,7 +72,7 @@ class SecurityConfiguration(
         val filter = OAuthAuthenticationFilter(OAUTH_SIGNIN_PATTERN)
         filter.setAuthenticationManager(authenticationManagerBean())
         filter.rememberMeServices = oAuthRememberMeService
-
+        filter.setAuthenticationSuccessHandler(successHandler())
         return filter
     }
 
@@ -81,9 +82,12 @@ class SecurityConfiguration(
         val filter = QAAuthenticationFilter(QA_SIGNIN_PATTERN)
         filter.setAuthenticationManager(authenticationManagerBean())
         filter.rememberMeServices = oAuthRememberMeService
-
+        filter.setAuthenticationSuccessHandler(successHandler())
         return filter
     }
+
+    @Bean
+    fun successHandler(): AuthenticationSuccessHandler = AuthenticationSuccessHandlerImpl()
 
 //    @Bean
 //    fun autoLoginAuthenticationFilter(): Filter = AutoLoginAuthenticationFilter(

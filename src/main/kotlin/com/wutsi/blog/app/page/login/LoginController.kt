@@ -31,6 +31,13 @@ class LoginController(
     ): String {
         model.addAttribute("error", error)
         model.addAttribute("createBlog", isCreateBlog(request))
+
+        val redirect = request.getParameter("redirect")
+        model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
+        model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
+        model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
+        model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
+
         return "page/login/index"
     }
 
@@ -42,5 +49,9 @@ class LoginController(
 
         val url = URL(savedRequest.redirectUrl)
         return domain.equals(url.host) && url.file == "/create/name"
+    }
+
+    private fun loginUrl(url: String, redirectUrl: String?): String {
+        return if (redirectUrl == null) url else "$url?redirect=$redirectUrl"
     }
 }

@@ -2,6 +2,7 @@ package com.wutsi.blog.app.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.scribejava.core.exceptions.OAuthException
+import com.wutsi.blog.app.security.service.AuthenticationSuccessHandlerImpl
 import com.wutsi.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
@@ -38,6 +39,11 @@ abstract class AbstractOAuthLoginController(
         val connect = request.getParameter("connect")
         if (connect != null) {
             request.session.setAttribute(CONNECT_KEY, connect)
+        }
+
+        val redirect = request.getParameter("redirect")
+        if (redirect != null){
+            request.session.setAttribute(AuthenticationSuccessHandlerImpl.REDIRECT_URL_KEY, redirect)
         }
 
         val url = getAuthorizationUrl(request)

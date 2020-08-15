@@ -338,24 +338,6 @@
         <span id="comment-count"></span>
     </a>
     <div id="comment-widget" class="border"></div>
-
-    <script id="comment-script" th:inline="javascript">
-    /*<![CDATA[*/
-        var wcomment;
-
-        $(document).ready(function(){
-            wcomment = new WutsiComment(/*[[${story.id}]]*/ '0');
-            wcomment.load();
-        });
-
-        function comment_show(){
-            wcomment.show();
-        }
-        function comment_hide(){
-            wcomment.hide();
-        }
-    /*]]>*/
-    </script>
 </div>
 
 </body>
