@@ -26,17 +26,17 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         Thread.sleep(1000)
         assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool #comment-count", "3")
+        assertElementText(".comment-tool #comment-count", "3 Commentaires")
     }
 
     @Test
     fun `comment icon`() {
-        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.NOT_FOUND)
+        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count_0_comment.json")
         gotoPage()
 
         Thread.sleep(5000)
         assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool #comment-count", "")
+        assertElementText(".comment-tool #comment-count", "Commente")
     }
 
     @Test
@@ -56,6 +56,10 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         Thread.sleep(3000)
         assertElementCount("#comment-widget .comment", 4)
+
+        click("#comment-widget .close")
+        Thread.sleep(3000)
+        assertElementText(".comment-tool #comment-count", "4 Commentaires")
     }
 
     @Test

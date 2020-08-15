@@ -2,13 +2,13 @@ package com.wutsi.blog.app.common.service
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.backend.UserBackend
-import com.wutsi.blog.app.page.login.service.SessionMapper
-import com.wutsi.blog.app.page.settings.service.UserMapper
-import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.page.login.model.SessionModel
-import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.login.service.AccessTokenStorage
+import com.wutsi.blog.app.page.login.service.SessionMapper
+import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.page.settings.service.UserMapper
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.security.service.SecurityManager
 import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
@@ -122,9 +122,9 @@ class RequestContext(
         return tokenStorage.get(request)
     }
 
-    fun getMessage(key: String, defaultKey: String? = null): String {
+    fun getMessage(key: String, defaultKey: String? = null, args: Array<Any>? = null): String {
         try {
-            return localization.getMessage(key)
+            return localization.getMessage(key, args)
         } catch (ex: Exception){
             if (defaultKey != null){
                 try {

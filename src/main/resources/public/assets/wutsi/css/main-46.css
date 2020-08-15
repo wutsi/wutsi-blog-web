@@ -680,6 +680,13 @@ a.sso-button .fab {
     text-decoration: none;
 }
 
+.reader .comment-tool .fa-comment-alt {
+    font-size: 2em;
+}
+.reader .comment-tool .comment-count {
+    font-size: 1.5em;
+}
+
 .reader #comment-widget {
     background: white;
     display: none;
@@ -692,10 +699,11 @@ a.sso-button .fab {
     z-index: 100;
 }
 
-.reader .comment {
+.reader #comment-widget .comment {
     overflow: hidden;
     width: 100%
 }
+
 
 /*===== Comments ============*/
 #comment-editor textarea {

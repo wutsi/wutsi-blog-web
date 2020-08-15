@@ -1,10 +1,13 @@
-function WutsiComment (storyId){
+function WutsiComment (storyId, anonymous, storyUrl){
     this.storyId = storyId;
     this.visible = false;
     this.config = {
         selectors: {
             count: '#comment-count',
-            container: '#comment-widget'
+            widget: '#comment-widget',
+            text: '#comment-text',
+            list: '#comment-list-container',
+            editor: '#comment-editor'
         }
     };
 
@@ -19,7 +22,7 @@ function WutsiComment (storyId){
                 return;
             }
 
-            const selector = me.config.selectors.container;
+            const selector = me.config.selectors.widget;
             var container = $(selector);
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 me.hide();
@@ -39,10 +42,18 @@ function WutsiComment (storyId){
             });
     };
 
+    this.load_items = function() {
+        const selector = this.config.selectors.list;
+        wutsi.httpGet('/comment/list?storyId=' + this.storyId, false)
+            .then(function(html){
+                $(selector).html(html);
+            });
+    };
+
     this.show = function () {
         console.log('Showing comments...');
 
-        const selector = this.config.selectors.container;
+        const selector = this.config.selectors.widget;
         const me = this;
         wutsi.httpGet('/comment/widget?storyId=' + storyId, false)
             .then(function(html){
@@ -50,15 +61,86 @@ function WutsiComment (storyId){
                 $(selector).html(html);
                 me.visible = true;
             });
-    }
+    };
 
     this.hide = function() {
         console.log('Hiding comments...');
 
-        const selector = this.config.selectors.container;
+        const selector = this.config.selectors.widget;
         $(selector).hide();
         this.visible = false;
         this.load_text();
-    }
+    };
 
+    this.contentReady = function(){
+        const textarea = this.config.selectors.editor + ' textarea';
+        const button = this.config.selectors.editor + ' button';
+        const close = this.config.selectors.widget + ' .close';
+        const me = this;
+
+        this.end_edit();
+        this.load_items();
+
+        $(textarea).click(function(){
+            if ($(this).is('[readonly]')) {
+                me.begin_edit();
+            }
+        });
+
+        $(button).click(function(){
+            me.submit($(textarea).val());
+        });
+
+        $(close).click(function(){
+            me.hide();
+        });
+    };
+
+    this.begin_edit = function() {
+        console.log('Begin comment edition');
+
+        if (anonymous) {
+            window.location.href = '/login?redirect=' + encodeURI(storyUrl + '?comment=1');
+        } else {
+            const textarea = this.config.selectors.editor + ' textarea';
+            $(textarea).removeAttr('readonly');
+            $(textarea).attr('rows', '3');
+            $(textarea).val('');
+            $(textarea).focus();
+
+            const submit = this.config.selectors.editor + ' button.submit';
+            $(submit).show();
+        }
+    };
+
+    this.end_edit = function () {
+        console.log('Stop comment edition');
+
+        const textarea = this.config.selectors.editor + ' textarea';
+        $(textarea).attr('readonly', 'readonly');
+        $(textarea).attr('rows', '1');
+        $(textarea).val('');
+
+        const submit = this.config.selectors.editor + ' button.submit';
+        $(submit).hide();
+    };
+
+    this.submit = function(text) {
+        console.log('Submitting comment', text);
+        const data = {
+            storyId: this.storyId,
+            text: text
+        };
+        const me = this;
+        wutsi.httpPost('/comment', data, true)
+            .then(function(){
+                me.load_items();
+            })
+            .catch(function(error){
+                console.log('Unable to create comment', error);
+            })
+            .finally(function(){
+                me.end_edit();
+            });
+    }
 }
