@@ -31,7 +31,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `comment icon`() {
-        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count_0_comment.json")
+        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count_0.json")
         gotoPage()
 
         Thread.sleep(5000)
@@ -52,6 +52,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         input("#comment-editor textarea", "new comment")
 
         stub(HttpMethod.POST, "/v1/comment/search", HttpStatus.OK, "v1/comment/search_4_comments.json")
+        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count_4.json")
         click("#comment-editor .btn")
 
         Thread.sleep(3000)

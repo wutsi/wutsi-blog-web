@@ -124,21 +124,21 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         click("#share-menu")
 
         val url = "http://localhost:8081/read/20/lorem-ipsum"
-        assertElementAttribute(".share .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
-        assertElementAttribute(".share .share-facebook", "target", "_blank")
-        assertElementAttribute(".share .share-facebook", "wutsi-track-event", "share")
-        assertElementAttribute(".share .share-facebook", "wutsi-track-value", "facebook")
+        assertElementAttribute(".dropdown .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
+        assertElementAttribute(".dropdown .share-facebook", "target", "_blank")
+        assertElementAttribute(".dropdown .share-facebook", "wutsi-track-event", "share")
+        assertElementAttribute(".dropdown .share-facebook", "wutsi-track-value", "facebook")
 
-        assertElementCount(".share .share-twitter", 1)
-        assertElementAttribute(".share .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
-        assertElementAttribute(".share .share-twitter", "target", "_blank")
-        assertElementAttribute(".share .share-twitter", "wutsi-track-event", "share")
-        assertElementAttribute(".share .share-twitter", "wutsi-track-value", "twitter")
+        assertElementCount(".dropdown .share-twitter", 1)
+        assertElementAttribute(".dropdown .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
+        assertElementAttribute(".dropdown .share-twitter", "target", "_blank")
+        assertElementAttribute(".dropdown .share-twitter", "wutsi-track-event", "share")
+        assertElementAttribute(".dropdown .share-twitter", "wutsi-track-value", "twitter")
 
-        assertElementCount(".share .share-whatsapp", 1)
-        assertElementAttribute(".share .share-whatsapp", "href", "whatsapp://send?text=$url")
-        assertElementAttribute(".share .share-whatsapp", "wutsi-track-event", "share")
-        assertElementAttribute(".share .share-whatsapp", "wutsi-track-value", "whatsapp")
+        assertElementCount(".dropdown .share-whatsapp", 1)
+        assertElementAttribute(".dropdown .share-whatsapp", "href", "whatsapp://send?text=$url")
+        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-event", "share")
+        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-value", "whatsapp")
     }
 
     @Test
