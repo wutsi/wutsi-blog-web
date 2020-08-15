@@ -217,6 +217,14 @@ h1, h2, h3, h4, h5, h6 {
     background: lightsalmon;
 }
 
+
+/* ==== ANNOUNCEMENT ==== */
+#wutsi-announcement-container{
+    position:fixed;
+    bottom: 35px;
+    left: 25px;
+}
+
 /* ==== FOOTER ==== */
 footer.page-footer {
     background-color: black;
