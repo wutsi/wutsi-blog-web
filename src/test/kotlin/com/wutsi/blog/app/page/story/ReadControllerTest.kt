@@ -121,8 +121,9 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     fun `share to Social Network`() {
         gotoPage()
 
-        val url = "http://localhost:8081/read/20/lorem-ipsum"
+        click("#share-menu")
 
+        val url = "http://localhost:8081/read/20/lorem-ipsum"
         assertElementAttribute(".share .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
         assertElementAttribute(".share .share-facebook", "target", "_blank")
         assertElementAttribute(".share .share-facebook", "wutsi-track-event", "share")

@@ -265,69 +265,42 @@
 
 <div th:fragment="share(story)" class="share">
 
-    <button class="btn btn-primary btn-block hidden">
-        <i class="fas fa-share-alt"></i>
-        <span th:text="#{button.share}">Share</span>
-    </button>
-
-    <div class="fallback hidden">
-        <a target="_blank" class="share-whatsapp btn-share hidden"
-           wutsi-track-event="share"
-           wutsi-track-value="whatsapp"
-           data-action="share/whatsapp/share"
-           th:href="'whatsapp://send?text=' + ${page.url}">
-            <i class="fab fa-whatsapp-square"></i>
+    <div class="dropdown">
+        <a class="dropdown-toggle" id="share-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-share-alt"></i>
+            <span th:text="#{button.share}">Share</span>
         </a>
-        <a target="_blank" class="share-facebook btn-share"
-           wutsi-track-event="share"
-           wutsi-track-value="facebook"
-           th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
-            <i class="fab fa-facebook-square"></i>
-        </a>
-        <a target="_blank" class="share-twitter btn-share"
-           wutsi-track-event="share"
-           wutsi-track-value="twitter"
-           th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
-            <i class="fab fa-twitter-square"></i>
-        </a>
-        <script>
-            $(document).ready(function(){
-                if (wutsi.isMobile()){
-                    $('.share-whatsapp').removeClass('hidden');
-                }
-            });
-        </script>
+        <div class="dropdown-menu" aria-labelledby="share-menu">
+            <a target="_blank" class="dropdown-item share-whatsapp btn-share hidden"
+               wutsi-track-event="share"
+               wutsi-track-value="whatsapp"
+               data-action="share/whatsapp/share"
+               th:href="'whatsapp://send?text=' + ${page.url}">
+                <i class="fab fa-whatsapp-square"></i>
+                WhatsApp
+            </a>
+            <a target="_blank" class="dropdown-item share-facebook btn-share"
+               wutsi-track-event="share"
+               wutsi-track-value="facebook"
+               th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
+                <i class="fab fa-facebook-square"></i>
+                Facebook
+            </a>
+            <a target="_blank" class="dropdown-item share-twitter btn-share"
+               wutsi-track-event="share"
+               wutsi-track-value="twitter"
+               th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
+                <i class="fab fa-twitter-square"></i>
+                Twitter
+            </a>
+        </div>
     </div>
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-
-        const shareButton = /*[[${toggles.shareButton}]]*/'0';
-
+    <script>
         $(document).ready(function(){
-            if (shareButton && navigator.share){
-                $('.share button').removeClass('hidden');
-            } else {
-                $('.share .fallback').removeClass('hidden');
+            if (wutsi.isMobile()){
+                $('.share-whatsapp').removeClass('hidden');
             }
-
-            $('.share button').click(function(){
-                const request = {
-                    title: $("meta[property=og\\:title]").attr("content"),
-                    url: $("meta[property=og\\:url]").attr("content")
-                };
-
-                console.log('sharing ', request);
-                navigator.share(request).then(function(event){
-                    console.log('Share succeed', event);
-                    wutsi.track('share');
-                }).catch(function(error){
-                    console.error('Share failed', error);
-                });
-            });
         });
-
-        /*]]>*/
     </script>
 </div>
 

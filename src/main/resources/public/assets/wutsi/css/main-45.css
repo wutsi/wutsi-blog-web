@@ -528,10 +528,7 @@ a.sso-button .fab {
 
 .reader .share a {
     text-decoration: none;
-}
-.reader .share .fab {
-    font-size: 3em;
-    margin-left: .5em;
+    color: var(--highlight-color);
 }
 
 .reader .share .btn {
@@ -687,7 +684,7 @@ a.sso-button .fab {
     position: fixed;
     right: 0;
     top: 0;
-    width: 600px;
+    width: 400px;
     z-index: 100;
 }
 
@@ -830,6 +827,10 @@ a.sso-button .fab {
     .post .img-container {
         height: 320px;
         overflow: hidden;
+    }
+
+    .reader #comment-widget {
+        width: 400px;
     }
 }
 
