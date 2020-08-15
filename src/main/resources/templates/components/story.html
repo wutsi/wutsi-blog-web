@@ -307,8 +307,13 @@
 
 <div th:fragment="comment(story)" class="comment-tool">
     <a href="javascript: comment_show()" th:title="#{comment.title}">
-        <i class="fas fa-comment-alt fa-2x"></i>
-        <span id="comment-count"></span>
+        <div class="flex">
+            <div><i class="far fa-comment-alt"></i></div>
+            <div>
+                &nbsp;
+                <span id="comment-count">2</span>
+            </div>
+        </div>
     </a>
     <div id="comment-widget" class="border"></div>
 </div>

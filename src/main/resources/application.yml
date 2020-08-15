@@ -150,7 +150,6 @@ wutsi:
     pwa: true                       # PWA
     pwa-push-notification: true     # Enable PWA Push Notification?
     recommendation: true            # Show articles recommendations in reader
-    share-button: false             # Show single share button, instead of individual social share buttons
     image-kit: true                 # Integration with imagekit.io
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false

@@ -43,7 +43,6 @@ wutsi:
     pwa: true
     pwa-push-notification: true
     recommendation: true
-    share-button: false
     publish: true
     sso-facebook: true
     sso-google: true

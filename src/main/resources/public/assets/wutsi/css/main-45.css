@@ -531,10 +531,10 @@ a.sso-button .fab {
     color: var(--highlight-color);
 }
 
-.reader .share .btn {
-    max-width: 400px;
-    margin: 0 auto;
+.reader .share .dropdown-toggle::after {
+    display: none;
 }
+
 
 .reader .tag-container {
     height: 1.8em;
@@ -676,6 +676,10 @@ a.sso-button .fab {
     color: #e83e8c;
 }
 
+.reader .comment-tool a {
+    text-decoration: none;
+}
+
 .reader #comment-widget {
     background: white;
     display: none;
@@ -694,10 +698,6 @@ a.sso-button .fab {
 }
 
 /*===== Comments ============*/
-#comment-count {
-    font-size: 1.2em;
-}
-
 #comment-editor textarea {
     background: white;
     border: 1px solid var(--border-color);

@@ -17,7 +17,6 @@ class Toggles {
     var pwaPushNotification: Boolean = false
     var recommendation: Boolean = false
     var imageKit: Boolean = false
-    var shareButton: Boolean = true
     var ssoFacebook: Boolean = false
     var ssoGoogle: Boolean = false
     var ssoGithub: Boolean = false
