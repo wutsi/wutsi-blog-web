@@ -32,10 +32,10 @@ function WutsiComment (storyId){
         wutsi.httpGet('/comment/count?storyId=' + storyId, true)
             .then(function (count){
                 console.log('Comment count', count);
-                $(selector).html(count.text);
+                $(selector).text(count.text);
             })
             .catch(function(error){
-                $(selector).html('');
+                $(selector).text('');
             });
     };
 
