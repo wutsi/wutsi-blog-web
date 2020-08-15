@@ -53,21 +53,19 @@
         <div class="content margin-top" th:utext="${html}">This is a block</div>
 
         <!-- Tags -->
-        <div class="tag-container margin-top">
-            <div class="tag margin-bottom margin-right" th:each="tag : ${story.tags}">
+        <div class="tag-container">
+            <div class="tag margin-top margin-right" th:each="tag : ${story.tags}">
                 <span th:text="${tag.displayName}">Tag</span>
             </div>
         </div>
 
         <!-- Comment/Share -->
-        <div class="padding-top margin-top border-top container-flex" th:if="!${preview}">
-            <div class="row">
-                <div class="col-6" th:if="${toggles.comment}">
-                    <div th:replace="components/story :: comment(${story})"></div>
-                </div>
-                <div class="col-6 text-right">
-                    <div th:replace="components/story :: share(${story})"></div>
-                </div>
+        <div class="flex padding-top margin-top border-top" th:if="!${preview}">
+            <div th:if="${toggles.comment}">
+                <div th:replace="components/story :: comment(${story})"></div>
+            </div>
+            <div style="margin-left: auto">
+                <div th:replace="components/story :: share(${story})"></div>
             </div>
         </div>
 

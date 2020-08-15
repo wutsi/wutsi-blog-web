@@ -526,20 +526,23 @@ a.sso-button .fab {
     padding-top: 0;
 }
 
-.reader .share a {
+.reader .share-tool a {
     text-decoration: none;
     color: var(--highlight-color);
 }
 
-.reader .share .dropdown-toggle::after {
+.reader .share-tool .dropdown-toggle::after {
     display: none;
 }
 
-
-.reader .tag-container {
-    height: 1.8em;
-    overflow: hidden;
+.reader .share-tool .share-text {
+    font-size: 1.2em
 }
+.reader .share-tool .fa-share-alt {
+    font-size: 2em;
+}
+
+
 .reader .tag-container .tag {
     border: 1px solid var(--border-color);
     background-color: var(--border-color);
@@ -676,18 +679,22 @@ a.sso-button .fab {
     color: #e83e8c;
 }
 
-.reader .comment-tool a {
+
+
+/*===== COMMENT === */
+.comment-tool a {
     text-decoration: none;
+    color: var(--highlight-color);
 }
 
-.reader .comment-tool .fa-comment-alt {
+.comment-tool .fa-comment-alt {
     font-size: 2em;
 }
-.reader .comment-tool .comment-count {
-    font-size: 1.5em;
+.comment-tool .comment-text {
+    font-size: 1.2em;
 }
 
-.reader #comment-widget {
+#comment-widget {
     background: white;
     display: none;
     height: 100%;
@@ -699,9 +706,17 @@ a.sso-button .fab {
     z-index: 100;
 }
 
-.reader #comment-widget .comment {
+#comment-widget .comment {
     overflow: hidden;
     width: 100%
+}
+
+#comment-widget .comment a .author{
+    color: var(--text-color);
+    font-weight: bold;
+}
+#comment-widget .comment a .date{
+    color: var(--text-color);
 }
 
 

@@ -263,12 +263,17 @@
     ></i>
 </span>
 
-<div th:fragment="share(story)" class="share">
+<div th:fragment="share(story)" class="share-tool">
 
     <div class="dropdown">
         <a class="dropdown-toggle" id="share-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-share-alt"></i>
-            <span th:text="#{button.share}">Share</span>
+            <div class="flex">
+                <div><i class="fas fa-share-alt"></i></div>
+                <div>
+                    &nbsp;
+                    <span class="share-text" th:text="#{button.share}">Share</span>
+                </div>
+            </div>
         </a>
         <div class="dropdown-menu" aria-labelledby="share-menu">
             <a target="_blank" class="dropdown-item share-whatsapp btn-share hidden"
@@ -311,7 +316,7 @@
             <div><i class="far fa-comment-alt"></i></div>
             <div>
                 &nbsp;
-                <span id="comment-count"></span>
+                <span class="comment-text"></span>
             </div>
         </div>
     </a>

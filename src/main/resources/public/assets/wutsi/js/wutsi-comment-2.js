@@ -3,9 +3,8 @@ function WutsiComment (storyId, anonymous, storyUrl){
     this.visible = false;
     this.config = {
         selectors: {
-            count: '#comment-count',
+            count: '.comment-tool .comment-text',
             widget: '#comment-widget',
-            text: '#comment-text',
             list: '#comment-list-container',
             editor: '#comment-editor'
         }
