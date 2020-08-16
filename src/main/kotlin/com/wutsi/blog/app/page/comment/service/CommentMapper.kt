@@ -7,6 +7,7 @@ import com.wutsi.blog.app.page.comment.model.CommentModel
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.comment.CommentCountDto
 import com.wutsi.blog.client.comment.CommentDto
+import com.wutsi.core.util.NumberUtils
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,16 +25,17 @@ class CommentMapper(
     fun toCommentCountModel(obj: CommentCountDto) = CommentCountModel(
             storyId = obj.storyId,
             value = obj.value,
+            valueText = if (obj.value > 0) NumberUtils.toHumanReadable(obj.value) else "",
             text = text(obj)
     )
 
     private fun text(obj: CommentCountDto): String {
         if (obj.value <= 0L){
-            return requestContext.getMessage("button.comment")
+            return ""
         } else if (obj.value == 1L){
             return requestContext.getMessage("label.1_comment")
         } else {
-            return requestContext.getMessage("label.n_comments", args= arrayOf(obj.value))
+            return requestContext.getMessage("label.n_comments", args= arrayOf(NumberUtils.toHumanReadable(obj.value)))
         }
     }
 }

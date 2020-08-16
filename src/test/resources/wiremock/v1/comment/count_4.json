@@ -1,6 +1,8 @@
 {
-  "count": {
-    "storyId": 20,
-    "value": 4
-  }
+  "counts": [
+    {
+      "storyId": 20,
+      "value": 4
+    }
+  ]
 }

@@ -188,6 +188,16 @@
             <span th:text="#{label.minutes}">min</span>
         </div>
     </div>
+
+    <div class="flex">
+        <div class="flex margin-top" th:if="${toggles.comment}">
+            <div><i class="far fa-comment-alt"></i></div>
+            <div>
+                &nbsp;
+                <span class="comment-text" th:id="'comment-count-' + ${story.id}" th:data-comment-story-id="${story.id}"></span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">

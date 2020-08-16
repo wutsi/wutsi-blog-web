@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.backend
 
+import com.wutsi.blog.client.comment.CountCommentRequest
 import com.wutsi.blog.client.comment.CountCommentResponse
 import com.wutsi.blog.client.comment.CreateCommentRequest
 import com.wutsi.blog.client.comment.CreateCommentResponse
@@ -16,8 +17,8 @@ class CommentBackend (private val http: Http) {
     @Value("\${wutsi.backend.comment.endpoint}")
     private lateinit var endpoint: String
 
-    fun count(storyId: Long): CountCommentResponse {
-        return http.get("$endpoint/count?storyId=$storyId", CountCommentResponse::class.java).body!!
+    fun count(request: CountCommentRequest): CountCommentResponse {
+        return http.post("$endpoint/count", request, CountCommentResponse::class.java).body!!
     }
 
     fun search(request: SearchCommentRequest): SearchCommentResponse {

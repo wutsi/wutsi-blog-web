@@ -41,19 +41,19 @@ self.addEventListener('notificationclick', function(event) {
 });
 
 self.addEventListener('fetch', function(event)  {
-    console.log('Fetching', event);
+    // console.log('Fetching', event);
     const url = event.request.url;
 
     event.respondWith(
         caches.match(event.request)
             .then(function(response){
                 if (response) {
-                    console.log(url, 'Fetched from Cache');
+                    // console.log(url, 'Fetched from Cache');
                     return response;
                 }
                 return fetch(event.request)
                     .then(function(response){
-                        console.log(url, 'Fetched from Network');
+                        // console.log(url, 'Fetched from Network');
                         if (sw_should_cache(event.request)){
                             const clone = response.clone();
                             caches.open(wutsiCacheName).then(function(cache){

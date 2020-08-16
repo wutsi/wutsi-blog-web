@@ -11,36 +11,65 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count.json")
         stub(HttpMethod.POST, "/v1/comment/search", HttpStatus.OK, "v1/comment/search.json")
         stub(HttpMethod.POST, "/v1/comment", HttpStatus.OK, "v1/comment/create.json")
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
 
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
+
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
     }
 
     @Test
-    fun `comment icon with count`() {
+    fun `home page showing comment count` () {
+        driver.get(url)
+
+        assertElementText("#comment-count-20", "3")
+    }
+
+    @Test
+    fun `blog page showing comment count` () {
+        driver.get("url/@/ray.sponsible")
+
+        assertElementText("#comment-count-20", "3")
+        assertElementText("#comment-count-21", "5")
+        assertElementText("#comment-count-22", "1")
+        assertElementText("#comment-count-23", "")
+        assertElementText("#comment-count-24", "")
+        assertElementText("#comment-count-25", "")
+        assertElementText("#comment-count-26", "")
+    }
+
+    @Test
+    fun `reader has comment icon with count`() {
         gotoPage()
 
         Thread.sleep(1000)
         assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool .comment-text", "3 Commentaires")
+        assertElementText(".comment-tool .comment-count", "3 Commentaires")
     }
 
     @Test
-    fun `comment icon`() {
-        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count_0.json")
+    fun `reader has comment icon`() {
+        stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_0.json")
         gotoPage()
 
         Thread.sleep(5000)
         assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool .comment-text", "Commente")
+        assertElementText(".comment-tool .comment-count", "Commente")
     }
 
     @Test
-    fun `add a comment`() {
+    fun `open reader with comment panel opened`() {
+        driver.get("$url/read/20/test?comment=1")
+
+        Thread.sleep(3000)
+        assertElementCount("#comment-widget .comment", 3)
+    }
+
+    @Test
+    fun `user can add a comment`() {
         gotoPage(true)
 
         click(".comment-tool a")
@@ -52,29 +81,22 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         input("#comment-editor textarea", "new comment")
 
         stub(HttpMethod.POST, "/v1/comment/search", HttpStatus.OK, "v1/comment/search_4_comments.json")
-        stub(HttpMethod.GET, "/v1/comment/count\\?storyId=20", HttpStatus.OK, "v1/comment/count_4.json")
+        stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_4.json")
         click("#comment-editor .btn")
 
-        Thread.sleep(3000)
+        Thread.sleep(1000)
         assertElementCount("#comment-widget .comment", 4)
 
         click("#comment-widget .close")
-        Thread.sleep(3000)
-        assertElementText(".comment-tool .comment-text", "4 Commentaires")
+        Thread.sleep(1000)
+        assertElementText(".comment-tool .comment-count", "4 Commentaires")
     }
 
     @Test
-    fun `comment panel opened`() {
-        driver.get("$url/read/20/test?comment=1")
-
-        Thread.sleep(3000)
-        assertElementCount("#comment-widget .comment", 3)
-    }
-
-    @Test
-    fun `anonymous user redirected to login`() {
+    fun `anonymous adding comment`() {
         gotoPage()
 
+        Thread.sleep(3000)
         click(".comment-tool a")
 
         Thread.sleep(3000)

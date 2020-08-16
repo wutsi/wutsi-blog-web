@@ -68,7 +68,8 @@ class CommentController(
 
     @ResponseBody
     @GetMapping("/count", produces = ["application/json"])
-    fun count(@RequestParam storyId: Long): CommentCountModel {
-        return comments.count(storyId)
+    fun count(@RequestParam storyId: Array<Long>): List<CommentCountModel> {
+        return comments.count(storyId.toList())
     }
+
 }

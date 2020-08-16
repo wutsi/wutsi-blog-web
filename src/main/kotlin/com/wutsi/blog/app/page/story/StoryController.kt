@@ -1,5 +1,7 @@
 package com.wutsi.blog.app.page.story
 
+import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class StoryController(
-        private val service: StoryService
-) {
+        private val service: StoryService,
+        requestContext: RequestContext
+): AbstractPageController(requestContext) {
+
+    override fun pageName() = ""
 
     @GetMapping("/story/cards")
     fun index(

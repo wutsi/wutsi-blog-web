@@ -1,9 +1,8 @@
-function WutsiComment (storyId, anonymous, storyUrl){
-    this.storyId = storyId;
+function WutsiCommentWidget(storyId, defaultText, anonymous, storyUrl){
     this.visible = false;
     this.config = {
         selectors: {
-            count: '.comment-tool .comment-text',
+            text: '.comment-tool .comment-text',
             widget: '#comment-widget',
             list: '#comment-list-container',
             editor: '#comment-editor'
@@ -30,11 +29,14 @@ function WutsiComment (storyId, anonymous, storyUrl){
     };
 
     this.load_text = function() {
-        const selector = this.config.selectors.count;
+        const selector = this.config.selectors.text;
         wutsi.httpGet('/comment/count?storyId=' + storyId, true)
             .then(function (count){
-                console.log('Comment count', count);
-                $(selector).text(count.text);
+                if (count.length > 0) {
+                    $(selector).text(count[0].text);
+                } else {
+                    $(selector).text(defaultText);
+                }
             })
             .catch(function(error){
                 $(selector).text('');
@@ -43,7 +45,7 @@ function WutsiComment (storyId, anonymous, storyUrl){
 
     this.load_items = function() {
         const selector = this.config.selectors.list;
-        wutsi.httpGet('/comment/list?storyId=' + this.storyId, false)
+        wutsi.httpGet('/comment/list?storyId=' + storyId, false)
             .then(function(html){
                 $(selector).html(html);
             });
@@ -128,7 +130,7 @@ function WutsiComment (storyId, anonymous, storyUrl){
     this.submit = function(text) {
         console.log('Submitting comment', text);
         const data = {
-            storyId: this.storyId,
+            storyId: storyId,
             text: text
         };
         const me = this;

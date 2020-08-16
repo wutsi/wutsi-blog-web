@@ -173,13 +173,18 @@
 /*]]>*/
 </script>
 
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-3.js'" th:if="${toggles.comment}"></script>
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget.js'" th:if="${toggles.comment}"></script>
 <script id="comment-script" th:inline="javascript" th:if="${toggles.comment}">
 /*<![CDATA[*/
 
     var wcomment;
     $(document).ready(function(){
-        wcomment = new WutsiComment(/*[[${story.id}]]*/ '0', /*[[!${user}]]*/ true, /*[[${story.slug}]]*/ '');
+        wcomment = new WutsiCommentWidget(
+                /*[[${story.id}]]*/ '0',
+                /*[[#{button.comment}]]*/ '',
+                /*[[!${user}]]*/ true,
+                /*[[${story.slug}]]*/ ''
+        );
         wcomment.load();
     });
 
