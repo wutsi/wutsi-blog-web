@@ -57,7 +57,7 @@ self.addEventListener('fetch', function(event)  {
                         if (sw_should_cache(event.request)){
                             const clone = response.clone();
                             caches.open(wutsiCacheName).then(function(cache){
-                                console.log('Caching', url);
+                                // console.log('Caching', url);
                                 cache.put(url, clone);
                                 return response;
                             });

@@ -690,19 +690,19 @@ a.sso-button .fab {
 
 
 /*===== COMMENT === */
-.comment-tool a {
+.comment-badge a {
     text-decoration: none;
     color: var(--highlight-color);
 }
 
-.comment-tool .fa-comment-alt {
+.comment-widget .comment-badge .fa-comment-alt {
     font-size: 2em;
 }
-.comment-tool .comment-text {
+.comment-widget .comment-badge .comment-text {
     font-size: 1.2em;
 }
 
-#comment-widget {
+.comment-widget-content {
     background: white;
     display: none;
     height: 100%;
@@ -714,33 +714,24 @@ a.sso-button .fab {
     z-index: 100;
 }
 
-#comment-widget .comment {
-    overflow: hidden;
-    width: 100%
-}
-
-#comment-widget .comment a .author{
-    color: var(--text-color);
-    font-weight: bold;
-}
-#comment-widget .comment a .date{
-    color: var(--text-color);
-}
-
-
-/*===== Comments ============*/
-#comment-editor textarea {
+.comment-widget-content textarea {
     background: white;
     border: 1px solid var(--border-color);
     padding: 0.5em;
     width: 100%;
 }
-#comment-editor textarea:read-only {
+.comment-widget-content textarea:read-only {
     background: var(--background-light);
 }
-#comment-editor .btn {
+.comment-widget-content .btn {
     display: none;
 }
+
+.comment {
+    overflow: hidden;
+    width: 100%
+}
+
 .comment a {
     color: var(--text-color);
     text-decoration: none;
@@ -758,6 +749,7 @@ a.sso-button .fab {
     width: 32px;
     height: 32px;
 }
+
 
 /*===== Settings ============*/
 .settings .form-control {
@@ -844,7 +836,7 @@ a.sso-button .fab {
         overflow: hidden;
     }
 
-    .reader #comment-widget {
+    .reader .comment-widget-content {
         width: 90%;
     }
 }
@@ -856,7 +848,7 @@ a.sso-button .fab {
         overflow: hidden;
     }
 
-    .reader #comment-widget {
+    .reader .comment-widget-content {
         width: 400px;
     }
 }

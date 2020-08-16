@@ -26,7 +26,8 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         driver.get(url)
 
         Thread.sleep(1000)
-        assertElementText("#comment-count-20", "3")
+        assertElementCount(".comment-badge", 1)
+        assertElementText(".comment-badge #comment-count-20", "3")
     }
 
     @Test
@@ -34,13 +35,13 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/@/ray.sponsible")
 
         Thread.sleep(1000)
-        assertElementText("#comment-count-20", "3")
-        assertElementText("#comment-count-21", "5")
-        assertElementText("#comment-count-22", "1")
-        assertElementText("#comment-count-23", "")
-        assertElementText("#comment-count-24", "")
-        assertElementText("#comment-count-25", "")
-        assertElementText("#comment-count-26", "")
+        assertElementText(".comment-badge #comment-count-20", "3")
+        assertElementText(".comment-badge #comment-count-21", "5")
+        assertElementText(".comment-badge #comment-count-22", "1")
+        assertElementText(".comment-badge #comment-count-23", "")
+        assertElementText(".comment-badge #comment-count-24", "")
+        assertElementText(".comment-badge #comment-count-25", "")
+        assertElementText(".comment-badge #comment-count-26", "")
     }
 
     @Test
@@ -48,8 +49,8 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         gotoPage()
 
         Thread.sleep(1000)
-        assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool .comment-text", "3 Commentaires")
+        assertElementPresent(".comment-widget .comment-badge .fa-comment-alt")
+        assertElementText(".comment-widget .comment-badge .comment-text", "3 Commentaires")
     }
 
     @Test
@@ -57,54 +58,53 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_0.json")
         gotoPage()
 
-        Thread.sleep(5000)
-        assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool .comment-text", "Commente")
+        Thread.sleep(1000)
+        assertElementPresent(".comment-widget .comment-badge .fa-comment-alt")
+        assertElementText(".comment-widget .comment-badge .comment-text", "Commente")
     }
 
     @Test
-    fun `open reader with comment panel opened`() {
+    fun `comment pane opens when query parameter sent to reader`() {
         driver.get("$url/read/20/test?comment=1")
 
-        Thread.sleep(3000)
-        assertElementCount("#comment-widget .comment", 3)
+        Thread.sleep(1000)
+        assertElementPresent(".comment-widget .comment-widget-content")
+        assertElementCount(".comment-widget .comment", 3)
     }
 
     @Test
-    fun `user can add a comment`() {
+    fun `user add a comment`() {
         gotoPage(true)
 
-        click(".comment-tool a")
+        click(".comment-widget .comment-badge")
 
-        Thread.sleep(3000)
-        assertElementCount("#comment-widget .comment", 3)
+        Thread.sleep(1000)
+        assertElementPresent(".comment-widget .comment-widget-content")
+        assertElementCount(".comment-widget .comment", 3)
 
-        click("#comment-editor textarea")
-        input("#comment-editor textarea", "new comment")
+        click(".comment-widget textarea")
+        input(".comment-widget  textarea", "new comment")
 
         stub(HttpMethod.POST, "/v1/comment/search", HttpStatus.OK, "v1/comment/search_4_comments.json")
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_4.json")
-        click("#comment-editor .btn")
+        click(".comment-widget .btn-submit")
 
         Thread.sleep(1000)
-        assertElementCount("#comment-widget .comment", 4)
+        assertElementCount(".comment-widget .comment", 4)
 
-        click("#comment-widget .close")
+        click(".comment-widget .close")
         Thread.sleep(1000)
-        assertElementText(".comment-tool .comment-text", "4 Commentaires")
+        assertElementText(".comment-widget .comment-badge .comment-text", "4 Commentaires")
     }
 
     @Test
-    fun `anonymous adding comment`() {
+    fun `anonymous is redirected to login when adding a comment`() {
         gotoPage()
 
-        Thread.sleep(3000)
-        click(".comment-tool a")
+        click(".comment-widget .comment-badge")
 
-        Thread.sleep(3000)
-        assertElementCount("#comment-widget .comment", 3)
-
-        click("#comment-editor textarea")
+        Thread.sleep(1000)
+        click(".comment-widget textarea")
 
         assertCurrentPageIs(PageName.LOGIN)
     }

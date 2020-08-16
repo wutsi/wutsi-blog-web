@@ -191,7 +191,7 @@
 
     <div class="flex">
         <div class="margin-top" th:if="${toggles.comment}">
-            <div th:replace="components/comment :: count(${story})"></div>
+            <div th:replace="components/comment :: badge(${story})"></div>
         </div>
     </div>
 </div>

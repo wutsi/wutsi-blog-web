@@ -1,22 +1,18 @@
-<div class="container-fluid comment-widget-inner">
-    <div class="row">
-        <div id="comment-editor" class="col-12 padding">
-            <h3>
-                <span th:text="#{comment.title}">Comments</span>
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </h3>
+<div class="padding">
+    <h3>
+        <span th:text="#{comment.title}">Comments</span>
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </h3>
 
-            <input type="hidden" name="storyId" class="form-control" th:value="${story.id}" />
-            <textarea name="text" maxlength="255" rows="1" readonly="readonly" th:placeholder="#{comment.placeholder}" ></textarea>
+    <input type="hidden" name="storyId" class="form-control" th:value="${story.id}" />
+    <textarea name="text" maxlength="255" rows="1" readonly="readonly" th:placeholder="#{comment.placeholder}" ></textarea>
 
-            <button class="btn btn-block btn-primary margin-top submit" th:text="#{button.publish}">Publish</button>
-        </div>
-    </div>
-    <div id="comment-list-container" class="row"></div>
-
+    <button class="btn btn-block btn-primary margin-top btn-submit" th:text="#{button.publish}">Publish</button>
 </div>
+<div class="comment-widget-list"></div>
+
 
 <script>
     $(document).ready(function(){
