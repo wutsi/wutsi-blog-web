@@ -99,7 +99,8 @@ function WutsiComment (storyId, anonymous, storyUrl){
         console.log('Begin comment edition');
 
         if (anonymous) {
-            window.location.href = '/login?redirect=' + encodeURI(storyUrl + '?comment=1');
+            const redirect = storyUrl + '?comment=1';
+            window.location.href = '/login?reason=comment&redirect=' + encodeURI(redirect) + '&return=' + encodeURI(redirect);
         } else {
             const textarea = this.config.selectors.editor + ' textarea';
             $(textarea).removeAttr('readonly');

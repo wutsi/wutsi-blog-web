@@ -814,15 +814,11 @@ a.sso-button .fab {
     color: var(--text-color);
 }
 
+
 .jumbotron {
     background: var(--background-light);
     border-radius: 0;
     padding: 2em;
-}
-
-.close a {
-    color: var(--text-color-gray);
-    text-decoration: none;
 }
 
 .toast-body {

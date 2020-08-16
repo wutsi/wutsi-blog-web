@@ -170,6 +170,10 @@ abstract class SeleniumTestSupport {
         assertEquals(text, driver.findElement(By.cssSelector(selector)).text)
     }
 
+    protected fun assertElementTextContains(selector: String, text: String) {
+        assertTrue(driver.findElement(By.cssSelector(selector)).text.contains(text))
+    }
+
     protected fun assertElementCount(selector: String, count: Int) {
         assertEquals(count, driver.findElements(By.cssSelector(selector)).size)
     }

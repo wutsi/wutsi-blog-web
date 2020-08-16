@@ -25,18 +25,25 @@ class LoginController(
     @GetMapping()
     fun index(
             @RequestParam(required = false) error: String? = null,
+            @RequestParam(required = false) reason: String? = null,
+            @RequestParam(required = false) redirect: String? = null,
+            @RequestParam(required = false) `return`: String? = null,
             @RequestHeader(required = false) referer: String? = null,
             model: Model,
             request: HttpServletRequest
     ): String {
         model.addAttribute("error", error)
-        model.addAttribute("createBlog", isCreateBlog(request))
 
-        val redirect = request.getParameter("redirect")
         model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
         model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
         model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
         model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
+
+        val createBlog = isCreateBlog(request)
+        model.addAttribute("createBlog", createBlog)
+        model.addAttribute("info", info(createBlog, reason))
+        model.addAttribute("title", title(createBlog))
+        model.addAttribute("return", `return`)
 
         return "page/login/index"
     }
@@ -53,5 +60,29 @@ class LoginController(
 
     private fun loginUrl(url: String, redirectUrl: String?): String {
         return if (redirectUrl == null) url else "$url?redirect=$redirectUrl"
+    }
+
+    private fun title(createBlog: Boolean): String {
+        val default = "page.login.header1.login";
+        val key = if (createBlog) {
+            "page.login.header1.create-blog"
+        } else {
+            default
+        }
+
+        return requestContext.getMessage(key, default)
+    }
+
+    private fun info(createBlog: Boolean, reason: String?): String {
+        val default = "page.login.info.login";
+        val key = if (createBlog) {
+            "page.login.info.create-blog"
+        } else if (reason == null) {
+            default
+        } else {
+            "page.login.info.$reason"
+        }
+
+        return requestContext.getMessage(key, default)
     }
 }

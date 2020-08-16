@@ -11,10 +11,14 @@ class LoginControllerTest: SeleniumTestSupport() {
     fun `user login`() {
         gotoPage()
 
-        assertElementPresent("#login-panel")
-        assertElementNotPresent("#create-blog-panel")
-        assertElementNotPresent("#create-blog-wizard")
         assertElementNotPresent(".alert-danger")
+
+        assertElementNotPresent(".close")
+
+        assertElementPresent("#login-panel")
+        assertElementText("#login-panel h1", "Connecte toi")
+        assertElementText("#login-panel p", "Connecte toi pour lire les Stories des tes auteurs, thèmes préférés.")
+
         validateButton("google")
         validateButton("facebook")
         validateButton("github")
@@ -22,13 +26,32 @@ class LoginControllerTest: SeleniumTestSupport() {
     }
 
     @Test
+    fun `login for reason`() {
+        gotoPage(false, reason="comment", returnUrl="/read/123?comment=1")
+
+        assertElementNotPresent(".alert-danger")
+
+        assertElementPresent(".close")
+        assertElementAttributeEndsWith(".close", "href", "/read/123?comment=1")
+
+        assertElementPresent("#login-panel")
+        assertElementTextContains("#login-panel h1", "Connecte toi")
+        assertElementText("#login-panel p", "Connecte toi pour commenter les Stories.")
+
+        validateButton("google")
+        validateButton("facebook")
+        validateButton("github")
+        validateButton("twitter")
+    }
+
+
+    @Test
     fun `login error`() {
         gotoPage(true)
 
         assertElementPresent("#login-panel")
-        assertElementNotPresent("#create-blog-panel")
-        assertElementNotPresent("#create-blog-wizard")
         assertElementPresent(".alert-danger")
+        assertElementNotPresent(".close")
         validateButton("google")
         validateButton("facebook")
         validateButton("github")
@@ -49,11 +72,18 @@ class LoginControllerTest: SeleniumTestSupport() {
         assertElementAttribute("#btn-$name", "wutsi-track-value", name)
     }
 
-    private fun gotoPage(error: Boolean=false) {
+    private fun gotoPage(error: Boolean=false, reason: String?=null, returnUrl: String?=null) {
         if (error){
             driver.get("$url/login?error=invalid_client")
         } else {
-            driver.get("$url/login")
+            var loginUrl = "$url/login?"
+            if (returnUrl != null){
+                loginUrl = "$loginUrl&return=$returnUrl"
+            }
+            if (reason != null){
+                loginUrl = "$loginUrl&reason=$reason"
+            }
+            driver.get(loginUrl)
         }
     }
 }
