@@ -25,13 +25,15 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
     fun `home page showing comment count` () {
         driver.get(url)
 
+        Thread.sleep(1000)
         assertElementText("#comment-count-20", "3")
     }
 
     @Test
     fun `blog page showing comment count` () {
-        driver.get("url/@/ray.sponsible")
+        driver.get("$url/@/ray.sponsible")
 
+        Thread.sleep(1000)
         assertElementText("#comment-count-20", "3")
         assertElementText("#comment-count-21", "5")
         assertElementText("#comment-count-22", "1")
