@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<div th:fragment="widget(story)" class="comment-tool">
+    <a href="javascript: wcomment.show()" th:title="#{comment.title}">
+        <div class="flex">
+            <div><i class="far fa-comment-alt"></i></div>
+            <div>
+                &nbsp;
+                <span class="comment-text"></span>
+            </div>
+        </div>
+    </a>
+    <div id="comment-widget" class="border"></div>
+</div>
+
+<div th:fragment="count(story)">
+    <div class="flex margin-top">
+        <div><i class="far fa-comment-alt"></i></div>
+        <div>
+            &nbsp;
+            <span class="comment-text" th:id="'comment-count-' + ${story.id}" th:data-comment-story-id="${story.id}"></span>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

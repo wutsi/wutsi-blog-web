@@ -190,12 +190,8 @@
     </div>
 
     <div class="flex">
-        <div class="flex margin-top" th:if="${toggles.comment}">
-            <div><i class="far fa-comment-alt"></i></div>
-            <div>
-                &nbsp;
-                <span class="comment-text" th:id="'comment-count-' + ${story.id}" th:data-comment-story-id="${story.id}"></span>
-            </div>
+        <div class="margin-top" th:if="${toggles.comment}">
+            <div th:replace="components/comment :: count(${story})"></div>
         </div>
     </div>
 </div>
@@ -317,20 +313,6 @@
             }
         });
     </script>
-</div>
-
-
-<div th:fragment="comment(story)" class="comment-tool">
-    <a href="javascript: wcomment.show()" th:title="#{comment.title}">
-        <div class="flex">
-            <div><i class="far fa-comment-alt"></i></div>
-            <div>
-                &nbsp;
-                <span class="comment-text"></span>
-            </div>
-        </div>
-    </a>
-    <div id="comment-widget" class="border"></div>
 </div>
 
 </body>

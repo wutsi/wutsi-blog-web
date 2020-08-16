@@ -49,7 +49,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         Thread.sleep(1000)
         assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool .comment-count", "3 Commentaires")
+        assertElementText(".comment-tool .comment-text", "3 Commentaires")
     }
 
     @Test
@@ -59,7 +59,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         Thread.sleep(5000)
         assertElementPresent(".comment-tool .fa-comment-alt")
-        assertElementText(".comment-tool .comment-count", "Commente")
+        assertElementText(".comment-tool .comment-text", "Commente")
     }
 
     @Test
@@ -91,7 +91,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         click("#comment-widget .close")
         Thread.sleep(1000)
-        assertElementText(".comment-tool .comment-count", "4 Commentaires")
+        assertElementText(".comment-tool .comment-text", "4 Commentaires")
     }
 
     @Test

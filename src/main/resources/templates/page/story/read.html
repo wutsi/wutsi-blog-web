@@ -62,7 +62,7 @@
         <!-- Comment/Share -->
         <div class="flex padding-top margin-top border-top" th:if="!${preview}">
             <div th:if="${toggles.comment}">
-                <div th:replace="components/story :: comment(${story})"></div>
+                <div th:replace="components/comment :: widget(${story})"></div>
             </div>
             <div style="margin-left: auto">
                 <div th:replace="components/story :: share(${story})"></div>
