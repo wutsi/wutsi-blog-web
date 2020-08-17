@@ -48,10 +48,6 @@ class TwitterAnnouncementTest {
         `when`(requestContext.currentUser()).thenReturn(user)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        val channel1 = createChannel(ChannelType.twitter, false)
-        val channel2 = createChannel(ChannelType.facebook, false)
-        `when`(channels.all()).thenReturn(arrayListOf(channel1 ,channel2))
-
         assertFalse(announcement.show())
     }
 
@@ -60,10 +56,6 @@ class TwitterAnnouncementTest {
         val toggles = createToggles()
         `when`(requestContext.currentUser()).thenReturn(null)
         `when`(requestContext.toggles()).thenReturn(toggles)
-
-        val channel1 = createChannel(ChannelType.twitter, false)
-        val channel2 = createChannel(ChannelType.facebook, false)
-        `when`(channels.all()).thenReturn(arrayListOf(channel1 ,channel2))
 
         assertFalse(announcement.show())
     }
@@ -75,9 +67,6 @@ class TwitterAnnouncementTest {
         `when`(requestContext.currentUser()).thenReturn(user)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        val channel1 = createChannel(ChannelType.twitter, true)
-        val channel2 = createChannel(ChannelType.facebook, false)
-        `when`(channels.all()).thenReturn(arrayListOf(channel1 ,channel2))
 
         assertFalse(announcement.show())
     }
