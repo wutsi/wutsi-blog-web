@@ -180,6 +180,14 @@ abstract class SeleniumTestSupport {
         assertEquals(count, driver.findElements(By.cssSelector(selector)).size)
     }
 
+    protected fun assertElementNotVisible(selector: String) {
+        assertEquals("none", driver.findElement(By.cssSelector(selector)).getCssValue("display"))
+    }
+
+    protected fun assertElementVisible(selector: String) {
+        assertFalse("none".equals(driver.findElement(By.cssSelector(selector)).getCssValue("display")))
+    }
+
     protected fun assertElementAttribute(selector: String, name: String, value: String) {
         assertEquals(value, driver.findElement(By.cssSelector(selector)).getAttribute(name))
     }

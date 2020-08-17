@@ -702,6 +702,10 @@ a.sso-button .fab {
     font-size: 1.2em;
 }
 
+.comment-widget .close {
+    float: left;
+}
+
 .comment-widget-content {
     background: white;
     display: none;

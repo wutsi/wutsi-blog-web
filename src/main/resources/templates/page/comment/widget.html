@@ -1,9 +1,9 @@
 <div class="padding">
     <h3>
-        <span th:text="#{comment.title}">Comments</span>
-        <button type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="close margin-right" aria-label="Close">
+            <i class="fas fa-chevron-left"></i>
         </button>
+        <span th:text="#{comment.title}">Comments</span>
     </h3>
 
     <input type="hidden" name="storyId" class="form-control" th:value="${story.id}" />
