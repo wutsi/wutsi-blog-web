@@ -290,6 +290,7 @@
                         $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
                         $('#wutsi-announcement .toast-body .action').show();
                     }
+                    console.log('showing announcement', announcement.name);
                     $('.toast').toast('show');
 
                     $('#wutsi-announcement').on('shown.bs.toast', function () {

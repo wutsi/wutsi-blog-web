@@ -13,11 +13,13 @@ class TwitterAnnouncement(
         private val channels: ChannelService
 ): Announcement {
     override fun show(): Boolean {
-        val twitter = channels.all().find { it.connected && it.type == ChannelType.twitter }
         val toggles = requestContext.toggles()
-        return toggles.channel && toggles.channelTwitter &&
-                requestContext.currentUser()?.blog == true &&
-                twitter == null
+        if (toggles.channel && toggles.channelTwitter && requestContext.currentUser()?.blog == true){
+            val twitter = channels.all().find { it.connected && it.type == ChannelType.twitter }
+            return twitter == null
+        } else {
+            return false
+        }
     }
 
     override fun name() = "twitter"

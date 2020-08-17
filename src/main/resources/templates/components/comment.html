@@ -5,15 +5,15 @@
 
 <div th:fragment="widget(story)" class="comment-widget" th:id="'comment-widget-' + ${story.id}">
 
-    <div class="comment-badge">
-        <a href="javascript: wcomment.show()" th:title="#{comment.title}">
+    <a href="javascript: wcomment.show()" th:title="#{comment.title}">
+        <div class="comment-badge flex">
             <div><i class="far fa-comment-alt"></i></div>
             <div>
                 &nbsp;
                 <span class="comment-text"></span>
             </div>
-        </a>
-    </div>
+        </div>
+    </a>
 
     <div class="border comment-widget-content"></div>
 </div>
