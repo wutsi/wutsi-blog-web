@@ -6,4 +6,6 @@ interface Announcement {
     fun name(): String
 
     fun actionUrl(): String?
+
+    fun cookieMaxAge() : Int = 86400
 }

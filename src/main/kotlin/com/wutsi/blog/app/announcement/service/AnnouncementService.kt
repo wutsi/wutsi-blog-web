@@ -13,10 +13,6 @@ class AnnouncementService(
         private val requestContext: RequestContext,
         private val announcements: List<Announcement>
 ) {
-    companion object {
-        private const val ONE_DAY_SECONDS = 84600
-    }
-
     fun get(page: String, request: HttpServletRequest, response: HttpServletResponse): AnnouncementResponse {
         val announcement = announcements.find { shouldDisplay(page, it, request) }
         if (announcement == null) {
@@ -49,7 +45,7 @@ class AnnouncementService(
     private fun storeIntoCookie(announcement: Announcement, request: HttpServletRequest, response: HttpServletResponse) {
         val cookieName = cookie(announcement)
         val value = System.currentTimeMillis().toString()
-        CookieHelper.put(cookieName, value, request, response, ONE_DAY_SECONDS)
+        CookieHelper.put(cookieName, value, request, response, announcement.cookieMaxAge())
     }
 
     private fun cookie(announcement: Announcement) = "__w_announce_" + announcement.name()

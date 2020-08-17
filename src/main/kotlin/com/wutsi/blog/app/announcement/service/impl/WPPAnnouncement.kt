@@ -20,5 +20,5 @@ class WPPAnnouncement(
 
     override fun name() = "wpp"
 
-    override fun actionUrl(): String = "/partner"
+    override fun actionUrl() = "/partner"
 }

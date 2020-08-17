@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class SocialLinksAnnouncement(
+class CommentAnnouncement(
         private val requestContext: RequestContext
 ): Announcement {
     override fun show(): Boolean {
-        return requestContext.currentUser()?.hasSocialLinks == false
+        return requestContext.toggles().comment
     }
 
-    override fun name() = "social_links"
+    override fun name() = "comment"
 
-    override fun actionUrl() = "/me/settings"
+    override fun actionUrl() = null
 }

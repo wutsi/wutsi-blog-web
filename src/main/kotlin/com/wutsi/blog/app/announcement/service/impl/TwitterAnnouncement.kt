@@ -22,5 +22,5 @@ class TwitterAnnouncement(
 
     override fun name() = "twitter"
 
-    override fun actionUrl(): String = "/me/channel"
+    override fun actionUrl() = "/me/channel"
 }

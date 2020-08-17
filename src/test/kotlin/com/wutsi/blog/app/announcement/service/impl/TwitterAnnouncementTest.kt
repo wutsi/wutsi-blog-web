@@ -95,7 +95,6 @@ class TwitterAnnouncementTest {
 
     @Test
     fun `never show when channel-twitter toggle OFF`() {
-        val user = UserModel(blog=false)
         val toggles = createToggles(channelTwitter = false)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
