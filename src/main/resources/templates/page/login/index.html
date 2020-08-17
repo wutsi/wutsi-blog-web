@@ -12,13 +12,13 @@
     <div class="row">
         <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
 
-            <div class="main-content border text-center padding-2x margin-top-4x margin-bottom-4x">
-                <div id="create-blog-wizard" class="margin-top-2x" th:if="${createBlog}">
+            <div class="main-content border text-center padding margin-top-2x margin-bottom-4x">
+                <div id="create-blog-wizard" class="margin-top" th:if="${createBlog}">
                     <div th:replace="components/story :: wizard(6, 1)"></div>
                 </div>
 
                 <div id="login-panel">
-                    <h1 class="margin-top-2x">
+                    <h1 class="margin-top">
                         <span th:text="${title}">Login</span>
                         <a class="close" th:href="${return}" th:if="${return}">
                             <span aria-hidden="true">&times;</span>

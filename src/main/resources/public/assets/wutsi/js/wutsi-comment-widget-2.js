@@ -57,7 +57,7 @@ function WutsiCommentWidget(storyId, defaultText, anonymous, storyUrl){
     this.hide = function() {
         console.log('Hiding comments...');
 
-        const selector = this.config.selectors.widget;
+        const selector = this.selector(this.config.selectors.content);
         $(selector).hide();
         this.visible = false;
         this.update_badge();
