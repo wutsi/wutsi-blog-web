@@ -4,7 +4,8 @@ wutsi:
   base-url: https://${wutsi.domain}
 
   backend:
-    baseurl: https://int-com-wutsi-blog.herokuapp.com
+    base-url: https://int-com-wutsi-blog.herokuapp.com
+    track-url: https://int-com-wutsi-track.herokuapp.com
 
   oauth:
     github:

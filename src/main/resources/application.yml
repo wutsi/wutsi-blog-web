@@ -46,6 +46,7 @@ wutsi:
 
   backend:
     base-url: http://localhost:8080
+    track-url: http://localhost:8082
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
     channel:
@@ -74,12 +75,13 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/tag
     topic:
       endpoint: ${wutsi.backend.base-url}/v1/topic
-    track:
-      endpoint: ${wutsi.backend.base-url}/v1/track
     user:
       endpoint: ${wutsi.backend.base-url}/v1/user
     view:
       endpoint: ${wutsi.backend.base-url}/v1/view
+
+    track:
+      endpoint: ${wutsi.backend.track-url}/v1/track
 
   cache:
     story-ttl-seconds: 1800    # 30min

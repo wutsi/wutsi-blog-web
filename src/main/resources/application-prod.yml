@@ -4,8 +4,8 @@ wutsi:
   base-url: https://${wutsi.domain}
 
   backend:
-    baseurl: https://com-wutsi-blog.herokuapp.com
-
+    base-url: https://com-wutsi-blog.herokuapp.com
+    track-url: https://com-wutsi-track.herokuapp.com
 
   image-kit:   # Configuration of integration with imagekit.io
     origin-url: "https://s3.amazonaws.com/prod-wutsi"
