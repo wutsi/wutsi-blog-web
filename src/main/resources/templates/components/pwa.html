@@ -27,7 +27,7 @@
 </div>
 
 <div th:fragment="reset-badge">
-    <script>
+    <script id="pwa-badge-js" th:if="${toggles.pwaBadge}">
         $(document).ready(function(){
             if (navigator.clearAppBadge) {
                 console.log('Resetting the AppBadge');

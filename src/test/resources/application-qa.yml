@@ -10,6 +10,7 @@ wutsi:
   toggles:
     coming-soon: false
     google-one-tap-sign-in: false
+    pwa-badge: false
     sso-facebook: true
     sso-google: true
     sso-twitter: true

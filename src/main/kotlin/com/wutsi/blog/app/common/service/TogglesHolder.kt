@@ -14,6 +14,7 @@ class Toggles {
     var earning: Boolean = false
     var googleOneTapSignIn: Boolean = false
     var pwa: Boolean = false
+    var pwaBadge: Boolean = false
     var pwaPushNotification: Boolean = false
     var recommendation: Boolean = false
     var imageKit: Boolean = false
