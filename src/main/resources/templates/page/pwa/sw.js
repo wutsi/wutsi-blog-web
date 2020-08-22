@@ -28,6 +28,7 @@ self.addEventListener('push', function(event) {
     const data = event.data.json().data;
     console.log('data', data);
     sw_show_notification(data);
+    sw_update_badge();
 });
 
 self.addEventListener('notificationclick', function(event) {
@@ -82,6 +83,18 @@ function sw_show_notification(data) {
         self.registration.showNotification(title, config);
     }
 
+}
+
+function sw_update_badge(){
+    if (navigator.setAppBadge) {
+        console.log('Updating the AppBadge');
+        navigator.setAppBadge()
+            .catch(function (ex) {
+                console.error('Unable to set the AppBadge', ex);
+            });
+    } else {
+        console.log('navigator.setAppBadge not supported');
+    }
 }
 
 function sw_should_show_notification(data) {

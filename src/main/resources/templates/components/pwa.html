@@ -26,6 +26,22 @@
     </div>
 </div>
 
+<div th:fragment="reset-badge">
+    <script>
+        $(document).ready(function(){
+            if (navigator.clearAppBadge) {
+                console.log('Resetting the AppBadge');
+                navigator.clearAppBadge()
+                    .catch(function (ex) {
+                        console.error('Unable to clear the AppBadge', ex);
+                    });
+            } else {
+                console.log('navigator.clearAppBadge not supported');
+            }
+        });
+    </script>
+</div>
+
 
 </body>
 </html>

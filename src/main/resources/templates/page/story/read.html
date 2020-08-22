@@ -173,6 +173,7 @@
 /*]]>*/
 </script>
 
+<div th:replace="components/pwa :: reset-badge"></div>
 <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-2.js'" th:if="${toggles.comment}"></script>
 <script id="comment-script" th:inline="javascript" th:if="${toggles.comment}">
 /*<![CDATA[*/
