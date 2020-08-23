@@ -83,9 +83,6 @@ wutsi:
     track:
       endpoint: ${wutsi.backend.track-url}/v1/track
 
-  cache:
-    story-ttl-seconds: 1800    # 30min
-
   facebook:
     pixel:
       code:
