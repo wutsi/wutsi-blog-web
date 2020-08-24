@@ -30,10 +30,10 @@ function WutsiCommentWidget(storyId, defaultText, anonymous, storyUrl){
         const selector = this.selector(this.config.selectors.text);
         wutsi.httpGet('/comment/count?storyId=' + storyId, true)
             .then(function (count){
-                if (count.length > 0) {
-                    $(selector).text(count[0].text);
+                if (count.length > 0 && count[0].value > 0) {
+                    $(selector).text(count[0].valueText);
                 } else {
-                    $(selector).text(defaultText);
+                    $(selector).text('');
                 }
             })
             .catch(function(error){

@@ -114,6 +114,12 @@ h1, h2, h3, h4, h5, h6 {
 .padding-top {
     padding-top: 1em;
 }
+.padding-left {
+    padding-left: 1em;
+}
+.padding-right {
+    padding-top: 1em;
+}
 
 .padding-none {
     padding: 0;
@@ -539,22 +545,22 @@ a.sso-button .fab {
     padding-top: 0;
 }
 
-.reader .share-tool a {
+.reader .share-widget a {
     text-decoration: none;
     color: var(--highlight-color);
 }
 
-.reader .share-tool .dropdown-toggle::after {
+.reader .share-widget .dropdown-toggle::after {
     display: none;
 }
 
-.reader .share-tool .share-text {
-    font-size: 1.2em
-}
-.reader .share-tool .fa-share-alt {
+.reader .share-widget .fa-share-alt {
     font-size: 2em;
 }
 
+.reader .share-widget a.dropdown-item {
+    font-size: 1.5em;
+}
 
 .reader .tag-container .tag {
     border: 1px solid var(--border-color);
@@ -845,6 +851,14 @@ a.sso-button .fab {
         overflow: hidden;
     }
 
+    .reader .widget-container {
+        background: white;
+        bottom: 0;
+        border: 1px solid var(--border-color);
+        margin-left: -1em;
+        position: fixed;
+        width: 100%;
+    }
     .reader .comment-widget-content {
         width: 90%;
     }

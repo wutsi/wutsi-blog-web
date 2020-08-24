@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.announcement
 
 import com.wutsi.blog.app.announcement.service.AnnouncementService
-import com.wutsi.blog.app.announcement.service.impl.CommentAnnouncement
 import com.wutsi.blog.app.announcement.service.impl.SocialLinksAnnouncement
 import com.wutsi.blog.app.announcement.service.impl.TwitterAnnouncement
 import com.wutsi.blog.app.announcement.service.impl.WPPAnnouncement
@@ -26,9 +25,6 @@ class AnnouncementConfiguration {
 
     @Autowired
     private lateinit var twitter: TwitterAnnouncement
-
-    @Autowired
-    private lateinit var comment: CommentAnnouncement
 
     @Bean
     fun announcementService() = AnnouncementService(

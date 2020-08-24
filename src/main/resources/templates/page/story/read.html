@@ -60,12 +60,14 @@
         </div>
 
         <!-- Comment/Share -->
-        <div class="flex padding-top margin-top border-top" th:if="!${preview}">
-            <div th:if="${toggles.comment}">
-                <div th:replace="components/comment :: widget(${story})"></div>
-            </div>
-            <div style="margin-left: auto">
-                <div th:replace="components/story :: share(${story})"></div>
+        <div class="widget-container padding margin-top border-top" th:if="!${preview}">
+            <div class="flex">
+                <div th:if="${toggles.comment}">
+                    <div th:replace="components/comment :: widget(${story})"></div>
+                </div>
+                <div style="margin-left: auto">
+                    <div th:replace="components/share :: widget(${story})"></div>
+                </div>
             </div>
         </div>
 

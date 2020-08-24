@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<div th:fragment="widget(story)" class="share-widget">
+
+    <div class="dropdown">
+        <a class="dropdown-toggle" id="share-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="flex">
+                <div><i class="fas fa-share-alt"></i></div>
+            </div>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="share-menu">
+            <a target="_blank" class="dropdown-item share-whatsapp btn-share hidden"
+               wutsi-track-event="share"
+               wutsi-track-value="whatsapp"
+               data-action="share/whatsapp/share"
+               th:href="'whatsapp://send?text=' + ${page.url}">
+                <i class="fab fa-whatsapp-square"></i>
+                WhatsApp
+            </a>
+            <a target="_blank" class="dropdown-item share-facebook btn-share"
+               wutsi-track-event="share"
+               wutsi-track-value="facebook"
+               th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
+                <i class="fab fa-facebook-square"></i>
+                Facebook
+            </a>
+            <a target="_blank" class="dropdown-item share-twitter btn-share"
+               wutsi-track-event="share"
+               wutsi-track-value="twitter"
+               th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
+                <i class="fab fa-twitter-square"></i>
+                Twitter
+            </a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            if (wutsi.isMobile()){
+                $('.share-whatsapp').removeClass('hidden');
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>
