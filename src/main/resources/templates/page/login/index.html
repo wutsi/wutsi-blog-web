@@ -24,7 +24,7 @@
                             <span aria-hidden="true">&times;</span>
                         </a>
                     </h1>
-                    <p class="margin-top" th:text="${info}">Sign up</p>
+                    <p class="margin-top" th:utext="${info}">Sign up</p>
                 </div>
 
                 <div class="alert alert-danger padding-top" th:if="${error}" th:text="#{error.login}">Error</div>

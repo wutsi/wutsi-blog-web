@@ -2,6 +2,8 @@ package com.wutsi.blog.app.security.service
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache
+import org.springframework.security.web.savedrequest.RequestCache
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -11,6 +13,8 @@ class AuthenticationSuccessHandlerImpl: AuthenticationSuccessHandler {
         const val REDIRECT_URL_KEY = "com.wutsi.redirect_url_key"
     }
 
+    private val requestCache: RequestCache = HttpSessionRequestCache()
+
     override fun onAuthenticationSuccess(request: HttpServletRequest, response: HttpServletResponse, authentication: Authentication) {
         if (response.isCommitted()) {
             return
@@ -19,7 +23,12 @@ class AuthenticationSuccessHandlerImpl: AuthenticationSuccessHandler {
         val redirectUrl = request.session.getAttribute(REDIRECT_URL_KEY)
         try {
             if (redirectUrl == null) {
-                response.sendRedirect("/")
+                val savedRequest = this.requestCache.getRequest(request, response)
+                if (savedRequest != null){
+                    response.sendRedirect(savedRequest.getRedirectUrl())
+                } else {
+                    response.sendRedirect("/")
+                }
             } else {
                 response.sendRedirect(redirectUrl.toString())
             }
