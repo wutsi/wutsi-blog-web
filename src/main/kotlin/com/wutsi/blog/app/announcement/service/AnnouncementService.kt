@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@Service
 class AnnouncementService(
         private val requestContext: RequestContext,
         private val announcements: List<Announcement>

@@ -34,7 +34,6 @@ class AnnouncementConfiguration {
     fun announcementService() = AnnouncementService(
             requestContext = requestContext,
             announcements = arrayListOf(
-                    comment,
                     socialLinks,
                     wpp,
                     twitter
