@@ -41,6 +41,7 @@ class PageName{
         const val MAIL_UNSUBSCRIBE = "page.mail.unsubscribe"
 
         const val READ = "page.read"
+        const val RECOMMEND = "page.recommend"
 
         const val SETTINGS = "page.settings"
 

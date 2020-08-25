@@ -126,19 +126,20 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         val url = "http://localhost:8081/read/20/lorem-ipsum"
         assertElementAttribute(".dropdown .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
         assertElementAttribute(".dropdown .share-facebook", "target", "_blank")
-        assertElementAttribute(".dropdown .share-facebook", "wutsi-track-event", "share")
-        assertElementAttribute(".dropdown .share-facebook", "wutsi-track-value", "facebook")
+        assertElementAttribute(".dropdown .share-facebook", "wutsi-track-event", "share-facebook")
 
         assertElementCount(".dropdown .share-twitter", 1)
         assertElementAttribute(".dropdown .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
         assertElementAttribute(".dropdown .share-twitter", "target", "_blank")
-        assertElementAttribute(".dropdown .share-twitter", "wutsi-track-event", "share")
-        assertElementAttribute(".dropdown .share-twitter", "wutsi-track-value", "twitter")
+        assertElementAttribute(".dropdown .share-twitter", "wutsi-track-event", "share-twitter")
 
         assertElementCount(".dropdown .share-whatsapp", 1)
         assertElementAttribute(".dropdown .share-whatsapp", "href", "whatsapp://send?text=$url")
-        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-event", "share")
-        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-value", "whatsapp")
+        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-event", "share-whatsapp")
+
+        assertElementCount(".dropdown .share-messenger", 1)
+        assertElementAttribute(".dropdown .share-messenger", "href", "fb-messenger://share/?link==$url")
+        assertElementAttribute(".dropdown .share-messenger", "wutsi-track-event", "share-messenger")
     }
 
     @Test

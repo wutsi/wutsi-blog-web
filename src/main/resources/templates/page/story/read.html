@@ -72,24 +72,15 @@
         </div>
 
         <!-- PWA Push Notification -->
-        <div th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}">
+        <div class="margin-top" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}">
             <div th:replace="components/pwa :: push-card"></div>
         </div>
     </article>
 
     <!-- Recommendations -->
-    <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}"></div>
-    <script th:inline="javascript" th:if="${toggles.recommendation}">
-        /*<![CDATA[*/
-
-        var storyId = /*[[${story.id}]]*/'0';
-        wutsi.httpGet('/read/recommend/' + storyId + '?layout=card', false)
-            .then(function(html){
-                $('#recommendation-container').html(html);
-            })
-
-        /*]]>*/
-    </script>
+    <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}">
+        <div th:replace="components/story :: read-also(${story})"></div>
+    </div>
 
     <!-- Author -->
     <div class="container border main-content margin-top margin-bottom-4x">
@@ -189,14 +180,15 @@
                 /*[[${story.slug}]]*/ ''
         );
         wcomment.load();
+
+        const href = window.location.href;
+        const index = href.indexOf('?');
+        if (index>0 && href.indexOf('comment=', index) > 0){
+            wcomment.show()
+        }
     });
 
 /*]]>*/
-</script>
-<script th:inline="javascript" th:if="${showComment} AND ${toggles.comment}">
-    $(document).ready(function(){
-        wcomment.show()
-    });
 </script>
 
 </body>

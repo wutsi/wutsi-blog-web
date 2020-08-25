@@ -27,6 +27,7 @@ data class StoryModel(
         val creationDateTime: String = "",
         val modificationDateTime: String = "",
         val publishedDateTime: String = "",
+        val modificationDateTimeAsDate: Date? = null,
         val publishedDateTimeAsDate: Date? = null,
         val creationDateTimeISO8601: String = "",
         val modificationDateTimeISO8601: String = "",

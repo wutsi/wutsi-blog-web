@@ -6,30 +6,32 @@
 <div th:fragment="widget(story)" class="share-widget">
 
     <div class="dropdown">
-        <a class="dropdown-toggle" id="share-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown-toggle" id="share-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" wutsi-track-event="share">
             <div class="flex">
                 <div><i class="fas fa-share-alt"></i></div>
             </div>
         </a>
         <div class="dropdown-menu" aria-labelledby="share-menu">
             <a target="_blank" class="dropdown-item share-whatsapp btn-share hidden"
-               wutsi-track-event="share"
-               wutsi-track-value="whatsapp"
-               data-action="share/whatsapp/share"
+               wutsi-track-event="share-whatsapp"
                th:href="'whatsapp://send?text=' + ${page.url}">
                 <i class="fab fa-whatsapp-square"></i>
                 WhatsApp
             </a>
+            <a target="_blank" class="dropdown-item share-whatsapp btn-share hidden"
+               wutsi-track-event="share-messenger"
+               th:href="'fb-messenger://share/?link=' + ${page.url}">
+                <i class="fab fa-facebook-messenger"></i>
+                Messenger
+            </a>
             <a target="_blank" class="dropdown-item share-facebook btn-share"
-               wutsi-track-event="share"
-               wutsi-track-value="facebook"
+               wutsi-track-event="share-facebook"
                th:href="'https://www.facebook.com/sharer/sharer.php?display=page&u=' + ${page.url}">
                 <i class="fab fa-facebook-square"></i>
                 Facebook
             </a>
             <a target="_blank" class="dropdown-item share-twitter btn-share"
-               wutsi-track-event="share"
-               wutsi-track-value="twitter"
+               wutsi-track-event="share-twitter"
                th:href="'http://www.twitter.com/intent/tweet?url=' + ${page.url}">
                 <i class="fab fa-twitter-square"></i>
                 Twitter

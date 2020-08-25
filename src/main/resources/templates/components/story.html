@@ -188,12 +188,6 @@
             <span th:text="#{label.minutes}">min</span>
         </div>
     </div>
-
-    <div class="flex">
-        <div class="margin-top" th:if="${toggles.comment}">
-            <div th:replace="components/comment :: badge(${story})"></div>
-        </div>
-    </div>
 </div>
 
 <div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">
@@ -269,6 +263,19 @@
     ></i>
 </span>
 
+<div th:fragment="read-also(story)" th:id="'read-also-' + ${story.id}">
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        $(document).ready(function(){
+            const storyId = /*[[${story.id}]]*/'0';
+            wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=card', false)
+                .then(function(html){
+                    $('#read-also-' + storyId).html(html);
+                })
+        });
+    /*]]>*/
+    </script>
+</div>
 
 </body>
 </html>

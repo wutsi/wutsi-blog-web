@@ -72,6 +72,10 @@ h1, h2, h3, h4, h5, h6 {
 .fa-whatsapp-square {
     color: #25D366;
 }
+.fa-facebook-messenger {
+    color: #00B2FF;
+}
+
 .fa-check-circle {
     color: darkgreen;
 }
