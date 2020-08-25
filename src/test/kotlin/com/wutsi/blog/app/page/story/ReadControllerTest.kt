@@ -138,7 +138,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-event", "share-whatsapp")
 
         assertElementCount(".dropdown .share-messenger", 1)
-        assertElementAttribute(".dropdown .share-messenger", "href", "fb-messenger://share/?link==$url")
+        assertElementAttribute(".dropdown .share-messenger", "href", "fb-messenger://share/?link=$url")
         assertElementAttribute(".dropdown .share-messenger", "wutsi-track-event", "share-messenger")
     }
 
