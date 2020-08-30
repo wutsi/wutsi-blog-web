@@ -37,7 +37,8 @@ class TrackService(
             referer = CookieHelper.get(CookieName.REFERER, request),
             ua = request.getHeader("User-Agent"),
             duid = CookieHelper.get(CookieName.DEVICE_UID, request),
-            hid = form.hid
+            hid = form.hid,
+            url = form.url
     )
 
     private fun log(request: PushTrackRequest) {

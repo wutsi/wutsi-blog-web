@@ -11,6 +11,7 @@ import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,6 +24,10 @@ class HomeController(
         private val schemas: WutsiSchemasGenerator,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(HomeController::class.java)
+    }
+
     override fun pageName() = PageName.HOME
 
     override fun shouldBeIndexedByBots() = true
@@ -67,12 +72,21 @@ class HomeController(
                 sortBy = StorySortStrategy.published,
                 limit = 50
         ))
-        return storyService.sort(
-                stories = stories,
-                algorithm = SortAlgorithmType.most_recent,
-                statsHoursOffset = 24*1, // 1 days
-                bubbleDownViewedStories = true
-        )
+        return sort(stories)
+    }
+
+    private fun sort(stories: List<StoryModel>): List<StoryModel> {
+        try{
+            return storyService.sort(
+                    stories = stories,
+                    algorithm = SortAlgorithmType.most_recent,
+                    statsHoursOffset = 24*1, // 1 days
+                    bubbleDownViewedStories = true
+            )
+        }catch(ex: Exception){
+            LOGGER.warn("Unable to sort stories", ex)
+            return stories
+        }
     }
 
     private fun mainStory(stories: List<StoryModel>): StoryModel? {

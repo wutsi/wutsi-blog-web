@@ -34,7 +34,8 @@ function Wutsi (){
             page: page,
             ua: navigator.userAgent,
             value: (value ? value : null),
-            hid: this.hit_id()
+            hid: this.hit_id(),
+            url: window.location.href
         };
         return this.httpPost('/track', data, true)
             .catch(function(){
