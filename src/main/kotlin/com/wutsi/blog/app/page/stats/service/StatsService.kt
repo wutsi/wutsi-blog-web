@@ -57,7 +57,9 @@ class StatsService(
                 live = true,
                 limit = 50
         )).stories
-        return stories.map { mapper.toStatsStorySummaryModel(it, stats) }
+        return stories
+                .map { mapper.toStatsStorySummaryModel(it, stats) }
+                .filter { it.totalReadTime > 0 }
     }
 
     fun story(story: StoryModel, year: Int, month: Int) : StatsStorySummaryModel {
