@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="form-group">
-                    <p th:text="#{page.story.publish.topic.info}">Information</p>
+                    <label><span th:text="#{page.story.publish.topic.info}">Information</span> <b class="required">*</b></label>
                     <select id="topic-id" class="form-control" name="topicId" required="required">
                         <option value=""></option>
                         <option
@@ -60,8 +60,8 @@
                 </div>
 
                 <div class="form-group margin-top-2x">
-                    <p th:text="#{page.story.publish.tag.info}">Information</p>
-                    <select id="tags" class="form-control" name="tags" multiple="multiple">
+                    <label><span th:text="#{page.story.publish.tag.info}">Information</span> <b class="required">*</b></label>
+                    <select id="tags" class="form-control" name="tags" multiple="multiple" required="required">
                         <option selected="selected" th:value="${tag.displayName}" th:text="${tag.displayName}" th:each="tag : ${story.tags}">Tag</option>
                     </select>
                 </div>
