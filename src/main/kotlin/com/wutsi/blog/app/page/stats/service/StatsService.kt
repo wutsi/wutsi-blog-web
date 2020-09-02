@@ -82,7 +82,7 @@ class StatsService(
         cal.set(Calendar.DAY_OF_MONTH, 1)
 
         val startDate = cal.time
-        val endDate = DateUtils.addMonths(startDate, 1)
+        val endDate = DateUtils.addDays(DateUtils.addMonths(startDate, 1), -1)
 
         val stats = backend.search(SearchStatsRequest(
                 targetIds = arrayListOf(story.id),
