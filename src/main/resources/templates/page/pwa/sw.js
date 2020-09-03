@@ -100,12 +100,7 @@ function sw_update_badge(){
 function sw_should_show_notification(data) {
     if (data.event == 'com.wutsi.blog.client.event.PublishEvent') { // Publishing event
         if (data.contractId) { // Author is a contractor?
-            const hour = Date().getHours();
-            if (hour >= 9 && hour < 21) {   // Right time?
-                return true;
-            } else {
-                console.log("Cannot show notification from 9AM to 9PM. current hour=", hour);
-            }
+            return true;
         } else {
             console.log("Cannot show notification for non-contractor");
         }
