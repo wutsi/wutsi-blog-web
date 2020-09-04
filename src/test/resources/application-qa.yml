@@ -5,7 +5,8 @@ wiremock:
 
 wutsi:
   backend:
-    baseurl: "${wiremock.url}"
+    base-url: "${wiremock.url}"
+    track-url: "${wiremock.url}"
 
   toggles:
     coming-soon: false
