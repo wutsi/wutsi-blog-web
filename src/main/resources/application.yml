@@ -55,8 +55,6 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/comment
     contract:
       endpoint: ${wutsi.backend.base-url}/v1/contract
-    earning:
-      endpoint: ${wutsi.backend.base-url}/v1/earning
     mail:
       endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
@@ -69,8 +67,6 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/sort
     story:
       endpoint: ${wutsi.backend.base-url}/v1/story
-    stats:
-      endpoint: ${wutsi.backend.base-url}/v1/stats
     tag:
       endpoint: ${wutsi.backend.base-url}/v1/tag
     topic:
@@ -78,6 +74,10 @@ wutsi:
     user:
       endpoint: ${wutsi.backend.base-url}/v1/user
 
+    earning:
+      endpoint: ${wutsi.backend.track-url}/v1/earning
+    stats:
+      endpoint: ${wutsi.backend.track-url}/v1/stats
     track:
       endpoint: ${wutsi.backend.track-url}/v1/track
 
