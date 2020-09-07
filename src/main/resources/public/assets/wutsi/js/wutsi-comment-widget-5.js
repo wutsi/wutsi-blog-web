@@ -11,8 +11,6 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
     this.load = function() {
         console.log('Loading comments', storyId);
 
-        this.update_badge();
-
         const me = this;
         $(document).mouseup(function(e) {
             if (!me.visible) {
@@ -24,21 +22,6 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
                 me.hide();
             }
         });
-    };
-
-    this.update_badge = function() {
-        const selector = this.selector(this.config.selectors.text);
-        wutsi.httpGet('/comment/count?storyId=' + storyId, true)
-            .then(function (count){
-                if (count.length > 0 && count[0].value > 0) {
-                    $(selector).text(count[0].valueText);
-                } else {
-                    $(selector).text('');
-                }
-            })
-            .catch(function(error){
-                $(selector).text('');
-            });
     };
 
     this.show = function () {
@@ -63,7 +46,7 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         const selector = this.selector(this.config.selectors.content);
         $(selector).hide();
         this.visible = false;
-        this.update_badge();
+        wutsi.update_comment_count();
     };
 
     this.load_items = function() {

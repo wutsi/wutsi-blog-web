@@ -50,7 +50,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         Thread.sleep(1000)
         assertElementPresent(".comment-widget .comment-badge .fa-comment-alt")
-        assertElementText(".comment-widget .comment-badge .comment-text", "3")
+        assertElementText(".comment-widget .comment-badge .comment-count", "3")
         assertElementNotVisible(".comment-widget .comment-widget-content")
     }
 
@@ -61,7 +61,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
         Thread.sleep(1000)
         assertElementPresent(".comment-widget .comment-badge .fa-comment-alt")
-        assertElementText(".comment-widget .comment-badge .comment-text", "")
+        assertElementText(".comment-widget .comment-badge .comment-count", "")
         assertElementNotVisible(".comment-widget .comment-widget-content")
     }
 
@@ -105,7 +105,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         click(".comment-widget .close")
         Thread.sleep(1000)
         assertElementNotVisible(".comment-widget .comment-widget-content")
-        assertElementText(".comment-widget .comment-badge .comment-text", "4")
+        assertElementText(".comment-widget .comment-badge .comment-count", "4")
     }
 
     @Test

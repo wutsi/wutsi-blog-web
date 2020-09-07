@@ -111,7 +111,6 @@ function Wutsi (){
                 .then(function (counts) {
                     $(counts).each(function(index, item){
                         $('#comment-count-' + item.storyId).text(item.valueText);
-                        $('#comment-text-' + item.storyId).text(item.text);
                     });
                 });
         }
