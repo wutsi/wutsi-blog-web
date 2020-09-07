@@ -52,14 +52,15 @@ $ git clone git@github.com:wutsi/wutsi-blog-web.git
 $ cd wutsi-blog-web
 $ mvn clean install
 ```
-- Install the blog REST API [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#installation)
+- Install the Blog API [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#installation)
+- Install the Tracking API [wutsi-track-service](https://github.com/wutsi/wutsi-track-service#installation)
 
 
 ### Launch the application
-- Make sure that `wutsi-blog-service` is not running!
+- Launch [wutsi-blog-service](https://github.com/WutsiTeam/wutsi-blog-service#usage)
+- Launch [wutsi-track-service](https://github.com/wutsi/wutsi-track-service#usage)
 - Launch the webapp on port `8081` with the command:
 ```
 $ java -jar target/wutsi-blog-web.jar
 ```
-- Launch the blog REST server [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#launch-the-service)
 - Navigate to `http://localhost:8081`
