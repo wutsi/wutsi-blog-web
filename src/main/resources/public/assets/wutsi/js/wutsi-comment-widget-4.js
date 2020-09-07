@@ -1,4 +1,4 @@
-function WutsiCommentWidget(storyId, defaultText, anonymous, storyUrl){
+function WutsiCommentWidget(storyId, anonymous, storyUrl){
     this.visible = false;
     this.config = {
         selectors: {
@@ -51,6 +51,9 @@ function WutsiCommentWidget(storyId, defaultText, anonymous, storyUrl){
         wutsi.httpGet('/comment/widget?storyId=' + storyId, false)
             .then(function(html){
                 $(selector).html(html);
+            })
+            .finally(function(){
+                wusti.track('comment');
             });
     };
 
@@ -143,7 +146,7 @@ function WutsiCommentWidget(storyId, defaultText, anonymous, storyUrl){
             .finally(function(){
                 me.end_edit();
             });
-    }
+    };
 
     this.selector = function(q){
         return '#comment-widget-' + storyId + ' ' + q;

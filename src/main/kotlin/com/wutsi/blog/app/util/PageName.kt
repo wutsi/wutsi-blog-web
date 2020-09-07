@@ -30,8 +30,9 @@ class PageName{
         const val ERROR_500 = "page.error.500"
 
         const val HOME = "page.home"
+
         const val LOGIN = "page.login"
-        const val RUN_AS = "page.run.as"
+        const val LIKE = "page.like"
 
         const val LEGAL_ABOUT = "page.legal.about"
         const val LEGAL_TERMS = "page.legal.about"
@@ -42,6 +43,7 @@ class PageName{
 
         const val READ = "page.read"
         const val RECOMMEND = "page.recommend"
+        const val RUN_AS = "page.run.as"
 
         const val SETTINGS = "page.settings"
 

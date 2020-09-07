@@ -135,6 +135,9 @@ h1, h2, h3, h4, h5, h6 {
 .margin-right {
     margin-right: 1em;
 }
+.margin-right-2x {
+    margin-right: 2em;
+}
 .margin-bottom {
     margin-bottom: 1em;
 }
@@ -231,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ==== ANNOUNCEMENT ==== */
 #wutsi-announcement-container{
     position:fixed;
-    bottom: 35px;
+    bottom: 5em;
     left: 25px;
 }
 
@@ -474,6 +477,10 @@ a.sso-button .fab {
     text-decoration: underline;
 }
 
+.post .widget-container {
+    margin-top: 0.5em;
+}
+
 #popular-posts {
     background: white;
 }
@@ -703,14 +710,37 @@ a.sso-button .fab {
 }
 
 
-
-/*===== COMMENT === */
-.comment-badge a {
+/*===== LIKE === */
+.like-widget a {
     text-decoration: none;
     color: var(--highlight-color);
 }
+.like-widget a:hover {
+    text-decoration: none;
+}
 
-.comment-widget .comment-badge .fa-comment-alt {
+.like-widget .like-badge .like-icon {
+    font-size: 2em;
+}
+.like-widget .like-badge .like-count {
+    font-size: 1.2em;
+}
+.like-badge .like-icon-liked {
+    color: darkred;
+}
+
+
+
+/*===== COMMENT === */
+.comment-widget a {
+    text-decoration: none;
+    color: var(--highlight-color);
+}
+.comment-widget a:hover {
+    text-decoration: none;
+}
+
+.comment-widget .comment-badge .comment-icon {
     font-size: 2em;
 }
 .comment-widget .comment-badge .comment-text {

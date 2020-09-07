@@ -81,6 +81,9 @@ function Wutsi (){
         /* comments */
         this.update_comment_count();
 
+        /* likes */
+        this.update_like_count();
+
         /* tracking */
         $('[wutsi-track-event]').click(function(){
             const event = $(this).attr("wutsi-track-event");
@@ -104,8 +107,7 @@ function Wutsi (){
             qs += 'storyId=' + $(item).attr('data-comment-story-id');
         });
         if (qs.length > 0) {
-            const url = '/comment/count?' + qs;
-            this.httpGet(url, true)
+            this.httpGet('/comment/count?' + qs, true)
                 .then(function (counts) {
                     $(counts).each(function(index, item){
                         $('#comment-count-' + item.storyId).text(item.valueText);
@@ -113,7 +115,34 @@ function Wutsi (){
                     });
                 });
         }
-    }
+    };
+
+    this.update_like_count = function() {
+        var qs = '';
+        $('[data-like-story-id]').each(function(index, item){
+            if (qs.length > 0){
+                qs += '&'
+            }
+            qs += 'storyId=' + $(item).attr('data-like-story-id');
+        });
+        if (qs.length > 0) {
+            // Like count
+            this.httpGet('/like/count?' + qs, true)
+                .then(function (counts) {
+                    $(counts).each(function(index, item){
+                        $('#like-count-' + item.storyId).text(item.valueText);
+                    });
+                });
+
+            // Highlight the stories the user like
+            this.httpGet('/like/search?' + qs, true)
+                .then(function (likes) {
+                    $(likes).each(function(index, item){
+                        $('#like-icon-' + item.storyId).attr('class', 'fas fa-heart like-icon like-icon-liked');
+                    });
+                });
+        }
+    };
 
     this.isMobile = function () {
         const ua = navigator.userAgent;

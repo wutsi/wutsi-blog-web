@@ -189,7 +189,10 @@
         </div>
     </div>
 
-    <div class="flex">
+    <div class="flex widget-container">
+        <div th:if="${toggles.like}" class="margin-right-2x">
+            <div th:replace="components/like :: badge(${story})"></div>
+        </div>
         <div th:if="${toggles.comment}">
             <div th:replace="components/comment :: badge(${story})"></div>
         </div>

@@ -62,6 +62,9 @@
         <!-- Comment/Share -->
         <div class="widget-container padding margin-top border-top" th:if="!${preview}">
             <div class="flex">
+                <div class="margin-right-2x" th:if="${toggles.like}">
+                    <div th:replace="components/like :: widget(${story})"></div>
+                </div>
                 <div th:if="${toggles.comment}">
                     <div th:replace="components/comment :: widget(${story})"></div>
                 </div>
@@ -166,8 +169,7 @@
 /*]]>*/
 </script>
 
-<div th:replace="components/pwa :: reset-badge"></div>
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-3.js'" th:if="${toggles.comment}"></script>
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-4.js'" th:if="${toggles.comment}"></script>
 <script id="comment-script" th:inline="javascript" th:if="${toggles.comment}">
 /*<![CDATA[*/
 
@@ -175,12 +177,12 @@
     $(document).ready(function(){
         wcomment = new WutsiCommentWidget(
                 /*[[${story.id}]]*/ '0',
-                /*[[#{button.comment}]]*/ '',
                 /*[[!${user}]]*/ true,
                 /*[[${story.slug}]]*/ ''
         );
         wcomment.load();
 
+        // Open the comment drawer based on query parameter
         const href = window.location.href;
         const index = href.indexOf('?');
         if (index>0 && href.indexOf('comment=', index) > 0){
@@ -191,5 +193,30 @@
 /*]]>*/
 </script>
 
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-like-widget-1.js'" th:if="${toggles.like}"></script>
+<script id="like-script" th:inline="javascript" th:if="${toggles.like}">
+/*<![CDATA[*/
+
+    var wlike;
+    $(document).ready(function(){
+        wlike = new WutsiLikeWidget(
+                /*[[${story.id}]]*/ '0',
+                /*[[!${user}]]*/ true,
+                /*[[${story.slug}]]*/ ''
+        );
+
+        // like based on query parameter
+        const href = window.location.href;
+        const index = href.indexOf('?');
+        if (index>0 && href.indexOf('like=', index) > 0){
+            wlike.like()
+        }
+    });
+
+/*]]>*/
+</script>
+
+
+<div th:replace="components/pwa :: reset-badge"></div>
 </body>
 </html>
