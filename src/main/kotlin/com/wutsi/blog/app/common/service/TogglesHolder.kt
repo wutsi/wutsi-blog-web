@@ -13,6 +13,7 @@ class Toggles {
     var comment: Boolean = false
     var earning: Boolean = false
     var googleOneTapSignIn: Boolean = false
+    var like: Boolean = false
     var pwa: Boolean = false
     var pwaBadge: Boolean = false
     var pwaPushNotification: Boolean = false

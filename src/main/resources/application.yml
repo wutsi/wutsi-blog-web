@@ -144,11 +144,12 @@ wutsi:
     comment: true                   # Enable Comments
     earning: true                   # Show Earnings
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
+    image-kit: true                 # Integration with imagekit.io
+    like: true                      # Enable Like
     pwa: true                       # PWA
     pwa-badge: true                 # Enable Badging on app icon
     pwa-push-notification: true     # Enable PWA Push Notification?
     recommendation: true            # Show articles recommendations in reader
-    image-kit: true                 # Integration with imagekit.io
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false
