@@ -55,6 +55,14 @@ $ mvn clean install
 - Install the Blog API [wutsi-blog-service](https://github.com/wutsi/wutsi-blog-service#installation)
 - Install the Tracking API [wutsi-track-service](https://github.com/wutsi/wutsi-track-service#installation)
 
+## Run test
+- Download your chromedriver version [there](https://chromedriver.chromium.org/downloads)
+- Move this chromedriver in application root
+- Run your tests
+```
+mvn clean install -Dheadless=true
+```
+
 
 ### Launch the application
 - Launch [wutsi-blog-service](https://github.com/WutsiTeam/wutsi-blog-service#usage)
