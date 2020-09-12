@@ -17,6 +17,7 @@ wutsi:
       github:
         client-id: "900cfd0accedc133ea5b"
       google:
+        api-key: "AIzaSyA2TnJHA13MhGMZWtJC48NMqkTnASFBtyU"
         client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
       twitter:
         client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"

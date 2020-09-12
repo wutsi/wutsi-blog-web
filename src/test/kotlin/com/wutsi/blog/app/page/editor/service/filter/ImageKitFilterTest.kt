@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.editor.service
+package com.wutsi.blog.app.page.editor.service.filter
 
 import com.wutsi.blog.app.page.story.service.HtmlImageService
 import org.jsoup.Jsoup

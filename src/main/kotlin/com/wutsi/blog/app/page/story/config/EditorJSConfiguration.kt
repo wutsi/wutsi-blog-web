@@ -2,10 +2,10 @@ package com.wutsi.blog.app.page.story.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
-import com.wutsi.blog.app.page.editor.service.ImageKitFilter
-import com.wutsi.blog.app.page.editor.service.ImageLozadFilter
-import com.wutsi.blog.app.page.editor.service.LinkTargetFilter
-import com.wutsi.blog.app.page.editor.service.LinkUTMFilter
+import com.wutsi.blog.app.page.editor.service.filter.ImageKitFilter
+import com.wutsi.blog.app.page.editor.service.filter.ImageLozadFilter
+import com.wutsi.blog.app.page.editor.service.filter.LinkTargetFilter
+import com.wutsi.blog.app.page.editor.service.filter.LinkUTMFilter
 import com.wutsi.blog.app.page.story.service.HtmlImageService
 import com.wutsi.editorjs.html.EJSHtmlReader
 import com.wutsi.editorjs.html.EJSHtmlWriter

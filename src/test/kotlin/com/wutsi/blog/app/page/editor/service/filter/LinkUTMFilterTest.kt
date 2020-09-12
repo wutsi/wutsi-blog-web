@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.editor.service
+package com.wutsi.blog.app.page.editor.service.filter
 
 import org.jsoup.Jsoup
 import org.junit.Assert.assertEquals

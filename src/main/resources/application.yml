@@ -107,7 +107,8 @@ wutsi:
       callback-url: "${wutsi.base-url}/login/facebook/callback"
       scope: "public_profile"
     google:
-      client-id: "00000000"
+      api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
+      client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
       client-secret: "00000000"
       callback-url: "${wutsi.base-url}/login/google/callback"
       scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"

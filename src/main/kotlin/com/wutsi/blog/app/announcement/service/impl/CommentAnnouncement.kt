@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
+@Deprecated("unused")
 class CommentAnnouncement(
         private val requestContext: RequestContext
 ): Announcement {
