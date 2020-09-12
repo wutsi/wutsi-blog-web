@@ -53,6 +53,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/channel
     comment:
       endpoint: ${wutsi.backend.base-url}/v1/comment
+    like:
+      endpoint: ${wutsi.backend.base-url}/v1/like
     contract:
       endpoint: ${wutsi.backend.base-url}/v1/contract
     mail:
