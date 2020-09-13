@@ -12,8 +12,8 @@ function WutsiLikeWidget(storyId, anonymous, storyUrl){
             const redirect = storyUrl + '?like=1';
             window.location.href = '/login?reason=like&redirect=' + encodeURI(redirect) + '&return=' + encodeURI(redirect);
         } else {
-            wutsi.httpGet('/like?storyId=' + storyId, true)
-                .then(function (count) {
+            wutsi.httpPost('/like?storyId=' + storyId, {}, true)
+                .then(function () {
                     wutsi.update_like_count();
                 })
                 .finally(function () {

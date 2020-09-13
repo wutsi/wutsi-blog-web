@@ -156,6 +156,24 @@
     </div>
 </div>
 
+<div th:fragment="widgets(story)">
+    <div class="flex widget-container">
+        <div th:if="${toggles.like}" class="margin-right">
+            <div th:replace="components/like :: badge(${story})"></div>
+        </div>
+        <div th:if="${toggles.comment}">
+            <div th:replace="components/comment :: badge(${story})"></div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="meta(story)" class="meta flex">
+    <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
+    <div>
+        <span th:text="${story.readingMinutes}">2</span>
+        <span th:text="#{label.minutes}">min</span>
+    </div>
+</div>
 
 <div th:fragment="story-card(story, trackEvent, rank)">
     <a th:href="${story.slug}"
@@ -181,22 +199,8 @@
         <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
     </a>
 
-    <div class="meta flex">
-        <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
-        <div>
-            <span th:text="${story.readingMinutes}">2</span>
-            <span th:text="#{label.minutes}">min</span>
-        </div>
-    </div>
-
-    <div class="flex widget-container">
-        <div th:if="${toggles.like}" class="margin-right-2x">
-            <div th:replace="components/like :: badge(${story})"></div>
-        </div>
-        <div th:if="${toggles.comment}">
-            <div th:replace="components/comment :: badge(${story})"></div>
-        </div>
-    </div>
+    <div th:replace="components/story :: meta(${story})"></div>
+    <div th:replace="components/story :: widgets(${story})"></div>
 </div>
 
 <div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">
@@ -216,14 +220,11 @@
                     <a th:href="${story.user.slug}" th:title="${story.user.fullName}">
                         <div class="author margin-top" th:text="${story.user.fullName}">Ray Sponsible</div>
                     </a>
-                    <div class="meta flex">
-                        <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
-                        <div>
-                            <span th:text="${story.readingMinutes}">2</span>
-                            <span th:text="#{label.minutes}">min</span>
-                        </div>
-                    </div>
+
+                    <div th:replace="components/story :: meta(${story})"></div>
+                    <div th:replace="components/story :: widgets(${story})"></div>
                 </div>
+
                 <div class="col-3 text-right padding-none" th:if="${story.thumbnailImage} AND ${showAuthor}">
                     <a th:href="${story.slug}"
                        th:title="${story.title}"

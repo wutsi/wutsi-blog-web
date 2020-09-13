@@ -450,7 +450,7 @@ a.sso-button .fab {
 }
 
 .post .summary {
-    height: 3em;
+    max-height: 3em;
     overflow: hidden;
     text-overflow: ellipsis;
 }

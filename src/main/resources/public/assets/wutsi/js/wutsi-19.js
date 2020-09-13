@@ -126,8 +126,11 @@ function Wutsi (){
         });
 
         if (qs.length > 0) {
-            // Like count
+            // Reset
             $('.like-count').text('');
+            $('.like-icon').attr('class', 'far fa-heart like-icon');
+
+            // Like count
             this.httpGet('/like/count?' + qs, true)
                 .then(function (counts) {
                     if (storyId !== 0) {
@@ -143,7 +146,6 @@ function Wutsi (){
                 });
 
             // Highlight the stories the user like
-            $('.like-icon').attr('class', 'far fa-heart like-icon');
             this.httpGet('/like/search?' + qs, true)
                 .then(function (likes) {
                     $(likes).each(function(index, item){

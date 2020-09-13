@@ -21,14 +21,15 @@ class LikeController(
      * Like or Unlike story
      */
     @ResponseBody
-    @GetMapping(produces = ["application/json"])
-    fun like(@RequestParam storyId: Long) {
+    @PostMapping(produces = ["application/json"])
+    fun like(@RequestParam storyId: Long): LikeModel {
         val likes = likeService.search(listOf(storyId))
 
         if(likes.isEmpty()){
-            likeService.create(storyId=storyId)
+            return likeService.create(storyId=storyId)
         } else {
             likeService.delete(likes.get(0).id)
+            return LikeModel(storyId=storyId)
         }
     }
 
