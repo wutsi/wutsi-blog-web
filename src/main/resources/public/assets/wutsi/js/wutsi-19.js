@@ -116,7 +116,7 @@ function Wutsi (){
         }
     };
 
-    this.update_like_count = function() {
+    this.update_like_count = function(storyId = 0) {
         var qs = '';
         $('[data-like-story-id]').each(function(index, item){
             if (qs.length > 0){
@@ -127,14 +127,23 @@ function Wutsi (){
 
         if (qs.length > 0) {
             // Like count
+            $('.like-count').text('');
             this.httpGet('/like/count?' + qs, true)
                 .then(function (counts) {
+                    if (storyId !== 0) {
+                        const found = counts.find(item => item.storyId === storyId);
+                        if(found === undefined){
+                            $('#like-count-' + storyId).text('');
+                            return;
+                        }
+                    }
                     $(counts).each(function(index, item){
                         $('#like-count-' + item.storyId).text(item.valueText);
                     });
                 });
 
             // Highlight the stories the user like
+            $('.like-icon').attr('class', 'far fa-heart like-icon');
             this.httpGet('/like/search?' + qs, true)
                 .then(function (likes) {
                     $(likes).each(function(index, item){
