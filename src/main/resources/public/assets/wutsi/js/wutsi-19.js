@@ -127,6 +127,7 @@ function Wutsi (){
 
         if (qs.length > 0) {
             // Like count
+            $('.like-count').text('');
             this.httpGet('/like/count?' + qs, true)
                 .then(function (counts) {
                     $(counts).each(function(index, item){
@@ -135,6 +136,7 @@ function Wutsi (){
                 });
 
             // Highlight the stories the user like
+            $('.like-icon').attr('class', 'far fa-heart like-icon');
             this.httpGet('/like/search?' + qs, true)
                 .then(function (likes) {
                     $(likes).each(function(index, item){

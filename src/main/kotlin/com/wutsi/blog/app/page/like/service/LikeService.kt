@@ -47,4 +47,8 @@ class LikeService(
                 userId = requestContext.currentUser()!!.id
         ))
     }
+
+    fun delete(id: Long) {
+        backend.delete(id)
+    }
 }

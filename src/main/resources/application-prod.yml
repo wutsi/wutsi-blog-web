@@ -41,7 +41,7 @@ wutsi:
     earning: true
     google-one-tap-sign-in: true
     imagekit: true
-    like: false
+    like: true
     pwa: true
     pwa-badge: true
     pwa-push-notification: true
