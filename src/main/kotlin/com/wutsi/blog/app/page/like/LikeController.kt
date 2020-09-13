@@ -24,7 +24,7 @@ class LikeController(
     @ResponseBody
     @GetMapping(produces = ["application/json"])
     fun like(@RequestParam storyId: Long): LikeModel {
-        return LikeModel(storyId=storyId)
+        return likes.create(storyId=storyId)
     }
 
 

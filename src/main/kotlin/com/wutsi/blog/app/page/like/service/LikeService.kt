@@ -34,4 +34,17 @@ class LikeService(
 
         return likes.map { mapper.toLikeModel(it) }
     }
+
+    fun create(storyId: Long): LikeModel {
+        val likeResponse = backend.create(CreateLikeRequest(
+                storyId = storyId,
+                userId = requestContext.currentUser()!!.id
+        ))
+
+        return mapper.toLikeModel(LikeDto(
+                id = likeResponse.likeId,
+                storyId = storyId,
+                userId = requestContext.currentUser()!!.id
+        ))
+    }
 }

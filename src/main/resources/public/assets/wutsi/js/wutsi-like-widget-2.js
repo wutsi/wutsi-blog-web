@@ -1,5 +1,4 @@
 function WutsiLikeWidget(storyId, anonymous, storyUrl){
-    this.visible = false;
     this.config = {
         selectors: {
             text: '.like-text'
@@ -18,7 +17,7 @@ function WutsiLikeWidget(storyId, anonymous, storyUrl){
                     wutsi.update_like_count();
                 })
                 .finally(function () {
-                    wusti.track('like');
+                    wutsi.track('like');
                 });
         }
     };
