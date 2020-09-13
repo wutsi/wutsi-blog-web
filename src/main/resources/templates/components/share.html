@@ -18,7 +18,7 @@
                 <i class="fab fa-whatsapp-square"></i>
                 WhatsApp
             </a>
-            <a target="_blank" class="dropdown-item share-messenger btn-share"
+            <a target="_blank" class="dropdown-item share-messenger btn-share hidden"
                wutsi-track-event="share-messenger"
                th:href="'fb-messenger://share/?link=' + ${page.url}">
                 <i class="fab fa-facebook-messenger"></i>
@@ -42,6 +42,7 @@
         $(document).ready(function(){
             if (wutsi.isMobile()){
                 $('.share-whatsapp').removeClass('hidden');
+                $('.share-messenger').removeClass('hidden');
             }
         });
     </script>
