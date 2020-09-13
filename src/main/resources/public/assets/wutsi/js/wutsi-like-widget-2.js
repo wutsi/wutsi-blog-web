@@ -16,14 +16,6 @@ function WutsiLikeWidget(storyId, anonymous, storyUrl){
                 .then(function (count) {
                     wutsi.update_like_count();
                 })
-                .catch(function (error){
-                    if(error.status === 200) {
-                        var $likeIcon = $('#like-icon-' + storyId);
-                        $likeIcon.removeClass('fas fa-heart like-icon like-icon-liked');
-                        $likeIcon.attr('class', 'far fa-heart like-icon');
-                        wutsi.update_like_count(storyId);
-                    }
-                })
                 .finally(function () {
                     wutsi.track('like');
                 });

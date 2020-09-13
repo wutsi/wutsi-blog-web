@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.like
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.comment.model.CreateCommentForm
 import com.wutsi.blog.app.page.like.model.LikeCountModel
 import com.wutsi.blog.app.page.like.model.LikeModel
 import com.wutsi.blog.app.page.like.service.LikeService
@@ -23,14 +22,14 @@ class LikeController(
      */
     @ResponseBody
     @GetMapping(produces = ["application/json"])
-    fun like(@RequestParam storyId: Long): LikeModel? {
+    fun like(@RequestParam storyId: Long) {
         val likes = likeService.search(listOf(storyId))
 
         if(likes.isEmpty()){
-            return likeService.create(storyId=storyId)
+            likeService.create(storyId=storyId)
+        } else {
+            likeService.delete(likes.get(0).id)
         }
-        likeService.delete(likes.get(0).id)
-        return null
     }
 
 
