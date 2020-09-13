@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/like")
 class LikeController(
         requestContext: RequestContext,
-        private val likes: LikeService
+        private val likeService: LikeService
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.LIKE
 
@@ -23,8 +23,14 @@ class LikeController(
      */
     @ResponseBody
     @GetMapping(produces = ["application/json"])
-    fun like(@RequestParam storyId: Long): LikeModel {
-        return likes.create(storyId=storyId)
+    fun like(@RequestParam storyId: Long): LikeModel? {
+        val likes = likeService.search(listOf(storyId))
+
+        if(likes.size == 1){
+            likeService.delete(likes.get(0).id)
+            return null
+        }
+        return likeService.create(storyId=storyId)
     }
 
 
@@ -35,7 +41,7 @@ class LikeController(
     @GetMapping("/search", produces = ["application/json"])
     fun search(@RequestParam storyId: Array<Long>): List<LikeModel> {
         val userId = requestContext.currentSession()?.userId
-        val likes = likes.search(storyId.toList())
+        val likes = likeService.search(storyId.toList())
         if (userId == null){
             return emptyList()
         } else {
@@ -53,7 +59,7 @@ class LikeController(
     @ResponseBody
     @GetMapping("/count", produces = ["application/json"])
     fun count(@RequestParam storyId: Array<Long>): List<LikeCountModel> {
-        return likes.count(storyId.toList())
+        return likeService.count(storyId.toList())
     }
 
 }

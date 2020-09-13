@@ -21,4 +21,8 @@ class LikeBackend(private val http: Http) {
     fun create(request: CreateLikeRequest): CreateLikeResponse {
         return http.post("$endpoint", request, CreateLikeResponse::class.java).body!!
     }
+
+    fun delete(id: Long) {
+        return http.delete("$endpoint/$id")
+    }
 }
