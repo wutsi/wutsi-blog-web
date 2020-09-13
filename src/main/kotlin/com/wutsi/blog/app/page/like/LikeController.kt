@@ -2,20 +2,19 @@ package com.wutsi.blog.app.page.like
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.comment.model.CreateCommentForm
 import com.wutsi.blog.app.page.like.model.LikeCountModel
 import com.wutsi.blog.app.page.like.model.LikeModel
+import com.wutsi.blog.app.page.like.service.LikeService
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.core.util.NumberUtils
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/like")
 class LikeController(
-        requestContext: RequestContext
+        requestContext: RequestContext,
+        private val likes: LikeService
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.LIKE
 
@@ -25,7 +24,6 @@ class LikeController(
     @ResponseBody
     @GetMapping(produces = ["application/json"])
     fun like(@RequestParam storyId: Long): LikeModel {
-        // Fake data
         return LikeModel(storyId=storyId)
     }
 
@@ -37,11 +35,12 @@ class LikeController(
     @GetMapping("/search", produces = ["application/json"])
     fun search(@RequestParam storyId: Array<Long>): List<LikeModel> {
         val userId = requestContext.currentSession()?.userId
+        val likes = likes.search(storyId.toList())
         if (userId == null){
             return emptyList()
         } else {
-            return storyId.map { LikeModel(
-                    storyId = if (Math.random()*10 < 5) it else -1,
+            return likes.map { LikeModel(
+                    storyId = it.storyId,
                     userId = userId
             ) }
         }
@@ -54,14 +53,7 @@ class LikeController(
     @ResponseBody
     @GetMapping("/count", produces = ["application/json"])
     fun count(@RequestParam storyId: Array<Long>): List<LikeCountModel> {
-        // Fake data
-        return storyId.map {
-            LikeCountModel(
-                    storyId = it,
-                    value = 1000,
-                    valueText = NumberUtils.toHumanReadable((10000*Math.random()).toLong())
-            )
-        }
+        return likes.count(storyId.toList())
     }
 
 }

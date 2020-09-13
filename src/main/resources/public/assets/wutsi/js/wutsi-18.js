@@ -124,6 +124,7 @@ function Wutsi (){
             }
             qs += 'storyId=' + $(item).attr('data-like-story-id');
         });
+
         if (qs.length > 0) {
             // Like count
             this.httpGet('/like/count?' + qs, true)
