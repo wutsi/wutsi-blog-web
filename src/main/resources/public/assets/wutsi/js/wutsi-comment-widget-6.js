@@ -36,7 +36,7 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
                 $(selector).html(html);
             })
             .finally(function(){
-                wusti.track('comment');
+                wutsi.track('comment');
             });
     };
 

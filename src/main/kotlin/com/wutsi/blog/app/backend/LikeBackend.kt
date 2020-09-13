@@ -11,10 +11,14 @@ class LikeBackend(private val http: Http) {
     private lateinit var endpoint: String
 
     fun search(request: SearchLikeRequest): SearchLikeResponse {
-        return http.post(endpoint, request, SearchLikeResponse::class.java).body!!
+        return http.post("$endpoint/search", request, SearchLikeResponse::class.java).body!!
     }
 
     fun count(request: CountLikeRequest): CountLikeResponse {
         return http.post("$endpoint/count", request, CountLikeResponse::class.java).body!!
+    }
+
+    fun create(request: CreateLikeRequest): CreateLikeResponse {
+        return http.post("$endpoint", request, CreateLikeResponse::class.java).body!!
     }
 }
