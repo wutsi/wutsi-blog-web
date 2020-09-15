@@ -34,9 +34,6 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         wutsi.httpGet('/comment/widget?storyId=' + storyId, false)
             .then(function(html){
                 $(selector).html(html);
-            })
-            .finally(function(){
-                wutsi.track('comment');
             });
     };
 
