@@ -164,7 +164,7 @@
                             // Has service worker state changed?
                             switch (newWorker.state) {
                                 case 'installed':
-                                    reg.update();
+                                    newWorker.update();
                                     console.log('Service Worker updated');
                                     break;
                                 }
