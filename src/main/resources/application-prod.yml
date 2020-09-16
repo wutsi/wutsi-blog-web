@@ -47,8 +47,8 @@ wutsi:
   survey:
     id: "feedback"
     url: "https://docs.google.com/forms/d/13PAB4roxM3cKqfdcvI5JHfEZ056NuL4XH1I3rmuRcOc"
-    start-date: "2020-09-20"
-    end-date: "2030-09-20"
+    start-date: "2020-09-16"
+    end-date: "2020-10-20"
 
   toggles:
     announcement: true
