@@ -69,6 +69,6 @@ wutsi:
     sso-google: true
     sso-github: false
     sso-twitter: false
-    survey: false
+    survey: true
     wpp: true
 
