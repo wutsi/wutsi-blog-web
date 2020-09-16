@@ -8,6 +8,21 @@ wutsi:
     base-url: "${wiremock.url}"
     track-url: "${wiremock.url}"
 
+  google:
+    ga:
+      code: "test"
+
+  facebook:
+    pixel:
+      code: "test"
+
+  survey:
+    id: "feedback"
+    url: "https://docs.google.com/forms/d/122232"
+    start-date: "2020-09-01"
+    end-date: "2030-10-01"
+
+
   toggles:
     coming-soon: false
     google-one-tap-sign-in: false
@@ -17,11 +32,3 @@ wutsi:
     sso-twitter: true
     sso-github: true
     qa-login: true
-
-  google:
-    ga:
-      code: "test"
-
-  facebook:
-    pixel:
-      code: "test"

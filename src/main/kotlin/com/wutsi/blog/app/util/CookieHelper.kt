@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse
 
 
 object CookieHelper {
+    const val ONE_DAY_SECONDS = 86400
+
     fun get(name: String, request: HttpServletRequest): String? {
         val cookie = getCookie(name, request)
         return if (cookie == null) null else cookie.value
@@ -17,7 +19,7 @@ object CookieHelper {
         response.addCookie(cookie)
     }
 
-    fun put(name: String, value: String?, request: HttpServletRequest, response: HttpServletResponse, maxAge: Int = 86400) {
+    fun put(name: String, value: String?, request: HttpServletRequest, response: HttpServletResponse, maxAge: Int = ONE_DAY_SECONDS) {
         var cookie = getCookie(name, request)
         if (cookie == null) {
             cookie = Cookie(name, value)
@@ -31,7 +33,7 @@ object CookieHelper {
 
     private fun getCookie(name: String, request: HttpServletRequest): Cookie? {
         val cookies = request.cookies
-        if (cookies == null || cookies.size == 0) {
+        if (cookies == null || cookies.isEmpty()) {
             return null
         }
         return cookies.find { it.name == name }

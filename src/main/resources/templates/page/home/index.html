@@ -9,6 +9,11 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container">
+    <div class="row margin-top " th:if="${toggles.survey}">
+        <div class="col-12 offset-lg-1 col-lg-10">
+            <div th:replace="components/survey :: widget"></div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-12 offset-lg-1 col-lg-6">

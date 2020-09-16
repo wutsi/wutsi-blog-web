@@ -32,6 +32,24 @@ wutsi:
       public-vapid-key: "BIn7dWZwYvAhHCUtmdyrF7E4ZEJm2FT15yscJxsSNSFZJ1aTQiUQXIfXRjiEpHowTmHtfsxS2ch3wOWfgijo8-0"
       sender-id: "28035834807"
 
+  google:
+    ga:
+      code: "UA-120456146-1"
+
+  facebook:
+    pixel:
+      code: "553466401984152"
+
+  storage:
+    s3:
+      bucket: "prod-wutsi"
+
+  survey:
+    id: "feedback"
+    url: "https://docs.google.com/forms/d/13PAB4roxM3cKqfdcvI5JHfEZ056NuL4XH1I3rmuRcOc"
+    start-date: "2020-09-20"
+    end-date: "2030-09-20"
+
   toggles:
     announcement: true
     channel: true
@@ -51,16 +69,6 @@ wutsi:
     sso-google: true
     sso-github: false
     sso-twitter: false
+    survey: false
     wpp: true
 
-  google:
-    ga:
-      code: "UA-120456146-1"
-
-  facebook:
-    pixel:
-      code: "553466401984152"
-
-  storage:
-    s3:
-      bucket: "prod-wutsi"

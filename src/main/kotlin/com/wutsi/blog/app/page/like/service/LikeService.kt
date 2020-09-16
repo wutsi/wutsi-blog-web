@@ -2,10 +2,8 @@ package com.wutsi.blog.app.page.like.service
 
 import com.wutsi.blog.app.backend.LikeBackend
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.comment.model.CreateCommentForm
 import com.wutsi.blog.app.page.like.model.LikeCountModel
 import com.wutsi.blog.app.page.like.model.LikeModel
-import com.wutsi.blog.client.comment.CreateCommentRequest
 import com.wutsi.blog.client.like.CountLikeRequest
 import com.wutsi.blog.client.like.CreateLikeRequest
 import com.wutsi.blog.client.like.LikeDto

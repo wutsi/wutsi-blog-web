@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="widget" id="survey-container" class="flex padding box-filled-highlight-light border hidden">
+    <div class="margin-right">
+        <img width="64" th:src="${page.assetUrl} + '/assets/wutsi/img/survey.png'" />
+    </div>
+    <div>
+        <p class='description'></p>
+        <button class='btn btn-primary btn-sm' wutsi-track-event="survey" th:utext="#{button.answer_survey}">Answer Survey...</button>
+    </div>
+
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            wutsi.httpGet('/survey', true)
+                .then(function(survey){
+                    if (survey.active){
+                        $('#survey-container .description').text(survey.description);
+                        $('#survey-container button').attr('data-url', survey.url);
+                        $('#survey-container').removeClass('hidden');
+                    }
+                });
+
+        });
+
+        $('#survey-container button').click(function(){
+            wutsi.httpGet('/survey/click', true)
+                .finally(function(){
+                    $('#survey-container').hide();
+
+                    const url = $('#survey-container button').attr('data-url');
+                    console.log('Opening survey', url);
+                    window.open(url, '_survey');
+                });
+        });
+
+    </script>
+</div>
+
+
+</body>
+</html>
