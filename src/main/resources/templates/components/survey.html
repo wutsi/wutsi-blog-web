@@ -7,7 +7,13 @@
         <img width="64" th:src="${page.assetUrl} + '/assets/wutsi/img/survey.png'" />
     </div>
     <div>
-        <p class='description'></p>
+        <div>
+            <p th:if="${user}" th:text="#{survey.hi(${user.fullName})}"></p>
+            <p th:if="!${user}" th:text="#{survey.hi_anonymous}"></p>
+
+            <p th:text="#{survey.description}"></p>
+            <p class='description'></p>
+        </div>
         <button class='btn btn-primary btn-sm' wutsi-track-event="survey" th:utext="#{button.answer_survey}">Answer Survey...</button>
     </div>
 
