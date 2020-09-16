@@ -80,6 +80,11 @@
         </div>
     </article>
 
+    <!-- Survey -->
+    <div class="margin-top" th:if="${toggles.survey}">
+        <div th:replace="components/survey :: widget"></div>
+    </div>
+
     <!-- Recommendations -->
     <div id="recommendation-container" class="margin-top" th:if="${toggles.recommendation}">
         <div th:replace="components/story :: read-also(${story})"></div>
