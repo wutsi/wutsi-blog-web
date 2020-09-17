@@ -209,6 +209,13 @@
                 /*[[!${user}]]*/ true,
                 /*[[${story.slug}]]*/ ''
         );
+
+        // like based on query parameter
+        const href = window.location.href;
+        const index = href.indexOf('?');
+        if (index>0 && href.indexOf('like=', index) > 0){
+            wlike.like()
+        }
     });
 
 /*]]>*/
