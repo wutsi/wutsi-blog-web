@@ -12,7 +12,6 @@
 
     <!-- Article -->
     <article class="border padding reader main-content margin-top">
-
         <div th:if="${user} AND ${user.id} == ${story.user.id}">
             <div id="story-menu" class="dropdown show story-dropdown-menu float-right">
                 <a class="btn btn-light btn-sm" href="#" role="button" th:id="'story-menu-' + ${story.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -171,7 +171,6 @@ h1, h2, h3, h4, h5, h6 {
 /* ==== NAVBAR ==== */
 .navbar {
     background: white;
-    padding: 10px 20px;
 }
 .navbar img.user {
     height: 50px;
@@ -228,6 +227,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 5px;
 }
 
+.navbar-margin{
+    margin-top: 90px;
+}
 #super-user-banner{
     width: 100%;
     border: 1px solid darkred;
@@ -527,7 +529,6 @@ a.sso-button .fab {
 }
 
 /*======= READER =======*/
-
 .reader h1 {
     font-size: 2em;
 }

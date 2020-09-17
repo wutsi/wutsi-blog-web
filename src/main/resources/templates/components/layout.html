@@ -62,7 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-19.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-59.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-60.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -199,7 +199,7 @@
 <!-- Navbar            -->
 <!-- ################# -->
 <div th:fragment="navbar">
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom" th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom fixed-top" th:fragment="navbar">
         <a class="navbar-brand" href="/">
             <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" alt="Wutsi" title="Wutsi"/></a>
 
@@ -250,6 +250,7 @@
             </li>
         </ul>
     </nav>
+    <div class="navbar-margin"></div>
     <div id="super-user-banner" class="text-center" th:if="${superUser}">
         <b>SUPER USER MODE</b>
         <div>With Great Power comes Great Responsabilities</div>
