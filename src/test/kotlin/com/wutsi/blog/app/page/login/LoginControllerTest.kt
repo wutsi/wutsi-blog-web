@@ -13,7 +13,7 @@ class LoginControllerTest: SeleniumTestSupport() {
 
         assertElementNotPresent(".alert-danger")
 
-        assertElementNotPresent(".close")
+        assertElementNotPresent(".return")
 
         assertElementPresent("#login-panel")
         assertElementText("#login-panel h1", "Connecte toi")
@@ -31,12 +31,11 @@ class LoginControllerTest: SeleniumTestSupport() {
 
         assertElementNotPresent(".alert-danger")
 
-        assertElementPresent(".close")
-        assertElementAttributeEndsWith(".close", "href", "/read/123?comment=1")
+        assertElementPresent(".return")
+        assertElementAttributeEndsWith(".return", "href", "/read/123?comment=1")
 
         assertElementPresent("#login-panel")
         assertElementTextContains("#login-panel h1", "Connecte toi")
-        assertElementText("#login-panel p", "Connecte toi pour commenter les Stories.")
 
         validateButton("google")
         validateButton("facebook")
@@ -51,7 +50,7 @@ class LoginControllerTest: SeleniumTestSupport() {
 
         assertElementPresent("#login-panel")
         assertElementPresent(".alert-danger")
-        assertElementNotPresent(".close")
+        assertElementNotPresent(".return")
         validateButton("google")
         validateButton("facebook")
         validateButton("github")
