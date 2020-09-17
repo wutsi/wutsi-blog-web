@@ -13,6 +13,7 @@
 <div th:fragment="badge(story)" class="comment-badge flex">
     <div><i class="far fa-comment-alt comment-icon"></i></div>
     <div>
+        &nbsp;
         <span class="comment-count" th:id="'comment-count-' + ${story.id}" th:data-comment-story-id="${story.id}"></span>
     </div>
 </div>
