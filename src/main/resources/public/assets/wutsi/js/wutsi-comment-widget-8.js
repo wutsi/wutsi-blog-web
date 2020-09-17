@@ -67,6 +67,9 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
                 me.begin_edit();
             }
         });
+        if (!anonymous){
+            me.begin_edit();
+        }
 
         const button = this.selector('.btn-submit');
         $(button).click(function(){
@@ -125,6 +128,7 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
             })
             .finally(function(){
                 me.end_edit();
+                wutsi.track('comment')
             });
     };
 

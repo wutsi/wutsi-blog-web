@@ -18,11 +18,13 @@
                 </div>
 
                 <div id="login-panel">
+                    <div th:if="${return}" class="flex">
+                        <a th:href="${return}">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
                     <h1 class="margin-top">
                         <span th:text="${title}">Login</span>
-                        <a class="close" th:href="${return}" th:if="${return}">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
                     </h1>
                     <p class="margin-top" th:utext="${info}">Sign up</p>
                 </div>

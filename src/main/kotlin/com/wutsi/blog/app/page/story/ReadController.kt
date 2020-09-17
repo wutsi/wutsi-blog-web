@@ -57,17 +57,7 @@ class ReadController(
             model: Model,
             response: HttpServletResponse
     ): String {
-        val story = loadPage(id, model)
-
-        val fmt = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
-        val maxAge = 3600   // 1jr
-        val lastModified = story.modificationDateTimeAsDate
-        val expires = DateUtils.addSeconds(lastModified, maxAge)
-
-        response.setHeader("Last-Modified", fmt.format(lastModified))
-        response.setHeader("Expires", fmt.format(expires))
-        response.setHeader("Cache-Control", "public, max-age=$maxAge")
-
+        loadPage(id, model)
         return "page/story/read"
     }
 }

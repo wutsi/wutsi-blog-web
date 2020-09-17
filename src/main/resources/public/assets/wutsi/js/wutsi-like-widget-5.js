@@ -15,6 +15,7 @@ function WutsiLikeWidget(storyId, anonymous, storyUrl){
             wutsi.httpPost('/like?storyId=' + storyId, {}, true)
                 .then(function () {
                     wutsi.update_like_count();
+                    wutsi.track('like');
                 });
         }
     };
