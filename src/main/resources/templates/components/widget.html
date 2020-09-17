@@ -4,12 +4,10 @@
 
 
 <div th:fragment="widget(story)" class="comment-widget" th:id="'comment-widget-' + ${story.id}">
-
     <a href="javascript: wcomment.show()" th:title="#{comment.title}">
         <div class="comment-badge flex">
             <div><i class="far fa-comment-alt"></i></div>
             <div>
-                &nbsp;
                 <span class="comment-text"></span>
             </div>
         </div>
@@ -21,7 +19,6 @@
 <div th:fragment="badge(story)" class="comment-badge flex">
     <div><i class="far fa-comment-alt"></i></div>
     <div>
-        &nbsp;
         <span class="comment-count" th:id="'comment-count-' + ${story.id}" th:data-comment-story-id="${story.id}"></span>
     </div>
 </div>

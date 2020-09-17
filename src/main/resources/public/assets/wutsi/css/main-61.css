@@ -228,7 +228,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-margin{
-    margin-top: 90px;
+    margin-top: 70px;
 }
 #super-user-banner{
     width: 100%;
@@ -762,8 +762,8 @@ a.sso-button .fab {
     overflow-y: scroll;
     position: fixed;
     right: 0;
-    top: 0;
-    width: 400px;
+    top: 70px;
+    width: 600px;
     z-index: 100;
 }
 

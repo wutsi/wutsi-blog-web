@@ -91,6 +91,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `user add a comment`() {
         gotoPage(true)
+        driver.get("$url/read/20/test")
 
         click(".comment-widget .comment-badge")
 
