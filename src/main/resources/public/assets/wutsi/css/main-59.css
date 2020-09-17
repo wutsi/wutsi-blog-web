@@ -672,8 +672,7 @@ a.sso-button .fab {
     margin: 0 0 0 0;
 }
 .reader .content div.link-tool div.meta p.description {
-    max-height: 40px;
-    overflow: hidden;
+    display: none;
 }
 .reader .content div.link-tool div.meta p.site {
     color: var(--text-color-gray);
