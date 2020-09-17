@@ -159,12 +159,12 @@
                     reg.addEventListener('updatefound', function() {
                         console.log('Upgrading Service Worker...');
 
-                        newWorker = reg.installing;
+                        const newWorker = reg.installing;
                         newWorker.addEventListener('statechange', function() {
                             // Has service worker state changed?
                             switch (newWorker.state) {
                                 case 'installed':
-                                    newWorker.update();
+                                    reg.update();
                                     console.log('Service Worker updated');
                                     break;
                                 }
