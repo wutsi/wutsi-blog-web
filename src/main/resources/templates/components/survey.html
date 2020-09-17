@@ -25,6 +25,8 @@
                         $('#survey-container .description').text(survey.description);
                         $('#survey-container button').attr('data-url', survey.url);
                         $('#survey-container').removeClass('hidden');
+
+                        wutsi.track('survey_show');
                     }
                 });
 

@@ -4,7 +4,7 @@
 
 
 <div th:fragment="widget(story)" class="comment-widget" th:id="'comment-widget-' + ${story.id}">
-    <a href="javascript: wcomment.show()" th:title="#{comment.title}" wutsi-track-event="comment-click">
+    <a href="javascript: wcomment.show()" th:title="#{comment.title}" wutsi-track-event="comment_click">
         <div th:replace="components/comment :: badge(${story})"></div>
     </a>
     <div class="border comment-widget-content"></div>
