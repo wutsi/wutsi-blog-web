@@ -23,6 +23,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `home page showing comment count` () {
+        login()
         driver.get(url)
 
         Thread.sleep(1000)
@@ -52,7 +53,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `reader has comment icon with count`() {
-        gotoPage()
+        driver.get("$url/read/20/test")
 
         Thread.sleep(1000)
         assertElementPresent(".comment-widget .comment-badge .fa-comment-alt")
@@ -63,7 +64,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `reader has comment icon`() {
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_0.json")
-        gotoPage()
+        driver.get("$url/read/20/test")
 
         Thread.sleep(1000)
         assertElementPresent(".comment-widget .comment-badge .fa-comment-alt")
@@ -90,7 +91,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `user add a comment`() {
-        gotoPage(true)
+        login()
         driver.get("$url/read/20/test")
 
         click(".comment-widget .comment-badge")
@@ -117,8 +118,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `anonymous is redirected to login when adding a comment`() {
-        gotoPage()
-
+        driver.get("$url/read/20/test")
         click(".comment-widget .comment-badge")
 
         Thread.sleep(1000)
@@ -126,14 +126,5 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         click(".comment-widget textarea")
 
         assertCurrentPageIs(PageName.LOGIN)
-    }
-
-    fun gotoPage(login: Boolean = false) {
-        if (login){
-            login()
-        }
-
-        driver.get(url)
-        click(".post a")
     }
 }

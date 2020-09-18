@@ -64,6 +64,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `add to homescreen in homepage`() {
+        login()
         driver.get(url)
         assertCurrentPageIs(PageName.HOME)
 
@@ -84,6 +85,7 @@ class PWAControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `push notification in homepage`() {
+        login()
         driver.get(url)
         assertCurrentPageIs(PageName.HOME)
 

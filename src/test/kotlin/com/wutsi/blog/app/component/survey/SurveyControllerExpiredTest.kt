@@ -22,6 +22,7 @@ class SurveyControllerExpiredTest : SeleniumTestSupport() {
 
     @Test
     fun `home page not showing expired survey` () {
+        login()
         driver.get(url)
 
         Thread.sleep(1000)

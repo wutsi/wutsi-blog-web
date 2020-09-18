@@ -28,6 +28,7 @@ class CommentControllerToggleOffTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `home page not showing comment count` () {
+        login()
         driver.get(url)
 
         Thread.sleep(1000)
@@ -56,18 +57,9 @@ class CommentControllerToggleOffTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `reader without the comment widget`() {
-        gotoPage()
+        driver.get("$url/@/ray.sponsible")
 
         Thread.sleep(1000)
         assertElementNotPresent(".comment-widget")
-    }
-
-    fun gotoPage(login: Boolean = false) {
-        if (login){
-            login()
-        }
-
-        driver.get(url)
-        click(".post a")
     }
 }

@@ -43,8 +43,12 @@ class HomeController(
 
     @GetMapping()
     fun index(model: Model): String {
-        loadStories(model)
-        return "page/home/index"
+        if (requestContext.currentUser() == null){
+            return "page/home/index"
+        } else {
+            loadStories(model)
+            return "page/home/wall"
+        }
     }
 
     private fun loadStories(model: Model) {

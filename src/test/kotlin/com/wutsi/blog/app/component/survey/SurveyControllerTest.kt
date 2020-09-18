@@ -15,6 +15,7 @@ class SurveyControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `home page showing survey` () {
+        login()
         driver.get(url)
 
         Thread.sleep(1000)

@@ -21,7 +21,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `story menu available for story owner`() {
-        gotoPage(true)
+        login()
+        driver.get("$url/read/20/test")
 
         assertElementPresent("#story-menu")
     }
@@ -29,33 +30,40 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `story menu not available for non-story owner`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
-        gotoPage(true)
+        login()
+        driver.get("$url/read/20/test")
+
         assertElementNotPresent("#story-menu")
     }
 
     @Test
     fun `story menu not available for anonymous`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
         assertElementNotPresent("#story-menu")
     }
 
 
     @Test
     fun `story tracking not available for story owner`() {
-        gotoPage(true)
+        login()
+        driver.get("$url/read/20/test")
+
         assertElementNotPresent("#track-script")
     }
 
     @Test
     fun `story tracking available for non-story owner`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
-        gotoPage(true)
+        login()
+        driver.get("$url/read/20/test")
+
         assertElementPresent("#track-script")
     }
 
     @Test
     fun `story tracking available for anonymous`() {
-        gotoPage()
+        driver.get("$url/read/20/test")
+
         assertElementPresent("#track-script")
     }
 
@@ -63,7 +71,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `published story`() {
-        gotoPage()
+        driver.get("$url/read/20/test")
 
         assertCurrentPageIs(PageName.READ)
 
@@ -119,7 +127,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `share to Social Network`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         click("#share-menu")
 
@@ -145,14 +153,14 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `imported content`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story-imported.json")
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         assertElementAttribute("head link[rel=canonical]", "href", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter")
     }
 
     @Test
     fun `META headers`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -179,7 +187,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `Twitter card summary_large_image`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -194,7 +202,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `Twitter card summary`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story30-no_thumbnail.json")
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         val title = "Lorem Ipsum"
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
@@ -210,7 +218,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `show recommendations when available`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         Thread.sleep(1000)
         assertElementCount("#recommendation-container .post", 3)
@@ -220,8 +228,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `show no recommendations when none are available`() {
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search-none.json")
-        gotoPage()
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         Thread.sleep(1000)
         assertElementCount("#recommendation-container .post", 0)
@@ -230,7 +237,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     @Test
     fun `show no recommendations on backend errors`() {
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.INTERNAL_SERVER_ERROR)
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
 
         Thread.sleep(1000)
         assertElementCount("#recommendation-container .post", 0)
@@ -239,29 +246,20 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `home page Google Analytics`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
         assertElementPresent("script#ga-code")
     }
 
     @Test
     fun `home page Facebook Pixel`() {
-        gotoPage()
+        driver.get("$url/read/20/looks-good")
         assertElementPresent("script#fb-pixel-code")
     }
 
     @Test
     fun `Schemas script`() {
-        gotoPage()
+        driver.get("$url/read/20/test")
 
         assertElementPresent("script[type='application/ld+json']")
-    }
-
-    fun gotoPage(login: Boolean = false) {
-        if (login){
-            login()
-        }
-
-        driver.get(url)
-        click(".post a")
     }
 }

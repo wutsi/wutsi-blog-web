@@ -6,6 +6,7 @@ import org.junit.Test
 class AnnouncementControllerTest: SeleniumTestSupport() {
     @Test
     fun `HTML elements`() {
+        login()
         driver.get(url)
 
         assertElementPresent("script#wutsi-announcement-js")
