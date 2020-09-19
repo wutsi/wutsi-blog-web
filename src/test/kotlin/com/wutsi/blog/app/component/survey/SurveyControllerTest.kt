@@ -56,7 +56,7 @@ class SurveyControllerTest : SeleniumTestSupport() {
         click("#survey-container button")
 
         Thread.sleep(1000)
-        driver.get(url)
+        driver.get("$url/read/20/test")
         assertElementNotVisible("#survey-container")
     }
 
