@@ -9,8 +9,18 @@ import org.springframework.http.HttpStatus
 
 class HomeControllerTest: SeleniumTestSupport() {
     @Test
+    fun `home page for anonymous user`() {
+        login()
+        driver.get(url)
+
+        assertCurrentPageIs(PageName.HOME)
+        assertElementCount("#value-prop", 0)
+    }
+
+    @Test
     fun `empty home page`() {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
+        login()
         driver.get(url)
 
         assertCurrentPageIs(PageName.HOME)
@@ -22,7 +32,9 @@ class HomeControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user should view recent stories and authors in home page`() {
+        login()
         driver.get(url)
+
         assertCurrentPageIs(PageName.HOME)
         assertElementCount("#main-post .post", 1)
         assertElementCount("#featured-posts .post", 4)
@@ -55,7 +67,6 @@ class HomeControllerTest: SeleniumTestSupport() {
     @Test
     fun `Schemas script`() {
         driver.get(url)
-
         assertElementPresent("script[type='application/ld+json']")
     }
 

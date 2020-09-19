@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body class="paper">
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container">
+    <div class="row margin-top " th:if="${toggles.survey}">
+        <div class="col-12 offset-lg-1 col-lg-10">
+            <div th:replace="components/survey :: widget"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 offset-lg-1 col-lg-6">
+            <div class="border margin-top rounded">
+                <div id="main-post" th:if="${mainStory}">
+                    <section class="post padding">
+                        <div th:replace="components/story :: story-card(${mainStory}, 'read', 0)"></div>
+                    </section>
+                </div>
+
+                <div th:replace="components/pwa :: a2hs-card"></div>
+
+                <div id="featured-posts" th:if="${featuredStories} AND !${featuredStories.isEmpty()}">
+                    <div th:each="story,it: ${featuredStories}">
+                        <section class="post padding border-top">
+                            <div th:replace="components/story :: story-summary-card(${story}, true, 'read', ${it.count})"></div>
+                        </section>
+                        <section th:if="${it.index == 2}">
+                            <div th:replace="components/pwa :: push-card"></div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <div id="popular-posts" class="margin-top border rounded"
+                 th:if="${popularStories} AND !${popularStories.isEmpty()}"
+            >
+                <h4 class="padding mb-0" th:text="#{page.home.popular-stories}">Popular Stories</h4>
+
+                <section class="post padding border-top" th:each="story,it: ${popularStories}">
+                    <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
+                </section>
+            </div>
+
+            <div id="featured-authors" class="margin-top padding border rounded"
+                 th:if="${authors} AND !${authors.isEmpty()}"
+            >
+                <h4 th:text="#{page.home.feature-blogs}">Featured Blogs</h4>
+                <div class="margin-top padding-top border-top" th:each="author:${authors}">
+                    <div th:replace="components/story :: author-summary-card(${author})"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/google :: one-tap"></div>
+<div th:replace="components/layout :: announcement"></div>
+<div th:replace="components/layout :: footer"></div>
+<div th:replace="components/pwa :: reset-badge"></div>
+</body>
+
+</html>

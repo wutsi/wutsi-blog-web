@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.story.toggles
 
 import com.wutsi.blog.SeleniumTestSupport
+import org.junit.Ignore
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -23,6 +24,7 @@ class FeatureGoogleOneTapEnabledTest: SeleniumTestSupport() {
     }
 
     @Test
+    @Ignore ("The value prop is now displayed in Home page")
     fun `GoogleOneTap should showup for anonymous user in Home`() {
         gotoHome(false)
 

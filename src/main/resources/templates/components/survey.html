@@ -8,6 +8,9 @@
     </div>
     <div>
         <div>
+            <a class="close" wutsi-track-event="survey_close"><i class="fas fa-times"></i></a>
+        </div>
+        <div>
             <p th:if="${user}" th:text="#{survey.hi(${user.fullName})}"></p>
             <p th:if="!${user}" th:text="#{survey.hi_anonymous}"></p>
 
@@ -32,13 +35,19 @@
 
         });
 
+        $('#survey-container .close').click(function(){
+            wutsi.httpGet('/survey/click', true)
+                .finally(function(){
+                    $('#survey-container').hide();
+                });
+        });
+
         $('#survey-container button').click(function(){
             wutsi.httpGet('/survey/click', true)
                 .finally(function(){
                     $('#survey-container').hide();
 
                     const url = $('#survey-container button').attr('data-url');
-                    console.log('Opening survey', url);
                     window.open(url, '_survey');
                 });
         });
