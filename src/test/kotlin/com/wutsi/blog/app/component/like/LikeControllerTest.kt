@@ -16,9 +16,10 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `home page showing like count` () {
+        login()
         driver.get(url)
 
-        Thread.sleep(5000)
+        Thread.sleep(1000)
         assertElementText("#like-count-20", "2")
         assertElementText("#like-count-21", "1")
         assertElementText("#like-count-22", "3")
@@ -32,7 +33,7 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
     fun `blog page showing like count` () {
         driver.get("$url/@/ray.sponsible")
 
-        Thread.sleep(5000)
+        Thread.sleep(1000)
         assertElementText("#like-count-20", "2")
         assertElementText("#like-count-21", "1")
         assertElementText("#like-count-22", "3")
