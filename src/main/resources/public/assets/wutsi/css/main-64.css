@@ -442,13 +442,6 @@ a.sso-button .fab {
     width: 36px;
     height: 36px;
 }
-.testimonials .blockquote-container{
-    height: 14em;
-}
-.testimonials blockquote {
-    max-height: 14em;
-    overflow: hidden;
-}
 
 .post {
     background: white;
