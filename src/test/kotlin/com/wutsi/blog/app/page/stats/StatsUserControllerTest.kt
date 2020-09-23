@@ -14,9 +14,9 @@ class StatsUserControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
-        stub(HttpMethod.POST, "/v1/stats/search", HttpStatus.OK, "v1/stats/search.json")
-        stub(HttpMethod.POST, "/v1/stats/search/user", HttpStatus.OK, "v1/stats/search_user.json")
-        stub(HttpMethod.POST, "/v1/stats/search/story", HttpStatus.OK, "v1/stats/search_story.json")
+        stub(HttpMethod.POST, "/v1/stats/search/daily", HttpStatus.OK, "v1/stats/search.json")
+        stub(HttpMethod.POST, "/v1/stats/search/monthly/user", HttpStatus.OK, "v1/stats/search_user.json")
+        stub(HttpMethod.POST, "/v1/stats/search/monthly/story", HttpStatus.OK, "v1/stats/search_story.json")
     }
 
 

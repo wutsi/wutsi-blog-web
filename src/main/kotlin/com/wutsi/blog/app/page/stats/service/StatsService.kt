@@ -7,9 +7,9 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.client.stats.SearchStatsRequest
-import com.wutsi.blog.client.stats.SearchStatsStoryRequest
-import com.wutsi.blog.client.stats.SearchStatsUserRequest
+import com.wutsi.blog.client.stats.SearchDailyStatsRequest
+import com.wutsi.blog.client.stats.SearchMonthlyStatsStoryRequest
+import com.wutsi.blog.client.stats.SearchMonthlyStatsUserRequest
 import com.wutsi.blog.client.stats.StatsType
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StoryStatus
@@ -25,13 +25,13 @@ class StatsService(
         private val requestContext: RequestContext
 ) {
     fun user(year: Int, month: Int) : StatsUserSummaryModel {
-        val stats = backend.search(SearchStatsUserRequest(
+        val stats = backend.search(SearchMonthlyStatsUserRequest(
                 userId = requestContext.currentUser()?.id,
                 year = year,
                 month = month
         )).stats
 
-        val overallTRT = backend.search(SearchStatsStoryRequest(
+        val overallTRT = backend.search(SearchMonthlyStatsStoryRequest(
                 storyIds = arrayListOf(-1),
                 year = year,
                 month = month,
@@ -41,7 +41,7 @@ class StatsService(
     }
 
     fun stories(year: Int, month: Int) : List<StatsStorySummaryModel> {
-        val stats = backend.search(SearchStatsStoryRequest(
+        val stats = backend.search(SearchMonthlyStatsStoryRequest(
                 userId = requestContext.currentUser()?.id,
                 year = year,
                 month = month
@@ -63,7 +63,7 @@ class StatsService(
     }
 
     fun story(story: StoryModel, year: Int, month: Int) : StatsStorySummaryModel {
-        val stats = backend.search(SearchStatsStoryRequest(
+        val stats = backend.search(SearchMonthlyStatsStoryRequest(
                 userId = story.user.id,
                 year = year,
                 month = month,
@@ -86,7 +86,7 @@ class StatsService(
         val startDate = cal.time
         val endDate = DateUtils.addDays(DateUtils.addMonths(startDate, 1), -1)
 
-        val stats = backend.search(SearchStatsRequest(
+        val stats = backend.search(SearchDailyStatsRequest(
                 targetIds = arrayListOf(story.id),
                 startDate = startDate,
                 endDate = endDate,

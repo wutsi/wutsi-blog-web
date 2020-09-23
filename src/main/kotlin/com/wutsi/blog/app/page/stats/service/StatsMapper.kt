@@ -8,10 +8,10 @@ import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryMapper
-import com.wutsi.blog.client.stats.StatsDto
-import com.wutsi.blog.client.stats.StatsStoryDto
+import com.wutsi.blog.client.stats.DailyStatsDto
+import com.wutsi.blog.client.stats.MonthlyStatsStoryDto
+import com.wutsi.blog.client.stats.MonthlyStatsUserDto
 import com.wutsi.blog.client.stats.StatsType
-import com.wutsi.blog.client.stats.StatsUserDto
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.story.WPPStatus
 import com.wutsi.core.util.DurationUtils
@@ -27,7 +27,7 @@ class StatsMapper(
         private val storyMapper: StoryMapper,
         private val requestContext: RequestContext
 ) {
-    fun toStatsUserSummaryModel(stats: List<StatsUserDto>, overallTRL: StatsStoryDto?): StatsUserSummaryModel {
+    fun toStatsUserSummaryModel(stats: List<MonthlyStatsUserDto>, overallTRL: MonthlyStatsStoryDto?): StatsUserSummaryModel {
         val totalViews = stats
                 .filter { it.type == StatsType.viewers }
                 .sumByDouble { it.value.toDouble() }.toLong()
@@ -56,12 +56,12 @@ class StatsMapper(
         )
     }
 
-    fun toStatsStorySummaryModel(story: StorySummaryDto, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+    fun toStatsStorySummaryModel(story: StorySummaryDto, stats: List<MonthlyStatsStoryDto>): StatsStorySummaryModel {
         val model = storyMapper.toStoryModel(story)
         return toStatsStorySummaryModel(model, stats)
     }
 
-    fun toStatsStorySummaryModel(story: StoryModel, stats: List<StatsStoryDto>): StatsStorySummaryModel {
+    fun toStatsStorySummaryModel(story: StoryModel, stats: List<MonthlyStatsStoryDto>): StatsStorySummaryModel {
         val id = story.id
         val totalViews = stats
                 .filter { it.type == StatsType.viewers && it.storyId == id }
@@ -93,7 +93,7 @@ class StatsMapper(
     fun toBarChartModel(
             startDate: Date,
             endDate: Date,
-            stats: List<StatsDto>
+            stats: List<DailyStatsDto>
     ): BarChartModel {
         val fmt = SimpleDateFormat("yyyy-MM-dd")
         val dates = toDateList(startDate, endDate, fmt, 31)
@@ -108,7 +108,7 @@ class StatsMapper(
         )
     }
 
-    private fun toSerieData(dates: List<Date>, stats: List<StatsDto>): List<Double> {
+    private fun toSerieData(dates: List<Date>, stats: List<DailyStatsDto>): List<Double> {
         val statMap = stats.map { it.date to it }.toMap()
         return dates.map{
             val stat = statMap[it]
