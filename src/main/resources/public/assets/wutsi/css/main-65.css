@@ -236,7 +236,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-margin{
-    margin-top: 70px;
+    margin-top: 67px;
 }
 #super-user-banner{
     width: 100%;
@@ -772,12 +772,13 @@ a.sso-button .fab {
 
 .comment-widget-content {
     background: white;
+    box-shadow: 6px 6px 6px 6px rgba(68, 68, 68, 0.6);
     display: none;
     height: 100%;
     overflow-y: scroll;
     position: fixed;
     right: 0;
-    top: 70px;
+    top: 67px;
     width: 600px;
     z-index: 100;
 }
@@ -804,6 +805,7 @@ a.sso-button .fab {
     color: var(--text-color);
     text-decoration: none;
 }
+
 .comment .author {
     font-size: 0.8em;
     font-weight: bold;
@@ -817,6 +819,12 @@ a.sso-button .fab {
     width: 32px;
     height: 32px;
 }
+
+.comment .text a {
+    color: var(--highlight-color);
+    text-decoration: underline;
+}
+
 
 
 /*===== Settings ============*/
@@ -912,6 +920,7 @@ a.sso-button .fab {
     }
     .reader .comment-widget-content {
         width: 90%;
+        height: 82%;
     }
 }
 

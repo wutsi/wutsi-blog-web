@@ -51,6 +51,13 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         wutsi.httpGet('/comment/list?storyId=' + storyId, false)
             .then(function(html){
                 $(selector).html(html);
+
+                // Linkify the text
+                $(selector + ' .comment .text').each(function(){
+                    const comment = $(this).html();
+                    const xcomment = comment.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a target="_new" href="$1">$1</a> ');
+                    $(this).html( xcomment );
+                });
             });
     };
 
