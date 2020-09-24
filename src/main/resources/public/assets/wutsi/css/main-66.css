@@ -687,9 +687,6 @@ a.sso-button .fab {
 .reader .content div.link-tool div.meta p {
     margin: 0 0 0 0;
 }
-.reader .content div.link-tool div.meta p.description {
-    display: none;
-}
 .reader .content div.link-tool div.meta p.site {
     color: var(--text-color-gray);
 }
@@ -697,7 +694,7 @@ a.sso-button .fab {
 
 .reader .content div.link-tool div.image {
     width: 30%;
-    max-height: 90px;
+    max-height: 200px;
     overflow: hidden;
 }
 .reader .content div.link-tool div.image img {
@@ -908,6 +905,13 @@ a.sso-button .fab {
     .post .img-container {
         height: 180px;
         overflow: hidden;
+    }
+
+    .reader .content div.link-tool div.meta p.description {
+        display: none;
+    }
+    .reader .content div.link-tool div.image {
+        max-height: 90px;
     }
 
     .reader .widget-container {
