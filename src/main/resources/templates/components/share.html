@@ -12,13 +12,13 @@
             </div>
         </a>
         <div class="dropdown-menu" aria-labelledby="share-menu">
-            <a target="_blank" class="dropdown-item share-whatsapp btn-share hidden"
+            <a class="dropdown-item share-whatsapp btn-share hidden"
                wutsi-track-event="share-whatsapp"
                th:href="'whatsapp://send?text=' + ${page.url}">
                 <i class="fab fa-whatsapp-square"></i>
                 WhatsApp
             </a>
-            <a target="_blank" class="dropdown-item share-messenger btn-share hidden"
+            <a class="dropdown-item share-messenger btn-share hidden"
                wutsi-track-event="share-messenger"
                th:href="'fb-messenger://share/?link=' + ${page.url}">
                 <i class="fab fa-facebook-messenger"></i>
