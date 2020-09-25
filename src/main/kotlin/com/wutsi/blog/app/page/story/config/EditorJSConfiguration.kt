@@ -13,12 +13,16 @@ import com.wutsi.editorjs.html.tag.TagProvider
 import com.wutsi.editorjs.json.EJSJsonReader
 import com.wutsi.editorjs.json.EJSJsonWriter
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 
 @Configuration
-class EditorJSConfiguration(private val objectMapper: ObjectMapper) {
+class EditorJSConfiguration(
+        private val objectMapper: ObjectMapper,
+        @Value("\${wutsi.base-url}") private val websiteUrl: String
+) {
     @Bean
     fun htmlWriter() = EJSHtmlWriter(tagProvider())
 
@@ -36,13 +40,15 @@ class EditorJSConfiguration(private val objectMapper: ObjectMapper) {
 
     @Autowired
     @Bean
-    fun ejsFilterSet(imageSize: HtmlImageService) = EJSFilterSet(arrayListOf(
-            LinkTargetFilter(),
+    fun ejsFilterSet(
+            imageSize: HtmlImageService
+    ) = EJSFilterSet(arrayListOf(
+            linkFilter(),
             LinkUTMFilter(),
             ImageKitFilter(imageSize),
             ImageLozadFilter()  /* should be the LAST image filter */
     ))
 
     @Bean
-    fun linkFilter() = LinkTargetFilter()
+    fun linkFilter() = LinkTargetFilter(websiteUrl)
 }

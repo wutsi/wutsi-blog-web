@@ -5,11 +5,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class LinkTargetFilterTest {
-    private val filter = LinkTargetFilter()
+    private val filter = LinkTargetFilter("https://www.wutsi.com")
 
     @Test
-    fun filter() {
-        val doc = Jsoup.parse("<body>Hello <a href='foo.html'>world</a></body>")
+    fun filterExternal() {
+        val doc = Jsoup.parse("<body>Hello <a href='https://www.google.ca/foo.html'>world</a></body>")
         filter.filter(doc)
 
         doc.select("a").forEach {
@@ -17,5 +17,14 @@ class LinkTargetFilterTest {
         }
     }
 
+    @Test
+    fun filterInternal() {
+        val doc = Jsoup.parse("<body>Hello <a href='https://www.wutsi.com/foo.html'>world</a></body>")
+        filter.filter(doc)
+
+        doc.select("a").forEach {
+            assertEquals("", it.attr("target"))
+        }
+    }
 
 }
