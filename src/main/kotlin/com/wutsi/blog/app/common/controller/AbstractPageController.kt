@@ -25,6 +25,9 @@ abstract class AbstractPageController(
     @Value("\${wutsi.google.ga.code}")
     protected lateinit var googleAnalyticsCode: String
 
+    @Value("\${wutsi.google.ad-sense.code}")
+    protected lateinit var googleAdSenseCode: String
+
     @Value("\${wutsi.facebook.pixel.code}")
     protected lateinit var facebookPixelId: String
 
@@ -107,6 +110,7 @@ abstract class AbstractPageController(
             baseUrl = baseUrl,
             assetUrl = assetUrl,
             googleAnalyticsCode = this.googleAnalyticsCode,
+            googleAdSenseCode = this.googleAdSenseCode,
             facebookPixelCode = this.facebookPixelId,
             googleClientId = this.googleClientId,
             showGoogleOneTap = shouldShowGoogleOneTap(),

@@ -35,6 +35,8 @@ wutsi:
   google:
     ga:
       code: "UA-120456146-1"
+    ad-sense:
+      code: "ca-pub-8667372924137381"
 
   facebook:
     pixel:

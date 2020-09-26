@@ -103,35 +103,11 @@
         </div>
     </div>
 
-    <script async th:src="'https://www.googletagmanager.com/gtag/js?id=' + ${page.googleAnalyticsCode}" th:if="!${page.googleAnalyticsCode.isEmpty()}"></script>
-    <script id="ga-code" th:inline="javascript" th:if="!${page.googleAnalyticsCode.isEmpty()}">
-    /*<![CDATA[*/
+    <div th:replace="components/google :: ad-sense"></div>
+    <div th:replace="components/google :: analytics"></div>
+    <div th:replace="components/google :: firebase"></div>
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', /*[[${page.googleAnalyticsCode}]]*/'0');
-
-    /*]]>*/
-    </script>
-
-    <script id="fb-pixel-code" th:inline="javascript" th:if="!${page.facebookPixelCode.isEmpty()}">
-    /*<![CDATA[*/
-
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', /*[[${page.facebookPixelCode}]]*/'0');
-        fbq('track', 'PageView');
-
-    /*]]>*/
-    </script>
+    <div th:replace="components/facebook :: pixel"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
     <script>
@@ -140,9 +116,6 @@
         });
     </script>
 
-    <script id="firebase-app-js" src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}"></script>
-    <script id="firebase-messaging-js" src="https://www.gstatic.com/firebasejs/7.10.0/firebase-messaging.js" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}"></script>
-    <script id="firebase-js" th:src="${page.assetUrl} + '/assets/wutsi/js/firebase-3.0.js'" th:if="${toggles.pwa} AND ${toggles.pwaPushNotification}"></script>
     <script id="pwa-js" th:inline="javascript" th:if="${toggles.pwa}">
     /*<![CDATA[*/
 

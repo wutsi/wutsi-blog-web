@@ -1,5 +1,7 @@
 package com.wutsi.blog.app.component.announcement.service
 
+import com.wutsi.blog.app.util.CookieHelper
+
 interface Announcement {
     fun show(): Boolean
 
@@ -7,5 +9,5 @@ interface Announcement {
 
     fun actionUrl(): String?
 
-    fun cookieMaxAge() : Int = 86400
+    fun cookieMaxAge() : Int = CookieHelper.ONE_DAY_SECONDS
 }
