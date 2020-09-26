@@ -17,9 +17,7 @@ import javax.servlet.http.HttpServletResponse
 class UserService(
         private val backend: UserBackend,
         private val mapper: UserMapper,
-        private val requestContext: RequestContext,
-        private val request: HttpServletRequest,
-        private val response: HttpServletResponse
+        private val requestContext: RequestContext
 
 ) {
     fun get (id: Long): UserModel {
@@ -45,29 +43,6 @@ class UserService(
                         value = request.value.trim()
                 )
         )
-    }
-
-    fun canReadStoriesInAllLanguages(): Boolean? {
-        val user = requestContext.currentUser()
-        if (user != null){
-            return user.readAllLanguages
-        } else {
-            return CookieHelper.get(CookieName.READ_ALL_LANGUAGE, request)?.toBoolean()
-        }
-    }
-
-    fun setReadStoriesInAllLanguages(value: Boolean) {
-        val user = requestContext.currentUser()
-        if (user != null){
-            set(UserAttributeForm(
-                    name = "read_all_languages",
-                    value = value.toString()
-            ))
-        }
-
-        /* update cookie */
-        val maxAge = 86400 * 365 * 10   // 10 years
-        CookieHelper.put(CookieName.READ_ALL_LANGUAGE, value.toString(), request, response, maxAge)
     }
 }
 

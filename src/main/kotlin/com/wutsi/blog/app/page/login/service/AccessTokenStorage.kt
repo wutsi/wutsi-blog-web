@@ -12,7 +12,13 @@ class AccessTokenStorage {
     fun get(request: HttpServletRequest): String? = CookieHelper.get(CookieName.ACCESS_TOKEN, request)
 
     fun put(accessToken: String, request: HttpServletRequest, response: HttpServletResponse) {
-        CookieHelper.put(CookieName.ACCESS_TOKEN, accessToken, request, response)
+        CookieHelper.put(
+                name = CookieName.ACCESS_TOKEN,
+                value = accessToken,
+                request = request,
+                response = response,
+                maxAge = 30*CookieHelper.ONE_DAY_SECONDS
+        )
     }
 
     fun delete(response: HttpServletResponse) {
