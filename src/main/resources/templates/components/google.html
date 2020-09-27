@@ -9,7 +9,7 @@
 </div>
 
 <div th:fragment="ad-sense">
-    <script th:if="${toggles.googleAdSense}" th:data-ad-client="${page.googleAdSenseCode}" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script id="ad-sense-code" th:if="${toggles.googleAdSense}" th:data-ad-client="${page.googleAdSenseCode}" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </div>
 
 <div th:fragment="analytics">

@@ -243,15 +243,21 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementCount("#recommendation-container .post", 0)
     }
 
+    @Test
+    fun `Google Ad-Sense`() {
+        driver.get("$url/read/20/looks-good")
+        assertElementPresent("script#ad-sense-code")
+        assertElementAttribute("script#ad-sense-code", "data-ad-client", "test-ad-sense")
+    }
 
     @Test
-    fun `home page Google Analytics`() {
+    fun `Google Analytics`() {
         driver.get("$url/read/20/looks-good")
         assertElementPresent("script#ga-code")
     }
 
     @Test
-    fun `home page Facebook Pixel`() {
+    fun `Facebook Pixel`() {
         driver.get("$url/read/20/looks-good")
         assertElementPresent("script#fb-pixel-code")
     }
