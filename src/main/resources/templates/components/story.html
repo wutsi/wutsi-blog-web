@@ -148,10 +148,16 @@
     </div>
 </div>
 
-<div th:fragment="author-summary-card(me)" class="author flex">
-    <a th:href="${me.slug}"><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
+<div th:fragment="author-summary-card(me, trackEvent, rank)" class="author flex">
+    <a th:href="${me.slug}"
+       th:wutsi-track-rank = "${rank}"
+       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+    ><img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
-        <a th:href="${me.slug}" th:title="${me.fullName}" th:text="${me.fullName}">Ray Sponsible</a>
+        <a th:href="${me.slug}" th:title="${me.fullName}" th:text="${me.fullName}"
+           th:wutsi-track-rank = "${rank}"
+           th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+        >Ray Sponsible</a>
         <div class="text-small bio" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
 </div>

@@ -46,7 +46,7 @@
                 <h4 class="padding mb-0" th:text="#{page.home.popular-stories}">Popular Stories</h4>
 
                 <section class="post padding border-top" th:each="story,it: ${popularStories}">
-                    <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
+                    <div th:replace="components/story :: story-summary-card(${story}, false, 'popular', ${it.index})"></div>
                 </section>
             </div>
 
@@ -54,8 +54,8 @@
                  th:if="${authors} AND !${authors.isEmpty()}"
             >
                 <h4 th:text="#{page.home.feature-blogs}">Featured Blogs</h4>
-                <div class="margin-top padding-top border-top" th:each="author:${authors}">
-                    <div th:replace="components/story :: author-summary-card(${author})"></div>
+                <div class="margin-top padding-top border-top" th:each="author,it:${authors}">
+                    <div th:replace="components/story :: author-summary-card(${author}, 'author', ${it.index})"></div>
                 </div>
             </div>
         </div>
