@@ -43,7 +43,7 @@
     </script>
 </ul>
 
-<div th:fragment="listitem(story)" class="story col-12" th:id="'story-' + ${story.id}">
+<div th:fragment="listitem(story)" class="story col-12">
 
     <a th:href="${story.draft} OR !${story.live} ? '/editor/' + ${story.id} : ${story.slug}">
         <h3 class="title">

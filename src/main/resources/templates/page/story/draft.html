@@ -24,6 +24,7 @@
     <div class="row padding margin-bottom border-bottom"
          th:each="story : ${stories}"
          th:if="!${stories.isEmpty()}"
+         th:id="'story-' + ${story.id}"
     >
         <div th:replace="components/story :: listitem(${story})" ></div>
     </div>
