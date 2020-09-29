@@ -7,7 +7,10 @@ import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 @RequestMapping("/me/draft")
@@ -26,4 +29,12 @@ class StoryDraftController(
             limit = limit,
             offset = offset
     ))
+
+    @GetMapping("/{id}/delete")
+    @ResponseBody
+    fun delete(@PathVariable id: Long) : Map<String, String> {
+        service.delete(id)
+        return mapOf("id" to id.toString())
+    }
+
 }

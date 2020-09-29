@@ -118,6 +118,10 @@ class StoryService(
         return mapper.toReadabilityModel(result)
     }
 
+    fun delete(id: Long) {
+        storyBackend.delete(id)
+    }
+
     private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
 
     private fun shouldCreate(editor: StoryForm) = (editor.id == null || editor.id == 0L) && !isEmpty(editor)

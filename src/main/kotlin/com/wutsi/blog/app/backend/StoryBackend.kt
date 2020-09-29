@@ -34,6 +34,10 @@ class StoryBackend (
         return http.get("$endpoint/$id", GetStoryResponse::class.java).body!!
     }
 
+    fun delete(id: Long) {
+        http.delete("$endpoint/$id")
+    }
+
     fun readability(id:Long): GetStoryReadabilityResponse {
         return http.get("$endpoint/$id/readability", GetStoryReadabilityResponse::class.java).body!!
     }

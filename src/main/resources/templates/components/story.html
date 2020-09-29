@@ -87,7 +87,16 @@
                    th:text="#{button.publish}"
                    th:if="${story.draft}"
                 >Publish</a>
+
+                <div class="dropdown-divider" th:if="${story.published}"></div>
                 <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:text="#{button.stats}" th:if="${story.published}">Stats</a>
+
+                <div class="dropdown-divider" th:if="${story.draft}"></div>
+                <a class="dropdown-item menu-item-delete"
+                   th:href="'javascript: delete_story(' + ${story.id} + ')'"
+                   th:text="#{button.delete}"
+                   th:if="${story.draft}"
+                >Delete</a>
             </div>
         </div>
     </div>
