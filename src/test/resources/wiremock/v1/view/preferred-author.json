@@ -1,0 +1,12 @@
+{
+  "authors":[
+    {
+      "authorId": 1,
+      "score": 9
+    },
+    {
+      "authorId": 2,
+      "score": 1
+    }
+  ]
+}

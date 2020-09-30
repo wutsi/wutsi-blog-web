@@ -60,13 +60,11 @@ class HomeController(
         val mainStory = mainStory(stories)
         val featuredStories = findFeaturedStories(stories, mainStory)
         val popularStories = findPopularStories(stories, featuredStories, mainStory)
-        val authors = featuredAuthors(stories)
 
         model.addAttribute("stories", stories)
         model.addAttribute("mainStory", mainStory)
         model.addAttribute("featuredStories", featuredStories)
         model.addAttribute("popularStories", popularStories)
-        model.addAttribute("authors", authors)
     }
 
     private fun findRecentStories(): List<StoryModel> {
@@ -142,9 +140,4 @@ class HomeController(
                 .filter {  main?.id != it.id && !featuredIds.contains(it.id) }
                 .take(5)
     }
-
-    private fun featuredAuthors(stories: List<StoryModel>): List<UserModel> = stories
-            .map { it.user }
-            .toSet()
-            .take(5)
 }

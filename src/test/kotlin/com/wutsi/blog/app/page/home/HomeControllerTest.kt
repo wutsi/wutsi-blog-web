@@ -9,7 +9,15 @@ import org.springframework.http.HttpStatus
 
 class HomeControllerTest: SeleniumTestSupport() {
     @Test
-    fun `home page for anonymous user`() {
+    fun `value prop showing for anonymous user`() {
+        driver.get(url)
+
+        assertCurrentPageIs(PageName.HOME)
+        assertElementCount("#value-prop", 1)
+    }
+
+    @Test
+    fun `value prop not showing for logged user`() {
         login()
         driver.get(url)
 
@@ -27,7 +35,20 @@ class HomeControllerTest: SeleniumTestSupport() {
         assertElementCount("#main-post", 0)
         assertElementCount("#featured-posts", 0)
         assertElementCount("#popular-posts", 0)
-        assertElementCount("#featured-authors", 0)
+        assertElementCount("#feature-blogs", 0)
+    }
+
+    @Test
+    fun `prefered blogs displayed to user`() {
+        stub(HttpMethod.POST, "/v1/view/search", HttpStatus.OK, "v1/view/search-last-viewed.json")
+        stub(HttpMethod.POST, "/v1/view/preferred/author", HttpStatus.OK, "v1/view/preferred-author.json")
+        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search-2-users.json")
+
+        login()
+        driver.get(url)
+
+        assertCurrentPageIs(PageName.HOME)
+        assertElementCount("#preferred-blogs .author", 2)
     }
 
     @Test
@@ -39,7 +60,6 @@ class HomeControllerTest: SeleniumTestSupport() {
         assertElementCount("#main-post .post", 1)
         assertElementCount("#featured-posts .post", 4)
         assertElementCount("#popular-posts .post", 2)
-        assertElementCount("#featured-authors .author", 5)
     }
 
     @Test

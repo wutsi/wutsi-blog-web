@@ -1,0 +1,11 @@
+{
+  "views":[
+    {
+      "id": 1,
+      "storyId": 1,
+      "userId": 1,
+      "deviceId": "sample-device",
+      "viewDateTime": 1085325914000
+    }
+  ]
+}

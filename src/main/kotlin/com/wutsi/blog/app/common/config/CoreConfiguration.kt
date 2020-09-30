@@ -99,7 +99,12 @@ class CoreConfiguration(
 
     @Bean
     fun deviceUIDFilter () : DeviceUIDFilter {
-        return DeviceUIDFilter(DeviceUIDProvider())
+        return DeviceUIDFilter(deviceUIDProvider())
+    }
+
+    @Bean
+    fun deviceUIDProvider(): DeviceUIDProvider {
+        return DeviceUIDProvider()
     }
 
     @Bean

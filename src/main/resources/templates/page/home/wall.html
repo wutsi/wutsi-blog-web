@@ -31,7 +31,12 @@
                         <section class="post padding border-top">
                             <div th:replace="components/story :: story-summary-card(${story}, true, 'read', ${it.count})"></div>
                         </section>
-                        <section th:if="${it.index == 2}">
+
+                        <section th:if="${it.index == 1}">
+                            <div th:replace="components/story :: preferred-blogs"></div>
+                        </section>
+
+                        <section th:if="${it.index == 3} AND ${toggles.pwa} AND ${toggles.pwaPushNotification}">
                             <div th:replace="components/pwa :: push-card"></div>
                         </section>
                     </div>
@@ -48,15 +53,6 @@
                 <section class="post padding border-top" th:each="story,it: ${popularStories}">
                     <div th:replace="components/story :: story-summary-card(${story}, false, 'popular', ${it.index})"></div>
                 </section>
-            </div>
-
-            <div id="featured-authors" class="margin-top padding border rounded"
-                 th:if="${authors} AND !${authors.isEmpty()}"
-            >
-                <h4 th:text="#{page.home.feature-blogs}">Featured Blogs</h4>
-                <div class="margin-top padding-top border-top" th:each="author,it:${authors}">
-                    <div th:replace="components/story :: author-summary-card(${author}, 'author', ${it.index})"></div>
-                </div>
             </div>
         </div>
     </div>

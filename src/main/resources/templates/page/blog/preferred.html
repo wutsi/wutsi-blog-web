@@ -1,0 +1,34 @@
+<div id="preferred-blogs" class="padding border box-filled-highlight-light"
+     th:if="${blogs} AND !${blogs.isEmpty()}"
+>
+    <h4 th:text="#{label.whats_new_for_your}">What's new for you</h4>
+    <div class="author flex" th:each="blog,it:${blogs}">
+        <a th:href="${blog.user.slug}"
+           th:wutsi-track-rank = "${it.index}"
+           wutsi-track-event= "preferred-blog"
+        >
+            <img class="margin-right"
+                 th:src="${blog.user.pictureUrl}"
+                 th:alt="${blog.user.fullName}"
+            />
+        </a>
+
+        <div>
+            <a th:href="${blog.user.slug}"
+               th:title="${blog.user.fullName}"
+               th:wutsi-track-rank = "${it.index}"
+               wutsi-track-event= "preferred-blog"
+            ><b th:text="${blog.user.fullName}">Ray Sponsible</b></a>
+
+            <div class="text-small">
+                <div th:if="${blog.storyCount} == 1" th:utext="#{label.1_story_published}">
+                    <b>1</b> New Story
+                </div>
+                <div th:if="${blog.storyCount} GT 0" th:utext="#{label.n_story_published(${blog.storyCount})}">
+                    <b>3</b> New Stories
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

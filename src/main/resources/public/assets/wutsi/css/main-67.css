@@ -506,11 +506,8 @@ a.sso-button .fab {
     background: white;
 }
 
-/*======= AUTHOR =======*/
-#featured-authors {
-    background: white;
-}
-#featured-authors .author img {
+/*======= AUTHORS =======*/
+#preferred-blogs .author img {
     width: 48px;
     height: 48px;
 }
