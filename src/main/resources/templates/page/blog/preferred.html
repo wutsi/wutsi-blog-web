@@ -5,7 +5,7 @@
     <div class="author flex" th:each="blog,it:${blogs}">
         <a th:href="${blog.user.slug}"
            th:wutsi-track-rank = "${it.index}"
-           wutsi-track-event= "preferred-blog"
+           wutsi-track-event= "preferred_blog"
         >
             <img class="margin-right"
                  th:src="${blog.user.pictureUrl}"
@@ -17,7 +17,7 @@
             <a th:href="${blog.user.slug}"
                th:title="${blog.user.fullName}"
                th:wutsi-track-rank = "${it.index}"
-               wutsi-track-event= "preferred-blog"
+               wutsi-track-event= "preferred_blog"
             ><b th:text="${blog.user.fullName}">Ray Sponsible</b></a>
 
             <div class="text-small">
@@ -32,3 +32,9 @@
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        wutsi.track('preferred_blog_show');
+    });
+</script>
