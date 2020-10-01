@@ -97,8 +97,9 @@ class StoryService(
     }
 
     fun count(status: StoryStatus): Int {
+        val userId = requestContext.currentUser()?.id
         val request = SearchStoryRequest(
-                userId = requestContext.currentUser()?.id,
+                userIds = if (userId == null) emptyList() else listOf(userId),
                 status = status,
                 limit = Int.MAX_VALUE
         )

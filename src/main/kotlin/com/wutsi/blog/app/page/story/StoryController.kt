@@ -29,7 +29,7 @@ class StoryController(
             model: Model
     ): String {
         val stories = service.search(SearchStoryRequest(
-                userId = userId,
+                userIds = if (userId == null) emptyList() else listOf(userId),
                 limit = limit,
                 offset = offset,
                 status = StoryStatus.published,
