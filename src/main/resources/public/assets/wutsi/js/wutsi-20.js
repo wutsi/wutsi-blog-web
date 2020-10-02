@@ -20,7 +20,6 @@ function Wutsi (){
         }
     };
 
-
     this.track_wutsi = function(event, value) {
         const page = this.page_name();
         if (page != 'page.read') {  // Only push to wutsi story events
@@ -218,6 +217,24 @@ function Wutsi (){
         return wutsi.httpPost('/upload', form);
     };
 
+    this.share = function(target) {
+        const fbAppId = document.head.querySelector("[name=facebook\\:app-id]").content;
+        const title = document.head.querySelector("[property=og\\:title]").content;
+        const url = document.head.querySelector("[property=og\\:url]").content;
+        const xurl = url + '?utm_source=' + target;
+
+        if (target == 'facebook') {
+            window.open('https://www.facebook.com/sharer/sharer.php?display=page&u=' + encodeURIComponent(xurl));
+        } else if (target == 'linkedin') {
+            window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(xurl) + '&title=' + encodeURIComponent(title));
+        } else if (target == 'twitter') {
+            window.open('http://www.twitter.com/intent/tweet?url=' + encodeURIComponent(xurl) + '&text=' + encodeURIComponent(title));
+        } else if (target == 'whatsapp') {
+            window.location.href = 'whatsapp://send?text=' + encodeURIComponent(xurl);
+        } else if (target == 'messenger') {
+            window.location.href = 'fb-messenger://share/?app_id=' + fbAppId + '&link=' + encodeURIComponent(xurl);
+        }
+    }
 
     this.cookie = function (name) {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));

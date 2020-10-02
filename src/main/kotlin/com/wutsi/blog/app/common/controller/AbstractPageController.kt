@@ -31,6 +31,9 @@ abstract class AbstractPageController(
     @Value("\${wutsi.facebook.pixel.code}")
     protected lateinit var facebookPixelId: String
 
+    @Value("\${wutsi.facebook.app-id}")
+    protected lateinit var facebookAppId: String
+
     @Value("\${wutsi.oauth.google.client-id}")
     protected lateinit var googleClientId: String
 
@@ -111,6 +114,7 @@ abstract class AbstractPageController(
             assetUrl = assetUrl,
             googleAnalyticsCode = this.googleAnalyticsCode,
             googleAdSenseCode = this.googleAdSenseCode,
+            facebookAppId = this.facebookAppId,
             facebookPixelCode = this.facebookPixelId,
             googleClientId = this.googleClientId,
             showGoogleOneTap = shouldShowGoogleOneTap(),

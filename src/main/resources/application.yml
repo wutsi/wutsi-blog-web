@@ -86,6 +86,7 @@ wutsi:
       endpoint: ${wutsi.backend.track-url}/v1/view
 
   facebook:
+    app-id: "629340480740249"
     pixel:
       code:
 

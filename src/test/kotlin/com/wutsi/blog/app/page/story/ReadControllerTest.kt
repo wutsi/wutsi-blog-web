@@ -132,22 +132,26 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         click("#share-menu")
 
         val url = "http://localhost:8081/read/20/lorem-ipsum"
-        assertElementAttribute(".dropdown .share-facebook", "href", "https://www.facebook.com/sharer/sharer.php?display=page&u=$url")
+        assertElementAttribute(".dropdown .share-facebook", "href", "javascript: wutsi.share('facebook')")
         assertElementAttribute(".dropdown .share-facebook", "target", "_blank")
         assertElementAttribute(".dropdown .share-facebook", "wutsi-track-event", "share-facebook")
 
         assertElementCount(".dropdown .share-twitter", 1)
-        assertElementAttribute(".dropdown .share-twitter", "href", "http://www.twitter.com/intent/tweet?url=$url")
+        assertElementAttribute(".dropdown .share-twitter", "href", "javascript: wutsi.share('twitter')")
         assertElementAttribute(".dropdown .share-twitter", "target", "_blank")
         assertElementAttribute(".dropdown .share-twitter", "wutsi-track-event", "share-twitter")
 
         assertElementCount(".dropdown .share-whatsapp", 1)
-        assertElementAttribute(".dropdown .share-whatsapp", "href", "whatsapp://send?text=$url")
+        assertElementAttribute(".dropdown .share-whatsapp", "href", "javascript: wutsi.share('whatsapp')")
         assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-event", "share-whatsapp")
 
         assertElementCount(".dropdown .share-messenger", 1)
-        assertElementAttribute(".dropdown .share-messenger", "href", "fb-messenger://share/?link=$url")
+        assertElementAttribute(".dropdown .share-messenger", "href", "javascript: wutsi.share('messenger')")
         assertElementAttribute(".dropdown .share-messenger", "wutsi-track-event", "share-messenger")
+
+        assertElementCount(".dropdown .share-linkedin", 1)
+        assertElementAttribute(".dropdown .share-linkedin", "href", "javascript: wutsi.share('linkedin')")
+        assertElementAttribute(".dropdown .share-linkedin", "wutsi-track-event", "share-linkedin")
     }
 
     @Test
@@ -183,6 +187,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
         assertElementAttribute("head meta[name='wutsi:story_id']", "content", "20")
         assertElementPresent("head meta[name='wutsi:hit_id']")
+
+        assertElementAttribute("head meta[name='facebook:app_id']", "content", "629340480740249")
     }
 
     @Test

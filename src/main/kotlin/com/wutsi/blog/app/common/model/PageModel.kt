@@ -17,6 +17,7 @@ data class PageModel (
         val twitterUserId: String? = null,
         val googleAnalyticsCode: String,
         val googleAdSenseCode: String,
+        val facebookAppId: String,
         val facebookPixelCode: String,
         val canonicalUrl: String? = null,
         val googleClientId: String? = null,
