@@ -218,7 +218,7 @@ function Wutsi (){
     };
 
     this.share = function(target) {
-        const fbAppId = document.head.querySelector("[name=facebook\\:app-id]").content;
+        const fbAppId = document.head.querySelector("[name=facebook\\:app_id]").content;
         const title = document.head.querySelector("[property=og\\:title]").content;
         const url = document.head.querySelector("[property=og\\:url]").content;
         const xurl = url + '?utm_source=' + target;
