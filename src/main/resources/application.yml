@@ -163,11 +163,12 @@ wutsi:
     pwa: true                       # PWA
     pwa-badge: true                 # Enable Badging on app icon
     pwa-push-notification: true     # Enable PWA Push Notification?
+    qa-login: false                 # Login provider for QA
     recommendation: true            # Show articles recommendations in reader
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false
     sso-github: true
     survey: true                    # Enable survey banner
-    qa-login: false
+    value-prop: true                # Show Value proposition on home-page
     wpp: true                       # Wutsi Partner Program

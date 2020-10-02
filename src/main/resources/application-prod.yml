@@ -72,5 +72,6 @@ wutsi:
     sso-github: false
     sso-twitter: false
     survey: true
+    value-prop: false
     wpp: true
 

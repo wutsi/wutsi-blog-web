@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus
 
 
 class HomeControllerTest: SeleniumTestSupport() {
-//    @Test
-//    fun `value prop showing for anonymous user`() {
-//        driver.get(url)
-//
-//        assertCurrentPageIs(PageName.HOME)
-//        assertElementCount("#value-prop", 1)
-//    }
+    @Test
+    fun `value prop showing for anonymous user`() {
+        driver.get(url)
+
+        assertCurrentPageIs(PageName.HOME)
+        assertElementCount("#value-prop", 1)
+    }
 
     @Test
     fun `value prop not showing for logged user`() {
