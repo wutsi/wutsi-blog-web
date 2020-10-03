@@ -3,6 +3,7 @@ package com.wutsi.blog.app.page.editor
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.story.AbstractStoryController
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
@@ -34,6 +35,7 @@ class EditorShareController(
 
         model.addAttribute("story", story)
         model.addAttribute("storyUrl", "${websiteUrl}${story.slug}")
+        model.addAttribute("page", toPage(story))
         loadChannels(model)
         return "page/editor/share"
     }
@@ -48,4 +50,19 @@ class EditorShareController(
 
         }
     }
+
+    protected fun toPage(story: StoryModel)= createPage(
+            name = pageName(),
+            title = story.title,
+            description = story.summary,
+            url = url(story),
+            imageUrl = story.thumbnailUrl,
+            author = story.user.fullName,
+            publishedTime = story.publishedDateTimeISO8601,
+            modifiedTime = story.modificationDateTimeISO8601,
+            tags = story.tags.map { it.name },
+            twitterUserId = story.user.twitterId,
+            canonicalUrl = story.sourceUrl
+    )
+
 }
