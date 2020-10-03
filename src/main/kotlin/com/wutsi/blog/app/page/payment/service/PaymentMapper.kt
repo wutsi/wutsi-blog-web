@@ -21,7 +21,7 @@ class PaymentMapper(private val requestContext: RequestContext){
             year: Int,
             earnings: List<EarningDto>
     ): BarChartModel {
-        val months = arrayListOf(1,2,3,4,5,6,7,8,10,11,12)
+        val months = arrayListOf(1,2,3,4,5,6,7,8,9,10,11,12)
         return BarChartModel(
                 categories = toDateList(year, months),
                 series = arrayListOf(
