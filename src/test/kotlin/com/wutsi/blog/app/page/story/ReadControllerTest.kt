@@ -133,23 +133,10 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
         val url = "http://localhost:8081/read/20/lorem-ipsum"
         assertElementAttribute(".dropdown .share-facebook", "href", "javascript: wutsi.share('facebook')")
-        assertElementAttribute(".dropdown .share-facebook", "wutsi-track-event", "share-facebook")
-
-        assertElementCount(".dropdown .share-twitter", 1)
         assertElementAttribute(".dropdown .share-twitter", "href", "javascript: wutsi.share('twitter')")
-        assertElementAttribute(".dropdown .share-twitter", "wutsi-track-event", "share-twitter")
-
-        assertElementCount(".dropdown .share-whatsapp", 1)
         assertElementAttribute(".dropdown .share-whatsapp", "href", "javascript: wutsi.share('whatsapp')")
-        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-track-event", "share-whatsapp")
-
-        assertElementCount(".dropdown .share-messenger", 1)
         assertElementAttribute(".dropdown .share-messenger", "href", "javascript: wutsi.share('messenger')")
-        assertElementAttribute(".dropdown .share-messenger", "wutsi-track-event", "share-messenger")
-
-        assertElementCount(".dropdown .share-linkedin", 1)
         assertElementAttribute(".dropdown .share-linkedin", "href", "javascript: wutsi.share('linkedin')")
-        assertElementAttribute(".dropdown .share-linkedin", "wutsi-track-event", "share-linkedin")
     }
 
     @Test
