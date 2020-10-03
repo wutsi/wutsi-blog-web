@@ -52,9 +52,9 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         assertCurrentPageIs(PageName.EDITOR_SHARE)
-        assertElementAttributeStartsWith("#btn-facebook", "href", "https://www.facebook.com/sharer/sharer.php?u=")
-        assertElementAttributeStartsWith("#btn-twitter", "href", "https://twitter.com/intent/tweet?url=")
-        assertElementAttributeStartsWith("#btn-linkedin", "href", "https://www.linkedin.com/shareArticle?mini=true&url=")
+        assertElementAttribute("#btn-facebook", "href", "javascript: wutsi.share('facebook')")
+        assertElementAttribute("#btn-twitter", "href", "javascript: wutsi.share('twitter')")
+        assertElementAttribute("#btn-linkedin", "href", "javascript: wutsi.share('linkedin')")
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         click("#btn-read")

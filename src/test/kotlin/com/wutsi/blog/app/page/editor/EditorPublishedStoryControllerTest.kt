@@ -48,9 +48,9 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
         click("#btn-publish")
 
         assertCurrentPageIs(PageName.EDITOR_SHARE)
-        assertElementAttributeStartsWith("#btn-facebook", "href", "javascript: wutsi.share('facebook')")
-        assertElementAttributeStartsWith("#btn-twitter", "href", "javascript: wutsi.share('twitter')")
-        assertElementAttributeStartsWith("#btn-linkedin", "href", "javascript: wutsi.share('linkedin')")
+        assertElementAttribute("#btn-facebook", "href", "javascript: wutsi.share('facebook')")
+        assertElementAttribute("#btn-twitter", "href", "javascript: wutsi.share('twitter')")
+        assertElementAttribute("#btn-linkedin", "href", "javascript: wutsi.share('linkedin')")
 
         click("#btn-read")
         assertCurrentPageIs(PageName.READ)
