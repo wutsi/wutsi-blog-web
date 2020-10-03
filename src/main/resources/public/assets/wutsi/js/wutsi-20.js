@@ -234,6 +234,8 @@ function Wutsi (){
         } else if (target == 'messenger') {
             window.location.href = 'fb-messenger://share/?app_id=' + fbAppId + '&link=' + encodeURIComponent(xurl);
         }
+
+        wutsi.track('share-' + target);
     }
 
     this.cookie = function (name) {
