@@ -31,20 +31,21 @@ class BlogService(
     fun preferred(): List<PreferedBlogModel> {
         val user = requestContext.currentUser()
                 ?: return emptyList()
+        logger.add("UserId", user.id)
 
         val lastViewDateTime = getLastViewDateTime(user)
                 ?: return emptyList()
+        logger.add("LastViewDate", lastViewDateTime)
 
         val authors = findPreferredAuthors(user)
-
-        logger.add("UserId", user.id)
-        logger.add("LastViewDate", lastViewDateTime)
-        logger.add("AuthorIds", authors.map { it.id })
         if (authors.isEmpty()) {
             return emptyList()
         }
+        logger.add("AuthorIds", authors.map { it.id })
 
         val storiesByAuthorId = findStories(authors, lastViewDateTime)
+        logger.add("StoryCount", storiesByAuthorId.flatMap { it.value }.count())
+
         val authorMap = authors.map { it.id to it }.toMap()
         return storiesByAuthorId.keys
                 .filter { authorMap[it] != null }
