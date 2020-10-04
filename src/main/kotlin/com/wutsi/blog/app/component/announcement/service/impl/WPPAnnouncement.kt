@@ -16,7 +16,7 @@ class WPPAnnouncement(
     override fun show(): Boolean {
         val user = requestContext.currentUser()
         val toggles = requestContext.toggles()
-        return toggles.wpp && user?.blog == true && !partners.isPartner() && !contracts.hasContract()
+        return toggles.wpp && user?.blog == true && user.loginCount < Announcement.MAX_LOGIN && !partners.isPartner() && !contracts.hasContract()
     }
 
     override fun name() = "wpp"

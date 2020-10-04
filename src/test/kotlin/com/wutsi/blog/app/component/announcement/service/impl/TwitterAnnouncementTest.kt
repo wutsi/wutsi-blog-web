@@ -2,6 +2,7 @@ package com.wutsi.blog.app.component.announcement.service.impl
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
+import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -61,8 +62,8 @@ class TwitterAnnouncementTest {
     }
 
     @Test
-    fun `never show when connected`() {
-        val user = UserModel(blog=false)
+    fun `never show when too many logins`() {
+        val user = UserModel(blog=true, loginCount = Announcement.MAX_LOGIN+1)
         val toggles = createToggles()
         `when`(requestContext.currentUser()).thenReturn(user)
         `when`(requestContext.toggles()).thenReturn(toggles)
@@ -74,7 +75,7 @@ class TwitterAnnouncementTest {
 
     @Test
     fun `never show when channel toggle OFF`() {
-        val user = UserModel(blog=false)
+        val user = UserModel(blog=true)
         val toggles = createToggles(channel = false)
         `when`(requestContext.toggles()).thenReturn(toggles)
 

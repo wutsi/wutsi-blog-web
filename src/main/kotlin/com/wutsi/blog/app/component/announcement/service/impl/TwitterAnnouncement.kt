@@ -14,7 +14,8 @@ class TwitterAnnouncement(
 ): Announcement {
     override fun show(): Boolean {
         val toggles = requestContext.toggles()
-        if (toggles.channel && toggles.channelTwitter && requestContext.currentUser()?.blog == true){
+        val user = requestContext.currentUser()
+        if (toggles.channel && toggles.channelTwitter && user?.blog == true && user.loginCount < Announcement.MAX_LOGIN){
             val twitter = channels.all().find { it.connected && it.type == ChannelType.twitter }
             return twitter == null
         } else {

@@ -2,6 +2,7 @@ package com.wutsi.blog.app.component.announcement.service.impl
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
+import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.page.partner.service.PartnerService
 import com.wutsi.blog.app.page.payment.service.ContractService
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -70,6 +71,16 @@ class WPPAnnouncementTest {
     @Test
     fun `never show when user not blogger`() {
         val user = UserModel(blog=false)
+        val toggles = createToggles()
+        Mockito.`when`(requestContext.currentUser()).thenReturn(user)
+        Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
+
+        assertFalse(announcement.show())
+    }
+
+    @Test
+    fun `never show when user has logged many times`() {
+        val user = UserModel(blog=true, loginCount = Announcement.MAX_LOGIN+1)
         val toggles = createToggles()
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
