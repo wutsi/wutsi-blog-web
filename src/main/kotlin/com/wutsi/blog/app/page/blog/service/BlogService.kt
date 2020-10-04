@@ -12,6 +12,7 @@ import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.view.SearchPreferredAuthorRequest
 import com.wutsi.blog.client.view.SearchViewRequest
+import com.wutsi.core.logging.KVLogger
 import com.wutsi.core.tracking.DeviceUIDProvider
 import org.springframework.stereotype.Service
 import java.util.Date
@@ -24,7 +25,8 @@ class BlogService(
         private val storyService: StoryService,
         private val userService: UserService,
         private val device: DeviceUIDProvider,
-        private val request: HttpServletRequest
+        private val request: HttpServletRequest,
+        private val logger: KVLogger
 ) {
     fun preferred(): List<PreferedBlogModel> {
         val user = requestContext.currentUser()
@@ -34,6 +36,10 @@ class BlogService(
                 ?: return emptyList()
 
         val authors = findPreferredAuthors(user)
+
+        logger.add("UserId", user.id)
+        logger.add("LastViewDate", lastViewDateTime)
+        logger.add("AuthorIds", authors.map { it.id })
         if (authors.isEmpty()) {
             return emptyList()
         }
@@ -62,7 +68,7 @@ class BlogService(
     }
 
     private fun findPreferredAuthors(user: UserModel): List<UserModel> {
-        val authorIds = viewBackend.referedAuthors(SearchPreferredAuthorRequest(
+        val authorIds = viewBackend.preferedAuthors(SearchPreferredAuthorRequest(
                 userId = user.id,
                 deviceId = device.get(request),
                 limit = 3

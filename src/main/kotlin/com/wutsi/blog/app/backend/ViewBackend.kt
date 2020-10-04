@@ -18,7 +18,7 @@ class ViewBackend (private val http: Http) {
         return http.post("$endpoint/search", request, SearchViewResponse::class.java).body!!
     }
 
-    fun referedAuthors(request: SearchPreferredAuthorRequest): SearchPreferredAuthorResponse {
+    fun preferedAuthors(request: SearchPreferredAuthorRequest): SearchPreferredAuthorResponse {
         return http.post("$endpoint/preferred/author", request, SearchPreferredAuthorResponse::class.java).body!!
     }
 }
