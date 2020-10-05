@@ -2,7 +2,7 @@
      th:if="${blogs} AND !${blogs.isEmpty()}"
 >
     <h4 th:text="#{label.whats_new_for_your}">What's new for you</h4>
-    <div class="author flex" th:each="blog,it:${blogs}">
+    <div class="author flex margin-top" th:each="blog,it:${blogs}">
         <a th:href="${blog.user.slug}"
            th:wutsi-track-rank = "${it.index}"
            wutsi-track-event= "preferred_blog"

@@ -38,10 +38,10 @@ class BlogService(
         logger.add("LastViewDate", lastViewDateTime)
 
         val authors = findPreferredAuthors(user)
+        logger.add("AuthorIds", authors.map { it.id })
         if (authors.isEmpty()) {
             return emptyList()
         }
-        logger.add("AuthorIds", authors.map { it.id })
 
         val storiesByAuthorId = findStories(authors, lastViewDateTime)
         logger.add("StoryCount", storiesByAuthorId.flatMap { it.value }.count())
