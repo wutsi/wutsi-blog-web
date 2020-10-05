@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.component.like
 
 import com.wutsi.blog.SeleniumMobileTestSupport
+import com.wutsi.blog.app.util.PageName
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -42,4 +43,25 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
         assertElementText(".like-badge #like-count-25", "")
         assertElementText(".like-badge #like-count-26", "")
     }
+
+    @Test
+    fun `user like a story`() {
+        login()
+        driver.get("$url/read/20/test")
+
+        assertElementText(".like-widget .like-badge .like-count", "2")
+        click(".like-widget .like-badge")
+    }
+
+    @Test
+    fun `anonymous is redirected to login when liking`() {
+        driver.get("$url/read/20/test")
+        click(".like-widget .like-badge")
+
+        assertCurrentPageIs(PageName.LOGIN)
+
+        assertElementPresent(".return")
+        assertElementAttributeEndsWith(".return", "href", "/read/20/lorem-ipsum?like=1")
+    }
+
 }

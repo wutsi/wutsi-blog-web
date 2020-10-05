@@ -26,25 +26,6 @@ class LoginControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `login for reason`() {
-        gotoPage(false, reason="comment", returnUrl="/read/123?comment=1")
-
-        assertElementNotPresent(".alert-danger")
-
-        assertElementPresent(".return")
-        assertElementAttributeEndsWith(".return", "href", "/read/123?comment=1")
-
-        assertElementPresent("#login-panel")
-        assertElementTextContains("#login-panel h1", "Connecte toi")
-
-        validateButton("google")
-        validateButton("facebook")
-        validateButton("github")
-        validateButton("twitter")
-    }
-
-
-    @Test
     fun `login error`() {
         gotoPage(true)
 

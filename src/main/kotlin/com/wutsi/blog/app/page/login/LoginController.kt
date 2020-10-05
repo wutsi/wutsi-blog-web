@@ -42,7 +42,7 @@ class LoginController(
         val createBlog = isCreateBlog(request)
         model.addAttribute("createBlog", createBlog)
         model.addAttribute("info", info(createBlog, reason))
-        model.addAttribute("title", title(createBlog))
+        model.addAttribute("title", title(createBlog, reason))
         model.addAttribute("return", `return`)
 
         return "page/login/index"
@@ -62,10 +62,12 @@ class LoginController(
         return if (redirectUrl == null) url else "$url?redirect=$redirectUrl"
     }
 
-    private fun title(createBlog: Boolean): String {
+    private fun title(createBlog: Boolean, reason: String?): String {
         val default = "page.login.header1.login";
         val key = if (createBlog) {
             "page.login.header1.create-blog"
+        } else if (reason != null) {
+            "page.login.header1.$reason"
         } else {
             default
         }
@@ -77,10 +79,10 @@ class LoginController(
         val default = "page.login.info.login";
         val key = if (createBlog) {
             "page.login.info.create-blog"
-        } else if (reason == null) {
-            default
-        } else {
+        } else if (reason != null) {
             "page.login.info.$reason"
+        } else {
+            default
         }
 
         return requestContext.getMessage(key, default)

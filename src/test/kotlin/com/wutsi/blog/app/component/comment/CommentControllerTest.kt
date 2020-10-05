@@ -126,5 +126,8 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
         click(".comment-widget textarea")
 
         assertCurrentPageIs(PageName.LOGIN)
+
+        assertElementPresent(".return")
+        assertElementAttributeEndsWith(".return", "href", "/read/20/lorem-ipsum?comment=1")
     }
 }
