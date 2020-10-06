@@ -30,8 +30,8 @@ class BlogService(
 ) {
     fun preferred(): List<PreferedBlogModel> {
         val user = requestContext.currentUser()
-                ?: return emptyList()
-        logger.add("UserId", user.id)
+        logger.add("UserId", user?.id)
+        logger.add("DeviceId", device.get(request))
 
         val lastViewDateTime = getLastViewDateTime(user)
                 ?: return emptyList()
@@ -59,18 +59,18 @@ class BlogService(
                 .filter { it.storyCount != null && it.storyCount > 0 }
     }
 
-    private fun getLastViewDateTime(user: UserModel): Date? {
+    private fun getLastViewDateTime(user: UserModel?): Date? {
         val views = viewBackend.search(SearchViewRequest(
-                userId = user.id,
+                userId = user?.id,
                 deviceId = device.get(request),
                 limit = 1
         )).views
         return if (views.isEmpty()) null else views[0].viewDateTime
     }
 
-    private fun findPreferredAuthors(user: UserModel): List<UserModel> {
+    private fun findPreferredAuthors(user: UserModel?): List<UserModel> {
         val authorIds = viewBackend.preferedAuthors(SearchPreferredAuthorRequest(
-                userId = user.id,
+                userId = user?.id,
                 deviceId = device.get(request),
                 limit = 3
         )).authors.map { it.authorId }
