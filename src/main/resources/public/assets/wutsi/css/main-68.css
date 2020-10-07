@@ -774,7 +774,7 @@ a.sso-button .fab {
     right: 0;
     top: 67px;
     width: 600px;
-    z-index: 100;
+    z-index: 10000;
 }
 
 .comment-widget-content textarea {
@@ -921,7 +921,7 @@ a.sso-button .fab {
     }
     .reader .comment-widget-content {
         width: 90%;
-        height: 82%;
+        height: 90%;
     }
 }
 
