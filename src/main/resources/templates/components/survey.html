@@ -6,17 +6,11 @@
     <div class="margin-right">
         <img width="64" th:src="${page.assetUrl} + '/assets/wutsi/img/survey.png'" />
     </div>
-    <div>
-        <div>
+    <div style="width: 100%">
+        <p>
+            <span th:text="#{survey.description}"></span>
             <a class="close" wutsi-track-event="survey_close"><i class="fas fa-times"></i></a>
-        </div>
-        <div>
-            <p th:if="${user}" th:text="#{survey.hi(${user.fullName})}"></p>
-            <p th:if="!${user}" th:text="#{survey.hi_anonymous}"></p>
-
-            <p th:text="#{survey.description}"></p>
-            <p class='description'></p>
-        </div>
+        </p>
         <button class='btn btn-primary btn-sm' wutsi-track-event="survey" th:utext="#{button.answer_survey}">Answer Survey...</button>
     </div>
 
@@ -25,7 +19,6 @@
             wutsi.httpGet('/survey', true)
                 .then(function(survey){
                     if (survey.active){
-                        $('#survey-container .description').text(survey.description);
                         $('#survey-container button').attr('data-url', survey.url);
                         $('#survey-container').removeClass('hidden');
 

@@ -9,12 +9,6 @@
 <div th:replace="components/layout :: navbar"></div>
 
 <div class="container">
-    <div class="row margin-top " th:if="${toggles.survey}">
-        <div class="col-12 offset-lg-1 col-lg-10">
-            <div th:replace="components/survey :: widget"></div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-12 offset-lg-1 col-lg-6">
             <div class="border margin-top rounded">
@@ -38,6 +32,10 @@
 
                         <section th:if="${it.index == 3} AND ${toggles.pwa} AND ${toggles.pwaPushNotification}">
                             <div th:replace="components/pwa :: push-card"></div>
+                        </section>
+
+                        <section th:if="${it.index == 5} AND ${toggles.survey}">
+                            <div th:replace="components/survey :: widget"></div>
                         </section>
                     </div>
                 </div>

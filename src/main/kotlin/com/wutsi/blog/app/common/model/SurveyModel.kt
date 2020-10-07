@@ -4,10 +4,8 @@ import java.time.LocalDate
 
 data class SurveyModel (
         val id: String = "",
-        val description: String = "",
         val url: String = "",
         val startDate: LocalDate = LocalDate.now(),
         val endDate: LocalDate = LocalDate.now(),
         val active: Boolean = true
 )
-

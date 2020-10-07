@@ -34,7 +34,6 @@ class SurveyService(
                     url = surveyUrl,
                     startDate = LocalDate.parse(surveyStartDate),
                     endDate = LocalDate.parse(surveyEndDate),
-                    description = requestContext.getMessage("survey.$surveyId.description"),
                     active = true
             )
             val now = LocalDate.now()
