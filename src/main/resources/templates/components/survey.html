@@ -2,10 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="widget" id="survey-container" class="flex padding box-filled-highlight-light border rounded hidden">
-    <div class="margin-right">
-        <img width="64" th:src="${page.assetUrl} + '/assets/wutsi/img/survey.png'" />
-    </div>
+<div th:fragment="widget" id="survey-container" class="flex padding box-filled-highlight-light border hidden">
+    <img width="64" height="64" th:src="${page.assetUrl} + '/assets/wutsi/img/survey.png'" />
     <div style="width: 100%">
         <p>
             <span th:text="#{survey.description}"></span>

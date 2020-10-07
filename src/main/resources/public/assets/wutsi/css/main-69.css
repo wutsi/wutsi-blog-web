@@ -850,16 +850,6 @@ a.sso-button .fab {
     display: none;
 }
 
-.ads-card {
-    background: var(--highlight-color-light);
-}
-.ads-card h2 {
-    font-size: 1.2em;
-}
-.ads-card p {
-    font-size: 0.8em;
-}
-
 
 /* bootstrap override */
 .btn {
