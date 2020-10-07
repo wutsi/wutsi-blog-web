@@ -1,17 +1,17 @@
-package com.wutsi.blog.app.component.announcement.service.impl
+package com.wutsi.blog.app.page.channel.service
 
 import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.channel.service.ChannelService
+import com.wutsi.blog.app.component.announcement.service.impl.AbstractAnnouncement
 import com.wutsi.blog.client.channel.ChannelType
 import org.springframework.stereotype.Service
 
 
 @Service
 class TwitterAnnouncement(
-        private val requestContext: RequestContext,
+        requestContext: RequestContext,
         private val channels: ChannelService
-): Announcement {
+): AbstractAnnouncement(requestContext) {
     override fun show(): Boolean {
         val toggles = requestContext.toggles()
         val user = requestContext.currentUser()

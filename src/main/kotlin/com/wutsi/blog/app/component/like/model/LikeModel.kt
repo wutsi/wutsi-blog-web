@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.like.model
+package com.wutsi.blog.app.component.like.model
 
 data class LikeModel(
         val id: Long = -1,

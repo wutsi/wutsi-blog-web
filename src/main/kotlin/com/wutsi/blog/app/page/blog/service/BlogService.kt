@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.blog.service
 
 import com.wutsi.blog.app.backend.ViewBackend
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.common.service.ViewService
 import com.wutsi.blog.app.page.blog.model.PreferedBlogModel
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
@@ -21,29 +22,25 @@ import javax.servlet.http.HttpServletRequest
 @Service
 class BlogService(
         private val requestContext: RequestContext,
-        private val viewBackend: ViewBackend,
         private val storyService: StoryService,
-        private val userService: UserService,
-        private val device: DeviceUIDProvider,
-        private val request: HttpServletRequest,
+        private val viewService: ViewService,
         private val logger: KVLogger
 ) {
     fun preferred(): List<PreferedBlogModel> {
         val user = requestContext.currentUser()
         logger.add("UserId", user?.id)
-        logger.add("DeviceId", device.get(request))
 
-        val lastViewDateTime = getLastViewDateTime(user)
+        val lastViewDate = requestContext.lastViewDate()
                 ?: return emptyList()
-        logger.add("LastViewDate", lastViewDateTime)
+        logger.add("LastViewDate", lastViewDate)
 
-        val authors = findPreferredAuthors(user)
+        val authors = viewService.findPreferredAuthors(user, 3)
         logger.add("AuthorIds", authors.map { it.id })
         if (authors.isEmpty()) {
             return emptyList()
         }
 
-        val storiesByAuthorId = findStories(authors, lastViewDateTime)
+        val storiesByAuthorId = findStories(authors, lastViewDate)
         logger.add("StoryCount", storiesByAuthorId.flatMap { it.value }.count())
 
         val authorMap = authors.map { it.id to it }.toMap()
@@ -59,30 +56,6 @@ class BlogService(
                 .filter { it.storyCount != null && it.storyCount > 0 }
     }
 
-    private fun getLastViewDateTime(user: UserModel?): Date? {
-        val views = viewBackend.search(SearchViewRequest(
-                userId = user?.id,
-                deviceId = device.get(request),
-                limit = 1
-        )).views
-        return if (views.isEmpty()) null else views[0].viewDateTime
-    }
-
-    private fun findPreferredAuthors(user: UserModel?): List<UserModel> {
-        val authorIds = viewBackend.preferedAuthors(SearchPreferredAuthorRequest(
-                userId = user?.id,
-                deviceId = device.get(request),
-                limit = 3
-        )).authors.map { it.authorId }
-        if (authorIds.isEmpty()) {
-            return emptyList()
-        }
-
-        return userService.search(SearchUserRequest(
-                userIds = authorIds,
-                limit = authorIds.size
-        ))
-    }
 
     private fun findStories(users: List<UserModel>, lastViewDateTime: Date): Map<Long, List<StoryModel>> {
         return storyService.search(SearchStoryRequest(

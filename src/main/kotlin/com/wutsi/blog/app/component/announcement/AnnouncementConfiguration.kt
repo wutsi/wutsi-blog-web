@@ -1,20 +1,16 @@
 package com.wutsi.blog.app.component.announcement
 
 import com.wutsi.blog.app.component.announcement.service.AnnouncementService
-import com.wutsi.blog.app.component.announcement.service.impl.SocialLinksAnnouncement
-import com.wutsi.blog.app.component.announcement.service.impl.TwitterAnnouncement
-import com.wutsi.blog.app.component.announcement.service.impl.WPPAnnouncement
-import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.service.SocialLinksAnnouncement
+import com.wutsi.blog.app.page.channel.service.TwitterAnnouncement
+import com.wutsi.blog.app.page.partner.service.WPPAnnouncement
+import com.wutsi.blog.app.component.like.service.LikeAnnouncement
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 class AnnouncementConfiguration {
-
-    @Autowired
-    private lateinit var requestContext: RequestContext
-
     @Autowired
     private lateinit var wpp: WPPAnnouncement
 
@@ -24,10 +20,13 @@ class AnnouncementConfiguration {
     @Autowired
     private lateinit var twitter: TwitterAnnouncement
 
+    @Autowired
+    private lateinit var like: LikeAnnouncement
+
     @Bean
     fun announcementService() = AnnouncementService(
-            requestContext = requestContext,
             announcements = arrayListOf(
+                    like,
                     socialLinks,
                     wpp,
                     twitter

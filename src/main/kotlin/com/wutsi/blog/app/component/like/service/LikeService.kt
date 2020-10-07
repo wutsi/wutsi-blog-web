@@ -1,10 +1,9 @@
-package com.wutsi.blog.app.page.like.service
+package com.wutsi.blog.app.component.like.service
 
 import com.wutsi.blog.app.backend.LikeBackend
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.like.model.LikeCountModel
-import com.wutsi.blog.app.page.like.model.LikeModel
-import com.wutsi.blog.client.like.CountLikeRequest
+import com.wutsi.blog.app.component.like.model.LikeCountModel
+import com.wutsi.blog.app.component.like.model.LikeModel
 import com.wutsi.blog.client.like.CreateLikeRequest
 import com.wutsi.blog.client.like.LikeDto
 import com.wutsi.blog.client.like.SearchLikeRequest
@@ -17,9 +16,11 @@ class LikeService(
         private val requestContext: RequestContext
 ) {
     fun count(storyIds: List<Long>): List<LikeCountModel> {
-        val counts = backend.count(CountLikeRequest(
-                storyIds = storyIds
-        )).counts
+        return count(SearchLikeRequest(storyIds = storyIds))
+    }
+
+    fun count(request: SearchLikeRequest): List<LikeCountModel> {
+        val counts = backend.count(request).counts
 
         return counts.map { mapper.toLikeCountModel(it) }
     }

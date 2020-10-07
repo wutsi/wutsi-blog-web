@@ -1,10 +1,10 @@
-package com.wutsi.blog.app.page.like
+package com.wutsi.blog.app.component.like
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.like.model.LikeCountModel
-import com.wutsi.blog.app.page.like.model.LikeModel
-import com.wutsi.blog.app.page.like.service.LikeService
+import com.wutsi.blog.app.component.like.model.LikeCountModel
+import com.wutsi.blog.app.component.like.model.LikeModel
+import com.wutsi.blog.app.component.like.service.LikeService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*

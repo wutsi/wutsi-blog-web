@@ -1,9 +1,8 @@
-package com.wutsi.blog.app.component.announcement.service.impl
+package com.wutsi.blog.app.page.partner.service
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.component.announcement.service.Announcement
-import com.wutsi.blog.app.page.partner.service.PartnerService
 import com.wutsi.blog.app.page.payment.service.ContractService
 import com.wutsi.blog.app.page.settings.model.UserModel
 import org.junit.Assert.assertEquals

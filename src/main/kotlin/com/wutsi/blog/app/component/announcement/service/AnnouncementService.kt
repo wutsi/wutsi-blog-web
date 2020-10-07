@@ -4,11 +4,11 @@ import com.wutsi.blog.app.component.announcement.model.AnnouncementModel
 import com.wutsi.blog.app.component.announcement.model.AnnouncementResponse
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.CookieHelper
+import org.springframework.beans.factory.annotation.Value
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class AnnouncementService(
-        private val requestContext: RequestContext,
         private val announcements: List<Announcement>
 ) {
     fun get(page: String, request: HttpServletRequest, response: HttpServletResponse): AnnouncementResponse {
@@ -16,15 +16,14 @@ class AnnouncementService(
         if (announcement == null) {
             return AnnouncementResponse()
         } else {
-            val name = announcement.name()
             storeIntoCookie(announcement, request, response)
-
             return AnnouncementResponse(
-                        show = true,
-                        announcement = AnnouncementModel(
-                        name = name,
-                        message = requestContext.getMessage("announcement.${name}.message"),
-                        actionUrl = announcement.actionUrl()
+                show = true,
+                announcement = AnnouncementModel(
+                        name = announcement.name(),
+                        message = announcement.description(),
+                        actionUrl = announcement.actionUrl(),
+                        iconUrl = announcement.iconUrl()
                 )
             )
         }

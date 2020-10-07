@@ -246,10 +246,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="toast-body">
-                <div class="message mb-1">Message</div>
-                <div class="action" style="display: none">
-                    <a class="btn btn-sm btn-primary" href="#" th:text="#{button.learn_more}">Learn More...</a>
+            <div class="toast-body flex">
+                <img width="32" height="32" class="hidden margin-right"/>
+                <div>
+                    <div class="message mb-1">Message</div>
+                    <div class="action" style="display: none">
+                        <a class="btn btn-sm btn-primary" href="#" th:text="#{button.learn_more}">Learn More...</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -264,10 +267,17 @@
                 if (data.show){
                     const announcement = data.announcement;
 
-                    $('#wutsi-announcement .toast-body .message').text(announcement.message);
+                    $('#wutsi-announcement .toast-body .message').html(announcement.message);
                     if (announcement.actionUrl) {
                         $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
                         $('#wutsi-announcement .toast-body .action').show();
+                    }
+                    if (announcement.iconUrl) {
+                        const assetUrl = /*[[${page.assetUrl}]]*/'';
+                        $('#wutsi-announcement .toast-body img').attr('src', assetUrl + announcement.iconUrl);
+                        $('#wutsi-announcement .toast-body img').removeClass('hidden');
+                    } else {
+                        $('#wutsi-announcement .toast-body img').addClass('hidden');
                     }
                     console.log('showing announcement', announcement.name);
                     $('.toast').toast('show');

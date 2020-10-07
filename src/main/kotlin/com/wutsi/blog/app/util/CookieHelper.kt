@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse
 
 object CookieHelper {
     const val ONE_DAY_SECONDS = 86400
+    const val ONE_HOUR_SECONDS = 3600
 
     fun get(name: String, request: HttpServletRequest): String? {
         val cookie = getCookie(name, request)

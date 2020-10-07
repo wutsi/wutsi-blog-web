@@ -1,10 +1,9 @@
-package com.wutsi.blog.app.component.announcement.service.impl
+package com.wutsi.blog.app.page.channel.service
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.page.channel.model.ChannelModel
-import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.channel.ChannelType
 import org.junit.Assert.assertEquals

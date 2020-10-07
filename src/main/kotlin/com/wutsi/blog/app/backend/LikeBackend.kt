@@ -14,7 +14,7 @@ class LikeBackend(private val http: Http) {
         return http.post("$endpoint/search", request, SearchLikeResponse::class.java).body!!
     }
 
-    fun count(request: CountLikeRequest): CountLikeResponse {
+    fun count(request: SearchLikeRequest): CountLikeResponse {
         return http.post("$endpoint/count", request, CountLikeResponse::class.java).body!!
     }
 

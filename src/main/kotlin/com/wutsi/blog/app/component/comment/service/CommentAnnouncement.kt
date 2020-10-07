@@ -1,15 +1,15 @@
-package com.wutsi.blog.app.component.announcement.service.impl
+package com.wutsi.blog.app.component.comment.service
 
-import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.component.announcement.service.impl.AbstractAnnouncement
 import org.springframework.stereotype.Service
 
 
 @Service
 @Deprecated("unused")
 class CommentAnnouncement(
-        private val requestContext: RequestContext
-): Announcement {
+        requestContext: RequestContext
+): AbstractAnnouncement(requestContext) {
     override fun show(): Boolean {
         return requestContext.toggles().comment
     }

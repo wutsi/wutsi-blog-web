@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.component.announcement.service.impl
+package com.wutsi.blog.app.page.settings.service
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.component.announcement.service.Announcement

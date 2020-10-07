@@ -1,7 +1,7 @@
-package com.wutsi.blog.app.page.like.service
+package com.wutsi.blog.app.component.like.service
 
-import com.wutsi.blog.app.page.like.model.LikeCountModel
-import com.wutsi.blog.app.page.like.model.LikeModel
+import com.wutsi.blog.app.component.like.model.LikeCountModel
+import com.wutsi.blog.app.component.like.model.LikeModel
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.like.LikeCountDto
 import com.wutsi.blog.client.like.LikeDto

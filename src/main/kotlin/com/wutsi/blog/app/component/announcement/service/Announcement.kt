@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.component.announcement.service
 
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.CookieHelper
 
 interface Announcement {
@@ -11,7 +12,11 @@ interface Announcement {
 
     fun name(): String
 
+    fun description(): String
+
     fun actionUrl(): String?
+
+    fun iconUrl(): String? = null
 
     fun cookieMaxAge() : Int = CookieHelper.ONE_DAY_SECONDS
 }
