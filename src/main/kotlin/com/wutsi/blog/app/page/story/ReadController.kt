@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.page.story
 
+import au.com.flyingkite.mobiledetect.UAgentInfo
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.schemas.StorySchemasGenerator
@@ -58,6 +59,13 @@ class ReadController(
             response: HttpServletResponse
     ): String {
         loadPage(id, model)
+        model.addAttribute("mobileView", isMobileView())
         return "page/story/read"
     }
+
+    private fun isMobileView(): Boolean {
+        val ua = requestContext.request.getHeader("User-Agent")
+        return if (ua != null) UAgentInfo(ua, null).detectMobileQuick() else false
+    }
+
 }

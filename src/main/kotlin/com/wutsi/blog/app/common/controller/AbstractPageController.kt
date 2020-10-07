@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.common.controller
 
+import au.com.flyingkite.mobiledetect.UAgentInfo
 import com.wutsi.blog.app.common.model.FirebaseConfigModel
 import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext

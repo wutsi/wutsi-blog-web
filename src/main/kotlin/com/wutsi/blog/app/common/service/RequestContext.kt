@@ -28,13 +28,13 @@ class RequestContext(
         private val authBackend: AuthenticationBackend,
         private val userBackend: UserBackend,
         private val togglesHolder: TogglesHolder,
-        private val request: HttpServletRequest,
         private val tokenStorage: AccessTokenStorage,
         private val localization: LocalizationService,
         private val securityManager: SecurityManager,
         private val sessionMapper: SessionMapper,
         private val logger: KVLogger,
-        private val response: HttpServletResponse
+        val request: HttpServletRequest,
+        val response: HttpServletResponse
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
@@ -114,7 +114,6 @@ class RequestContext(
 
         return session
     }
-
 
     fun toggles() = togglesHolder.get()
 

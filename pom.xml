@@ -24,6 +24,7 @@
         <kotlin.version>1.3.70</kotlin.version>
         <libphonenumber.version>8.12.3</libphonenumber.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <mobiledetect.version>1.1.1</mobiledetect.version>
         <rome.version>1.10.0</rome.version>
         <scribe.version>6.7.0</scribe.version>
         <selenium.version>3.141.59</selenium.version>
@@ -135,7 +136,11 @@
             <artifactId>rome</artifactId>
             <version>${rome.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>au.com.flyingkite</groupId>
+            <artifactId>mobiledetect</artifactId>
+            <version>${mobiledetect.version}</version>
+        </dependency>
         <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
