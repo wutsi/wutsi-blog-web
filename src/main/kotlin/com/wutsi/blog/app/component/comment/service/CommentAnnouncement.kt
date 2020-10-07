@@ -55,7 +55,7 @@ class CommentAnnouncement(
         )
     }
 
-    override fun actionUrl() = story?.slug
+    override fun actionUrl() =  "${story?.slug}?comment=1"
 
     override fun iconUrl() = "/assets/wutsi/img/comment.png"
 
