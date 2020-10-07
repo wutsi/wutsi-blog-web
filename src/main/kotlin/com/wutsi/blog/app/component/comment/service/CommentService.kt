@@ -6,7 +6,6 @@ import com.wutsi.blog.app.component.comment.model.CommentCountModel
 import com.wutsi.blog.app.component.comment.model.CommentModel
 import com.wutsi.blog.app.component.comment.model.CreateCommentForm
 import com.wutsi.blog.app.page.settings.service.UserService
-import com.wutsi.blog.client.comment.CountCommentRequest
 import com.wutsi.blog.client.comment.CreateCommentRequest
 import com.wutsi.blog.client.comment.SearchCommentRequest
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -20,16 +19,20 @@ class CommentService(
         private val requestContext: RequestContext
 ) {
     fun count(storyIds: List<Long>): List<CommentCountModel> {
-        val counts = backend.count(CountCommentRequest(
+        return count(SearchCommentRequest(
                 storyIds = storyIds
-        )).counts
+        ))
+    }
+
+    fun count(request: SearchCommentRequest): List<CommentCountModel> {
+        val counts = backend.count(request).counts
 
         return counts.map { mapper.toCommentCountModel(it) }
     }
 
     fun list(storyId: Long, limit: Int=50, offset: Int = 0): List<CommentModel> {
         val comments = backend.search(SearchCommentRequest(
-                storyId = storyId,
+                storyIds = listOf(storyId),
                 limit = limit,
                 offset = offset
         )).comments
