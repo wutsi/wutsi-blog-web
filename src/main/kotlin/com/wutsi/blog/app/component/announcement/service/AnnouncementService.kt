@@ -4,19 +4,26 @@ import com.wutsi.blog.app.component.announcement.model.AnnouncementModel
 import com.wutsi.blog.app.component.announcement.model.AnnouncementResponse
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.CookieHelper
+import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Value
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class AnnouncementService(
-        private val announcements: List<Announcement>
+        private val announcements: List<Announcement>,
+        private val logger: KVLogger
 ) {
     fun get(page: String, request: HttpServletRequest, response: HttpServletResponse): AnnouncementResponse {
         val announcement = announcements.find { shouldDisplay(page, it, request) }
         if (announcement == null) {
+            logger.add("AnnouncementVisible", false)
             return AnnouncementResponse()
         } else {
             storeIntoCookie(announcement, request, response)
+
+            logger.add("AnnouncementVisible", true)
+            logger.add("AnnouncementName", announcement.name())
+            logger.add("AnnouncementURL", announcement.actionUrl())
             return AnnouncementResponse(
                 show = true,
                 announcement = AnnouncementModel(

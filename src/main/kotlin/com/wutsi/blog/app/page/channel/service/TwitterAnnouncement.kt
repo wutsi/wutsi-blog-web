@@ -26,4 +26,6 @@ class TwitterAnnouncement(
     override fun name() = "twitter"
 
     override fun actionUrl() = "/me/channel"
+
+    override fun iconUrl() = "/assets/wutsi/img/social/twitter.png"
 }
