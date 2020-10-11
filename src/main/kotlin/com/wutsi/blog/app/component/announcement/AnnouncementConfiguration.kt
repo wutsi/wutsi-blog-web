@@ -6,6 +6,7 @@ import com.wutsi.blog.app.page.settings.service.SocialLinksAnnouncement
 import com.wutsi.blog.app.page.channel.service.TwitterAnnouncement
 import com.wutsi.blog.app.page.partner.service.WPPAnnouncement
 import com.wutsi.blog.app.component.like.service.LikeAnnouncement
+import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -27,6 +28,9 @@ class AnnouncementConfiguration {
     @Autowired
     private lateinit var comment: CommentAnnouncement
 
+    @Autowired
+    private lateinit var logger: KVLogger
+
     @Bean
     fun announcementService() = AnnouncementService(
             announcements = arrayListOf(
@@ -35,5 +39,7 @@ class AnnouncementConfiguration {
                     socialLinks,
                     wpp,
                     twitter
-            ))
+            ),
+            logger = logger
+    )
 }
