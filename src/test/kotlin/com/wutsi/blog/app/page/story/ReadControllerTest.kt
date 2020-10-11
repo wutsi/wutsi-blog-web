@@ -212,7 +212,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/looks-good")
 
         Thread.sleep(1000)
-        assertElementCount("#recommendation-container .post", 3)
+        assertElementCount("#recommendation-container .post", 7)
         assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "xread")
     }
 
