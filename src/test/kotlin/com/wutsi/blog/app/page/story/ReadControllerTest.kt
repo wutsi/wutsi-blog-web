@@ -214,6 +214,10 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         Thread.sleep(1000)
         assertElementCount("#recommendation-container .post", 7)
         assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "xread")
+
+        assertElementCount("#recommendation-container .btn-read-more", 1)
+        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread-more")
+        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/")
     }
 
     @Test
@@ -221,8 +225,12 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search-none.json")
         driver.get("$url/read/20/looks-good")
 
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         assertElementCount("#recommendation-container .post", 0)
+
+        assertElementCount("#recommendation-container .btn-read-more", 1)
+        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread-more")
+        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/")
     }
 
     @Test
@@ -230,7 +238,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.INTERNAL_SERVER_ERROR)
         driver.get("$url/read/20/looks-good")
 
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         assertElementCount("#recommendation-container .post", 0)
     }
 
