@@ -19,6 +19,7 @@ import com.wutsi.blog.client.story.SortStoryRequest
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
+import com.wutsi.core.tracking.DeviceUIDProvider
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
@@ -76,6 +77,7 @@ class StoryService(
                 storyIds = stories.map { it.id },
                 bubbleDownViewedStories =  bubbleDownViewedStories,
                 userId = requestContext.currentUser()?.id,
+                deviceId = requestContext.deviceId(),
                 algorithm = algorithm,
                 statsHoursOffset = statsHoursOffset
         ))

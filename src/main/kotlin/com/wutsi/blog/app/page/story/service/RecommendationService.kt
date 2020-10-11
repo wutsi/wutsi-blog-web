@@ -21,6 +21,7 @@ class RecommendationService(
         val response = backend.search(RecommendStoryRequest(
                 storyId = storyId,
                 userId = requestContext.currentUser()?.id,
+                deviceId = requestContext.deviceId(),
                 limit = TOTAL_RECOMMENDATIONS
         ))
         if (response.storyIds.isEmpty()) {

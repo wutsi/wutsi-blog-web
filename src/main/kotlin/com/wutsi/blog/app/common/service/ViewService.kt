@@ -17,9 +17,8 @@ class ViewService(
     fun findPreferredAuthors(user: UserModel?, limit: Int = 3): List<UserModel> {
         val authorIds = viewBackend.preferedAuthors(SearchPreferredAuthorRequest(
                 userId = user?.id,
-                deviceId = requestContext.deviceId(),
-                limit = limit
-        )).authors.map { it.authorId }
+                deviceId = requestContext.deviceId()
+        )).authors.map { it.authorId }.take(limit)
         if (authorIds.isEmpty()) {
             return emptyList()
         }

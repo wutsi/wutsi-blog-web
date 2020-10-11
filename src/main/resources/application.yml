@@ -171,5 +171,5 @@ wutsi:
     sso-twitter: false
     sso-github: true
     survey: true                    # Enable survey banner
-    value-prop: true                # Show Value proposition on home-page
+    value-prop: false               # Show Value proposition on home-page
     wpp: true                       # Wutsi Partner Program

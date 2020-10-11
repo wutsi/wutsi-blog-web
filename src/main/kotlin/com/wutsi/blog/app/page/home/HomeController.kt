@@ -11,6 +11,7 @@ import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
+import com.wutsi.core.tracking.DeviceUIDProvider
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -81,7 +82,7 @@ class HomeController(
         try{
             return storyService.sort(
                     stories = stories,
-                    algorithm = SortAlgorithmType.most_recent,
+                    algorithm = SortAlgorithmType.preferred_author,
                     statsHoursOffset = 24*1, // 1 days
                     bubbleDownViewedStories = true
             )
