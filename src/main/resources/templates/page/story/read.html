@@ -86,7 +86,7 @@
 
     <!-- Recommendations -->
     <div id="recommendation-container" class="margin-top" th:if="!${preview} AND ${toggles.recommendation}">
-        <div th:replace="components/story :: read-also(${story}, ${mobileView})"></div>
+        <div th:replace="components/story :: read-also(${story})"></div>
     </div>
 
     <!-- Author -->

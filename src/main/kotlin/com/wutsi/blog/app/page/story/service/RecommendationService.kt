@@ -13,11 +13,15 @@ class RecommendationService(
         private val backend: RecommendationBackend,
         private val stories: StoryService
 ) {
+    companion object {
+        const val TOTAL_RECOMMENDATIONS = 9
+    }
+
     fun search(storyId: Long): List<StoryModel> {
         val response = backend.search(RecommendStoryRequest(
                 storyId = storyId,
                 userId = requestContext.currentUser()?.id,
-                limit = 3
+                limit = TOTAL_RECOMMENDATIONS
         ))
         if (response.storyIds.isEmpty()) {
             return emptyList()

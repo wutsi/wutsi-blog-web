@@ -25,7 +25,6 @@ class RecommendationController(
     ): String {
         val stories = recommendations
                 .search(storyId)
-                .take(3)
 
         model.addAttribute("layout", layout)
         model.addAttribute("stories", stories)

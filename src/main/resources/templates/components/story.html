@@ -288,14 +288,12 @@
     ></i>
 </span>
 
-<div th:fragment="read-also(story, mobileView)" th:id="'read-also-' + ${story.id}">
+<div th:fragment="read-also(story)" th:id="'read-also-' + ${story.id}">
     <script th:inline="javascript">
     /*<![CDATA[*/
         $(document).ready(function(){
             const storyId = /*[[${story.id}]]*/'0';
-            const mobile = /*[[${mobileView}]]*/'false';
-            const layout = mobile ? 'card' : 'summary';
-            wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=' + layout, false)
+            wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=summary', false)
                 .then(function(html){
                     $('#read-also-' + storyId).html(html);
                 })
