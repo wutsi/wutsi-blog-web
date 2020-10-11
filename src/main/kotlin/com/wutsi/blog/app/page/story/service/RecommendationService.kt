@@ -5,6 +5,7 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StorySortStrategy
 import org.springframework.stereotype.Service
 
 @Service
@@ -29,7 +30,8 @@ class RecommendationService(
         }
 
         return stories.search(SearchStoryRequest(
-                storyIds = response.storyIds
+                storyIds = response.storyIds,
+                sortBy = StorySortStrategy.no_sort
         ))
     }
 }

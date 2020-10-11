@@ -302,17 +302,6 @@
     </script>
 </div>
 
-<div th:fragment="preferred-blogs">
-    <div id="preferred-blogs"></div>
-    <script>
-        $(document).ready(function(){
-            wutsi.httpGet('/blog/preferred', false)
-                .then(function(html){
-                    $('#preferred-blogs').html(html);
-                });
-        });
-    </script>
-</div>
 
 </body>
 </html>

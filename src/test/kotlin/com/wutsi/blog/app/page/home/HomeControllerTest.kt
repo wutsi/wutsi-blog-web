@@ -39,19 +39,6 @@ class HomeControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `prefered blogs displayed to user`() {
-        stub(HttpMethod.POST, "/v1/view/search", HttpStatus.OK, "v1/view/search-last-viewed.json")
-        stub(HttpMethod.POST, "/v1/view/preferred/author", HttpStatus.OK, "v1/view/preferred-author.json")
-        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search-2-users.json")
-
-        login()
-        driver.get(url)
-
-        assertCurrentPageIs(PageName.HOME)
-        assertElementCount("#preferred-blogs .author", 2)
-    }
-
-    @Test
     fun `user should view recent stories and authors in home page`() {
         login()
         driver.get(url)

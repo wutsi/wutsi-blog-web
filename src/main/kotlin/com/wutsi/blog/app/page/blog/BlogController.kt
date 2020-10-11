@@ -32,13 +32,13 @@ class BlogController(
 
         model.addAttribute("blog", blog)
         model.addAttribute("showCreatePanel", shouldShowCreatePanel(blog, user))
-        model.addAttribute("page", page(blog))
+        model.addAttribute("page", getPage(blog))
         return "page/blog/index"
     }
 
     private fun shouldShowCreatePanel(blog: UserModel, user: UserModel?) = user?.id == blog.id
 
-    protected fun page(user: UserModel) = createPage(
+    protected fun getPage(user: UserModel) = createPage(
             name = pageName(),
             title = user.fullName,
             description = if (user.biography == null) "" else user.biography,
