@@ -216,7 +216,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "xread")
 
         assertElementCount("#recommendation-container .btn-read-more", 1)
-        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread-more")
+        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
         assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/")
     }
 
@@ -229,7 +229,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementCount("#recommendation-container .post", 0)
 
         assertElementCount("#recommendation-container .btn-read-more", 1)
-        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread-more")
+        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
         assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/")
     }
 
