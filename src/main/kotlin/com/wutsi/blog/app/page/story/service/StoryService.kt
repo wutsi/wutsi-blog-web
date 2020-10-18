@@ -92,7 +92,7 @@ class StoryService(
 
         val sortResponse = doSort(
                 stories = stories,
-                algorithm = SortAlgorithmType.preferred_author,
+                algorithm = SortAlgorithmType.most_viewed,
                 statsHoursOffset = 24*1, // 1 days
                 bubbleDownViewedStories = true
         )
