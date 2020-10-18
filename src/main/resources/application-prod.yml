@@ -60,6 +60,7 @@ wutsi:
     channel-facebook: false
     comment: true
     earning: true
+    google-ad-sense: false            # Google AdSense request rejected :-(
     google-one-tap-sign-in: true
     imagekit: true
     like: true

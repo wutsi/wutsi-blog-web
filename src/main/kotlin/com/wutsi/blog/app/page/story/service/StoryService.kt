@@ -9,6 +9,7 @@ import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.page.home.model.WallModel
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
@@ -16,10 +17,11 @@ import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.SortStoryRequest
+import com.wutsi.blog.client.story.SortStoryResponse
+import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
-import com.wutsi.core.tracking.DeviceUIDProvider
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
@@ -69,11 +71,98 @@ class StoryService(
     }
 
     fun sort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories:Boolean = true): List<StoryModel> {
-        if (stories.size <= 1) {
-            return stories
+        val response = doSort(stories, algorithm, statsHoursOffset, bubbleDownViewedStories)
+        val storyMap = stories.map { it.id to it }.toMap()
+        return response.storyIds
+                .map { storyMap[it] }
+                .filter { it != null }
+                as List<StoryModel>
+    }
+
+    fun searchWallStories(): WallModel {
+        val stories = search(SearchStoryRequest(
+                status = StoryStatus.published,
+                live = true,
+                sortBy = StorySortStrategy.published,
+                limit = 50
+        ))
+        if (stories.isEmpty()){
+            return WallModel()
         }
 
-        val response = sortBackend.sort(SortStoryRequest(
+        val sortResponse = doSort(
+                stories = stories,
+                algorithm = SortAlgorithmType.preferred_author,
+                statsHoursOffset = 24*1, // 1 days
+                bubbleDownViewedStories = true
+        )
+
+        val mainStory = findMainStory(stories, sortResponse)
+        val featureStories = findFeaturedStories(stories, mainStory)
+        return WallModel(
+                mainStory = mainStory,
+                stories = stories,
+                featureStories = featureStories,
+                popularStories = findPopularStories(stories, featureStories, mainStory)
+        )
+    }
+
+    private fun findMainStory(stories: List<StoryModel>, sortResponse: SortStoryResponse): StoryModel? {
+        val notViewed = stories.filter { !sortResponse.viewedStoryIds.contains(it.id) }
+        val withThumbnail = if (notViewed.isNotEmpty()){
+            notViewed
+                    .filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
+        } else {
+            emptyList<StoryModel>()
+        }
+
+        return if (withThumbnail.isNotEmpty()){
+            val index = withThumbnail.size.toDouble() * Math.random()
+            return withThumbnail[index.toInt()]
+        } else {
+            null
+        }
+    }
+
+    private fun findFeaturedStories(
+            stories: List<StoryModel>,
+            main: StoryModel?
+    ): List<StoryModel> {
+        val result = LinkedHashMap<UserModel, StoryModel>()
+        stories
+                .filter{ it.id != main?.id }
+                .forEach{
+                    val user = it.user
+                    if (!result.containsKey(user) && user.id != main?.user?.id){
+                        result[user] = it
+                    }
+                }
+
+        return result.values
+                .toList()
+                .sortedByDescending { it.publishedDateTime }
+    }
+
+    private fun findPopularStories(
+            stories: List<StoryModel>,
+            featuredStories: List<StoryModel>,
+            main: StoryModel?
+    ): List<StoryModel> {
+        val result = sort(
+                stories = stories,
+                algorithm = SortAlgorithmType.most_viewed,
+                statsHoursOffset = 24*7, // 7 days
+                bubbleDownViewedStories = false
+        )
+
+        val featuredIds = featuredStories.map { it.id }
+        return result
+                .filter {  main?.id != it.id && !featuredIds.contains(it.id) }
+                .take(5)
+    }
+
+    private fun doSort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories:Boolean = true): SortStoryResponse {
+        return sortBackend.sort(SortStoryRequest(
                 storyIds = stories.map { it.id },
                 bubbleDownViewedStories =  bubbleDownViewedStories,
                 userId = requestContext.currentUser()?.id,
@@ -81,12 +170,8 @@ class StoryService(
                 algorithm = algorithm,
                 statsHoursOffset = statsHoursOffset
         ))
-        val storyMap = stories.map { it.id to it }.toMap()
-        return response.storyIds
-                .map { storyMap[it] }
-                .filter { it != null }
-                as List<StoryModel>
     }
+
 
     fun publish(editor: PublishForm){
         storyBackend.publish(editor.id, PublishStoryRequest(
