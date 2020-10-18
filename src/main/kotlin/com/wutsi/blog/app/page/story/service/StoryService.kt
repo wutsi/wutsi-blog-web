@@ -109,18 +109,16 @@ class StoryService(
 
     private fun findMainStory(stories: List<StoryModel>, sortResponse: SortStoryResponse): StoryModel? {
         val notViewed = stories.filter { !sortResponse.viewedStoryIds.contains(it.id) }
-        val withThumbnail = if (notViewed.isNotEmpty()){
-            notViewed
-                    .filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
-        } else {
-            emptyList<StoryModel>()
+        var withThumbnail = notViewed.filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
+        if (withThumbnail.isEmpty()) {
+            withThumbnail = stories.filter { it.thumbnailUrl != null && it.thumbnailUrl.isNotEmpty() }
         }
 
-        return if (withThumbnail.isNotEmpty()){
+        return if (withThumbnail.isEmpty()){
+            null
+        } else {
             val index = withThumbnail.size.toDouble() * Math.random()
             return withThumbnail[index.toInt()]
-        } else {
-            null
         }
     }
 
