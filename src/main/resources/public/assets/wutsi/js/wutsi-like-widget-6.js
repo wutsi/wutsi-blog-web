@@ -10,7 +10,7 @@ function WutsiLikeWidget(storyId, anonymous, storyUrl){
 
         if (anonymous) {
             const redirect = storyUrl + '?like=1';
-            window.location.href = '/login?reason=like&redirect=' + encodeURI(redirect) + '&return=' + encodeURI(redirect);
+            window.location.href = '/login?reason=like&redirect=' + encodeURI(redirect) + '&return=' + encodeURI(storyUrl);
         } else {
             wutsi.httpPost('/like?storyId=' + storyId, {}, true)
                 .then(function () {

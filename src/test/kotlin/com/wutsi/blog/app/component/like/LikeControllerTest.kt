@@ -61,7 +61,7 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
         assertCurrentPageIs(PageName.LOGIN)
 
         assertElementPresent(".return")
-        assertElementAttributeEndsWith(".return", "href", "/read/20/lorem-ipsum?like=1")
+        assertElementAttributeEndsWith(".return", "href", "/read/20/lorem-ipsum")
     }
 
 }

@@ -908,6 +908,7 @@ a.sso-button .fab {
         margin-left: -1em;
         position: fixed;
         width: 100%;
+        z-index: 1;
     }
     .reader .comment-widget-content {
         width: 90%;
