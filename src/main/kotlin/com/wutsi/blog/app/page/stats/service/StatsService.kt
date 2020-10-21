@@ -96,21 +96,47 @@ class StatsService(
         val totalValue = traffics.sumByDouble { it.value.toDouble() }
         return traffics
                 .map { TrafficModel(
-                    source = trafficSource(it),
+                    source = trafficSource(it.source),
                     value = it.value,
                     percent = BigDecimal(100* it.value.toDouble() / totalValue).setScale(2, RoundingMode.HALF_EVEN)
                 ) }
                 .sortedByDescending { it.value }
     }
 
-    private fun trafficSource(traffic: MonthlyTrafficStoryDto): String {
-        val source = traffic.source
+    fun traffic(year: Int, month: Int): List<TrafficModel> {
+        val traffics = backend.search(SearchMonthlyTrafficStoryRequest(
+                year = year,
+                month = month,
+                userId = requestContext.currentUser()!!.id
+        )).traffics
+        if (traffics.isEmpty()){
+            return emptyList()
+        }
+
+        val totalValue = traffics.sumByDouble { it.value.toDouble() }
+        return traffics
+                .groupBy { it.source }
+                .map {
+                    val source = it.key
+                    val value = sumValues(it.value)
+                    TrafficModel(
+                        source = trafficSource(source),
+                        value = value,
+                        percent = BigDecimal(100* value.toDouble() / totalValue).setScale(2, RoundingMode.HALF_EVEN)
+                    )
+                }
+                .sortedByDescending { it.value }
+    }
+
+    private fun trafficSource(source: String): String {
         try {
-            return localization.getMessage(source)
+            return localization.getMessage("traffic.$source")
         } catch (ex: Exception) {
             return source
         }
     }
+
+    private fun sumValues(traffics: List<MonthlyTrafficStoryDto>) = traffics.sumByDouble { it.value.toDouble() }.toLong()
 
     fun barChartData(story: StoryModel, type: StatsType, year: Int, month: Int): BarChartModel {
         val cal = Calendar.getInstance()

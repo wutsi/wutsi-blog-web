@@ -3,6 +3,7 @@ package com.wutsi.blog.app.page.stats
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.service.StatsService
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.util.PageName
 import org.apache.commons.lang3.time.DateUtils
 import org.springframework.stereotype.Controller
@@ -35,7 +36,13 @@ class StatsUserController(
         loadUserSummary(currentYear, currentMonth, model)
         loadPagination(currentYear, currentMonth, model)
         loadStoriesSummary(currentYear, currentMonth, model)
+        loadTraffic(currentYear, currentMonth, model)
         return "page/stats/user"
+    }
+
+    private fun loadTraffic(currentYear: Int, currentMonth: Int, model: Model) {
+        val traffics = stats.traffic(currentYear, currentMonth)
+        model.addAttribute("traffics", traffics)
     }
 
     private fun loadUserSummary(currentYear: Int, currentMonth: Int, model: Model) {

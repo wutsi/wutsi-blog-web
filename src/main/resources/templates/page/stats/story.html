@@ -61,7 +61,7 @@
         <div class="tab-pane padding active" id="chart-area"></div>
 
         <div class="tab-pane padding" id="traffic-source">
-            <table class="table">
+            <table class="table"  th:if="!${traffics.isEmpty()}">
                 <tr th:each="traffic : ${traffics}">
                     <td th:text="${traffic.source}">SEO</td>
                     <td align="right"> <span th:text="${traffic.percent}">30</span>%</td>
@@ -92,7 +92,7 @@
                     chart: {
                         width: 800,
                         height: 400,
-                        title: type,
+                        title: '',
                         format: '1,000'
                     },
                     yAxis: {

@@ -35,31 +35,53 @@
         </div>
     </div>
 
-    <div  class="margin-top" th:if="!${storySummaries.isEmpty()}">
-        <h2>Stories</h2>
-        <table class="table">
-            <tr>
-                <th width="40%"></th>
-                <th class="text-center" th:text="#{page.stats.kpi.total_read_time}">Total Read Time</th>
-                <th class="text-center" th:text="#{page.stats.kpi.total_views}">Total Views</th>
-                <th class="text-center" th:text="#{page.stats.kpi.average_read_time}">Avg. Reading Time</th>
-                <th class="text-center" th:text="#{page.stats.kpi.earnings}">Revenus</th>
-            </tr>
-            <tr th:each="storySummary: ${storySummaries}">
-                <td>
-                    <a th:href="'/stats/story/' + ${storySummary.story.id} + '?year=' + ${year} + '&month=' + ${month}"
-                       th:text="${storySummary.story.title}"
-                    >Story #1</a>
-                    <span th:replace="components/story :: wpp-badge(${storySummary.story})"></span>
-                </td>
-                <td class="text-center"  th:text="${storySummary.totalReadTimeText}">3h 30m</td>
-                <td class="text-center"  th:text="${storySummary.totalViewsText}">1,443</td>
-                <td class="text-center"  th:text="${storySummary.averageReadTimeText}" >1m 40s</td>
-                <td class="text-right">
-                    <span th:if="${storySummary.earnings}" th:text="${storySummary.earnings}">2121$</span>
-                </td>
-            </tr>
-        </table>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a id="tab-draft" class="nav-link active" href="#stats-stories" data-toggle="tab" role="tab">
+                <span th:text="#{label.stories}">Stories</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a id="tab-published" class="nav-link" href="#stats-traffic-source" data-toggle="tab" role="tab">
+                <span th:text="#{page.stats.kpi.traffic}">Traffic Source</span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div  class="tab-pane padding active" id="stats-stories">
+            <table class="table" th:if="!${storySummaries.isEmpty()}">
+                <tr>
+                    <th width="40%"></th>
+                    <th class="text-center" th:text="#{page.stats.kpi.total_read_time}">Total Read Time</th>
+                    <th class="text-center" th:text="#{page.stats.kpi.total_views}">Total Views</th>
+                    <th class="text-center" th:text="#{page.stats.kpi.average_read_time}">Avg. Reading Time</th>
+                    <th class="text-center" th:text="#{page.stats.kpi.earnings}">Revenus</th>
+                </tr>
+                <tr th:each="storySummary: ${storySummaries}">
+                    <td>
+                        <a th:href="'/stats/story/' + ${storySummary.story.id} + '?year=' + ${year} + '&month=' + ${month}"
+                           th:text="${storySummary.story.title}"
+                        >Story #1</a>
+                        <span th:replace="components/story :: wpp-badge(${storySummary.story})"></span>
+                    </td>
+                    <td class="text-center"  th:text="${storySummary.totalReadTimeText}">3h 30m</td>
+                    <td class="text-center"  th:text="${storySummary.totalViewsText}">1,443</td>
+                    <td class="text-center"  th:text="${storySummary.averageReadTimeText}" >1m 40s</td>
+                    <td class="text-right">
+                        <span th:if="${storySummary.earnings}" th:text="${storySummary.earnings}">2121$</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tab-pane padding" id="stats-traffic-source">
+            <table class="table" th:if="!${traffics.isEmpty()}">
+                <tr th:each="traffic : ${traffics}">
+                    <td th:text="${traffic.source}">SEO</td>
+                    <td align="right"> <span th:text="${traffic.percent}">30</span>%</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
