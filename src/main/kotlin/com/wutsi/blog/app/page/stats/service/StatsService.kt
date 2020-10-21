@@ -28,8 +28,7 @@ class StatsService(
         private val mapper: StatsMapper,
         private val backend: StatsBackend,
         private val storyBackend: StoryBackend,
-        private val requestContext: RequestContext,
-        private val localization: LocalizationService
+        private val requestContext: RequestContext
 ) {
     fun user(year: Int, month: Int) : StatsUserSummaryModel {
         val stats = backend.search(SearchMonthlyStatsUserRequest(
@@ -95,11 +94,7 @@ class StatsService(
 
         val totalValue = traffics.sumByDouble { it.value.toDouble() }
         return traffics
-                .map { TrafficModel(
-                    source = trafficSource(it.source),
-                    value = it.value,
-                    percent = BigDecimal(100* it.value.toDouble() / totalValue).setScale(2, RoundingMode.HALF_EVEN)
-                ) }
+                .map {  mapper.toTrafficModel(it, totalValue) }
                 .sortedByDescending { it.value }
     }
 
@@ -116,27 +111,9 @@ class StatsService(
         val totalValue = traffics.sumByDouble { it.value.toDouble() }
         return traffics
                 .groupBy { it.source }
-                .map {
-                    val source = it.key
-                    val value = sumValues(it.value)
-                    TrafficModel(
-                        source = trafficSource(source),
-                        value = value,
-                        percent = BigDecimal(100* value.toDouble() / totalValue).setScale(2, RoundingMode.HALF_EVEN)
-                    )
-                }
+                .map { mapper.toTrafficModel(it.value, totalValue) }
                 .sortedByDescending { it.value }
     }
-
-    private fun trafficSource(source: String): String {
-        try {
-            return localization.getMessage("traffic.$source")
-        } catch (ex: Exception) {
-            return source
-        }
-    }
-
-    private fun sumValues(traffics: List<MonthlyTrafficStoryDto>) = traffics.sumByDouble { it.value.toDouble() }.toLong()
 
     fun barChartData(story: StoryModel, type: StatsType, year: Int, month: Int): BarChartModel {
         val cal = Calendar.getInstance()

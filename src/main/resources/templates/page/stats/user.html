@@ -49,7 +49,8 @@
     </ul>
     <div class="tab-content">
         <div  class="tab-pane padding active" id="stats-stories">
-            <table class="table" th:if="!${storySummaries.isEmpty()}">
+            <h4 th:text="#{page.stats.tab.stories.title(${currentMonth})}">Daily Reads</h4>
+            <table class="table">
                 <tr>
                     <th width="40%"></th>
                     <th class="text-center" th:text="#{page.stats.kpi.total_read_time}">Total Read Time</th>
@@ -75,10 +76,19 @@
         </div>
 
         <div class="tab-pane padding" id="stats-traffic-source">
-            <table class="table" th:if="!${traffics.isEmpty()}">
+            <h4 th:text="#{page.stats.tab.traffic.title(${currentMonth})}">Daily Reads</h4>
+            <table class="table">
                 <tr th:each="traffic : ${traffics}">
-                    <td th:text="${traffic.source}">SEO</td>
-                    <td align="right"> <span th:text="${traffic.percent}">30</span>%</td>
+                    <td align="right" width="33%" th:text="${traffic.source}">SEO</td>
+                    <td width="34%">
+                        <div class="progress" style="margin-top: 4px">
+                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                 th:style="'width:' + ${traffic.percentAsInt} + '%'"
+                                 th:aria-valuenow="${traffic.percent}"
+                            ></div>
+                        </div>
+                    </td>
+                    <td width="33%" th:text="${traffic.percentText}">30%</td>
                 </tr>
             </table>
         </div>

@@ -3,14 +3,17 @@ package com.wutsi.blog.app.page.stats.service
 import com.wutsi.blog.app.common.model.MoneyModel
 import com.wutsi.blog.app.common.model.tui.BarChartModel
 import com.wutsi.blog.app.common.model.tui.BarChartSerieModel
+import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
+import com.wutsi.blog.app.page.stats.model.TrafficModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.client.stats.DailyStatsDto
 import com.wutsi.blog.client.stats.MonthlyStatsStoryDto
 import com.wutsi.blog.client.stats.MonthlyStatsUserDto
+import com.wutsi.blog.client.stats.MonthlyTrafficStoryDto
 import com.wutsi.blog.client.stats.StatsType
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.story.WPPStatus
@@ -18,6 +21,8 @@ import com.wutsi.core.util.DurationUtils
 import com.wutsi.core.util.NumberUtils
 import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -25,7 +30,8 @@ import java.util.Date
 @Service
 class StatsMapper(
         private val storyMapper: StoryMapper,
-        private val requestContext: RequestContext
+        private val requestContext: RequestContext,
+        private val localization: LocalizationService
 ) {
     fun toStatsUserSummaryModel(stats: List<MonthlyStatsUserDto>, overallTRL: MonthlyStatsStoryDto?): StatsUserSummaryModel {
         val totalViews = stats
@@ -60,6 +66,38 @@ class StatsMapper(
         val model = storyMapper.toStoryModel(story)
         return toStatsStorySummaryModel(model, stats)
     }
+
+    fun toTrafficModel(obj: MonthlyTrafficStoryDto, totalValue: Double): TrafficModel {
+        return toTrafficModel(obj.source, obj.value.toDouble(), totalValue)
+    }
+
+    fun toTrafficModel(obj: List<MonthlyTrafficStoryDto>, totalValue: Double): TrafficModel {
+        val source = obj[0].source
+        val value = obj.sumByDouble { it.value.toDouble() }
+        return toTrafficModel(source, value, totalValue)
+    }
+
+    private fun toTrafficModel(source: String, value: Double, totalValue: Double): TrafficModel {
+        val percent = BigDecimal(100.0* value / totalValue)
+                .setScale(2, RoundingMode.HALF_EVEN)
+
+        return TrafficModel(
+                source = trafficSource(source),
+                value = value.toLong(),
+                percent = percent,
+                percentAsInt = if (percent.toDouble()<1.0) 1 else percent.toInt(),
+                percentText = percent.toString()
+        )
+    }
+
+    private fun trafficSource(source: String): String {
+        try {
+            return localization.getMessage("traffic.$source")
+        } catch (ex: Exception) {
+            return source
+        }
+    }
+
 
     fun toStatsStorySummaryModel(story: StoryModel, stats: List<MonthlyStatsStoryDto>): StatsStorySummaryModel {
         val id = story.id
