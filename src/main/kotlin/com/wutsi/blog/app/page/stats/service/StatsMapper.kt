@@ -86,7 +86,7 @@ class StatsMapper(
                 value = value.toLong(),
                 percent = percent,
                 percentAsInt = if (percent.toDouble()<1.0) 1 else percent.toInt(),
-                percentText = percent.toString()
+                percentText = "${percent}%"
         )
     }
 
