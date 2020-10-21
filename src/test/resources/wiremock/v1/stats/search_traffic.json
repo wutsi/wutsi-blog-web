@@ -1,0 +1,39 @@
+{
+  "traffics":[
+    {
+      "storyId": 20,
+      "value": 120,
+      "year": 2020,
+      "month": 10,
+      "source": "seo"
+    },
+    {
+      "storyId": 20,
+      "value": 130,
+      "year": 2020,
+      "month": 10,
+      "source": "messenger"
+    },
+    {
+      "storyId": 20,
+      "value": 20,
+      "year": 2020,
+      "month": 10,
+      "source": "whatsapp"
+    },
+    {
+      "storyId": 20,
+      "value": 55,
+      "year": 2020,
+      "month": 10,
+      "source": "facebook"
+    },
+    {
+      "storyId": 20,
+      "value": 2,
+      "year": 2020,
+      "month": 10,
+      "source": "lolo.org"
+    }
+  ]
+}

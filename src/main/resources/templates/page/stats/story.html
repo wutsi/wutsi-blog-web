@@ -45,7 +45,30 @@
         </div>
     </div>
 
-    <div id="chart-area"></div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a id="tab-draft" class="nav-link active" href="#chart-area" data-toggle="tab" role="tab">
+                <h3 th:text="#{page.stats.kpi.daily_views}">Views</h3>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a id="tab-published" class="nav-link" href="#traffic-source" data-toggle="tab" role="tab">
+                <h3 th:text="#{page.stats.kpi.traffic}">Traffic Source</h3>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane padding active" id="chart-area"></div>
+
+        <div class="tab-pane padding" id="traffic-source">
+            <table class="table">
+                <tr th:each="traffic : ${traffics}">
+                    <td th:text="${traffic.source}">SEO</td>
+                    <td align="right"> <span th:text="${traffic.percent}">30</span>%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div th:replace="components/layout :: footer"></div>

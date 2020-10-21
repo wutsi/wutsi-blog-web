@@ -11,11 +11,13 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
         stub(HttpMethod.POST, "/v1/stats/search/daily", HttpStatus.OK, "v1/stats/search.json")
         stub(HttpMethod.POST, "/v1/stats/search/monthly/story", HttpStatus.OK, "v1/stats/search_story.json")
+        stub(HttpMethod.POST, "/v1/stats/search/monthly/traffic", HttpStatus.OK, "v1/stats/search_traffic.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }

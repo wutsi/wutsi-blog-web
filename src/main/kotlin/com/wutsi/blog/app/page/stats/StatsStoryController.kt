@@ -48,7 +48,7 @@ class StatsStoryController(
 
         loadPagination(story, currentYear, currentMonth, model)
         loadSummary(story, currentYear, currentMonth, model)
-
+        loadTraffic(story, currentYear, currentMonth, model)
         return "page/stats/story"
     }
 
@@ -68,6 +68,11 @@ class StatsStoryController(
     private fun loadSummary(story: StoryModel, currentYear: Int, currentMonth: Int, model: Model) {
         val summary = stats.story(story, currentYear, currentMonth)
         model.addAttribute("summary", summary)
+    }
+
+    private fun loadTraffic(story: StoryModel, currentYear: Int, currentMonth: Int, model: Model) {
+        val traffics = stats.traffic(story, currentYear, currentMonth)
+        model.addAttribute("traffics", traffics)
     }
 
     private fun loadPagination(story: StoryModel, currentYear: Int, currentMonth: Int, model: Model) {

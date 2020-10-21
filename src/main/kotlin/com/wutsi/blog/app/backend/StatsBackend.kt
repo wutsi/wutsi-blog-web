@@ -6,6 +6,8 @@ import com.wutsi.blog.client.stats.SearchMonthlyStatsStoryRequest
 import com.wutsi.blog.client.stats.SearchMonthlyStatsStoryResponse
 import com.wutsi.blog.client.stats.SearchMonthlyStatsUserRequest
 import com.wutsi.blog.client.stats.SearchMonthlyStatsUserResponse
+import com.wutsi.blog.client.stats.SearchMonthlyTrafficStoryRequest
+import com.wutsi.blog.client.stats.SearchMonthlyTrafficStoryResponse
 import com.wutsi.core.http.Http
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -25,5 +27,9 @@ class StatsBackend (private val http: Http) {
 
     fun search(request: SearchMonthlyStatsStoryRequest): SearchMonthlyStatsStoryResponse {
         return http.post("$endpoint/search/monthly/story", request, SearchMonthlyStatsStoryResponse::class.java).body!!
+    }
+
+    fun search(request: SearchMonthlyTrafficStoryRequest): SearchMonthlyTrafficStoryResponse {
+        return http.post("$endpoint/search/monthly/traffic", request, SearchMonthlyTrafficStoryResponse::class.java).body!!
     }
 }

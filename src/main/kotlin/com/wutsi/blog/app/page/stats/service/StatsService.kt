@@ -3,18 +3,24 @@ package com.wutsi.blog.app.page.stats.service
 import com.wutsi.blog.app.backend.StatsBackend
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.common.model.tui.BarChartModel
+import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
+import com.wutsi.blog.app.page.stats.model.TrafficModel
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.client.stats.MonthlyTrafficStoryDto
 import com.wutsi.blog.client.stats.SearchDailyStatsRequest
 import com.wutsi.blog.client.stats.SearchMonthlyStatsStoryRequest
 import com.wutsi.blog.client.stats.SearchMonthlyStatsUserRequest
+import com.wutsi.blog.client.stats.SearchMonthlyTrafficStoryRequest
 import com.wutsi.blog.client.stats.StatsType
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StoryStatus
 import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.Calendar
 
 @Service
@@ -22,7 +28,8 @@ class StatsService(
         private val mapper: StatsMapper,
         private val backend: StatsBackend,
         private val storyBackend: StoryBackend,
-        private val requestContext: RequestContext
+        private val requestContext: RequestContext,
+        private val localization: LocalizationService
 ) {
     fun user(year: Int, month: Int) : StatsUserSummaryModel {
         val stats = backend.search(SearchMonthlyStatsUserRequest(
@@ -76,6 +83,34 @@ class StatsService(
         return mapper.toStatsStorySummaryModel(story, stats)
     }
 
+    fun traffic(story: StoryModel, year: Int, month: Int): List<TrafficModel> {
+        val traffics = backend.search(SearchMonthlyTrafficStoryRequest(
+                year = year,
+                month = month,
+                storyIds = arrayListOf(story.id)
+        )).traffics
+        if (traffics.isEmpty()){
+            return emptyList()
+        }
+
+        val totalValue = traffics.sumByDouble { it.value.toDouble() }
+        return traffics
+                .map { TrafficModel(
+                    source = trafficSource(it),
+                    value = it.value,
+                    percent = BigDecimal(100* it.value.toDouble() / totalValue).setScale(2, RoundingMode.HALF_EVEN)
+                ) }
+                .sortedByDescending { it.value }
+    }
+
+    private fun trafficSource(traffic: MonthlyTrafficStoryDto): String {
+        val source = traffic.source
+        try {
+            return localization.getMessage(source)
+        } catch (ex: Exception) {
+            return source
+        }
+    }
 
     fun barChartData(story: StoryModel, type: StatsType, year: Int, month: Int): BarChartModel {
         val cal = Calendar.getInstance()
