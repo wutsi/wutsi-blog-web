@@ -1,11 +1,10 @@
-package com.wutsi.blog.app.page.story.config
+package com.wutsi.blog.app.page.editor.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.editor.service.filter.ImageKitFilter
 import com.wutsi.blog.app.page.editor.service.filter.ImageLozadFilter
 import com.wutsi.blog.app.page.editor.service.filter.LinkTargetFilter
-import com.wutsi.blog.app.page.editor.service.filter.LinkUTMFilter
 import com.wutsi.blog.app.page.story.service.HtmlImageService
 import com.wutsi.editorjs.html.EJSHtmlReader
 import com.wutsi.editorjs.html.EJSHtmlWriter
@@ -44,7 +43,6 @@ class EditorJSConfiguration(
             imageSize: HtmlImageService
     ) = EJSFilterSet(arrayListOf(
             linkFilter(),
-            LinkUTMFilter(),
             ImageKitFilter(imageSize),
             ImageLozadFilter()  /* should be the LAST image filter */
     ))
