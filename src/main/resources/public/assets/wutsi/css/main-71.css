@@ -467,7 +467,7 @@ a.sso-button .fab {
 }
 .post img.small {
     max-height: 96px;
-    width: 100%;
+    max-width: 100%;
 }
 
 .post .summary {
