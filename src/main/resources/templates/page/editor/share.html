@@ -21,19 +21,22 @@
 
             <!-- Share -->
             <div class="margin-top-2x">
-                <a id="btn-facebook" target="_share" class="sso-button margin-top" href="javascript: wutsi.share('facebook')"
+                <a id="btn-facebook" target="_share" class="sso-button margin-top" wutsi-share-target="facebook"
+                   th:wutsi-story-id="${story.id}"
                    th:if="!${channelFacebook}"
                 >
                     <i class="fab fa-facebook-square"></i>
                     <span th:text="#{page.share.facebook}">Share with Facebook</span>
                 </a>
-                <a id="btn-twitter" target="_share" class="sso-button margin-top" href="javascript: wutsi.share('twitter')"
+                <a id="btn-twitter" target="_share" class="sso-button margin-top" wutsi-share-target="twitter"
+                   th:wutsi-story-id="${story.id}"
                    th:if="!${channelTwitter}"
                 >
                     <i class="fab fa-twitter-square"></i>
                     <span th:text="#{page.share.twitter}">Sign in with Twitter</span>
                 </a>
-                <a id="btn-linkedin" target="_share" class="sso-button margin-top" href="javascript: wutsi.share('linkedin')"
+                <a id="btn-linkedin" target="_share" class="sso-button margin-top" wutsi-share-target="linkedin"
+                    th:wutsi-story-id="${story.id}"
                     th:if="!${channelLinkedin}"
                 >
                     <i class="fab fa-linkedin"></i>

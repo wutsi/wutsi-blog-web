@@ -132,11 +132,20 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         click("#share-menu")
 
         val url = "http://localhost:8081/read/20/lorem-ipsum"
-        assertElementAttribute(".dropdown .share-facebook", "href", "javascript: wutsi.share('facebook')")
-        assertElementAttribute(".dropdown .share-twitter", "href", "javascript: wutsi.share('twitter')")
-        assertElementAttribute(".dropdown .share-whatsapp", "href", "javascript: wutsi.share('whatsapp')")
-        assertElementAttribute(".dropdown .share-messenger", "href", "javascript: wutsi.share('messenger')")
-        assertElementAttribute(".dropdown .share-linkedin", "href", "javascript: wutsi.share('linkedin')")
+        assertElementAttribute(".dropdown .share-facebook", "wutsi-share-target", "facebook")
+        assertElementAttribute(".dropdown .share-facebook", "wutsi-story-id", "20")
+
+        assertElementAttribute(".dropdown .share-twitter", "wutsi-share-target", "twitter")
+        assertElementAttribute(".dropdown .share-twitter", "wutsi-story-id", "20")
+
+        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-share-target", "whatsapp")
+        assertElementAttribute(".dropdown .share-whatsapp", "wutsi-story-id", "20")
+
+        assertElementAttribute(".dropdown .share-messenger", "wutsi-share-target", "messenger")
+        assertElementAttribute(".dropdown .share-messenger", "wutsi-story-id", "20")
+
+        assertElementAttribute(".dropdown .share-linkedin", "wutsi-share-target", "linkedin")
+        assertElementAttribute(".dropdown .share-linkedin", "wutsi-story-id", "20")
     }
 
     @Test

@@ -12,23 +12,23 @@
             </div>
         </a>
         <div class="dropdown-menu" aria-labelledby="share-menu">
-            <a class="dropdown-item share-whatsapp btn-share hidden" href="javascript: wutsi.share('whatsapp')">
+            <a class="dropdown-item share-whatsapp btn-share hidden" wutsi-share-target="whatsapp" th:wutsi-story-id="${story.id}">
                 <i class="fab fa-whatsapp-square"></i>
                 WhatsApp
             </a>
-            <a class="dropdown-item share-messenger btn-share hidden" href="javascript: wutsi.share('messenger')">
+            <a class="dropdown-item share-messenger btn-share hidden" wutsi-share-target="messenger" th:wutsi-story-id="${story.id}">
                 <i class="fab fa-facebook-messenger"></i>
                 Messenger
             </a>
-            <a class="dropdown-item share-facebook btn-share" href="javascript: wutsi.share('facebook')">
+            <a class="dropdown-item share-facebook btn-share" wutsi-share-target="facebook" th:wutsi-story-id="${story.id}">
                 <i class="fab fa-facebook-square"></i>
                 Facebook
             </a>
-            <a class="dropdown-item share-twitter btn-share" href="javascript: wutsi.share('twitter')">
+            <a class="dropdown-item share-twitter btn-share" wutsi-share-target="twitter" th:wutsi-story-id="${story.id}">
                 <i class="fab fa-twitter-square"></i>
                 Twitter
             </a>
-            <a class="dropdown-item share-linkedin btn-share" href="javascript: wutsi.share('linkedin')">
+            <a class="dropdown-item share-linkedin btn-share" wutsi-share-target="linkedin" th:wutsi-story-id="${story.id}">
                 <i class="fab fa-linkedin"></i>
                 LinkedIn
             </a>

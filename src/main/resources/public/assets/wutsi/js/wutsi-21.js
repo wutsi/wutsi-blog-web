@@ -95,6 +95,15 @@ function Wutsi (){
                 wutsi.track_ga(wutsi.page_name(), event + '.' + rank, rank, title);
             }
         });
+
+        /* sharing */
+        $('[wutsi-share-target]').click(function(){
+            const target = $(this).attr("wutsi-share-target");
+            const storyId = $(this).attr("wutsi-story-id");
+            if (storyId && target) {
+                wutsi.share(storyId, target);
+            }
+        });
     };
 
     this.update_comment_count = function() {
@@ -217,7 +226,7 @@ function Wutsi (){
         return wutsi.httpPost('/upload', form);
     };
 
-    this.share = function(target) {
+    this.share = function(storyId, target) {
         const fbAppId = document.head.querySelector("[name=facebook\\:app_id]").content;
         const title = document.head.querySelector("[property=og\\:title]").content;
         const url = document.head.querySelector("[property=og\\:url]").content;
@@ -235,7 +244,8 @@ function Wutsi (){
             window.location.href = 'fb-messenger://share/?app_id=' + fbAppId + '&link=' + encodeURIComponent(xurl);
         }
 
-        wutsi.track('share-' + target);
+        this.track('share-' + target);
+        this.httpPost('/share?storyId=' + storyId + '&target=' + target, {}, true);
     }
 
     this.cookie = function (name) {
