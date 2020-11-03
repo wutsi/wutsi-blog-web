@@ -16,8 +16,6 @@ class LoginControllerTest: SeleniumTestSupport() {
         assertElementNotPresent(".return")
 
         assertElementPresent("#login-panel")
-        assertElementText("#login-panel h1", "Connecte toi")
-        assertElementText("#login-panel p", "Connecte toi pour lire les Stories d'auteurs et sujets préférés.")
 
         validateButton("google")
         validateButton("facebook")
