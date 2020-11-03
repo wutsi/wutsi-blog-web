@@ -1,13 +1,24 @@
 package com.wutsi.blog.app.common.config
 
+import com.wutsi.blog.app.common.service.LocaleResolverImpl
+import com.wutsi.blog.app.common.service.RequestContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.LocaleResolver
-import org.springframework.web.servlet.i18n.FixedLocaleResolver
-import java.util.Locale
+import org.springframework.web.servlet.i18n.CookieLocaleResolver
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
+
 
 @Configuration
 class I18nConfiguration {
     @Bean
-    fun localeResolver() : LocaleResolver = FixedLocaleResolver(Locale("fr", "CM"))
+    fun localeResolver(requestContext: RequestContext) : LocaleResolver =
+        LocaleResolverImpl(requestContext)
+
+    @Bean
+    fun localeChangeInterceptor(): LocaleChangeInterceptor? {
+        val lci = LocaleChangeInterceptor()
+        lci.paramName = "lang"
+        return lci
+    }
 }

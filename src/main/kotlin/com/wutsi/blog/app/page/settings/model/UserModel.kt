@@ -1,5 +1,7 @@
 package com.wutsi.blog.app.page.settings.model
 
+import java.util.Locale
+
 data class UserModel (
         val id: Long = -1,
         val name: String = "",
@@ -16,6 +18,7 @@ data class UserModel (
         val slug: String = "",
         val superUser: Boolean = false,
         val language: String? = null,
+        val locale: Locale? = null,
         val readAllLanguages: Boolean? = null,
         val facebookId: String? = null,
         val twitterId: String? = null,

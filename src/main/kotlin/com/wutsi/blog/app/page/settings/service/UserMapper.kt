@@ -5,6 +5,7 @@ import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
 import org.springframework.stereotype.Service
+import java.util.Locale
 
 @Service
 class UserMapper(private val imageKit: ImageKitService) {
@@ -26,6 +27,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             blog = user.blog,
             readAllLanguages = user.readAllLanguages,
             language = user.language,
+            locale = if (user.language == null) null else Locale(user.language, "CM"),
             facebookId = user.facebookId,
             twitterId = user.twitterId,
             linkedinId = user.linkedinId,
