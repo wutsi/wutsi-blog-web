@@ -2,6 +2,7 @@ package com.wutsi.blog.app.common.service
 
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.util.CookieHelper
+import com.wutsi.blog.app.util.CookieName
 import org.springframework.web.servlet.LocaleResolver
 import java.util.Locale
 import javax.servlet.http.HttpServletRequest
@@ -12,8 +13,7 @@ class LocaleResolverImpl(
         private val requestContext: RequestContext
 ): LocaleResolver {
     override fun resolveLocale(request: HttpServletRequest): Locale {
-        val user = requestContext.currentUser()
-        return resolveFromUser(user)
+        return resolveFromUser(requestContext.currentUser())
                 ?: resolveFromHeader(request)
     }
 
@@ -23,7 +23,7 @@ class LocaleResolverImpl(
     private fun resolveFromHeader(request: HttpServletRequest): Locale =
         request.locale
 
-    override fun setLocale(request: HttpServletRequest, response: HttpServletResponse?, locale: Locale?) {
-        System.out.println("Locale=$locale")
+    override fun setLocale(request: HttpServletRequest, response: HttpServletResponse, locale: Locale?) {
+
     }
 }

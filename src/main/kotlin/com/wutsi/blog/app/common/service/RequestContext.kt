@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.stereotype.Component
 import java.util.Date
+import java.util.Locale
 import java.util.Optional
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -140,15 +141,22 @@ class RequestContext(
         return session
     }
 
-    fun toggles() = togglesHolder.get()
+    fun toggles(): Toggles =
+            togglesHolder.get()
 
     fun accessToken(): String? {
         return tokenStorage.get(request)
     }
 
-    fun getMessage(key: String, defaultKey: String? = null, args: Array<Any>? = null): String {
+    fun languages(): List<Locale> =
+            listOf(Locale.FRENCH, Locale.ENGLISH)
+
+    fun supports(locale: Locale): Boolean =
+            languages().find { it.language == locale.language } != null
+
+    fun getMessage(key: String, defaultKey: String? = null, args: Array<Any>? = null, locale: Locale? = null): String {
         try {
-            return localization.getMessage(key, args)
+            return localization.getMessage(key, args, locale)
         } catch (ex: Exception){
             if (defaultKey != null){
                 try {

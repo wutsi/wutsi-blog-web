@@ -15,14 +15,12 @@ import java.io.StringWriter
 
 abstract class AbstractStoryReadController(
         private val ejsJsonReader: EJSJsonReader,
-        private val ejsHtmlWriter: EJSHtmlWriter,
-        private val ejsFilters: EJSFilterSet,
         service: StoryService,
         requestContext: RequestContext
 ): AbstractStoryController(service, requestContext) {
 
-    protected fun loadPage(id: Long, model: Model): StoryModel {
-        val story = getStory(id)
+    protected fun loadPage(id: Long, model: Model, language: String? = null): StoryModel {
+        val story = getStory(id, language)
         model.addAttribute("story", story)
 
         val page = toPage(story)
@@ -41,10 +39,10 @@ abstract class AbstractStoryReadController(
             return
         }
 
+        val html = service.generateHtmlContent(story)
+        model.addAttribute("html", html)
+
         val ejs = ejsJsonReader.read(story.content)
-        val html = StringWriter()
-        ejsHtmlWriter.write(ejs, html)
-        model.addAttribute("html", filter(html.toString()))
         model.addAttribute("hasTwitterEmbed", hasTwitterEmbed(ejs))
         model.addAttribute("hasCode", hasCode(ejs))
         model.addAttribute("hasRaw", hasRaw(ejs))
@@ -61,12 +59,6 @@ abstract class AbstractStoryReadController(
     private fun hasRaw(doc: EJSDocument) = doc
             .blocks
             .find { it.type == BlockType.raw } != null
-
-    private fun filter(html: String): String {
-        val doc = Jsoup.parse(html)
-        ejsFilters.filter(doc)
-        return doc.html()
-    }
 
     protected fun toPage(story: StoryModel)= createPage(
             name = pageName(),

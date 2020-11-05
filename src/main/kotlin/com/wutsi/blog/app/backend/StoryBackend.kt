@@ -11,6 +11,7 @@ import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SearchStoryResponse
+import com.wutsi.blog.client.story.TranslateStoryResponse
 import com.wutsi.core.http.Http
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -32,6 +33,10 @@ class StoryBackend (
 
     fun get(id:Long): GetStoryResponse {
         return http.get("$endpoint/$id", GetStoryResponse::class.java).body!!
+    }
+
+    fun translate(id:Long, language: String): TranslateStoryResponse {
+        return http.get("$endpoint/$id/translate?language=$language", TranslateStoryResponse::class.java).body!!
     }
 
     fun delete(id: Long) {

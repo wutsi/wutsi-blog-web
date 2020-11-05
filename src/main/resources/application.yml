@@ -168,6 +168,7 @@ wutsi:
     pwa-push-notification: true     # Enable PWA Push Notification?
     qa-login: false                 # Login provider for QA
     recommendation: true            # Show articles recommendations in reader
+    translation: true               # Enable translation
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false

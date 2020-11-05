@@ -60,7 +60,6 @@ class StorySchemasGenerator(
         schemas["isAccessibleForFree"] = "isAccessibleForFree"
         schemas["cssSelector"] = "article .content"
         return schemas
-
     }
 
     private fun keywords(story: StoryModel): List<String> {

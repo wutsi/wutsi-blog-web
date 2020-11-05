@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable
 @Controller
 class StoryPreviewController(
         ejsJsonReader: EJSJsonReader,
-        ejsHtmlWriter: EJSHtmlWriter,
-        ejsFilters: EJSFilterSet,
         service: StoryService,
         requestContext: RequestContext
-): AbstractStoryReadController(ejsJsonReader, ejsHtmlWriter, ejsFilters, service, requestContext) {
+): AbstractStoryReadController(ejsJsonReader, service, requestContext) {
 
     override fun pageName() = PageName.STORY_PREVIEW
 

@@ -5,6 +5,7 @@ import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.model.PublishForm
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
+import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.model.StoryForm
@@ -26,6 +27,7 @@ import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Service
+import org.springframework.ui.Model
 import java.io.StringWriter
 
 @Service
@@ -36,6 +38,7 @@ class StoryService(
         private val sortBackend: SortBackend,
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
+        private val ejsFilters: EJSFilterSet,
         private val userService: UserService
 ) {
     fun save(editor: StoryForm): StoryForm {
@@ -56,6 +59,12 @@ class StoryService(
 
     fun get(id: Long): StoryModel {
         val story = storyBackend.get(id).story
+        val user = userService.get(story.userId)
+        return mapper.toStoryModel(story, user)
+    }
+
+    fun translate(id: Long, language: String): StoryModel {
+        val story = storyBackend.translate(id, language).story
         val user = userService.get(story.userId)
         return mapper.toStoryModel(story, user)
     }
@@ -240,6 +249,20 @@ class StoryService(
         ))
                 .map { it.id to it }
                 .toMap()
+    }
+
+    fun generateHtmlContent(story: StoryModel): String {
+        if (story.content == null){
+            return ""
+        }
+
+        val ejs = ejsJsonReader.read(story.content)
+        val html = StringWriter()
+        ejsHtmlWriter.write(ejs, html)
+
+        val doc = Jsoup.parse(html.toString())
+        ejsFilters.filter(doc)
+        return doc.html()
     }
 }
 

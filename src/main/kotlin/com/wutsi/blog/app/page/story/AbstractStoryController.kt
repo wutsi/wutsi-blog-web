@@ -17,8 +17,8 @@ abstract class AbstractStoryController(
         requestContext.checkAccess(story, requiredPermissions())
     }
 
-    protected fun getStory(id: Long): StoryModel {
-        val story = service.get(id)
+    protected fun getStory(id: Long, language: String? = null): StoryModel {
+        val story = if (language == null) service.get(id) else service.translate(id, language)
         checkAccess(story)
 
         return story

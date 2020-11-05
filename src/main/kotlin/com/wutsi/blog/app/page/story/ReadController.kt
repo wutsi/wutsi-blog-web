@@ -11,6 +11,7 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.apache.commons.lang.time.DateUtils
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,11 +24,9 @@ import javax.servlet.http.HttpServletResponse
 class ReadController(
         private val schemas: StorySchemasGenerator,
         ejsJsonReader: EJSJsonReader,
-        ejsHtmlWriter: EJSHtmlWriter,
-        ejsFilters: EJSFilterSet,
         service: StoryService,
         requestContext: RequestContext
-): AbstractStoryReadController(ejsJsonReader, ejsHtmlWriter, ejsFilters, service, requestContext) {
+): AbstractStoryReadController(ejsJsonReader, service, requestContext) {
 
     override fun pageName() = PageName.READ
 
@@ -46,26 +45,38 @@ class ReadController(
             @PathVariable id: Long,
             @PathVariable title: String,
             @RequestParam(required = false) comment: String? = null,
+            @RequestParam(required = false) translate: String? = null,
             model: Model,
             response: HttpServletResponse): String {
-        return read(id, comment, model, response)
+        return read(id, comment, translate, model, response)
     }
 
     @GetMapping("/read/{id}")
     fun read(
             @PathVariable id: Long,
             @RequestParam(required = false) comment: String? = null,
+            @RequestParam(required = false) translate: String? = null,
             model: Model,
             response: HttpServletResponse
     ): String {
-        loadPage(id, model)
-        model.addAttribute("mobileView", isMobileView())
+        val story = loadPage(id, model, translate)
+
+        if (translate != null) {
+            loadTranslationInfo(story, model)
+        }
         return "page/story/read"
     }
 
-    private fun isMobileView(): Boolean {
-        val ua = requestContext.request.getHeader("User-Agent")
-        return if (ua != null) UAgentInfo(ua, null).detectMobileQuick() else false
-    }
+    private fun loadTranslationInfo(story: StoryModel, model: Model) {
+        val locale = LocaleContextHolder.getLocale()
+        val lang = locale.language
+        if (lang != story.language && requestContext.supports(locale)) {
 
+            model.addAttribute("translationUrl", "${story.slug}?translate=lang")
+            model.addAttribute("translationText", requestContext.getMessage(
+                    key = "label.read_translation",
+                    locale = locale
+            ))
+        }
+    }
 }
