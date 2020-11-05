@@ -70,6 +70,11 @@
 
     </article>
 
+    <!-- Survey -->
+    <div class="margin-top" th:if="!${preview} AND ${toggles.survey}">
+        <div th:replace="components/survey :: widget"></div>
+    </div>
+
     <!-- PWA Install -->
     <div class="margin-top" th:if="${toggles.pwa}">
         <div th:replace="components/pwa :: a2hs-card"></div>
