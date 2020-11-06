@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.common.config
+package com.wutsi.blog.app.config
 
 import com.wutsi.blog.app.common.service.LocaleResolverImpl
 import com.wutsi.blog.app.common.service.RequestContext

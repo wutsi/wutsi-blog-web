@@ -13,9 +13,16 @@ class LocaleResolverImpl(
         private val requestContext: RequestContext
 ): LocaleResolver {
     override fun resolveLocale(request: HttpServletRequest): Locale {
-        return resolveFromUser(requestContext.currentUser())
+        return resolveFromCookie()
+                ?: resolveFromUser(requestContext.currentUser())
                 ?: resolveFromHeader(request)
     }
+
+    private fun resolveFromCookie(): Locale? {
+        val value = CookieHelper.get(CookieName.LOCALE, requestContext.request)
+        return if (value.isNullOrEmpty()) null else Locale(value)
+    }
+
 
     private fun resolveFromUser(user: UserModel?): Locale? =
         user?.locale
@@ -24,6 +31,6 @@ class LocaleResolverImpl(
         request.locale
 
     override fun setLocale(request: HttpServletRequest, response: HttpServletResponse, locale: Locale?) {
-
+        CookieHelper.put(CookieName.LOCALE, locale.toString(), request, response)
     }
 }

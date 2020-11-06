@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.common.config
+package com.wutsi.blog.app.config
 
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder

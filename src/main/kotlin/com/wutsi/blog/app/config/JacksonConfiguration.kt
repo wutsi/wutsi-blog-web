@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.common.config
+package com.wutsi.blog.app.config
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
