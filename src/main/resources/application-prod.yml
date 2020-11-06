@@ -47,12 +47,6 @@ wutsi:
     s3:
       bucket: "prod-wutsi"
 
-  survey:
-    id: "feedback"
-    url: "https://forms.gle/9S57LbPThvE71KDWA"
-    start-date: "2020-09-15"
-    end-date: "2020-10-20"
-
   toggles:
     announcement: true
     channel: true
@@ -74,7 +68,6 @@ wutsi:
     sso-google: true
     sso-github: false
     sso-twitter: false
-    survey: false
     value-prop: false
     wpp: true
 

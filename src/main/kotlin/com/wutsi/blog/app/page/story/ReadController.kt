@@ -1,24 +1,19 @@
 package com.wutsi.blog.app.page.story
 
-import au.com.flyingkite.mobiledetect.UAgentInfo
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.schemas.StorySchemasGenerator
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.exception.NotFoundException
-import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
-import org.apache.commons.lang.time.DateUtils
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
-import java.text.SimpleDateFormat
 import javax.servlet.http.HttpServletResponse
 
 @Controller
@@ -80,15 +75,18 @@ class ReadController(
         }
 
         if (translate == null) {
-            val locale = LocaleContextHolder.getLocale()
-            val lang = locale.language
-            if (lang != story.language && requestContext.supportsLanguage(locale.language)) {
+            if (!supportsLanguage(story.language)){
+                return
+            }
+
+            val userLocale = LocaleContextHolder.getLocale()
+            if (userLocale.language != story.language && supportsLanguage(userLocale.language)) {
                 model.addAttribute("showTranslation", true)
-                model.addAttribute("translationUrl", "${story.slug}?translate=$lang")
+                model.addAttribute("translationUrl", "${story.slug}?translate=${userLocale.language}")
                 model.addAttribute("translationText", requestContext.getMessage(
                         key = "label.read_story_translation",
-                        args = arrayOf(locale.getDisplayLanguage(locale)),
-                        locale = locale
+                        args = arrayOf(userLocale.getDisplayLanguage(userLocale)),
+                        locale = userLocale
                 ))
             }
         } else {

@@ -31,6 +31,20 @@ class ReadTranslationControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
+    fun `dont show translation link when story language unsupported`() {
+        // Given
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published-ro.json")
+
+        // When
+        driver.get("$url/read/20/test")
+
+        // Then
+        assertCurrentPageIs(PageName.READ)
+
+        assertElementCount("#translation-container", 0)
+    }
+
+    @Test
     fun `show translation link when story language != user language`() {
         // Given
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published-fr.json")

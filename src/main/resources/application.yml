@@ -146,12 +146,6 @@ wutsi:
     s3:
       bucket:
 
-  survey:
-    id: "feedback"
-    url: "https://docs.google.com/forms/d/13PAB4roxM3cKqfdcvI5JHfEZ056NuL4XH1I3rmuRcOc"
-    start-date: "2020-09-01"
-    end-date: "2030-10-01"
-
   toggles:
     announcement: true              # Enable announcenement
     channel: true                   # Enable publication channels
@@ -173,6 +167,5 @@ wutsi:
     sso-google: false
     sso-twitter: false
     sso-github: true
-    survey: true                    # Enable survey banner
     value-prop: false               # Show Value proposition on home-page
     wpp: true                       # Wutsi Partner Program
