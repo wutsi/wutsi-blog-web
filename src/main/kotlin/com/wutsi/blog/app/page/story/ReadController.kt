@@ -8,6 +8,7 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.core.exception.NotFoundException
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.apache.commons.lang.time.DateUtils
@@ -59,24 +60,47 @@ class ReadController(
             model: Model,
             response: HttpServletResponse
     ): String {
-        val story = loadPage(id, model, translate)
+        if (requestContext.toggles().translation){
+            if (!supportsLanguage(translate)){
+                throw NotFoundException("Language not supported: $translate")
+            }
 
-        if (translate != null) {
-            loadTranslationInfo(story, model)
+            val story = loadPage(id, model, translate)
+            loadTranslationInfo(translate, story, model)
+        } else {
+            loadPage(id, model, null)
         }
+
         return "page/story/read"
     }
 
-    private fun loadTranslationInfo(story: StoryModel, model: Model) {
-        val locale = LocaleContextHolder.getLocale()
-        val lang = locale.language
-        if (lang != story.language && requestContext.supports(locale)) {
+    private fun loadTranslationInfo(translate: String?, story: StoryModel, model: Model) {
+        if (!requestContext.toggles().translation){
+            return
+        }
 
-            model.addAttribute("translationUrl", "${story.slug}?translate=lang")
-            model.addAttribute("translationText", requestContext.getMessage(
-                    key = "label.read_translation",
-                    locale = locale
-            ))
+        if (translate == null) {
+            val locale = LocaleContextHolder.getLocale()
+            val lang = locale.language
+            if (lang != story.language && requestContext.supportsLanguage(locale.language)) {
+                model.addAttribute("showTranslation", true)
+                model.addAttribute("translationUrl", "${story.slug}?translate=$lang")
+                model.addAttribute("translationText", requestContext.getMessage(
+                        key = "label.read_story_translation",
+                        args = arrayOf(locale.getDisplayLanguage(locale)),
+                        locale = locale
+                ))
+            }
+        } else {
+            val original = getStory(story.id)
+            model.addAttribute("showTranslation", true)
+            model.addAttribute("translationOriginalUrl", original.slug)
+            model.addAttribute("translationOriginalTitle", original.title)
         }
     }
+
+    private fun supportsLanguage(language: String?): Boolean =
+            language == null ||
+            requestContext.supportsLanguage(language)
+
 }

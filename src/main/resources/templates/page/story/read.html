@@ -10,6 +10,11 @@
 
 <div class="container offset-md-2 col-md-8">
 
+    <!-- Survey -->
+    <div id="survey-container" class="margin-top" th:if="!${preview} AND ${toggles.survey}">
+        <div th:replace="components/survey :: widget"></div>
+    </div>
+
     <!-- Article -->
     <article class="border padding reader main-content margin-top">
         <div th:if="${user} AND ${user.id} == ${story.user.id}">
@@ -26,7 +31,27 @@
             <div class="clearfix"></div>
         </div>
 
+        <!-- Title -->
         <h1 class="title" th:text="${story.title}">Title</h1>
+
+        <!-- Translation -->
+        <div id="translation-container" class="margin-bottom" th:if="!${preview} AND ${showTranslation}">
+            <div th:if="${translationUrl}">
+                <b>
+                    <a class="translation-url" rel="nofollow" wutsi-track-event="translate"
+                      th:href="${translationUrl}"
+                      th:text="${translationText}">Translate...</a>
+                </b>
+            </div>
+            <div th:if="${translationOriginalUrl}">
+                <span th:text="#{label.translated_from}">Translated from</span>:
+                <b>
+                    <a class="translation-original-url" wutsi-track-event="translate_back"
+                      th:href="${translationOriginalUrl}"
+                      th:text="${translationOriginalTitle}">Story Title</a>
+                </b>
+            </div>
+        </div>
 
         <h2 class="tagline text-center" th:text="${story.tagline}" th:if="!${story.tagline.isEmpty()}">Tagline</h2>
 
@@ -69,11 +94,6 @@
         </div>
 
     </article>
-
-    <!-- Survey -->
-    <div class="margin-top" th:if="!${preview} AND ${toggles.survey}">
-        <div th:replace="components/survey :: widget"></div>
-    </div>
 
     <!-- PWA Install -->
     <div class="margin-top" th:if="${toggles.pwa}">

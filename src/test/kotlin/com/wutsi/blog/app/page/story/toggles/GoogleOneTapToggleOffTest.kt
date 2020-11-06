@@ -12,7 +12,7 @@ import org.springframework.test.context.TestPropertySource
             "wutsi.toggles.google-one-tap-sign-in=false"
         ]
 )
-class FeatureGoogleOneTapDisabledTest: SeleniumTestSupport() {
+class GoogleOneTapToggleOffTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 

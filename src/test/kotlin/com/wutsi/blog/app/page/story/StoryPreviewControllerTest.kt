@@ -23,6 +23,10 @@ class StoryPreviewControllerTest: SeleniumTestSupport() {
         gotoPage()
 
         assertElementCount(".share", 0)
+        assertElementCount("#translation-container", 0)
+        assertElementCount(".widget-container", 0)
+        assertElementCount("#recommendation-container", 0)
+        assertElementCount("#survey-container", 0)
 //        assertCurrentPageIs(PageName.STORY_PREVIEW)
     }
 

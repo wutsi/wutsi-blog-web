@@ -151,8 +151,8 @@ class RequestContext(
     fun languages(): List<Locale> =
             listOf(Locale.FRENCH, Locale.ENGLISH)
 
-    fun supports(locale: Locale): Boolean =
-            languages().find { it.language == locale.language } != null
+    fun supportsLanguage(language: String): Boolean =
+            languages().find { it.language == language } != null
 
     fun getMessage(key: String, defaultKey: String? = null, args: Array<Any>? = null, locale: Locale? = null): String {
         try {
