@@ -19,6 +19,7 @@
                    th:if="${control == 'input'}"
                    th:attrappend="required = ${name == 'name'} ? 'required': null"
             />
+
             <textarea class="form-control" disabled="disabled" rows="2"
                       th:data-key="${name}"
                       th:name="${name}"
@@ -27,6 +28,16 @@
                       th:placeholder="${placeholder}"
                       th:if="${control == 'textarea'}"
             ></textarea>
+
+            <select class="form-control" disabled="disabled"
+                    th:data-key="${name}"
+                    th:name="${name}"
+                    th:if="${control == 'language'}"
+                    required="required"
+            >
+                <option value="fr" th:attr="selected=${value} == 'fr'?selected : null">Francais</option>
+                <option value="en" th:attr="selected=${value} == 'en'?selected : null">English</option>
+            </select>
         </div>
         <div class="col-12 col-md-4 text-right margin-bottom">
             <button class="btn btn-light btn-sm btn-edit"
