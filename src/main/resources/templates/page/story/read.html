@@ -114,10 +114,8 @@
     </div>
 
     <!-- Author -->
-    <div class="container border main-content margin-top margin-bottom-4x">
-        <div class="padding">
-            <div th:replace="components/story :: author-card(${story.user})"></div>
-        </div>
+    <div class="border main-content margin-top margin-bottom-4x">
+        <div th:replace="components/story :: author-card(${story.user}, true)"></div>
         <div th:replace="components/follow :: panel(${story.user})"></div>
     </div>
 
