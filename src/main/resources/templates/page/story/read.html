@@ -7,7 +7,7 @@
 <body class="paper">
 
 <div th:if="${toggles.follow}">
-    <div th:replace="components/layout :: navbar-blog(${story.user})"></div>
+    <div th:replace="components/layout :: navbar-blog(${story.user}, ${followerId}, ${story.slug})"></div>
 </div>
 <div th:if="!${toggles.follow}">
     <div th:replace="components/layout :: navbar" ></div>
@@ -96,27 +96,31 @@
     </article>
 
     <!-- Follow -->
-    <div th:replace="components/follow :: panel(${story.user})"></div>
+    <div th:if="${followerId} == null">
+        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
+    </div>
 
     <!-- PWA Install -->
-    <div class="margin-top" th:if="${toggles.pwa}">
+    <div th:if="${toggles.pwa}">
         <div th:replace="components/pwa :: a2hs-card"></div>
     </div>
 
     <!-- Recommendations -->
-    <div id="recommendation-container" class="margin-top" th:if="!${preview} AND ${toggles.recommendation}">
+    <div id="recommendation-container" th:if="!${preview} AND ${toggles.recommendation}">
         <div th:replace="components/story :: read-also(${story})"></div>
     </div>
 
     <!-- PWA Push Notification -->
-    <div class="margin-top" th:if="!${preview} AND ${toggles.pwa} AND ${toggles.pwaPushNotification}">
+    <div th:if="!${preview} AND ${toggles.pwa} AND ${toggles.pwaPushNotification}">
         <div th:replace="components/pwa :: push-card"></div>
     </div>
 
     <!-- Author -->
-    <div class="border main-content margin-top margin-bottom-4x">
+    <div class="border main-content margin-bottom-4x">
         <div th:replace="components/story :: author-card(${story.user}, true)"></div>
-        <div th:replace="components/follow :: panel(${story.user})"></div>
+        <div th:if="${followerId} == null">
+            <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
+        </div>
     </div>
 
 </div>

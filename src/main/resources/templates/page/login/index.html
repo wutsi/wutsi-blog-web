@@ -7,6 +7,13 @@
 <body>
 
 <div th:replace="components/layout :: navbar"></div>
+<div th:if="${toggles.follow} AND ${blog}">
+    <div th:replace="components/layout :: navbar-blog(${blog}, null, '')"></div>
+</div>
+<div th:if="!${toggles.follow} OR !${blog}">
+    <div th:replace="components/layout :: navbar" ></div>
+</div>
+
 
 <div class="container">
     <div class="row">

@@ -22,6 +22,8 @@ class PageName{
         const val EDITOR_TAG = "page.editor.tag"
         const val EDITOR_SHARE = "page.editor.share"
 
+        const val FOLLOW = "page.follow"
+
         const val EARNING = "page.earning"
 
         const val ERROR_400 = "page.error.400"

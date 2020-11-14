@@ -1,7 +1,9 @@
 package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.schemas.StorySchemasGenerator
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.security.model.Permission
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse
 @Controller
 class ReadController(
         private val schemas: StorySchemasGenerator,
+        private val followerService: FollowerService,
         ejsJsonReader: EJSJsonReader,
         service: StoryService,
         requestContext: RequestContext
@@ -63,6 +66,7 @@ class ReadController(
 
             val story = loadPage(id, model, translate)
             loadTranslationInfo(translate, story, model)
+            loadFollowerInfo(story, model)
         } else {
             loadPage(id, model, null)
         }
@@ -96,6 +100,15 @@ class ReadController(
             model.addAttribute("translationOriginalUrl", original.slug)
             model.addAttribute("translationOriginalTitle", original.title)
         }
+    }
+
+    private fun loadFollowerInfo(story: StoryModel, model: Model) {
+        if (!requestContext.toggles().follow) {
+            return
+        }
+
+        val followerId = followerService.findFollwerId(story.user.id)
+        model.addAttribute("followerId", followerId)
     }
 
     private fun supportsLanguage(language: String?): Boolean =

@@ -2,6 +2,8 @@ package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.web.savedrequest.SavedRequest
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest
 @Controller
 @RequestMapping("/login")
 class LoginController(
+        private val userService: UserService,
         @Value("\${wutsi.domain}") private val domain: String,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
@@ -28,22 +31,26 @@ class LoginController(
             @RequestParam(required = false) reason: String? = null,
             @RequestParam(required = false) redirect: String? = null,
             @RequestParam(required = false) `return`: String? = null,
+            @RequestParam(required = false) blogId: Long? = null,
             @RequestHeader(required = false) referer: String? = null,
             model: Model,
             request: HttpServletRequest
     ): String {
         model.addAttribute("error", error)
 
-        model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
-        model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
-        model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
-        model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
-
+        val blog = loadUser(blogId)
         val createBlog = isCreateBlog(request)
+
         model.addAttribute("createBlog", createBlog)
         model.addAttribute("info", info(createBlog, reason))
         model.addAttribute("title", title(createBlog, reason))
         model.addAttribute("return", `return`)
+        model.addAttribute("blog", blog)
+
+        model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
+        model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
+        model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
+        model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
 
         return "page/login/index"
     }
@@ -86,5 +93,15 @@ class LoginController(
         }
 
         return requestContext.getMessage(key, default)
+    }
+
+    private fun loadUser(id: Long?): UserModel? {
+        id ?: return null
+
+        try {
+            return userService.get(id)
+        } catch (ex: Exception){
+            return null
+        }
     }
 }

@@ -235,14 +235,16 @@
 <!-- ################# -->
 <!-- Blog Navbar       -->
 <!-- ################# -->
-<div th:fragment="navbar-blog(blog)">
+<div th:fragment="navbar-blog(blog, followerId, returnUrl)">
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top">
         <a class="navbar-brand" th:href="${blog.slug}">
-            <img th:src="${blog.pictureUrl}" th:alt="${blog.fullName}" th:title="${blog.fullName}" /></a>
+            <img th:src="${blog.pictureUrl}" th:alt="${blog.fullName}" th:title="${blog.fullName}" />
+            <span th:text="${blog.fullName}">Title</span>
+        </a>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a id="navbar-follow" class="btn btn-primary" th:href="'/follow/' + ${blog.id}" th:text="#{button.follow}" wutsi-track-event="follow">Follow</a>
+            <li class="nav-item" th:if="!${followerId} AND ${page.name != 'page.login'}">
+                <a id="navbar-follow" class="btn btn-primary" th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}" th:text="#{button.follow}" wutsi-track-event="follow">Follow</a>
             </li>
             <li class="nav-item dropdown" th:if="${user}">
                 <a class="nav-link user btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

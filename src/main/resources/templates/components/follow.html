@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="panel(blog)" >
+<div th:fragment="panel(blog,returnUrl)" >
     <div class="box-filled-highlight-light padding text-center" th:if="${toggles.follow}">
         <a class="btn btn-primary"
-           th:href="'/follow/' + ${blog.id}"
+           th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
            th:text="#{button.follow_blog(${blog.name})}"
            wutsi-track-event="follow"
         >Follow</a>

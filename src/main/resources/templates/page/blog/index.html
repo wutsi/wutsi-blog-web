@@ -5,9 +5,8 @@
 </head>
 
 <body class="paper">
-
     <div th:if="${toggles.follow}">
-        <div th:replace="components/layout :: navbar-blog(${blog})"></div>
+        <div th:replace="components/layout :: navbar-blog(${blog}, ${followerId}, ${blog.slug})"></div>
     </div>
     <div th:if="!${toggles.follow}">
         <div th:replace="components/layout :: navbar" ></div>
@@ -15,7 +14,9 @@
 
     <div class="border-bottom box-filled-white">
         <div th:replace="components/story :: author-card(${blog}, !${toggles.follow})"></div>
-        <div th:replace="components/follow :: panel(${blog})"></div>
+        <div th:if="!${followerId}">
+            <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
+        </div>
     </div>
 
     <div class="container">
