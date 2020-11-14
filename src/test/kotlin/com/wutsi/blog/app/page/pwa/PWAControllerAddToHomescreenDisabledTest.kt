@@ -9,22 +9,15 @@ import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
         properties = [
-            "wutsi.toggles.pwa=false"
+            "wutsi.toggles.pwa-add-to-homescreen=false"
         ]
 )
-class FeaturePWADisabledTest: SeleniumTestSupport() {
+class PWAControllerAddToHomescreenDisabledTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
-    }
-
-    @Test
-    fun `pwa headers`() {
-        driver.get(url)
-        assertElementNotPresent("head link[rel='manifest']")
-        assertElementNotPresent("script#pwa-code")
     }
 
     @Test
@@ -46,27 +39,4 @@ class FeaturePWADisabledTest: SeleniumTestSupport() {
         assertElementNotPresent("#a2hs-container")
     }
 
-    @Test
-    fun `push notification not visible in homepage`() {
-        driver.get(url)
-        assertCurrentPageIs(PageName.HOME)
-
-        Thread.sleep(1000)
-        assertElementNotPresent("script#firebase-app-js")
-        assertElementNotPresent("script#firebase-messaging-js")
-        assertElementNotPresent("script#firebase-js")
-        assertElementNotPresent("#push-container")
-    }
-
-    @Test
-    fun `push notification not visible in reader`() {
-        driver.get("$url/read/20/test")
-        assertCurrentPageIs(PageName.READ)
-
-        Thread.sleep(1000)
-        assertElementNotPresent("script#firebase-app-js")
-        assertElementNotPresent("script#firebase-messaging-js")
-        assertElementNotPresent("script#firebase-js")
-        assertElementNotPresent("#push-container")
-    }
 }

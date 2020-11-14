@@ -159,6 +159,7 @@ wutsi:
     image-kit: true                 # Integration with imagekit.io
     like: true                      # Enable Like
     pwa: true                       # PWA
+    pwa-add-to-homescreen: false    # Enable Badging on app icon
     pwa-badge: true                 # Enable Badging on app icon
     pwa-push-notification: true     # Enable PWA Push Notification?
     qa-login: false                 # Login provider for QA

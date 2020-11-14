@@ -27,8 +27,10 @@ wutsi:
 
   toggles:
     coming-soon: false
+    follow: false
     google-add-sense: true
     google-one-tap-sign-in: false
+    pwa-add-to-homescreen: false
     pwa-badge: false
     sso-facebook: true
     sso-google: true

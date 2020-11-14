@@ -96,9 +96,7 @@
     </article>
 
     <!-- Follow -->
-    <div th:if="${toggles.follow}">
-        <div th:replace="components/follow :: panel(${story.user})"></div>
-    </div>
+    <div th:replace="components/follow :: panel(${story.user})"></div>
 
     <!-- PWA Install -->
     <div class="margin-top" th:if="${toggles.pwa}">
@@ -120,9 +118,7 @@
         <div class="padding">
             <div th:replace="components/story :: author-card(${story.user})"></div>
         </div>
-        <div th:if="${toggles.follow}">
-            <div th:replace="components/follow :: panel(${story.user})"></div>
-        </div>
+        <div th:replace="components/follow :: panel(${story.user})"></div>
     </div>
 
 </div>
