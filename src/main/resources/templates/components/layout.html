@@ -64,7 +64,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-21.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-71.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-72.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -174,7 +174,7 @@
 <!-- Navbar            -->
 <!-- ################# -->
 <div th:fragment="navbar">
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom fixed-top" th:fragment="navbar">
+    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top">
         <a class="navbar-brand" href="/">
             <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" alt="Wutsi" title="Wutsi"/></a>
 
@@ -230,6 +230,45 @@
         <b>SUPER USER MODE</b>
         <div>With Great Power comes Great Responsabilities</div>
     </div>
+</div>
+
+<!-- ################# -->
+<!-- Blog Navbar       -->
+<!-- ################# -->
+<div th:fragment="navbar-blog(blog)">
+    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top">
+        <a class="navbar-brand" th:href="${blog.slug}">
+            <img th:src="${blog.pictureUrl}" th:alt="${blog.fullName}" th:title="${blog.fullName}" /></a>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a id="navbar-subscribe" class="btn btn-primary" th:href="'/follow?blog=' + ${blog.id}" th:text="#{button.follow}">Follow</a>
+            </li>
+            <li class="nav-item dropdown" th:if="${user}">
+                <a class="nav-link user btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-caret-down"></i>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" th:if="${user.blog}">My Stories</a>
+                    <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
+                    <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
+                    <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}" th:if="${user.blog}">Stats</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp} AND ${user.blog}">Wutsi Partner Program</a>
+                    <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
+                    <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel} AND ${user.blog}">Channels</a>
+                    <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
+                    <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="navbar-margin"></div>
 </div>
 
 

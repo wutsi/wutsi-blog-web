@@ -6,7 +6,12 @@
 
 <body class="paper">
 
-<div th:replace="components/layout :: navbar"></div>
+<div th:if="${toggles.follow}">
+    <div th:replace="components/layout :: navbar-blog(${story.user})"></div>
+</div>
+<div th:if="!${toggles.follow}">
+    <div th:replace="components/layout :: navbar" ></div>
+</div>
 
 <div class="container offset-md-2 col-md-8">
 
@@ -90,6 +95,11 @@
 
     </article>
 
+    <!-- Follow -->
+    <div th:if="${toggles.follow}">
+        <div th:replace="components/follow :: panel(${story.user})"></div>
+    </div>
+
     <!-- PWA Install -->
     <div class="margin-top" th:if="${toggles.pwa}">
         <div th:replace="components/pwa :: a2hs-card"></div>
@@ -110,7 +120,11 @@
         <div class="padding">
             <div th:replace="components/story :: author-card(${story.user})"></div>
         </div>
+        <div th:if="${toggles.follow}">
+            <div th:replace="components/follow :: panel(${story.user})"></div>
+        </div>
     </div>
+
 </div>
 
 

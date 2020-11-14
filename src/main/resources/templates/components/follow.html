@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="panel(blog)" class="box-filled-highlight-light padding text-center">
+    <button class="btn btn-primary" th:text="#{button.follow_blog(${blog.name})}">Follow</button>
+</div>
+
+
+
+</body>
+</html>
