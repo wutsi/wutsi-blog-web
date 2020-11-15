@@ -25,27 +25,28 @@ class LoginController(
         @Value("\${wutsi.domain}") private val domain: String,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
+    companion object{
+        const val REASON_CREATE_BLOG = "create-blog"
+        const val REASON_FOLLOW = "follow"
+    }
+
     @GetMapping()
     fun index(
             @RequestParam(required = false) error: String? = null,
             @RequestParam(required = false) reason: String? = null,
             @RequestParam(required = false) redirect: String? = null,
             @RequestParam(required = false) `return`: String? = null,
-            @RequestParam(required = false) blogId: Long? = null,
             @RequestHeader(required = false) referer: String? = null,
             model: Model,
             request: HttpServletRequest
     ): String {
         model.addAttribute("error", error)
 
-        val blog = loadUser(blogId)
-        val createBlog = isCreateBlog(request)
-
-        model.addAttribute("createBlog", createBlog)
-        model.addAttribute("info", info(createBlog, reason))
-        model.addAttribute("title", title(createBlog, reason))
+        val xreason = getReason(reason, request)
+        model.addAttribute("createBlog", xreason == REASON_CREATE_BLOG)
+        model.addAttribute("info", info(xreason))
+        model.addAttribute("title", title(xreason))
         model.addAttribute("return", `return`)
-        model.addAttribute("blog", blog)
 
         model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
         model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
@@ -57,23 +58,31 @@ class LoginController(
 
     override fun pageName() = PageName.LOGIN
 
-    private fun isCreateBlog(request: HttpServletRequest): Boolean {
-        val savedRequest = request.session.getAttribute("SPRING_SECURITY_SAVED_REQUEST") as SavedRequest?
-            ?: return false
+    private fun getReason(reason: String?, request: HttpServletRequest): String? {
+        if (reason != null){
+            return reason
+        }
 
+        val savedRequest = request.session.getAttribute("SPRING_SECURITY_SAVED_REQUEST") as SavedRequest?
+                ?: return null
         val url = URL(savedRequest.redirectUrl)
-        return domain.equals(url.host) && url.file == "/create/name"
+        if (domain.equals(url.host)){
+            if (url.path == "/create/name"){
+                return REASON_CREATE_BLOG
+            } else if (url.path == "/follow") {
+                return REASON_FOLLOW
+            }
+        }
+        return null
     }
 
     private fun loginUrl(url: String, redirectUrl: String?): String {
         return if (redirectUrl == null) url else "$url?redirect=$redirectUrl"
     }
 
-    private fun title(createBlog: Boolean, reason: String?): String {
+    private fun title(reason: String?): String {
         val default = "page.login.header1.login";
-        val key = if (createBlog) {
-            "page.login.header1.create-blog"
-        } else if (reason != null) {
+        val key = if (reason != null) {
             "page.login.header1.$reason"
         } else {
             default
@@ -82,11 +91,9 @@ class LoginController(
         return requestContext.getMessage(key, default)
     }
 
-    private fun info(createBlog: Boolean, reason: String?): String {
+    private fun info(reason: String?): String {
         val default = "page.login.info.login";
-        val key = if (createBlog) {
-            "page.login.info.create-blog"
-        } else if (reason != null) {
+        val key = if (reason != null) {
             "page.login.info.$reason"
         } else {
             default

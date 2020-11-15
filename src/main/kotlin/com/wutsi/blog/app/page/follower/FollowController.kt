@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.util.PageName
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,6 +17,10 @@ class FollowController(
         private val service: FollowerService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
+    companion object{
+        private val LOGGER = LoggerFactory.getLogger(FollowerService::class.java)
+    }
+
     override fun pageName() = PageName.FOLLOW
 
     @GetMapping()
@@ -23,12 +28,11 @@ class FollowController(
             @RequestParam blogId: Long,
             @RequestParam(required = false) `return`: String? = null
     ): String {
-        if (requestContext.currentUser() == null){
-            val redirect = requestContext.request.requestURI + "?" + requestContext.request.queryString
-            return "redirect:/login?blogId=$blogId&reason=follow&return=" + `return` + "&redirect=" + URLEncoder.encode(redirect, "utf-8")
+        try {
+            service.follow(blogId)
+        } catch(ex: Exception){
+            LOGGER.error("${requestContext.currentUser()?.id} is not able to follow ${blogId}", ex)
         }
-
-        service.follow(blogId)
         return "redirect:$`return`"
     }
 }
