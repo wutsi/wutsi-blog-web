@@ -3,7 +3,7 @@
 <body>
 
 <div th:fragment="panel(blog,returnUrl)" >
-    <div class="box-filled-highlight-light padding text-center" th:if="${toggles.follow}">
+    <div class="box-filled-highlight-light padding text-center" th:if="${toggles.follow} AND (!${user} OR ${user.id} != ${blog.id})">
         <a class="btn btn-primary" wutsi-track-event="follow"
            th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
            th:text="#{button.follow_blog(${blog.name})}">Follow</a>

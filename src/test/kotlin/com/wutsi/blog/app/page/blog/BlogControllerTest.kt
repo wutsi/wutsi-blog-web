@@ -17,9 +17,6 @@ class BlogControllerTest: SeleniumTestSupport() {
     fun `blog page` () {
         gotoPage()
 
-        assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
-        assertElementAttributeEndsWith(".author a", "href", "/@/ray.sponsible")
-        assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
         assertElementText(".author .bio", "Ray sponsible is a test user")
         assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
         assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
@@ -97,11 +94,8 @@ class BlogControllerTest: SeleniumTestSupport() {
     fun gotoPage(login: Boolean = false) {
         if (login) {
             login()
-            click("nav .nav-item")
-            click("nav .dropdown-item-user a")
-        } else {
-            driver.get("$url/@/ray.sponsible")
         }
+        driver.get("$url/@/ray.sponsible")
 
 
         assertCurrentPageIs(PageName.BLOG)

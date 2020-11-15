@@ -57,16 +57,10 @@ class StoryPreviewControllerTest: SeleniumTestSupport() {
 
 
     fun gotoPage(login: Boolean = true) {
-        if (login){
+        if (login) {
             login()
-
-            click("nav .nav-item")
-            click("#navbar-draft")
-            click(".story:first-child .dropdown .btn")
-            click(".story .menu-item-preview")
-        } else {
-            driver.get("$url/me/story/20/preview")
         }
+        driver.get("$url/me/story/20/preview")
     }
 
 }

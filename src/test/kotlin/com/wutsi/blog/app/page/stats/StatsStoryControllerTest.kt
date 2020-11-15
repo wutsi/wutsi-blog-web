@@ -30,14 +30,6 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `superuser can view any`() {
-        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-superuser.json")
-        gotoPage()
-        assertCurrentPageIs(PageName.STATS_STORY)
-    }
-
-
-    @Test
     fun `anonymous cannot view stats`() {
         driver.get("$url/stats/story/20")
 

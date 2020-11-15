@@ -220,6 +220,10 @@
         </ul>
     </nav>
     <div class="navbar-margin"></div>
+    <div id="super-user-banner" class="text-center" th:if="${superUser}">
+        <b>SUPER USER MODE</b>
+        <div>With Great Power comes Great Responsabilities</div>
+    </div>
 </div>
 
 <li th:fragment="navbar-dropdown" class="nav-item dropdown" th:if="${user}">
@@ -228,6 +232,18 @@
     </a>
 
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-item-user flex">
+            <a th:href="${user.slug}" th:title="${user.fullName}">
+                <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
+                <div class="user-info">
+                    <b th:text="${user.fullName}">Herve Tchepannou</b>
+                    <br/>
+                    @<span th:text="${user.name}"></span>
+                </div>
+            </a>
+        </div>
+        <div class="dropdown-divider"></div>
+
         <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" th:if="${user.blog}">My Stories</a>
         <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
         <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
@@ -236,6 +252,8 @@
         <div class="dropdown-divider"></div>
         <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp} AND ${user.blog}">Wutsi Partner Program</a>
         <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
+
+        <div class="dropdown-divider"></div>
         <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel} AND ${user.blog}">Channels</a>
         <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
 
