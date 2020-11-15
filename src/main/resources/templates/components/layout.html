@@ -180,47 +180,12 @@
 
 
         <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
-            <li class="nav-item dropdown" th:if="${user}">
-                <a class="nav-link user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
-                </a>
+            <li th:replace="components/layout :: navbar-dropdown"></li>
 
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                    <div class="dropdown-item-user flex">
-                        <a th:href="${user.slug}" th:title="${user.fullName}">
-                            <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
-                            <div class="user-info">
-                                <b th:text="${user.fullName}">Herve Tchepannou</b>
-                                <br/>
-                                @<span th:text="${user.name}"></span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="dropdown-divider"></div>
-                    <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}">My Stories</a>
-                    <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
-                    <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
-                    <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}">Stats</a>
-
-                    <div class="dropdown-divider" th:if="${toggles.wpp}"></div>
-                    <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp}">Wutsi Partner Program</a>
-                    <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning}">Earnings</a>
-
-                    <div class="dropdown-divider"></div>
-                    <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel}">Channels</a>
-                    <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
-
-                    <div class="dropdown-divider"></div>
-                    <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
-                    <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
-                </div>
-            </li>
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
                 <a id="navbar-create" class="btn btn-primary" href="/create" th:text="#{button.create_blog}">Create your Blog</a>
             </li>
-            <li class="nav-item" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
+            <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
                 <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
         </ul>
@@ -243,35 +208,43 @@
         </a>
 
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.login'}">
+                <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
+            </li>
             <li class="nav-item" th:if="!${followerId} AND ${page.name != 'page.login'}">
-                <a id="navbar-follow" class="btn btn-primary" th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}" th:text="#{button.follow}" wutsi-track-event="follow">Follow</a>
+                <a id="navbar-follow" class="btn btn-primary" wutsi-track-event="follow"
+                   th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
+                   th:text="#{button.follow}">Follow</a>
             </li>
-            <li class="nav-item dropdown" th:if="${user}">
-                <a class="nav-link user btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-caret-down"></i>
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" th:if="${user.blog}">My Stories</a>
-                    <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
-                    <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
-                    <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}" th:if="${user.blog}">Stats</a>
-
-                    <div class="dropdown-divider"></div>
-                    <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp} AND ${user.blog}">Wutsi Partner Program</a>
-                    <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
-                    <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel} AND ${user.blog}">Channels</a>
-                    <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
-
-                    <div class="dropdown-divider"></div>
-                    <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
-                    <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
-                </div>
-            </li>
+            <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>
     </nav>
     <div class="navbar-margin"></div>
 </div>
+
+<li th:fragment="navbar-dropdown" class="nav-item dropdown" th:if="${user}">
+    <a class="nav-link user btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-caret-down"></i>
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" th:if="${user.blog}">My Stories</a>
+        <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
+        <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
+        <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}" th:if="${user.blog}">Stats</a>
+
+        <div class="dropdown-divider"></div>
+        <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp} AND ${user.blog}">Wutsi Partner Program</a>
+        <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
+        <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel} AND ${user.blog}">Channels</a>
+        <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
+
+        <div class="dropdown-divider"></div>
+        <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
+        <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
+    </div>
+</li>
+
 
 
 <!-- ################# -->

@@ -102,12 +102,11 @@
     </div>
 </div>
 
-<div th:fragment="author-card(me, showPicture)" class="author flex padding" th:with="inBlogPage=${page.name == 'page.blog'}">
+<div th:fragment="author-card(me, showPicture)" class="author flex padding" th:with="inReadPage=${page.name == 'page.blog'}">
     <a th:href="${me.slug}" th:title="${me.fullName}" th:if="${showPicture}">
         <img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" /></a>
     <div>
-        <h1 th:text="${me.fullName}" th:if="${inBlogPage}">Ray Sponsible</h1>
-        <a th:href="${me.slug}" th:if="!${inBlogPage}" th:text="${me.fullName}">Ray Sponsible</a>
+        <a th:href="${me.slug}" th:if="!${inReadPage}" th:text="${me.fullName}">Ray Sponsible</a>
 
         <div class="bio" th:if="${me.biography}" th:text="${me.biography}" classappend="!${inBlogPage} ? text-small">Biography</div>
         <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}" classappend="!${inBlogPage} ? text-small">

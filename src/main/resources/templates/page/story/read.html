@@ -97,7 +97,7 @@
 
     <!-- Follow -->
     <div th:if="${followerId} == null">
-        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
+        <div th:replace="components/follow :: panel(${story.user}, ${story.slug})"></div>
     </div>
 
     <!-- PWA Install -->
@@ -119,7 +119,7 @@
     <div class="border main-content margin-bottom-4x">
         <div th:replace="components/story :: author-card(${story.user}, true)"></div>
         <div th:if="${followerId} == null">
-            <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
+            <div th:replace="components/follow :: panel(${story.user}, ${story.slug})"></div>
         </div>
     </div>
 
