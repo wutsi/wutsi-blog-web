@@ -11,12 +11,14 @@ class BlogControllerTest: SeleniumTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
+        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
     }
 
     @Test
-    fun `blog page` () {
-        gotoPage()
+    fun `my blog page` () {
+        gotoPage(true)
 
+        assertElementText(".author h1", "Ray Sponsible")
         assertElementText(".author .bio", "Ray sponsible is a test user")
         assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
         assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
@@ -25,44 +27,52 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementNotPresent("#alert-no-social-link")
 
         Thread.sleep(1000)
-        assertElementCount(".post", 7)
-        assertElementNotPresent("#create-first-story")
-        assertElementNotPresent("#create-syndicate-story")
+        assertElementCount("#my-stories .post", 7)
+        assertElementCount("#who-to-follow .author", 3)
+        assertElementCount("#following-stories .post", 7)
+
+        assertElementCount(".navbar .blog-logo", 1)
+        assertElementText(".navbar .blog-name", "Ray Sponsible")
+        assertElementCount(".navbar .btn-follow", 0)
     }
 
     @Test
-    fun `blog page with no post` () {
+    fun `my blog page with no post` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
         gotoPage(true)
 
         Thread.sleep(1000)
-        assertElementCount(".post", 0)
+        assertElementCount("#my-stories .post", 0)
+        assertElementCount("#who-to-follow .author", 3)
+
+        assertElementCount(".navbar .blog-logo", 1)
+        assertElementText(".navbar .blog-name", "Ray Sponsible")
+        assertElementCount(".navbar .btn-follow", 0)
     }
 
     @Test
-    fun `invite user to create post on his blog when empy` () {
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-
-        gotoPage(true)
-
-        Thread.sleep(1000)
-        assertElementPresent("#create-first-story")
-        assertElementAttributeEndsWith("#btn-create-story", "href", "/editor")
-        assertElementAttributeEndsWith("#btn-syndicate-story", "href", "/me/syndicate")
-    }
-
-    @Test
-    fun `invite user to create post on other people blog when empy` () {
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-
+    fun `anonymous blog page` () {
         gotoPage()
 
+        assertElementText(".author h1", "Ray Sponsible")
+        assertElementText(".author .bio", "Ray sponsible is a test user")
+        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
+        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
+        assertElementNotPresent("#alert-no-social-link")
+
         Thread.sleep(1000)
-        assertElementNotPresent("#create-first-story")
-        assertElementNotPresent("#create-syndicate-story")
+        assertElementCount("#my-stories .post", 7)
+        assertElementCount("#who-to-follow .author", 3)
+        assertElementCount("#following-stories .post", 0)
+
+        assertElementCount(".navbar .blog-logo", 1)
+        assertElementText(".navbar .blog-name", "Ray Sponsible")
+        assertElementCount(".navbar .btn-follow", 1)
     }
+
 
     @Test
     fun `META headers`() {

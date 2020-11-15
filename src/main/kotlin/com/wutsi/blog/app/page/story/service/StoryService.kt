@@ -79,7 +79,15 @@ class StoryService(
         return stories.map { mapper.toStoryModel(it, users[it.userId]) }
     }
 
-    fun sort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories:Boolean = true): List<StoryModel> {
+    fun sort(
+            stories: List<StoryModel>,
+            algorithm: SortAlgorithmType,
+            statsHoursOffset: Int=24*7,
+            bubbleDownViewedStories:Boolean = true
+    ): List<StoryModel> {
+        if (stories.size <= 1)
+            return stories
+
         val response = doSort(stories, algorithm, statsHoursOffset, bubbleDownViewedStories)
         val storyMap = stories.map { it.id to it }.toMap()
         return response.storyIds

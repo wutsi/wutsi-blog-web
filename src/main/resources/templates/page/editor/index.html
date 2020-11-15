@@ -6,7 +6,7 @@
 
 <body>
 
-<div th:replace="components/layout :: navbar-blog(${user}, null, null)"></div>
+<div th:replace="components/layout :: navbar-blog(${user}, false, null)"></div>
 
 <div class="alert alert-danger container margin-top" th:if="${error}" th:text="#{'error.' + ${error}}">Error</div>
 

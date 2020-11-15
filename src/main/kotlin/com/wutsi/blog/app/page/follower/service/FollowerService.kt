@@ -16,19 +16,27 @@ class FollowerService(
             followerUserId = requestContext.currentUser()?.id
         )).followerId
 
-    fun findFollwerId(id: Long): Long? {
-        requestContext.currentUser()
-                ?: return null
 
-        try {
-            val followers = backend.search(SearchFollowerRequest(
-                    userId = id,
-                    followerUserId = requestContext.currentUser()?.id
-            )).followers
-            return if (followers.size == 0) null else followers[0].id
-        }catch(ex: Exception) {
-            return null
-        }
+    fun searchFollowingUserIds(): List<Long> {
+        if (!requestContext.toggles().follow || requestContext.currentUser() == null)
+            return emptyList()
+
+        return backend.search(SearchFollowerRequest(
+                followerUserId = requestContext.currentUser()?.id
+        )).followers.map { it.userId }
+    }
+
+    fun canFollow(id: Long): Boolean {
+        if (!requestContext.toggles().follow)
+            return false
+
+        if (requestContext.currentUser() == null)
+            return true
+
+        return !backend.search(SearchFollowerRequest(
+                userId = id,
+                followerUserId = requestContext.currentUser()?.id
+        )).followers.isEmpty()
     }
 
 }

@@ -512,10 +512,15 @@ a.sso-button .fab {
 }
 
 /*======= AUTHORS =======*/
-#preferred-blogs .author img {
+#who-to-follow .author img {
     width: 48px;
     height: 48px;
 }
+
+#who-to-follow .author .btn-container {
+    margin-left: auto
+}
+
 
 .author img {
     width: 64px;

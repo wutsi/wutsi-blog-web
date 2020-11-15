@@ -6,7 +6,7 @@
 
 <body class="paper">
 
-<div th:replace="components/layout :: navbar-blog(${story.user}, ${followerId}, ${story.slug})"></div>
+<div th:replace="components/layout :: navbar-blog(${story.user}, ${showFollowButton}, ${story.slug})"></div>
 
 <div class="container offset-md-2 col-md-8">
 
@@ -91,7 +91,7 @@
     </article>
 
     <!-- Follow -->
-    <div th:if="${followerId} == null">
+    <div th:if="${showFollowButton}">
         <div th:replace="components/follow :: panel(${story.user}, ${story.slug})"></div>
     </div>
 
@@ -113,7 +113,7 @@
     <!-- Author -->
     <div class="border main-content margin-bottom-4x">
         <div th:replace="components/story :: author-card(${story.user}, true)"></div>
-        <div th:if="${followerId} == null">
+        <div th:if="${showFollowButton}">
             <div th:replace="components/follow :: panel(${story.user}, ${story.slug})"></div>
         </div>
     </div>

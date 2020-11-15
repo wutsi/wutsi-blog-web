@@ -2,6 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
+<div th:fragment="who-to-follow(whoToFollow)">
+    <div id="who-to-follow" th:if="!${whoToFollow.isEmpty()}" class="box-filled-highlight-light padding">
+        <h4 th:text="#{page.blog.who_to_follow}">Who to Follow</h4>
+        <div  class="padding-top margin-top border-top"th:each="follow : ${whoToFollow}">
+            <div th:replace="components/story :: author-summary-card(${follow}, true, ${blog.slug})"></div>
+        </div>
+    </div>
+</div>
+
 <div th:fragment="panel(blog,returnUrl)" >
     <div class="box-filled-highlight-light padding text-center" th:if="${toggles.follow} AND (!${user} OR ${user.id} != ${blog.id})">
         <a class="btn btn-primary" wutsi-track-event="follow"
