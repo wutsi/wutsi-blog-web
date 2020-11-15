@@ -41,8 +41,6 @@ import java.util.concurrent.TimeUnit
 abstract class SeleniumTestSupport {
     companion object {
         var wiremock: WireMockServer? = null
-
-        const val META_TITLE = "Welcome to Wutsi"
     }
 
     @LocalServerPort
@@ -95,7 +93,7 @@ abstract class SeleniumTestSupport {
 
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count.json")
         stub(HttpMethod.POST, "/v1/like/count", HttpStatus.OK, "v1/like/count.json")
-
+        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
 
         stub(HttpMethod.GET, "/v1/topic", HttpStatus.OK, "v1/story/topics.json")
