@@ -204,14 +204,14 @@
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top">
         <a class="navbar-brand" th:href="${blog.slug}">
             <img th:src="${blog.pictureUrl}" th:alt="${blog.fullName}" th:title="${blog.fullName}" />
-            <span th:text="${blog.fullName}">Title</span>
+            <span class="blog-name" th:text="${blog.fullName}">Title</span>
         </a>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.login'}">
                 <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
-            <li class="nav-item" th:if="!${followerId} AND ${page.name != 'page.login'}">
+            <li class="nav-item" th:if="${toggles.follow} AND !${followerId} AND ${page.name != 'page.login'}">
                 <a id="navbar-follow" class="btn btn-primary" wutsi-track-event="follow"
                    th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
                    th:text="#{button.follow}">Follow</a>

@@ -6,12 +6,7 @@
 
 <body class="paper">
 
-<div th:if="${toggles.follow}">
-    <div th:replace="components/layout :: navbar-blog(${story.user}, ${followerId}, ${story.slug})"></div>
-</div>
-<div th:if="!${toggles.follow}">
-    <div th:replace="components/layout :: navbar" ></div>
-</div>
+<div th:replace="components/layout :: navbar-blog(${story.user}, ${followerId}, ${story.slug})"></div>
 
 <div class="container offset-md-2 col-md-8">
 
