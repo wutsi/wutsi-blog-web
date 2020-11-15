@@ -191,10 +191,7 @@
         </ul>
     </nav>
     <div class="navbar-margin"></div>
-    <div id="super-user-banner" class="text-center" th:if="${superUser}">
-        <b>SUPER USER MODE</b>
-        <div>With Great Power comes Great Responsabilities</div>
-    </div>
+    <div th:replace="components/layout :: navbar-super-user-banner"></div>
 </div>
 
 <!-- ################# -->
@@ -220,10 +217,7 @@
         </ul>
     </nav>
     <div class="navbar-margin"></div>
-    <div id="super-user-banner" class="text-center" th:if="${superUser}">
-        <b>SUPER USER MODE</b>
-        <div>With Great Power comes Great Responsabilities</div>
-    </div>
+    <div th:replace="components/layout :: navbar-super-user-banner"></div>
 </div>
 
 <li th:fragment="navbar-dropdown" class="nav-item dropdown" th:if="${user}">
@@ -249,7 +243,7 @@
         <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
         <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}" th:if="${user.blog}">Stats</a>
 
-        <div class="dropdown-divider"></div>
+        <div class="dropdown-divider" th:if="${user.blog} AND (${toggles.wpp} OR ${toggles.earning})"></div>
         <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp} AND ${user.blog}">Wutsi Partner Program</a>
         <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
 
@@ -262,6 +256,13 @@
         <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
     </div>
 </li>
+
+<div th:fragment="navbar-super-user-banner">
+    <div id="super-user-banner" class="text-center" th:if="${superUser}">
+        <b>SUPER USER MODE</b>
+        <div>With Great Power comes Great Responsabilities</div>
+    </div>
+<div/>
 
 
 
