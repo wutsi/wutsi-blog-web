@@ -24,10 +24,7 @@ class FollowController(
             @RequestParam(required = false) `return`: String? = null
     ): String {
         if (requestContext.currentUser() == null){
-            var redirect = "/follow?blogId=$blogId"
-            if (`return` != null){
-                redirect += "&return=$`return`"
-            }
+            val redirect = requestContext.request.requestURI + "?" + requestContext.request.queryString
             return "redirect:/login?blogId=$blogId&reason=follow&return=" + `return` + "&redirect=" + URLEncoder.encode(redirect, "utf-8")
         }
 
