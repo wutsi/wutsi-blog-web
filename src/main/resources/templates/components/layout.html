@@ -64,7 +64,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-21.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-73.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-74.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -216,7 +216,7 @@
             <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>
     </nav>
-    <div class="navbar-margin"></div>
+    <div class="navbar-margin">&nbsp;</div>
     <div th:replace="components/layout :: navbar-super-user-banner"></div>
 </div>
 
@@ -248,7 +248,7 @@
         <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
 
         <div class="dropdown-divider"></div>
-        <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel} AND ${user.blog}">Channels</a>
+        <a id="navbar-channels" class="dropdown-item" href="/me/channel" rel="nofollow" th:text="#{navbar.channels}" th:if="${toggles.channel}">Channels</a>
         <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
 
         <div class="dropdown-divider"></div>

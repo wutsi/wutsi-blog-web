@@ -6,9 +6,9 @@
 
 <body>
 
-<div th:replace="components/layout :: navbar"></div>
+<div th:replace="components/layout :: navbar-blog(${user}, null, null)"></div>
 
-<div class="container main-content border margin-top padding-2x">
+<div class="container main-content border padding-2x">
 
     <!-- Title -->
     <h1 th:text="#{page.story.syndicate.header1}">Import a Story</h1>

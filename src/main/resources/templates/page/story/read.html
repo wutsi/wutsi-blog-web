@@ -11,7 +11,7 @@
 <div class="container offset-md-2 col-md-8">
 
     <!-- Article -->
-    <article class="border padding reader main-content margin-top">
+    <article class="border padding reader main-content">
         <div th:if="${user} AND ${user.id} == ${story.user.id}">
             <div id="story-menu" class="dropdown show story-dropdown-menu float-right">
                 <a class="btn btn-light btn-sm" href="#" role="button" th:id="'story-menu-' + ${story.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

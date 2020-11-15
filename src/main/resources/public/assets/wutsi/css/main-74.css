@@ -545,6 +545,10 @@ a.sso-button .fab {
     margin-right: 1em;
 }
 
+.navbar-author {
+    margin-top: -1.6em;
+}
+
 /*======= READER =======*/
 .reader h1 {
     font-size: 2em;
