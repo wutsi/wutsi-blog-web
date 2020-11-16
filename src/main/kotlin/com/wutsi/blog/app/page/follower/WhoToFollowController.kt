@@ -37,6 +37,6 @@ class WhoToFollowController(
                 .take(limit)
 
         model.addAttribute("whoToFollow", whoToFollow)
-        return "/page/follow/who"
+        return "page/follow/who"
     }
 }
