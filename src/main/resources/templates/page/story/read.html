@@ -111,13 +111,12 @@
     </div>
 
     <!-- Author -->
-    <div id="author-container" class="border main-content margin-bottom-4x">
+    <div id="author-container" class="border main-content">
         <div th:replace="components/story :: author-card(${story.user}, true)"></div>
-        <div th:if="${showFollowButton}">
-            <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
-        </div>
     </div>
+    <div th:replace="components/follow :: who-to-follow"></div>
 
+    <div class="margin-bottom-4x">&nbsp;</div>
 </div>
 
 
@@ -196,7 +195,7 @@
 /*]]>*/
 </script>
 
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-9.js'" th:if="${toggles.comment}"></script>
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-10.js'" th:if="${toggles.comment}"></script>
 <script id="comment-script" th:inline="javascript" th:if="${toggles.comment}">
 /*<![CDATA[*/
 

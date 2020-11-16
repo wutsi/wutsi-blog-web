@@ -23,12 +23,12 @@
                     </section>
 
                     <div th:if="${it.index} == 0">
-                        <div th:replace="components/follow :: who-to-follow(${whoToFollow})"></div>
+                        <div th:replace="components/follow :: who-to-follow"></div>
                     </div>
                 </div>
 
                 <div th:if="!${myStories} OR ${myStories.isEmpty()}">
-                    <div th:replace="components/follow :: who-to-follow(${whoToFollow})"></div>
+                    <div th:replace="components/follow :: who-to-follow"></div>
                 </div>
             </div>
 

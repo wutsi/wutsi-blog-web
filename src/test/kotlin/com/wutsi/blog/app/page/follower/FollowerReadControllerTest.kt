@@ -27,6 +27,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/test")
 
         verifyFollowButtons()
+        verifyWhoToFollow()
 
         click(".navbar .btn-follow")
         assertCurrentPageIs(PageName.LOGIN)
@@ -40,6 +41,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/test")
 
         verifyFollowButtons(99, "john.smith")
+        verifyWhoToFollow()
 
         click(".navbar .btn-follow")
         assertCurrentPageIs(PageName.READ)
@@ -51,6 +53,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/test")
 
         verifyNoFollowButtons()
+        verifyWhoToFollow()
     }
 
     @Test
@@ -62,6 +65,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/test")
 
         verifyNoFollowButtons()
+        verifyWhoToFollow()
     }
 
     private fun verifyFollowButtons(blogId: Long=1, userName: String = "ray.sponsible"){
@@ -72,15 +76,15 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         assertElementCount("#follow-container-1 .btn-follow", 1)
         assertElementAttributeEndsWith("#follow-container-1 .btn-follow", "href", "/follow?blogId=$blogId&return=/@/${userName}")
         assertElementAttribute("#follow-container-1 .btn-follow", "wutsi-track-event", "follow")
-
-        assertElementCount("#author-container .btn-follow", 1)
-        assertElementAttributeEndsWith("#author-container .btn-follow", "href", "/follow?blogId=$blogId&return=/@/${userName}")
-        assertElementAttribute("#author-container .btn-follow", "wutsi-track-event", "follow")
     }
 
     private fun verifyNoFollowButtons(){
         assertElementCount(".navbar .btn-follow", 0)
         assertElementCount("#follow-container-1 .btn-follow", 0)
-        assertElementCount("#author-container .btn-follow", 0)
+    }
+
+    private fun verifyWhoToFollow(){
+        Thread.sleep(1000)  // What for async call
+        assertElementCount(".who-to-follow .btn-follow", 3)
     }
 }

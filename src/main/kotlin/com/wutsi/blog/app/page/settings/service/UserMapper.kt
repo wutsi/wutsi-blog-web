@@ -63,7 +63,8 @@ class UserMapper(private val imageKit: ImageKitService) {
             name = user.name,
             fullName = user.fullName,
             pictureUrl = pictureUrl(user.pictureUrl),
-            slug = slug(user)
+            slug = slug(user),
+            biography = user.biography
     )
 
     private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")

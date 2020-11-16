@@ -81,6 +81,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     }
 
     private fun verifyWhoToFollow() {
-        assertElementCount("#who-to-follow .btn-follow", 3)
+        Thread.sleep(1000)      // Wait for AJAX response
+        assertElementCount(".who-to-follow .btn-follow", 3)
     }
 }

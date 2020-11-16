@@ -248,6 +248,14 @@ function Wutsi (){
         this.httpPost('/share?storyId=' + storyId + '&target=' + target, {}, true);
     }
 
+    this.linkify = function(selector) {
+        $(selector).each(function(){
+            const text = $(this).html();
+            const xtext = text.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a target="_new" href="$1">$1</a> ');
+            $(this).html( xtext );
+        });
+    }
+
     this.cookie = function (name) {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         if (match) return match[2];

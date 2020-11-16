@@ -164,9 +164,10 @@
     </a>
     <div>
         <a th:href="${me.slug}" th:title="${me.fullName}" th:text="${me.fullName}">Ray Sponsible</a>
-        <div class="text-small">
+        <div class="text-small name">
             @<span th:text="${me.name}">ray.sponsible</span>
         </div>
+        <div class="text-small biography" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
     <div class="btn-container">
         <div th:replace="components/follow :: button(${me}, ${me.slug}, false, false)"></div>

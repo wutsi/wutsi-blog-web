@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="who-to-follow(whoToFollow)">
-    <div id="who-to-follow" th:if="!${whoToFollow.isEmpty()}" class="box-filled-highlight-light padding">
-        <h4 th:text="#{page.blog.who_to_follow}">Who to Follow</h4>
-        <div  class="padding-top margin-top border-top"th:each="follow : ${whoToFollow}">
-            <div th:replace="components/story :: author-summary-card(${follow}, true)"></div>
-        </div>
+<div th:fragment="who-to-follow">
+    <div th:if="${toggles.follow}">
+        <div class="who-to-follow-container margin-top margin-bottom"></div>
+        <script>
+            $(document).ready(function(){
+                $('.who-to-follow-container').load('/follow/who');
+            });
+        </script>
     </div>
 </div>
 

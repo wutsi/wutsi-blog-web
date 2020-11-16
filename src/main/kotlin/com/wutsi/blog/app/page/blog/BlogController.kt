@@ -43,7 +43,6 @@ class BlogController(
                 .filter { it != blog.id }
 
         loadMyStories(blog, model)
-        loadWhoToFollow(blog, followingUserIds, model)
         loadFollowingStories(followingUserIds, model)
         loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, model)
@@ -65,18 +64,6 @@ class BlogController(
         if (!stories.isEmpty()){
             model.addAttribute("myStories", stories)
         }
-    }
-
-    private fun loadWhoToFollow(blog: UserModel, followingUserIds: List<Long>, model: Model) {
-        val blogs = userService.search(SearchUserRequest(
-                blog = true,
-                limit = 10
-        ))
-                .filter { it.id != blog.id && !followingUserIds.contains(it.id) }
-                .shuffled()
-                .take(3)
-
-        model.addAttribute("whoToFollow", blogs)
     }
 
     private fun loadFollowingStories(followingUserIds: List<Long>, model: Model) {
