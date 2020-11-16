@@ -42,11 +42,24 @@ class BlogController(
         val followingUserIds = followerService.searchFollowingUserIds()
                 .filter { it != blog.id }
 
+        return if (blog.blog)
+            loadWriter(followingUserIds, blog, model)
+        else
+            loadReader(followingUserIds, blog, model)
+    }
+
+    private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
         loadMyStories(blog, model)
-        loadFollowingStories(followingUserIds, model)
+        loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, model)
-        return "page/blog/index"
+        return "page/blog/writer"
+    }
+
+    private fun loadReader(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
+        loadFollowingStories(followingUserIds, model, 50)
+        loadLatestStories(blog, followingUserIds, model)
+        return "page/blog/reader"
     }
 
     private fun loadMyStories(blog: UserModel, model: Model) {
@@ -66,7 +79,7 @@ class BlogController(
         }
     }
 
-    private fun loadFollowingStories(followingUserIds: List<Long>, model: Model) {
+    private fun loadFollowingStories(followingUserIds: List<Long>, model: Model, limit: Int) {
         // Find following users
         if (followingUserIds.isEmpty())
             return
@@ -78,7 +91,7 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
-                limit = 10
+                limit = limit
         ))
         val followingStories = storyService.sort(
                 stories = stories,

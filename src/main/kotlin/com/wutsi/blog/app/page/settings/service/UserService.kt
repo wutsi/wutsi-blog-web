@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.page.settings.service
 
+import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.backend.UserBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.service.UserMapper
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse
 @Service
 class UserService(
         private val backend: UserBackend,
+        private val authBackend: AuthenticationBackend,
         private val mapper: UserMapper,
         private val requestContext: RequestContext
 
@@ -28,6 +30,11 @@ class UserService(
     fun get(name: String): UserModel {
         val user = backend.get(name).user
         return mapper.toUserModel(user)
+    }
+
+    fun getByAccessToken(accessToken: String): UserModel {
+        val session = authBackend.session(accessToken).session
+        return get(session.userId)
     }
 
     fun search(request: SearchUserRequest) : List<UserModel> {

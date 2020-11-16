@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.security.config
 
+import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.security.oauth.OAuthAuthenticationFilter
 import com.wutsi.blog.app.security.oauth.OAuthRememberMeService
 import com.wutsi.blog.app.security.qa.QAAuthenticationFilter
@@ -19,8 +20,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 class SecurityConfiguration(
 //        private val accessTokenStorage: AccessTokenStorage,
 //        private val oauthAuthenticationProvider: OAuthAuthenticationProvider,
-        private val oAuthRememberMeService: OAuthRememberMeService/*,
-        private val autoLoginAuthenticationProvider: AutoLoginAuthenticationProvider*/
+        private val oAuthRememberMeService: OAuthRememberMeService,
+        private val userService: UserService
+        /* private val autoLoginAuthenticationProvider: AutoLoginAuthenticationProvider*/
 ) : WebSecurityConfigurerAdapter() {
     companion object {
         const val OAUTH_SIGNIN_PATTERN = "/login/oauth/signin"
@@ -88,7 +90,7 @@ class SecurityConfiguration(
     }
 
     @Bean
-    fun successHandler(): AuthenticationSuccessHandler = AuthenticationSuccessHandlerImpl()
+    fun successHandler(): AuthenticationSuccessHandler = AuthenticationSuccessHandlerImpl(userService)
 
 //    @Bean
 //    fun autoLoginAuthenticationFilter(): Filter = AutoLoginAuthenticationFilter(
