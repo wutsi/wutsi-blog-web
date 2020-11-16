@@ -6,6 +6,7 @@ import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder
@@ -44,6 +45,7 @@ class BlogController(
         loadMyStories(blog, model)
         loadWhoToFollow(blog, followingUserIds, model)
         loadFollowingStories(followingUserIds, model)
+        loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, followingUserIds, model)
         return "page/blog/index"
     }
@@ -91,13 +93,33 @@ class BlogController(
                 sortOrder = SortOrder.descending,
                 limit = 10
         ))
-        val sortedStories = storyService.sort(
+        val followingStories = storyService.sort(
                 stories = stories,
                 algorithm = SortAlgorithmType.most_viewed,
                 bubbleDownViewedStories = true,
                 statsHoursOffset = 7 * 24
         )
-        model.addAttribute("followingStories", sortedStories)
+        model.addAttribute("followingStories", followingStories)
+    }
+
+    private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model) {
+        val latestStories = LinkedHashMap<UserModel, StoryModel>()
+        val stories = storyService.search(SearchStoryRequest(
+                status = StoryStatus.published,
+                live = true,
+                sortBy = StorySortStrategy.published,
+                sortOrder = SortOrder.descending,
+                limit = 50
+        ))
+                .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
+                .forEach{
+                    val user = it.user
+                    if (!latestStories.containsKey(user)){
+                        latestStories[user] = it
+                    }
+                }
+
+        model.addAttribute("latestStories", latestStories.values.take(5))
     }
 
     private fun shouldShowFollowButton(blog: UserModel, followingUserIds: List<Long>, model: Model) {

@@ -45,10 +45,11 @@ class BlogControllerTest: SeleniumTestSupport() {
         Thread.sleep(1000)
         assertElementCount("#my-stories .post", 0)
         assertElementCount("#who-to-follow .author", 3)
+        assertElementCount(".navbar .btn-follow", 0)
 
         assertElementCount(".navbar .blog-logo", 1)
         assertElementText(".navbar .blog-name", "Ray Sponsible")
-        assertElementCount(".navbar .btn-follow", 0)
+        assertElementCount(".navbar .btn-follow", 3)
     }
 
     @Test
@@ -67,6 +68,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementCount("#my-stories .post", 7)
         assertElementCount("#who-to-follow .author", 3)
         assertElementCount("#following-stories .post", 0)
+        assertElementCount(".navbar .btn-follow", 1)
 
         assertElementCount(".navbar .blog-logo", 1)
         assertElementText(".navbar .blog-name", "Ray Sponsible")
