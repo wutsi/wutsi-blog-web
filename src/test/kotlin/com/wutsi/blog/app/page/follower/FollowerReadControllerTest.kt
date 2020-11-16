@@ -39,7 +39,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
         driver.get("$url/read/20/test")
 
-        verifyFollowButtons()
+        verifyFollowButtons(99, "john.smith")
 
         click(".navbar .btn-follow")
         assertCurrentPageIs(PageName.READ)
@@ -54,7 +54,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `follower cannot follow a story` () {
+    fun `follower cannot re-follow a story` () {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -64,17 +64,17 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         verifyNoFollowButtons()
     }
 
-    private fun verifyFollowButtons(){
+    private fun verifyFollowButtons(blogId: Long=1, userName: String = "ray.sponsible"){
         assertElementCount(".navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?blogId=1&return=/read/20/lorem-ipsum")
+        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?blogId=$blogId&return=/read/20/lorem-ipsum")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount("#follow-container-1 .btn-follow", 1)
-        assertElementAttributeEndsWith("#follow-container-1 .btn-follow", "href", "/follow?blogId=1&return=/read/20/lorem-ipsum")
+        assertElementAttributeEndsWith("#follow-container-1 .btn-follow", "href", "/follow?blogId=$blogId&return=/@/${userName}")
         assertElementAttribute("#follow-container-1 .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount("#author-container .btn-follow", 1)
-        assertElementAttributeEndsWith("#author-container .btn-follow", "href", "/read/20/lorem-ipsum")
+        assertElementAttributeEndsWith("#author-container .btn-follow", "href", "/follow?blogId=$blogId&return=/@/${userName}")
         assertElementAttribute("#author-container .btn-follow", "wutsi-track-event", "follow")
     }
 

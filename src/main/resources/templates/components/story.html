@@ -158,7 +158,7 @@
     </div>
 </div>
 
-<div th:fragment="author-summary-card(me, showFollowButton, followReturnUrl)" class="author flex">
+<div th:fragment="author-summary-card(me, showFollowButton)" class="author flex">
     <a th:href="${me.slug}">
         <img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" />
     </a>
@@ -169,7 +169,7 @@
         </div>
     </div>
     <div class="btn-container">
-        <div th:replace="components/follow :: button(${me}, ${followReturnUrl}, false, false)"></div>
+        <div th:replace="components/follow :: button(${me}, ${me.slug}, false, false)"></div>
     </div>
 </div>
 
