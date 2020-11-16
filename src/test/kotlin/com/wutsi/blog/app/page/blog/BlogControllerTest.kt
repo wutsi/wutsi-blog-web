@@ -10,8 +10,8 @@ class BlogControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
+        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
     }
 
     @Test
@@ -26,30 +26,18 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
         assertElementNotPresent("#alert-no-social-link")
 
-        Thread.sleep(1000)
         assertElementCount("#my-stories .post", 7)
-        assertElementCount("#who-to-follow .author", 3)
         assertElementCount("#following-stories .post", 7)
-
-        assertElementCount(".navbar .blog-logo", 1)
-        assertElementText(".navbar .blog-name", "Ray Sponsible")
-        assertElementCount(".navbar .btn-follow", 0)
+        assertElementCount("#latest-stories .post", 3)
     }
 
     @Test
-    fun `my blog page with no post` () {
+    fun `my empty blog page` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
         gotoPage(true)
 
-        Thread.sleep(1000)
         assertElementCount("#my-stories .post", 0)
-        assertElementCount("#who-to-follow .author", 3)
-        assertElementCount(".navbar .btn-follow", 0)
-
-        assertElementCount(".navbar .blog-logo", 1)
-        assertElementText(".navbar .blog-name", "Ray Sponsible")
-        assertElementCount(".navbar .btn-follow", 3)
     }
 
     @Test
@@ -64,15 +52,9 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
         assertElementNotPresent("#alert-no-social-link")
 
-        Thread.sleep(1000)
         assertElementCount("#my-stories .post", 7)
-        assertElementCount("#who-to-follow .author", 3)
         assertElementCount("#following-stories .post", 0)
-        assertElementCount(".navbar .btn-follow", 1)
-
-        assertElementCount(".navbar .blog-logo", 1)
-        assertElementText(".navbar .blog-name", "Ray Sponsible")
-        assertElementCount(".navbar .btn-follow", 1)
+        assertElementCount("#latest-stories .post", 4)
     }
 
 

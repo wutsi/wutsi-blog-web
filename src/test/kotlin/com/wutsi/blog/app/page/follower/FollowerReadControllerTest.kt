@@ -33,7 +33,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `logged-in user can follow story` () {
+    fun `non-follower user can follow story` () {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -46,7 +46,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `user cannot follow it's own story` () {
+    fun `user cannot follow his own story` () {
         login()
         driver.get("$url/read/20/test")
 
@@ -66,11 +66,11 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
 
     private fun verifyFollowButtons(){
         assertElementCount(".navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/read/20/lorem-ipsum")
+        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?blogId=1&return=/read/20/lorem-ipsum")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount("#follow-container-1 .btn-follow", 1)
-        assertElementAttributeEndsWith("#follow-container-1 .btn-follow", "href", "/read/20/lorem-ipsum")
+        assertElementAttributeEndsWith("#follow-container-1 .btn-follow", "href", "/follow?blogId=1&return=/read/20/lorem-ipsum")
         assertElementAttribute("#follow-container-1 .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount("#author-container .btn-follow", 1)

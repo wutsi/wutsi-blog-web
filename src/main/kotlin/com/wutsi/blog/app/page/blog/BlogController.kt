@@ -46,7 +46,7 @@ class BlogController(
         loadWhoToFollow(blog, followingUserIds, model)
         loadFollowingStories(followingUserIds, model)
         loadLatestStories(blog, followingUserIds, model)
-        shouldShowFollowButton(blog, followingUserIds, model)
+        shouldShowFollowButton(blog, model)
         return "page/blog/index"
     }
 
@@ -122,10 +122,8 @@ class BlogController(
         model.addAttribute("latestStories", latestStories.values.take(5))
     }
 
-    private fun shouldShowFollowButton(blog: UserModel, followingUserIds: List<Long>, model: Model) {
-        val showButton = requestContext.toggles().follow
-                && (requestContext.currentUser() == null || followingUserIds.contains(blog.id))
-        model.addAttribute("showFollowButton", showButton)
+    private fun shouldShowFollowButton(blog: UserModel, model: Model) {
+        model.addAttribute("showFollowButton", followerService.canFollow(blog.id))
     }
 
 
