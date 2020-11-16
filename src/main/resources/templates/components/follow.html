@@ -11,14 +11,20 @@
     </div>
 </div>
 
-<div th:fragment="panel(blog,returnUrl)" >
-    <div class="box-filled-highlight-light padding text-center" th:if="${toggles.follow} AND (!${user} OR ${user.id} != ${blog.id})">
-        <a class="btn btn-primary" wutsi-track-event="follow"
-           th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
-           th:text="#{button.follow_blog(${blog.name})}">Follow</a>
+<div th:fragment="panel(blog,returnUrl)">
+    <div class="box-filled-highlight-light padding text-center" th:if="${toggles.follow}">
+        <div th:replace="components/follow :: button(${blog}, ${returnUrl}, true, true)"></div>
     </div>
 </div>
 
+<a th:fragment="button(blog, returnUrl, primaryButton, includeNameInCaption)"
+   class="btn btn-follow" wutsi-track-event="follow"
+   th:classappend="primaryButton ? 'btn-primary' : 'btn-light'"
+   th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
+>
+    <span th:text="#{button.follow}">Follow</span>
+    <span th:if="${includeNameInCaption}" th:text="' @' + ${blog.name}">@ray.sponsible</span>
+</a>
 
 
 </body>

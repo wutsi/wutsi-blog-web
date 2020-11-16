@@ -27,13 +27,13 @@ class FollowerService(
     }
 
     fun canFollow(id: Long): Boolean {
-        if (!requestContext.toggles().follow)
+        if (!requestContext.toggles().follow || requestContext.currentUser()?.id == id)
             return false
 
         if (requestContext.currentUser() == null)
             return true
 
-        return !backend.search(SearchFollowerRequest(
+        return backend.search(SearchFollowerRequest(
                 userId = id,
                 followerUserId = requestContext.currentUser()?.id
         )).followers.isEmpty()

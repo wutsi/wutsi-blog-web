@@ -169,11 +169,7 @@
         </div>
     </div>
     <div class="btn-container">
-        <a class="btn btn-light btn-sm" wutsi-track-event="follow"
-           th:href="'/follow?blogId=' + ${me.id} + '&return=' + ${followReturnUrl}"
-           th:text="#{button.follow}"
-           th:if="${showFollowButton}"
-        >Follow</a>
+        <div th:replace="components/follow :: button(${me}, ${followReturnUrl}, false, false)"></div>
     </div>
 </div>
 

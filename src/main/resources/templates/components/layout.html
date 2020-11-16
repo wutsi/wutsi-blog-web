@@ -209,9 +209,7 @@
                 <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
             <li class="nav-item" th:if="${toggles.follow} AND ${showFollowButton} AND ${page.name != 'page.login'}">
-                <a id="navbar-follow" class="btn btn-primary btn-follow" wutsi-track-event="follow"
-                   th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
-                   th:text="#{button.follow}">Follow</a>
+                <div th:replace="components/follow :: button(${blog}, ${returnUrl}, true, false)"></div>
             </li>
             <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>

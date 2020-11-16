@@ -11,12 +11,14 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
+
+        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
+
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
-
-        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
     }
 
     @Test
@@ -67,10 +69,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementPresent("#track-script")
     }
 
-
-
     @Test
-    fun `published story`() {
+    fun `anonymous can read published story`() {
         driver.get("$url/read/20/test")
 
         assertCurrentPageIs(PageName.READ)
@@ -103,7 +103,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `draft story`() {
+    fun `draft story cannot be read`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         driver.get("$url/read/20/looks-good")
 
@@ -111,7 +111,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `not-live story`() {
+    fun `not-live story cannot be read`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-not-live.json")
         driver.get("$url/read/20/looks-good")
 
@@ -119,7 +119,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `invalid story`() {
+    fun `invalid story redirect to 4040`() {
         driver.get("$url/read/9999999/looks-good")
 
         assertCurrentPageIs(PageName.ERROR_404)
@@ -226,7 +226,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
         assertElementCount("#recommendation-container .btn-read-more", 1)
         assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
-        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/")
+        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/@/ray.sponsible")
     }
 
     @Test
@@ -237,9 +237,9 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         Thread.sleep(5000)
         assertElementCount("#recommendation-container .post", 0)
 
-        assertElementCount("#recommendation-container .btn-read-more", 1)
+        assertElementCount("#recommendation-container .btn-read-more", 0)
         assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
-        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/")
+        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/@/ray.sponsible")
     }
 
     @Test

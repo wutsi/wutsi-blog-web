@@ -101,7 +101,7 @@ class ReadController(
     }
 
     private fun shouldShowFollowButton(story: StoryModel, model: Model) {
-        model.addAttribute("followerId", followerService.canFollow(story.user.id))
+        model.addAttribute("showFollowButton", followerService.canFollow(story.user.id))
     }
 
     private fun supportsLanguage(language: String?): Boolean =
