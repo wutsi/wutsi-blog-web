@@ -69,6 +69,5 @@ wutsi:
     sso-google: true
     sso-github: false
     sso-twitter: false
-    value-prop: false
     wpp: true
 

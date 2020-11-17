@@ -28,7 +28,6 @@ class Toggles {
     var ssoGithub: Boolean = false
     var ssoTwitter: Boolean = false
     var qaLogin: Boolean = false
-    var valueProp: Boolean = false
     var wpp: Boolean = false
 }
 

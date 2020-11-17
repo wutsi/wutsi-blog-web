@@ -4,104 +4,91 @@
     <div th:replace="components/layout :: head"></div>
 </head>
 
-<body>
+<body id="home-container">
+
 <div th:replace="components/layout :: navbar"></div>
 
-<div id="value-prop" class="container border">
-    <div class="row box-filled-white">
+<div class="container">
+    <div class="row">
         <div class="col-12 col-md-8 offset-md-2">
-            <section class="margin-top-6x margin-bottom-6x text-center padding">
-                <h1>Un Regard sur l'Afrique à travers des Stories Inspirantes</h1>
-                <div class="container margin-top">
-                    <div class="row">
-                        <div class="col-6">
-                            <i class="fas fa-check-circle"></i> Sujets Variés
-                        </div>
-                        <div class="col-6">
-                            <i class="fas fa-check-circle"></i> Blogs Inspirants
-                        </div>
-                    </div>
-                </div>
-                <a class="btn btn-lg btn-primary margin-top" href="/login" wutsi-track-event="home_start">Démarre</a>
+            <section class="text-center padding-2x">
+                <h1 th:text="#{page.home.main.title}">A place for African Writers</h1>
+                <p class="margin-top" th:text="#{page.home.main.subtitle}">Create your Blog. Build your Audience. Monetize your Blog</p>
+                <p class="highlight" th:text="#{page.home.its_free}"><b>It's all free!</b></p>
+                <a class="btn btn-lg btn-primary" href="/create" wutsi-track-event="create_blog" th:text="#{button.create_blog}">
+                    Create your Blog
+                </a>
             </section>
         </div>
     </div>
-
-    <div class="row border-top box-filled-highlight-light">
-        <div class="col-12 col-md-8 offset-md-2">
-            <section class="margin-top-6x margin-bottom-6x text-center padding">
-                <div>Pour les Lecteurs</div>
-                <h2>Une Perspective Authentique sur l'Afrique</h2>
-                <p class="margin-top">Politique, Société, Sport, Arts - Découvrez l'Afrique sous toutes ses facettes</p>
-                <a class="btn btn-lg btn-primary margin-top" href="/login" wutsi-track-event="home_discover">Découvre les Stories</a>
-            </section>
-        </div>
-    </div>
-
-    <div class="row border-top box-filled-white">
-        <div class="col-12 col-md-8 offset-md-2">
-            <section class="margin-top-6x margin-bottom-6x text-center padding">
-                <div>Pour les Auteurs</div>
-                <h2>Publiez Gratuitement. Augmenter votre Audience. Augmentez vos Revenus</h2>
-                <p class="margin-top">Créer un Blog Gratuitement. Rejoindre le Wutsi Partner Program pour Monétiser son Blog.</p>
-                <a class="btn btn-lg btn-primary margin-top" href="/create" wutsi-track-event="home_create_blog">Créé ton Blog</a>
-
-                <hr />
-
-                <div class="carousel slide testimonials" data-ride="carousel" data-interval="10000">
-                    <div class="carousel-inner">
-                        <div class="carousel-item padding active">
-                            <h5>
-                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/hb.jpg'" />
-                                Heyndricks N. Bile
-                            </h5>
-                            <div class="blockquote-container box-filled-highlight-light padding rounded">
-                                <blockquote>
-                                    <i class="fas fa-quote-left"></i>
-                                    <b>FIAT LUX !</b>
-                                    <br/>
-                                    Ce faisceau d'idées iconoclastes que Wutsi expose me semble suffisamment fort pour éclairer nos sociétés.
-                                    <i class="fas fa-quote-right"></i>
-                                </blockquote>
-                            </div>
-                        </div>
-                        <div class="carousel-item padding">
-                            <h5>
-                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/ngwa.jpg'" />
-                                Ngwa Emmanuel
-                            </h5>
-                            <div class="blockquote-container box-filled-highlight-light  padding rounded">
-                                <blockquote>
-                                    <i class="fas fa-quote-left"></i>
-                                    Wutsi helps me to reach a completely new audience with my content.
-                                    The best part, this streamlined audience is African and ties perfectly with my goals of writing in an African voice to impact Africans.
-                                    I've literally seen my stories spike faster on Wutsi than on any other platform I've used.
-                                    <i class="fas fa-quote-right"></i>
-                                </blockquote>
-                            </div>
-                        </div>
-                        <div class="carousel-item padding">
-                            <h5>
-                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/clesh7.jpg'" />
-                                Eclesiaste Deudjui
-                            </h5>
-                            <div class="blockquote-container box-filled-highlight-light  padding rounded">
-                                <blockquote>
-                                    <i class="fas fa-quote-left"></i>
-                                    Wutsi me permet de traiter de sujets plus larges et d'expérimenter différents tons d'écriture.
-                                    La plateforme me permet aussi de me faire de nouveaux lecteurs.
-                                    <i class="fas fa-quote-right"></i>
-                                </blockquote>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-        </div>
-    </div>
-
 </div>
+
+<hr />
+
+<div class="container margin-top padding-top">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <section class="text-center padding-2x">
+                <h2 th:text="#{page.home.contributor.title}">Who writes on Wutsi?</h2>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-md-4 text-center writer padding">
+                            <a href="/@/clesh7">
+                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/clesh7.jpg'" />
+                                <h6 class="margin-top">Eclesiaste Deudjui</h6>
+                                <div class="text-small" th:text="#{page.home.contributor.clesh7}">writes about various social issues, with a good touch of humour</div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-md-4 text-center writer padding">
+                            <a href="/@/hb">
+                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/hb.jpg'" />
+                                <h6 class="margin-top">Heyndricks N. Bile</h6>
+                                <div  class="text-small" th:text="#{page.home.contributor.hb}">writes about art and culture, with a punchy and uncompromising style</div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-md-4 text-center writer padding">
+                            <a href="/@/tifos">
+                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/tifos.png'" />
+                                <h6 class="margin-top">Tifos</h6>
+                                <div class="text-small"  th:text="#{page.home.contributor.tifos}">writes about sport, especially football</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="btn btn-light" href="/writers" wutsi-track-event="browse_writers">
+                    Browse for more Writers
+                </a>
+            </section>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="container margin-top padding-top">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <section class="padding-2x">
+                <h2 th:text="#{page.home.in_charge.title}">You are in charge</h2>
+                <ul>
+                    <li th:text="#{page.home.in_charge.option1}">A website for your Blog</li>
+                    <li th:text="#{page.home.in_charge.option2}">Your own mailing list</li>
+                    <li th:text="#{page.home.in_charge.option3}">Simple editor that supports text/image/video/audio</li>
+                    <li th:text="#{page.home.in_charge.option4}">Integrated analytics for your Blog statistics</li>
+                </ul>
+
+                <a class="btn btn-lg btn-primary" href="/create" wutsi-track-event="create_blog">
+                    Create your Blog
+                </a>
+            </section>
+        </div>
+    </div>
+</div>
+
+</body>
 
 <div th:replace="components/layout :: footer"></div>
 </body>

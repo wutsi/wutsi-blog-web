@@ -171,5 +171,4 @@ wutsi:
     sso-google: false
     sso-twitter: false
     sso-github: true
-    value-prop: false               # Show Value proposition on home-page
     wpp: true                       # Wutsi Partner Program

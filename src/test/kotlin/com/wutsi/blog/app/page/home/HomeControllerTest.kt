@@ -3,50 +3,14 @@ package com.wutsi.blog.app.page.home
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 
 
 class HomeControllerTest: SeleniumTestSupport() {
     @Test
-    fun `value prop showing for anonymous user`() {
+    fun `home page`() {
         driver.get(url)
 
         assertCurrentPageIs(PageName.HOME)
-        assertElementCount("#value-prop", 1)
-    }
-
-    @Test
-    fun `value prop not showing for logged user`() {
-        login()
-        driver.get(url)
-
-        assertCurrentPageIs(PageName.HOME)
-        assertElementCount("#value-prop", 0)
-    }
-
-    @Test
-    fun `empty home page`() {
-        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-        login()
-        driver.get(url)
-
-        assertCurrentPageIs(PageName.HOME)
-        assertElementCount("#main-post", 0)
-        assertElementCount("#featured-posts", 0)
-        assertElementCount("#popular-posts", 0)
-        assertElementCount("#feature-blogs", 0)
-    }
-
-    @Test
-    fun `user should view recent stories and authors in home page`() {
-        login()
-        driver.get(url)
-
-        assertCurrentPageIs(PageName.HOME)
-        assertElementCount("#main-post .post", 1)
-        assertElementCount("#featured-posts .post", 4)
-        assertElementCount("#popular-posts .post", 2)
     }
 
     @Test
@@ -61,7 +25,6 @@ class HomeControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `Google Ad-Sense`() {
-        login()
         driver.get(url)
         assertElementPresent("script#ad-sense-code")
         assertElementAttribute("script#ad-sense-code", "data-ad-client", "test-ad-sense")

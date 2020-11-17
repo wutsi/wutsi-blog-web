@@ -176,6 +176,23 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
+/* ==== HOME === */
+#home-container {
+    background-color: white;
+}
+
+#home-container .writer img {
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
+
+#home-container .writer a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
 /* ==== NAVBAR ==== */
 .navbar {
     background: white;
@@ -441,13 +458,6 @@ a.sso-button .fab {
 }
 
 /*======= POST =======*/
-.testimonials img.author {
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-}
-
 .post {
     background: white;
 }

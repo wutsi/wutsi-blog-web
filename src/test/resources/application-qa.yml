@@ -36,4 +36,3 @@ wutsi:
     sso-twitter: true
     sso-github: true
     qa-login: true
-    value-prop: true
