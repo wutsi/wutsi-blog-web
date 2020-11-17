@@ -45,11 +45,10 @@ class SitemapView(
 
     private fun get(): SitemapModel {
         val urls = mutableListOf<UrlModel>()
-        val stories = stories()
 
         urls.addAll(pageUrls())
-        urls.addAll(storyUrls(stories))
-        urls.addAll(userUrls(stories))
+        urls.addAll(storyUrls())
+        urls.addAll(userUrls())
         return SitemapModel(
                 url = urls
         )
@@ -59,7 +58,8 @@ class SitemapView(
         val urls = mutableListOf(
                 mapper.toUrlModel("/"),
                 mapper.toUrlModel("/about"),
-                mapper.toUrlModel("/create")
+                mapper.toUrlModel("/create"),
+                mapper.toUrlModel("/writers")
         )
         if (toggles.wpp) {
             urls.add(mapper.toUrlModel("/partner"))
@@ -67,17 +67,15 @@ class SitemapView(
         return urls
     }
 
-    private fun storyUrls(stories: List<StorySummaryDto>): List<UrlModel> {
-        return stories.map { mapper.toUrlModel(it) }
-    }
+    private fun storyUrls(): List<UrlModel> =
+        stories().map { mapper.toUrlModel(it) }
 
-    private fun userUrls(stories: List<StorySummaryDto>): List<UrlModel> {
-        val userIds = stories.map { it.userId }.toSet()
-        val users = userBackend.search(SearchUserRequest(
-                userIds = userIds.toList()
-        )).users
-        return users.map { mapper.toUrlModel(it) }
-    }
+
+    private fun userUrls(): List<UrlModel> =
+        userBackend.search(SearchUserRequest(
+                blog = true
+        )).users.map { mapper.toUrlModel(it) }
+
 
     private fun stories() : List<StorySummaryDto> {
         val stories = mutableListOf<StorySummaryDto>()
