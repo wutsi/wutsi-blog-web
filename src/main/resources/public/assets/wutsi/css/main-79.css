@@ -188,6 +188,19 @@ h1, h2, h3, h4, h5, h6 {
     height: 64px;
 }
 
+#home-container ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin: 0 auto;
+    text-align: left;
+    width: fit-content;
+}
+#home-container li .fa-check {
+    color: darkgreen;
+    margin-right: 1em;
+}
+
 .writer a,
 a .writer {
     color: var(--text-color);

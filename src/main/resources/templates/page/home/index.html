@@ -35,7 +35,7 @@
                         <div class="col-12 col-md-4 text-center writer padding">
                             <a href="/@/clesh7">
                                 <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/clesh7.jpg'" />
-                                <h6 class="margin-top">Eclesiaste Deudjui</h6>
+                                <h6 class="margin-top">Eccl&eacute;siaste Deudjui</h6>
                                 <div class="text-small" th:text="#{page.home.contributor.clesh7}">writes about various social issues, with a good touch of humour</div>
                             </a>
                         </div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
 
-                <a class="btn btn-light btn-writers" href="/writers" wutsi-track-event="browse_writers" th:text="#{button.discover_writers}">
+                <a class="btn btn-light btn-writers" href="/writers" wutsi-track-event="browse_writers" th:text="#{button.browse_writers}">
                     Browse for more Writers
                 </a>
             </section>
@@ -71,16 +71,16 @@
 <div class="container margin-top">
     <div class="row">
         <div class="col-12 col-md-8 offset-md-2">
-            <section class="padding-2x">
+            <section class="padding-2x text-center">
                 <h2 th:text="#{page.home.in_charge.title}">You are in charge</h2>
                 <ul>
-                    <li th:text="#{page.home.in_charge.option1}">A website for your Blog</li>
-                    <li th:text="#{page.home.in_charge.option2}">Your own mailing list</li>
-                    <li th:text="#{page.home.in_charge.option3}">Simple editor that supports text/image/video/audio</li>
-                    <li th:text="#{page.home.in_charge.option4}">Integrated analytics for your Blog statistics</li>
+                    <li><i class="fas fa-check"></i> <span th:text="#{page.home.in_charge.option1}">A website for your Blog</span></li>
+                    <li><i class="fas fa-check"></i>  <span th:text="#{page.home.in_charge.option2}">Your own mailing list</span></li>
+                    <li><i class="fas fa-check"></i>  <span th:text="#{page.home.in_charge.option3}">Simple editor that supports text/image/video/audio</span></li>
+                    <li><i class="fas fa-check"></i>  <span th:text="#{page.home.in_charge.option4}">Integrated analytics for your Blog statistics</span></li>
                 </ul>
 
-                <a class="btn btn-lg btn-primary" href="/create" wutsi-track-event="create_blog">
+                <a class="btn btn-lg btn-primary margin-top" href="/create" wutsi-track-event="create_blog" th:text="#{button.create_blog}">
                     Create your Blog
                 </a>
             </section>
