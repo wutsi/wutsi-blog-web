@@ -7,7 +7,9 @@
       "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
       "biography": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. http://gog.me",
       "creationDateTime": 1585325914000,
-      "modificationDateTime": 1585325914000
+      "modificationDateTime": 1585325914000,
+      "storyCount": 10,
+      "followerCount": 1
     },
     {
       "id": 2,
@@ -16,7 +18,9 @@
       "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
       "biography": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. http://gog.me",
       "creationDateTime": 1585325914000,
-      "modificationDateTime": 1585325914000
+      "modificationDateTime": 1585325914000,
+      "storyCount": 10,
+      "followerCount": 15
     },
     {
       "id": 3,
@@ -25,7 +29,9 @@
       "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
       "biography": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. http://gog.me",
       "creationDateTime": 1585325914000,
-      "modificationDateTime": 1585325914000
+      "modificationDateTime": 1585325914000,
+      "storyCount": 300,
+      "followerCount": 15000
     },
     {
       "id": 4,
@@ -33,7 +39,9 @@
       "fullName": "Omam Mbiyick",
       "pictureUrl": "https://avatars3.githubusercontent.com/u/39621277?v=4",
       "creationDateTime": 1585325914000,
-      "modificationDateTime": 1585325914000
+      "modificationDateTime": 1585325914000,
+      "storyCount": 1,
+      "followerCount": 0
     },
     {
       "id": 5,
@@ -42,7 +50,9 @@
       "pictureUrl": null,
       "biography": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. http://gog.me",
       "creationDateTime": 1585325914000,
-      "modificationDateTime": 1585325914000
+      "modificationDateTime": 1585325914000,
+      "storyCount": 27,
+      "followerCount": 33
     }
   ]
 }

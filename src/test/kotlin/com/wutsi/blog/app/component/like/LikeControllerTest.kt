@@ -16,21 +16,6 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `home page showing like count` () {
-        login()
-        driver.get(url)
-
-        Thread.sleep(1000)
-        assertElementText("#like-count-20", "2")
-        assertElementText("#like-count-21", "1")
-        assertElementText("#like-count-22", "3")
-        assertElementText(".like-badge #like-count-23", "")
-        assertElementText(".like-badge #like-count-24", "")
-        assertElementText(".like-badge #like-count-25", "")
-        assertElementText(".like-badge #like-count-26", "")
-    }
-
-    @Test
     fun `blog page showing like count` () {
         driver.get("$url/@/ray.sponsible")
 

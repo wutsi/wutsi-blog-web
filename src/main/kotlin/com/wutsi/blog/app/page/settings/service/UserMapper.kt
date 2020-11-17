@@ -25,6 +25,8 @@ class UserMapper(private val imageKit: ImageKitService) {
             youtubeUrl = youtubeUrl(user),
             superUser = user.superUser,
             blog = user.blog,
+            storyCount = user.storyCount,
+            followerCount = user.followerCount,
             readAllLanguages = user.readAllLanguages,
             language = user.language,
             locale = if (user.language == null) null else Locale(user.language, "CM"),
@@ -64,7 +66,9 @@ class UserMapper(private val imageKit: ImageKitService) {
             fullName = user.fullName,
             pictureUrl = pictureUrl(user.pictureUrl),
             slug = slug(user),
-            biography = user.biography
+            biography = user.biography,
+            storyCount = user.storyCount,
+            followerCount = user.followerCount
     )
 
     private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")

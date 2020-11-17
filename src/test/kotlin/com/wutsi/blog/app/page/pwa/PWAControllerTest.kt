@@ -63,17 +63,6 @@ class PWAControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `add to homescreen in homepage`() {
-        login()
-        driver.get(url)
-        assertCurrentPageIs(PageName.HOME)
-
-        Thread.sleep(1000)
-        assertElementPresent("script#a2hs-js")
-        assertElementPresent("#a2hs-container")
-    }
-
-    @Test
     fun `add to homescreen in reader`() {
         driver.get("$url/read/20/test")
         assertCurrentPageIs(PageName.READ)
@@ -81,19 +70,6 @@ class PWAControllerTest: SeleniumTestSupport() {
         Thread.sleep(1000)
         assertElementPresent("script#a2hs-js")
         assertElementPresent("#a2hs-container")
-    }
-
-    @Test
-    fun `push notification in homepage`() {
-        login()
-        driver.get(url)
-        assertCurrentPageIs(PageName.HOME)
-
-        Thread.sleep(1000)
-        assertElementPresent("script#firebase-app-js")
-        assertElementPresent("script#firebase-messaging-js")
-        assertElementPresent("script#firebase-js")
-        assertElementPresent("#push-container")
     }
 
     @Test

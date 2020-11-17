@@ -22,22 +22,6 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `home page showing comment count` () {
-        login()
-        driver.get(url)
-
-        Thread.sleep(1000)
-        assertElementCount(".comment-badge", 7)
-        assertElementText(".comment-badge #comment-count-20", "3")
-        assertElementText(".comment-badge #comment-count-21", "5")
-        assertElementText(".comment-badge #comment-count-22", "1")
-        assertElementText(".comment-badge #comment-count-23", "")
-        assertElementText(".comment-badge #comment-count-24", "")
-        assertElementText(".comment-badge #comment-count-25", "")
-        assertElementText(".comment-badge #comment-count-26", "")
-    }
-
-    @Test
     fun `blog page showing comment count` () {
         driver.get("$url/@/ray.sponsible")
 

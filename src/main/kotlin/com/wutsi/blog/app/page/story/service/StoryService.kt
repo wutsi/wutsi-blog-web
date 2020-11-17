@@ -10,7 +10,6 @@ import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.home.model.WallModel
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
@@ -19,7 +18,6 @@ import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.SortStoryRequest
 import com.wutsi.blog.client.story.SortStoryResponse
-import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest

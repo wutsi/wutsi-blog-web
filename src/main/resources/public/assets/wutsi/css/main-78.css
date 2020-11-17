@@ -188,7 +188,8 @@ h1, h2, h3, h4, h5, h6 {
     height: 64px;
 }
 
-#home-container .writer a {
+.writer a,
+a .writer {
     color: var(--text-color);
     text-decoration: none;
 }

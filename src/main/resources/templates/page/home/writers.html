@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body id="home-container">
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <h1 class="text-center margin-bottom-2x" th:text="#{page.writers.title}">Discover grat stories</h1>
+
+            <a th:href="${writer.slug}" th:each="writer : ${writers}">
+                <section class="padding flex writer border-top">
+                    <img class="margin-right" th:src="${writer.pictureUrl}" th:title="${writer.fullName}"/>
+                    <div>
+                        <h6 th:text="${writer.fullName}">Ray sponsible</h6>
+                        <p class="text-small" th:text="${writer.biography}" th:if="${writer.biography}">Bio</p>
+                    </div>
+                </section>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+</body>
+
+</html>
