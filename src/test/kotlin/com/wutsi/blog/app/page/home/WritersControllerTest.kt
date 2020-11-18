@@ -11,7 +11,7 @@ class WritersControllerTest: SeleniumTestSupport() {
         gotoPage()
 
         assertCurrentPageIs(PageName.WRITERS)
-        assertElementCount(".writer", 5)
+        assertElementCount(".writer", 4)
     }
 
     fun gotoPage(){

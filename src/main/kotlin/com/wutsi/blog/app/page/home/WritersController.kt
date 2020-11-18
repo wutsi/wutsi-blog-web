@@ -40,7 +40,7 @@ class WritersController(
                 limit = 20,
                 sortBy = UserSortStrategy.stories,
                 sortOrder = SortOrder.descending
-        )).filter { it.storyCount > 0 }
+        )).filter { it.storyCount > 0 && !it.biography.isNullOrEmpty() }
 
         model.addAttribute("writers", writers)
         return "page/home/writers"

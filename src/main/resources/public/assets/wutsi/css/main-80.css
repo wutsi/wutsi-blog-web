@@ -202,10 +202,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .writer a,
-a .writer {
+a .writer{
     color: var(--text-color);
     text-decoration: none;
 }
+
 .writer img {
     width: 48px;
     height: 48px;
@@ -489,7 +490,8 @@ a.sso-button .fab {
 }
 
 .post .img-container {
-    height: 250px;
+    max-height: 250px;
+    height: fit-content;
     overflow: hidden;
 }
 
@@ -932,7 +934,7 @@ a.sso-button .fab {
     }
 
     .post .img-container {
-        height: 180px;
+        max-height: 180px;
         overflow: hidden;
     }
 
@@ -961,7 +963,7 @@ a.sso-button .fab {
 @media screen
   and (min-device-width: 1200px) {
     .post .img-container {
-        height: 320px;
+        max-height: 320px;
         overflow: hidden;
     }
 
