@@ -574,10 +574,15 @@ a.sso-button .fab {
     text-decoration: none;
 }
 
-.author .fab, .author .fas {
+.author .fab,
+.author .fas {
     color: var(--text-color);
     font-size: 1.5em;
     margin-right: 1em;
+}
+
+.author .follower-count {
+    font-size: 1.2em;
 }
 
 .navbar-author {

@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
+import com.wutsi.core.util.NumberUtils
 import org.springframework.stereotype.Service
 import java.util.Locale
 
@@ -27,6 +28,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             blog = user.blog,
             storyCount = user.storyCount,
             followerCount = user.followerCount,
+            followerCountText = NumberUtils.toHumanReadable(user.followerCount),
             readAllLanguages = user.readAllLanguages,
             language = user.language,
             locale = if (user.language == null) null else Locale(user.language, "CM"),
@@ -68,7 +70,8 @@ class UserMapper(private val imageKit: ImageKitService) {
             slug = slug(user),
             biography = user.biography,
             storyCount = user.storyCount,
-            followerCount = user.followerCount
+            followerCount = user.followerCount,
+            followerCountText = NumberUtils.toHumanReadable(user.followerCount)
     )
 
     private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")

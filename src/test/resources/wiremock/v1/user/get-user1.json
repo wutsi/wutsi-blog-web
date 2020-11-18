@@ -16,6 +16,8 @@
     "creationDateTime": 1585325914000,
     "modificationDateTime": 1585325914000,
     "language": "fr",
-    "blog": true
+    "blog": true,
+    "storyCount": 10,
+    "followerCount": 17430
   }
 }

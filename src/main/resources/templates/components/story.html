@@ -154,6 +154,9 @@
             >
                 <i class="fab fa-linkedin-in"></i>
             </a>
+
+            <span class="follower-count" th:if="${me.followerCount} == 1" th:utext="#{label.1_follower(${me.followerCountText})}">1 Follower</span>
+            <span class="follower-count" th:if="${me.followerCount} GT 1" th:utext="#{label.n_followers(${me.followerCountText})}">40 Followers</span>
         </div>
     </div>
 </div>

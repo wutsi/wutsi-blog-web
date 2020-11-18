@@ -27,5 +27,6 @@ data class UserModel (
         val hasSocialLinks: Boolean = true,
         val blog: Boolean = true,
         val storyCount: Long = 0,
-        val followerCount: Long = 0
+        val followerCount: Long = 0,
+        val followerCountText: String = ""
 )

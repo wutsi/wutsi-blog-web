@@ -18,7 +18,11 @@
                     <img class="margin-right" th:src="${writer.pictureUrl}" th:title="${writer.fullName}"/>
                     <div>
                         <h6 th:text="${writer.fullName}">Ray sponsible</h6>
-                        <p class="text-small" th:text="${writer.biography}" th:if="${writer.biography}">Bio</p>
+                        <div class="text-small" th:text="${writer.biography}" th:if="${writer.biography}">Bio</div>
+                        <div class="text-small" th:if="${writer.followerCount} GT 0">
+                            <div th:if="${writer.followerCount} == 1" th:utext="#{label.1_follower(${writer.followerCountText})}">1 Follower</div>
+                            <div th:if="${writer.followerCount} GT 1" th:utext="#{label.n_followers(${writer.followerCountText})}">40 Followers</div>
+                        </div>
                     </div>
                 </section>
             </a>
