@@ -13,8 +13,8 @@ class AboutController(requestContext: RequestContext): AbstractLegalController(r
     override fun contentPath() = "/html/legal/about"
 
     override fun page() = createPage(
-            title = requestContext.getMessage("page.about.title"),
-            description = requestContext.getMessage("page.about.description")
+            title = requestContext.getMessage("page.about.metadata.title"),
+            description = requestContext.getMessage("page.about.metadata.description")
     )
 
     @GetMapping("/about")
