@@ -5,6 +5,7 @@ import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.client.story.SortAlgorithmType
 import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Component
+import javax.servlet.http.HttpServletRequest
 
 
 @Component
@@ -14,15 +15,16 @@ class RssDailyDigestView(private val service: StoryService): AbstractRssDigestVi
 
     override fun getDescription() = "Your Daily Digest"
 
-    override fun findStories(): List<StoryModel> {
+    override fun findStories(request: HttpServletRequest): List<StoryModel> {
         val yesterday = yesterday()
-        val stories = findStories(yesterday, DateUtils.addDays(yesterday, -1))
+        val userId = getUserId(request)
+        val stories = findStories(userId, yesterday, DateUtils.addDays(yesterday, -1))
         return if (stories.isNotEmpty()){
             // Sorts
             service.sort(stories, SortAlgorithmType.most_viewed, 24*7)
 
             // Get more stories
-            val old = findStories(DateUtils.addDays(yesterday, -2), DateUtils.addDays(yesterday, -5))
+            val old = findStories(userId, DateUtils.addDays(yesterday, -2), DateUtils.addDays(yesterday, -5))
 
             // Merge
             val result = mutableListOf<StoryModel>()

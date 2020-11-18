@@ -22,7 +22,7 @@
 <a th:fragment="button(blog, returnUrl, primaryButton, includeNameInCaption)"
    class="btn btn-follow" wutsi-track-event="follow"
    th:classappend="primaryButton ? 'btn-primary' : 'btn-light'"
-   th:href="'/follow?blogId=' + ${blog.id} + '&return=' + ${returnUrl}"
+   th:href="'/follow?userId=' + ${blog.id} + '&return=' + ${returnUrl}"
 >
     <span th:text="#{button.follow}">Follow</span>
     <span th:if="${includeNameInCaption}" th:text="' @' + ${blog.name}">@ray.sponsible</span>

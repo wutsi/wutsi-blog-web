@@ -11,8 +11,8 @@ class FollowerService(
         private val backend: FollowerBackend,
         private val requestContext: RequestContext
 ) {
-    fun follow(blogId: Long): Long = backend.create(CreateFollowerRequest(
-            userId = blogId,
+    fun follow(userId: Long): Long = backend.create(CreateFollowerRequest(
+            userId = userId,
             followerUserId = requestContext.currentUser()?.id
         )).followerId
 

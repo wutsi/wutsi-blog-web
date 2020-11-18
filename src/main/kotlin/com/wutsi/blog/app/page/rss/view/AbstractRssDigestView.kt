@@ -26,17 +26,21 @@ abstract class AbstractRssDigestView(private val service: StoryService): Abstrac
 
     abstract protected fun getDescription(): String
 
-    protected abstract fun findStories(): List<StoryModel>
+    protected abstract fun findStories(request: HttpServletRequest): List<StoryModel>
 
-    override fun buildFeedMetadata(model: MutableMap<String, Any>?, feed: Channel?, request: HttpServletRequest?) {
+    override fun buildFeedMetadata(model: MutableMap<String, Any>?, feed: Channel?, request: HttpServletRequest) {
         feed?.title = getTitle()
         feed?.description = getDescription()
         feed?.link = baseUrl
     }
 
-    override fun buildFeedItems(model: MutableMap<String, Any>?, request: HttpServletRequest?, response: HttpServletResponse?): MutableList<Item> {
+    override fun buildFeedItems(
+            model: MutableMap<String, Any>?,
+            request: HttpServletRequest,
+            response: HttpServletResponse?
+    ): MutableList<Item> {
         val items = mutableListOf<Item>()
-        val stories = findStories()
+        val stories = findStories(request)
         stories.forEach {
             val description = Description()
             description.value = it.summary
@@ -61,8 +65,9 @@ abstract class AbstractRssDigestView(private val service: StoryService): Abstrac
         return DateUtils.addDays(today.time, -1)
     }
 
-    protected fun findStories(startDate: Date, endDate: Date): List<StoryModel> {
+    protected fun findStories(userId: Long?, startDate: Date, endDate: Date): List<StoryModel> {
         return service.search(SearchStoryRequest(
+                userIds = if (userId == null) emptyList() else listOf(userId),
                 status = StoryStatus.published,
                 live = true,
                 limit = 30,
@@ -71,4 +76,16 @@ abstract class AbstractRssDigestView(private val service: StoryService): Abstrac
                 publishedEndDate = startDate
         ))
     }
+
+    protected fun getUserId(request: HttpServletRequest): Long? {
+        try {
+            val userId = request.getParameter("userId")
+                    ?: return null
+
+            return userId.toLong()
+        } catch (ex: Exception){
+            return null
+        }
+    }
+
 }

@@ -25,13 +25,13 @@ class FollowController(
 
     @GetMapping()
     fun add(
-            @RequestParam blogId: Long,
+            @RequestParam userId: Long,
             @RequestParam(required = false) `return`: String? = null
     ): String {
         try {
-            service.follow(blogId)
+            service.follow(userId)
         } catch(ex: Exception){
-            LOGGER.error("${requestContext.currentUser()?.id} is not able to follow ${blogId}", ex)
+            LOGGER.error("${requestContext.currentUser()?.id} is not able to follow ${userId}", ex)
         }
         return "redirect:$`return`"
     }
