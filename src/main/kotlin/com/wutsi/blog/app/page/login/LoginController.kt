@@ -55,7 +55,7 @@ class LoginController(
         model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
         model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
 
-        loadTargetBlog(xreason, redirectUrl, model)
+        loadTargetUser(xreason, redirectUrl, model)
         return "page/login/index"
     }
 
@@ -108,18 +108,18 @@ class LoginController(
         return requestContext.getMessage(key, default)
     }
 
-    private fun loadTargetBlog(reason: String?, redirectUrl: URL?, model: Model) {
+    private fun loadTargetUser(reason: String?, redirectUrl: URL?, model: Model) {
         if (redirectUrl == null || reason != REASON_FOLLOW){
             return
         }
 
-        val blogId = splitQuery(redirectUrl)["blogId"]
-        if (blogId != null){
+        val userId = splitQuery(redirectUrl)["userId"]
+        if (userId != null){
             try {
-                val blog = userService.get(blogId.toLong())
+                val blog = userService.get(userId.toLong())
                 model.addAttribute("blog", blog)
             } catch(ex: Exception){
-                LOGGER.error("Unable to fetch User#$blogId", ex)
+                LOGGER.error("Unable to fetch User#$userId", ex)
             }
         }
     }

@@ -65,7 +65,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     }
 
 
-    private fun verifyFollowButtons(blogId: Long = 1L){
+    private fun verifyFollowButtons(){
         assertElementCount(".navbar .btn-follow", 1)
         assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
