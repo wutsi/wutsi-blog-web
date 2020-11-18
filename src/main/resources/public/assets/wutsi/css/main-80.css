@@ -206,6 +206,10 @@ a .writer {
     color: var(--text-color);
     text-decoration: none;
 }
+.writer img {
+    width: 48px;
+    height: 48px;
+}
 
 /* ==== NAVBAR ==== */
 .navbar {
