@@ -96,7 +96,8 @@ abstract class AbstractPageController(
             twitterUserId: String? = null,
             canonicalUrl: String? = null,
             tags: List<String> = emptyList(),
-            showNotificationOptIn: Boolean = false
+            showNotificationOptIn: Boolean = false,
+            rssUrl: String? = null
     ) = PageModel(
             name = name,
             title = title,
@@ -121,6 +122,7 @@ abstract class AbstractPageController(
             showGoogleOneTap = shouldShowGoogleOneTap(),
             language = LocaleContextHolder.getLocale().language,
             imageUrl = imageUrl,
+            rssUrl = rssUrl,
             showNotificationOptIn = showNotificationOptIn,
             firebaseConfig = FirebaseConfigModel(
                     apiKey = firebaseApiKey,

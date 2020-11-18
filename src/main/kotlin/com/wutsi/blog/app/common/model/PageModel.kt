@@ -25,6 +25,7 @@ data class PageModel (
         val language: String,
         val schemas: String?,
         val firebaseConfig: FirebaseConfigModel,
-        val showNotificationOptIn: Boolean = false
+        val showNotificationOptIn: Boolean = false,
+        val rssUrl: String? = null
 )
 

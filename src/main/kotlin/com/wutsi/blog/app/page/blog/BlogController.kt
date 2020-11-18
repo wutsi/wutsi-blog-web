@@ -127,8 +127,6 @@ class BlogController(
         model.addAttribute("showFollowButton", followerService.canFollow(blog.id))
     }
 
-
-
     protected fun getPage(user: UserModel) = createPage(
             name = pageName(),
             title = user.fullName,
@@ -136,6 +134,7 @@ class BlogController(
             type = "profile",
             url = url(user),
             imageUrl = user.pictureUrl,
-            schemas = schemas.generate(user)
+            schemas = schemas.generate(user),
+            rssUrl = "${user.slug}/rss"
     )
 }

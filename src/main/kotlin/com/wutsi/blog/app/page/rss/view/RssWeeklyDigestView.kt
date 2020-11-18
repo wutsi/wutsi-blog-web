@@ -4,12 +4,16 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.client.story.SortAlgorithmType
 import org.apache.commons.lang.time.DateUtils
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
 
 @Component
-class RssWeeklyDigestView(private val service: StoryService): AbstractRssDigestView(service) {
+class RssWeeklyDigestView(
+        private val service: StoryService,
+        @Value("\${wutsi.base-url}") private val baseUrl: String
+): AbstractRssDigestView(service, baseUrl) {
 
     override fun getTitle() = "Wutsi Weekly Digest"
 

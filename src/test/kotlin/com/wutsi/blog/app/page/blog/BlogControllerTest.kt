@@ -76,6 +76,8 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/@/ray.sponsible")
         assertElementAttribute("head meta[property='og:image']", "content", "https://avatars3.githubusercontent.com/u/39621277?v=4")
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
+
+        assertElementAttributeEndsWith("head link[type='application/rss+xml']", "href", "/@/ray.sponsible/rss")
     }
 
     @Test

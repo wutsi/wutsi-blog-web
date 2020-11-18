@@ -69,6 +69,8 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
     <script type="application/ld+json" th:utext="${page.schemas}" th:if="${page.schemas}"></script>
+
+    <link rel="alternate" type="application/rss+xml" th:href="${page.rssUrl}" th:if="${page.rssUrl}"/>
 </div>
 
 

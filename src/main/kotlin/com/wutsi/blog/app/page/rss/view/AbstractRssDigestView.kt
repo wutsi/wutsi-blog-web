@@ -17,21 +17,22 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-abstract class AbstractRssDigestView(private val service: StoryService): AbstractRssFeedView() {
-
-    @Value("\${wutsi.base-url}")
-    protected lateinit var baseUrl: String
-
+abstract class AbstractRssDigestView(
+        private val service: StoryService,
+        private val baseUrl: String
+): AbstractRssFeedView() {
     abstract protected fun getTitle(): String
 
     abstract protected fun getDescription(): String
+
+    open protected fun getLink(): String = baseUrl
 
     protected abstract fun findStories(request: HttpServletRequest): List<StoryModel>
 
     override fun buildFeedMetadata(model: MutableMap<String, Any>?, feed: Channel?, request: HttpServletRequest) {
         feed?.title = getTitle()
         feed?.description = getDescription()
-        feed?.link = baseUrl
+        feed?.link = getLink()
     }
 
     override fun buildFeedItems(
