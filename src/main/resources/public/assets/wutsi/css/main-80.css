@@ -188,7 +188,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 64px;
 }
 
-#home-container ul {
+#home-container section ul {
     list-style: none;
     margin-left: 0;
     padding-left: 0;
@@ -196,7 +196,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
     width: fit-content;
 }
-#home-container li .fa-check {
+#home-container section li .fa-check {
     color: darkgreen;
     margin-right: 1em;
 }
