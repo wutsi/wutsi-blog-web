@@ -49,7 +49,7 @@ class BlogController(
     }
 
     private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        loadMyStories(blog, model)
+        loadMyStories(blog, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, model)
@@ -62,7 +62,7 @@ class BlogController(
         return "page/blog/reader"
     }
 
-    private fun loadMyStories(blog: UserModel, model: Model) {
+    private fun loadMyStories(blog: UserModel, model: Model, limit: Int) {
         if (!blog.blog){
             return
         }
@@ -72,7 +72,8 @@ class BlogController(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
-                sortOrder = SortOrder.descending
+                sortOrder = SortOrder.descending,
+                limit = limit
         ))
         if (!stories.isEmpty()){
             model.addAttribute("myStories", stories)
