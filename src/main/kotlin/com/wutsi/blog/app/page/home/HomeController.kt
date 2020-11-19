@@ -25,7 +25,8 @@ class HomeController(
             title = requestContext.getMessage("page.home.metadata.title"),
             description = requestContext.getMessage("page.home.metadata.description"),
             schemas = schemas.generate(),
-            showNotificationOptIn = true
+            showNotificationOptIn = true,
+            rssUrl = "/rss"
     )
 
     @GetMapping()

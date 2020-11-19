@@ -21,6 +21,8 @@ class HomeControllerTest: SeleniumTestSupport() {
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
         assertElementAttributeEndsWith("head meta[property='og:image']", "content", "/assets/wutsi/img/logo/logo_512x512.png")
+
+        assertElementAttributeEndsWith("head link[type='application/rss+xml']", "href", "/rss")
     }
 
     @Test
