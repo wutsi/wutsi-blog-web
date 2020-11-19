@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
 
+@Deprecated("")
 @Component
 class RssWeeklyDigestView(
         private val service: StoryService,

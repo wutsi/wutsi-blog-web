@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.home
+package com.wutsi.blog.app.page.rss
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName

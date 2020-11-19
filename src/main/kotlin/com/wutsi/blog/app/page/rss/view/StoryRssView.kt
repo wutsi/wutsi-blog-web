@@ -2,34 +2,29 @@ package com.wutsi.blog.app.page.rss.view
 
 import com.rometools.rome.feed.rss.Channel
 import com.rometools.rome.feed.rss.Description
+import com.rometools.rome.feed.rss.Enclosure
 import com.rometools.rome.feed.rss.Item
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
+import com.wutsi.blog.client.SortOrder
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
-import org.apache.commons.lang.time.DateUtils
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.servlet.view.feed.AbstractRssFeedView
-import java.util.Calendar
+import java.net.URLConnection
 import java.util.Date
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-@Deprecated("")
-abstract class AbstractRssDigestView(
-        private val service: StoryService,
+class StoryRssView(
+        private val user: UserModel? = null,
+        private val startDate: Date? = null,
+        private val endDate: Date? = null,
+        private val storyService: StoryService,
         private val baseUrl: String
 ): AbstractRssFeedView() {
-    abstract protected fun getTitle(): String
-
-    abstract protected fun getDescription(): String
-
-    open protected fun getLink(): String = baseUrl
-
-    protected abstract fun findStories(request: HttpServletRequest): List<StoryModel>
-
     override fun buildFeedMetadata(model: MutableMap<String, Any>?, feed: Channel?, request: HttpServletRequest) {
         feed?.title = getTitle()
         feed?.description = getDescription()
@@ -42,7 +37,7 @@ abstract class AbstractRssDigestView(
             response: HttpServletResponse?
     ): MutableList<Item> {
         val items = mutableListOf<Item>()
-        val stories = findStories(request)
+        val stories = findStories()
         stories.forEach {
             val description = Description()
             description.value = it.summary
@@ -53,41 +48,43 @@ abstract class AbstractRssDigestView(
             item.link = "${baseUrl}${it.slug}"
             item.description = description
             item.pubDate = it.publishedDateTimeAsDate
+            toEnclosure(it.thumbnailUrl)?.let {
+                item.enclosures = listOf(it)
+            }
+
             items.add(item)
         }
         return items
     }
 
-    protected fun yesterday(): Date {
-        val today = Calendar.getInstance()
-        today.set(Calendar.HOUR_OF_DAY, 0)
-        today.set(Calendar.MINUTE, 0)
-        today.set(Calendar.SECOND, 0)
-        today.set(Calendar.MILLISECOND, 0)
-        return DateUtils.addDays(today.time, -1)
+    private fun toEnclosure(url: String?): Enclosure? {
+        if (url.isNullOrEmpty())
+            return null
+
+        val enclosure = Enclosure()
+        enclosure.url = url
+        enclosure.type = URLConnection.guessContentTypeFromName(url)
+        return enclosure
     }
 
-    protected fun findStories(userId: Long?, startDate: Date, endDate: Date): List<StoryModel> {
-        return service.search(SearchStoryRequest(
-                userIds = if (userId == null) emptyList() else listOf(userId),
+    private fun getTitle(): String =
+            user?.let { "${it.fullName}(@${it.name}) RSS Feed" } ?: "Wutsi RSS Feed"
+
+    private fun getDescription(): String? =
+            user?.let { it.biography } ?: "Wutsi RSS Feed"
+
+    private fun getLink(): String =
+            if (user == null) baseUrl else "$baseUrl/@/${user.slug}"
+
+    private fun findStories(): List<StoryModel>
+        = storyService.search(SearchStoryRequest(
+                userIds = user?.let { listOf(it.id) } ?: emptyList(),
+                publishedStartDate = startDate,
+                publishedEndDate = endDate,
                 status = StoryStatus.published,
                 live = true,
-                limit = 30,
+                limit = 10,
                 sortBy = StorySortStrategy.published,
-                publishedStartDate = endDate,
-                publishedEndDate = startDate
+                sortOrder = SortOrder.descending
         ))
-    }
-
-    protected fun getUserId(request: HttpServletRequest): Long? {
-        try {
-            val userId = request.getParameter("userId")
-                    ?: return null
-
-            return userId.toLong()
-        } catch (ex: Exception){
-            return null
-        }
-    }
-
 }

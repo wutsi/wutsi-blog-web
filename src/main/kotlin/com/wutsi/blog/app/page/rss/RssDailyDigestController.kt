@@ -4,6 +4,7 @@ import com.wutsi.blog.app.page.rss.view.RssDailyDigestView
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
+@Deprecated("")
 @RestController
 class RssDailyDigestController(
         private val view: RssDailyDigestView
