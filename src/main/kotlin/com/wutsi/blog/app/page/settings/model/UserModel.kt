@@ -28,5 +28,6 @@ data class UserModel (
         val blog: Boolean = true,
         val storyCount: Long = 0,
         val followerCount: Long = 0,
-        val followerCountText: String = ""
+        val followerCountText: String = "",
+        val newsletterDeliveryDayOfWeek: Int = -1
 )

@@ -871,6 +871,11 @@ a.sso-button .fab {
 
 
 /*===== Settings ============*/
+.settings-sidebar {
+    position: fixed;
+    top: 8em;
+}
+
 .settings .form-control {
     border: none;
     border-radius: 0;

@@ -38,6 +38,23 @@
                 <option value="fr" th:attr="selected=${value} == 'fr'?selected : null">Francais</option>
                 <option value="en" th:attr="selected=${value} == 'en'?selected : null">English</option>
             </select>
+
+            <select class="form-control" disabled="disabled"
+                    th:data-key="${name}"
+                    th:name="${name}"
+                    th:if="${control == 'day_of_week'}"
+                    required="required"
+            >
+                <option value="-1" th:text="#{page.settings.newsletter.never}">Never</option>
+                <option value="1" th:attr="selected=${value} == '1'?selected : null" th:text="#{page.settings.newsletter.every.day.1}">Monday</option>
+                <option value="2" th:attr="selected=${value} == '2'?selected : null" th:text="#{page.settings.newsletter.every.day.2}">Monday</option>
+                <option value="3" th:attr="selected=${value} == '3'?selected : null" th:text="#{page.settings.newsletter.every.day.3}">Monday</option>
+                <option value="4" th:attr="selected=${value} == '4'?selected : null" th:text="#{page.settings.newsletter.every.day.4}">Monday</option>
+                <option value="5" th:attr="selected=${value} == '5'?selected : null" th:text="#{page.settings.newsletter.every.day.5}">Monday</option>
+                <option value="6" th:attr="selected=${value} == '6'?selected : null" th:text="#{page.settings.newsletter.every.day.6}">Monday</option>
+                <option value="7" th:attr="selected=${value} == '7'?selected : null" th:text="#{page.settings.newsletter.every.day.7}">Monday</option>
+            </select>
+
         </div>
         <div class="col-12 col-md-4 text-right margin-bottom">
             <button class="btn btn-light btn-sm btn-edit"

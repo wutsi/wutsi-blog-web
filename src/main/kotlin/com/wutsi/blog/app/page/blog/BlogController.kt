@@ -129,7 +129,7 @@ class BlogController(
 
     protected fun getPage(user: UserModel) = createPage(
             name = pageName(),
-            title = user.fullName,
+            title = "${user.fullName} | $siteDisplayName",
             description = if (user.biography == null) "" else user.biography,
             type = "profile",
             url = url(user),

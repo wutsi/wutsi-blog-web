@@ -70,7 +70,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name='description']", "content", description)
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
 
-        assertElementAttribute("head meta[property='og:title']", "content", title)
+        assertElementAttribute("head meta[property='og:title']", "content", "$title | Wutsi")
         assertElementAttribute("head meta[property='og:description']","content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "profile")
         assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/@/ray.sponsible")

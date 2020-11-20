@@ -17,6 +17,9 @@ import java.util.UUID
 abstract class AbstractPageController(
         @ModelAttribute(ModelAttributeName.REQUEST_CONTEXT) protected val requestContext: RequestContext
 ) {
+    @Value("\${wutsi.site-display-name}")
+    protected lateinit var siteDisplayName: String
+
     @Value("\${wutsi.asset-url}")
     protected lateinit var assetUrl: String
 
@@ -78,8 +81,8 @@ abstract class AbstractPageController(
     protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "index,follow" else "noindex,nofollow"
 
     open fun page() = createPage(
-            title = requestContext.getMessage("wutsi.title"),
-            description = requestContext.getMessage("wutsi.description")
+            title = requestContext.getMessage("page.home.metadata.title"),
+            description = requestContext.getMessage("page.home.metadata.description")
     )
 
     protected fun createPage(
