@@ -21,7 +21,9 @@
     <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
     <meta name="wutsi:hit_id"  th:content="${hitId}" th:if="${hitId}"/>
 
-    <title th:text="${page.title}"></title>
+    <title th:text="${page.title}" th:if="${page.name} == 'page.home'"></title>
+    <title th:text="${page.title} + ' | Wutsi'" th:if="${page.name} != 'page.home'"></title>
+
     <meta name="description" th:content="${page.description}" />
 
     <meta property="og:site_name" th:content="Wutsi" />

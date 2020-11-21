@@ -18,6 +18,7 @@
     "language": "fr",
     "blog": true,
     "storyCount": 10,
-    "followerCount": 17430
+    "followerCount": 17430,
+    "newsletterDeliveryDayOfWeek": 1
   }
 }

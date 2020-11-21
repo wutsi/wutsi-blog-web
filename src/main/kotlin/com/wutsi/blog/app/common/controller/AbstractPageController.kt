@@ -17,9 +17,6 @@ import java.util.UUID
 abstract class AbstractPageController(
         @ModelAttribute(ModelAttributeName.REQUEST_CONTEXT) protected val requestContext: RequestContext
 ) {
-    @Value("\${wutsi.site-display-name}")
-    protected lateinit var siteDisplayName: String
-
     @Value("\${wutsi.asset-url}")
     protected lateinit var assetUrl: String
 

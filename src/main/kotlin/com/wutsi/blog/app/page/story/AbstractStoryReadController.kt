@@ -62,7 +62,7 @@ abstract class AbstractStoryReadController(
 
     protected fun toPage(story: StoryModel)= createPage(
             name = pageName(),
-            title = "${story.title} | $siteDisplayName",
+            title = story.title,
             description = story.summary,
             type = "article",
             url = url(story),

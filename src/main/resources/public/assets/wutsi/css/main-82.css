@@ -591,6 +591,7 @@ a.sso-button .fab {
 
 .author .follower-count {
     font-size: 1.2em;
+    display: inline-block;
 }
 
 .navbar-author {
