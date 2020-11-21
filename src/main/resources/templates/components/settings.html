@@ -45,7 +45,7 @@
                     th:if="${control == 'day_of_week'}"
                     required="required"
             >
-                <option value="-1" th:text="#{page.settings.newsletter.never}">Never</option>
+                <option value="-1" th:text="${placeholder}"></option>
                 <option value="1" th:attr="selected=${value} == '1'?selected : null" th:text="#{page.settings.newsletter.every.day.1}">Monday</option>
                 <option value="2" th:attr="selected=${value} == '2'?selected : null" th:text="#{page.settings.newsletter.every.day.2}">Monday</option>
                 <option value="3" th:attr="selected=${value} == '3'?selected : null" th:text="#{page.settings.newsletter.every.day.3}">Monday</option>

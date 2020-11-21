@@ -66,7 +66,7 @@
             <div class="border-top margin-top padding-top">
                 <a name="newsletter"></a>
                 <h4 th:text="#{label.newsletter}">Newsletter</h4>
-                <div th:replace="components/settings :: inline_input_form(title='', name='newsletter_delivery_day_of_week', value=${user.newsletterDeliveryDayOfWeek}, maxlen='', control='day_of_week', type='', placeholder='')"></div>
+                <div th:replace="components/settings :: inline_input_form(title='', name='newsletter_delivery_day_of_week', value=${user.newsletterDeliveryDayOfWeek}, maxlen='', control='day_of_week', type='', placeholder=#{page.settings.newsletter.placeholder})"></div>
             </div>
         </div>
     </div>
