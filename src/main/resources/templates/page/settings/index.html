@@ -35,7 +35,7 @@
             <a name="general"></a>
             <h1 th:text="#{page.settings.title}">Blog Setting</h1>
 
-            <div>
+            <div class="border-top margin-top padding">
                 <div th:replace="components/settings :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=128, control='input', type='text', placeholder=#{page.settings.username.placeholder})"></div>
             </div>
             <div class="border-top margin-top padding">

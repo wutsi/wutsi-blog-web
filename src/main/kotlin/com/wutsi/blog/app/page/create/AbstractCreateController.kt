@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 abstract class AbstractCreateController(
-        private val userService: UserService,
+        protected val userService: UserService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.CREATE_FULLNAME

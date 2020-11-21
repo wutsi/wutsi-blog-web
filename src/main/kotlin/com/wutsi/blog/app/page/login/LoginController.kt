@@ -67,7 +67,7 @@ class LoginController(
         }
 
         if (redirectUrl != null && domain.equals(redirectUrl.host)){
-            if (redirectUrl.path == "/create/name"){
+            if (redirectUrl.path.startsWith("/create")){
                 return REASON_CREATE_BLOG
             } else if (redirectUrl.path == "/follow") {
                 return REASON_FOLLOW

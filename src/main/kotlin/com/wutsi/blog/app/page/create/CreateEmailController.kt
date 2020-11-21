@@ -16,7 +16,7 @@ class CreateEmailController(
 
     override fun pagePath() = "page/create/email"
 
-    override fun redirectUrl() = "/create/biography"
+    override fun redirectUrl() = requestContext.currentUser()!!.slug
 
     override fun attributeName() = "email"
 

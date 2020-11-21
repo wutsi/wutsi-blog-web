@@ -7,21 +7,14 @@
 <body>
 
 <div th:replace="components/layout :: navbar"></div>
-<div th:if="${toggles.follow} AND ${blog}">
-    <div th:replace="components/layout :: navbar-blog(${blog}, false, null)"></div>
-</div>
-<div th:if="!${toggles.follow} OR !${blog}">
-    <div th:replace="components/layout :: navbar" ></div>
-</div>
-
 
 <div class="container">
     <div class="row">
         <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
 
-            <div class="main-content border text-center padding margin-top-2x margin-bottom-4x">
+            <div class="main-content border text-center padding margin-bottom-4x">
                 <div id="create-blog-wizard" class="margin-top" th:if="${createBlog}">
-                    <div th:replace="components/story :: wizard(6, 1)"></div>
+                    <div th:replace="components/story :: wizard(3, 1)"></div>
                 </div>
 
                 <div id="login-panel">
@@ -62,6 +55,18 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="value-prop text-center margin-top-4x" th:if="${createBlog}">
+                    <h3 th:text="#{page.login.create.why.title}">Why Creating a Blog?</h3>
+                    <ul class="margin-top">
+                        <li><i class="fas fa-check"></i> <span th:text="#{page.login.create.why.option1}">Its Free</span></li>
+                        <li><i class="fas fa-check"></i> <span th:text="#{page.login.create.why.option2}">A website for your Blog</span></li>
+                        <li><i class="fas fa-check"></i>  <span th:text="#{page.login.create.why.option3}">Your own mailing list</span></li>
+                        <li><i class="fas fa-check"></i>  <span th:text="#{page.login.create.why.option4}">Simple editor that supports text/image/video/audio</span></li>
+                        <li><i class="fas fa-check"></i>  <span th:text="#{page.login.create.why.option5}">Integrated analytics for your Blog statistics</span></li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>

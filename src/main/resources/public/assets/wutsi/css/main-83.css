@@ -75,8 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 .fa-facebook-messenger {
     color: #00B2FF;
 }
-
-.fa-check-circle {
+.fa-check-circle, .fa-check {
     color: darkgreen;
 }
 
@@ -205,22 +204,32 @@ h1, h2, h3, h4, h5, h6 {
     width: fit-content;
 }
 #home-container section li .fa-check {
-    color: darkgreen;
     margin-right: 1em;
 }
 
+/* ==== CREATE === */
+.value-prop ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 auto;
+    text-align: left;
+    width: fit-content;
+}
+.value-prop ul li {
+    margin-bottom: 1em;
+}
+.value-prop .fa-check {
+    margin-right: 1em;
+}
+
+
+/* ==== WRITER ==== */
 .writer a,
 a .writer{
     color: var(--text-color);
     text-decoration: none;
 }
 
-/*.writer img {*/
-/*    width: 48px;*/
-/*    height: 48px;*/
-/*}*/
-
-/* ==== WRITER ==== */
 #writer-container .writer img {
     border: 1px solid var(--border-color);
     border-radius: 50%;

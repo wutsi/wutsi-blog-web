@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.model.UserAttributeForm
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/create/name")
+@RequestMapping("/create")
 class CreateNameController(
         userService: UserService,
         requestContext: RequestContext
@@ -18,7 +19,7 @@ class CreateNameController(
 
     override fun pagePath() = "page/create/name"
 
-    override fun redirectUrl() = "/create/fullname"
+    override fun redirectUrl() = "/create/email"
 
     override fun attributeName() = "name"
 
@@ -26,12 +27,8 @@ class CreateNameController(
 
     @GetMapping
     override fun index(model: Model): String {
-        val user = requestContext.currentUser()!!
-        if (user.loginCount > 1) {
-            // User has already a blog!
-            return "redirect:" + user.slug
-        }
-
+        // Set the user as blogger
+        userService.set(UserAttributeForm("blog", "true"))
         return super.index(model)
     }
 
