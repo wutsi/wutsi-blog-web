@@ -4,7 +4,7 @@
     <div th:replace="components/layout :: head"></div>
 </head>
 
-<body id="home-container">
+<body id="writer-container">
 
 <div th:replace="components/layout :: navbar"></div>
 
@@ -15,7 +15,7 @@
 
             <a th:href="${writer.slug}" th:each="writer : ${writers}">
                 <section class="padding flex writer border-top">
-                    <img class="margin-right" th:src="${writer.pictureUrl}" th:title="${writer.fullName}"/>
+                    <img class="margin-right" th:src="${writer.pictureUrl}" th:title="${writer.fullName}" />
                     <div>
                         <h6 th:text="${writer.fullName}">Ray sponsible</h6>
                         <div class="text-small" th:text="${writer.biography}" th:if="${writer.biography}">Bio</div>
