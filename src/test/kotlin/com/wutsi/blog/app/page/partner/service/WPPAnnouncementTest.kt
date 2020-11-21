@@ -39,7 +39,7 @@ class WPPAnnouncementTest {
         Mockito.`when`(partners.isPartner()).thenReturn(false)
         Mockito.`when`(contracts.hasContract()).thenReturn(false)
 
-        assertTrue(announcement.show())
+        assertTrue(announcement.show("foo"))
     }
 
     @Test
@@ -51,7 +51,7 @@ class WPPAnnouncementTest {
 
         Mockito.`when`(partners.isPartner()).thenReturn(true)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -64,7 +64,7 @@ class WPPAnnouncementTest {
         Mockito.`when`(partners.isPartner()).thenReturn(false)
         Mockito.`when`(contracts.hasContract()).thenReturn(true)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -74,7 +74,7 @@ class WPPAnnouncementTest {
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -84,7 +84,7 @@ class WPPAnnouncementTest {
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -93,7 +93,7 @@ class WPPAnnouncementTest {
         Mockito.`when`(requestContext.currentUser()).thenReturn(null)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
 
@@ -102,7 +102,7 @@ class WPPAnnouncementTest {
         val toggles = createToggles(false)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
     @Test
     fun name() {

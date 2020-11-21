@@ -12,7 +12,7 @@ class TwitterAnnouncement(
         requestContext: RequestContext,
         private val channels: ChannelService
 ): AbstractAnnouncement(requestContext) {
-    override fun show(): Boolean {
+    override fun show(page: String): Boolean {
         val toggles = requestContext.toggles()
         val user = requestContext.currentUser()
         if (toggles.channel && toggles.channelTwitter && user?.blog == true && user.loginCount < Announcement.MAX_LOGIN){

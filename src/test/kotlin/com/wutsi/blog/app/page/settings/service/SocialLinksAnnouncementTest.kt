@@ -5,6 +5,7 @@ import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.page.settings.model.UserModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
@@ -26,7 +27,7 @@ class SocialLinksAnnouncementTest {
         val user = UserModel()
         `when`(requestContext.currentUser()).thenReturn(user)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -34,7 +35,7 @@ class SocialLinksAnnouncementTest {
         val user = UserModel(youtubeUrl = "https://www.youtube.com/user/foo")
         `when`(requestContext.currentUser()).thenReturn(user)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -42,14 +43,14 @@ class SocialLinksAnnouncementTest {
         val user = UserModel(loginCount = Announcement.MAX_LOGIN+1)
         `when`(requestContext.currentUser()).thenReturn(user)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
     fun `never show for anonymous`() {
         Mockito.`when`(requestContext.currentUser()).thenReturn(null)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -62,4 +63,13 @@ class SocialLinksAnnouncementTest {
         assertEquals("/me/settings", announcement.actionUrl())
     }
 
+    @Test
+    fun autoHide() {
+        assertTrue(announcement.autoHide())
+    }
+
+    @Test
+    fun deley() {
+        assertEquals(10000, announcement.delay())
+    }
 }

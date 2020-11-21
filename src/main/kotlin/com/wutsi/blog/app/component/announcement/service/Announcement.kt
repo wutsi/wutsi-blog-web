@@ -8,15 +8,23 @@ interface Announcement {
         const val MAX_LOGIN = 5L
     }
 
-    fun show(): Boolean
+    fun show(page: String): Boolean
 
     fun name(): String
 
+    fun title(): String
+
     fun description(): String
+
+    fun actionText(): String?
 
     fun actionUrl(): String?
 
     fun iconUrl(): String? = null
+
+    fun autoHide(): Boolean = true
+
+    fun delay(): Int = 10000
 
     fun cookieMaxAge() : Int = CookieHelper.ONE_DAY_SECONDS
 }

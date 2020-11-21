@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class SocialLinksAnnouncement(
         requestContext: RequestContext
 ): AbstractAnnouncement(requestContext) {
-    override fun show(): Boolean {
+    override fun show(page: String): Boolean {
         val user = requestContext.currentUser()
         return user?.blog == true
                 && user?.hasSocialLinks == false

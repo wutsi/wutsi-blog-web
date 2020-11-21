@@ -13,7 +13,7 @@ class WPPAnnouncement(
         private val partners: PartnerService,
         private val contracts: ContractService
 ): AbstractAnnouncement(requestContext) {
-    override fun show(): Boolean {
+    override fun show(page: String): Boolean {
         val user = requestContext.currentUser()
         val toggles = requestContext.toggles()
         return toggles.wpp && user?.blog == true && user.loginCount < Announcement.MAX_LOGIN && !partners.isPartner() && !contracts.hasContract()

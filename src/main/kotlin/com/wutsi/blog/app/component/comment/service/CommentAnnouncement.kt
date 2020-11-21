@@ -20,7 +20,7 @@ class CommentAnnouncement(
     private var total: String? = null
     private var story: StoryModel? = null
 
-    override fun show(): Boolean {
+    override fun show(page: String): Boolean {
         // User
         val author = requestContext.currentUser()
         if (author == null ) {

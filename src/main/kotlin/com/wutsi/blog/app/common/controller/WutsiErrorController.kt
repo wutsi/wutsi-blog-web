@@ -49,8 +49,8 @@ class WutsiErrorController(
 
     private fun toPage(code: Int?) = createPage(
             name = pageName(code),
-            title = requestContext.getMessage("wutsi.title"),
-            description = requestContext.getMessage("wutsi.description")
+            title = requestContext.getMessage("page.home.metadata.title"),
+            description = requestContext.getMessage("page.home.metadata.description")
     )
 
     private fun pageName(code: Int?): String {

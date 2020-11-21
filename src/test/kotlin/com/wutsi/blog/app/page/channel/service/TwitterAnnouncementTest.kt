@@ -38,7 +38,7 @@ class TwitterAnnouncementTest {
         val channel2 = createChannel(ChannelType.facebook, false)
         `when`(channels.all()).thenReturn(arrayListOf(channel1 ,channel2))
 
-        assertTrue(announcement.show())
+        assertTrue(announcement.show("foo"))
     }
 
     @Test
@@ -48,7 +48,7 @@ class TwitterAnnouncementTest {
         `when`(requestContext.currentUser()).thenReturn(user)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -57,7 +57,7 @@ class TwitterAnnouncementTest {
         `when`(requestContext.currentUser()).thenReturn(null)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -68,7 +68,7 @@ class TwitterAnnouncementTest {
         `when`(requestContext.toggles()).thenReturn(toggles)
 
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
 
@@ -78,7 +78,7 @@ class TwitterAnnouncementTest {
         val toggles = createToggles(channel = false)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
 
@@ -87,7 +87,7 @@ class TwitterAnnouncementTest {
         val toggles = createToggles(channelTwitter = false)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show())
+        assertFalse(announcement.show("foo"))
     }
 
     @Test
@@ -99,6 +99,17 @@ class TwitterAnnouncementTest {
     fun actionUrl() {
         assertEquals("/me/channel", announcement.actionUrl())
     }
+
+    @Test
+    fun autoHide() {
+        assertTrue(announcement.autoHide())
+    }
+
+    @Test
+    fun deley() {
+        assertEquals(10000, announcement.delay())
+    }
+
 
     private fun createToggles(channel: Boolean=true, channelTwitter: Boolean = true): Toggles {
         val toggles = Toggles()

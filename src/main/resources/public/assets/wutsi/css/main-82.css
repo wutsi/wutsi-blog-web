@@ -109,6 +109,14 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--highlight-color-light);
 }
 
+.flash-highlight {
+    animation: flash-highlight-annimation 3000ms ease-out;
+}
+@keyframes flash-highlight-annimation {
+    0% {  background-color: white; }
+    100% {  background-color: var(--highlight-color-light); }
+}
+
 .main-content {
     background: white;
 }
@@ -289,8 +297,8 @@ a .writer{
 /* ==== ANNOUNCEMENT ==== */
 #wutsi-announcement-container{
     position:fixed;
-    bottom: 5em;
-    left: 25px;
+    top: 10em;
+    left: 1em;
 }
 
 /* ==== FOOTER ==== */
@@ -968,6 +976,12 @@ a.sso-button .fab {
         width: 90%;
         height: 90%;
     }
+
+    .settings-sidebar{
+        position: relative;
+        top: auto;
+    }
+
 }
 
 @media screen

@@ -28,16 +28,20 @@ class AnnouncementService(
                 show = true,
                 announcement = AnnouncementModel(
                         name = announcement.name(),
+                        title = announcement.title(),
                         message = announcement.description(),
+                        actionText = announcement.actionText(),
                         actionUrl = announcement.actionUrl(),
-                        iconUrl = announcement.iconUrl()
+                        iconUrl = announcement.iconUrl(),
+                        autoHide = announcement.autoHide(),
+                        delay = announcement.delay()
                 )
             )
         }
     }
 
     private fun shouldDisplay(page: String, announcement: Announcement, request: HttpServletRequest): Boolean {
-        return !hasCookie(announcement, request) && announcement.show()
+        return !hasCookie(announcement, request) && announcement.show(page)
     }
 
     private fun hasCookie(announcement: Announcement, request: HttpServletRequest): Boolean {

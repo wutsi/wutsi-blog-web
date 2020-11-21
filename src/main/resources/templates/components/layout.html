@@ -273,13 +273,10 @@
 <!-- ################# -->
 <div th:fragment="announcement">
     <div id="wutsi-announcement-container" th:if="${toggles.announcement}">
-        <div id="wutsi-announcement" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="7000">
+        <div id="wutsi-announcement" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
             <div class="toast-header">
                 <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" class="rounded mr-2" width="16" height="16">
-                <strong class="mr-auto" th:text="#{label.notification}">Wutsi</strong>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <b class="mr-auto title" th:text="#{label.notification}">Wutsi</b>
             </div>
             <div class="toast-body flex">
                 <img width="32" height="32" class="hidden margin-right"/>
@@ -302,11 +299,22 @@
                 if (data.show){
                     const announcement = data.announcement;
 
+                    $('#wutsi-announcement .toast-header .title').text(announcement.title);
                     $('#wutsi-announcement .toast-body .message').html(announcement.message);
                     if (announcement.actionUrl) {
                         $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
+                        $('#wutsi-announcement .toast-body .action a').text(announcement.actionText);
                         $('#wutsi-announcement .toast-body .action').show();
                     }
+
+                    if (announcement.autoHide) {
+                        $('#wutsi-announcement').attr('auto-hide', 'true');
+                        $('#wutsi-announcement').attr('delay', announcement.delay);
+                    } else {
+                        $('#wutsi-announcement').removeAttr('auto-hide');
+                        $('#wutsi-announcement').removeAttr('delay');
+                    }
+
                     if (announcement.iconUrl) {
                         const assetUrl = /*[[${page.assetUrl}]]*/'';
                         $('#wutsi-announcement .toast-body img').attr('src', assetUrl + announcement.iconUrl);
@@ -314,6 +322,7 @@
                     } else {
                         $('#wutsi-announcement .toast-body img').addClass('hidden');
                     }
+
                     console.log('showing announcement', announcement.name);
                     $('.toast').toast('show');
 
