@@ -12,7 +12,25 @@ class SettingsControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
+    }
+
+    @Test
+    fun `no subscriptions`() {
+        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
+
+        gotoPage()
+
+        assertElementPresent(".subscriptions-none")
+        assertElementNotPresent("#subscriptions-container .author")
+    }
+
+    @Test
+    fun `my subscriptions`() {
+        gotoPage()
+
+        assertElementPresent("#subscriptions-container .author")
     }
 
     @Test
@@ -42,7 +60,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
     fun `user cancel blog name`() {
         testCancel("full_name", "Ray Sponsible", "Ray Blog")
     }
-
 
 
 

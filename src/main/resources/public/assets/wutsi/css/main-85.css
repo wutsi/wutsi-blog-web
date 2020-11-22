@@ -188,12 +188,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: white;
 }
 
-#home-container .writer img {
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-}
 
 #home-container section ul {
     list-style: none;
@@ -220,21 +214,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .value-prop .fa-check {
     margin-right: 1em;
-}
-
-
-/* ==== WRITER ==== */
-.writer a,
-a .writer{
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-#writer-container .writer img {
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
 }
 
 
@@ -617,6 +596,17 @@ body#writers-body {
     display: inline-block;
 }
 
+
+.author-carousel .author a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+.author-carousel .author img {
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
 
 
 /*======= READER =======*/
@@ -1004,15 +994,15 @@ body#writers-body {
         top: auto;
     }
 
-    #writer-container .writer img {
-        width: 32px;
-        height: 32px;
-    }
-
     /*===== AUTHOR COMPONENT =====*/
     .author-summary-card img {
         width: 24px;
         height: 24px;
+    }
+
+    #author-carousel .author img {
+        width: 32px;
+        height: 32px;
     }
 }
 
