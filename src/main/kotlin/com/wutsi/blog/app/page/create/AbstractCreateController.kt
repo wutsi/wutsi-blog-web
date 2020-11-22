@@ -21,6 +21,11 @@ abstract class AbstractCreateController(
 
     abstract fun value(): String?
 
+    override fun page() = createPage(
+            title = requestContext.getMessage("page.create.metadata.title"),
+            description = requestContext.getMessage("page.create.metadata.description")
+    )
+
     @GetMapping
     open fun index(model: Model): String {
         val value = value()
