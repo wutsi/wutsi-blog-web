@@ -49,10 +49,11 @@ class BlogController(
     }
 
     private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        loadMyStories(blog, model, 50)
+        val stories = loadMyStories(blog, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, model)
+        shouldShowCreateStory(blog, stories, model)
         return "page/blog/writer"
     }
 
@@ -62,11 +63,7 @@ class BlogController(
         return "page/blog/reader"
     }
 
-    private fun loadMyStories(blog: UserModel, model: Model, limit: Int) {
-        if (!blog.blog){
-            return
-        }
-
+    private fun loadMyStories(blog: UserModel, model: Model, limit: Int): List<StoryModel> {
         val stories = storyService.search(SearchStoryRequest(
                 userIds = listOf(blog.id),
                 status = StoryStatus.published,
@@ -78,6 +75,7 @@ class BlogController(
         if (!stories.isEmpty()){
             model.addAttribute("myStories", stories)
         }
+        return stories
     }
 
     private fun loadFollowingStories(followingUserIds: List<Long>, model: Model, limit: Int) {
@@ -125,6 +123,14 @@ class BlogController(
 
     private fun shouldShowFollowButton(blog: UserModel, model: Model) {
         model.addAttribute("showFollowButton", followerService.canFollow(blog.id))
+    }
+
+    private fun shouldShowCreateStory(blog: UserModel, stories: List<StoryModel>, model: Model) {
+        if (stories.isNotEmpty() || !blog.blog || blog.id != requestContext.currentUser()?.id)
+            return
+
+        val count = storyService.count()
+        model.addAttribute("showCreateStoryButton", count == 0)
     }
 
     protected fun getPage(user: UserModel) = createPage(

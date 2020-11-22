@@ -116,7 +116,7 @@ class StoryService(
         ))
     }
 
-    fun count(status: StoryStatus): Int {
+    fun count(status: StoryStatus? = null): Int {
         val userId = requestContext.currentUser()?.id
         val request = SearchStoryRequest(
                 userIds = if (userId == null) emptyList() else listOf(userId),

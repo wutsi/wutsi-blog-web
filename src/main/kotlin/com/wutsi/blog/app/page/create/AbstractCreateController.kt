@@ -13,8 +13,6 @@ abstract class AbstractCreateController(
         protected val userService: UserService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
-    override fun pageName() = PageName.CREATE_FULLNAME
-
     abstract fun pagePath(): String
 
     abstract fun redirectUrl(): String

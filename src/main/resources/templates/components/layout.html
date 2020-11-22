@@ -66,7 +66,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-22.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-83.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-84.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -196,8 +196,8 @@
             </li>
         </ul>
     </nav>
-    <div class="navbar-margin">&nbsp;</div>
     <div th:replace="components/layout :: navbar-super-user-banner"></div>
+    <div class="navbar-margin">&nbsp;</div>
 </div>
 
 <!-- ################# -->
@@ -220,8 +220,8 @@
             <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>
     </nav>
-    <div class="navbar-margin">&nbsp;</div>
     <div th:replace="components/layout :: navbar-super-user-banner"></div>
+    <div class="navbar-margin">&nbsp;</div>
 </div>
 
 <li th:fragment="navbar-dropdown" class="nav-item dropdown" th:if="${user}">

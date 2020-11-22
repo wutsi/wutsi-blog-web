@@ -109,15 +109,15 @@
         <h1 th:text="${me.fullName}" th:if="${inBlogPage}">Ray Sponsible</h1>
         <a th:href="${me.slug}" th:if="!${inBlogPage}" th:text="${me.fullName}">Ray Sponsible</a>
 
-        <div class="bio" th:if="${me.biography}" th:text="${me.biography}" classappend="!${inBlogPage} ? text-small">Biography</div>
-        <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}" classappend="!${inBlogPage} ? text-small">
-            <a class="website"
+        <div class="bio text-small" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
+        <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}">
+            <a class="website text-small"
                wutsi-track-event="link"
                wutsi-track-value="website"
                th:href="${me.websiteUrl}" th:text="${me.websiteUrl}"
             >http://www.fldkl.com</a>
         </div>
-        <div class="margin-top">
+        <div class="margin-top" th:if="${me.hasSocialLinks} OR ${me.hasFollowers}">
             <a target="_new"
                class="social-link facebook"
                wutsi-track-event="link"

@@ -11,6 +11,9 @@ class CreateControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count-0.json")
+        stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
+
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-first-login.json")
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-first-login.json")
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
@@ -29,7 +32,7 @@ class CreateControllerTest : SeleniumTestSupport() {
     fun `create blog` () {
         gotoPage()
 
-        assertCurrentPageIs(PageName.CREATE_NAME)
+        assertCurrentPageIs(PageName.CREATE)
 
         input(".form-control", "wutsi")
         click("#btn-next")
@@ -40,6 +43,10 @@ class CreateControllerTest : SeleniumTestSupport() {
         click("#btn-next")
 
         assertCurrentPageIs(PageName.BLOG)
+        assertElementVisible("#btn-create-story")
+
+        click("#btn-create-story")
+        assertCurrentPageIs(PageName.EDITOR)
     }
 
 

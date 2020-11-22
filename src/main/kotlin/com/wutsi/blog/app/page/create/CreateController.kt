@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/create")
-class CreateNameController(
+class CreateController(
         userService: UserService,
         requestContext: RequestContext
 ): AbstractCreateController(userService, requestContext) {
-    override fun pageName() = PageName.CREATE_NAME
+    override fun pageName() = PageName.CREATE
 
-    override fun pagePath() = "page/create/name"
+    override fun pagePath() = "page/create"
 
     override fun redirectUrl() = "/create/email"
 
@@ -29,6 +29,7 @@ class CreateNameController(
     override fun index(model: Model): String {
         // Set the user as blogger
         userService.set(UserAttributeForm("blog", "true"))
+
         return super.index(model)
     }
 

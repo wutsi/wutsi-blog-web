@@ -29,6 +29,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             storyCount = user.storyCount,
             followerCount = user.followerCount,
             followerCountText = NumberUtils.toHumanReadable(user.followerCount),
+            hasFollowers = user.followerCount > 0,
             readAllLanguages = user.readAllLanguages,
             language = user.language,
             locale = if (user.language == null) null else Locale(user.language, "CM"),

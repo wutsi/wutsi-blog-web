@@ -10,12 +10,7 @@ class PageName{
         const val COMMENT = "page.comment"
 
         const val CREATE = "page.create"
-        const val CREATE_NAME = "page.create.name"
-        const val CREATE_FULLNAME = "page.create.fullname"
-        const val CREATE_EMAIL = "page.create.fullname"
-        const val CREATE_BIOGRAPHY = "page.create.biography"
-        const val CREATE_PICTURE = "page.create.picture"
-        const val CREATE_SUCCESS = "page.create.success"
+        const val CREATE_EMAIL = "page.create.email"
 
         const val EDITOR = "page.editor"
         const val EDITOR_READABILITY = "page.editor.readability"
