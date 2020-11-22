@@ -23,14 +23,14 @@ class SettingsControllerTest: SeleniumTestSupport() {
         gotoPage()
 
         assertElementPresent(".subscriptions-none")
-        assertElementNotPresent("#subscriptions-container .author")
+        assertElementNotPresent("#subscriptions-container .author-summary-card")
     }
 
     @Test
     fun `my subscriptions`() {
         gotoPage()
 
-        assertElementPresent("#subscriptions-container .author")
+        assertElementPresent("#subscriptions-container .author-summary-card")
     }
 
     @Test
