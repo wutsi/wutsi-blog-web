@@ -7,17 +7,17 @@
 <body class="paper">
     <div th:replace="components/layout :: navbar-blog(${blog}, ${showFollowButton}, ${blog.slug})"></div>
 
-    <div class="author-navbar padding border-bottom box-filled-white margin-bottom">
+    <div class="author-navbar padding border-bottom box-filled-white">
         <div th:replace="components/story :: author-card(${blog}, !${toggles.follow})"></div>
-        <div th:if="${showFollowButton}">
-            <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
-        </div>
-        <div th:if="${showCreateStoryButton}" class="margin-left margin-bottom text-center">
+        <div th:if="${showCreateStoryButton}" class="margin-top text-center">
             <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}">Write your first Story</a>
         </div>
     </div>
+    <div th:if="${showFollowButton}">
+        <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
+    </div>
 
-    <div class="container">
+    <div class="container margin-top">
         <div class="row">
             <div id="my-stories" class="col-12 offset-lg-1 col-lg-6">
                 <div th:each="story, it: ${myStories}">

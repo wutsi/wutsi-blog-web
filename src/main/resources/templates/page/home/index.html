@@ -4,7 +4,7 @@
     <div th:replace="components/layout :: head"></div>
 </head>
 
-<body id="home-container">
+<body class="box-filled-white">
 
 <div th:replace="components/layout :: navbar"></div>
 
@@ -73,7 +73,7 @@
         <div class="col-12 col-md-8 offset-md-2">
             <section class="padding-2x text-center value-prop">
                 <h2 th:text="#{page.home.in_charge.title}">You are in charge</h2>
-                <ul>
+                <ul class="margin-top">
                     <li><i class="fas fa-check"></i> <span th:text="#{page.home.in_charge.option1}">A website for your Blog</span></li>
                     <li><i class="fas fa-check"></i>  <span th:text="#{page.home.in_charge.option2}">Your own mailing list</span></li>
                     <li><i class="fas fa-check"></i>  <span th:text="#{page.home.in_charge.option3}">Simple editor that supports text/image/video/audio</span></li>

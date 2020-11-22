@@ -183,39 +183,6 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
-/* ==== HOME === */
-#home-container {
-    background-color: white;
-}
-
-
-#home-container section ul {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-    margin: 0 auto;
-    text-align: left;
-    width: fit-content;
-}
-#home-container section li .fa-check {
-    margin-right: 1em;
-}
-
-/* ==== CREATE === */
-.value-prop ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0 auto;
-    text-align: left;
-    width: fit-content;
-}
-.value-prop ul li {
-    margin-bottom: 1em;
-}
-.value-prop .fa-check {
-    margin-right: 1em;
-}
-
 
 /* ==== NAVBAR ==== */
 .navbar {
@@ -294,7 +261,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ==== ANNOUNCEMENT ==== */
 #wutsi-announcement-container{
     position:fixed;
-    top: 10em;
+    bottom: 8em;
     left: 1em;
 }
 
@@ -547,66 +514,7 @@ a.sso-button .fab {
 }
 
 /*======= PAGE =======*/
-body#writers-body {
-    background-color: white;
-}
 
-/*======= AUTHOR COMPONENTS =======*/
-.author-navbar {
-    margin-top: -1.6em;
-}
-
-
-.author-summary-card {
-    display: flex;
-}
-.author-summary-card img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-}
-.author-summary-card .follower-count {
-    margin-left: 2em
-}
-.author-summary-card .btn-container {
-    margin-left: auto
-}
-
-
-.author-card img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-}
-.author-card h1 {
-    font-size: 1.5em;
-}
-.author-card a.social-link {
-    text-decoration: none;
-}
-.author-card .fab,
-.author-card .fas {
-    color: var(--text-color);
-    font-size: 1.2em;
-    margin-right: 1em;
-}
-.author-card .follower-count {
-    font-size: 1em;
-    margin-left: 2em;
-    display: inline-block;
-}
-
-
-.author-carousel .author a {
-    text-decoration: none;
-    color: var(--text-color);
-}
-.author-carousel .author img {
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-}
 
 
 /*======= READER =======*/
@@ -1037,4 +945,84 @@ body#writers-body {
 .select2-container--default .select2-selection--multiple {
     border-radius: 0;
     border: 1px solid var(--border-color);
+}
+
+
+/* ======================================================================== */
+/*                                                                          */
+/*  WUTSI COMPONENTS                                                        */
+/*                                                                          */
+/* ======================================================================== */
+/*======= AUTHOR =======*/
+.author-navbar {
+    margin-top: -1.6em;
+}
+
+
+.author-summary-card {
+    display: flex;
+}
+.author-summary-card img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+.author-summary-card .follower-count {
+    margin-left: 2em
+}
+.author-summary-card .btn-container {
+    margin-left: auto
+}
+
+
+.author-card img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+.author-card h1 {
+    font-size: 1.5em;
+}
+.author-card a.social-link {
+    text-decoration: none;
+}
+.author-card .fab,
+.author-card .fas {
+    color: var(--text-color);
+    font-size: 1.2em;
+    margin-right: 1em;
+}
+.author-card .follower-count {
+    font-size: 1em;
+    margin-left: 2em;
+    display: inline-block;
+}
+
+
+.author-carousel .author a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+.author-carousel .author img {
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
+
+
+/* ==== VALUE PROPOSITION  === */
+.value-prop ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: fit-content;
+}
+.value-prop ul li {
+    margin-bottom: 1em;
+}
+.value-prop .fa-check {
+    margin-right: 1em;
 }

@@ -279,6 +279,10 @@
             <div class="toast-header">
                 <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" class="rounded mr-2" width="16" height="16">
                 <b class="mr-auto title" th:text="#{label.notification}">Wutsi</b>
+
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="toast-body flex">
                 <img width="32" height="32" class="hidden margin-right"/>
