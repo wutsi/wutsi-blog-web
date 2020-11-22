@@ -34,6 +34,7 @@ class BlogControllerTest: SeleniumTestSupport() {
     @Test
     fun `my empty blog page` () {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
+        stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count-0.json")
 
         gotoPage(true)
 
