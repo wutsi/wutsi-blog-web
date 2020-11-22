@@ -28,6 +28,9 @@
                     <div>
                         <a href="#newsletter" th:text="#{label.newsletter}">Newsletter</a>
                     </div>
+                    <div>
+                        <a href="#subscriptions" th:text="#{label.subscriptions}">Subscriptions</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,8 +57,8 @@
                 <div th:replace="components/settings :: inline_input_form(title=#{label.website}, name='website_url', value=${user.websiteUrl}, maxlen=200, control='input', type='url', placeholder=#{page.settings.website.placeholder})"></div>
             </div>
 
+            <a name="social_media"></a>
             <div class="border-top margin-top padding">
-                <a name="social_media"></a>
                 <h4 th:text="#{label.social_media}">Social Links</h4>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.facebook.com/', name='facebook_id', value=${user.facebookId}, placeholder=#{page.settings.facebook.placeholder})"></div>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.twitter.com/', name='twitter_id', value=${user.twitterId}, placeholder=#{page.settings.twitter.placeholder})"></div>
@@ -63,10 +66,18 @@
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.linked.com/in/', name='linked_id', value=${user.linkedinId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
             </div>
 
+            <a name="newsletter"></a>
             <div id="newsletter-container" class="border-top margin-top padding" th:classappend="${highlight}=='newsletter-container'?flash-highlight">
-                <a name="newsletter"></a>
                 <h4 th:text="#{label.newsletter}">Newsletter</h4>
                 <div th:replace="components/settings :: inline_input_form(title='', name='newsletter_delivery_day_of_week', value=${user.newsletterDeliveryDayOfWeek}, maxlen='', control='day_of_week', type='', placeholder=#{page.settings.newsletter.placeholder})"></div>
+            </div>
+
+            <a name="subscriptions"></a>
+            <div id="subscriptions-container" class="border-top margin-top padding" th:classappend="${highlight}=='subscriptions-container'?flash-highlight">
+                <h4 th:text="#{label.subscriptions}">Subscriptions</h4>
+                <div class="padding-top margin-top border-top" th:each="followingUser : ${followingUsers}">
+                    <div th:replace="components/story :: author-summary-card(${followingUser}, false)"></div>
+                </div>
             </div>
         </div>
     </div>

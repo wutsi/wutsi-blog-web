@@ -16,7 +16,6 @@ class FollowerService(
             followerUserId = requestContext.currentUser()?.id
         )).followerId
 
-
     fun searchFollowingUserIds(): List<Long> {
         if (!requestContext.toggles().follow || requestContext.currentUser() == null)
             return emptyList()

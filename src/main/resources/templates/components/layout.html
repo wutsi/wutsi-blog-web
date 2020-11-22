@@ -66,7 +66,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-22.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-84.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-85.css'" />
 
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
@@ -215,7 +215,7 @@
                 <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
             <li class="nav-item" th:if="${toggles.follow} AND ${showFollowButton} AND ${page.name != 'page.login'}">
-                <div th:replace="components/follow :: button(${blog}, ${returnUrl}, true, false)"></div>
+                <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, false)"></div>
             </li>
             <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>

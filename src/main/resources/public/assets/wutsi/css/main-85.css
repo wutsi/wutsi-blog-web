@@ -567,50 +567,57 @@ a.sso-button .fab {
     background: white;
 }
 
-/*======= AUTHORS =======*/
-.who-to-follow .author img {
-    width: 48px;
-    height: 48px;
+/*======= PAGE =======*/
+body#writers-body {
+    background-color: white;
 }
 
-.who-to-follow .author .btn-container {
+/*======= AUTHOR COMPONENTS =======*/
+.author-navbar {
+    margin-top: -1.6em;
+}
+
+
+.author-summary-card {
+    display: flex;
+}
+.author-summary-card img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+.author-summary-card .follower-count {
+    margin-left: 2em
+}
+.author-summary-card .btn-container {
     margin-left: auto
 }
 
 
-.author img {
+.author-card img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
 }
-
-.author h1 {
+.author-card h1 {
     font-size: 1.5em;
 }
-
-.author .info {
-    vertical-align: top;
-}
-
-.author a.social-link {
+.author-card a.social-link {
     text-decoration: none;
 }
-
-.author .fab,
-.author .fas {
+.author-card .fab,
+.author-card .fas {
     color: var(--text-color);
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-right: 1em;
 }
-
-.author .follower-count {
+.author-card .follower-count {
     font-size: 1.2em;
+    margin-left: 2em;
     display: inline-block;
 }
 
-.navbar-author {
-    margin-top: -1.6em;
-}
+
 
 /*======= READER =======*/
 .reader h1 {
@@ -1000,6 +1007,12 @@ a.sso-button .fab {
     #writer-container .writer img {
         width: 32px;
         height: 32px;
+    }
+
+    /*===== AUTHOR COMPONENT =====*/
+    .author-summary-card img {
+        width: 24px;
+        height: 24px;
     }
 }
 

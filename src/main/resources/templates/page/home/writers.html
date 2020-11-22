@@ -4,7 +4,7 @@
     <div th:replace="components/layout :: head"></div>
 </head>
 
-<body id="writer-container">
+<body id="writers-body">
 
 <div th:replace="components/layout :: navbar"></div>
 
@@ -13,19 +13,9 @@
         <div class="col-12 col-md-8 offset-md-2">
             <h1 class="text-center margin-bottom-2x" th:text="#{page.writers.title}">Discover grat stories</h1>
 
-            <a th:href="${writer.slug}" th:each="writer : ${writers}">
-                <section class="padding flex writer border-top">
-                    <img class="margin-right" th:src="${writer.pictureUrl}" th:title="${writer.fullName}" />
-                    <div>
-                        <h6 th:text="${writer.fullName}">Ray sponsible</h6>
-                        <div class="text-small" th:text="${writer.biography}" th:if="${writer.biography}">Bio</div>
-                        <div class="text-small" th:if="${writer.followerCount} GT 0">
-                            <div th:if="${writer.followerCount} == 1" th:utext="#{label.1_follower(${writer.followerCountText})}">1 Follower</div>
-                            <div th:if="${writer.followerCount} GT 1" th:utext="#{label.n_followers(${writer.followerCountText})}">40 Followers</div>
-                        </div>
-                    </div>
-                </section>
-            </a>
+            <div class="padding-top margin-top border-top" th:each="writer : ${writers}">
+                <div th:replace="components/story :: author-summary-card(${writer}, false)"></div>
+            </div>
         </div>
     </div>
 </div>

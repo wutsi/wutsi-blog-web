@@ -73,6 +73,7 @@ class UserMapper(private val imageKit: ImageKitService) {
             biography = user.biography,
             storyCount = user.storyCount,
             followerCount = user.followerCount,
+            hasFollowers = user.followerCount > 0,
             followerCountText = NumberUtils.toHumanReadable(user.followerCount)
     )
 
