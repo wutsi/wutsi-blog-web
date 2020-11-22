@@ -76,7 +76,7 @@
             <div id="subscriptions-container" class="border-top margin-top padding">
                 <h4 th:text="#{label.my_subscriptions}">Subscriptions</h4>
                 <div class="padding border-top" th:each="followingUser : ${followingUsers}">
-                    <div th:replace="components/story :: author-summary-card(${followingUser}, false)"></div>
+                    <div th:replace="components/author :: summary-card(${followingUser}, false)"></div>
                 </div>
                 <div class="subscriptions-none" th:if="!${followingUsers}" th:text="#{label.no_subscriptions}">You have no subscriptions</div>
             </div>

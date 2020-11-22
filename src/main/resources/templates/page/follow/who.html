@@ -1,7 +1,7 @@
 <div th:if="!${whoToFollow.isEmpty()}" class="who-to-follow box-filled-highlight-light padding border">
     <h4 th:text="#{page.blog.who_to_follow}">Who to Follow</h4>
     <div  class="padding-top margin-top border-top"th:each="follow : ${whoToFollow}">
-        <div th:replace="components/story :: author-summary-card(${follow}, true)"></div>
+        <div th:replace="components/author :: summary-card(${follow}, true)"></div>
     </div>
 </div>
 
