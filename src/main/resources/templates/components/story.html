@@ -110,6 +110,12 @@
         <a th:href="${me.slug}" th:if="!${inBlogPage}" th:text="${me.fullName}">Ray Sponsible</a>
 
         <div class="bio text-small" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
+        <div class="bio text-small" th:if="(!${me.biography} OR ${me.biography.isEmpty()}) AND (${me.id} == ${user.id})">
+            <a href="/me/settings?highlight=biography-container#general">
+                <i th:text="#{page.blog.biography.empty}">Enter your short bio...</i>
+            </a>
+        </div>
+
         <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}">
             <a class="website text-small"
                wutsi-track-event="link"
@@ -117,6 +123,7 @@
                th:href="${me.websiteUrl}" th:text="${me.websiteUrl}"
             >http://www.fldkl.com</a>
         </div>
+
         <div class="margin-top" th:if="${me.hasSocialLinks} OR ${me.hasFollowers}">
             <a target="_new"
                class="social-link facebook"
