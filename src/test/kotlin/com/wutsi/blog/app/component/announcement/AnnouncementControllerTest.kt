@@ -7,8 +7,8 @@ class AnnouncementControllerTest: SeleniumTestSupport() {
     @Test
     fun `HTML elements`() {
         login()
-        driver.get(url)
 
+        Thread.sleep(1000)
         assertElementPresent("script#wutsi-announcement-js")
         assertElementPresent("#wutsi-announcement")
     }
