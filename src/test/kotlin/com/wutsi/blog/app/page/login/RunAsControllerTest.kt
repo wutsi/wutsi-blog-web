@@ -28,7 +28,7 @@ class RunAsControllerTest: SeleniumTestSupport() {
         click("#btn-submit")
 
         assertCurrentPageIs(PageName.BLOG)
-        assertElementPresent("#super-user-banner")
+        assertElementPresent("nav.super-user")
         assertElementAttribute(".dropdown-item-user img", "title", "John Smith")
     }
 

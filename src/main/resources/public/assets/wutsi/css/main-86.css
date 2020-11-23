@@ -185,6 +185,9 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* ==== NAVBAR ==== */
+nav.super-user {
+    background: #f0f0d0;
+}
 .navbar {
     background: white;
 }

@@ -180,7 +180,9 @@
 <!-- Navbar            -->
 <!-- ################# -->
 <div th:fragment="navbar">
-    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top">
+    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top"
+         th:classappend="${superUser} ? super-user"
+    >
         <a class="navbar-brand" href="/">
             <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" alt="Wutsi" title="Wutsi"/></a>
 
@@ -196,7 +198,6 @@
             </li>
         </ul>
     </nav>
-    <div th:replace="components/layout :: navbar-super-user-banner"></div>
     <div class="navbar-margin">&nbsp;</div>
 </div>
 
@@ -204,7 +205,9 @@
 <!-- Blog Navbar       -->
 <!-- ################# -->
 <div th:fragment="navbar-blog(blog, showFollowButton, returnUrl)">
-    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top">
+    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top"
+        th:classappend="${superUser} ? super-user"
+    >
         <a class="navbar-brand" th:href="${blog.slug}">
             <img class="blog-logo" th:src="${blog.pictureUrl}" th:alt="${blog.fullName}" th:title="${blog.fullName}" />
             <span class="blog-name" th:text="${blog.fullName}">Title</span>
@@ -220,7 +223,6 @@
             <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>
     </nav>
-    <div th:replace="components/layout :: navbar-super-user-banner"></div>
     <div class="navbar-margin">&nbsp;</div>
 </div>
 
