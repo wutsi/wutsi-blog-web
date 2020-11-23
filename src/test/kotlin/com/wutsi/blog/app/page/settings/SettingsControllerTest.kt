@@ -31,6 +31,8 @@ class SettingsControllerTest: SeleniumTestSupport() {
         gotoPage()
 
         assertElementPresent("#subscriptions-container .author-summary-card")
+        assertElementPresent("#subscriptions-container .author-summary-card .btn-unfollow")
+        assertElementNotPresent("#subscriptions-container .author-summary-card .btn-follow")
     }
 
     @Test

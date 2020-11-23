@@ -69,7 +69,7 @@
     </div>
 </div>
 
-<div th:fragment="summary-card(me, showFollowButton)" class="author-summary-card">
+<div th:fragment="summary-card(me, showFollowButton, showUnfollowButton)" class="author-summary-card">
     <a th:href="${me.slug}">
         <img class="margin-right" th:src="${me.pictureUrl}" th:alt="${me.fullName}" />
     </a>
@@ -85,6 +85,9 @@
     </div>
     <div class="btn-container" th:if="${showFollowButton}">
         <div th:replace="components/follow :: follow-button(${me}, ${me.slug}, false, false)"></div>
+    </div>
+    <div class="btn-container" th:if="${showUnfollowButton}">
+        <div th:replace="components/follow :: unfollow-button(${me})"></div>
     </div>
 </div>
 

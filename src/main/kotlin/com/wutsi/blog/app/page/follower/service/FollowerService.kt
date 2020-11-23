@@ -16,6 +16,16 @@ class FollowerService(
             followerUserId = requestContext.currentUser()?.id
         )).followerId
 
+    fun unfollow(userId: Long) {
+        val followers = backend.search(SearchFollowerRequest(
+                userId = userId,
+                followerUserId = requestContext.currentUser()?.id
+        )).followers
+        if (followers.isNotEmpty()){
+            backend.delete(followers[0].id)
+        }
+    }
+
     fun searchFollowingUserIds(): List<Long> {
         if (!requestContext.toggles().follow || requestContext.currentUser() == null)
             return emptyList()

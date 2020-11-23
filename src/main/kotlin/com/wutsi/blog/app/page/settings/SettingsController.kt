@@ -61,4 +61,10 @@ class SettingsController(
             )
         }
     }
+
+    @GetMapping("/unsubscribe")
+    fun unsubscribe(@RequestParam userId: Long): String {
+        followerService.unfollow(userId)
+        return "redirect:/me/settings#subscriptions"
+    }
 }

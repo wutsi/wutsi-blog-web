@@ -14,7 +14,7 @@
             <h1 class="text-center margin-bottom-2x" th:text="#{page.writers.title}">Discover grat stories</h1>
 
             <div class="padding-top margin-top border-top" th:each="writer : ${writers}">
-                <div th:replace="components/author :: summary-card(${writer}, false)"></div>
+                <div th:replace="components/author :: summary-card(${writer}, false, false)"></div>
             </div>
         </div>
     </div>

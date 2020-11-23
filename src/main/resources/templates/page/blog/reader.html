@@ -18,10 +18,10 @@
                     <div th:if="${it.index} == 0">
                         <div th:replace="components/follow :: who-to-follow"></div>
                     </div>
+                </div>
 
-                    <div th:if="!${followingStories} OR ${followingStories.isEmpty()}">
-                        <div th:replace="components/follow :: who-to-follow"></div>
-                    </div>
+                <div th:if="!${followingStories} OR ${followingStories.isEmpty()}">
+                    <div th:replace="components/follow :: who-to-follow"></div>
                 </div>
             </div>
 

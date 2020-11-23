@@ -24,6 +24,13 @@
     <span th:if="${includeNameInCaption}" th:text="' @' + ${blog.name}">@ray.sponsible</span>
 </a>
 
+<a th:fragment="unfollow-button(blog)"
+   class="btn btn-light btn-unfollow" wutsi-track-event="unfollow"
+   th:href="'/me/settings/unsubscribe?userId=' + ${blog.id}"
+>
+    <span th:text="#{button.unfollow}">Unfollow</span>
+</a>
+
 
 </body>
 </html>
