@@ -121,7 +121,7 @@
     </div>
 </div>
 
-<div th:fragment="story-card(story, trackEvent, rank)">
+<div th:fragment="story-card(story, trackEvent, rank)"  class="story-card">
     <a th:href="${story.slug}"
        th:title="${story.title}"
        th:wutsi-track-value = "${story.id}"
@@ -130,7 +130,7 @@
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
-            <img class="border large lozad"
+            <img class="border lozad"
                  th:data-src="${story.thumbnailImage.src}"
                  th:data-srcset="${story.thumbnailImage.srcset}"
                  th:sizes="${story.thumbnailImage.sizes}"
@@ -138,11 +138,11 @@
             />
         </div>
 
-        <p class="summary" th:text="${story.summary}">Summary</p>
+        <div class="summary" th:text="${story.summary}">Summary</div>
     </a>
 
     <a th:href="${story.user.slug}" th:title="${story.user.fullName}">
-        <div class="author" th:text="${story.user.fullName}">Ray Sponsible</div>
+        <div class="author text-small" th:text="${story.user.fullName}">Ray Sponsible</div>
     </a>
 
     <div th:replace="components/story :: meta(${story})"></div>
@@ -161,21 +161,21 @@
         </a>
 
         <a th:href="${story.user.slug}" th:title="${story.user.fullName}">
-            <div class="author margin-top" th:text="${story.user.fullName}">Ray Sponsible</div>
+            <div class="author margin-top text-small" th:text="${story.user.fullName}">Ray Sponsible</div>
         </a>
 
         <div th:replace="components/story :: meta(${story})"></div>
         <div th:replace="components/story :: widgets(${story})"></div>
     </div>
 
-    <div class="margin-left" th:if="${story.thumbnailImage}">
+    <div class="img-container" th:if="${story.thumbnailImage}">
         <a th:href="${story.slug}"
            th:title="${story.title}"
            th:wutsi-track-value = "${story.id}"
            th:wutsi-track-rank = "${rank}"
            th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
         >
-            <img class="lozad"
+            <img class="margin-left lozad"
                  th:data-src="${story.thumbnailImage.src}"
                  th:data-srcset="${story.thumbnailImage.srcset}"
                  th:sizes="${story.thumbnailImage.sizes}"

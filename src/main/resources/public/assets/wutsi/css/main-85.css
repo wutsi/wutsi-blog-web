@@ -258,13 +258,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* ==== ANNOUNCEMENT ==== */
-#wutsi-announcement-container{
-    position:fixed;
-    bottom: 8em;
-    left: 1em;
-}
-
 /* ==== FOOTER ==== */
 footer.page-footer {
     background-color: black;
@@ -364,7 +357,7 @@ a.sso-button .fab {
 
 .story-list .story .title {
     font-size: 1.5em;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
 }
 
 .story-list .story .live {
@@ -446,67 +439,6 @@ a.sso-button .fab {
 }
 .readability-yellow {
     color: darkgoldenrod;
-}
-
-/*======= POST =======*/
-.post {
-    background: white;
-}
-.post a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-.post .title {
-    font-size: 1.5em;
-}
-
-.post .img-container {
-    max-height: 250px;
-    height: fit-content;
-    overflow: hidden;
-}
-
-.post img.large {
-    max-width: 100%;
-    display: block;
-    margin: 0 auto;
-}
-.post img.small {
-    max-height: 96px;
-    max-width: 100%;
-}
-
-.post .summary {
-    max-height: 3em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.post .author {
-    font-size: 0.7em;
-}
-
-.post .author .fab{
-    color: var(--text-color-gray);
-}
-
-.post .meta {
-    font-size: 0.7em;
-    color: var(--text-color-gray);
-}
-
-.post a .author:hover {
-    text-decoration: underline;
-}
-
-.post .author  a.website {
-    color: var(--text-color);
-    text-decoration: underline;
-}
-
-.post .widget-container {
-    margin-top: 0.5em;
 }
 
 
@@ -835,6 +767,14 @@ a.sso-button .fab {
 /*  WUTSI COMPONENTS                                                        */
 /*                                                                          */
 /* ======================================================================== */
+/* ==== ANNOUNCEMENT ==== */
+#wutsi-announcement-container{
+    position:fixed;
+    bottom: 8em;
+    left: 1em;
+}
+
+
 /*======= AUTHOR =======*/
 .author-navbar {
     margin-top: -1.6em;
@@ -905,58 +845,65 @@ a.sso-button .fab {
 
 .story-summary-card .title {
     font-size: 1.5em;
+    margin-bottom: 0.5em;
 }
 
-/*.story-summary-card .img-container {*/
-/*    max-height: 96px;*/
-/*    height: fit-content;*/
-/*    overflow: hidden;*/
-/*}*/
-
+.story-summary-card .img-container {
+    margin-left: auto;
+}
 .story-summary-card img {
     max-height: 96px;
     max-width: 100%;
-    margin-left: auto;
+}
+.story-summary-card .author {
+    margin-bottom: 0.5em;
+}
+.story-summary-card .meta {
+    margin-bottom: 0.5em;
 }
 
 
-/*.post img.large {*/
-/*    max-width: 100%;*/
-/*    display: block;*/
-/*    margin: 0 auto;*/
-/*}*/
+.story-card a {
+    color: var(--text-color);
+    text-decoration: none;
+}
 
-/*.post .summary {*/
-/*    max-height: 3em;*/
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*}*/
+.story-card .title {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
 
-/*.post .author {*/
-/*    font-size: 0.7em;*/
-/*}*/
+.story-card .img-container {
+    max-height: 250px;
+    height: fit-content;
+    overflow: hidden;
+    margin-bottom: 0.5em;
+}
 
-/*.post .author .fab{*/
-/*    color: var(--text-color-gray);*/
-/*}*/
+.story-card img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
 
-/*.post .meta {*/
-/*    font-size: 0.7em;*/
-/*    color: var(--text-color-gray);*/
-/*}*/
+.story-card .summary {
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5em;
+}
 
-/*.post a .author:hover {*/
-/*    text-decoration: underline;*/
-/*}*/
+.story-card .author {
+    margin-bottom: 0.5em;
+}
+.story-card a .author:hover {
+    text-decoration: underline;
+}
+.story-card .meta {
+    color: var(--text-color-gray);
+    margin-bottom: 0.5em;
+}
 
-/*.post .author  a.website {*/
-/*    color: var(--text-color);*/
-/*    text-decoration: underline;*/
-/*}*/
-
-/*.post .widget-container {*/
-/*    margin-top: 0.5em;*/
-/*}*/
 
 
 /* ==== VALUE PROPOSITION  === */
@@ -1054,11 +1001,6 @@ a.sso-button .fab {
         padding-right: 0;
     }
 
-    .post .img-container {
-        max-height: 180px;
-        overflow: hidden;
-    }
-
     .reader .content div.link-tool div.meta p.description {
         display: none;
     }
@@ -1106,6 +1048,10 @@ a.sso-button .fab {
         max-width: 100px;
     }
 
+    .story-card .img-container {
+        max-height: 180px;
+        overflow: hidden;
+    }
 }
 
 @media screen

@@ -15,35 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 class StoryController(
         private val service: StoryService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
-
-    override fun pageName() = ""
-
-    @GetMapping("/story/cards")
-    fun index(
-            @RequestParam(required = false) userId: Long? = null,
-            @RequestParam(required = false, defaultValue = "20") limit: Int,
-            @RequestParam(required = false, defaultValue = "0") offset: Int,
-            @RequestParam(required = false, defaultValue = "false") showCreatePanel: Boolean,
-            model: Model
-    ): String {
-        val stories = service.search(SearchStoryRequest(
-                userIds = if (userId == null) emptyList() else listOf(userId),
-                limit = limit,
-                offset = offset,
-                status = StoryStatus.published,
-                live = true,
-                sortBy = StorySortStrategy.published
-        ))
-
-        model.addAttribute("limit", limit)
-        model.addAttribute("offset", limit)
-        model.addAttribute("stories", stories)
-        model.addAttribute("showCreatePanel", showCreatePanel)
-        return "page/story/cards"
-    }
-
+        private val requestContext: RequestContext
+) {
     @GetMapping("/story/count")
     @ResponseBody
     fun count(@RequestParam status: StoryStatus): Map<String, Int> {
