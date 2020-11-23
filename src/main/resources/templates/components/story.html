@@ -138,14 +138,17 @@
             />
         </div>
 
-        <div class="summary" th:text="${story.summary}">Summary</div>
+        <div class="summary margin-bottom" th:text="${story.summary}">Summary</div>
     </a>
 
     <a th:href="${story.user.slug}" th:title="${story.user.fullName}">
         <div class="author text-small" th:text="${story.user.fullName}">Ray Sponsible</div>
     </a>
 
-    <div th:replace="components/story :: meta(${story})"></div>
+    <div class="margin-bottom">
+        <div th:replace="components/story :: meta(${story})"></div>
+    </div>
+
     <div th:replace="components/story :: widgets(${story})"></div>
 </div>
 
@@ -164,7 +167,10 @@
             <div class="author margin-top text-small" th:text="${story.user.fullName}">Ray Sponsible</div>
         </a>
 
-        <div th:replace="components/story :: meta(${story})"></div>
+        <div class="margin-bottom">
+            <div th:replace="components/story :: meta(${story})"></div>
+        </div>
+
         <div th:replace="components/story :: widgets(${story})"></div>
     </div>
 
@@ -175,7 +181,7 @@
            th:wutsi-track-rank = "${rank}"
            th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
         >
-            <img class="margin-left lozad"
+            <img class="lozad"
                  th:data-src="${story.thumbnailImage.src}"
                  th:data-srcset="${story.thumbnailImage.srcset}"
                  th:sizes="${story.thumbnailImage.sizes}"

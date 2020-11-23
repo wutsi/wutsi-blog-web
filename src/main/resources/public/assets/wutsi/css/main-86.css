@@ -842,24 +842,19 @@ a.sso-button .fab {
     color: var(--text-color);
     text-decoration: none;
 }
-
 .story-summary-card .title {
     font-size: 1.5em;
-    margin-bottom: 0.5em;
 }
-
 .story-summary-card .img-container {
     margin-left: auto;
+    max-width: 25%;
 }
 .story-summary-card img {
     max-height: 96px;
     max-width: 100%;
 }
-.story-summary-card .author {
-    margin-bottom: 0.5em;
-}
-.story-summary-card .meta {
-    margin-bottom: 0.5em;
+.story-summary-card a .author:hover {
+    text-decoration: underline;
 }
 
 
@@ -867,43 +862,30 @@ a.sso-button .fab {
     color: var(--text-color);
     text-decoration: none;
 }
-
 .story-card .title {
     font-size: 1.5em;
-    margin-bottom: 0.5em;
 }
-
 .story-card .img-container {
     max-height: 250px;
     height: fit-content;
     overflow: hidden;
-    margin-bottom: 0.5em;
 }
-
 .story-card img {
     max-width: 100%;
     display: block;
     margin: 0 auto;
 }
-
 .story-card .summary {
     max-height: 3em;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 0.5em;
-}
-
-.story-card .author {
-    margin-bottom: 0.5em;
 }
 .story-card a .author:hover {
     text-decoration: underline;
 }
 .story-card .meta {
     color: var(--text-color-gray);
-    margin-bottom: 0.5em;
 }
-
 
 
 /* ==== VALUE PROPOSITION  === */
