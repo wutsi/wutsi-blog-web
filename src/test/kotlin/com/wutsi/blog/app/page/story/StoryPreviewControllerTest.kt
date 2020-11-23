@@ -36,7 +36,7 @@ class StoryPreviewControllerTest: SeleniumTestSupport() {
         gotoPage()
 
         assertElementCount(".share", 0)
-        assertElementPresent("#super-user-banner")
+        assertElementPresent("nav.super-user")
 //        assertCurrentPageIs(PageName.STORY_PREVIEW)
     }
 

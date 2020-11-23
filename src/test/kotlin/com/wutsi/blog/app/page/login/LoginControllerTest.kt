@@ -41,7 +41,7 @@ class LoginControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
         login()
 
-        assertElementPresent("#super-user-banner")
+        assertElementPresent("nav.super-user")
     }
 
     private fun validateButton(name: String) {

@@ -98,7 +98,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementText("h1", "Lorem Ipsum")
         assertElementText("h2.tagline", "This is awesome story!")
 
-        assertElementNotPresent("#super-user-banner")
+        assertElementNotPresent("#nav.super-user")
         assertElementNotPresent("#story-menu")
     }
 
