@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component
 class MailService (
         private val backend: MailBackend
 ){
-    fun unsubscribe(email: String) {
-        backend.unsubscribe(UnsubscribeMailRequest(email = email))
+    fun unsubscribe(email: String, userId: Long?= null) {
+        backend.unsubscribe(UnsubscribeMailRequest(
+                subscriberEmail = email,
+                userId = userId
+        ))
     }
 }

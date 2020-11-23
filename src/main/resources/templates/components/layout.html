@@ -180,7 +180,7 @@
 <!-- Navbar            -->
 <!-- ################# -->
 <div th:fragment="navbar">
-    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top"
+    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-site"
          th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" href="/">
@@ -205,7 +205,7 @@
 <!-- Blog Navbar       -->
 <!-- ################# -->
 <div th:fragment="navbar-blog(blog, showFollowButton, returnUrl)">
-    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top"
+    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-blog"
         th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" th:href="${blog.slug}">
