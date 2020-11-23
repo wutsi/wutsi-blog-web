@@ -70,14 +70,14 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
         assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
-        assertElementCount(".author-navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".author-navbar .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
-        assertElementAttribute(".author-navbar .btn-follow", "wutsi-track-event", "follow")
+        assertElementCount(".follow-panel .btn-follow", 1)
+        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
+        assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
     }
 
     private fun verifyNoFollowButtons(){
         assertElementCount(".navbar .btn-follow", 0)
-        assertElementCount(".navbar-author .btn-follow", 0)
+        assertElementCount(".follow-panel .btn-follow", 0)
     }
 
     private fun verifyWhoToFollow() {

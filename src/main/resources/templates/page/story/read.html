@@ -91,7 +91,7 @@
     </article>
 
     <!-- Follow -->
-    <div th:if="${showFollowButton}" id="follow-container-1">
+    <div th:if="${showFollowButton}">
         <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
     </div>
 

@@ -18,17 +18,17 @@ class BlogControllerTest: SeleniumTestSupport() {
     fun `my blog page` () {
         gotoPage(true)
 
-        assertElementText(".author h1", "Ray Sponsible")
-        assertElementText(".author .bio", "Ray sponsible is a test user")
-        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
-        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
-        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
-        assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
+        assertElementText(".author-card h1", "Ray Sponsible")
+        assertElementText(".author-card .bio", "Ray sponsible is a test user")
+        assertElementAttribute(".author-card .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author-card .twitter", "href", "https://www.twitter.com/ray.sponsible")
+        assertElementAttribute(".author-card .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author-card .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
         assertElementNotPresent("#alert-no-social-link")
 
-        assertElementCount("#my-stories .post", 7)
-        assertElementCount("#following-stories .post", 7)
-        assertElementCount("#latest-stories .post", 3)
+        assertElementCount("#my-stories .story-card", 7)
+        assertElementCount("#following-stories .story-summary-card", 7)
+        assertElementCount("#latest-stories .story-summary-card", 3)
     }
 
     @Test
@@ -38,24 +38,24 @@ class BlogControllerTest: SeleniumTestSupport() {
 
         gotoPage(true)
 
-        assertElementCount("#my-stories .post", 0)
+        assertElementCount("#my-stories .story-card", 0)
     }
 
     @Test
     fun `anonymous blog page` () {
         gotoPage()
 
-        assertElementText(".author h1", "Ray Sponsible")
-        assertElementText(".author .bio", "Ray sponsible is a test user")
-        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
-        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
-        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
-        assertElementAttribute(".author .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
+        assertElementText(".author-card h1", "Ray Sponsible")
+        assertElementText(".author-card .bio", "Ray sponsible is a test user")
+        assertElementAttribute(".author-card .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author-card .twitter", "href", "https://www.twitter.com/ray.sponsible")
+        assertElementAttribute(".author-card .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author-card .youtube", "href", "https://www.youtube.com/channel/ray.sponsible")
         assertElementNotPresent("#alert-no-social-link")
 
-        assertElementCount("#my-stories .post", 7)
-        assertElementCount("#following-stories .post", 0)
-        assertElementCount("#latest-stories .post", 4)
+        assertElementCount("#my-stories .story-card", 7)
+        assertElementCount("#following-stories .story-summary-card", 0)
+        assertElementCount("#latest-stories .story-summary-card", 4)
     }
 
 

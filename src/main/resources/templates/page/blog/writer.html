@@ -13,7 +13,7 @@
             <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}">Write your first Story</a>
         </div>
     </div>
-    <div th:if="${showFollowButton}">
+    <div id="btn-follow-container" th:if="${showFollowButton}">
         <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
     </div>
 
@@ -21,7 +21,7 @@
         <div class="row">
             <div id="my-stories" class="col-12 offset-lg-1 col-lg-6">
                 <div th:each="story, it: ${myStories}">
-                    <section class="padding border rounded">
+                    <section class="padding border rounded box-filled-white">
                         <div th:replace="components/story :: story-card(${story}, 'read', ${it.index})"></div>
                     </section>
 

@@ -62,7 +62,7 @@ class GoogleOneTapToggleOffTest: SeleniumTestSupport() {
     private fun gotoStory(login: Boolean) {
         if (login) {
             login()
-            click(".post a")
+            click(".story-card a")
         } else {
             driver.get("$url/read/20/foo")
         }

@@ -75,25 +75,25 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
         assertCurrentPageIs(PageName.READ)
 
-        assertElementAttribute(".author img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
-        assertElementAttributeEndsWith(".author a", "href", "/@/ray.sponsible")
-        assertElementText(".author .bio", "Ray sponsible is a test user")
+        assertElementAttribute(".author-card img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
+        assertElementAttributeEndsWith(".author-card a", "href", "/@/ray.sponsible")
+        assertElementText(".author-card .bio", "Ray sponsible is a test user")
 
-        assertElementAttribute(".author .website", "href", "https://www.me.com/ray.sponsible")
-        assertElementAttribute(".author .website", "wutsi-track-event", "link")
-        assertElementAttribute(".author .website", "wutsi-track-value", "website")
+        assertElementAttribute(".author-card .website", "href", "https://www.me.com/ray.sponsible")
+        assertElementAttribute(".author-card .website", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .website", "wutsi-track-value", "website")
 
-        assertElementAttribute(".author .facebook", "href", "https://www.facebook.com/ray.sponsible")
-        assertElementAttribute(".author .facebook", "wutsi-track-event", "link")
-        assertElementAttribute(".author .facebook", "wutsi-track-value", "facebook")
+        assertElementAttribute(".author-card .facebook", "href", "https://www.facebook.com/ray.sponsible")
+        assertElementAttribute(".author-card .facebook", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .facebook", "wutsi-track-value", "facebook")
 
-        assertElementAttribute(".author .twitter", "href", "https://www.twitter.com/ray.sponsible")
-        assertElementAttribute(".author .twitter", "wutsi-track-event", "link")
-        assertElementAttribute(".author .twitter", "wutsi-track-value", "twitter")
+        assertElementAttribute(".author-card .twitter", "href", "https://www.twitter.com/ray.sponsible")
+        assertElementAttribute(".author-card .twitter", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .twitter", "wutsi-track-value", "twitter")
 
-        assertElementAttribute(".author .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
-        assertElementAttribute(".author .linkedin", "wutsi-track-event", "link")
-        assertElementAttribute(".author .linkedin", "wutsi-track-value", "linkedin")
+        assertElementAttribute(".author-card .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
+        assertElementAttribute(".author-card .linkedin", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .linkedin", "wutsi-track-value", "linkedin")
 
         assertElementText("h1", "Lorem Ipsum")
         assertElementText("h2.tagline", "This is awesome story!")
@@ -221,8 +221,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/looks-good")
 
         Thread.sleep(1000)
-        assertElementCount("#recommendation-container .post", 7)
-        assertElementAttribute("#recommendation-container .post a", "wutsi-track-event", "xread")
+        assertElementCount("#recommendation-container .story-summary-card", 7)
+        assertElementAttribute("#recommendation-container .story-summary-card a", "wutsi-track-event", "xread")
 
         assertElementCount("#recommendation-container .btn-read-more", 1)
         assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
