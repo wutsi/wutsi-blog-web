@@ -40,7 +40,7 @@
                      th:if="${followingStories} AND !${followingStories.isEmpty()}"
                 >
                     <h4 class="padding mb-0" th:text="#{page.blog.from_blog_you_follow}">From Blog you Follow</h4>
-                    <section class="post padding border-top" th:each="story,it: ${followingStories}">
+                    <section class="padding border-top" th:each="story,it: ${followingStories}">
                         <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
                     </section>
                 </div>

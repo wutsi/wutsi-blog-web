@@ -18,7 +18,7 @@
         </div>
 
         <div th:if="${me.websiteUrl} AND !${me.websiteUrl.isEmpty()}">
-            <a class="website text-small"
+            <a class="website"
                wutsi-track-event="link"
                wutsi-track-value="website"
                th:href="${me.websiteUrl}" th:text="${me.websiteUrl}"
