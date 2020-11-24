@@ -45,7 +45,7 @@ class CreateControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.BLOG)
         assertElementAttributeEndsWith(".next-action-biography .next-action a", "href", "/me/settings?highlight=biography-container#general")
         assertElementAttributeEndsWith(".next-action-newsletter .next-action a", "href", "/me/settings?highlight=newsletter-container#newsletter")
-        assertElementAttributeEndsWith(".next-action-twitter .next-action a", "href", "/me/channel")
+        assertElementAttributeEndsWith(".next-action-twitter .next-action a", "href", "/me/settings?highlight=channels-container#channels")
         assertElementVisible("#btn-create-story")
 
         click("#btn-create-story")
