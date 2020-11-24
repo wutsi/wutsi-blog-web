@@ -37,5 +37,6 @@ data class StoryModel(
         val topic: TopicModel = TopicModel(),
         val live: Boolean = false,
         val liveDateTime: String = "",
-        val wppStatus: WPPStatus? = null
+        val wppStatus: WPPStatus? = null,
+        val socialMediaMessage: String? = null
 )

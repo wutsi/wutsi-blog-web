@@ -5,6 +5,8 @@ import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.component.announcement.service.Announcement
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.util.CookieHelper
+import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -38,7 +40,7 @@ class TwitterAnnouncementTest {
         val channel2 = createChannel(ChannelType.facebook, false)
         `when`(channels.all()).thenReturn(arrayListOf(channel1 ,channel2))
 
-        assertTrue(announcement.show("foo"))
+        assertTrue(announcement.show(PageName.BLOG))
     }
 
     @Test
@@ -48,7 +50,7 @@ class TwitterAnnouncementTest {
         `when`(requestContext.currentUser()).thenReturn(user)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show("foo"))
+        assertFalse(announcement.show(PageName.BLOG))
     }
 
     @Test
@@ -57,20 +59,8 @@ class TwitterAnnouncementTest {
         `when`(requestContext.currentUser()).thenReturn(null)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show("foo"))
+        assertFalse(announcement.show(PageName.BLOG))
     }
-
-    @Test
-    fun `never show when too many logins`() {
-        val user = UserModel(blog=true, loginCount = Announcement.MAX_LOGIN+1)
-        val toggles = createToggles()
-        `when`(requestContext.currentUser()).thenReturn(user)
-        `when`(requestContext.toggles()).thenReturn(toggles)
-
-
-        assertFalse(announcement.show("foo"))
-    }
-
 
     @Test
     fun `never show when channel toggle OFF`() {
@@ -78,7 +68,7 @@ class TwitterAnnouncementTest {
         val toggles = createToggles(channel = false)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show("foo"))
+        assertFalse(announcement.show(PageName.BLOG))
     }
 
 
@@ -87,7 +77,7 @@ class TwitterAnnouncementTest {
         val toggles = createToggles(channelTwitter = false)
         `when`(requestContext.toggles()).thenReturn(toggles)
 
-        assertFalse(announcement.show("foo"))
+        assertFalse(announcement.show(PageName.BLOG))
     }
 
     @Test
@@ -102,14 +92,13 @@ class TwitterAnnouncementTest {
 
     @Test
     fun autoHide() {
-        assertTrue(announcement.autoHide())
+        assertFalse(announcement.autoHide())
     }
 
     @Test
-    fun deley() {
-        assertEquals(10000, announcement.delay())
+    fun cookieMaxAge() {
+        assertEquals(CookieHelper.ONE_DAY_SECONDS, announcement.cookieMaxAge())
     }
-
 
     private fun createToggles(channel: Boolean=true, channelTwitter: Boolean = true): Toggles {
         val toggles = Toggles()

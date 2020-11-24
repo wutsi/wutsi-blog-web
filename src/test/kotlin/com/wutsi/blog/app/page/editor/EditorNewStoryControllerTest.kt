@@ -48,6 +48,7 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+        input("#socialMediaMessage", "This is awesome!! #WutsiRocks")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
 

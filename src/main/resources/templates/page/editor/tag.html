@@ -43,7 +43,13 @@
                 <div class="form-group">
                     <label><span th:text="#{page.story.publish.summary}">Summary</span> <b class="required">*</b></label>
                     <textarea id="summary" name="summary"  required="required" class="form-control" maxlength="255" rows="3"  th:text="${story.summary}"></textarea>
-                    <small class="form-text text-muted" th:text="#{page.story.publish.summary.hint}">Help Text</small>
+                    <small class="form-text text-muted" th:utext="#{page.story.publish.summary.hint}">Help Text</small>
+                </div>
+
+                <div class="form-group"  th:if="${story.draft}">
+                    <label><span th:text="#{page.story.publish.social_media_message}">Social Media Message</span></label>
+                    <textarea id="socialMediaMessage" name="socialMediaMessage"  required="required" class="form-control" maxlength="200" rows="2"  th:text="${story.socialMediaMessage}"></textarea>
+                    <small class="form-text text-muted" th:text="#{page.story.publish.social_media_message.hint}">Help Text</small>
                 </div>
 
                 <div class="form-group">

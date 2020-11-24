@@ -41,6 +41,7 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
+        assertElementNotPresent("#socialMediaMessage")
         input("#title", "This is the title")
         input("#tagline", "This is the tagline")
         input("#summary", "This is the Summary")

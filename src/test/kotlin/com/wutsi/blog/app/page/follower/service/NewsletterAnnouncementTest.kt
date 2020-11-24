@@ -83,10 +83,6 @@ class NewsletterAnnouncementTest {
         assertFalse(announcement.autoHide())
     }
 
-    @Test
-    fun deley() {
-        assertEquals(10000, announcement.delay())
-    }
 
     private fun createToggles(follower: Boolean=true): Toggles {
         val toggles = Toggles()

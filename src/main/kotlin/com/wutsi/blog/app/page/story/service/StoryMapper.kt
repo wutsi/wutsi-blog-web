@@ -62,7 +62,8 @@ class StoryMapper(
                 topic = if (story.topic == null) TopicModel() else topicMapper.toTopicMmodel(story.topic!!),
                 liveDateTime = moment.format(story.liveDateTime),
                 live = story.live,
-                wppStatus = story.wppStatus
+                wppStatus = story.wppStatus,
+                socialMediaMessage = story.socialMediaMessage
         )
     }
 

@@ -112,7 +112,8 @@ class StoryService(
                 tagline = editor.tagline,
                 summary = editor.summary,
                 topidId = editor.topicId.toLong(),
-                tags = editor.tags
+                tags = editor.tags,
+                socialMediaMessage = editor.socialMediaMessage
         ))
     }
 

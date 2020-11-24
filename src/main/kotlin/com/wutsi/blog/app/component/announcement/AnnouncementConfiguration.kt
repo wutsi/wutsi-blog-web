@@ -39,11 +39,11 @@ class AnnouncementConfiguration {
     fun announcementService() = AnnouncementService(
             announcements = arrayListOf(
                     newsletter,
+                    twitter,
                     like,
                     comment,
                     socialLinks,
-                    wpp,
-                    twitter
+                    wpp
             ),
             logger = logger
     )

@@ -20,9 +20,9 @@ class NewsletterAnnouncement(
     override fun show(page: String): Boolean {
         val author = requestContext.currentUser()
         return requestContext.toggles().follow
-                && (author?.blog == true)
-                && (PageName.BLOG.equals(page) || PageName.HOME.equals(page))
-                && (author.newsletterDeliveryDayOfWeek <= 0)
+                && author?.blog == true
+                && PageName.BLOG.equals(page)
+                && author.newsletterDeliveryDayOfWeek <= 0
     }
 
     override fun name() = "newsletter"
