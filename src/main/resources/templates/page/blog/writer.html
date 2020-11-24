@@ -10,7 +10,7 @@
     <div class="author-navbar padding border-bottom box-filled-white">
         <div th:replace="components/author :: card(${blog}, !${toggles.follow})"></div>
 
-        <div class="border rounded margin-top padding container-fluid next-action-container" th:if="${nextAction}">
+        <div class="border rounded margin-top padding container-fluid next-action-container box-filled-highlight-light" th:if="${nextAction}">
             <h4 class="text-center" th:text="#{next-action.title}">Your Next Action</h4>
             <div class="row margin-top">
                 <div class="col-12 col-md-4 next-action-biography padding">
