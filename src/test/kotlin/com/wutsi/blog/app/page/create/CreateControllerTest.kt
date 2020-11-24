@@ -11,6 +11,8 @@ class CreateControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
+        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
+
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count-0.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 
@@ -43,6 +45,9 @@ class CreateControllerTest : SeleniumTestSupport() {
         click("#btn-next")
 
         assertCurrentPageIs(PageName.BLOG)
+        assertElementAttributeEndsWith(".next-action-biography .next-action a", "href", "/me/settings?highlight=biography-container#general")
+        assertElementAttributeEndsWith(".next-action-newsletter .next-action a", "href", "/me/settings?highlight=newsletter-container#newsletter")
+        assertElementAttributeEndsWith(".next-action-twitter .next-action a", "href", "/me/channel")
         assertElementVisible("#btn-create-story")
 
         click("#btn-create-story")

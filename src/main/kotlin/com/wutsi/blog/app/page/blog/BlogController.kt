@@ -2,6 +2,8 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.blog.model.NextActionModel
+import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -10,11 +12,11 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder
+import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
-import com.wutsi.blog.client.user.SearchUserRequest
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -26,6 +28,7 @@ class BlogController(
         private val followerService: FollowerService,
         private val storyService: StoryService,
         private val schemas: PersonSchemasGenerator,
+        private val channelService: ChannelService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.BLOG
@@ -52,6 +55,7 @@ class BlogController(
         val stories = loadMyStories(blog, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
+        loadNextStep(blog, model)
         shouldShowFollowButton(blog, model)
         shouldShowCreateStory(blog, stories, model)
         return "page/blog/writer"
@@ -119,6 +123,20 @@ class BlogController(
                 }
 
         model.addAttribute("latestStories", latestStories.values.take(5))
+    }
+
+    private fun loadNextStep(blog: UserModel, model: Model) {
+        if (blog.id != requestContext.currentUser()?.id)
+            return
+
+        val nextAction = NextActionModel(
+                biography = blog.biography.isNullOrEmpty(),
+                twitter = channelService.all().filter { it.type == ChannelType.twitter && it.connected }.isEmpty(),
+                newsletter = blog.newsletterDeliveryDayOfWeek <= 0
+        )
+        if (nextAction.biography || nextAction.twitter || nextAction.newsletter){
+            model.addAttribute("nextAction", nextAction)
+        }
     }
 
     private fun shouldShowFollowButton(blog: UserModel, model: Model) {

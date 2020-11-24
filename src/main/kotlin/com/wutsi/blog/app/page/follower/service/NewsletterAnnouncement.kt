@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
+@Deprecated ("replaced by newsletter NextAction in BlogController")
 class NewsletterAnnouncement(
         requestContext: RequestContext
 ): AbstractAnnouncement(requestContext) {

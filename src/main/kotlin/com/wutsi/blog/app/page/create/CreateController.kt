@@ -24,13 +24,4 @@ class CreateController(
     override fun attributeName() = "name"
 
     override fun value() = requestContext.currentUser()?.name
-
-    @GetMapping
-    override fun index(model: Model): String {
-        // Set the user as blogger
-        userService.set(UserAttributeForm("blog", "true"))
-
-        return super.index(model)
-    }
-
 }

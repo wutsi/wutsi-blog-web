@@ -28,6 +28,10 @@ abstract class AbstractCreateController(
 
     @GetMapping
     open fun index(model: Model): String {
+        // Set the user as blogger
+        userService.set(UserAttributeForm("blog", "true"))
+
+        // Load the value
         val value = value()
         model.addAttribute("value", value)
         return pagePath()

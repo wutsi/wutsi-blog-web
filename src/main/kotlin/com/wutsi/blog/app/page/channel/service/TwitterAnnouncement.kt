@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
+@Deprecated ("replaced by twitter NextAction in BlogController")
 class TwitterAnnouncement(
         requestContext: RequestContext,
         private val channels: ChannelService

@@ -38,11 +38,11 @@ class AnnouncementConfiguration {
     @Bean
     fun announcementService() = AnnouncementService(
             announcements = arrayListOf(
-                    newsletter,
-                    twitter,
+//                    newsletter,
+//                    twitter,
+//                    socialLinks,
                     like,
                     comment,
-                    socialLinks,
                     wpp
             ),
             logger = logger

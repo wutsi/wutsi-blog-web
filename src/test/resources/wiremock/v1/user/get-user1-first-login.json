@@ -11,6 +11,7 @@
     "lastLoginDateTime": 1585334250000,
     "creationDateTime": 1585325914000,
     "modificationDateTime": 1585325914000,
-    "blog": true
+    "blog": true,
+    "newsletterDeliveryDayOfWeek": -1
   }
 }

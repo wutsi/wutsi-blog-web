@@ -907,8 +907,24 @@ a.sso-button .fab {
     margin-right: 1em;
 }
 
+/* ==== VALUE PROPOSITION  === */
+.next-action span {
+    vertical-align: middle;
+}
 
-/* ======================================================================== */
+.next-action img {
+    width: 48px;
+    height: 48px;
+    margin-right: 1em;
+    vertical-align: middle;
+}
+
+.next-action a {
+    color: var(--text-color);
+    vertical-align: middle;
+}
+
+    /* ======================================================================== */
 /*                                                                          */
 /*  BOOTSTRAP OVERRIDES                                                     */
 /*                                                                          */
