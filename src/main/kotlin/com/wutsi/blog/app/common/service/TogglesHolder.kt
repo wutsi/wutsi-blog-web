@@ -17,6 +17,7 @@ class Toggles {
     var googleOneTapSignIn: Boolean = false
     var imageKit: Boolean = false
     var like: Boolean = false
+    var nextAction: Boolean = false
     var pwa: Boolean = false
     var pwaAddToHomescreen = false
     var pwaBadge: Boolean = false

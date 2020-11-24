@@ -161,6 +161,7 @@ wutsi:
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
     image-kit: true                 # Integration with imagekit.io
     like: true                      # Enable Like
+    next-action: true               # Show NextAction panel on Blog page
     pwa: true                       # PWA
     pwa-add-to-homescreen: false    # Enable Badging on app icon
     pwa-badge: true                 # Enable Badging on app icon

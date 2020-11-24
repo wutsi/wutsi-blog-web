@@ -11,8 +11,6 @@ class CreateControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
-
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count-0.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
 

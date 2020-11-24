@@ -126,7 +126,7 @@ class BlogController(
     }
 
     private fun loadNextStep(blog: UserModel, model: Model) {
-        if (blog.id != requestContext.currentUser()?.id)
+        if (!requestContext.toggles().nextAction || blog.id != requestContext.currentUser()?.id)
             return
 
         val nextAction = NextActionModel(
