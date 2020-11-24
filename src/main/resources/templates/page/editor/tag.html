@@ -48,7 +48,7 @@
 
                 <div class="form-group"  th:if="${story.draft}">
                     <label><span th:text="#{page.story.publish.social_media_message}">Social Media Message</span></label>
-                    <textarea id="socialMediaMessage" name="socialMediaMessage"  required="required" class="form-control" maxlength="200" rows="2"  th:text="${story.socialMediaMessage}"></textarea>
+                    <textarea id="socialMediaMessage" name="socialMediaMessage" class="form-control" maxlength="200" rows="2"  th:text="${story.socialMediaMessage}"></textarea>
                     <small class="form-text text-muted" th:text="#{page.story.publish.social_media_message.hint}">Help Text</small>
                 </div>
 
