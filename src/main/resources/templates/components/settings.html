@@ -117,5 +117,45 @@
     </div>
 </div>
 
+<div th:fragment="channel(channel)" class="channel" th:id="'channel-' + ${channel.type.name()}">
+    <img class="channel-logo margin-right"
+         th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type.name()} + '.png'"
+    />
+
+    <div class="margin-right">
+        <h6>
+            <span th:if="${channel.connected}" th:text="#{'page.settings.channel.' + ${channel.type.name()} + '.connected'}">Title</span>
+            <span th:if="!${channel.connected}" th:text="#{'page.settings.channel.' + ${channel.type.name()} + '.disconnected'}">Title</span>
+        </h6>
+
+        <div class="text-small"
+             th:text="#{'page.settings.channel.' + ${channel.type.name()} + '.description'}"
+             th:if="!${channel.connected}">
+            Description
+        </div>
+
+        <div th:if="${channel.connected}">
+            <img class="channel-picture" th:src="${channel.pictureUrl}" th:if="${channel.pictureUrl}"/>
+            <b th:text="${channel.name}">Name</b>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <a class="btn btn-light btn-disconnect"
+           th:if="${channel.connected}"
+           th:href="'/me/settings/channel/disconnect?channelId=' + ${channel.id}"
+           th:text="#{button.disconnect_your_blog}">
+            Disconnect your Blog
+        </a>
+
+        <a class="btn btn-primary btn-connect"
+           th:if="!${channel.connected}"
+           th:href="'/me/settings/channel/connect?type=' + ${channel.type.name()}"
+        >
+            <span th:text="#{button.connect_your_blog}">Connect</span>
+        </a>
+    </div>
+</div>
+
 </body>
 </html>

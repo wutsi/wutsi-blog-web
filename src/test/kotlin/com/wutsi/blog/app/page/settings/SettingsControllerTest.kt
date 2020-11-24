@@ -13,6 +13,10 @@ class SettingsControllerTest: SeleniumTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
+
+        stub(HttpMethod.POST, "/v1/channel", HttpStatus.OK, "v1/channel/create.json")
+        stub(HttpMethod.DELETE, "/v1/channel/12", HttpStatus.OK)
+
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
 
@@ -113,6 +117,29 @@ class SettingsControllerTest: SeleniumTestSupport() {
     @Test
     fun `user can cancel website`() {
         testCancel("website_url", "https://www.me.com/ray.sponsible", "...")
+    }
+
+    @Test
+    fun `user can connect to channels`() {
+        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
+
+        gotoPage()
+
+        assertElementPresent("#channel-twitter .btn-connect")
+        assertElementPresent("#channel-facebook .btn-connect")
+    }
+
+    @Test
+    fun `user can disconnect from channel`() {
+        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search.json")
+
+        gotoPage()
+
+        assertElementPresent("#channel-twitter .btn-disconnect")
+        assertElementPresent("#channel-facebook .btn-disconnect")
+
+        click("#channel-twitter .btn-disconnect")
+        assertCurrentPageIs(PageName.SETTINGS)
     }
 
 

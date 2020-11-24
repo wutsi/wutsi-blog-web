@@ -15,6 +15,7 @@ import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
+import java.net.URLEncoder
 import javax.servlet.http.HttpServletRequest
 
 
@@ -44,11 +45,11 @@ class TwitterLoginController(
         val accessToken = oauth.getAccessToken(requestToken, verifier)
         val user = toOAuthUser(accessToken)
 
-        return "/me/channel/create?" +
+        return "/me/settings/channel/create?" +
                 "id=${user.id}" +
                 "&accessToken=${accessToken.token}" +
                 "&accessTokenSecret=${accessToken.tokenSecret}" +
-                "&name=${user.fullName}" +
+                "&name=" + URLEncoder.encode(user.fullName, "utf-8") +
                 "&pictureUrl=${user.pictureUrl}" +
                 "&type=" + ChannelType.twitter
     }

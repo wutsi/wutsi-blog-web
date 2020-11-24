@@ -20,7 +20,7 @@
                     <div th:replace="components/layout :: next-action(icon='/assets/wutsi/img/newsletter.png', text=#{next-action.item.newsletter}, url='/me/settings?highlight=newsletter-container#newsletter', done=!${nextAction.newsletter})"></div>
                 </div>
                 <div class="col-12 col-md-4 next-action-twitter padding">
-                    <div th:replace="components/layout :: next-action(icon='/assets/wutsi/img/social/twitter.png', text=#{next-action.item.twitter}, url='/me/channel', done=!${nextAction.twitter})"></div>
+                    <div th:replace="components/layout :: next-action(icon='/assets/wutsi/img/social/twitter.png', text=#{next-action.item.twitter}, url='/me/settings?highlight=channels-container#channels', done=!${nextAction.twitter})"></div>
                 </div>
             </div>
         </div>

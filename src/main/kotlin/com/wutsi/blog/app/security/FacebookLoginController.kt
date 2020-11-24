@@ -5,10 +5,12 @@ import com.github.scribejava.core.oauth.OAuth20Service
 import com.wutsi.blog.app.security.config.OAuthConfiguration
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
+import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
+import java.net.URLEncoder
 import javax.servlet.http.HttpServletRequest
 
 
@@ -36,11 +38,12 @@ class FacebookLoginController(
         val accessToken = getOAuthService().getAccessToken(code).accessToken
         val user = toOAuthUser(accessToken)
 
-        return "/me/channel/facebook?" +
-                "accessToken=${user.id}" +
-                "accessToken=$accessToken" +
-                "&name=${user.fullName}" +
-                "&pictureUrl=${user.pictureUrl}"
+        return "/me/settings/channel/create?" +
+                "accessToken=${accessToken}" +
+                "&accessTokenSecret=-" +
+                "&name=" + URLEncoder.encode(user.fullName, "utf-8") +
+                "&pictureUrl=${user.pictureUrl}" +
+                "&type=" + ChannelType.facebook
     }
 
     override fun getError(request: HttpServletRequest) = request.getParameter("error_code")

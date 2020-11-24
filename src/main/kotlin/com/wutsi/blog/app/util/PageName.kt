@@ -4,7 +4,6 @@ class PageName{
     companion object {
         const val BLOG = "page.blog"
 
-        const val CHANNEL = "page.channel"
         const val CHANNEL_FACEBOOK = "page.channel_facebook"
 
         const val COMMENT = "page.comment"

@@ -26,6 +26,9 @@ wutsi:
       bucket: "int-wutsi"
 
   toggles:
+    channel: true
+    channel-twitter: true
+    channel-facebook: false
     sso-facebook: true
     sso-google: true
     sso-github: false

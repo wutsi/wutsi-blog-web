@@ -837,6 +837,24 @@ a.sso-button .fab {
     height: 64px;
 }
 
+
+/* ==== CHANNEL ====== */
+.channel {
+    display: flex;
+}
+.channel .btn-container {
+    margin-left: auto;
+}
+.channel img.channel-logo {
+    width: 48px;
+    height: 48px;
+}
+.channel img.channel-picture {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
 /* ==== STORY ====== */
 .story-summary-card {
     display: flex;
