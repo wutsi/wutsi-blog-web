@@ -45,6 +45,7 @@ class TwitterLoginController(
         val user = toOAuthUser(accessToken)
 
         return "/me/channel/create?" +
+                "id=${user.id}" +
                 "accessToken=${accessToken.token}" +
                 "&accessTokenSecret=${accessToken.tokenSecret}" +
                 "&name=${user.fullName}" +

@@ -51,13 +51,14 @@ class ChannelController(
 
     @GetMapping("/create")
     fun create(
+            @RequestParam id: String,
             @RequestParam accessToken: String,
             @RequestParam accessTokenSecret: String,
             @RequestParam name: String,
             @RequestParam pictureUrl: String,
             @RequestParam type: ChannelType
     ): String {
-        service.create(accessToken, accessTokenSecret, name, pictureUrl, type)
+        service.create(id, accessToken, accessTokenSecret, name, pictureUrl, type)
         return "redirect:/me/channel"
     }
 }

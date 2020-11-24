@@ -68,6 +68,6 @@ wutsi:
     sso-facebook: true
     sso-google: true
     sso-github: false
-    sso-twitter: false
+    sso-twitter: true
     wpp: true
 

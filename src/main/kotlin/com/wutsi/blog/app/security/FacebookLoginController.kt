@@ -37,6 +37,7 @@ class FacebookLoginController(
         val user = toOAuthUser(accessToken)
 
         return "/me/channel/facebook?" +
+                "accessToken=${user.id}" +
                 "accessToken=$accessToken" +
                 "&name=${user.fullName}" +
                 "&pictureUrl=${user.pictureUrl}"
