@@ -104,5 +104,5 @@ class SettingsController(
     }
 
     private fun channelRedirectUrl(): String =
-            "redirect:/settings?highlight=channels-container#channels"
+            "redirect:/me/settings?highlight=channels-container#channels"
 }
