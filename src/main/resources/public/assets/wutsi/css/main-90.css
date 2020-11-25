@@ -938,7 +938,7 @@ a.sso-button .fab {
 }
 
 .next-action a {
-    color: var(--text-color);
+    color: var(--highlight-color);
     text-decoration: underline;
     vertical-align: middle;
 }
