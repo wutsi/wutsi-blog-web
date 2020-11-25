@@ -347,8 +347,8 @@
     </script>
 </div>
 
-<div th:fragment="next-action(icon, text, url, done)" class="next-action">
-    <a th:href="${url}" th:if="!${done}">
+<div th:fragment="next-action(name, icon, text, url, done)" class="next-action">
+    <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="next-best-action-${name}">
         <img th:src="${page.assetUrl} + ${icon}" />
         <span th:text="${text}">Next Action Text</span>
     </a>
