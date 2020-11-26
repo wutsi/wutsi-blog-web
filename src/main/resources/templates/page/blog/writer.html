@@ -10,27 +10,27 @@
     <div class="author-navbar">
         <div th:replace="components/author :: card(${blog}, !${toggles.follow})"></div>
 
-        <div class="border rounded margin-top padding container-fluid next-action-container box-filled-highlight-light" th:if="${nextAction}">
+        <div class="container-fluid next-action-container" th:if="${nextAction}">
             <h4 class="text-center" th:text="#{next-action.title}">Your Next Action</h4>
             <div class="row margin-top">
-                <div class="col-12 col-md-4 next-action-biography padding">
+                <div class="col-12 col-md-4 next-action-biography">
                     <div th:replace="components/layout :: next-action(name='biography', icon='/assets/wutsi/img/settings.png', text=#{next-action.item.biography}, url='/me/settings?highlight=biography-container#general', done=!${nextAction.biography})"></div>
                 </div>
-                <div class="col-12 col-md-4 next-action-newsletter padding">
+                <div class="col-12 col-md-4 next-action-newsletter">
                     <div th:replace="components/layout :: next-action(name='newsletter', icon='/assets/wutsi/img/newsletter.png', text=#{next-action.item.newsletter}, url='/me/settings?highlight=newsletter-container#newsletter', done=!${nextAction.newsletter})"></div>
                 </div>
-                <div class="col-12 col-md-4 next-action-twitter padding">
+                <div class="col-12 col-md-4 next-action-twitter">
                     <div th:replace="components/layout :: next-action(name='twitter', icon='/assets/wutsi/img/social/twitter.png', text=#{next-action.item.twitter}, url='/me/settings?highlight=channels-container#channels', done=!${nextAction.twitter})"></div>
                 </div>
             </div>
         </div>
 
-        <div th:if="${showCreateStoryButton}" class="margin-top text-center">
+        <div th:if="${showCreateStoryButton}" class="btn-toolbar">
             <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}">Write your first Story</a>
         </div>
-    </div>
-    <div id="btn-follow-container" th:if="${showFollowButton}">
-        <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
+        <div id="btn-follow-container" th:if="${showFollowButton}">
+            <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
+        </div>
     </div>
 
     <div class="container margin-top">

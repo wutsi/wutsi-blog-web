@@ -808,13 +808,21 @@ a.sso-button .fab {
 }
 
 
-/*======= AUTHOR =======*/
+/*======= AUTHOR NAVBAR =======*/
 .author-navbar {
     background: var(--card-background-color);
     border: 1px solid var(--border-color);
     margin-top: -1.6em;
 }
+.author-navbar .btn-toolbar {
+    padding: var(--padding);
+}
+.author-navbar .btn-toolbar .btn {
+    margin: 0 auto;
+}
 
+
+/*======= AUTHOR =======*/
 .author-summary-card {
     display: flex;
     padding: var(--padding);
@@ -911,6 +919,14 @@ a.sso-button .fab {
     width: 24px;
     height: 24px;
     border-radius: 50%;
+}
+
+
+/* ==== FOLLOW PANEL ==== */
+.follow-panel {
+    background: var(--highlight-color-light);
+    padding: var(--padding);
+    text-align: center;
 }
 
 /* ==== SETTING ===== */
@@ -1048,25 +1064,30 @@ a.sso-button .fab {
     margin-right: 1em;
 }
 
-/* ==== VALUE PROPOSITION  === */
+/* ==== NEXT ACTION  === */
+.next-action-container {
+    background: var(--highlight-color-light);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1em;
+    width: 90%;
+}
 .next-action span {
     vertical-align: middle;
 }
-
 .next-action img {
     width: 48px;
     height: 48px;
     margin-right: 1em;
     vertical-align: middle;
 }
-
 .next-action a {
     color: var(--highlight-color);
     text-decoration: underline;
     vertical-align: middle;
 }
 
-    /* ======================================================================== */
+/* ======================================================================== */
 /*                                                                          */
 /*  BOOTSTRAP OVERRIDES                                                     */
 /*                                                                          */
