@@ -337,7 +337,7 @@ a.sso-button .fab {
 }
 
 .editor .title-container textarea {
-    border: none;
+    border: 1px solid var(--border-color);
     display: block;
     font-size: 30px;
     max-width: 650px;
@@ -618,11 +618,13 @@ a.sso-button .fab {
     margin: 0 auto;
 }
 
-.reader .content .youtube {
+.reader .content .vimeo,
+.reader .content .youtube{
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
     height: 0;
 }
+.reader .content .vimeo iframe,
 .reader .content .youtube iframe {
     position: absolute;
     top: 0;
@@ -1127,8 +1129,9 @@ a.sso-button .fab {
 /*                                                                          */
 /* ======================================================================== */
 .ce-block__content {
-    border-bottom: 1px dashed var(--border-color) !important;
+    border: 1px dashed var(--border-color) !important;
     color: var(--text-color)  !important;
+    padding: .5em;
 }
 .ce-block--stretched {
     max-width: 650px;

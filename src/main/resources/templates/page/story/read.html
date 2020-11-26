@@ -124,42 +124,12 @@
 <div th:replace="components/layout :: footer"></div>
 
 <script src="https://platform.twitter.com/widgets.js" charset="utf-8" th:if="${hasTwitterEmbed}"></script>
-<script th:if="${hasTwitterEmbed}">
-    $(document).ready(function(){
-        $('.tweet').each( function( t, tweet ) {
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-twitter-1.js'"  th:if="${hasTwitterEmbed}"></script>
 
-            var id = jQuery(this).attr('data-id');
-            twttr.widgets.createTweet(
-                id, tweet,
-                {
-                    conversation : 'none',    // or all
-                    cards        : 'hidden',  // or visible
-                    linkColor    : '#1D7EDF', // default is blue
-                    theme        : 'light'    // or dark
-                });
-        });
-    });
-</script>
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-youtube-1.js'"  th:if="${hasYouTubeEmbed}"></script>
 
-<script th:if="${hasYouTubeEmbed}">
-    $(document).ready(function(){
-        // Load YouTube player
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    });
-
-    function onYouTubeIframeAPIReady() {
-        $('.youtube .player').each( function() {
-            const id = jQuery(this).attr('id');
-            const videoId = jQuery(this).parent().attr('data-id');
-            new YT.Player(id, {
-                videoId: videoId
-            });
-        });
-    }
-</script>
+<script src="https://player.vimeo.com/api/player.js" th:if="${hasVimeoEmbed}"></script>
+<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-1.js'"  th:if="${hasVimeoEmbed}"></script>
 
 <link rel="stylesheet" type="text/css" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'"  th:if="${hasCode} OR ${hasRaw}" />
 <script th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'" th:if="${hasCode} OR ${hasRaw}"></script>

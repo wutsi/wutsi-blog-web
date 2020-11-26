@@ -128,6 +128,7 @@ function WutsiEJS (holderId, publishCallback){
                     services: {
                         youtube: true,
                         twitter: true,
+                        vimeo: true,
                         instagram: false
                     }
                 }

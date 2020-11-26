@@ -45,6 +45,7 @@ abstract class AbstractStoryReadController(
         val ejs = ejsJsonReader.read(story.content)
         model.addAttribute("hasTwitterEmbed", hasEmbed(ejs, "twitter"))
         model.addAttribute("hasYouTubeEmbed", hasEmbed(ejs, "youtube"))
+        model.addAttribute("hasVimeoEmbed", hasEmbed(ejs, "vimeo"))
         model.addAttribute("hasCode", hasCode(ejs))
         model.addAttribute("hasRaw", hasRaw(ejs))
     }
