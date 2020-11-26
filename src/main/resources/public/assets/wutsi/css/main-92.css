@@ -1071,11 +1071,19 @@ a.sso-button .fab {
     background: var(--highlight-color-light);
     border: 1px solid var(--border-color);
     border-radius: 10px;
+    margin: var(--margin) auto;
     padding: 1em;
     width: 90%;
 }
 .next-action span {
     vertical-align: middle;
+}
+.next-action .done span {
+    color: gray;
+}
+.next-action .todo span {
+    font-size: 1.2em;
+    font-weight: bold;
 }
 .next-action img {
     width: 48px;
