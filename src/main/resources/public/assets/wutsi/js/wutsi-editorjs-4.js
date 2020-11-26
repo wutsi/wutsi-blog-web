@@ -91,7 +91,7 @@ function WutsiEJS (holderId, publishCallback){
     this.init_title = function(model) {
         console.log('Initializing title');
 
-        $(this.config.selectors.title).val(model.title);
+        $(this.config.selectors.title).text(model.title);
     };
 
     this.init_editorjs = function(model) {
@@ -259,7 +259,7 @@ function WutsiEJS (holderId, publishCallback){
 
         this.saving();
 
-        this.model.title = $(this.config.selectors.title).val();
+        this.model.title = $(this.config.selectors.title).text();
 
         const id = this.model.id;
         const me = this;

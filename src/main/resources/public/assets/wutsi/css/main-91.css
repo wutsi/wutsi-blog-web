@@ -331,7 +331,7 @@ a.sso-button .fab {
     margin-right: 1em;
 }
 
-.editor .title-container input {
+.editor .title-container textarea {
     border: none;
     display: block;
     font-size: 30px;
