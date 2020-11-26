@@ -747,7 +747,7 @@ a.sso-button .fab {
 
 
 
-/*===== Settings ============*/
+/*===== SETTINGS ============*/
 .settings-sidebar {
     position: fixed;
     top: 8em;
@@ -897,6 +897,8 @@ a.sso-button .fab {
 /* ==== CHANNEL ====== */
 .channel {
     display: flex;
+    background: var(--card-background-color);
+    padding: var(--padding);
 }
 .channel .btn-container {
     margin-left: auto;
@@ -910,6 +912,14 @@ a.sso-button .fab {
     height: 24px;
     border-radius: 50%;
 }
+
+/* ==== SETTING ===== */
+.setting-section {
+    border-top: 1px solid var(--border-color);
+    margin-top: var(--margin);
+    padding: var(--padding);
+}
+
 
 /* ==== STORY SIDEBAR ===== */
 .content-sidebar .story-list {

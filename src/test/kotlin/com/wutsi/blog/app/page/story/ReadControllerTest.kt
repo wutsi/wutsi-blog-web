@@ -237,9 +237,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         Thread.sleep(5000)
         assertElementCount("#recommendation-container .post", 0)
 
-        assertElementCount("#recommendation-container .btn-read-more", 1)
-        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
-        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/@/ray.sponsible")
+        assertElementCount("#recommendation-container .btn-read-more", 0)
     }
 
     @Test

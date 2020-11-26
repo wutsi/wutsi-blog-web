@@ -29,10 +29,10 @@
                         <a href="#newsletter" th:text="#{label.my_newsletter}">My Newsletter</a>
                     </div>
                     <div>
-                        <a href="#subscriptions" th:text="#{label.my_subscriptions}">My Subscriptions</a>
+                        <a href="#channels" th:text="#{label.my_channels}">My Channels</a>
                     </div>
                     <div>
-                        <a href="#channels" th:text="#{label.my_channels}">My Channels</a>
+                        <a href="#subscriptions" th:text="#{label.my_subscriptions}">My Subscriptions</a>
                     </div>
                 </div>
             </div>
@@ -43,28 +43,28 @@
             <div>
                 <h1 th:text="#{page.settings.title}">Blog Setting</h1>
 
-                <div class="border-top padding">
+                <div class="setting-section">
                     <div th:replace="components/settings :: inline_input_form(title=#{label.username}, name='name', value=${user.name}, maxlen=128, control='input', type='text', placeholder=#{page.settings.username.placeholder})"></div>
                 </div>
-                <div class="border-top padding">
+                <div class="setting-section">
                     <div th:replace="components/settings :: inline_input_form(title=#{label.blogname}, name='full_name', value=${user.fullName}, maxlen=100, control='input', type='text', placeholder=#{page.settings.fullname.placeholder})"></div>
                 </div>
-                <div class="border-top padding">
+                <div class="setting-section">
                     <div th:replace="components/settings :: inline_input_form(title=#{label.email}, name='email', value=${user.email}, maxlen=100, control='input', type='email', placeholder=#{page.settings.email.placeholder})"></div>
                 </div>
-                <div id="biography-container" class="border-top padding">
+                <div id="biography-container" class="setting-section">
                     <div th:replace="components/settings :: inline_input_form(title=#{label.biography}, name='biography', value=${user.biography}, maxlen=200, control='textarea', type='', placeholder=#{page.settings.bio.placeholder})"></div>
                 </div>
-                <div class="border-top padding">
+                <div class="setting-section">
                     <div th:replace="components/settings :: inline_input_form(title=#{label.language}, name='language', value=${user.language}, maxlen='', control='language', type='', placeholder=#{page.settings.language.placeholder})"></div>
                 </div>
-                <div class="border-top padding">
+                <div class="setting-section">
                     <div th:replace="components/settings :: inline_input_form(title=#{label.website}, name='website_url', value=${user.websiteUrl}, maxlen=200, control='input', type='url', placeholder=#{page.settings.website.placeholder})"></div>
                 </div>
             </div>
 
             <a name="social_media"></a>
-            <div class="margin-top border-top padding">
+            <div class="setting-section">
                 <h4 th:text="#{label.social_media}">Social Links</h4>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.facebook.com/', name='facebook_id', value=${user.facebookId}, placeholder=#{page.settings.facebook.placeholder})"></div>
                 <div th:replace="components/settings :: inline_social_input_form(title='https://www.twitter.com/', name='twitter_id', value=${user.twitterId}, placeholder=#{page.settings.twitter.placeholder})"></div>
@@ -73,26 +73,26 @@
             </div>
 
             <a name="newsletter"></a>
-            <div id="newsletter-container" class="margin-top border-top padding">
+            <div id="newsletter-container" class="setting-section">
                 <h4 th:text="#{label.my_newsletter}">Newsletter</h4>
                 <div th:replace="components/settings :: inline_input_form(title='', name='newsletter_delivery_day_of_week', value=${user.newsletterDeliveryDayOfWeek}, maxlen='', control='day_of_week', type='', placeholder=#{page.settings.newsletter.placeholder})"></div>
             </div>
 
+            <a name="channels"></a>
+            <div id="channels-container" class="setting-section">
+                <h4 th:text="#{label.my_channels}">My Channels</h4>
+                <div th:each="channel : ${channels}">
+                    <div th:replace="components/settings :: channel(${channel})"></div>
+                </div>
+            </div>
+
             <a name="subscriptions"></a>
-            <div id="subscriptions-container" class="margin-top border-top padding author-list">
+            <div id="subscriptions-container" class="setting-section">
                 <h4 th:text="#{label.my_subscriptions}">My Subscriptions</h4>
                 <div th:each="followingUser : ${followingUsers}">
                     <div th:replace="components/author :: summary-card(${followingUser}, false, true)"></div>
                 </div>
                 <div class="subscriptions-none" th:if="!${followingUsers}" th:text="#{label.no_subscriptions}">You have no subscriptions</div>
-            </div>
-
-            <a name="channels"></a>
-            <div id="channels-container" class="margin-top-2x border-top padding channel-list">
-                <h4 th:text="#{label.my_channels}">My Channels</h4>
-                <div th:each="channel : ${channels}">
-                    <div th:replace="components/settings :: channel(${channel})"></div>
-                </div>
             </div>
         </div>
     </div>
