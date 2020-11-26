@@ -348,10 +348,13 @@
 </div>
 
 <div th:fragment="next-action(name, icon, text, url, done)" class="next-action">
-    <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="next-best-action-${name}">
+    <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
         <img th:src="${page.assetUrl} + ${icon}" />
+    </a>
+    <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
         <span th:text="${text}">Next Action Text</span>
     </a>
+
     <div th:if="${done}">
         <img th:src="${page.assetUrl} + '/assets/wutsi/img/check.png'" />
         <span th:text="${text}">Next Action Text</span>

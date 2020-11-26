@@ -43,14 +43,15 @@ abstract class AbstractStoryReadController(
         model.addAttribute("html", html)
 
         val ejs = ejsJsonReader.read(story.content)
-        model.addAttribute("hasTwitterEmbed", hasTwitterEmbed(ejs))
+        model.addAttribute("hasTwitterEmbed", hasEmbed(ejs, "twitter"))
+        model.addAttribute("hasYouTubeEmbed", hasEmbed(ejs, "youtube"))
         model.addAttribute("hasCode", hasCode(ejs))
         model.addAttribute("hasRaw", hasRaw(ejs))
     }
 
-    private fun hasTwitterEmbed(doc: EJSDocument) = doc
+    private fun hasEmbed(doc: EJSDocument, service: String) = doc
             .blocks
-            .find { it.type == BlockType.embed && it.data.service == "twitter" } != null
+            .find { it.type == BlockType.embed && it.data.service == service } != null
 
     private fun hasCode(doc: EJSDocument) = doc
             .blocks

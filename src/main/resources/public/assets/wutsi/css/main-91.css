@@ -22,6 +22,11 @@ body {
     --text-color-success: var(--highlight-color);
     --border-color: rgba(0,0,0,.125);
 
+    --margin: 1em;
+    --padding: 1em;
+
+    --card-background-color: #ffffff;
+
     background: var(--background-light);
     color: var(--text-color);
     font-family: 'PT Sans', sans-serif;
@@ -564,8 +569,6 @@ a.sso-button .fab {
     width: 100%;
 }
 
-
-
 .reader .content a.link-tool {
     color: var(--text-color);
     text-decoration: none;
@@ -595,7 +598,6 @@ a.sso-button .fab {
     color: var(--text-color-gray);
 }
 
-
 .reader .content div.link-tool div.image {
     width: 30%;
     max-height: 200px;
@@ -616,6 +618,19 @@ a.sso-button .fab {
     margin: 0 auto;
 }
 
+.reader .content .youtube {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+.reader .content .youtube iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .reader .link-tool .meta {
     width: 70%;
     padding-right: 1em;
@@ -629,6 +644,9 @@ a.sso-button .fab {
     color: #e83e8c;
 }
 
+.reader .widget-container {
+    padding-bottom: 0;
+}
 
 /*===== LIKE === */
 .like-widget a {
@@ -682,6 +700,7 @@ a.sso-button .fab {
     top: 67px;
     width: 600px;
     z-index: 10000;
+    border-bottom: 0;
 }
 
 .comment-widget-content textarea {
@@ -855,9 +874,52 @@ a.sso-button .fab {
     border-radius: 50%;
 }
 
+/* ==== STORY SIDEBAR ===== */
+.content-sidebar .story-list {
+    margin-top: var(--margin);
+}
+.content-sidebar .story-list:first-child {
+    margin-top: 0;
+}
+
+.story-list {
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+}
+.story-list .title {
+    padding: var(--padding);
+    margin: 0;
+}
+.story-list .story-summary-card {
+    border-top: 1px solid var(--border-color);
+}
+
+
+/* ==== STORY READ ALSO ===== */
+.story-read-also {
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    margin-top: var(--margin);
+}
+.story-read-also .title {
+    padding: var(--padding);
+    margin: 0;
+}
+.story-read-also .story-summary-card {
+    border-top: 1px solid var(--border-color);
+}
+.story-read-also .read-also-buttons {
+    border-top: 1px solid var(--border-color);
+    padding: var(--padding);
+    text-align: center;
+}
+
+
 /* ==== STORY ====== */
 .story-summary-card {
+    background: var(--card-background-color);
     display: flex;
+    padding: var(--padding);
 }
 .story-summary-card a {
     color: var(--text-color);
@@ -879,6 +941,11 @@ a.sso-button .fab {
 }
 
 
+.story-card {
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    padding: var(--padding);
+}
 .story-card a {
     color: var(--text-color);
     text-decoration: none;
@@ -1028,15 +1095,6 @@ a.sso-button .fab {
         max-height: 90px;
     }
 
-    .reader .widget-container {
-        background: white;
-        bottom: 0;
-        border: 1px solid var(--border-color);
-        margin-left: -1em;
-        position: fixed;
-        width: 100%;
-        z-index: 1;
-    }
     .reader .comment-widget-content {
         width: 90%;
         height: 90%;
@@ -1063,6 +1121,11 @@ a.sso-button .fab {
         height: 32px;
     }
 
+    /*==== STORY SIDEBAR ===== */
+    .content-sidebar {
+        margin-top: var(--margin);
+    }
+
     /*==== STORY COMPONENT ===== */
     .story-summary-card img {
         max-width: 100px;
@@ -1071,6 +1134,18 @@ a.sso-button .fab {
     .story-card .img-container {
         max-height: 180px;
         overflow: hidden;
+    }
+
+    /* ===== WIDGET CONTAINER ==== */
+    .reader .widget-container {
+        background: white;
+        bottom: 0;
+        border: 1px solid var(--border-color);
+        margin-left: -1em;
+        padding-bottom: 1em;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
     }
 }
 

@@ -87,13 +87,7 @@
                 </div>
             </div>
         </div>
-
     </article>
-
-    <!-- Follow -->
-    <div th:if="${showFollowButton}">
-        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
-    </div>
 
     <!-- PWA Install -->
     <div th:if="${toggles.pwa}">
@@ -111,11 +105,18 @@
     </div>
 
     <!-- Author -->
-    <div id="author-container" class="border padding box-filled-white">
-        <div th:replace="components/author :: card(${story.user}, true)"></div>
-    </div>
-    <div th:replace="components/follow :: who-to-follow"></div>
+    <div id="author-container" class="border box-filled-white">
+        <div class="padding">
+            <div th:replace="components/author :: card(${story.user}, true)"></div>
+        </div>
 
+        <!-- Follow -->
+        <div th:if="${showFollowButton}">
+            <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
+        </div>
+    </div>
+
+    <div th:replace="components/follow :: who-to-follow"></div>
     <div class="margin-bottom-4x">&nbsp;</div>
 </div>
 
@@ -140,6 +141,26 @@
                 });
         });
     });
+</script>
+
+<script th:if="${hasYouTubeEmbed}">
+    $(document).ready(function(){
+        // Load YouTube player
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    });
+
+    function onYouTubeIframeAPIReady() {
+        $('.youtube .player').each( function() {
+            const id = jQuery(this).attr('id');
+            const videoId = jQuery(this).parent().attr('data-id');
+            new YT.Player(id, {
+                videoId: videoId
+            });
+        });
+    }
 </script>
 
 <link rel="stylesheet" type="text/css" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'"  th:if="${hasCode} OR ${hasRaw}" />

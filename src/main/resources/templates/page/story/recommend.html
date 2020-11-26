@@ -1,21 +1,19 @@
-<div class="container border rounded main-content">
-    <div class="padding">
-        <h3 th:text="#{label.read_also}">Read Also</h3>
-        <section class="padding-top margin-top border-top" th:each="story,it : ${stories}" th:if="!${stories.isEmpty()}">
-            <div th:if="${layout} == 'card'">
-                <div th:replace="components/story :: story-card(${story}, 'xread', ${it.index})"></div>
-            </div>
-            <div th:if="${layout} == 'summary'">
-                <div th:replace="components/story :: story-summary-card(${story}, true, 'xread', ${it.index})"></div>
-            </div>
-        </section>
-        <section class="padding-top margin-top border-top text-center">
-            <a class="btn btn-light btn-read-more" th:href="${blog.slug}" wutsi-track-event='xread_more'>
-                <span th:text="#{button.read_more_stories}">Discover Move Stories</span>
-                &nbsp;
-                <i class="fas fa-chevron-right"></i>
-            </a>
-        </section>
+<div class="story-read-also" th:if="!${stories.isEmpty()}">
+    <h3 class="title" th:text="#{label.read_also}">Read Also</h3>
+    <div th:each="story,it : ${stories}">
+        <div th:if="${layout} == 'card'">
+            <div th:replace="components/story :: story-card(${story}, 'xread', ${it.index})"></div>
+        </div>
+        <div th:if="${layout} == 'summary'">
+            <div th:replace="components/story :: story-summary-card(${story}, true, 'xread', ${it.index})"></div>
+        </div>
+    </div>
+    <div class="read-also-buttons">
+        <a class="btn btn-light btn-read-more" th:href="${blog.slug}" wutsi-track-event='xread_more'>
+            <span th:text="#{button.read_more_stories}">Discover Move Stories</span>
+            &nbsp;
+            <i class="fas fa-chevron-right"></i>
+        </a>
     </div>
 </div>
 

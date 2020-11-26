@@ -126,7 +126,7 @@ function WutsiEJS (holderId, publishCallback){
                 config: {
                     inlineToolbar: true,
                     services: {
-                        youtube: false,
+                        youtube: true,
                         twitter: true,
                         instagram: false
                     }
@@ -266,6 +266,8 @@ function WutsiEJS (holderId, publishCallback){
         this.editorjs
             .save()
             .then(function(data){
+                console.log('Saved', data);
+
                 me.model.content = data;
                 window.localStorage.setItem('document-' + id, JSON.stringify(me.model));
                 me.saved();
