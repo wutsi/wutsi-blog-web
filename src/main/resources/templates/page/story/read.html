@@ -8,7 +8,7 @@
 
 <div th:replace="components/layout :: navbar-blog(${story.user}, ${showFollowButton}, ${story.slug})"></div>
 
-<div class="container offset-md-2 col-md-8">
+<div class="container offset-md-2 col-md-8 content-main">
 
     <!-- Article -->
     <article class="border padding reader main-content">
@@ -105,10 +105,8 @@
     </div>
 
     <!-- Author -->
-    <div id="author-container" class="border box-filled-white">
-        <div class="padding">
-            <div th:replace="components/author :: card(${story.user}, true)"></div>
-        </div>
+    <div id="author-container" class="story-author-card ">
+        <div th:replace="components/author :: card(${story.user}, true)"></div>
 
         <!-- Follow -->
         <div th:if="${showFollowButton}">

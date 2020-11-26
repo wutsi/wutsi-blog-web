@@ -3,7 +3,7 @@
 <body>
 
 <div th:fragment="who-to-follow" th:if="${toggles.follow}">
-    <div class="who-to-follow-container margin-top margin-bottom"></div>
+    <div class="who-to-follow-container"></div>
     <script>
         $(document).ready(function(){
             $('.who-to-follow-container').load('/follow/who');

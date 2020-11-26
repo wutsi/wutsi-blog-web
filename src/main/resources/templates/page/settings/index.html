@@ -79,18 +79,18 @@
             </div>
 
             <a name="subscriptions"></a>
-            <div id="subscriptions-container" class="margin-top border-top padding">
+            <div id="subscriptions-container" class="margin-top border-top padding author-list">
                 <h4 th:text="#{label.my_subscriptions}">My Subscriptions</h4>
-                <div class="padding border-top" th:each="followingUser : ${followingUsers}">
+                <div th:each="followingUser : ${followingUsers}">
                     <div th:replace="components/author :: summary-card(${followingUser}, false, true)"></div>
                 </div>
                 <div class="subscriptions-none" th:if="!${followingUsers}" th:text="#{label.no_subscriptions}">You have no subscriptions</div>
             </div>
 
             <a name="channels"></a>
-            <div id="channels-container" class="margin-top-2x border-top padding">
+            <div id="channels-container" class="margin-top-2x border-top padding channel-list">
                 <h4 th:text="#{label.my_channels}">My Channels</h4>
-                <div class="padding" th:each="channel : ${channels}">
+                <div th:each="channel : ${channels}">
                     <div th:replace="components/settings :: channel(${channel})"></div>
                 </div>
             </div>

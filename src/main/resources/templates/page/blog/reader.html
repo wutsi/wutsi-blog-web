@@ -9,7 +9,7 @@
 
     <div class="container">
         <div class="row">
-            <div id="following-stories content-main" class="col-12 offset-lg-1 col-lg-6">
+            <div id="following-stories" class="content-main col-12 offset-lg-1 col-lg-6">
                 <div th:each="story,it: ${followingStories}">
                     <div th:replace="components/story :: story-card(${story}, 'read', ${it.index})"></div>
 

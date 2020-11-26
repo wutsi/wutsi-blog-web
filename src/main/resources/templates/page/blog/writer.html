@@ -7,7 +7,7 @@
 <body class="paper">
     <div th:replace="components/layout :: navbar-blog(${blog}, ${showFollowButton}, ${blog.slug})"></div>
 
-    <div class="author-navbar padding border-bottom box-filled-white">
+    <div class="author-navbar">
         <div th:replace="components/author :: card(${blog}, !${toggles.follow})"></div>
 
         <div class="border rounded margin-top padding container-fluid next-action-container box-filled-highlight-light" th:if="${nextAction}">

@@ -797,14 +797,32 @@ a.sso-button .fab {
 }
 
 
-/*======= AUTHOR =======*/
-.author-navbar {
-    margin-top: -1.6em;
+/*======= AUTHOR LIST =======*/
+.author-list .title {
+    padding: var(--padding);
+    margin: 0;
+}
+
+.author-list .author-summary-card {
+    border-top: 1px solid var(--border-color);
 }
 
 
+/*======= AUTHOR =======*/
+.author-navbar {
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    margin-top: -1.6em;
+}
+
 .author-summary-card {
     display: flex;
+    padding: var(--padding);
+}
+.author-summary-card .biography {
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .author-summary-card img {
     width: 48px;
@@ -818,9 +836,10 @@ a.sso-button .fab {
     margin-left: auto
 }
 
-
 .author-card{
+    background: var(--card-background-color);
     display: flex;
+    padding: var(--padding);
 }
 .author-card img {
     width: 64px;
@@ -854,6 +873,24 @@ a.sso-button .fab {
     border-radius: 50%;
     width: 64px;
     height: 64px;
+}
+
+
+/* ==== WHO TO FOLLOW ====== */
+.who-to-follow {
+    background: var(--highlight-color-light);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+.who-to-follow .title {
+    padding: var(--padding);
+}
+.who-to-follow .author-summary-card {
+    border-top: 1px solid var(--border-color);
+}
+
+.content-main .who-to-follow {
+    margin: var(--margin) 0;
 }
 
 
@@ -915,7 +952,7 @@ a.sso-button .fab {
 }
 
 
-/* ==== STORY ====== */
+/* ==== STORY SUMMARY CARD ====== */
 .story-summary-card {
     background: var(--card-background-color);
     display: flex;
@@ -941,6 +978,7 @@ a.sso-button .fab {
 }
 
 
+/* ==== STORY CARD ====== */
 .story-card {
     background: var(--card-background-color);
     border: 1px solid var(--border-color);
@@ -973,6 +1011,14 @@ a.sso-button .fab {
 }
 .story-card .meta {
     color: var(--text-color-gray);
+}
+
+
+/* ==== STORY AUTHUR ====== */
+.story-author-card {
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    margin-top: var(--margin);
 }
 
 
