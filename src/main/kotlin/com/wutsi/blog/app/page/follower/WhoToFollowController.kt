@@ -2,9 +2,12 @@ package com.wutsi.blog.app.page.follower
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.common.service.ViewService
 import com.wutsi.blog.app.page.follower.service.FollowerService
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.SortOrder
 import com.wutsi.blog.client.user.SearchUserRequest
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
@@ -19,24 +22,45 @@ import java.net.URLEncoder
 class WhoToFollowController(
         private val followerService: FollowerService,
         private val userService: UserService,
-        private val requestContext: RequestContext
+        private val viewService: ViewService
 ) {
     @GetMapping()
     fun add(
             @RequestParam(required=false, defaultValue = "3") limit: Int = 3,
             model: Model
     ): String {
-        val userId = requestContext.currentUser()?.id
         val followingUserIds = followerService.searchFollowingUserIds()
-        val whoToFollow = userService.search(SearchUserRequest(
-                blog = true,
-                limit = followingUserIds.size + 1 + 2*limit
-        ))
-                .filter { it.id != userId && !followingUserIds.contains(it.id) }
-                .shuffled()
-                .take(limit)
+        val whoToFollow = findWhoToFollow(followingUserIds, limit)
 
         model.addAttribute("whoToFollow", whoToFollow)
         return "page/follow/who"
     }
+
+    private fun findWhoToFollow(followingUserIds: List<Long>, limit: Int): List<UserModel> {
+        val result = mutableListOf<UserModel>()
+        result.addAll(findPreferredAuthors(followingUserIds, limit))
+        if (result.size < limit)
+            result.addAll(findAuthors(followingUserIds, limit-result.size))
+
+        return result
+    }
+
+    private fun findPreferredAuthors(followingUserIds: List<Long>, limit: Int): List<UserModel> {
+        try {
+            return viewService.findPreferredAuthors()
+                            .filter { !followingUserIds.contains(it.id) }
+                            .shuffled()
+                            .take(limit)
+
+        } catch (ex: Exception){
+            return emptyList()
+        }
+    }
+
+    private fun findAuthors(followingUserIds: List<Long>, limit: Int): List<UserModel> =
+        userService.search(SearchUserRequest(blog = true))
+                .filter { !followingUserIds.contains(it.id) }
+                .shuffled()
+                .take(limit)
+
 }
