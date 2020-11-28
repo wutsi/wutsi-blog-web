@@ -4,42 +4,47 @@
 
 
 <div th:fragment="widget(story)" class="share-widget">
+    <a id="share-menu" wutsi-track-event="share" href="javascript: $('.share-box').show();">
+        <div><i class="fas fa-share-alt"></i></div>
+    </a>
 
-    <div class="dropdown">
-        <a class="dropdown-toggle" id="share-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" wutsi-track-event="share">
-            <div class="flex">
-                <div><i class="fas fa-share-alt"></i></div>
-            </div>
+    <div class="share-box">
+        <button type="button" class="close" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="clearfix"></div>
+
+        <button class="btn btn-lg btn-light btn-block btn-whatsapp hidden" wutsi-share-target="whatsapp" th:wutsi-story-id="${story.id}">
+            <i class="fab fa-whatsapp-square"></i>
+            WhatsApp
+        </button>
+        <button class="btn btn-lg btn-light btn-block btn-twitter" wutsi-share-target="twitter" th:wutsi-story-id="${story.id}">
+            <i class="fab fa-twitter-square"></i>
+            <span>Twitter</span>
+        </button>
+        <button class="btn btn-lg btn-light btn-block btn-facebook" wutsi-share-target="facebook" th:wutsi-story-id="${story.id}">
+            <i class="fab fa-facebook-square"></i>
+            <span>Facebook</span>
+        </button>
+        <button class="btn btn-lg btn-light btn-block btn-messenger hidden" wutsi-share-target="messenger" th:wutsi-story-id="${story.id}">
+            <i class="fab fa-facebook-messenger"></i>
+            Messenger
+        </button>
+        <a class="btn btn-lg btn-light btn-block btn-linkedin" wutsi-share-target="linkedin" th:wutsi-story-id="${story.id}">
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="share-menu">
-            <a class="dropdown-item share-whatsapp btn-share hidden" wutsi-share-target="whatsapp" th:wutsi-story-id="${story.id}">
-                <i class="fab fa-whatsapp-square"></i>
-                WhatsApp
-            </a>
-            <a class="dropdown-item share-messenger btn-share hidden" wutsi-share-target="messenger" th:wutsi-story-id="${story.id}">
-                <i class="fab fa-facebook-messenger"></i>
-                Messenger
-            </a>
-            <a class="dropdown-item share-facebook btn-share" wutsi-share-target="facebook" th:wutsi-story-id="${story.id}">
-                <i class="fab fa-facebook-square"></i>
-                Facebook
-            </a>
-            <a class="dropdown-item share-twitter btn-share" wutsi-share-target="twitter" th:wutsi-story-id="${story.id}">
-                <i class="fab fa-twitter-square"></i>
-                Twitter
-            </a>
-            <a class="dropdown-item share-linkedin btn-share" wutsi-share-target="linkedin" th:wutsi-story-id="${story.id}">
-                <i class="fab fa-linkedin"></i>
-                LinkedIn
-            </a>
-        </div>
     </div>
     <script>
         $(document).ready(function(){
             if (wutsi.isMobile()){
-                $('.share-whatsapp').removeClass('hidden');
-                $('.share-messenger').removeClass('hidden');
+                $('.share-box .btn-whatsapp').removeClass('hidden');
+                $('.share-box .btn-messenger').removeClass('hidden');
             }
+
+            $('.share-box .close').click(function(){
+                $('.share-box').hide();
+            });
         });
     </script>
 </div>

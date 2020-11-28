@@ -1075,6 +1075,13 @@ a.sso-button .fab {
     padding: 1em;
     width: 90%;
 }
+.next-action-container .title {
+    text-align: center;
+    margin: 0;
+}
+.next-action {
+    margin-top: var(--margin);
+}
 .next-action span {
     vertical-align: middle;
 }
@@ -1082,7 +1089,6 @@ a.sso-button .fab {
     color: gray;
 }
 .next-action .todo span {
-    font-size: 1.2em;
     font-weight: bold;
 }
 .next-action img {
@@ -1095,6 +1101,29 @@ a.sso-button .fab {
     color: var(--highlight-color);
     text-decoration: underline;
     vertical-align: middle;
+}
+
+/* ======== TELL YOUR FRIENDS ========= */
+.author-navbar .tell-your-friends {
+    padding-left: var(--padding);
+}
+
+
+
+/* ======== SHARE BOX ========= */
+.share-box {
+    background: var(--highlight-color-light);
+    border: 4px solid var(--border-color);
+    display: none;
+    padding: var(--padding);
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    width: 30%;
+    z-index: 100;
+}
+.share-box .btn {
+    margin-top: var(--margin);
 }
 
 /* ======================================================================== */
@@ -1208,6 +1237,14 @@ a.sso-button .fab {
         width: 32px;
         height: 32px;
     }
+
+    /*==== SHAREBOX =========*/
+    .share-box {
+        top: 20%;
+        left: 5%;
+        width: 90%;
+    }
+
 
     /*==== STORY SIDEBAR ===== */
     .content-sidebar {
