@@ -35,6 +35,8 @@ class BlogController(
 
     override fun shouldBeIndexedByBots() = true
 
+    override fun shouldShowGoogleOneTap() = true
+
     @GetMapping("/@/{name}")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = userService.get(name)
