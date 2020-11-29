@@ -27,7 +27,6 @@ class PWAControllerTest: SeleniumTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
-        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
     }
 
 

@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.story.service.RecommendationService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class RecommendationController(
-        private val recommendationService: RecommendationService,
         private val storyService: StoryService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
@@ -26,7 +24,7 @@ class RecommendationController(
             model: Model
     ): String {
         val story = storyService.get(storyId)
-        val stories = recommendationService.search(storyId)
+        val stories = storyService.recommend(storyId)
 
         model.addAttribute("layout", layout)
         model.addAttribute("stories", stories)

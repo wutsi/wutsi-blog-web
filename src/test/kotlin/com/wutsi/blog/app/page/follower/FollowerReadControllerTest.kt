@@ -14,8 +14,6 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         stub(HttpMethod.POST, "/v1/follower", HttpStatus.OK, "v1/follower/create.json")
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
 
-        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
-
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 

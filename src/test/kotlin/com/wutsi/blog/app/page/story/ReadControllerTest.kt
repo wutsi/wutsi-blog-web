@@ -13,7 +13,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
 
-        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search.json")
+        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
@@ -231,7 +231,8 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `show no recommendations when none are available`() {
-        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.OK, "v1/recommendation/search-none.json")
+        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend-none.json")
+
         driver.get("$url/read/20/looks-good")
 
         Thread.sleep(5000)
@@ -242,7 +243,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
 
     @Test
     fun `show no recommendations on backend errors`() {
-        stub(HttpMethod.POST, "/v1/recommendation/search", HttpStatus.INTERNAL_SERVER_ERROR)
+        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.INTERNAL_SERVER_ERROR)
         driver.get("$url/read/20/looks-good")
 
         Thread.sleep(5000)

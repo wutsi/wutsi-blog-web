@@ -7,10 +7,14 @@ import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.ImportStoryResponse
 import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.PublishStoryResponse
+import com.wutsi.blog.client.story.RecommendStoryRequest
+import com.wutsi.blog.client.story.RecommendStoryResponse
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SearchStoryResponse
+import com.wutsi.blog.client.story.SortStoryRequest
+import com.wutsi.blog.client.story.SortStoryResponse
 import com.wutsi.blog.client.story.TranslateStoryResponse
 import com.wutsi.core.http.Http
 import org.springframework.beans.factory.annotation.Value
@@ -61,5 +65,13 @@ class StoryBackend (
 
     fun import(request: ImportStoryRequest): ImportStoryResponse {
         return http.post("$endpoint/import", request, ImportStoryResponse::class.java).body!!
+    }
+
+    fun sort(request: SortStoryRequest): SortStoryResponse {
+        return http.post("$endpoint/sort", request, SortStoryResponse::class.java).body!!
+    }
+
+    fun recommend(request: RecommendStoryRequest): RecommendStoryResponse {
+        return http.post("$endpoint/recommend", request, RecommendStoryResponse::class.java).body!!
     }
 }

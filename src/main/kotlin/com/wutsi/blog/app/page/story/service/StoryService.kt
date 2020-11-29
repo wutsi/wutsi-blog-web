@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.page.story.service
 
-import com.wutsi.blog.app.backend.SortBackend
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.model.PublishForm
@@ -12,12 +11,14 @@ import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
+import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.SortStoryRequest
 import com.wutsi.blog.client.story.SortStoryResponse
+import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -25,15 +26,13 @@ import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Service
-import org.springframework.ui.Model
 import java.io.StringWriter
 
 @Service
 class StoryService(
         private val requestContext: RequestContext,
         private val mapper: StoryMapper,
-        private val storyBackend: StoryBackend,
-        private val sortBackend: SortBackend,
+        private val backend: StoryBackend,
         private val ejsJsonReader: EJSJsonReader,
         private val ejsHtmlWriter: EJSHtmlWriter,
         private val ejsFilters: EJSFilterSet,
@@ -43,9 +42,9 @@ class StoryService(
         var response = SaveStoryResponse()
         val request = toSaveStoryRequest(editor)
         if (shouldCreate(editor)){
-            response = storyBackend.create(request)
+            response = backend.create(request)
         } else if (shouldUpdate(editor)) {
-            response = storyBackend.update(editor.id!!, request)
+            response = backend.update(editor.id!!, request)
         }
 
         return StoryForm(
@@ -56,19 +55,19 @@ class StoryService(
     }
 
     fun get(id: Long): StoryModel {
-        val story = storyBackend.get(id).story
+        val story = backend.get(id).story
         val user = userService.get(story.userId)
         return mapper.toStoryModel(story, user)
     }
 
     fun translate(id: Long, language: String): StoryModel {
-        val story = storyBackend.translate(id, language).story
+        val story = backend.translate(id, language).story
         val user = userService.get(story.userId)
         return mapper.toStoryModel(story, user)
     }
 
     fun search(request: SearchStoryRequest): List<StoryModel> {
-        val stories = storyBackend.search(request).stories
+        val stories = backend.search(request).stories
         if (stories.isEmpty()){
             return emptyList()
         }
@@ -95,7 +94,7 @@ class StoryService(
     }
 
     private fun doSort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories:Boolean = true): SortStoryResponse {
-        return sortBackend.sort(SortStoryRequest(
+        return backend.sort(SortStoryRequest(
                 storyIds = stories.map { it.id },
                 bubbleDownViewedStories =  bubbleDownViewedStories,
                 userId = requestContext.currentUser()?.id,
@@ -107,7 +106,7 @@ class StoryService(
 
 
     fun publish(editor: PublishForm){
-        storyBackend.publish(editor.id, PublishStoryRequest(
+        backend.publish(editor.id, PublishStoryRequest(
                 title = editor.title,
                 tagline = editor.tagline,
                 summary = editor.summary,
@@ -124,7 +123,7 @@ class StoryService(
                 status = status,
                 limit = Int.MAX_VALUE
         )
-        return storyBackend.count(request).total
+        return backend.count(request).total
     }
 
     fun import(url: String): Long {
@@ -132,16 +131,16 @@ class StoryService(
                 url = url,
                 accessToken = requestContext.accessToken()
         )
-        return storyBackend.import(request).storyId
+        return backend.import(request).storyId
     }
 
     fun readability(id: Long): ReadabilityModel {
-        val result = storyBackend.readability(id).readability
+        val result = backend.readability(id).readability
         return mapper.toReadabilityModel(result)
     }
 
     fun delete(id: Long) {
-        storyBackend.delete(id)
+        backend.delete(id)
     }
 
     private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
@@ -191,5 +190,20 @@ class StoryService(
         ejsFilters.filter(doc)
         return doc.html()
     }
+
+    fun recommend(storyId: Long): List<StoryModel> {
+        val response = backend.recommend(RecommendStoryRequest(
+                storyId = storyId,
+                userId = requestContext.currentUser()?.id,
+                deviceId = requestContext.deviceId(),
+                limit = 9
+        ))
+
+        return if (response.storyIds.isEmpty()) emptyList() else search(SearchStoryRequest(
+                storyIds = response.storyIds,
+                sortBy = StorySortStrategy.no_sort
+        ))
+    }
+
 }
 
