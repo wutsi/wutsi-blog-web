@@ -66,12 +66,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/partner
     push_subscription:
       endpoint: ${wutsi.backend.base-url}/v1/push/subscription
-    recommendation:
-      endpoint: ${wutsi.backend.base-url}/v1/recommendation
     share:
       endpoint: ${wutsi.backend.base-url}/v1/share
-    sort:
-      endpoint: ${wutsi.backend.base-url}/v1/sort
     story:
       endpoint: ${wutsi.backend.base-url}/v1/story
     tag:
