@@ -48,13 +48,15 @@ function WutsiEJS (holderId, publishCallback){
                         const model = {
                             id: story.id,
                             title: story.title,
-                            content: story.content.length > 0 ? JSON.parse(story.content) : {},
+                            content: story.content && story.content.length > 0 ? JSON.parse(story.content) : {},
                             draft: story.draft
                         };
                         console.log('Initializing from server');
                         me.init(model);
                     })
                     .catch(function (error) {
+                        console.log('Unexpected error when loading the story', error);
+
                         var selector = '';
                         if (error.status == 404) {
                             selector = '#story-load-error .not-found';
@@ -67,7 +69,6 @@ function WutsiEJS (holderId, publishCallback){
                         $(selector).removeClass('hidden');
                         $('#story-load-error').removeClass('hidden');
                         $('#story-editor').addClass('hidden');
-
                     });
 
             }
