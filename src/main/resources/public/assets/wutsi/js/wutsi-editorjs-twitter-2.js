@@ -6,7 +6,6 @@ $(document).ready(function(){
             id, tweet,
             {
                 conversation : 'none',    // or all
-                cards        : 'hidden',  // or visible
                 linkColor    : '#1D7EDF', // default is blue
                 theme        : 'light'    // or dark
             });
