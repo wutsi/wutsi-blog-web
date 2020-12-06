@@ -899,6 +899,10 @@ a.sso-button .fab {
 .who-to-follow .author-summary-card {
     border-top: 1px solid var(--border-color);
 }
+.who-to-follow .footer {
+    border-top: 1px solid var(--border-color);
+    padding: var(--padding);
+}
 
 .content-main .who-to-follow {
     margin: var(--margin) 0;

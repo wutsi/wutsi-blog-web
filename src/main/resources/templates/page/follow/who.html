@@ -3,7 +3,12 @@
     <div th:each="follow : ${whoToFollow}">
         <div th:replace="components/author :: summary-card(${follow}, true, false)"></div>
     </div>
-
+    <div class="footer">
+       <a href="/writers" wutsi-track>
+           <span th:text="#{button.see_more}">Find More</span>
+           ...
+       </a>
+    </div>
     <script>
         $(document).ready(function(){
             wutsi.linkify('.who-to-follow .biography');
