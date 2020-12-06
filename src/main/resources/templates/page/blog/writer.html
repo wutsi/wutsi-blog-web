@@ -30,7 +30,7 @@
             <a id="btn-import-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}">Import Story</a>
         </div>
         <div id="btn-follow-container" th:if="${showFollowButton}">
-            <div th:replace="components/follow :: panel(${blog}, ${blog.slug})"></div>
+            <div th:replace="components/follow :: panel(${blog}, ${blog.slug}, null)"></div>
         </div>
     </div>
 

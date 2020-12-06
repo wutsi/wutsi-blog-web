@@ -89,6 +89,11 @@
         </div>
     </article>
 
+    <!-- Follow -->
+    <div th:if="${showFollowButton}">
+        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug}, ${followMessage})"></div>
+    </div>
+
     <!-- PWA Install -->
     <div th:if="${toggles.pwa}">
         <div th:replace="components/pwa :: a2hs-card"></div>
@@ -107,11 +112,6 @@
     <!-- Author -->
     <div id="author-container" class="story-author-card ">
         <div th:replace="components/author :: card(${story.user}, true)"></div>
-
-        <!-- Follow -->
-        <div th:if="${showFollowButton}">
-            <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug})"></div>
-        </div>
     </div>
 
     <div th:replace="components/follow :: who-to-follow"></div>

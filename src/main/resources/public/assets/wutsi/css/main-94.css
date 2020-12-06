@@ -931,6 +931,10 @@ a.sso-button .fab {
     padding: var(--padding);
     text-align: center;
 }
+.follow-panel .message {
+    margin-bottom: var(--margin);
+}
+
 
 /* ==== SETTING ===== */
 .setting-section {
