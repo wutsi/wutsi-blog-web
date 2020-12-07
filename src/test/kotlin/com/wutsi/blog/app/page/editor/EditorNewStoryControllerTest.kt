@@ -182,15 +182,7 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
     private fun gotoPage(new: Boolean = false) {
         login()
 
-        click("nav .nav-item")
-
-        if (new) {
-            click("#navbar-editor")
-        } else {
-            click("#navbar-draft")
-            click(".story:first-child .dropdown .btn")
-            click(".story .menu-item-edit")
-        }
+        driver.get("$url/editor")
 
         Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR)

@@ -1,24 +1,36 @@
 package com.wutsi.blog.app.config
 
+import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.Sdk
+import com.wutsi.blog.sdk.TagApi
+import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.WutsiEnvironment
 import com.wutsi.core.http.Http
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-
 
 @Configuration
 class WutsiSdkConfiguration(
         private val http: Http,
         private val env: Environment
-) : WebMvcConfigurer {
+) {
+    @Bean
+    fun newsletter(): NewsletterApi =
+            sdk().newsletterApi()
+
     @Bean
     fun pinApi(): PinApi =
-        sdk().pinApi()
+            sdk().pinApi()
 
+    @Bean
+    fun tagApi(): TagApi =
+            sdk().tagApi()
+
+    @Bean
+    fun topicApi(): TopicApi =
+            sdk().topicApi()
     @Bean
     fun sdk(): Sdk =
             Sdk(

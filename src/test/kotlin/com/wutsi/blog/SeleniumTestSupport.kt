@@ -12,7 +12,11 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.story.SearchTopicResponse
+import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
+import com.wutsi.blog.sdk.TagApi
+import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.core.exception.NotFoundException
 import org.apache.commons.io.IOUtils
 import org.junit.After
@@ -60,7 +64,10 @@ abstract class SeleniumTestSupport {
 
     lateinit protected var driver: WebDriver
 
+    @MockBean protected lateinit var newsletterApi: NewsletterApi
     @MockBean protected lateinit var pinApi: PinApi
+    @MockBean protected lateinit var tagApi: TagApi
+    @MockBean protected lateinit var topicApi: TopicApi
 
 
     protected fun driverOptions(): ChromeOptions {
@@ -114,8 +121,6 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
 
-        stub(HttpMethod.GET, "/v1/topic", HttpStatus.OK, "v1/story/topics.json")
-
         stub(HttpMethod.POST, "/v1/track", HttpStatus.OK, "v1/track/push.json")
 
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
@@ -127,6 +132,20 @@ abstract class SeleniumTestSupport {
 
     protected fun setupSdk() {
         givenNoPin()
+        givenTopics()
+    }
+
+    protected fun givenTopics() {
+        val response = SearchTopicResponse(
+                topics = listOf(
+                        TopicApiFixtures.createTopicDto(100, "art-entertainment"),
+                        TopicApiFixtures.createTopicDto(101, "art", 100),
+
+                        TopicApiFixtures.createTopicDto(200, "industry"),
+                        TopicApiFixtures.createTopicDto(201, "biotech", 200)
+                )
+        )
+        `when`(topicApi.all()).thenReturn(response)
     }
 
     protected fun givenPin(userId: Long=1, storyId: Long=21) {
