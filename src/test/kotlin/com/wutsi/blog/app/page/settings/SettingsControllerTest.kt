@@ -125,8 +125,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user can connect to channels`() {
-        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
-
         gotoPage()
 
         assertElementPresent("#channel-twitter .btn-connect")

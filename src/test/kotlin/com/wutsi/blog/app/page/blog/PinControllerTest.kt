@@ -15,6 +15,7 @@ class PinControllerTest: SeleniumTestSupport() {
     }
 
     override fun setupSdk() {
+        givenNoChannel()
     }
 
     @Test
