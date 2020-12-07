@@ -696,12 +696,12 @@ a.sso-button .fab {
     background: white;
     box-shadow: 6px 6px 6px 6px rgba(68, 68, 68, 0.6);
     display: none;
-    height: 100%;
+    height: 90%;
     overflow-y: scroll;
     position: fixed;
     right: 0;
     top: 67px;
-    width: 600px;
+    width: 50%;
     z-index: 10000;
     border-bottom: 0;
 }
@@ -1015,6 +1015,13 @@ a.sso-button .fab {
     text-decoration: underline;
 }
 
+.story-summary-card .widget-container {
+    display: flex;
+}
+.story-summary-card .widget-container > div {
+    margin-right: var(--margin)
+}
+
 
 /* ==== STORY CARD ====== */
 .story-card {
@@ -1051,19 +1058,34 @@ a.sso-button .fab {
     color: var(--text-color-gray);
 }
 
+.story-card .widget-container {
+    display: flex;
+}
+.story-card .widget-container > div {
+    margin-right: var(--margin)
+}
+.story-card .widget-container .pin-widget {
+    margin-left: auto;
+    margin-right: 0;
+}
+.story-card .widget-container .pin-widget a {
+    color: var(--highlight-color)
+}
+
 .story-card-pinned {
     background: var(--background-pinned) !important;
 }
-.story-card-pinned .btn-pin {
-    color: var(--text-color) !important;
+
+
+.widget-pin {
+    margin-left: auto;
 }
-.story-card .btn-pin {
-    float: right;
-    color: var(--border-color);
+.widget-pin a {
+    color: var(--highlight-color);
 }
 
 
-    /* ==== STORY AUTHUR ====== */
+/* ==== STORY AUTHOR ====== */
 .story-author-card {
     background: var(--card-background-color);
     border: 1px solid var(--border-color);
@@ -1295,14 +1317,10 @@ a.sso-button .fab {
     }
 }
 
-@media screen
-  and (min-device-width: 1200px) {
-    .post .img-container {
-        max-height: 320px;
-        overflow: hidden;
-    }
-
-    .reader .comment-widget-content {
-        width: 400px;
-    }
-}
+/*@media screen*/
+/*  and (min-device-width: 1200px) {*/
+/*    .post .img-container {*/
+/*        max-height: 320px;*/
+/*        overflow: hidden;*/
+/*    }*/
+/*}*/

@@ -26,7 +26,7 @@ class PinBackend (
             limit: Int = 20,
             offset: Int = 0
     ): SearchPinResponse {
-        val url = "$endpoint/search?userId=$userId&limit=$limit&offset=$offset"
+        val url = "$endpoint?userId=$userId&limit=$limit&offset=$offset"
         return http.get(url, SearchPinResponse::class.java).body!!
     }
 

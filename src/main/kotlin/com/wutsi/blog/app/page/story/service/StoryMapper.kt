@@ -93,7 +93,8 @@ class StoryMapper(
             liveDateTime = moment.format(story.liveDateTime),
             live = story.live,
             wppStatus = story.wppStatus,
-            pinned = (pin?.storyId == story.id)
+            pinned = (pin?.storyId == story.id),
+            pinId = pin?.let { it.id } ?: -1
     )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(

@@ -9,7 +9,7 @@
 </div>
 
 
-<div th:fragment="badge(story)" class="like-badge flex">
+<div th:fragment="badge(story)" class="like-badge flex"  th:if="${toggles.like}">
     <div><i th:id="'like-icon-' + ${story.id}" class="far fa-heart like-icon"></i></div>
     <div>
         &nbsp;

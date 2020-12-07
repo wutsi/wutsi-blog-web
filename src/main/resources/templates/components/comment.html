@@ -10,7 +10,7 @@
     <div class="border comment-widget-content"></div>
 </div>
 
-<div th:fragment="badge(story)" class="comment-badge flex">
+<div th:fragment="badge(story)" class="comment-badge flex" th:if="${toggles.comment}">
     <div><i class="far fa-comment-alt comment-icon"></i></div>
     <div>
         &nbsp;

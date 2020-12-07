@@ -102,14 +102,11 @@
     </div>
 </div>
 
-<div th:fragment="widgets(story)">
-    <div class="flex widget-container">
-        <div th:if="${toggles.like}" class="margin-right">
-            <div th:replace="components/like :: badge(${story})"></div>
-        </div>
-        <div th:if="${toggles.comment}">
-            <div th:replace="components/comment :: badge(${story})"></div>
-        </div>
+<div th:fragment="widgets(story, showPin)">
+    <div class="widget-container">
+        <div th:replace="components/like :: badge(${story})"></div>
+        <div th:replace="components/comment :: badge(${story})"></div>
+        <div th:replace="components/pin :: widget(${story}, ${showPin})"></div>
     </div>
 </div>
 
@@ -126,15 +123,6 @@
      class="story-card"
      th:classappend="${story.pinned} AND ${user} AND ${user.id} == ${story.user.id}?story-card-pinned"
 >
-    <div th:if="${toggles.pin} AND ${user} AND ${user.id} == ${story.user.id}">
-        <div th:if="${story.pinned}">
-            <a class="btn-pin" wutsi-track-event="unpin" th:title="#{button.unpin}" th:href="'/pin/remove?id=' + ${pin.id}"><i class="fas fa-thumbtack"></i></a>
-        </div>
-        <div th:if="!${story.pinned}">
-            <a class="btn-pin" wutsi-track-event="pin" th:title="#{button.pin}" th:href="'/pin/add?storyId=' + ${story.id}"><i class="fas fa-thumbtack"></i></a>
-        </div>
-    </div>
-
     <a th:href="${story.slug}"
        th:title="${story.title}"
        th:wutsi-track-value = "${story.id}"
@@ -162,7 +150,7 @@
         <div th:replace="components/story :: meta(${story})"></div>
     </div>
 
-    <div th:replace="components/story :: widgets(${story})"></div>
+    <div th:replace="components/story :: widgets(${story}, true)"></div>
 </div>
 
 <div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)" class="story-summary-card">
@@ -184,7 +172,7 @@
             <div th:replace="components/story :: meta(${story})"></div>
         </div>
 
-        <div th:replace="components/story :: widgets(${story})"></div>
+        <div th:replace="components/story :: widgets(${story}, false)"></div>
     </div>
 
     <div class="img-container" th:if="${story.thumbnailImage}">
