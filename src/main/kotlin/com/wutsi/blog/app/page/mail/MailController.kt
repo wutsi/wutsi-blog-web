@@ -1,12 +1,11 @@
 package com.wutsi.blog.app.page.mail
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
-import com.wutsi.blog.app.page.mail.service.MailService
+import com.wutsi.blog.app.page.mail.service.NewsletterService
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
-import org.eclipse.jetty.server.Authentication
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class MailUnsubscribeController(
-        private val mailService: MailService,
+class MailController(
+        private val newsletterService: NewsletterService,
         private val userService: UserService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
@@ -27,7 +26,7 @@ class MailUnsubscribeController(
             @RequestParam(required=false, name = "u") userId: Long?= null,
             model: Model
     ): String {
-        mailService.unsubscribe(email, userId)
+        newsletterService.unsubscribe(email, userId)
 
         val blog = userId?.let{ userService.get(userId) } ?: null
         model.addAttribute("blog", blog)
@@ -39,7 +38,7 @@ class MailUnsubscribeController(
     }
 
     @PostMapping("/mail/unsubscribe")
-    fun postUnsubscribe(
+    fun _unsubscribe(
             @RequestParam email: String,
             @RequestParam(required=false, name = "u") userId: Long?= null,
             model: Model

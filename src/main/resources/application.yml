@@ -60,8 +60,6 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/follower
     like:
       endpoint: ${wutsi.backend.base-url}/v1/like
-    mail:
-      endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
       endpoint: ${wutsi.backend.base-url}/v1/partner
     push_subscription:
@@ -70,10 +68,6 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/share
     story:
       endpoint: ${wutsi.backend.base-url}/v1/story
-    tag:
-      endpoint: ${wutsi.backend.base-url}/v1/tag
-    topic:
-      endpoint: ${wutsi.backend.base-url}/v1/topic
     user:
       endpoint: ${wutsi.backend.base-url}/v1/user
 
