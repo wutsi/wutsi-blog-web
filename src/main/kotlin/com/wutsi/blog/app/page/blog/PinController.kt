@@ -19,8 +19,8 @@ class PinController(
     }
 
     @GetMapping("/pin/remove")
-    fun delete(@RequestParam id: Long): String {
-        service.delete(id)
+    fun delete(): String {
+        service.delete()
         return "redirect:" + requestContext.currentUser()!!.slug
     }
 }

@@ -64,8 +64,6 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
       endpoint: ${wutsi.backend.base-url}/v1/partner
-    pin:
-      endpoint: ${wutsi.backend.base-url}/v1/pins
     push_subscription:
       endpoint: ${wutsi.backend.base-url}/v1/push/subscription
     share:

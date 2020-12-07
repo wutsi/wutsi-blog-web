@@ -18,7 +18,7 @@ class PinControllerToggleOffTest: SeleniumTestSupport() {
 
         stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search.json")
 
-        stub(HttpMethod.GET, "/v1/pins.*", HttpStatus.OK, "v1/pins/search.json")
+        stub(HttpMethod.GET, "/v1/users/[0-9]+/pin", HttpStatus.OK, "v1/user/pin/get.json")
 
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")

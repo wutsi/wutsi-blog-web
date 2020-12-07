@@ -1,9 +1,7 @@
 {
-  "pins":[
-    {
+  "pin": {
       "id": 1,
       "storyId": 21,
       "userId": 1
     }
-  ]
 }

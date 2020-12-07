@@ -103,8 +103,6 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
 
-        stub(HttpMethod.GET, "/v1/pins.*", HttpStatus.OK, "v1/pins/search-empty.json")
-
         stub(HttpMethod.GET, "/v1/topic", HttpStatus.OK, "v1/story/topics.json")
 
         stub(HttpMethod.POST, "/v1/track", HttpStatus.OK, "v1/track/push.json")

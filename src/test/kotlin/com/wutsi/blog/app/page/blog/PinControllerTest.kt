@@ -12,7 +12,7 @@ class PinControllerTest: SeleniumTestSupport() {
 
         stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search.json")
 
-        stub(HttpMethod.GET, "/v1/pins.*", HttpStatus.OK, "v1/pins/search.json")
+        stub(HttpMethod.GET, "/v1/users/[0-9]+/pin", HttpStatus.OK, "v1/user/pin/get.json")
 
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")
@@ -32,13 +32,13 @@ class PinControllerTest: SeleniumTestSupport() {
         assertElementAttribute("#story-card-20 .btn-pin", "wutsi-track-event", "pin")
 
         assertElementHasClass("#story-card-21", "story-card-pinned")
-        assertElementAttributeEndsWith("#story-card-21 .btn-pin", "href", "/pin/remove?id=1")
+        assertElementAttributeEndsWith("#story-card-21 .btn-pin", "href", "/pin/remove")
         assertElementAttribute("#story-card-21 .btn-pin", "wutsi-track-event", "unpin")
     }
 
     @Test
     fun `no pinned story on my blog` () {
-        stub(HttpMethod.GET, "/v1/pins.*", HttpStatus.OK, "v1/pins/search-empty.json")
+        stub(HttpMethod.GET, "/v1/users/[0-9]+/pin", HttpStatus.NOT_FOUND)
         gotoPage(true)
 
         assertElementCount("#my-stories .story-card", 7)
