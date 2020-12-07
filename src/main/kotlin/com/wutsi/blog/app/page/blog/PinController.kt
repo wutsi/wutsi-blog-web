@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.page.blog
 
-import com.wutsi.blog.app.backend.PinBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.blog.service.PinService
 import org.springframework.stereotype.Controller

@@ -10,16 +10,17 @@ class PinControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search.json")
-
-        stub(HttpMethod.GET, "/v1/users/[0-9]+/pin", HttpStatus.OK, "v1/user/pin/get.json")
-
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
+    override fun setupSdk() {
+    }
+
     @Test
     fun `pinned story on my blog` () {
+        givenPin()
+
         gotoPage(true)
 
         assertElementCount("#my-stories .story-card", 7)
@@ -38,7 +39,8 @@ class PinControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `no pinned story on my blog` () {
-        stub(HttpMethod.GET, "/v1/users/[0-9]+/pin", HttpStatus.NOT_FOUND)
+        givenNoPin()
+
         gotoPage(true)
 
         assertElementCount("#my-stories .story-card", 7)
@@ -55,6 +57,8 @@ class PinControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `anonymous cannot see pins` () {
+        givenPin()
+
         gotoPage()
 
         assertNoPin()
@@ -62,15 +66,16 @@ class PinControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user cannot see pin of other user` () {
+        givenPin()
+
         gotoPage(true, "john.smith")
 
         assertNoPin()
     }
 
-    private fun assertNoPin() {
+    protected fun assertNoPin() {
         assertElementNotPresent(".story-card-pinned")
         assertElementNotPresent(".story-card .btn-pin")
-
     }
 
     private fun gotoPage(login: Boolean = false, username: String = "ray.sponsible") {
