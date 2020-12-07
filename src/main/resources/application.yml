@@ -64,6 +64,8 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/mail
     partner:
       endpoint: ${wutsi.backend.base-url}/v1/partner
+    pin:
+      endpoint: ${wutsi.backend.base-url}/v1/pins
     push_subscription:
       endpoint: ${wutsi.backend.base-url}/v1/push/subscription
     share:
@@ -158,6 +160,7 @@ wutsi:
     image-kit: true                 # Integration with imagekit.io
     like: true                      # Enable Like
     next-action: true               # Show NextAction panel on Blog page
+    pin: true                       # Pin enabled?
     pwa: true                       # PWA
     pwa-add-to-homescreen: false    # Enable Badging on app icon
     pwa-badge: true                 # Enable Badging on app icon

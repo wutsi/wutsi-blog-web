@@ -3,6 +3,8 @@ package com.wutsi.blog.app.page.blog
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.blog.model.NextActionModel
+import com.wutsi.blog.app.page.blog.model.PinModel
+import com.wutsi.blog.app.page.blog.service.PinService
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
@@ -29,6 +31,7 @@ class BlogController(
         private val storyService: StoryService,
         private val schemas: PersonSchemasGenerator,
         private val channelService: ChannelService,
+        private val pinService: PinService,
         requestContext: RequestContext
 ): AbstractPageController(requestContext) {
     override fun pageName() = PageName.BLOG
@@ -54,7 +57,8 @@ class BlogController(
     }
 
     private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        val stories = loadMyStories(blog, model, 50)
+        val pin = loadPinnedStory(blog, model)
+        val stories = loadMyStories(blog, pin, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
         loadNextStep(blog, model)
@@ -69,19 +73,30 @@ class BlogController(
         return "page/blog/reader"
     }
 
-    private fun loadMyStories(blog: UserModel, model: Model, limit: Int): List<StoryModel> {
-        val stories = storyService.search(SearchStoryRequest(
+    private fun loadMyStories(blog: UserModel, pin: PinModel?, model: Model, limit: Int): List<StoryModel> {
+        val request = SearchStoryRequest(
                 userIds = listOf(blog.id),
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
                 limit = limit
-        ))
+        )
+        val stories = storyService.search(request, pin)
         if (!stories.isEmpty()){
-            model.addAttribute("myStories", stories)
+            model.addAttribute("myStories", pinStory(stories, pin?.storyId))
         }
         return stories
+    }
+
+    private fun pinStory(stories: List<StoryModel>, pinnedStoryId: Long?): List<StoryModel> {
+        val pinnedStory = stories.find { it.id == pinnedStoryId }
+                ?: return stories
+
+        val result = mutableListOf<StoryModel>()
+        result.add(pinnedStory)
+        result.addAll(stories.filter { it.id != pinnedStory.id })
+        return result
     }
 
     private fun loadFollowingStories(followingUserIds: List<Long>, model: Model, limit: Int) {
@@ -125,6 +140,12 @@ class BlogController(
                 }
 
         model.addAttribute("latestStories", latestStories.values.take(5))
+    }
+
+    private fun loadPinnedStory(blog: UserModel, model: Model): PinModel? {
+        val pin = pinService.latest(blog)
+        model.addAttribute("pin", pin)
+        return pin
     }
 
     private fun loadNextStep(blog: UserModel, model: Model) {

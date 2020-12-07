@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.backend.StoryBackend
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.editor.model.PublishForm
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
@@ -66,14 +67,14 @@ class StoryService(
         return mapper.toStoryModel(story, user)
     }
 
-    fun search(request: SearchStoryRequest): List<StoryModel> {
+    fun search(request: SearchStoryRequest, pin: PinModel? = null): List<StoryModel> {
         val stories = backend.search(request).stories
         if (stories.isEmpty()){
             return emptyList()
         }
 
         val users = searchUserMap(stories)
-        return stories.map { mapper.toStoryModel(it, users[it.userId]) }
+        return stories.map { mapper.toStoryModel(it, users[it.userId], pin) }
     }
 
     fun sort(

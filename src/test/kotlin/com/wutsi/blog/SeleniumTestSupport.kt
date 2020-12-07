@@ -94,11 +94,16 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
 
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count.json")
-        stub(HttpMethod.POST, "/v1/like/count", HttpStatus.OK, "v1/like/count.json")
+
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
+
+        stub(HttpMethod.POST, "/v1/like/count", HttpStatus.OK, "v1/like/count.json")
+
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
         stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
+
+        stub(HttpMethod.GET, "/v1/pins.*", HttpStatus.OK, "v1/pins/search-empty.json")
 
         stub(HttpMethod.GET, "/v1/topic", HttpStatus.OK, "v1/story/topics.json")
 
@@ -202,6 +207,10 @@ abstract class SeleniumTestSupport {
 
     protected fun assertElementAttributeEndsWith(selector: String, name: String, value: String) {
         assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute(name).endsWith(value))
+    }
+
+    protected fun assertElementAttributeContains(selector: String, name: String, value: String) {
+        assertTrue(driver.findElement(By.cssSelector(selector)).getAttribute(name).contains(value))
     }
 
     protected fun assertElementHasClass(selector: String, value: String) {

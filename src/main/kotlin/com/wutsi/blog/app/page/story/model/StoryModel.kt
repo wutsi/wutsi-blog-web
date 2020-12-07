@@ -38,5 +38,6 @@ data class StoryModel(
         val live: Boolean = false,
         val liveDateTime: String = "",
         val wppStatus: WPPStatus? = null,
-        val socialMediaMessage: String? = null
+        val socialMediaMessage: String? = null,
+        val pinned: Boolean = false
 )

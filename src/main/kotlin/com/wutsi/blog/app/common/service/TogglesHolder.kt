@@ -18,6 +18,7 @@ class Toggles {
     var imageKit: Boolean = false
     var like: Boolean = false
     var nextAction: Boolean = false
+    var pin: Boolean = false
     var pwa: Boolean = false
     var pwaAddToHomescreen = false
     var pwaBadge: Boolean = false

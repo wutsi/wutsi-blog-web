@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.common.service.Moment
+import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -67,7 +68,7 @@ class StoryMapper(
         )
     }
 
-    fun toStoryModel(story: StorySummaryDto, user: UserModel? = null) = StoryModel(
+    fun toStoryModel(story: StorySummaryDto, user: UserModel? = null, pin: PinModel? = null) = StoryModel(
             id = story.id,
             title = nullToEmpty(story.title),
             tagline = nullToEmpty(story.tagline),
@@ -91,7 +92,8 @@ class StoryMapper(
             topic = if (story.topicId == null) TopicModel() else nullToEmpty(topicService.get(story.topicId!!)),
             liveDateTime = moment.format(story.liveDateTime),
             live = story.live,
-            wppStatus = story.wppStatus
+            wppStatus = story.wppStatus,
+            pinned = (pin?.storyId == story.id)
     )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(

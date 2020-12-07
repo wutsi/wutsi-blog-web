@@ -15,6 +15,7 @@ body {
     --highlight-color: #1D7EDF;
     --highlight-color-light: #e4edf7;
     --background-light: #f8f8f8;
+    --background-pinned: #ffffed;
 
     --text-color: #404040;
     --text-color-gray: gray;
@@ -948,7 +949,7 @@ a.sso-button .fab {
 }
 
 
-/* ==== STORY SIDEBAR ===== */
+/* ==== CONTENT SIDEBAR ===== */
 .content-sidebar .story-list {
     margin-top: var(--margin);
 }
@@ -1050,8 +1051,19 @@ a.sso-button .fab {
     color: var(--text-color-gray);
 }
 
+.story-card-pinned {
+    background: var(--background-pinned) !important;
+}
+.story-card-pinned .btn-pin {
+    color: var(--text-color) !important;
+}
+.story-card .btn-pin {
+    float: right;
+    color: var(--border-color);
+}
 
-/* ==== STORY AUTHUR ====== */
+
+    /* ==== STORY AUTHUR ====== */
 .story-author-card {
     background: var(--card-background-color);
     border: 1px solid var(--border-color);

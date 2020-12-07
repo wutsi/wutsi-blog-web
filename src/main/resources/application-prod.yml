@@ -59,6 +59,7 @@ wutsi:
     google-one-tap-sign-in: true
     imagekit: true
     like: true
+    pin: false
     pwa: true
     pwa-badge: true
     pwa-push-notification: false
