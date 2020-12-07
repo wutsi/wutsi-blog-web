@@ -57,7 +57,7 @@ class BlogController(
     }
 
     private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        val pin = loadPinnedStory(model)
+        val pin = loadPin(model)
         val stories = loadMyStories(blog, pin, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
@@ -142,11 +142,11 @@ class BlogController(
         model.addAttribute("latestStories", latestStories.values.take(5))
     }
 
-    private fun loadPinnedStory(model: Model): PinModel? {
+    private fun loadPin(model: Model): PinModel? {
         if (!requestContext.toggles().pin)
             return null
 
-        val pin = pinService.latest()
+        val pin = pinService.get()
         model.addAttribute("pin", pin)
         return pin
     }

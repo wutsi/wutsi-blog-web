@@ -11,6 +11,9 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.wutsi.blog.app.security.config.SecurityConfiguration
+import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.sdk.PinApi
+import com.wutsi.core.exception.NotFoundException
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -18,12 +21,17 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
+import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyLong
+import org.mockito.Mockito.doThrow
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -52,6 +60,8 @@ abstract class SeleniumTestSupport {
 
     lateinit protected var driver: WebDriver
 
+    @MockBean protected lateinit var pinApi: PinApi
+
 
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
@@ -78,6 +88,7 @@ abstract class SeleniumTestSupport {
         }
 
         setupWiremock()
+        setupSdk()
     }
 
     @After
@@ -113,6 +124,20 @@ abstract class SeleniumTestSupport {
 
         stub(HttpMethod.POST, "/v1/sort", HttpStatus.OK, "v1/sort/sort.json")
     }
+
+    protected fun setupSdk() {
+        givenNoPin()
+    }
+
+    protected fun givenPin(userId: Long=1, storyId: Long=21) {
+        val pin = PinApiFixtures.createGetPinResponse(userId, storyId)
+        `when`(pinApi.get(userId)).thenReturn(pin)
+    }
+
+    protected fun givenNoPin() {
+        `when`(pinApi.get(anyLong())).thenThrow(NotFoundException("not_found"))
+    }
+
 
     protected fun navigate(url: String) {
         driver.get(url)
