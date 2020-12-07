@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.config
 
+import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.Sdk
@@ -17,12 +18,16 @@ class WutsiSdkConfiguration(
         private val env: Environment
 ) {
     @Bean
+    fun channelApi(): ChannelApi =
+            sdk().channelApi()
+
+    @Bean
     fun newsletter(): NewsletterApi =
             sdk().newsletterApi()
 
     @Bean
     fun pinApi(): PinApi =
-            sdk().pinApi()
+        sdk().pinApi()
 
     @Bean
     fun tagApi(): TagApi =

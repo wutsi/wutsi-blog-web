@@ -11,8 +11,9 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.wutsi.blog.app.security.config.SecurityConfiguration
-import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
+import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.TagApi
@@ -25,10 +26,8 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyLong
-import org.mockito.Mockito.doThrow
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -64,6 +63,7 @@ abstract class SeleniumTestSupport {
 
     lateinit protected var driver: WebDriver
 
+    @MockBean protected lateinit var channelApi: ChannelApi
     @MockBean protected lateinit var newsletterApi: NewsletterApi
     @MockBean protected lateinit var pinApi: PinApi
     @MockBean protected lateinit var tagApi: TagApi
@@ -109,8 +109,6 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
         stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
 
-        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search_empty.json")
-
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count.json")
 
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
@@ -131,6 +129,7 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun setupSdk() {
+        givenNoChannel()
         givenNoPin()
         givenTopics()
     }
@@ -154,9 +153,13 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun givenNoPin() {
-        `when`(pinApi.get(anyLong())).thenThrow(NotFoundException("not_found"))
+        `when`(pinApi.get(anyLong())).thenThrow(NotFoundException("pin_not_found"))
     }
 
+    protected fun givenNoChannel() {
+        `when`(channelApi.search(anyLong())).thenReturn(SearchChannelResponse())
+        `when`(channelApi.get(anyLong())).thenThrow(NotFoundException("channel_not_found"))
+    }
 
     protected fun navigate(url: String) {
         driver.get(url)

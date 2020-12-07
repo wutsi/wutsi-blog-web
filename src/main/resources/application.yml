@@ -50,8 +50,6 @@ wutsi:
     track-url: http://localhost:8082
     authentication:
       endpoint: ${wutsi.backend.base-url}/v1/auth
-    channel:
-      endpoint: ${wutsi.backend.base-url}/v1/channel
     comment:
       endpoint: ${wutsi.backend.base-url}/v1/comment
     contract:

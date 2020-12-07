@@ -1,25 +1,27 @@
 package com.wutsi.blog.app.page.channel.service
 
-import com.wutsi.blog.app.backend.ChannelBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.CreateChannelRequest
-import com.wutsi.blog.client.channel.SearchChannelRequest
+import com.wutsi.blog.sdk.ChannelApi
 import org.springframework.stereotype.Service
 
 @Service
 class ChannelService(
-        private val backend: ChannelBackend,
+        private val api: ChannelApi,
         private val mapper: ChannelMapper,
         private val requestContext: RequestContext,
         private val toggles: Toggles
 ) {
     fun all(): List<ChannelModel> {
-        val channels = backend.search(SearchChannelRequest(
-                userId = requestContext.currentUser()?.id
-        )).channels.map { it.type to it }.toMap()
+        val user = requestContext.currentUser()
+                ?: return emptyList()
+
+        val channels = api.search(userId = user.id)
+                .channels
+                .map { it.type to it }.toMap()
 
         return channelTypes().map {
             val channel = channels[it]
@@ -28,7 +30,7 @@ class ChannelService(
     }
 
     fun get(id: Long): ChannelModel {
-        val channel = backend.get(id).channel
+        val channel = api.get(id).channel
         return mapper.toChannelModel(channel)
     }
 
@@ -40,7 +42,7 @@ class ChannelService(
             pictureUrl: String,
             type: ChannelType
     ) {
-        backend.create(CreateChannelRequest(
+        api.create(CreateChannelRequest(
                 providerUserId = id,
                 accessToken = accessToken,
                 accessTokenSecret = accessTokenSecret,
@@ -52,7 +54,7 @@ class ChannelService(
     }
 
     fun delete(id: Long) {
-        backend.delete(id)
+        api.delete(id)
     }
 
     fun channelTypes(): List<ChannelType> {

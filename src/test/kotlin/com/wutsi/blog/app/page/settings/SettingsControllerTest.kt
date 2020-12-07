@@ -1,8 +1,15 @@
 package com.wutsi.blog.app.page.settings
 
+import com.wutsi.blog.ChannelApiFixtures
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.channel.ChannelType
+import com.wutsi.blog.client.channel.CreateChannelRequest
+import com.wutsi.blog.client.channel.CreateChannelResponse
+import com.wutsi.blog.client.channel.SearchChannelResponse
 import org.junit.Test
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.`when`
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -13,9 +20,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
-
-        stub(HttpMethod.POST, "/v1/channel", HttpStatus.OK, "v1/channel/create.json")
-        stub(HttpMethod.DELETE, "/v1/channel/12", HttpStatus.OK)
 
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
@@ -131,7 +135,13 @@ class SettingsControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `user can disconnect from channel`() {
-        stub(HttpMethod.POST, "/v1/channel/search", HttpStatus.OK, "v1/channel/search.json")
+        val response = SearchChannelResponse(
+                channels = listOf(
+                        ChannelApiFixtures.createChannelDto(userId=1, type=ChannelType.twitter),
+                        ChannelApiFixtures.createChannelDto(userId=1, type=ChannelType.facebook)
+                )
+        )
+        `when`(channelApi.search(1L)).thenReturn(response)
 
         gotoPage()
 
@@ -139,7 +149,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
         assertElementPresent("#channel-facebook .btn-disconnect")
 
         click("#channel-twitter .btn-disconnect")
-//        assertCurrentPageIs(PageName.SETTINGS)
+        assertCurrentPageIs(PageName.SETTINGS)
     }
 
 
