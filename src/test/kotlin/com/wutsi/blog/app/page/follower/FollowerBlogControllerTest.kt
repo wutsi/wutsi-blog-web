@@ -38,9 +38,10 @@ class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
     @Test
     fun `follower cannot re-follow a blog`() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user99.json")
+        givenUserFollow(1, 99)
+
         login()
 
-        givenUserFollow(userId = 1, followerUserId = 99)
         driver.get("$url/@/ray.sponsible")
 
         verifyNoFollowButtons()

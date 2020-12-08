@@ -1,12 +1,13 @@
 package com.wutsi.blog.app.page.settings
 
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
 import org.junit.Test
-import org.mockito.Mockito.`when`
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -126,7 +127,7 @@ class SettingsControllerTest : SeleniumTestSupport() {
                 ChannelApiFixtures.createChannelDto(userId = 1, type = ChannelType.facebook)
             )
         )
-        `when`(channelApi.search(1L)).thenReturn(response)
+        doReturn(response).whenever(channelApi).search(1L)
 
         gotoPage()
 

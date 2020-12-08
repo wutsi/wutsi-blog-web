@@ -10,6 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
@@ -40,8 +41,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.anyLong
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -139,14 +138,15 @@ abstract class SeleniumTestSupport {
     protected fun setupSdk() {
         givenNoChannel()
         givenNoFollower()
+
         givenNoPin()
         givenTopics()
         givenNoLike()
     }
 
     protected fun givenNoLike() {
-        doReturn(SearchLikeResponse()).whenever(likeApi).search(com.nhaarman.mockitokotlin2.any<SearchLikeRequest>())
-        doReturn(CountLikeResponse()).whenever(likeApi).count(com.nhaarman.mockitokotlin2.any<SearchLikeRequest>())
+        doReturn(SearchLikeResponse()).whenever(likeApi).search(any<SearchLikeRequest>())
+        doReturn(CountLikeResponse()).whenever(likeApi).count(any<SearchLikeRequest>())
     }
 
     protected fun givenTopics() {
@@ -163,7 +163,7 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun givenNoPin() {
-        doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(com.nhaarman.mockitokotlin2.any())
+        doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(any())
     }
 
     protected fun givenPin(userId: Long = 1, storyId: Long = 21) {
@@ -172,39 +172,21 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun givenNoChannel() {
-        `when`(channelApi.search(anyLong())).thenReturn(SearchChannelResponse())
-        `when`(channelApi.get(anyLong())).thenThrow(NotFoundException("channel_not_found"))
+        doReturn(SearchChannelResponse()).whenever(channelApi).search(any())
+        doThrow(NotFoundException("channel_not_found")).whenever(channelApi).get(any())
     }
 
     protected fun givenNoFollower() {
-        `when`(followerApi.search(SearchFollowerRequest(followerUserId = 1L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(followerUserId = 3L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(followerUserId = 99L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(userId = 3L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(userId = 99L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(userId = 1L, followerUserId = 99L))).thenReturn(SearchFollowerResponse())
+        doReturn(SearchFollowerResponse()).whenever(followerApi).search(any())
     }
 
     protected fun givenUserFollow(userId: Long, followerUserId: Long) {
-        `when`(
-            followerApi.search(
-                SearchFollowerRequest(followerUserId = followerUserId, userId = userId)
-            )
-        ).thenReturn(
-            SearchFollowerResponse(
-                followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
-            )
-        )
+        val response = SearchFollowerResponse(followers = listOf(
+                FollowerApiFixtures.createFolloweDto(userId = userId, followerUserId = followerUserId)
+        ))
 
-        `when`(
-            followerApi.search(
-                SearchFollowerRequest(followerUserId = followerUserId)
-            )
-        ).thenReturn(
-            SearchFollowerResponse(
-                followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
-            )
-        )
+        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
+        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
     }
 
     protected fun navigate(url: String) {
