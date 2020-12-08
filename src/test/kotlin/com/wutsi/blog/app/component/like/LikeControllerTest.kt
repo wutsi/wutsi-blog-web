@@ -20,15 +20,14 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
     }
 
-
     @Test
     fun `blog page showing like count`() {
         val count = CountLikeResponse(
-                counts = listOf(
-                        LikeApiFixtures.createLikeCountDto(20, 2),
-                        LikeApiFixtures.createLikeCountDto(21, 1),
-                        LikeApiFixtures.createLikeCountDto(22, 3)
-                )
+            counts = listOf(
+                LikeApiFixtures.createLikeCountDto(20, 2),
+                LikeApiFixtures.createLikeCountDto(21, 1),
+                LikeApiFixtures.createLikeCountDto(22, 3)
+            )
         )
         doReturn(count).whenever(likeApi).count(any<SearchLikeRequest>())
 
@@ -47,9 +46,9 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
     @Test
     fun `user like a story`() {
         val count = CountLikeResponse(
-                counts = listOf(
-                        LikeApiFixtures.createLikeCountDto(20, 2)
-                )
+            counts = listOf(
+                LikeApiFixtures.createLikeCountDto(20, 2)
+            )
         )
         doReturn(count).whenever(likeApi).count(any<SearchLikeRequest>())
 

@@ -71,3 +71,19 @@ mvn clean install -Dheadless=true
 $ java -jar target/wutsi-blog-web.jar
 ```
 - Navigate to `http://localhost:8081`
+
+# How to
+#### How to format code
+```
+mvn antrun:run@ktlint 
+```
+
+#### How to check code formatting error
+```
+mvn antrun:run@ktlint-format
+```
+#### How to generate coverage report
+```
+mvn jacoco:report
+```
+

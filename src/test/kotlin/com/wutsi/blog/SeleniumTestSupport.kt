@@ -181,9 +181,11 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun givenUserFollow(userId: Long, followerUserId: Long) {
-        val response = SearchFollowerResponse(followers = listOf(
+        val response = SearchFollowerResponse(
+            followers = listOf(
                 FollowerApiFixtures.createFolloweDto(userId = userId, followerUserId = followerUserId)
-        ))
+            )
+        )
 
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))

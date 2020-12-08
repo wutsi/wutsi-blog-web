@@ -13,7 +13,7 @@ object LikeApiFixtures {
     )
 
     fun createLikeCountDto(storyId: Long, value: Long) = LikeCountDto(
-            storyId = storyId,
-            value = value
+        storyId = storyId,
+        value = value
     )
 }
