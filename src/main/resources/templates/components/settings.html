@@ -87,12 +87,12 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" th:text="${title}">https://www.fdlfkd.com</span>
                 </div>
-                <input class="form-control" disabled="disabled"
+                <input class="form-control" pattern="^[A-Za-z0-9_.-]{1,30}$" disabled="disabled"
                        th:data-key="${name}"
                        th:name="${name}"
                        th:value="${value}"
                        th:placeholder="${placeholder}"
-                       th:maxlength="50"
+                       th:maxlength="30"
                 />
             </div>
         </div>
@@ -144,7 +144,7 @@
         <a class="btn btn-light btn-disconnect"
            th:if="${channel.connected}"
            th:href="'/me/settings/channel/disconnect?channelId=' + ${channel.id}"
-           th:text="#{button.disconnect_your_blog}">
+           th:text="#{button.disconnect}">
             Disconnect your Blog
         </a>
 
@@ -152,7 +152,7 @@
            th:if="!${channel.connected}"
            th:href="'/me/settings/channel/connect?type=' + ${channel.type.name()}"
         >
-            <span th:text="#{button.connect_your_blog}">Connect</span>
+            <span th:text="#{button.connect}">Connect</span>
         </a>
     </div>
 </div>

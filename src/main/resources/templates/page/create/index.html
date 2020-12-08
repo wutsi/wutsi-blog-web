@@ -22,7 +22,7 @@
                 <div class="alert alert-danger padding-top" th:if="${error}" th:text="${error}">Error</div>
 
                 <form class="margin-top-2x" method="GET" action="/create/submit">
-                    <input class="form-control" required="required" pattern="^[A-Za-z0-9_.]{1,30}$" maxlength="30"
+                    <input class="form-control" required="required" pattern="^[A-Za-z0-9_.-]{1,30}$" maxlength="30"
                            name="value"
                            th:value="${value}"
                     />
