@@ -13,9 +13,8 @@ class HtmlImageService(private val imageKit: ImageKitService) {
         }
 
         return widths()
-                .map { imageKit.transform(url, it) + " ${it}w" }
-                .joinToString ()
-
+            .map { imageKit.transform(url, it) + " ${it}w" }
+            .joinToString()
     }
 
     /* See https://getbootstrap.com/docs/4.0/layout/overview/ */
@@ -23,4 +22,3 @@ class HtmlImageService(private val imageKit: ImageKitService) {
 
     private fun widths() = arrayListOf("320", "640", "1024")
 }
-

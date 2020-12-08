@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/")
 class HomeController(
-        private val schemas: WutsiSchemasGenerator,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val schemas: WutsiSchemasGenerator,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.HOME
 
     override fun shouldBeIndexedByBots() = true
@@ -22,11 +22,11 @@ class HomeController(
     override fun shouldShowGoogleOneTap() = true
 
     override fun page() = createPage(
-            title = requestContext.getMessage("page.home.metadata.title"),
-            description = requestContext.getMessage("page.home.metadata.description"),
-            schemas = schemas.generate(),
-            showNotificationOptIn = true,
-            rssUrl = "/rss"
+        title = requestContext.getMessage("page.home.metadata.title"),
+        description = requestContext.getMessage("page.home.metadata.description"),
+        schemas = schemas.generate(),
+        showNotificationOptIn = true,
+        rssUrl = "/rss"
     )
 
     @GetMapping()

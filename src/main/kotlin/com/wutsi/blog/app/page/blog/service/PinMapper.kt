@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service
 @Service
 class PinMapper {
     fun toPinModel(obj: PinDto) = PinModel(
-            id = obj.id,
-            storyId = obj.storyId,
-            userId = obj.userId
+        id = obj.id,
+        storyId = obj.storyId,
+        userId = obj.userId
     )
 }

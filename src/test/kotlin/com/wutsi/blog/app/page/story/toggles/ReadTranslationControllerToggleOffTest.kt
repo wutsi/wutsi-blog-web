@@ -7,13 +7,12 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
-
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.translation=false"
-        ]
+    properties = [
+        "wutsi.toggles.translation=false"
+    ]
 )
-class ReadTranslationControllerToggleOffTest: SeleniumMobileTestSupport() {
+class ReadTranslationControllerToggleOffTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -58,7 +57,6 @@ class ReadTranslationControllerToggleOffTest: SeleniumMobileTestSupport() {
 
         assertElementAttribute("html", "lang", "en")
     }
-
 
     @Test
     fun `never translate a page for unsupported languages`() {

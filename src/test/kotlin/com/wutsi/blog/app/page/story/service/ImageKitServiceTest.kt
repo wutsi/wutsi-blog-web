@@ -47,7 +47,6 @@ class ImageKitServiceTest {
         assertEquals(url, result)
     }
 
-
     @Test
     fun notEnabled() {
         val service = ImageKitService(false, "http://www.google.com", "http://www.imagekit.io/43043094")

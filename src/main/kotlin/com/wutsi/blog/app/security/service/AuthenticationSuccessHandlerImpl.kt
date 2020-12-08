@@ -1,10 +1,8 @@
 package com.wutsi.blog.app.security.service
 
-import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.security.oauth.OAuthTokenAuthentication
-import com.wutsi.blog.client.user.UserDto
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
@@ -14,10 +12,9 @@ import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
 class AuthenticationSuccessHandlerImpl(
-        private val userService: UserService
-): AuthenticationSuccessHandler {
+    private val userService: UserService
+) : AuthenticationSuccessHandler {
     companion object {
         const val REDIRECT_URL_KEY = "com.wutsi.redirect_url_key"
         private val LOGGER = LoggerFactory.getLogger(AuthenticationSuccessHandler::class.java)
@@ -34,7 +31,7 @@ class AuthenticationSuccessHandlerImpl(
         try {
             if (redirectUrl == null) {
                 val savedRequest = this.requestCache.getRequest(request, response)
-                if (savedRequest != null){
+                if (savedRequest != null) {
                     response.sendRedirect(savedRequest.getRedirectUrl())
                 } else {
                     val user = getUser(authentication)
@@ -49,7 +46,7 @@ class AuthenticationSuccessHandlerImpl(
     }
 
     private fun getUser(authentication: Authentication): UserModel? {
-        if (!(authentication is OAuthTokenAuthentication)){
+        if (!(authentication is OAuthTokenAuthentication)) {
             return null
         }
         val accessToken = authentication.accessToken

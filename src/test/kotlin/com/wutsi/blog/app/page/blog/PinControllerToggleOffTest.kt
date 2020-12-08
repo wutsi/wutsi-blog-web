@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.pin=false"
-        ]
+    properties = [
+        "wutsi.toggles.pin=false"
+    ]
 )
-class PinControllerToggleOffTest: SeleniumTestSupport() {
+class PinControllerToggleOffTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -27,21 +27,21 @@ class PinControllerToggleOffTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `no pinned story on my blog` () {
+    fun `no pinned story on my blog`() {
         gotoPage(true)
 
         assertNoPin()
     }
 
     @Test
-    fun `anonymous cannot see pins` () {
+    fun `anonymous cannot see pins`() {
         gotoPage()
 
         assertNoPin()
     }
 
     @Test
-    fun `user cannot see pin of other user` () {
+    fun `user cannot see pin of other user`() {
         gotoPage(true, "john.smith")
 
         assertNoPin()
@@ -56,7 +56,7 @@ class PinControllerToggleOffTest: SeleniumTestSupport() {
         if (login) {
             login()
         }
-        driver.get("$url/@/${username}")
+        driver.get("$url/@/$username")
 
         assertCurrentPageIs(PageName.BLOG)
     }

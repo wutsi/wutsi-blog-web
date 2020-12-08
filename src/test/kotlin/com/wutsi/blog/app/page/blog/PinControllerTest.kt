@@ -6,7 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-class PinControllerTest: SeleniumTestSupport() {
+class PinControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -20,7 +20,7 @@ class PinControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `pinned story on my blog` () {
+    fun `pinned story on my blog`() {
         givenPin()
 
         gotoPage(true)
@@ -40,7 +40,7 @@ class PinControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `no pinned story on my blog` () {
+    fun `no pinned story on my blog`() {
         givenNoPin()
 
         gotoPage(true)
@@ -58,7 +58,7 @@ class PinControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `anonymous cannot see pins` () {
+    fun `anonymous cannot see pins`() {
         givenPin()
 
         gotoPage()
@@ -67,7 +67,7 @@ class PinControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user cannot see pin of other user` () {
+    fun `user cannot see pin of other user`() {
         givenPin()
 
         gotoPage(true, "john.smith")
@@ -84,8 +84,7 @@ class PinControllerTest: SeleniumTestSupport() {
         if (login) {
             login()
         }
-        driver.get("$url/@/${username}")
-
+        driver.get("$url/@/$username")
 
         assertCurrentPageIs(PageName.BLOG)
     }

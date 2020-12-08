@@ -11,37 +11,37 @@ import java.util.Locale
 @Service
 class UserMapper(private val imageKit: ImageKitService) {
     fun toUserModel(user: UserDto) = UserModel(
-            id = user.id,
-            name = user.name,
-            biography = user.biography,
-            fullName = user.fullName,
-            pictureUrl = pictureUrl(user.pictureUrl),
-            websiteUrl = user.websiteUrl,
-            email = user.email,
-            loginCount = user.loginCount,
-            slug = slug(user),
-            facebookUrl = facebookUrl(user),
-            linkedinUrl = linkedinUrl(user),
-            twitterUrl = twitterUrl(user),
-            youtubeUrl = youtubeUrl(user),
-            superUser = user.superUser,
-            blog = user.blog,
-            storyCount = user.storyCount,
-            followerCount = user.followerCount,
-            followerCountText = NumberUtils.toHumanReadable(user.followerCount),
-            hasFollowers = user.followerCount > 0,
-            readAllLanguages = user.readAllLanguages,
-            language = user.language,
-            locale = if (user.language == null) null else Locale(user.language, "CM"),
-            facebookId = user.facebookId,
-            twitterId = user.twitterId,
-            linkedinId = user.linkedinId,
-            youtubeId = user.youtubeId,
-            newsletterDeliveryDayOfWeek = user.newsletterDeliveryDayOfWeek,
-            hasSocialLinks = user.facebookId != null
-                    || user.youtubeId != null
-                    || user.linkedinId != null
-                    || user.twitterId != null
+        id = user.id,
+        name = user.name,
+        biography = user.biography,
+        fullName = user.fullName,
+        pictureUrl = pictureUrl(user.pictureUrl),
+        websiteUrl = user.websiteUrl,
+        email = user.email,
+        loginCount = user.loginCount,
+        slug = slug(user),
+        facebookUrl = facebookUrl(user),
+        linkedinUrl = linkedinUrl(user),
+        twitterUrl = twitterUrl(user),
+        youtubeUrl = youtubeUrl(user),
+        superUser = user.superUser,
+        blog = user.blog,
+        storyCount = user.storyCount,
+        followerCount = user.followerCount,
+        followerCountText = NumberUtils.toHumanReadable(user.followerCount),
+        hasFollowers = user.followerCount > 0,
+        readAllLanguages = user.readAllLanguages,
+        language = user.language,
+        locale = if (user.language == null) null else Locale(user.language, "CM"),
+        facebookId = user.facebookId,
+        twitterId = user.twitterId,
+        linkedinId = user.linkedinId,
+        youtubeId = user.youtubeId,
+        newsletterDeliveryDayOfWeek = user.newsletterDeliveryDayOfWeek,
+        hasSocialLinks = user.facebookId != null ||
+            user.youtubeId != null ||
+            user.linkedinId != null ||
+            user.twitterId != null
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
@@ -65,16 +65,16 @@ class UserMapper(private val imageKit: ImageKitService) {
     }
 
     fun toUserModel(user: UserSummaryDto) = UserModel(
-            id = user.id,
-            name = user.name,
-            fullName = user.fullName,
-            pictureUrl = pictureUrl(user.pictureUrl),
-            slug = slug(user),
-            biography = user.biography,
-            storyCount = user.storyCount,
-            followerCount = user.followerCount,
-            hasFollowers = user.followerCount > 0,
-            followerCountText = NumberUtils.toHumanReadable(user.followerCount)
+        id = user.id,
+        name = user.name,
+        fullName = user.fullName,
+        pictureUrl = pictureUrl(user.pictureUrl),
+        slug = slug(user),
+        biography = user.biography,
+        storyCount = user.storyCount,
+        followerCount = user.followerCount,
+        hasFollowers = user.followerCount > 0,
+        followerCountText = NumberUtils.toHumanReadable(user.followerCount)
     )
 
     private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")

@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class LinkExtractorProvider(
-        private val youtube: YouTubeLinkExtractor,
-        private val default: DefaultLinkExtractor
+    private val youtube: YouTubeLinkExtractor,
+    private val default: DefaultLinkExtractor
 ) {
     private val extractors = arrayListOf<LinkExtractor>(
-            youtube,
+        youtube,
 
-            default // Must be the last!!!
+        default // Must be the last!!!
     )
 
     fun get(url: String): LinkExtractor = extractors.find { it.accept(url) }!!

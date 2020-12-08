@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
+class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -17,7 +16,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `user cannot follow his own blog` () {
+    fun `user cannot follow his own blog`() {
         login()
         driver.get("$url/@/ray.sponsible")
 
@@ -26,7 +25,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous can follow any blog` () {
+    fun `anonymous can follow any blog`() {
         driver.get("$url/@/ray.sponsible")
 
         verifyFollowButtons()
@@ -37,11 +36,11 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `follower cannot re-follow a blog` () {
+    fun `follower cannot re-follow a blog`() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user99.json")
         login()
 
-        givenUserFollow(userId=1, followerUserId = 99)
+        givenUserFollow(userId = 1, followerUserId = 99)
         driver.get("$url/@/ray.sponsible")
 
         verifyNoFollowButtons()
@@ -49,7 +48,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `non-follower user can follow a blog` () {
+    fun `non-follower user can follow a blog`() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user99.json")
         login()
 
@@ -61,8 +60,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
         assertCurrentPageIs(PageName.BLOG)
     }
 
-
-    private fun verifyFollowButtons(){
+    private fun verifyFollowButtons() {
         assertElementCount(".navbar .btn-follow", 1)
         assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
@@ -72,13 +70,13 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
     }
 
-    private fun verifyNoFollowButtons(){
+    private fun verifyNoFollowButtons() {
         assertElementCount(".navbar .btn-follow", 0)
         assertElementCount(".follow-panel .btn-follow", 0)
     }
 
     private fun verifyWhoToFollow() {
-        Thread.sleep(1000)      // Wait for AJAX response
+        Thread.sleep(1000) // Wait for AJAX response
         assertElementCount(".who-to-follow .btn-follow", 3)
     }
 }

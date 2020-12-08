@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class StorySchemasGenerator(
-        private val objectMapper: ObjectMapper,
-        private val topics: TopicService,
-        private val persons: PersonSchemasGenerator,
-        private val wutsi: WutsiSchemasGenerator,
-        private val ejsJsonReader: EJSJsonReader,
+    private val objectMapper: ObjectMapper,
+    private val topics: TopicService,
+    private val persons: PersonSchemasGenerator,
+    private val wutsi: WutsiSchemasGenerator,
+    private val ejsJsonReader: EJSJsonReader,
 
-        @Value("\${wutsi.base-url}") private val baseUrl: String
+    @Value("\${wutsi.base-url}") private val baseUrl: String
 ) {
 
     fun generate(story: StoryModel): String {
@@ -27,7 +27,7 @@ class StorySchemasGenerator(
 
         schemas["@context"] = "https://schema.org/"
         schemas["@type"] = "BlogPosting"
-        schemas["id"] = "${baseUrl}/story/${story.id}"
+        schemas["id"] = "$baseUrl/story/${story.id}"
         schemas["identifier"] = story.id.toString()
         schemas["url"] = url
         schemas["mainEntityOfPage"] = url
@@ -85,18 +85,17 @@ class StorySchemasGenerator(
     }
 
     private fun images(story: StoryModel): List<String> {
-        if (story.content == null || story.content.isNullOrBlank()){
+        if (story.content == null || story.content.isNullOrBlank()) {
             return emptyList()
         }
 
         try {
             val ejs = ejsJsonReader.read(story.content)
             return ejs.blocks
-                    .filter { it.type == BlockType.image }
-                    .map { it.data.file.url }
+                .filter { it.type == BlockType.image }
+                .map { it.data.file.url }
         } catch (ex: Exception) {
             return emptyList()
         }
     }
-
 }

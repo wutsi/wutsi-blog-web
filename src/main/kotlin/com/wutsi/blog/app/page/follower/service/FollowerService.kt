@@ -8,20 +8,24 @@ import org.springframework.stereotype.Service
 
 @Service
 class FollowerService(
-        private val api: FollowerApi,
-        private val requestContext: RequestContext
+    private val api: FollowerApi,
+    private val requestContext: RequestContext
 ) {
-    fun follow(userId: Long): Long = api.create(CreateFollowerRequest(
+    fun follow(userId: Long): Long = api.create(
+        CreateFollowerRequest(
             userId = userId,
             followerUserId = requestContext.currentUser()?.id
-        )).followerId
+        )
+    ).followerId
 
     fun unfollow(userId: Long) {
-        val followers = api.search(SearchFollowerRequest(
+        val followers = api.search(
+            SearchFollowerRequest(
                 userId = userId,
                 followerUserId = requestContext.currentUser()?.id
-        )).followers
-        if (followers.isNotEmpty()){
+            )
+        ).followers
+        if (followers.isNotEmpty()) {
             api.delete(followers[0].id)
         }
     }
@@ -30,9 +34,11 @@ class FollowerService(
         if (!requestContext.toggles().follow || requestContext.currentUser() == null)
             return emptyList()
 
-        return api.search(SearchFollowerRequest(
+        return api.search(
+            SearchFollowerRequest(
                 followerUserId = requestContext.currentUser()?.id
-        )).followers.map { it.userId }
+            )
+        ).followers.map { it.userId }
     }
 
     fun canFollow(id: Long): Boolean {
@@ -42,10 +48,11 @@ class FollowerService(
         if (requestContext.currentUser() == null)
             return true
 
-        return api.search(SearchFollowerRequest(
+        return api.search(
+            SearchFollowerRequest(
                 userId = id,
                 followerUserId = requestContext.currentUser()?.id
-        )).followers.isEmpty()
+            )
+        ).followers.isEmpty()
     }
-
 }

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class PersonSchemasGenerator(
-        private val objectMapper: ObjectMapper,
-        @Value("\${wutsi.base-url}") private val baseUrl: String
+    private val objectMapper: ObjectMapper,
+    @Value("\${wutsi.base-url}") private val baseUrl: String
 ) {
     fun generate(person: UserModel): String {
         val schemas = generateMap(person)
@@ -20,23 +20,23 @@ class PersonSchemasGenerator(
 
         schemas["@context"] = "https://schema.org/"
         schemas["@type"] = "Person"
-        schemas["id"] = "${baseUrl}/person/${person.id}"
+        schemas["id"] = "$baseUrl/person/${person.id}"
         schemas["name"] = person.fullName
 
         if (person.pictureUrl != null) {
             schemas["image"] = person.pictureUrl
         }
-        if (person.biography != null){
+        if (person.biography != null) {
             schemas["description"] = person.biography
         }
 
         schemas["url"] = "${baseUrl}${person.slug}"
         if (person.hasSocialLinks) {
             schemas["sameAs"] = arrayListOf(
-                    person.facebookUrl,
-                    person.linkedinUrl,
-                    person.youtubeUrl,
-                    person.twitterUrl
+                person.facebookUrl,
+                person.linkedinUrl,
+                person.youtubeUrl,
+                person.twitterUrl
             ).filter { it != null }
         }
         return schemas

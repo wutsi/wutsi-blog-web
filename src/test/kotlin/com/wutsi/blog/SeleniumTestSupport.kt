@@ -33,7 +33,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyLong
 import org.openqa.selenium.By
@@ -51,9 +50,6 @@ import org.springframework.test.context.junit4.SpringRunner
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
-
-
-
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("qa")
@@ -69,7 +65,7 @@ abstract class SeleniumTestSupport {
 
     protected var timeout = 2L
 
-    lateinit protected var driver: WebDriver
+    protected lateinit var driver: WebDriver
 
     @MockBean protected lateinit var channelApi: ChannelApi
     @MockBean protected lateinit var followerApi: FollowerApi
@@ -79,18 +75,16 @@ abstract class SeleniumTestSupport {
     @MockBean protected lateinit var tagApi: TagApi
     @MockBean protected lateinit var topicApi: TopicApi
 
-
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
-        options.addArguments("--disable-web-security")  // To prevent CORS issues
-        options.addArguments("--lang=fr");
+        options.addArguments("--disable-web-security") // To prevent CORS issues
+        options.addArguments("--lang=fr")
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
         }
 //        options.setCapability("resolution", "1920x1080")
         return options
     }
-
 
     @Before
     fun setUp() {
@@ -145,18 +139,18 @@ abstract class SeleniumTestSupport {
 
     protected fun givenTopics() {
         val response = SearchTopicResponse(
-                topics = listOf(
-                        TopicApiFixtures.createTopicDto(100, "art-entertainment"),
-                        TopicApiFixtures.createTopicDto(101, "art", 100),
+            topics = listOf(
+                TopicApiFixtures.createTopicDto(100, "art-entertainment"),
+                TopicApiFixtures.createTopicDto(101, "art", 100),
 
-                        TopicApiFixtures.createTopicDto(200, "industry"),
-                        TopicApiFixtures.createTopicDto(201, "biotech", 200)
-                )
+                TopicApiFixtures.createTopicDto(200, "industry"),
+                TopicApiFixtures.createTopicDto(201, "biotech", 200)
+            )
         )
         `when`(topicApi.all()).thenReturn(response)
     }
 
-    protected fun givenPin(userId: Long=1, storyId: Long=21) {
+    protected fun givenPin(userId: Long = 1, storyId: Long = 21) {
         val pin = PinApiFixtures.createGetPinResponse(userId, storyId)
         `when`(pinApi.get(userId)).thenReturn(pin)
     }
@@ -174,26 +168,30 @@ abstract class SeleniumTestSupport {
         `when`(followerApi.search(SearchFollowerRequest(followerUserId = 1L))).thenReturn(SearchFollowerResponse())
         `when`(followerApi.search(SearchFollowerRequest(followerUserId = 3L))).thenReturn(SearchFollowerResponse())
         `when`(followerApi.search(SearchFollowerRequest(followerUserId = 99L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(userId=3L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(userId=99L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
-        `when`(followerApi.search(SearchFollowerRequest(userId=1L, followerUserId = 99L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(userId = 3L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(userId = 99L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(userId = 1L, followerUserId = 99L))).thenReturn(SearchFollowerResponse())
     }
 
     protected fun givenUserFollow(userId: Long, followerUserId: Long) {
-        `when`(followerApi.search(
+        `when`(
+            followerApi.search(
                 SearchFollowerRequest(followerUserId = followerUserId, userId = userId)
-        )).thenReturn(
-                SearchFollowerResponse(
-                    followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
-                )
+            )
+        ).thenReturn(
+            SearchFollowerResponse(
+                followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
+            )
         )
 
-        `when`(followerApi.search(
+        `when`(
+            followerApi.search(
                 SearchFollowerRequest(followerUserId = followerUserId)
-        )).thenReturn(
-                SearchFollowerResponse(
-                        followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
-                )
+            )
+        ).thenReturn(
+            SearchFollowerResponse(
+                followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
+            )
         )
     }
 
@@ -205,26 +203,27 @@ abstract class SeleniumTestSupport {
 
         val state = UUID.randomUUID().toString()
         driver.get(
-                url + SecurityConfiguration.QA_SIGNIN_PATTERN +
+            url + SecurityConfiguration.QA_SIGNIN_PATTERN +
                 "?" + SecurityConfiguration.PARAM_STATE + "=" + state
         )
     }
 
     protected fun stub(
-            method: HttpMethod,
-            url: String, status:
-            HttpStatus, resource: String? = null,
-            contentType: String = "application/json",
-            queryParams: Map<String, String>? = null
+        method: HttpMethod,
+        url: String,
+        status: HttpStatus,
+        resource: String? = null,
+        contentType: String = "application/json",
+        queryParams: Map<String, String>? = null
     ) {
         val urlMatch: UrlMatchingStrategy = urlMatching(url)
 
         var mapping: MappingBuilder? = null
-        if (method == HttpMethod.GET){
+        if (method == HttpMethod.GET) {
             mapping = get(urlMatch)
-        } else if (method == HttpMethod.POST){
+        } else if (method == HttpMethod.POST) {
             mapping = post(urlMatch)
-        } else if (method == HttpMethod.DELETE){
+        } else if (method == HttpMethod.DELETE) {
             mapping = delete(urlMatch)
         } else {
             IllegalArgumentException("method not supported: $method")
@@ -236,9 +235,9 @@ abstract class SeleniumTestSupport {
             }
         }
         val response = aResponse()
-                .withHeader("Content-Type", contentType)
-                .withStatus(status.value())
-        if (resource != null){
+            .withHeader("Content-Type", contentType)
+            .withStatus(status.value())
+        if (resource != null) {
             val bodyStream = SeleniumTestSupport::class.java.getResourceAsStream("/wiremock/$resource")
             val body = IOUtils.toString(bodyStream)
             response.withBody(body)
@@ -250,11 +249,11 @@ abstract class SeleniumTestSupport {
         assertEquals(page, driver.findElement(By.cssSelector("meta[name=wutsi\\:page_name]"))?.getAttribute("content"))
     }
 
-    protected fun assertElementNotPresent(selector: String){
+    protected fun assertElementNotPresent(selector: String) {
         assertTrue(driver.findElements(By.cssSelector(selector)).size == 0)
     }
 
-    protected fun assertElementPresent(selector: String){
+    protected fun assertElementPresent(selector: String) {
         assertTrue(driver.findElements(By.cssSelector(selector)).size > 0)
     }
 
@@ -302,20 +301,19 @@ abstract class SeleniumTestSupport {
         assertFalse(driver.findElement(By.cssSelector(selector)).getAttribute("class").contains(value))
     }
 
-    protected fun click(selector: String){
+    protected fun click(selector: String) {
         driver.findElement(By.cssSelector(selector)).click()
     }
 
-    protected fun input(selector: String, value: String){
+    protected fun input(selector: String, value: String) {
         val by = By.cssSelector(selector)
         driver.findElement(by).clear()
         driver.findElement(by).sendKeys(value)
     }
 
-    protected fun select(selector: String, index: Int){
+    protected fun select(selector: String, index: Int) {
         val by = By.cssSelector(selector)
         val select = Select(driver.findElement(by))
         select.selectByIndex(index)
     }
-
 }

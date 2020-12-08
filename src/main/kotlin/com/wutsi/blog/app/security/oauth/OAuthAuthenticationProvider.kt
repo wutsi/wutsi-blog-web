@@ -8,11 +8,10 @@ import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 
-
 @Component
 class OAuthAuthenticationProvider(
-        private val backend: AuthenticationBackend,
-        private val request: HttpServletRequest
+    private val backend: AuthenticationBackend,
+    private val request: HttpServletRequest
 ) : AuthenticationProvider {
     override fun authenticate(auth: Authentication): Authentication {
         val authentication = auth as OAuthTokenAuthentication
@@ -21,7 +20,8 @@ class OAuthAuthenticationProvider(
 
     private fun authenticate(authentication: OAuthTokenAuthentication): Authentication {
         val user = authentication.principal.user
-        backend.login(AuthenticateRequest(
+        backend.login(
+            AuthenticateRequest(
                 accessToken = authentication.accessToken,
                 provider = authentication.principal.user.provider,
                 pictureUrl = user.pictureUrl,
@@ -29,10 +29,11 @@ class OAuthAuthenticationProvider(
                 email = user.email,
                 providerUserId = user.id,
                 language = LocaleContextHolder.getLocale().language
-        ))
+            )
+        )
 
         authentication.setAuthenticated(true)
-        request.getSession(true).maxInactiveInterval = 84600    // 1d
+        request.getSession(true).maxInactiveInterval = 84600 // 1d
         return authentication
     }
 

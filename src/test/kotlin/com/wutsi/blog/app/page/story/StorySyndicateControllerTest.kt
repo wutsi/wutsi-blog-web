@@ -25,7 +25,7 @@ class StorySyndicateControllerTest : SeleniumTestSupport() {
         click("#btn-submit")
 
         assertCurrentPageIs(PageName.EDITOR)
-        Thread.sleep(1000)  // Wait for data to be fetched
+        Thread.sleep(1000) // Wait for data to be fetched
 
         assertElementAttribute("#title", "value", "Lorem Ipsum #100")
     }
@@ -55,5 +55,4 @@ class StorySyndicateControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.STORY_SYNDICATE)
     }
-
 }

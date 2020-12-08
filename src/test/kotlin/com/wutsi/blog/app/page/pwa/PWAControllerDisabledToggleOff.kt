@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.pwa=false"
-        ]
+    properties = [
+        "wutsi.toggles.pwa=false"
+    ]
 )
-class PWAControllerDisabledToggleOff: SeleniumTestSupport() {
+class PWAControllerDisabledToggleOff : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 

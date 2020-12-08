@@ -5,15 +5,14 @@ import org.springframework.stereotype.Service
 
 @Service
 class ContractService(
-        private val backend: ContractBackend
+    private val backend: ContractBackend
 ) {
     fun hasContract(): Boolean {
         try {
             backend.get()
             return true
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             return false
         }
     }
 }
-

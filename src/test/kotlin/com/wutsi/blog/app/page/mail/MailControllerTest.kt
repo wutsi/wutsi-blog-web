@@ -3,13 +3,9 @@ package com.wutsi.blog.app.page.mail
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.mockito.Mockito.verify
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 
-class MailControllerTest: SeleniumTestSupport() {
+class MailControllerTest : SeleniumTestSupport() {
     @Test
     fun unsubscribeFromBlog() {
         driver.get("$url/mail/unsubscribe?u=1&email=foo@gmail.com")
@@ -20,7 +16,6 @@ class MailControllerTest: SeleniumTestSupport() {
 
         verify(newsletterApi).unsubscribe(1L, "foo@gmail.com")
     }
-
 
     @Test
     fun unsubscribeFromWutsi() {

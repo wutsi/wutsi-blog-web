@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class ReadTranslationControllerTest: SeleniumMobileTestSupport() {
+class ReadTranslationControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -75,7 +74,6 @@ class ReadTranslationControllerTest: SeleniumMobileTestSupport() {
 
         assertElementAttribute("html", "lang", "en")
     }
-
 
     @Test
     fun `return 404 for translation of unsupported languages`() {

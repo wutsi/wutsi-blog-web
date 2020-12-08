@@ -2,9 +2,9 @@ package com.wutsi.blog.app.component.announcement
 
 import com.wutsi.blog.app.component.announcement.service.AnnouncementService
 import com.wutsi.blog.app.component.comment.service.CommentAnnouncement
-import com.wutsi.blog.app.page.settings.service.SocialLinksAnnouncement
-import com.wutsi.blog.app.page.partner.service.WPPAnnouncement
 import com.wutsi.blog.app.component.like.service.LikeAnnouncement
+import com.wutsi.blog.app.page.partner.service.WPPAnnouncement
+import com.wutsi.blog.app.page.settings.service.SocialLinksAnnouncement
 import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -29,12 +29,12 @@ class AnnouncementConfiguration {
 
     @Bean
     fun announcementService() = AnnouncementService(
-            announcements = arrayListOf(
+        announcements = arrayListOf(
 //                    socialLinks,
-                    like,
-                    comment,
-                    wpp
-            ),
-            logger = logger
+            like,
+            comment,
+            wpp
+        ),
+        logger = logger
     )
 }

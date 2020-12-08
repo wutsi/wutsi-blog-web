@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.pwa-add-to-homescreen=false"
-        ]
+    properties = [
+        "wutsi.toggles.pwa-add-to-homescreen=false"
+    ]
 )
-class PWAControllerAddToHomescreenDisabledTest: SeleniumTestSupport() {
+class PWAControllerAddToHomescreenDisabledTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -37,5 +37,4 @@ class PWAControllerAddToHomescreenDisabledTest: SeleniumTestSupport() {
         assertElementPresent("script#a2hs-js")
         assertElementNotPresent("#a2hs-container")
     }
-
 }

@@ -18,13 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URLEncoder
 import javax.servlet.http.HttpServletRequest
 
-
 @Controller
 @RequestMapping("/login/twitter")
 class TwitterLoginController(
-        logger: KVLogger,
-        objectMapper: ObjectMapper,
-        @Qualifier(OAuthConfiguration.TWITTER_OAUTH_SERVICE) private val oauth: OAuth10aService
+    logger: KVLogger,
+    objectMapper: ObjectMapper,
+    @Qualifier(OAuthConfiguration.TWITTER_OAUTH_SERVICE) private val oauth: OAuth10aService
 ) : AbstractOAuthLoginController(logger, objectMapper) {
 
     override fun getAuthorizationUrl(request: HttpServletRequest): String {
@@ -46,12 +45,12 @@ class TwitterLoginController(
         val user = toOAuthUser(accessToken)
 
         return "/me/settings/channel/create?" +
-                "id=${user.id}" +
-                "&accessToken=${accessToken.token}" +
-                "&accessTokenSecret=${accessToken.tokenSecret}" +
-                "&name=" + URLEncoder.encode(user.fullName, "utf-8") +
-                "&pictureUrl=${user.pictureUrl}" +
-                "&type=" + ChannelType.twitter
+            "id=${user.id}" +
+            "&accessToken=${accessToken.token}" +
+            "&accessTokenSecret=${accessToken.tokenSecret}" +
+            "&name=" + URLEncoder.encode(user.fullName, "utf-8") +
+            "&pictureUrl=${user.pictureUrl}" +
+            "&type=" + ChannelType.twitter
     }
 
     override fun getSigninUrl(request: HttpServletRequest): String {
@@ -64,11 +63,11 @@ class TwitterLoginController(
     }
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
-            id = attrs["id"].toString(),
-            fullName = attrs["name"].toString(),
-            pictureUrl = attrs["profile_image_url_https"]?.toString(),
-            provider = SecurityConfiguration.PROVIDER_TWITTER
-        )
+        id = attrs["id"].toString(),
+        fullName = attrs["name"].toString(),
+        pictureUrl = attrs["profile_image_url_https"]?.toString(),
+        provider = SecurityConfiguration.PROVIDER_TWITTER
+    )
 
     private fun toOAuthUser(accessToken: OAuth1AccessToken): OAuthUser {
         val response = fetchUser(accessToken)

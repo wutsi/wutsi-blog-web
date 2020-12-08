@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class FollowerReadControllerTest: SeleniumMobileTestSupport() {
+class FollowerReadControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -18,7 +17,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous can follow story and is redirected to login page` () {
+    fun `anonymous can follow story and is redirected to login page`() {
         driver.get("$url/read/20/test")
 
         verifyFollowButtons()
@@ -29,7 +28,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `non-follower user can follow story` () {
+    fun `non-follower user can follow story`() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -43,7 +42,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `user cannot follow his own story` () {
+    fun `user cannot follow his own story`() {
         login()
         driver.get("$url/read/20/test")
 
@@ -52,34 +51,34 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `follower cannot re-follow a story` () {
+    fun `follower cannot re-follow a story`() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
-        givenUserFollow(userId=99, followerUserId = 1)
+        givenUserFollow(userId = 99, followerUserId = 1)
         driver.get("$url/read/20/test")
 
         verifyNoFollowButtons()
         verifyWhoToFollow()
     }
 
-    private fun verifyFollowButtons(userId: Long=1, userName: String = "ray.sponsible"){
+    private fun verifyFollowButtons(userId: Long = 1, userName: String = "ray.sponsible") {
         assertElementCount(".navbar .btn-follow", 1)
         assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=$userId&return=/read/20/lorem-ipsum")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount(".follow-panel .btn-follow", 1)
-        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=$userId&return=/@/${userName}")
+        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=$userId&return=/@/$userName")
         assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
     }
 
-    private fun verifyNoFollowButtons(){
+    private fun verifyNoFollowButtons() {
         assertElementCount(".navbar .btn-follow", 0)
         assertElementCount(".follow-panel .btn-follow", 0)
     }
 
-    private fun verifyWhoToFollow(){
-        Thread.sleep(1000)  // What for async call
+    private fun verifyWhoToFollow() {
+        Thread.sleep(1000) // What for async call
         assertElementCount(".who-to-follow .btn-follow", 3)
     }
 }

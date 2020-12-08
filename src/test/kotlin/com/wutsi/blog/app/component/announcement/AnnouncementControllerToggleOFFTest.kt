@@ -5,11 +5,11 @@ import org.junit.Test
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.announcement=false"
-        ]
+    properties = [
+        "wutsi.toggles.announcement=false"
+    ]
 )
-class AnnouncementControllerToggleOFFTest: SeleniumTestSupport() {
+class AnnouncementControllerToggleOFFTest : SeleniumTestSupport() {
     @Test
     fun `HTML elements`() {
         driver.get(url)

@@ -31,27 +31,27 @@ import java.io.StringWriter
 
 @Service
 class StoryService(
-        private val requestContext: RequestContext,
-        private val mapper: StoryMapper,
-        private val backend: StoryBackend,
-        private val ejsJsonReader: EJSJsonReader,
-        private val ejsHtmlWriter: EJSHtmlWriter,
-        private val ejsFilters: EJSFilterSet,
-        private val userService: UserService
+    private val requestContext: RequestContext,
+    private val mapper: StoryMapper,
+    private val backend: StoryBackend,
+    private val ejsJsonReader: EJSJsonReader,
+    private val ejsHtmlWriter: EJSHtmlWriter,
+    private val ejsFilters: EJSFilterSet,
+    private val userService: UserService
 ) {
     fun save(editor: StoryForm): StoryForm {
         var response = SaveStoryResponse()
         val request = toSaveStoryRequest(editor)
-        if (shouldCreate(editor)){
+        if (shouldCreate(editor)) {
             response = backend.create(request)
         } else if (shouldUpdate(editor)) {
             response = backend.update(editor.id!!, request)
         }
 
         return StoryForm(
-                id = response.storyId,
-                title = editor.title,
-                content = editor.content
+            id = response.storyId,
+            title = editor.title,
+            content = editor.content
         )
     }
 
@@ -69,7 +69,7 @@ class StoryService(
 
     fun search(request: SearchStoryRequest, pin: PinModel? = null): List<StoryModel> {
         val stories = backend.search(request).stories
-        if (stories.isEmpty()){
+        if (stories.isEmpty()) {
             return emptyList()
         }
 
@@ -78,10 +78,10 @@ class StoryService(
     }
 
     fun sort(
-            stories: List<StoryModel>,
-            algorithm: SortAlgorithmType,
-            statsHoursOffset: Int=24*7,
-            bubbleDownViewedStories:Boolean = true
+        stories: List<StoryModel>,
+        algorithm: SortAlgorithmType,
+        statsHoursOffset: Int = 24 * 7,
+        bubbleDownViewedStories: Boolean = true
     ): List<StoryModel> {
         if (stories.size <= 1)
             return stories
@@ -89,48 +89,52 @@ class StoryService(
         val response = doSort(stories, algorithm, statsHoursOffset, bubbleDownViewedStories)
         val storyMap = stories.map { it.id to it }.toMap()
         return response.storyIds
-                .map { storyMap[it] }
-                .filter { it != null }
-                as List<StoryModel>
+            .map { storyMap[it] }
+            .filter { it != null }
+            as List<StoryModel>
     }
 
-    private fun doSort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories:Boolean = true): SortStoryResponse {
-        return backend.sort(SortStoryRequest(
+    private fun doSort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories: Boolean = true): SortStoryResponse {
+        return backend.sort(
+            SortStoryRequest(
                 storyIds = stories.map { it.id },
-                bubbleDownViewedStories =  bubbleDownViewedStories,
+                bubbleDownViewedStories = bubbleDownViewedStories,
                 userId = requestContext.currentUser()?.id,
                 deviceId = requestContext.deviceId(),
                 algorithm = algorithm,
                 statsHoursOffset = statsHoursOffset
-        ))
+            )
+        )
     }
 
-
-    fun publish(editor: PublishForm){
-        backend.publish(editor.id, PublishStoryRequest(
+    fun publish(editor: PublishForm) {
+        backend.publish(
+            editor.id,
+            PublishStoryRequest(
                 title = editor.title,
                 tagline = editor.tagline,
                 summary = editor.summary,
                 topidId = editor.topicId.toLong(),
                 tags = editor.tags,
                 socialMediaMessage = editor.socialMediaMessage
-        ))
+            )
+        )
     }
 
     fun count(status: StoryStatus? = null): Int {
         val userId = requestContext.currentUser()?.id
         val request = SearchStoryRequest(
-                userIds = if (userId == null) emptyList() else listOf(userId),
-                status = status,
-                limit = Int.MAX_VALUE
+            userIds = if (userId == null) emptyList() else listOf(userId),
+            status = status,
+            limit = Int.MAX_VALUE
         )
         return backend.count(request).total
     }
 
     fun import(url: String): Long {
         val request = ImportStoryRequest(
-                url = url,
-                accessToken = requestContext.accessToken()
+            url = url,
+            accessToken = requestContext.accessToken()
         )
         return backend.import(request).storyId
     }
@@ -144,12 +148,12 @@ class StoryService(
         backend.delete(id)
     }
 
-    private fun shouldUpdate(editor: StoryForm) =  editor.id != null && editor.id > 0L
+    private fun shouldUpdate(editor: StoryForm) = editor.id != null && editor.id > 0L
 
     private fun shouldCreate(editor: StoryForm) = (editor.id == null || editor.id == 0L) && !isEmpty(editor)
 
     private fun isEmpty(editor: StoryForm): Boolean {
-        if (editor.title.trim().isNotEmpty()){
+        if (editor.title.trim().isNotEmpty()) {
             return false
         }
 
@@ -160,26 +164,27 @@ class StoryService(
     }
 
     private fun toSaveStoryRequest(editor: StoryForm) = SaveStoryRequest(
-            contentType = "application/editorjs",
-            content = editor.content,
-            title = editor.title,
-            accessToken = requestContext.accessToken()
+        contentType = "application/editorjs",
+        content = editor.content,
+        title = editor.title,
+        accessToken = requestContext.accessToken()
     )
-
 
     private fun searchUserMap(stories: List<StorySummaryDto>): Map<Long, UserModel?> {
         val userIds = stories.map { it.userId }.toSet().toList()
-        return userService.search(SearchUserRequest(
+        return userService.search(
+            SearchUserRequest(
                 userIds = userIds,
                 limit = userIds.size,
                 offset = 0
-        ))
-                .map { it.id to it }
-                .toMap()
+            )
+        )
+            .map { it.id to it }
+            .toMap()
     }
 
     fun generateHtmlContent(story: StoryModel): String {
-        if (story.content == null){
+        if (story.content == null) {
             return ""
         }
 
@@ -193,18 +198,20 @@ class StoryService(
     }
 
     fun recommend(storyId: Long): List<StoryModel> {
-        val response = backend.recommend(RecommendStoryRequest(
+        val response = backend.recommend(
+            RecommendStoryRequest(
                 storyId = storyId,
                 userId = requestContext.currentUser()?.id,
                 deviceId = requestContext.deviceId(),
                 limit = 9
-        ))
+            )
+        )
 
-        return if (response.storyIds.isEmpty()) emptyList() else search(SearchStoryRequest(
+        return if (response.storyIds.isEmpty()) emptyList() else search(
+            SearchStoryRequest(
                 storyIds = response.storyIds,
                 sortBy = StorySortStrategy.no_sort
-        ))
+            )
+        )
     }
-
 }
-

@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class UserBackend (private val http: Http) {
+class UserBackend(private val http: Http) {
     @Value("\${wutsi.backend.user.endpoint}")
     private lateinit var endpoint: String
 
-    fun get(id:Long): GetUserResponse {
+    fun get(id: Long): GetUserResponse {
         return http.get("$endpoint/$id", GetUserResponse::class.java).body!!
     }
 
@@ -25,7 +25,7 @@ class UserBackend (private val http: Http) {
         return http.post("$endpoint/search", request, SearchUserResponse::class.java).body!!
     }
 
-    fun update(id:Long, request: UpdateUserAttributeRequest) {
+    fun update(id: Long, request: UpdateUserAttributeRequest) {
         http.post("$endpoint/$id", request, Any::class.java)
     }
 }

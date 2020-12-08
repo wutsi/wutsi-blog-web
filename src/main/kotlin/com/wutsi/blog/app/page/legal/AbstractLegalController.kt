@@ -6,8 +6,8 @@ import org.apache.commons.io.IOUtils
 import org.springframework.ui.Model
 
 abstract class AbstractLegalController(
-        requestContext: RequestContext
-): AbstractPageController(requestContext){
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun shouldBeIndexedByBots() = true
 
     protected abstract fun contentPath(): String
@@ -16,6 +16,6 @@ abstract class AbstractLegalController(
         val path = contentPath() + ".html"
         val content = IOUtils.toString(AbstractLegalController::class.java.getResource(path))
         model.addAttribute("content", content)
-       return "page/legal/index"
+        return "page/legal/index"
     }
 }

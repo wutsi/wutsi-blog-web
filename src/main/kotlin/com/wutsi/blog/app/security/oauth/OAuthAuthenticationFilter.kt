@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class OAuthAuthenticationFilter(
-        pattern: String
-) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(pattern))
-{
+    pattern: String
+) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(pattern)) {
     @Autowired
     lateinit var mapper: ObjectMapper
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         val accessToken = getRequiredParameter(SecurityConfiguration.PARAM_ACCESS_TOKEN, request)
         val user = getUserAttributes(request)
-        return authenticationManager.authenticate(OAuthTokenAuthentication(
+        return authenticationManager.authenticate(
+            OAuthTokenAuthentication(
                 principal = OAuthPrincipal(accessToken, user),
                 accessToken = accessToken
-        ))
+            )
+        )
     }
 
     private fun getUserAttributes(request: HttpServletRequest): OAuthUser {
@@ -33,7 +34,7 @@ class OAuthAuthenticationFilter(
 
     private fun getRequiredParameter(name: String, request: HttpServletRequest): String {
         val value = request.getParameter(name)
-        if (value == null || value.isEmpty()){
+        if (value == null || value.isEmpty()) {
             throw AuthenticationServiceException("Parameter is missing: $name")
         }
         return value

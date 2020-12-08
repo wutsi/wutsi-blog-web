@@ -6,13 +6,12 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
-
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.comment=false"
-        ]
+    properties = [
+        "wutsi.toggles.comment=false"
+    ]
 )
-class CommentControllerToggleOffTest: SeleniumMobileTestSupport() {
+class CommentControllerToggleOffTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -25,7 +24,7 @@ class CommentControllerToggleOffTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `home page not showing comment count` () {
+    fun `home page not showing comment count`() {
         login()
         driver.get(url)
 
@@ -40,7 +39,7 @@ class CommentControllerToggleOffTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `blog page not showing comment count` () {
+    fun `blog page not showing comment count`() {
         driver.get("$url/@/ray.sponsible")
 
         Thread.sleep(1000)

@@ -6,12 +6,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class TagService(
-        private val api: TagApi,
-        private val mapper: TagMapper
+    private val api: TagApi,
+    private val mapper: TagMapper
 ) {
-    fun search(query: String) : List<TagModel> {
+    fun search(query: String): List<TagModel> {
         val tags = api.search(query).tags
         return tags.map { mapper.toTagModel(it) }
     }
 }
-

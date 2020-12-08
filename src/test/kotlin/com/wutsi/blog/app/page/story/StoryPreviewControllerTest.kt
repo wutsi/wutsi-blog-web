@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class StoryPreviewControllerTest: SeleniumTestSupport() {
+class StoryPreviewControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -54,13 +53,10 @@ class StoryPreviewControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.ERROR_403)
     }
 
-
-
     fun gotoPage(login: Boolean = true) {
         if (login) {
             login()
         }
         driver.get("$url/me/story/20/preview")
     }
-
 }

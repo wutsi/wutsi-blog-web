@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class CommentBackend (private val http: Http) {
+class CommentBackend(private val http: Http) {
     @Value("\${wutsi.backend.comment.endpoint}")
     private lateinit var endpoint: String
 

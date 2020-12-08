@@ -15,9 +15,9 @@ import org.springframework.web.multipart.MultipartFile
 class UploadController(private val service: UploadService) {
     @ResponseBody
     @PostMapping
-    fun upload(@RequestParam file: MultipartFile) : UploadModel  = service.upload(file)
+    fun upload(@RequestParam file: MultipartFile): UploadModel = service.upload(file)
 
     @ResponseBody
     @GetMapping
-    fun upload(@RequestParam url: String) : UploadModel  = service.upload(url)
+    fun upload(@RequestParam url: String): UploadModel = service.upload(url)
 }

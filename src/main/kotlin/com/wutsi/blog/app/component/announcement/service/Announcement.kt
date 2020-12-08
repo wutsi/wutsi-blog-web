@@ -1,10 +1,9 @@
 package com.wutsi.blog.app.component.announcement.service
 
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.CookieHelper
 
 interface Announcement {
-    companion object{
+    companion object {
         const val MAX_LOGIN = 5L
     }
 
@@ -26,5 +25,5 @@ interface Announcement {
 
     fun delay(): Int = 10000
 
-    fun cookieMaxAge() : Int = CookieHelper.ONE_DAY_SECONDS
+    fun cookieMaxAge(): Int = CookieHelper.ONE_DAY_SECONDS
 }

@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.pwa-push-notification=false"
-        ]
+    properties = [
+        "wutsi.toggles.pwa-push-notification=false"
+    ]
 )
-class PWAControllerPushNotificationDisabledTest: SeleniumTestSupport() {
+class PWAControllerPushNotificationDisabledTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -43,5 +43,4 @@ class PWAControllerPushNotificationDisabledTest: SeleniumTestSupport() {
         assertElementNotPresent("script#firebase-js")
         assertElementNotPresent("#push-container")
     }
-
 }

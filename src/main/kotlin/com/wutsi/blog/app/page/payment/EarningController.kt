@@ -18,19 +18,19 @@ import java.time.LocalDate
 
 @Controller
 @RequestMapping("/me/earning")
-@ConditionalOnProperty(value=["wutsi.toggles.earning"], havingValue = "true")
+@ConditionalOnProperty(value = ["wutsi.toggles.earning"], havingValue = "true")
 class EarningController(
-        private val service: EarningService,
-        private val partners: PartnerService,
-        private val contracts: ContractService,
-        requestContext: RequestContext
-): AbstractPageController( requestContext) {
+    private val service: EarningService,
+    private val partners: PartnerService,
+    private val contracts: ContractService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.EARNING
 
     @GetMapping()
     fun index(
-            @RequestParam(required = false) year: String ?= null,
-            model: Model
+        @RequestParam(required = false) year: String ? = null,
+        model: Model
     ): String {
         val currentYear = toYear(year)
         loadYear(currentYear, model)
@@ -41,9 +41,9 @@ class EarningController(
         return "page/payment/earning"
     }
 
-    private fun loadYear(year: Int, model: Model){
-        val nextYear = year+1
-        val previousYear = year-1
+    private fun loadYear(year: Int, model: Model) {
+        val nextYear = year + 1
+        val previousYear = year - 1
         model.addAttribute("year", year)
         model.addAttribute("nextYear", nextYear)
         model.addAttribute("nextYearUrl", "/me/earning?year=$nextYear")
@@ -51,7 +51,7 @@ class EarningController(
         model.addAttribute("previousYearUrl", "/me/earning?year=$previousYear")
     }
 
-    private fun loadTotal(year: Int, model: Model){
+    private fun loadTotal(year: Int, model: Model) {
         val total = service.total(year)
         if (total != null) {
             model.addAttribute("total", total)
@@ -61,21 +61,20 @@ class EarningController(
     private fun shouldJoinWPP() = !contracts.hasContract() && !partners.isPartner()
 
     @ResponseBody
-    @GetMapping(value=["/bar-chart-data"], produces = ["application/json"])
+    @GetMapping(value = ["/bar-chart-data"], produces = ["application/json"])
     fun barChartData(
-            @RequestParam year: Int
+        @RequestParam year: Int
     ): BarChartModel {
         return service.barChartData(year)
     }
 
-
     fun toYear(year: String?): Int {
-        if (year == null){
+        if (year == null) {
             return LocalDate.now().year
         } else {
             try {
                 return year.toInt()
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 return LocalDate.now().year
             }
         }

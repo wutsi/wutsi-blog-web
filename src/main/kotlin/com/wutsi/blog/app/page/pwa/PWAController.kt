@@ -19,17 +19,16 @@ import javax.servlet.http.HttpServletResponse
 @Controller
 @RequestMapping()
 class PWAController(
-        private val backend: PushSubscriptionBackend,
-        private val response: HttpServletResponse,
+    private val backend: PushSubscriptionBackend,
+    private val response: HttpServletResponse,
 
-        @Value("\${wutsi.base-url}") private val baseUrl: String,
-        @Value("\${wutsi.asset-url}") private val assetUrl: String,
-        @Value("\${wutsi.pwa.manifest.name}") private val name: String,
-        @Value("\${wutsi.pwa.firebase.sender-id}") private val senderId: String
+    @Value("\${wutsi.base-url}") private val baseUrl: String,
+    @Value("\${wutsi.asset-url}") private val assetUrl: String,
+    @Value("\${wutsi.pwa.manifest.name}") private val name: String,
+    @Value("\${wutsi.pwa.firebase.sender-id}") private val senderId: String
 ) {
     private val lastModified = Date()
-    private val maxAge = 86400   // 1 day
-
+    private val maxAge = 86400 // 1 day
 
     @GetMapping("/sw.js", produces = ["text/javascript"])
     fun sw(): String {
@@ -48,38 +47,38 @@ class PWAController(
     fun manifest(): ManifestModel {
         setUpCaching()
         return ManifestModel(
-                name = name,
-                short_name = name,
-                start_url = "$baseUrl?utm_medium=pwa&utm_source=app",
-                display = "standalone",
-                background_color = "#f8f8f8",
-                theme_color = "#f8f8f8",
-                orientation = "portrait-primary",
-                gcm_sender_id = senderId,
-                icons = arrayListOf(
-                        IconModel(
-                                src = "$assetUrl/assets/wutsi/img/logo/logo_192x192.png",
-                                type = "image/png",
-                                sizes = "192x192"
-                        ),
-                        IconModel(
-                                src = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
-                                type = "image/png",
-                                sizes = "512x512"
-                        )
+            name = name,
+            short_name = name,
+            start_url = "$baseUrl?utm_medium=pwa&utm_source=app",
+            display = "standalone",
+            background_color = "#f8f8f8",
+            theme_color = "#f8f8f8",
+            orientation = "portrait-primary",
+            gcm_sender_id = senderId,
+            icons = arrayListOf(
+                IconModel(
+                    src = "$assetUrl/assets/wutsi/img/logo/logo_192x192.png",
+                    type = "image/png",
+                    sizes = "192x192"
+                ),
+                IconModel(
+                    src = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
+                    type = "image/png",
+                    sizes = "512x512"
                 )
+            )
         )
     }
 
     @ResponseBody
-    @PostMapping( "/push/subscription", produces = ["application/json"])
+    @PostMapping("/push/subscription", produces = ["application/json"])
     fun subscribe(@RequestBody form: Map<String, Any>): Map<String, Long> {
-        val response = backend.create(CreatePushSubscriptionRequest(token=form["token"].toString()))
+        val response = backend.create(CreatePushSubscriptionRequest(token = form["token"].toString()))
         return mapOf("id" to response.id)
     }
 
     private fun setUpCaching() {
-        val fmt = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+        val fmt = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
         val expires = DateUtils.addSeconds(lastModified, maxAge)
 
         response.setHeader("Last-Modified", fmt.format(lastModified))
@@ -87,7 +86,3 @@ class PWAController(
         response.setHeader("Cache-Control", "public, max-age=$maxAge")
     }
 }
-
-;
-
-;

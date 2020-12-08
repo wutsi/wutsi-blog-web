@@ -31,21 +31,20 @@ import org.springframework.web.context.WebApplicationContext
 import java.time.Clock
 import javax.servlet.http.HttpServletRequest
 
-
 @Configuration
 class CoreConfiguration(
-        private val objectMapper: ObjectMapper,
-        private val clock: Clock,
-        private val context: ApplicationContext
+    private val objectMapper: ObjectMapper,
+    private val clock: Clock,
+    private val context: ApplicationContext
 ) {
     @Bean
     fun http(
-            @Value("\${wutsi.http.client-id}") clientId: String
-    ) : Http {
+        @Value("\${wutsi.http.client-id}") clientId: String
+    ): Http {
         return Http(
-                rest = restTemplate(),
-                exceptionHandler = HttpExceptionHandler(objectMapper),
-                traceContextProvider = TraceContextProvider(clientId, context)
+            rest = restTemplate(),
+            exceptionHandler = HttpExceptionHandler(objectMapper),
+            traceContextProvider = TraceContextProvider(clientId, context)
         )
     }
 
@@ -59,8 +58,8 @@ class CoreConfiguration(
     @Bean
     @Profile("!aws")
     fun localStorageServlet(
-            @Value("\${wutsi.storage.local.directory}") directory: String,
-            @Value("\${wutsi.storage.servlet.path}") servletPath: String
+        @Value("\${wutsi.storage.local.directory}") directory: String,
+        @Value("\${wutsi.storage.servlet.path}") servletPath: String
     ): ServletRegistrationBean<*> {
         val bean = ServletRegistrationBean(StorageServlet(logger(), directory), "$servletPath/*")
         bean.setLoadOnStartup(1)
@@ -70,8 +69,8 @@ class CoreConfiguration(
     @Bean
     @Profile("!aws")
     fun localStorageService(
-            @Value("\${wutsi.storage.local.directory}") directory: String,
-            @Value("\${wutsi.storage.servlet.url}") servletUrl: String
+        @Value("\${wutsi.storage.local.directory}") directory: String,
+        @Value("\${wutsi.storage.servlet.url}") servletUrl: String
     ): StorageService {
         return LocalStorageService(directory, servletUrl)
     }
@@ -80,9 +79,9 @@ class CoreConfiguration(
     @Profile("aws")
     @Autowired
     fun s3StorageService(
-            s3: AmazonS3,
-            @Value("\${wutsi.storage.s3.bucket}") bucket: String
-    ) : StorageService {
+        s3: AmazonS3,
+        @Value("\${wutsi.storage.s3.bucket}") bucket: String
+    ): StorageService {
         return S3StorageService(s3, bucket)
     }
 
@@ -90,15 +89,14 @@ class CoreConfiguration(
     @Profile("aws")
     @Autowired
     fun s3StorageHealth(
-            s3: AmazonS3,
-            @Value("\${wutsi.storage.s3.bucket}") bucket: String
+        s3: AmazonS3,
+        @Value("\${wutsi.storage.s3.bucket}") bucket: String
     ): HealthIndicator {
         return S3HealthIndicator(s3, bucket)
     }
 
-
     @Bean
-    fun deviceUIDFilter () : DeviceUIDFilter {
+    fun deviceUIDFilter(): DeviceUIDFilter {
         return DeviceUIDFilter(deviceUIDProvider())
     }
 

@@ -2,8 +2,8 @@ package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
 import com.wutsi.blog.app.common.controller.AbstractPageController
-import com.wutsi.blog.app.page.login.service.AccessTokenStorage
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.login.service.AccessTokenStorage
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.logging.KVLogger
 import org.springframework.stereotype.Controller
@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletResponse
 @Controller
 @RequestMapping("/logout")
 class LogoutController(
-        private val backend: AuthenticationBackend,
-        private val tokenStorage: AccessTokenStorage,
-        private val logger: KVLogger,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val backend: AuthenticationBackend,
+    private val tokenStorage: AccessTokenStorage,
+    private val logger: KVLogger,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     @GetMapping()
     fun index(model: Model, request: HttpServletRequest, response: HttpServletResponse): String {
         try {

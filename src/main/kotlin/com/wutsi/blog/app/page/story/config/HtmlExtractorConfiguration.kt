@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration
 class HtmlExtractorConfiguration {
 
     @Bean
-    fun downDownloader () = Downloader()
+    fun downDownloader() = Downloader()
 
     @Bean
     fun titleExtractor() = TitleExtractor()

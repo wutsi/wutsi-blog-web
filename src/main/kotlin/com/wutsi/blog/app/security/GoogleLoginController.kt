@@ -10,24 +10,22 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
-
 @Controller
 @RequestMapping("/login/google")
 class GoogleLoginController(
-        logger: KVLogger,
-        objectMapper: ObjectMapper,
-        @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) private val oauth: OAuth20Service
-): AbstractOAuth20LoginController(logger, objectMapper) {
+    logger: KVLogger,
+    objectMapper: ObjectMapper,
+    @Qualifier(OAuthConfiguration.GOOGLE_OAUTH_SERVICE) private val oauth: OAuth20Service
+) : AbstractOAuth20LoginController(logger, objectMapper) {
     override fun getOAuthService() = oauth
 
     override fun getUserUrl() = "https://www.googleapis.com/oauth2/v3/userinfo"
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
-                id = attrs["sub"].toString(),
-                fullName = attrs["name"].toString(),
-                email = attrs["email"]?.toString(),
-                pictureUrl = attrs["picture"]?.toString(),
-                provider = SecurityConfiguration.PROVIDER_GOOGLE
-        )
-
+        id = attrs["sub"].toString(),
+        fullName = attrs["name"].toString(),
+        email = attrs["email"]?.toString(),
+        pictureUrl = attrs["picture"]?.toString(),
+        provider = SecurityConfiguration.PROVIDER_GOOGLE
+    )
 }

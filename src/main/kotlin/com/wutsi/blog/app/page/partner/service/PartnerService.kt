@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service
 
 @Service
 class PartnerService(
-        private val backend: PartnerBackend,
-        private val mapper: PartnerMapper
+    private val backend: PartnerBackend,
+    private val mapper: PartnerMapper
 ) {
 
-    fun isPartner() : Boolean {
+    fun isPartner(): Boolean {
         try {
             backend.get().partner
             return true
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             return false
         }
     }
@@ -31,17 +31,16 @@ class PartnerService(
     fun save(form: PartnerForm) {
         val util = PhoneNumberUtil.getInstance()
         val mobileNumber = util.parse(form.mobileNumber, form.countryCode)
-        if (!util.isValidNumber(mobileNumber)){
+        if (!util.isValidNumber(mobileNumber)) {
             throw NumberParseException(NumberParseException.ErrorType.NOT_A_NUMBER, form.mobileNumber)
         }
         val request = SavePartnerRequest(
-                fullName = form.fullName,
-                countryCode = form.countryCode,
-                mobileProvider = form.mobileProvider,
-                mobileNumber = util.format(mobileNumber, PhoneNumberUtil.PhoneNumberFormat.E164),
-                email = form.email
+            fullName = form.fullName,
+            countryCode = form.countryCode,
+            mobileProvider = form.mobileProvider,
+            mobileNumber = util.format(mobileNumber, PhoneNumberUtil.PhoneNumberFormat.E164),
+            email = form.email
         )
         backend.save(request)
     }
 }
-

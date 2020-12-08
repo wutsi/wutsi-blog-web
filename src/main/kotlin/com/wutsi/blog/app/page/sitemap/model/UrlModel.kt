@@ -7,9 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement
 
 @XmlRootElement(name = "url")
 @XmlAccessorType(XmlAccessType.FIELD)
-class UrlModel (
-        @XmlElement val loc: String = "",
-        @XmlElement val lastmod: String? = null
-) {
-
-}
+class UrlModel(
+    @XmlElement val loc: String = "",
+    @XmlElement val lastmod: String? = null
+)

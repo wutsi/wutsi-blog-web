@@ -7,13 +7,12 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
-
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.google-one-tap-sign-in=true"
-        ]
+    properties = [
+        "wutsi.toggles.google-one-tap-sign-in=true"
+    ]
 )
-class GoogleOneTapTest: SeleniumTestSupport() {
+class GoogleOneTapTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -24,7 +23,7 @@ class GoogleOneTapTest: SeleniumTestSupport() {
     }
 
     @Test
-    @Ignore ("The value prop is now displayed in Home page")
+    @Ignore("The value prop is now displayed in Home page")
     fun `GoogleOneTap should showup for anonymous user in Home`() {
         gotoHome(false)
 
@@ -41,7 +40,6 @@ class GoogleOneTapTest: SeleniumTestSupport() {
         assertElementNotPresent("#g_one_tap_script")
         assertElementNotPresent("#g_one_tap_callback")
     }
-
 
     @Test
     fun `GoogleOneTap should showup for anonymous user in Reader`() {
@@ -61,7 +59,6 @@ class GoogleOneTapTest: SeleniumTestSupport() {
         assertElementNotPresent("#g_one_tap_callback")
     }
 
-
     private fun gotoStory(login: Boolean) {
         if (login) {
             login()
@@ -78,5 +75,4 @@ class GoogleOneTapTest: SeleniumTestSupport() {
             driver.get(url)
         }
     }
-
 }

@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class StatsUserControllerTest: SeleniumTestSupport() {
+class StatsUserControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -20,7 +19,6 @@ class StatsUserControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/stats/search/monthly/story", HttpStatus.OK, "v1/stats/search_story.json")
         stub(HttpMethod.POST, "/v1/stats/search/monthly/traffic", HttpStatus.OK, "v1/stats/search_traffic.json")
     }
-
 
     @Test
     fun `user can view his stats`() {
@@ -41,5 +39,4 @@ class StatsUserControllerTest: SeleniumTestSupport() {
 
         click("#navbar-stats")
     }
-
 }

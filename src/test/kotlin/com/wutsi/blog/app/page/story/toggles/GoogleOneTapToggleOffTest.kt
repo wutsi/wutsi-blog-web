@@ -6,13 +6,12 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
-
 @TestPropertySource(
-        properties = [
-            "wutsi.toggles.google-one-tap-sign-in=false"
-        ]
+    properties = [
+        "wutsi.toggles.google-one-tap-sign-in=false"
+    ]
 )
-class GoogleOneTapToggleOffTest: SeleniumTestSupport() {
+class GoogleOneTapToggleOffTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -21,7 +20,6 @@ class GoogleOneTapToggleOffTest: SeleniumTestSupport() {
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
-
 
     @Test
     fun `GoogleOneTap should not showup for anonymous user in Home`() {

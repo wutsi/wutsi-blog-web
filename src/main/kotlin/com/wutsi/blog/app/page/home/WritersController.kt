@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/writers")
 class WritersController(
-        private val schemas: WutsiSchemasGenerator,
-        private val userService: UserService,
-        private val followerService: FollowerService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val schemas: WutsiSchemasGenerator,
+    private val userService: UserService,
+    private val followerService: FollowerService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.WRITERS
 
     override fun shouldBeIndexedByBots() = true
@@ -29,22 +29,24 @@ class WritersController(
     override fun shouldShowGoogleOneTap() = true
 
     override fun page() = createPage(
-            title = requestContext.getMessage("page.writers.metadata.title"),
-            description = requestContext.getMessage("page.writers.metadata.description"),
-            schemas = schemas.generate(),
-            showNotificationOptIn = true
+        title = requestContext.getMessage("page.writers.metadata.title"),
+        description = requestContext.getMessage("page.writers.metadata.description"),
+        schemas = schemas.generate(),
+        showNotificationOptIn = true
     )
 
     @GetMapping()
     fun index(model: Model): String {
         val following = followerService.searchFollowingUserIds()
-        val writers = userService.search(SearchUserRequest(
+        val writers = userService.search(
+            SearchUserRequest(
                 blog = true,
                 limit = 20,
                 sortBy = UserSortStrategy.stories,
                 sortOrder = SortOrder.descending
-        )).filter {
-                it.storyCount > 0 &&
+            )
+        ).filter {
+            it.storyCount > 0 &&
                 (following.isEmpty() || !following.contains(it.id))
         }
 

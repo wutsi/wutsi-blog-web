@@ -16,29 +16,30 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 @RequestMapping("/me/draft")
 class StoryDraftController(
-        service: StoryService,
-        requestContext: RequestContext
-): AbstractStoryListController(service, requestContext) {
+    service: StoryService,
+    requestContext: RequestContext
+) : AbstractStoryListController(service, requestContext) {
     override fun pageName() = PageName.STORY_DRAFT
 
     override fun viewName() = "page/story/draft"
 
     override fun fetchStories(limit: Int, offset: Int): List<StoryModel> {
         val userId = requestContext.currentUser()?.id
-        return service.search(SearchStoryRequest(
+        return service.search(
+            SearchStoryRequest(
                 userIds = if (userId == null) emptyList() else listOf(userId),
                 status = StoryStatus.draft,
                 sortBy = StorySortStrategy.modified,
                 limit = limit,
                 offset = offset
-        ))
+            )
+        )
     }
 
     @GetMapping("/{id}/delete")
     @ResponseBody
-    fun delete(@PathVariable id: Long) : Map<String, String> {
+    fun delete(@PathVariable id: Long): Map<String, String> {
         service.delete(id)
         return mapOf("id" to id.toString())
     }
-
 }

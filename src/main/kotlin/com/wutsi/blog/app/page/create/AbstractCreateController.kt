@@ -1,18 +1,17 @@
 package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
-import com.wutsi.blog.app.page.settings.model.UserAttributeForm
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.model.UserAttributeForm
 import com.wutsi.blog.app.page.settings.service.UserService
-import com.wutsi.blog.app.util.PageName
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 abstract class AbstractCreateController(
-        protected val userService: UserService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    protected val userService: UserService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     abstract fun pagePath(): String
 
     abstract fun redirectUrl(): String
@@ -22,8 +21,8 @@ abstract class AbstractCreateController(
     abstract fun value(): String?
 
     override fun page() = createPage(
-            title = requestContext.getMessage("page.create.metadata.title"),
-            description = requestContext.getMessage("page.create.metadata.description")
+        title = requestContext.getMessage("page.create.metadata.title"),
+        description = requestContext.getMessage("page.create.metadata.description")
     )
 
     @GetMapping
@@ -41,12 +40,13 @@ abstract class AbstractCreateController(
     fun submit(@RequestParam value: String, model: Model): String {
         try {
 
-            userService.set(UserAttributeForm(
+            userService.set(
+                UserAttributeForm(
                     name = attributeName(),
                     value = value
-            ))
-            return "redirect:"  + redirectUrl()
-
+                )
+            )
+            return "redirect:" + redirectUrl()
         } catch (ex: Exception) {
             val error = errorKey(ex)
             model.addAttribute("error", requestContext.getMessage(error))

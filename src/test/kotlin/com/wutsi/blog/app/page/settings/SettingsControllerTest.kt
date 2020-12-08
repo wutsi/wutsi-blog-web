@@ -1,17 +1,16 @@
 package com.wutsi.blog.app.page.settings
 
-import com.wutsi.blog.fixtures.ChannelApiFixtures
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
+import com.wutsi.blog.fixtures.ChannelApiFixtures
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class SettingsControllerTest: SeleniumTestSupport() {
+class SettingsControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -65,8 +64,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
         testCancel("full_name", "Ray Sponsible", "Ray Blog")
     }
 
-
-
     @Test
     fun `user can change email`() {
         testUpdate("email", "ray.sponsible@gmail.com", "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com")
@@ -85,8 +82,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
         testUpdate("email", "ray.sponsible@gmail.com", "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com", error)
     }
 
-
-
     @Test
     fun `user can change biography`() {
         testUpdate("biography", "Ray sponsible is a test user", "...")
@@ -104,8 +99,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
         val error = "Ooup! une erreur innatendue est survenue!"
         testUpdate("biography", "Ray sponsible is a test user", "...", error)
     }
-
-
 
     @Test
     fun `user can change website`() {
@@ -128,10 +121,10 @@ class SettingsControllerTest: SeleniumTestSupport() {
     @Test
     fun `user can disconnect from channel`() {
         val response = SearchChannelResponse(
-                channels = listOf(
-                        ChannelApiFixtures.createChannelDto(userId=1, type=ChannelType.twitter),
-                        ChannelApiFixtures.createChannelDto(userId=1, type=ChannelType.facebook)
-                )
+            channels = listOf(
+                ChannelApiFixtures.createChannelDto(userId = 1, type = ChannelType.twitter),
+                ChannelApiFixtures.createChannelDto(userId = 1, type = ChannelType.facebook)
+            )
         )
         `when`(channelApi.search(1L)).thenReturn(response)
 
@@ -143,7 +136,6 @@ class SettingsControllerTest: SeleniumTestSupport() {
         click("#channel-twitter .btn-disconnect")
         assertCurrentPageIs(PageName.SETTINGS)
     }
-
 
     private fun testUpdate(name: String, originalValue: String, newValue: String, error: String? = null) {
         val selector = "#$name-form"
@@ -157,7 +149,7 @@ class SettingsControllerTest: SeleniumTestSupport() {
 
         Thread.sleep(1000)
         assertElementAttribute("$selector .form-control", "value", newValue)
-        if (error == null){
+        if (error == null) {
             assertElementHasClass("$selector .alert-danger", "hidden")
         } else {
             assertElementHasNotClass("$selector .alert-danger", "hidden")

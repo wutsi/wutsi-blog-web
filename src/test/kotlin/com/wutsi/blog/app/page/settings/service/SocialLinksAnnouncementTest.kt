@@ -40,7 +40,7 @@ class SocialLinksAnnouncementTest {
 
     @Test
     fun `nerver show for user having too many login`() {
-        val user = UserModel(loginCount = Announcement.MAX_LOGIN+1)
+        val user = UserModel(loginCount = Announcement.MAX_LOGIN + 1)
         `when`(requestContext.currentUser()).thenReturn(user)
 
         assertFalse(announcement.show("foo"))

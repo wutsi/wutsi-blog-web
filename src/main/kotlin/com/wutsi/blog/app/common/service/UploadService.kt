@@ -22,12 +22,11 @@ import java.util.TimeZone
 import java.util.UUID
 import javax.imageio.ImageIO
 
-
 @Service
 class UploadService(
-        private val clock: Clock,
-        private val logger: KVLogger,
-        private val storage: StorageService
+    private val clock: Clock,
+    private val logger: KVLogger,
+    private val storage: StorageService
 ) {
     companion object {
         private const val USER_AGENT = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2"
@@ -41,12 +40,12 @@ class UploadService(
 
         var width = -1
         var height = -1
-        if (file.contentType?.startsWith("image/") == true){
+        if (file.contentType?.startsWith("image/") == true) {
             try {
                 val img: BufferedImage = ImageIO.read(file.inputStream)
                 width = img.width
                 height = img.height
-            } catch (ex: Exception){
+            } catch (ex: Exception) {
                 LOGGER.warn("Unable to load image ${file.originalFilename}", ex)
             }
         }
@@ -56,13 +55,13 @@ class UploadService(
         logger.add("ImageWidth", width)
         logger.add("ImageHeight", height)
         return UploadModel(
-                url = url.toString(),
-                width = width,
-                height = height
+            url = url.toString(),
+            width = width,
+            height = height
         )
     }
 
-    fun upload(url: String) =  upload(toMultipartFile(url))
+    fun upload(url: String) = upload(toMultipartFile(url))
 
     private fun toMultipartFile(url: String): MultipartFile {
         val cnn = URL(url).openConnection() as HttpURLConnection
@@ -90,9 +89,9 @@ class UploadService(
     }
 
     private fun handleResponseCode(code: Int, url: URL): Exception {
-        if (code == HttpURLConnection.HTTP_NOT_FOUND){
+        if (code == HttpURLConnection.HTTP_NOT_FOUND) {
             return NotFoundException("url_not_found")
-        } else if (code == HttpURLConnection.HTTP_BAD_REQUEST){
+        } else if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
             return BadRequestException("bad_request")
         } else {
             return IOException("url=$url - status=$code")
@@ -105,10 +104,9 @@ class UploadService(
 
         val prefix = fmt.format(Date(clock.millis()))
         var extension = FilenameUtils.getExtension(file.originalFilename)
-        if (extension.isNotEmpty()){
+        if (extension.isNotEmpty()) {
             extension = ".$extension"
         }
         return "upload/$prefix/${UUID.randomUUID()}$extension"
     }
-
 }

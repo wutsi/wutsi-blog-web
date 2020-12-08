@@ -2,12 +2,13 @@ package com.wutsi.blog.app.page.rss
 
 import com.rometools.rome.feed.rss.Channel
 import com.wutsi.blog.SeleniumTestSupport
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestTemplate
 
-class HomeRssControllerTest: SeleniumTestSupport() {
+class HomeRssControllerTest : SeleniumTestSupport() {
     val rest = RestTemplate()
 
     @Test
@@ -18,7 +19,6 @@ class HomeRssControllerTest: SeleniumTestSupport() {
         validateRSS(response.body!!)
     }
 
-
     @Test
     fun `return site RSS for date range`() {
         val response = rest.getForEntity("$url/rss?startDate=2020-12-01&endDate=2020-12-10", Channel::class.java)
@@ -27,7 +27,7 @@ class HomeRssControllerTest: SeleniumTestSupport() {
         validateRSS(response.body!!)
     }
 
-    private fun validateRSS(channel: Channel){
+    private fun validateRSS(channel: Channel) {
         assertEquals("Wutsi RSS Feed", channel.title)
         assertEquals("Wutsi RSS Feed", channel.description)
 

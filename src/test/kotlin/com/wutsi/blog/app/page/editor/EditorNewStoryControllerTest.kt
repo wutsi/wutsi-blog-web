@@ -1,17 +1,16 @@
 package com.wutsi.blog.app.page.editor
 
-import com.wutsi.blog.fixtures.ChannelApiFixtures
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
+import com.wutsi.blog.fixtures.ChannelApiFixtures
 import org.junit.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class EditorNewStoryControllerTest: SeleniumTestSupport() {
+class EditorNewStoryControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -72,9 +71,9 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
     @Test
     fun `share with channel Twitter`() {
         val response = SearchChannelResponse(
-                channels = listOf(
-                        ChannelApiFixtures.createChannelDto(userId=1, type= ChannelType.twitter)
-                )
+            channels = listOf(
+                ChannelApiFixtures.createChannelDto(userId = 1, type = ChannelType.twitter)
+            )
         )
         Mockito.`when`(channelApi.search(1L)).thenReturn(response)
 
@@ -195,7 +194,7 @@ class EditorNewStoryControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR)
     }
 
-    private fun gotoPage(storyId:Long) {
+    private fun gotoPage(storyId: Long) {
         login()
 
         driver.get("$url/editor/$storyId")

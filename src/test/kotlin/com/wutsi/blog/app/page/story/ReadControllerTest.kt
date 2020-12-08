@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class ReadControllerTest: SeleniumMobileTestSupport() {
+class ReadControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -41,7 +40,6 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         driver.get("$url/read/20/looks-good")
         assertElementNotPresent("#story-menu")
     }
-
 
     @Test
     fun `story tracking not available for story owner`() {
@@ -167,7 +165,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
 
         assertElementAttribute("head meta[property='og:title']", "content", title)
-        assertElementAttribute("head meta[property='og:description']","content", description)
+        assertElementAttribute("head meta[property='og:description']", "content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "article")
         assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/read/20/lorem-ipsum")
         assertElementAttribute("head meta[property='og:image']", "content", "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg")
@@ -191,7 +189,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         val description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 
         assertElementAttribute("head meta[name='twitter:title']", "content", title)
-        assertElementAttribute("head meta[name='twitter:description']","content", description)
+        assertElementAttribute("head meta[name='twitter:description']", "content", description)
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary_large_image")
         assertElementAttribute("head meta[name='twitter:site']", "content", "@ray.sponsible")
         assertElementAttribute("head meta[name='twitter:creator']", "content", "@ray.sponsible")
@@ -208,7 +206,7 @@ class ReadControllerTest: SeleniumMobileTestSupport() {
         assertElementNotPresent("head meta[property='og:image']")
 
         assertElementAttribute("head meta[name='twitter:title']", "content", title)
-        assertElementAttribute("head meta[name='twitter:description']","content", description)
+        assertElementAttribute("head meta[name='twitter:description']", "content", description)
         assertElementAttribute("head meta[name='twitter:card']", "content", "summary")
         assertElementAttribute("head meta[name='twitter:site']", "content", "@ray.sponsible")
         assertElementAttribute("head meta[name='twitter:creator']", "content", "@ray.sponsible")

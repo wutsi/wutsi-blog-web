@@ -3,10 +3,9 @@ package com.wutsi.blog.app.security.oauth
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 
-
 class OAuthTokenAuthentication(
-        private val principal: OAuthPrincipal,
-        val accessToken: String
+    private val principal: OAuthPrincipal,
+    val accessToken: String
 ) : Authentication {
     private var authenticated = false
 
@@ -28,5 +27,4 @@ class OAuthTokenAuthentication(
     override fun setAuthenticated(value: Boolean) {
         authenticated = value
     }
-
 }

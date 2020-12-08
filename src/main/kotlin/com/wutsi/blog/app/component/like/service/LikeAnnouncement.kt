@@ -12,30 +12,32 @@ import org.springframework.stereotype.Service
 @Service
 @Scope("prototype")
 class LikeAnnouncement(
-        requestContext: RequestContext,
-        private val likes: LikeService,
-        private val stories: StoryService
-): AbstractAnnouncement(requestContext) {
+    requestContext: RequestContext,
+    private val likes: LikeService,
+    private val stories: StoryService
+) : AbstractAnnouncement(requestContext) {
     private var total: String? = null
     private var story: StoryModel? = null
 
     override fun show(page: String): Boolean {
         // User
         val author = requestContext.currentUser()
-        if (author == null ) {
+        if (author == null) {
             return false
         }
 
         // Last view
         val lastViewDate = requestContext.lastViewDate()
-                ?: return false
+            ?: return false
 
         // Count
-        val counts = likes.count(SearchLikeRequest(
+        val counts = likes.count(
+            SearchLikeRequest(
                 authorId = author.id,
                 since = lastViewDate
-        )).sortedByDescending { it.value }
-        if (counts.isEmpty()){
+            )
+        ).sortedByDescending { it.value }
+        if (counts.isEmpty()) {
             return false
         }
 
@@ -47,8 +49,8 @@ class LikeAnnouncement(
 
     override fun description(): String {
         return requestContext.getMessage(
-                key = "announcement.like.message",
-                args = arrayOf(total!!)
+            key = "announcement.like.message",
+            args = arrayOf(total!!)
         )
     }
 

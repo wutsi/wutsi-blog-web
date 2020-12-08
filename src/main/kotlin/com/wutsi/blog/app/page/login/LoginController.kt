@@ -18,15 +18,14 @@ import java.net.URLDecoder
 import java.util.LinkedHashMap
 import javax.servlet.http.HttpServletRequest
 
-
 @Controller
 @RequestMapping("/login")
 class LoginController(
-        private val userService: UserService,
-        @Value("\${wutsi.domain}") private val domain: String,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
-    companion object{
+    private val userService: UserService,
+    @Value("\${wutsi.domain}") private val domain: String,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
+    companion object {
         private val LOGGER = LoggerFactory.getLogger(LoginController::class.java)
         private const val REASON_CREATE_BLOG = "create-blog"
         private const val REASON_FOLLOW = "follow"
@@ -34,13 +33,13 @@ class LoginController(
 
     @GetMapping()
     fun index(
-            @RequestParam(required = false) error: String? = null,
-            @RequestParam(required = false) reason: String? = null,
-            @RequestParam(required = false) redirect: String? = null,
-            @RequestParam(required = false) `return`: String? = null,
-            @RequestHeader(required = false) referer: String? = null,
-            model: Model,
-            request: HttpServletRequest
+        @RequestParam(required = false) error: String? = null,
+        @RequestParam(required = false) reason: String? = null,
+        @RequestParam(required = false) redirect: String? = null,
+        @RequestParam(required = false) `return`: String? = null,
+        @RequestHeader(required = false) referer: String? = null,
+        model: Model,
+        request: HttpServletRequest
     ): String {
         model.addAttribute("error", error)
         val redirectUrl = getRedirectURL(request)
@@ -62,12 +61,12 @@ class LoginController(
     override fun pageName() = PageName.LOGIN
 
     private fun getReason(reason: String?, redirectUrl: URL?): String? {
-        if (reason != null){
+        if (reason != null) {
             return reason
         }
 
-        if (redirectUrl != null && domain.equals(redirectUrl.host)){
-            if (redirectUrl.path.startsWith("/create")){
+        if (redirectUrl != null && domain.equals(redirectUrl.host)) {
+            if (redirectUrl.path.startsWith("/create")) {
                 return REASON_CREATE_BLOG
             } else if (redirectUrl.path == "/follow") {
                 return REASON_FOLLOW
@@ -78,7 +77,7 @@ class LoginController(
 
     private fun getRedirectURL(request: HttpServletRequest): URL? {
         val savedRequest = request.session.getAttribute("SPRING_SECURITY_SAVED_REQUEST") as SavedRequest?
-                ?: return null
+            ?: return null
         return URL(savedRequest.redirectUrl)
     }
 
@@ -87,7 +86,7 @@ class LoginController(
     }
 
     private fun title(reason: String?): String {
-        val default = "page.login.header1.login";
+        val default = "page.login.header1.login"
         val key = if (reason != null) {
             "page.login.header1.$reason"
         } else {
@@ -98,7 +97,7 @@ class LoginController(
     }
 
     private fun info(reason: String?): String {
-        val default = "page.login.info.login";
+        val default = "page.login.info.login"
         val key = if (reason != null) {
             "page.login.info.$reason"
         } else {
@@ -109,16 +108,16 @@ class LoginController(
     }
 
     private fun loadTargetUser(reason: String?, redirectUrl: URL?, model: Model) {
-        if (redirectUrl == null || reason != REASON_FOLLOW){
+        if (redirectUrl == null || reason != REASON_FOLLOW) {
             return
         }
 
         val userId = splitQuery(redirectUrl)["userId"]
-        if (userId != null){
+        if (userId != null) {
             try {
                 val blog = userService.get(userId.toLong())
                 model.addAttribute("blog", blog)
-            } catch(ex: Exception){
+            } catch (ex: Exception) {
                 LOGGER.error("Unable to fetch User#$userId", ex)
             }
         }
@@ -136,5 +135,5 @@ class LoginController(
     }
 
     private fun decode(value: String): String =
-            URLDecoder.decode(value, "UTF-8")
+        URLDecoder.decode(value, "UTF-8")
 }

@@ -9,7 +9,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestTemplate
 
-class BlogRssControllerTest: SeleniumTestSupport() {
+class BlogRssControllerTest : SeleniumTestSupport() {
     val rest = RestTemplate()
 
     override fun setupWiremock() {
@@ -28,7 +28,6 @@ class BlogRssControllerTest: SeleniumTestSupport() {
         validateRSS(response.body!!)
     }
 
-
     @Test
     fun `return RSS for user by date range`() {
         val response = rest.getForEntity("$url/@/roger.milla/rss?startDate=2020-12-01&endDate=2020-12-10", Channel::class.java)
@@ -37,7 +36,7 @@ class BlogRssControllerTest: SeleniumTestSupport() {
         validateRSS(response.body!!)
     }
 
-    private fun validateRSS(channel: Channel){
+    private fun validateRSS(channel: Channel) {
         assertEquals("Roger Milla(@roger.milla) RSS Feed", channel.title)
         assertEquals("Just the best african soccer player ever!", channel.description)
         assertTrue(channel.link.endsWith("/@/roger.milla"))

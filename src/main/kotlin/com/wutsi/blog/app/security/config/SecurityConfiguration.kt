@@ -14,15 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 
-
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
 //        private val accessTokenStorage: AccessTokenStorage,
 //        private val oauthAuthenticationProvider: OAuthAuthenticationProvider,
-        private val oAuthRememberMeService: OAuthRememberMeService,
-        private val userService: UserService
-        /* private val autoLoginAuthenticationProvider: AutoLoginAuthenticationProvider*/
+    private val oAuthRememberMeService: OAuthRememberMeService,
+    private val userService: UserService
+    /* private val autoLoginAuthenticationProvider: AutoLoginAuthenticationProvider*/
 ) : WebSecurityConfigurerAdapter() {
     companion object {
         const val OAUTH_SIGNIN_PATTERN = "/login/oauth/signin"
@@ -47,29 +46,26 @@ class SecurityConfiguration(
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        // @formatter:off
-		http
-            .authorizeRequests()
-                .antMatchers("/me").authenticated()
-                .antMatchers("/me/**/*").authenticated()
-                .antMatchers("/editor").authenticated()
-                .antMatchers("/editor/**/*").authenticated()
-                .antMatchers("/partner/**/*").authenticated()
-                .antMatchers("/stats").authenticated()
-                .antMatchers("/stats/**/*").authenticated()
-                .antMatchers("/create").authenticated()
-                .antMatchers("/create/**/*").authenticated()
-                .antMatchers("/follow").authenticated()
-                .antMatchers("/pin/**/*").authenticated()
-                .antMatchers(HttpMethod.POST, "/upload").authenticated()
+        http.authorizeRequests()
+            .antMatchers("/me").authenticated()
+            .antMatchers("/me/**/*").authenticated()
+            .antMatchers("/editor").authenticated()
+            .antMatchers("/editor/**/*").authenticated()
+            .antMatchers("/partner/**/*").authenticated()
+            .antMatchers("/stats").authenticated()
+            .antMatchers("/stats/**/*").authenticated()
+            .antMatchers("/create").authenticated()
+            .antMatchers("/create/**/*").authenticated()
+            .antMatchers("/follow").authenticated()
+            .antMatchers("/pin/**/*").authenticated()
+            .antMatchers(HttpMethod.POST, "/upload").authenticated()
 
-                .anyRequest().permitAll()
+            .anyRequest().permitAll()
 
             .and()
-                .formLogin()
-                    .loginPage("/login").permitAll()
-                    .successHandler(successHandler())
-		// @formatter:on
+            .formLogin()
+            .loginPage("/login").permitAll()
+            .successHandler(successHandler())
     }
 
     @Bean
@@ -82,7 +78,7 @@ class SecurityConfiguration(
     }
 
     @Bean
-    @ConditionalOnProperty(name=["wutsi.toggles.qa-login"], havingValue = "true")
+    @ConditionalOnProperty(name = ["wutsi.toggles.qa-login"], havingValue = "true")
     fun qaAuthenticationFilter(): QAAuthenticationFilter {
         val filter = QAAuthenticationFilter(QA_SIGNIN_PATTERN)
         filter.setAuthenticationManager(authenticationManagerBean())

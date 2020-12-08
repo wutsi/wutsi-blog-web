@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 @RequestMapping("/ejs/link")
 class EJSLinkController(
-        private val provider: LinkExtractorProvider
+    private val provider: LinkExtractorProvider
 ) {
 
     @ResponseBody
-    @GetMapping(value=["/fetch"], produces = ["application/json"])
+    @GetMapping(value = ["/fetch"], produces = ["application/json"])
     fun fetch(@RequestParam url: String): EJSLinkResponse {
         val meta = provider.get(url).extract(url)
         return EJSLinkResponse(
-                success = 1,
-                meta = meta
+            success = 1,
+            meta = meta
         )
     }
 }

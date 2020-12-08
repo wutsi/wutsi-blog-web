@@ -7,10 +7,9 @@ import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
 @Component
 class OAuthRememberMeService(
-        private val storage: AccessTokenStorage
+    private val storage: AccessTokenStorage
 ) : RememberMeServices {
     override fun loginSuccess(request: HttpServletRequest, response: HttpServletResponse, auth: Authentication) {
         if (auth is OAuthTokenAuthentication) {
@@ -24,6 +23,4 @@ class OAuthRememberMeService(
 
     override fun loginFail(request: HttpServletRequest, response: HttpServletResponse) {
     }
-
-
 }

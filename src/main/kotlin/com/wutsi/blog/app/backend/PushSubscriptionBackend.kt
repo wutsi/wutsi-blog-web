@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class PushSubscriptionBackend (private val http: Http) {
+class PushSubscriptionBackend(private val http: Http) {
     @Value("\${wutsi.backend.push_subscription.endpoint}")
     private lateinit var endpoint: String
 

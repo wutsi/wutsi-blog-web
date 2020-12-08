@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class WutsiSchemasGenerator(
-        private val objectMapper: ObjectMapper,
-        private val requestContext: RequestContext,
+    private val objectMapper: ObjectMapper,
+    private val requestContext: RequestContext,
 
-        @Value("\${wutsi.base-url}") private val baseUrl: String,
-        @Value("\${wutsi.asset-url}") private val assetUrl: String
+    @Value("\${wutsi.base-url}") private val baseUrl: String,
+    @Value("\${wutsi.asset-url}") private val assetUrl: String
 ) {
 
     fun generate(): String {
@@ -33,7 +33,7 @@ class WutsiSchemasGenerator(
     private fun logo(): Map<String, String> {
         val schemas = mutableMapOf<String, String>()
         schemas["@type"] = "ImageObject"
-        schemas["url"] = "${assetUrl}//assets/wutsi/img/logo/logo-512x512.png"
+        schemas["url"] = "$assetUrl//assets/wutsi/img/logo/logo-512x512.png"
         schemas["width"] = "512"
         schemas["height"] = "512"
         return schemas

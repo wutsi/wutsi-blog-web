@@ -31,7 +31,7 @@ class WPPAnnouncementTest {
 
     @Test
     fun show() {
-        val user = UserModel(blog=true)
+        val user = UserModel(blog = true)
         val toggles = createToggles()
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
@@ -44,7 +44,7 @@ class WPPAnnouncementTest {
 
     @Test
     fun `never show when registered to WPP`() {
-        val user = UserModel(blog=true)
+        val user = UserModel(blog = true)
         val toggles = createToggles()
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
@@ -56,7 +56,7 @@ class WPPAnnouncementTest {
 
     @Test
     fun `never show when registered has a contract`() {
-        val user = UserModel(blog=true)
+        val user = UserModel(blog = true)
         val toggles = createToggles()
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
@@ -69,7 +69,7 @@ class WPPAnnouncementTest {
 
     @Test
     fun `never show when user not blogger`() {
-        val user = UserModel(blog=false)
+        val user = UserModel(blog = false)
         val toggles = createToggles()
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
@@ -79,7 +79,7 @@ class WPPAnnouncementTest {
 
     @Test
     fun `never show when user has logged many times`() {
-        val user = UserModel(blog=true, loginCount = Announcement.MAX_LOGIN+1)
+        val user = UserModel(blog = true, loginCount = Announcement.MAX_LOGIN + 1)
         val toggles = createToggles()
         Mockito.`when`(requestContext.currentUser()).thenReturn(user)
         Mockito.`when`(requestContext.toggles()).thenReturn(toggles)
@@ -95,7 +95,6 @@ class WPPAnnouncementTest {
 
         assertFalse(announcement.show("foo"))
     }
-
 
     @Test
     fun `never show when user toggle is OFF`() {
@@ -114,10 +113,9 @@ class WPPAnnouncementTest {
         assertEquals("/partner", announcement.actionUrl())
     }
 
-    private fun createToggles(wpp: Boolean=true): Toggles {
+    private fun createToggles(wpp: Boolean = true): Toggles {
         val toggles = Toggles()
         toggles.wpp = wpp
         return toggles
     }
-
 }

@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class RecommendationController(
-        private val storyService: StoryService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val storyService: StoryService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
 
     override fun pageName() = PageName.RECOMMEND
 
     @GetMapping("/recommend")
     fun recommend(
-            @RequestParam storyId: Long,
-            @RequestParam(required = false, defaultValue = "summary") layout: String = "summary",
-            model: Model
+        @RequestParam storyId: Long,
+        @RequestParam(required = false, defaultValue = "summary") layout: String = "summary",
+        model: Model
     ): String {
         val story = storyService.get(storyId)
         val stories = storyService.recommend(storyId)

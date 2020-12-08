@@ -38,5 +38,4 @@ class Toggles {
 class TogglesHolder(private val toggles: Toggles) {
 
     fun get() = toggles
-
 }

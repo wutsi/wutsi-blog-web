@@ -4,7 +4,6 @@ import com.wutsi.blog.app.page.editor.model.EJSImageData
 import com.wutsi.blog.app.page.editor.model.EJSLinkMeta
 import com.wutsi.blog.app.page.editor.service.LinkExtractor
 import com.wutsi.core.http.Http
-import org.jsoup.nodes.Document
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.regex.Matcher
@@ -12,9 +11,9 @@ import java.util.regex.Pattern
 
 @Service
 class YouTubeLinkExtractor(
-        private val http: Http,
-        @Value("\${wutsi.oauth.google.api-key}") private val apiKey: String
-): LinkExtractor {
+    private val http: Http,
+    @Value("\${wutsi.oauth.google.api-key}") private val apiKey: String
+) : LinkExtractor {
     override fun accept(url: String) = videoId(url) != null
 
     override fun extract(url: String): EJSLinkMeta {
@@ -23,12 +22,12 @@ class YouTubeLinkExtractor(
         val response = http.get(yturl, YTListResponse::class.java).body
         val video = response.items[0]
         return EJSLinkMeta(
-                title = video.snippet.title,
-                description = "",
-                site_name = "YouTube",
-                image = EJSImageData(
-                        url = nullToEmpty(video.snippet.thumbnails?.standard?.url)
-                )
+            title = video.snippet.title,
+            description = "",
+            site_name = "YouTube",
+            image = EJSImageData(
+                url = nullToEmpty(video.snippet.thumbnails?.standard?.url)
+            )
         )
     }
 
@@ -44,32 +43,31 @@ class YouTubeLinkExtractor(
     private fun nullToEmpty(value: String?) = if (value == null) "" else value
 }
 
-data class YTListResponse (
-        val kind: String,
-        val etag: String,
-        val items: List<YTVideo> = emptyList()
+data class YTListResponse(
+    val kind: String,
+    val etag: String,
+    val items: List<YTVideo> = emptyList()
 )
 
-data class YTVideo (
-        val id: String,
-        val snippet: YTSnippet
+data class YTVideo(
+    val id: String,
+    val snippet: YTSnippet
 )
 
 data class YTSnippet(
-        val title: String,
-        val description: String = "",
-        val channelTitle: String,
-        val thumbnails: YTThumbnails? = null
+    val title: String,
+    val description: String = "",
+    val channelTitle: String,
+    val thumbnails: YTThumbnails? = null
 )
 
-data class YTThumbnails (
-        val standard: YTAsset? = null,
-        val default: YTAsset? = null,
-        val medium: YTAsset? = null,
-        val hight: YTAsset? = null
+data class YTThumbnails(
+    val standard: YTAsset? = null,
+    val default: YTAsset? = null,
+    val medium: YTAsset? = null,
+    val hight: YTAsset? = null
 )
 
-data class YTAsset (
-        val url: String = ""
+data class YTAsset(
+    val url: String = ""
 )
-

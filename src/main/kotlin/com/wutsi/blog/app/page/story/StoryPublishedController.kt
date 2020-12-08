@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/me/story/published")
 class StoryPublishedController(
-        service: StoryService,
-        requestContext: RequestContext
-): AbstractStoryListController(service, requestContext) {
+    service: StoryService,
+    requestContext: RequestContext
+) : AbstractStoryListController(service, requestContext) {
     override fun pageName() = PageName.STORY_PUBLISHED
 
     override fun viewName() = "page/story/published"
 
     override fun fetchStories(limit: Int, offset: Int): List<StoryModel> {
         val userId = requestContext.currentUser()?.id
-        return service.search(SearchStoryRequest(
+        return service.search(
+            SearchStoryRequest(
                 userIds = if (userId == null) emptyList() else listOf(userId),
                 status = StoryStatus.published,
                 sortBy = StorySortStrategy.published,
                 limit = limit,
                 offset = offset
-        ))
+            )
+        )
     }
 }

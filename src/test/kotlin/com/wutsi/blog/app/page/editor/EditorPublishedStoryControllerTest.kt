@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
+class EditorPublishedStoryControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -102,7 +101,6 @@ class EditorPublishedStoryControllerTest: SeleniumTestSupport() {
         Thread.sleep(1000)
         assertCurrentPageIs(PageName.STORY_PUBLISHED)
     }
-
 
     private fun gotoPage() {
         login()

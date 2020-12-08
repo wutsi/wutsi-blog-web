@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service
 @Service
 class TopicMapper(private val requestContext: RequestContext) {
     fun toTopicMmodel(topic: TopicDto) = TopicModel(
-            id = topic.id,
-            parentId = topic.parentId,
-            name = topic.name,
-            displayName = toDisplayName(topic.name)
+        id = topic.id,
+        parentId = topic.parentId,
+        name = topic.name,
+        displayName = toDisplayName(topic.name)
     )
 
     private fun toDisplayName(name: String): String {
         try {
             return requestContext.getMessage("topic.$name")
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             return name
         }
     }

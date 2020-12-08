@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class AuthenticationBackend (private val http: Http) {
+class AuthenticationBackend(private val http: Http) {
     @Value("\${wutsi.backend.authentication.endpoint}")
     private lateinit var endpoint: String
 

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class LikeService(
-        private val backend: LikeBackend,
-        private val mapper: LikeMapper,
-        private val requestContext: RequestContext
+    private val backend: LikeBackend,
+    private val mapper: LikeMapper,
+    private val requestContext: RequestContext
 ) {
     fun count(storyIds: List<Long>): List<LikeCountModel> {
         return count(SearchLikeRequest(storyIds = storyIds))
@@ -26,25 +26,31 @@ class LikeService(
     }
 
     fun search(storyIds: List<Long>): List<LikeModel> {
-        val likes = backend.search(SearchLikeRequest(
+        val likes = backend.search(
+            SearchLikeRequest(
                 storyIds = storyIds,
                 userId = requestContext.currentUser()!!.id
-        )).likes
+            )
+        ).likes
 
         return likes.map { mapper.toLikeModel(it) }
     }
 
     fun create(storyId: Long): LikeModel {
-        val likeResponse = backend.create(CreateLikeRequest(
+        val likeResponse = backend.create(
+            CreateLikeRequest(
                 storyId = storyId,
                 userId = requestContext.currentUser()!!.id
-        ))
+            )
+        )
 
-        return mapper.toLikeModel(LikeDto(
+        return mapper.toLikeModel(
+            LikeDto(
                 id = likeResponse.likeId,
                 storyId = storyId,
                 userId = requestContext.currentUser()!!.id
-        ))
+            )
+        )
     }
 
     fun delete(id: Long) {

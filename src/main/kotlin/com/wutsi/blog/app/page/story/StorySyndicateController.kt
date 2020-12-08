@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 @RequestMapping("/me/syndicate")
 class StorySyndicateController(
-        private val service: StoryService,
-        private val logger: KVLogger,
-        requestContext: RequestContext
-): AbstractPageController( requestContext) {
+    private val service: StoryService,
+    private val logger: KVLogger,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.STORY_SYNDICATE
 
     @GetMapping
     fun index(
-            @RequestParam(required = false) error: String?=null,
-            model: Model
+        @RequestParam(required = false) error: String? = null,
+        model: Model
     ): String {
         if (error != null) {
             model.addAttribute("error", requestContext.getMessage(error, "error.syndicate_error"))

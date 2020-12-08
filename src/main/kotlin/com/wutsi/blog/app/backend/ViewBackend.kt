@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.backend
 
-import com.wutsi.blog.client.user.SearchUserResponse
 import com.wutsi.blog.client.view.SearchPreferredAuthorRequest
 import com.wutsi.blog.client.view.SearchPreferredAuthorResponse
 import com.wutsi.blog.client.view.SearchViewRequest
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ViewBackend (private val http: Http) {
+class ViewBackend(private val http: Http) {
     @Value("\${wutsi.backend.view.endpoint}")
     private lateinit var endpoint: String
 

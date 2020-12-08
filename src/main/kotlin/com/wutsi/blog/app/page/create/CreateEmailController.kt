@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/create/email")
 class CreateEmailController(
-        userService: UserService,
-        requestContext: RequestContext
-): AbstractCreateController(userService, requestContext) {
+    userService: UserService,
+    requestContext: RequestContext
+) : AbstractCreateController(userService, requestContext) {
     override fun pageName() = PageName.CREATE_EMAIL
 
     override fun pagePath() = "page/create/email"

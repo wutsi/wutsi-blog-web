@@ -21,8 +21,8 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class StoryBackend (
-        private val http: Http
+class StoryBackend(
+    private val http: Http
 ) {
     @Value("\${wutsi.backend.story.endpoint}")
     private lateinit var endpoint: String
@@ -35,11 +35,11 @@ class StoryBackend (
         return http.post("$endpoint/$id", request, SaveStoryResponse::class.java).body!!
     }
 
-    fun get(id:Long): GetStoryResponse {
+    fun get(id: Long): GetStoryResponse {
         return http.get("$endpoint/$id", GetStoryResponse::class.java).body!!
     }
 
-    fun translate(id:Long, language: String): TranslateStoryResponse {
+    fun translate(id: Long, language: String): TranslateStoryResponse {
         return http.get("$endpoint/$id/translate?language=$language", TranslateStoryResponse::class.java).body!!
     }
 
@@ -47,7 +47,7 @@ class StoryBackend (
         http.delete("$endpoint/$id")
     }
 
-    fun readability(id:Long): GetStoryReadabilityResponse {
+    fun readability(id: Long): GetStoryReadabilityResponse {
         return http.get("$endpoint/$id/readability", GetStoryReadabilityResponse::class.java).body!!
     }
 
@@ -59,7 +59,7 @@ class StoryBackend (
         return http.post("$endpoint/count", request, CountStoryResponse::class.java).body!!
     }
 
-    fun publish(id:Long, request: PublishStoryRequest): PublishStoryResponse {
+    fun publish(id: Long, request: PublishStoryRequest): PublishStoryResponse {
         return http.post("$endpoint/$id/publish", request, PublishStoryResponse::class.java).body!!
     }
 

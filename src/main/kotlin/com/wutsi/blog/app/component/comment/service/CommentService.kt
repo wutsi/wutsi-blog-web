@@ -13,15 +13,17 @@ import org.springframework.stereotype.Service
 
 @Service
 class CommentService(
-        private val backend: CommentBackend,
-        private val mapper: CommentMapper,
-        private val users: UserService,
-        private val requestContext: RequestContext
+    private val backend: CommentBackend,
+    private val mapper: CommentMapper,
+    private val users: UserService,
+    private val requestContext: RequestContext
 ) {
     fun count(storyIds: List<Long>): List<CommentCountModel> {
-        return count(SearchCommentRequest(
+        return count(
+            SearchCommentRequest(
                 storyIds = storyIds
-        ))
+            )
+        )
     }
 
     fun count(request: SearchCommentRequest): List<CommentCountModel> {
@@ -30,28 +32,34 @@ class CommentService(
         return counts.map { mapper.toCommentCountModel(it) }
     }
 
-    fun list(storyId: Long, limit: Int=50, offset: Int = 0): List<CommentModel> {
-        val comments = backend.search(SearchCommentRequest(
+    fun list(storyId: Long, limit: Int = 50, offset: Int = 0): List<CommentModel> {
+        val comments = backend.search(
+            SearchCommentRequest(
                 storyIds = listOf(storyId),
                 limit = limit,
                 offset = offset
-        )).comments
+            )
+        ).comments
 
         val userIds = comments.map { it.userId }.toSet()
-        val users = users.search(SearchUserRequest(
+        val users = users.search(
+            SearchUserRequest(
                 userIds = userIds.toList(),
                 limit = userIds.size,
                 offset = 0
-        )).map { it.id to it }.toMap()
+            )
+        ).map { it.id to it }.toMap()
 
         return comments.map { mapper.toCommentModel(it, users) }
     }
 
     fun create(form: CreateCommentForm): Long {
-        return backend.create(CreateCommentRequest(
+        return backend.create(
+            CreateCommentRequest(
                 storyId = form.storyId,
                 text = form.text,
                 userId = requestContext.currentUser()!!.id
-        )).commentId
+            )
+        ).commentId
     }
 }

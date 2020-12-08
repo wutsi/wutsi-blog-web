@@ -1,7 +1,8 @@
 package com.wutsi.blog.app.page.editor.service.link
 
 import com.wutsi.blog.SeleniumTestSupport
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,24 +15,24 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("qa")
-class DefaultLinkExtractorTest: SeleniumTestSupport() {
+class DefaultLinkExtractorTest : SeleniumTestSupport() {
     @Autowired
     private lateinit var extractor: DefaultLinkExtractor
 
     @Test
-    fun acceptYouTubeVideo (){
+    fun acceptYouTubeVideo() {
         val url = "https://www.youtube.com/watch?v=buS6MIrPBuc"
         assertTrue(extractor.accept(url))
     }
 
     @Test
-    fun acceptAny (){
+    fun acceptAny() {
         val url = "https://www.google.ca"
         assertTrue(extractor.accept(url))
     }
 
     @Test
-    fun test (){
+    fun test() {
         stub(HttpMethod.GET, "/kamerkongossa.html", HttpStatus.OK, "v1/static/kamerkongossa.html", contentType = "text/html")
 
         val url = "http://localhost:8080/kamerkongossa.html"

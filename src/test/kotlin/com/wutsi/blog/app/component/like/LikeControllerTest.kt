@@ -6,7 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-class LikeControllerTest: SeleniumMobileTestSupport() {
+class LikeControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -16,7 +16,7 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `blog page showing like count` () {
+    fun `blog page showing like count`() {
         driver.get("$url/@/ray.sponsible")
 
         Thread.sleep(1000)
@@ -48,5 +48,4 @@ class LikeControllerTest: SeleniumMobileTestSupport() {
         assertElementPresent(".return")
         assertElementAttributeEndsWith(".return", "href", "/read/20/lorem-ipsum")
     }
-
 }

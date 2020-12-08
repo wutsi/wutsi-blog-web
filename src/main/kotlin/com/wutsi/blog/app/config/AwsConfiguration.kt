@@ -13,12 +13,11 @@ class AwsConfiguration {
     @Value("\${wutsi.aws.s3.region}")
     private lateinit var region: String
 
-
     @Bean
     fun amazonS3(): AmazonS3 {
         return AmazonS3ClientBuilder
-                .standard()
-                .withRegion(region)
-                .build()
+            .standard()
+            .withRegion(region)
+            .build()
     }
 }

@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class CommentControllerTest: SeleniumMobileTestSupport() {
+class CommentControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -20,7 +19,7 @@ class CommentControllerTest: SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `blog page showing comment count` () {
+    fun `blog page showing comment count`() {
         driver.get("$url/@/ray.sponsible")
 
         Thread.sleep(1000)

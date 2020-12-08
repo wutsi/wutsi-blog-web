@@ -6,9 +6,9 @@ import org.junit.Test
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
-        properties = ["wutsi.toggles.earning=false"]
+    properties = ["wutsi.toggles.earning=false"]
 )
-class EarningControllerToggleOffTest: SeleniumTestSupport() {
+class EarningControllerToggleOffTest : SeleniumTestSupport() {
     @Test
     fun `channel menu not available`() {
         login()

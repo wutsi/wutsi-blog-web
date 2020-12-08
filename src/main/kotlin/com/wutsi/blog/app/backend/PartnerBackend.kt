@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class PartnerBackend (
-        private val http: Http,
-        private val requestContext: RequestContext
+class PartnerBackend(
+    private val http: Http,
+    private val requestContext: RequestContext
 ) {
     @Value("\${wutsi.backend.partner.endpoint}")
     private lateinit var endpoint: String

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class SitemapController(
-        private val view: SitemapView
+    private val view: SitemapView
 ) {
 
     @ResponseBody
     @GetMapping("/sitemap.xml")
-    fun index(): SitemapView  = view
+    fun index(): SitemapView = view
 }

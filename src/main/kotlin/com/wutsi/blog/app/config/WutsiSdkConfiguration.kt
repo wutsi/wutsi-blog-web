@@ -16,43 +16,43 @@ import org.springframework.core.env.Environment
 
 @Configuration
 class WutsiSdkConfiguration(
-        private val http: Http,
-        private val env: Environment
+    private val http: Http,
+    private val env: Environment
 ) {
     @Bean
     fun channelApi(): ChannelApi =
-            sdk().channelApi()
+        sdk().channelApi()
 
     @Bean
     fun followerApi(): FollowerApi =
-            sdk().followerApi()
+        sdk().followerApi()
 
     @Bean
     fun newsletter(): NewsletterApi =
-            sdk().newsletterApi()
+        sdk().newsletterApi()
 
     @Bean
     fun pinApi(): PinApi =
-            sdk().pinApi()
+        sdk().pinApi()
 
     @Bean
     fun shareApi(): ShareApi =
-            sdk().shareApi()
+        sdk().shareApi()
     @Bean
     fun tagApi(): TagApi =
-            sdk().tagApi()
+        sdk().tagApi()
 
     @Bean
     fun topicApi(): TopicApi =
-            sdk().topicApi()
+        sdk().topicApi()
     @Bean
     fun sdk(): Sdk =
-            Sdk(
-                    http = http,
-                    environment = environment()
-            )
+        Sdk(
+            http = http,
+            environment = environment()
+        )
 
-    private fun environment() : WutsiEnvironment {
+    private fun environment(): WutsiEnvironment {
         if (env.acceptsProfiles("prod"))
             return WutsiEnvironment.prod
         else if (env.acceptsProfiles("int"))

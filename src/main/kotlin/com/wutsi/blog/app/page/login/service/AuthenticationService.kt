@@ -5,16 +5,17 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.user.RunAsRequest
 import org.springframework.stereotype.Component
 
-
 @Component
-class AuthenticationService (
-        private val backend: AuthenticationBackend,
-        private val requestContext: RequestContext
-){
+class AuthenticationService(
+    private val backend: AuthenticationBackend,
+    private val requestContext: RequestContext
+) {
     fun runAs(userName: String) {
-        backend.runAs(RunAsRequest(
+        backend.runAs(
+            RunAsRequest(
                 userName = userName,
                 accessToken = requestContext.accessToken()
-        ))
+            )
+        )
     }
 }

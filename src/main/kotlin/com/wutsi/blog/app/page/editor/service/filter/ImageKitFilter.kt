@@ -6,11 +6,11 @@ import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
 class ImageKitFilter(
-        private val sizes: HtmlImageService
-): Filter {
+    private val sizes: HtmlImageService
+) : Filter {
     override fun filter(html: Document) {
         html.select("img")
-                .forEach { filter(it) }
+            .forEach { filter(it) }
     }
 
     private fun filter(img: Element) {

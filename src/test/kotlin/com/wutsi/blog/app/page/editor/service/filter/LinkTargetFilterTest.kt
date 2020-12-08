@@ -26,5 +26,4 @@ class LinkTargetFilterTest {
             assertEquals("", it.attr("target"))
         }
     }
-
 }

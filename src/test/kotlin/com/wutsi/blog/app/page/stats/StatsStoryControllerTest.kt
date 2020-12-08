@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class StatsStoryControllerTest: SeleniumTestSupport() {
+class StatsStoryControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -21,7 +20,6 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
 
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
-
 
     @Test
     fun `owner can view his stats`() {
@@ -53,5 +51,4 @@ class StatsStoryControllerTest: SeleniumTestSupport() {
         click(".story:first-child .dropdown .btn")
         click(".story .menu-item-stats")
     }
-
 }

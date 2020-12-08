@@ -5,8 +5,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class LoginControllerTest: SeleniumTestSupport() {
+class LoginControllerTest : SeleniumTestSupport() {
     @Test
     fun `user login`() {
         gotoPage()
@@ -50,15 +49,15 @@ class LoginControllerTest: SeleniumTestSupport() {
         assertElementAttribute("#btn-$name", "wutsi-track-value", name)
     }
 
-    private fun gotoPage(error: Boolean=false, reason: String?=null, returnUrl: String?=null) {
-        if (error){
+    private fun gotoPage(error: Boolean = false, reason: String? = null, returnUrl: String? = null) {
+        if (error) {
             driver.get("$url/login?error=invalid_client")
         } else {
             var loginUrl = "$url/login?"
-            if (returnUrl != null){
+            if (returnUrl != null) {
                 loginUrl = "$loginUrl&return=$returnUrl"
             }
-            if (reason != null){
+            if (reason != null) {
                 loginUrl = "$loginUrl&reason=$reason"
             }
             driver.get(loginUrl)

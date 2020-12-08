@@ -1,11 +1,11 @@
 package com.wutsi.blog.app.page.editor
 
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.AbstractStoryController
-import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.service.StoryService
+import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class EditorController(
-        service: StoryService,
-        requestContext: RequestContext
-): AbstractStoryController(service, requestContext) {
+    service: StoryService,
+    requestContext: RequestContext
+) : AbstractStoryController(service, requestContext) {
     override fun pageName() = PageName.EDITOR
 
     override fun requiredPermissions() = listOf(Permission.editor)
@@ -32,7 +32,7 @@ class EditorController(
     }
 
     @GetMapping("/editor/{id}")
-    fun update(@PathVariable id:Long, @RequestParam error:String?=null, model: Model): String {
+    fun update(@PathVariable id: Long, @RequestParam error: String? = null, model: Model): String {
         model.addAttribute("storyId", id)
         model.addAttribute("error", error)
         return "page/editor/index"
@@ -40,7 +40,7 @@ class EditorController(
 
     @ResponseBody
     @GetMapping("/editor/fetch/{id}", produces = ["application/json"])
-    fun fetch(@PathVariable id:Long): StoryModel {
+    fun fetch(@PathVariable id: Long): StoryModel {
         return getStory(id)
     }
 

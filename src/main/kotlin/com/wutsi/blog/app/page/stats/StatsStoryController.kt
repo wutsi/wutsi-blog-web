@@ -24,24 +24,24 @@ import java.util.Date
 @Controller
 @RequestMapping()
 class StatsStoryController(
-        private val stats: StatsService,
-        service: StoryService,
-        requestContext: RequestContext
-): AbstractStoryController(service, requestContext) {
+    private val stats: StatsService,
+    service: StoryService,
+    requestContext: RequestContext
+) : AbstractStoryController(service, requestContext) {
     override fun pageName() = PageName.STATS_STORY
 
     override fun requiredPermissions() = listOf(Permission.owner)
 
     @GetMapping("/stats/story/{id}")
     fun index(
-            @PathVariable id: Long,
-            @RequestParam(required = false) year: Int? = null,
-            @RequestParam(required = false) month: Int? = null,
-            model: Model
+        @PathVariable id: Long,
+        @RequestParam(required = false) year: Int? = null,
+        @RequestParam(required = false) month: Int? = null,
+        model: Model
     ): String {
         val cal = Calendar.getInstance()
         val currentYear = if (year == null) cal.get(Calendar.YEAR) else year
-        val currentMonth = if (month == null) cal.get(Calendar.MONTH)+1 else month
+        val currentMonth = if (month == null) cal.get(Calendar.MONTH) + 1 else month
 
         val story = getStory(id)
         model.addAttribute("story", story)
@@ -53,17 +53,16 @@ class StatsStoryController(
     }
 
     @ResponseBody
-    @GetMapping(value=["/stats/story/{id}/bar-chart-data"], produces = ["application/json"])
+    @GetMapping(value = ["/stats/story/{id}/bar-chart-data"], produces = ["application/json"])
     fun barChartData(
-            @PathVariable id: Long,
-            @RequestParam type: StatsType,
-            @RequestParam(required = false) year: Int,
-            @RequestParam(required = false) month: Int
+        @PathVariable id: Long,
+        @RequestParam type: StatsType,
+        @RequestParam(required = false) year: Int,
+        @RequestParam(required = false) month: Int
     ): BarChartModel {
         val story = getStory(id)
         return stats.barChartData(story, type, year, month)
     }
-
 
     private fun loadSummary(story: StoryModel, currentYear: Int, currentMonth: Int, model: Model) {
         val summary = stats.story(story, currentYear, currentMonth)
@@ -80,7 +79,7 @@ class StatsStoryController(
 
         val cal = Calendar.getInstance()
         cal.set(Calendar.YEAR, currentYear)
-        cal.set(Calendar.MONTH, currentMonth-1)
+        cal.set(Calendar.MONTH, currentMonth - 1)
         cal.set(Calendar.DAY_OF_MONTH, 1)
         val today = cal.time
         model.addAttribute("currentMonth", fmt.format(today))
@@ -97,14 +96,12 @@ class StatsStoryController(
         model.addAttribute("month", currentMonth)
     }
 
-
     private fun url(story: StoryModel, date: Date): String {
         val cal = Calendar.getInstance()
         cal.time = date
 
         val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH)+1
+        val month = cal.get(Calendar.MONTH) + 1
         return "/stats/story/${story.id}?year=$year&month=$month"
     }
-
 }

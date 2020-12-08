@@ -6,13 +6,12 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-class PartnerControllerTest: SeleniumTestSupport() {
+class PartnerControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/save.json")
     }
-
 
     @Test
     fun anonymousCanAccessWPP() {
@@ -32,7 +31,7 @@ class PartnerControllerTest: SeleniumTestSupport() {
         assertCurrentPageIs(PageName.PARTNER_PAYMENT)
         assertElementNotPresent(".alert-danger")
 
-        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/get.json")    // Partner saved
+        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/get.json") // Partner saved
         select("#country", 1)
         input("#mobile-number", "664032997")
         select("#mobile-provider", 1)
@@ -63,7 +62,6 @@ class PartnerControllerTest: SeleniumTestSupport() {
         assertElementPresent(".alert-danger")
         assertCurrentPageIs(PageName.PARTNER_PAYMENT)
     }
-
 
     @Test
     fun registerToWPPBackendError() {
@@ -110,7 +108,6 @@ class PartnerControllerTest: SeleniumTestSupport() {
         input("#email", "ray.sponsible@gmail.com")
         click("#btn-submit")
         assertCurrentPageIs(PageName.PARTNER_SUCCESS)
-
     }
 
     @Test
@@ -122,8 +119,7 @@ class PartnerControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
     }
 
-
-    private fun gotoPage(login: Boolean = true){
+    private fun gotoPage(login: Boolean = true) {
         if (login) {
             login()
             click("nav .nav-item")
@@ -131,4 +127,5 @@ class PartnerControllerTest: SeleniumTestSupport() {
         } else {
             driver.get("$url/partner")
         }
-    }}
+    }
+}

@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.common.controller
 
-import au.com.flyingkite.mobiledetect.UAgentInfo
 import com.wutsi.blog.app.common.model.FirebaseConfigModel
 import com.wutsi.blog.app.common.model.PageModel
 import com.wutsi.blog.app.common.service.RequestContext
@@ -13,9 +12,8 @@ import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.bind.annotation.ModelAttribute
 import java.util.UUID
 
-
 abstract class AbstractPageController(
-        @ModelAttribute(ModelAttributeName.REQUEST_CONTEXT) protected val requestContext: RequestContext
+    @ModelAttribute(ModelAttributeName.REQUEST_CONTEXT) protected val requestContext: RequestContext
 ) {
     @Value("\${wutsi.asset-url}")
     protected lateinit var assetUrl: String
@@ -53,7 +51,6 @@ abstract class AbstractPageController(
     @Value("\${wutsi.pwa.firebase.sender-id}")
     private lateinit var firebaseSenderId: String
 
-
     protected abstract fun pageName(): String
 
     @ModelAttribute(ModelAttributeName.USER)
@@ -75,62 +72,62 @@ abstract class AbstractPageController(
 
     open fun shouldShowGoogleOneTap() = false
 
-    protected fun getPageRobotsHeader () = if (shouldBeIndexedByBots()) "index,follow" else "noindex,nofollow"
+    protected fun getPageRobotsHeader() = if (shouldBeIndexedByBots()) "index,follow" else "noindex,nofollow"
 
     open fun page() = createPage(
-            title = requestContext.getMessage("page.home.metadata.title"),
-            description = requestContext.getMessage("page.home.metadata.description")
+        title = requestContext.getMessage("page.home.metadata.title"),
+        description = requestContext.getMessage("page.home.metadata.description")
     )
 
     protected fun createPage(
-            name: String = pageName(),
-            title: String,
-            description: String,
-            type: String = "website",
-            imageUrl: String? = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
-            schemas: String? = null,
-            url: String? = null,
-            author: String? = null,
-            publishedTime: String? = null,
-            modifiedTime: String? = null,
-            twitterUserId: String? = null,
-            canonicalUrl: String? = null,
-            tags: List<String> = emptyList(),
-            showNotificationOptIn: Boolean = false,
-            rssUrl: String? = null
+        name: String = pageName(),
+        title: String,
+        description: String,
+        type: String = "website",
+        imageUrl: String? = "$assetUrl/assets/wutsi/img/logo/logo_512x512.png",
+        schemas: String? = null,
+        url: String? = null,
+        author: String? = null,
+        publishedTime: String? = null,
+        modifiedTime: String? = null,
+        twitterUserId: String? = null,
+        canonicalUrl: String? = null,
+        tags: List<String> = emptyList(),
+        showNotificationOptIn: Boolean = false,
+        rssUrl: String? = null
     ) = PageModel(
-            name = name,
-            title = title,
-            description = description,
-            type = type,
-            url = url,
-            author = author,
-            publishedTime = publishedTime,
-            modifiedTime = modifiedTime,
-            twitterUserId = twitterUserId,
-            canonicalUrl = canonicalUrl,
-            schemas = schemas,
-            tags = tags,
-            robots = getPageRobotsHeader(),
-            baseUrl = baseUrl,
-            assetUrl = assetUrl,
-            googleAnalyticsCode = this.googleAnalyticsCode,
-            googleAdSenseCode = this.googleAdSenseCode,
-            facebookAppId = this.facebookAppId,
-            facebookPixelCode = this.facebookPixelId,
-            googleClientId = this.googleClientId,
-            showGoogleOneTap = shouldShowGoogleOneTap(),
-            language = LocaleContextHolder.getLocale().language,
-            imageUrl = imageUrl,
-            rssUrl = rssUrl,
-            showNotificationOptIn = showNotificationOptIn,
-            firebaseConfig = FirebaseConfigModel(
-                    apiKey = firebaseApiKey,
-                    appId = firebaseAppId,
-                    senderId = firebaseSenderId,
-                    projectId = firebaseProjectId,
-                    publicVapidKey = firebasePublicVapidKey
-            )
+        name = name,
+        title = title,
+        description = description,
+        type = type,
+        url = url,
+        author = author,
+        publishedTime = publishedTime,
+        modifiedTime = modifiedTime,
+        twitterUserId = twitterUserId,
+        canonicalUrl = canonicalUrl,
+        schemas = schemas,
+        tags = tags,
+        robots = getPageRobotsHeader(),
+        baseUrl = baseUrl,
+        assetUrl = assetUrl,
+        googleAnalyticsCode = this.googleAnalyticsCode,
+        googleAdSenseCode = this.googleAdSenseCode,
+        facebookAppId = this.facebookAppId,
+        facebookPixelCode = this.facebookPixelId,
+        googleClientId = this.googleClientId,
+        showGoogleOneTap = shouldShowGoogleOneTap(),
+        language = LocaleContextHolder.getLocale().language,
+        imageUrl = imageUrl,
+        rssUrl = rssUrl,
+        showNotificationOptIn = showNotificationOptIn,
+        firebaseConfig = FirebaseConfigModel(
+            apiKey = firebaseApiKey,
+            appId = firebaseAppId,
+            senderId = firebaseSenderId,
+            projectId = firebaseProjectId,
+            publicVapidKey = firebasePublicVapidKey
+        )
     )
 
     protected fun url(story: StoryModel) = baseUrl + story.slug
@@ -138,18 +135,18 @@ abstract class AbstractPageController(
     protected fun url(user: UserModel) = baseUrl + user.slug
 
     protected fun errorKey(ex: Exception): String {
-        if (ex is ConflictException){
+        if (ex is ConflictException) {
             val message = ex.message
             if (
-                    message == "duplicate_name" ||
-                    message == "duplicate_email" ||
-                    message == "syndicate_error" ||
-                    message == "publish_error" ||
-                    message == "story_already_imported" ||
-                    message == "title_missing" ||
-                    message == "duplicate_mobile_number" ||
-                    message == "permission_denied"
-            ){
+                message == "duplicate_name" ||
+                message == "duplicate_email" ||
+                message == "syndicate_error" ||
+                message == "publish_error" ||
+                message == "story_already_imported" ||
+                message == "title_missing" ||
+                message == "duplicate_mobile_number" ||
+                message == "permission_denied"
+            ) {
                 return "error.$message"
             }
         }

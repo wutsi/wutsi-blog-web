@@ -32,32 +32,32 @@ class StorySchemasGeneratorTest {
         val baseUrl = "https://www.wutsi.com"
         val om = ObjectMapper()
         val generator = StorySchemasGenerator(
-                om,
-                topics,
-                PersonSchemasGenerator(om, baseUrl),
-                WutsiSchemasGenerator(om, requestContext, baseUrl, "https://www.wutsi.com/assets"),
-                EJSJsonReader(om),
-                baseUrl
+            om,
+            topics,
+            PersonSchemasGenerator(om, baseUrl),
+            WutsiSchemasGenerator(om, requestContext, baseUrl, "https://www.wutsi.com/assets"),
+            EJSJsonReader(om),
+            baseUrl
         )
 
         var story = StoryModel(
-                id = 123L,
-                title = "This is the title",
-                tagline = "This is awesome",
-                summary = "This is summary",
-                slug = "/read/11/troirto",
-                topic = topic,
-                language = "fr",
-                thumbnailUrl = "https://www.wutsi.com/assets/foo/1.png",
-                user = createUser(1, "Ray Sponsible", "/@/ray.sponsible"),
-                modificationDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
-                publishedDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
-                creationDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
-                tags = arrayListOf(
-                        TagModel(id = 1, displayName = "Art"),
-                        TagModel(id = 2, displayName = "Comics")
-                ),
-                wordCount = 1243
+            id = 123L,
+            title = "This is the title",
+            tagline = "This is awesome",
+            summary = "This is summary",
+            slug = "/read/11/troirto",
+            topic = topic,
+            language = "fr",
+            thumbnailUrl = "https://www.wutsi.com/assets/foo/1.png",
+            user = createUser(1, "Ray Sponsible", "/@/ray.sponsible"),
+            modificationDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
+            publishedDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
+            creationDateTimeISO8601 = "1994-11-05T08:15:30-05:00",
+            tags = arrayListOf(
+                TagModel(id = 1, displayName = "Art"),
+                TagModel(id = 2, displayName = "Comics")
+            ),
+            wordCount = 1243
         )
         val json = generator.generate(story)
 
@@ -77,18 +77,17 @@ class StorySchemasGeneratorTest {
         assertEquals(story.publishedDateTimeISO8601, map["datePublished"])
         assertEquals("true", map["isAccessibleForFree"])
         assertEquals("fr-FR", map["inLanguage"])
-
     }
 
     private fun createTopic(id: Long, parentId: Long, name: String) = TopicModel(
-            id = id,
-            parentId = parentId,
-            displayName = name
+        id = id,
+        parentId = parentId,
+        displayName = name
     )
 
     private fun createUser(id: Long, fullName: String, slug: String) = UserModel(
-            id = id,
-            fullName = fullName,
-            slug = slug
+        id = id,
+        fullName = fullName,
+        slug = slug
     )
 }

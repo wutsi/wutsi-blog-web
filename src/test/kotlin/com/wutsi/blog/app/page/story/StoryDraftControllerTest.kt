@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class StoryDraftControllerTest: SeleniumTestSupport() {
+class StoryDraftControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -15,7 +14,6 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-draft.json")
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count.json")
     }
-
 
     @Test
     fun `anonymous user should not see draft stories`() {
@@ -34,14 +32,14 @@ class StoryDraftControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `user with social links` () {
+    fun `user with social links`() {
         gotoPage()
 
         assertElementNotPresent("#alert-no-social-link")
     }
 
     fun gotoPage(login: Boolean = true) {
-        if (login){
+        if (login) {
             login()
             click("nav .nav-item")
             click("#navbar-draft")

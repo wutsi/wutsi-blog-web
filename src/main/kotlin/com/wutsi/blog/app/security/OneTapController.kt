@@ -12,21 +12,20 @@ import org.springframework.web.bind.annotation.ResponseBody
 import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
-
 @Controller
 @RequestMapping("/login/onetap")
 class OneTapController(
-        logger: KVLogger,
-        objectMapper: ObjectMapper,
-        private val http: Http
-): AbstractLoginController(logger, objectMapper) {
+    logger: KVLogger,
+    objectMapper: ObjectMapper,
+    private val http: Http
+) : AbstractLoginController(logger, objectMapper) {
 
     @GetMapping("/callback")
     @ResponseBody()
     fun callback(request: HttpServletRequest): Map<String, String> {
         val credential = request.getParameter("credential")
         val user = toOAuthUser(credential)
-        val url = getSigninUrl(UUID.randomUUID().toString() , user)
+        val url = getSigninUrl(UUID.randomUUID().toString(), user)
 
         logger.add("RedirectURL", url)
         return mapOf("url" to url)
@@ -41,10 +40,10 @@ class OneTapController(
     }
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
-            id = attrs["sub"].toString(),
-            fullName = attrs["name"].toString(),
-            pictureUrl = attrs["picture"].toString(),
-            email = attrs["email"].toString(),
-            provider = SecurityConfiguration.PROVIDER_GOOGLE
+        id = attrs["sub"].toString(),
+        fullName = attrs["name"].toString(),
+        pictureUrl = attrs["picture"].toString(),
+        email = attrs["email"].toString(),
+        provider = SecurityConfiguration.PROVIDER_GOOGLE
     )
 }

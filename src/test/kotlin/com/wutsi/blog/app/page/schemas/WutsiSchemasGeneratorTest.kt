@@ -12,12 +12,12 @@ class WutsiSchemasGeneratorTest {
     fun generate() {
         val requestContext = mock(RequestContext::class.java)
         `when`(requestContext.getMessage("wutsi.description", "")).thenReturn("Ze Description")
-        
+
         val generator = WutsiSchemasGenerator(
-                ObjectMapper(),
-                requestContext,
-                "https://www.wutsi.com",
-                "https://www.wutsi.com/assets"
+            ObjectMapper(),
+            requestContext,
+            "https://www.wutsi.com",
+            "https://www.wutsi.com/assets"
         )
 
         val json = generator.generate()
@@ -30,5 +30,4 @@ class WutsiSchemasGeneratorTest {
         assertEquals("Ze Description", map["description"])
         assertEquals("https://www.wutsi.com", map["url"])
     }
-
 }

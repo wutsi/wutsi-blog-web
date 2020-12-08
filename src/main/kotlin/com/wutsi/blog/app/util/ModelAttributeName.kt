@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.util
 
-class ModelAttributeName{
+class ModelAttributeName {
     companion object {
         const val USER = "user"
         const val SUPER_USER = "superUser"

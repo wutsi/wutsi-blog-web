@@ -4,8 +4,7 @@ import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
 
-
-class HomeControllerTest: SeleniumTestSupport() {
+class HomeControllerTest : SeleniumTestSupport() {
     @Test
     fun `home page`() {
         driver.get(url)
@@ -32,7 +31,6 @@ class HomeControllerTest: SeleniumTestSupport() {
         assertElementAttribute("script#ad-sense-code", "data-ad-client", "test-ad-sense")
     }
 
-
     @Test
     fun `home page Google Analytics`() {
         driver.get(url)
@@ -50,5 +48,4 @@ class HomeControllerTest: SeleniumTestSupport() {
         driver.get(url)
         assertElementPresent("script[type='application/ld+json']")
     }
-
 }

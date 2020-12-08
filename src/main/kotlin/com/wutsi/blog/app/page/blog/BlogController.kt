@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
 class BlogController(
-        private val userService: UserService,
-        private val followerService: FollowerService,
-        private val storyService: StoryService,
-        private val schemas: PersonSchemasGenerator,
-        private val channelService: ChannelService,
-        private val pinService: PinService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val userService: UserService,
+    private val followerService: FollowerService,
+    private val storyService: StoryService,
+    private val schemas: PersonSchemasGenerator,
+    private val channelService: ChannelService,
+    private val pinService: PinService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.BLOG
 
     override fun shouldBeIndexedByBots() = true
@@ -48,7 +48,7 @@ class BlogController(
         model.addAttribute("page", getPage(blog))
 
         val followingUserIds = followerService.searchFollowingUserIds()
-                .filter { it != blog.id }
+            .filter { it != blog.id }
 
         return if (blog.blog)
             loadWriter(followingUserIds, blog, model)
@@ -75,15 +75,15 @@ class BlogController(
 
     private fun loadMyStories(blog: UserModel, pin: PinModel?, model: Model, limit: Int): List<StoryModel> {
         val request = SearchStoryRequest(
-                userIds = listOf(blog.id),
-                status = StoryStatus.published,
-                live = true,
-                sortBy = StorySortStrategy.published,
-                sortOrder = SortOrder.descending,
-                limit = limit
+            userIds = listOf(blog.id),
+            status = StoryStatus.published,
+            live = true,
+            sortBy = StorySortStrategy.published,
+            sortOrder = SortOrder.descending,
+            limit = limit
         )
         val stories = storyService.search(request, pin)
-        if (!stories.isEmpty()){
+        if (!stories.isEmpty()) {
             model.addAttribute("myStories", pinStory(stories, pin?.storyId))
         }
         return stories
@@ -91,7 +91,7 @@ class BlogController(
 
     private fun pinStory(stories: List<StoryModel>, pinnedStoryId: Long?): List<StoryModel> {
         val pinnedStory = stories.find { it.id == pinnedStoryId }
-                ?: return stories
+            ?: return stories
 
         val result = mutableListOf<StoryModel>()
         result.add(pinnedStory)
@@ -105,39 +105,43 @@ class BlogController(
             return
 
         // Find stories from following users
-        val stories = storyService.search(SearchStoryRequest(
+        val stories = storyService.search(
+            SearchStoryRequest(
                 userIds = followingUserIds,
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
                 limit = limit
-        ))
+            )
+        )
         val followingStories = storyService.sort(
-                stories = stories,
-                algorithm = SortAlgorithmType.most_viewed,
-                bubbleDownViewedStories = true,
-                statsHoursOffset = 7 * 24
+            stories = stories,
+            algorithm = SortAlgorithmType.most_viewed,
+            bubbleDownViewedStories = true,
+            statsHoursOffset = 7 * 24
         )
         model.addAttribute("followingStories", followingStories)
     }
 
     private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model) {
         val latestStories = LinkedHashMap<UserModel, StoryModel>()
-        val stories = storyService.search(SearchStoryRequest(
+        val stories = storyService.search(
+            SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
                 limit = 50
-        ))
-                .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
-                .forEach{
-                    val user = it.user
-                    if (!latestStories.containsKey(user)){
-                        latestStories[user] = it
-                    }
+            )
+        )
+            .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
+            .forEach {
+                val user = it.user
+                if (!latestStories.containsKey(user)) {
+                    latestStories[user] = it
                 }
+            }
 
         model.addAttribute("latestStories", latestStories.values.take(5))
     }
@@ -156,11 +160,11 @@ class BlogController(
             return
 
         val nextAction = NextActionModel(
-                biography = blog.biography.isNullOrEmpty(),
-                twitter = channelService.all().filter { it.type == ChannelType.twitter && it.connected }.isEmpty(),
-                newsletter = blog.newsletterDeliveryDayOfWeek <= 0
+            biography = blog.biography.isNullOrEmpty(),
+            twitter = channelService.all().filter { it.type == ChannelType.twitter && it.connected }.isEmpty(),
+            newsletter = blog.newsletterDeliveryDayOfWeek <= 0
         )
-        if (nextAction.biography || nextAction.twitter || nextAction.newsletter){
+        if (nextAction.biography || nextAction.twitter || nextAction.newsletter) {
             model.addAttribute("nextAction", nextAction)
         }
     }
@@ -178,13 +182,13 @@ class BlogController(
     }
 
     protected fun getPage(user: UserModel) = createPage(
-            name = pageName(),
-            title = user.fullName,
-            description = if (user.biography == null) "" else user.biography,
-            type = "profile",
-            url = url(user),
-            imageUrl = user.pictureUrl,
-            schemas = schemas.generate(user),
-            rssUrl = "${user.slug}/rss"
+        name = pageName(),
+        title = user.fullName,
+        description = if (user.biography == null) "" else user.biography,
+        type = "profile",
+        url = url(user),
+        imageUrl = user.pictureUrl,
+        schemas = schemas.generate(user),
+        rssUrl = "${user.slug}/rss"
     )
 }

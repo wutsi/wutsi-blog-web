@@ -3,9 +3,9 @@ package com.wutsi.blog.fixtures
 import com.wutsi.blog.client.story.TopicDto
 
 object TopicApiFixtures {
-    fun createTopicDto(id:Long, name:String, parentId: Long = -1) = TopicDto(
-            id = id,
-            name = name,
-            parentId = parentId
+    fun createTopicDto(id: Long, name: String, parentId: Long = -1) = TopicDto(
+        id = id,
+        name = name,
+        parentId = parentId
     )
 }

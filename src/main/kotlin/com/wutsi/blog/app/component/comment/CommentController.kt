@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 @RequestMapping("/comment")
 class CommentController(
-        private val comments: CommentService,
-        private val stories: StoryService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val comments: CommentService,
+    private val stories: StoryService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.COMMENT
 
     @GetMapping()
     fun index(
-            @RequestParam storyId: Long,
-            model: Model
+        @RequestParam storyId: Long,
+        model: Model
     ): String {
         model.addAttribute("storyId", storyId)
 
@@ -37,8 +37,8 @@ class CommentController(
 
     @GetMapping("/widget")
     fun widget(
-            @RequestParam storyId: Long,
-            model: Model
+        @RequestParam storyId: Long,
+        model: Model
     ): String {
         val story = stories.get(storyId)
         model.addAttribute("story", story)
@@ -48,10 +48,10 @@ class CommentController(
 
     @GetMapping("/list")
     fun list(
-            @RequestParam storyId: Long,
-            @RequestParam(required = false, defaultValue = "50") limit: Int=50,
-            @RequestParam(required = false, defaultValue = "0") offset: Int = 0,
-            model: Model
+        @RequestParam storyId: Long,
+        @RequestParam(required = false, defaultValue = "50") limit: Int = 50,
+        @RequestParam(required = false, defaultValue = "0") offset: Int = 0,
+        model: Model
     ): String {
         val items = comments.list(storyId, limit, offset)
         model.addAttribute("comments", items)
@@ -71,5 +71,4 @@ class CommentController(
     fun count(@RequestParam storyId: Array<Long>): List<CommentCountModel> {
         return comments.count(storyId.toList())
     }
-
 }

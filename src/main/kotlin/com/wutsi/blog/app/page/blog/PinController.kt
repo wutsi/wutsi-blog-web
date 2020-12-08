@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class PinController(
-        private val service: PinService,
-        private val requestContext: RequestContext
+    private val service: PinService,
+    private val requestContext: RequestContext
 ) {
     @GetMapping("/pin/add")
     fun create(@RequestParam storyId: Long): String {

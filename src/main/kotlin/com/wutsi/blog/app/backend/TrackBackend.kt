@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class TrackBackend (private val http: Http) {
+class TrackBackend(private val http: Http) {
     @Value("\${wutsi.backend.track.endpoint}")
     private lateinit var endpoint: String
 

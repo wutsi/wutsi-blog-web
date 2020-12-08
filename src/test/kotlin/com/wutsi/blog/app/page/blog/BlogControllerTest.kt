@@ -6,7 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-class BlogControllerTest: SeleniumTestSupport() {
+class BlogControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -20,7 +20,7 @@ class BlogControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `my blog page` () {
+    fun `my blog page`() {
         gotoPage(true)
 
         assertElementText(".author-card h1", "Ray Sponsible")
@@ -37,7 +37,7 @@ class BlogControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `my empty blog page` () {
+    fun `my empty blog page`() {
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count-0.json")
 
@@ -47,7 +47,7 @@ class BlogControllerTest: SeleniumTestSupport() {
     }
 
     @Test
-    fun `anonymous blog page` () {
+    fun `anonymous blog page`() {
         gotoPage()
 
         assertElementText(".author-card h1", "Ray Sponsible")
@@ -63,7 +63,6 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementCount("#latest-stories .story-summary-card", 4)
     }
 
-
     @Test
     fun `META headers`() {
         gotoPage()
@@ -77,7 +76,7 @@ class BlogControllerTest: SeleniumTestSupport() {
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
 
         assertElementAttribute("head meta[property='og:title']", "content", title)
-        assertElementAttribute("head meta[property='og:description']","content", description)
+        assertElementAttribute("head meta[property='og:description']", "content", description)
         assertElementAttribute("head meta[property='og:type']", "content", "profile")
         assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/@/ray.sponsible")
         assertElementAttribute("head meta[property='og:image']", "content", "https://avatars3.githubusercontent.com/u/39621277?v=4")
@@ -98,7 +97,6 @@ class BlogControllerTest: SeleniumTestSupport() {
             login()
         }
         driver.get("$url/@/ray.sponsible")
-
 
         assertCurrentPageIs(PageName.BLOG)
     }

@@ -6,8 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
-class RunAsControllerTest: SeleniumTestSupport() {
+class RunAsControllerTest : SeleniumTestSupport() {
     @Override
     override fun setupWiremock() {
         super.setupWiremock()

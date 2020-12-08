@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest
 
 @Controller
 class WutsiErrorController(
-        requestContext: RequestContext
-): ErrorController, AbstractPageController(requestContext) {
+    requestContext: RequestContext
+) : ErrorController, AbstractPageController(requestContext) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(WutsiErrorController::class.java)
     }
@@ -32,11 +32,11 @@ class WutsiErrorController(
         }
 
         model.addAttribute(ModelAttributeName.PAGE, toPage(code))
-        if (code == 400){
+        if (code == 400) {
             return "page/error/404"
-        } else if (code == 403){
+        } else if (code == 403) {
             return "page/error/404"
-        } else if (code == 404){
+        } else if (code == 404) {
             return "page/error/404"
         } else {
             return "page/error/500"
@@ -48,17 +48,17 @@ class WutsiErrorController(
     }
 
     private fun toPage(code: Int?) = createPage(
-            name = pageName(code),
-            title = requestContext.getMessage("page.home.metadata.title"),
-            description = requestContext.getMessage("page.home.metadata.description")
+        name = pageName(code),
+        title = requestContext.getMessage("page.home.metadata.title"),
+        description = requestContext.getMessage("page.home.metadata.description")
     )
 
     private fun pageName(code: Int?): String {
-        if (code == 400){
+        if (code == 400) {
             return PageName.ERROR_400
-        } else if (code == 403){
+        } else if (code == 403) {
             return PageName.ERROR_403
-        } else if (code == 404){
+        } else if (code == 404) {
             return PageName.ERROR_404
         } else {
             return PageName.ERROR_500

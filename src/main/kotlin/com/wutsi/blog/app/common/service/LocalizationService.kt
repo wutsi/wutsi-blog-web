@@ -5,10 +5,9 @@ import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 import java.util.Locale
 
-
 @Service
 class LocalizationService(
-        private val messages: MessageSource
+    private val messages: MessageSource
 ) {
     fun getLocale() = LocaleContextHolder.getLocale()
 

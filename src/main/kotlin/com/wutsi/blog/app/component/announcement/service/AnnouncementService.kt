@@ -2,16 +2,14 @@ package com.wutsi.blog.app.component.announcement.service
 
 import com.wutsi.blog.app.component.announcement.model.AnnouncementModel
 import com.wutsi.blog.app.component.announcement.model.AnnouncementResponse
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.core.logging.KVLogger
-import org.springframework.beans.factory.annotation.Value
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class AnnouncementService(
-        private val announcements: List<Announcement>,
-        private val logger: KVLogger
+    private val announcements: List<Announcement>,
+    private val logger: KVLogger
 ) {
     fun get(page: String, request: HttpServletRequest, response: HttpServletResponse): AnnouncementResponse {
         val announcement = announcements.find { shouldDisplay(page, it, request) }
@@ -27,14 +25,14 @@ class AnnouncementService(
             return AnnouncementResponse(
                 show = true,
                 announcement = AnnouncementModel(
-                        name = announcement.name(),
-                        title = announcement.title(),
-                        message = announcement.description(),
-                        actionText = announcement.actionText(),
-                        actionUrl = announcement.actionUrl(),
-                        iconUrl = announcement.iconUrl(),
-                        autoHide = announcement.autoHide(),
-                        delay = announcement.delay()
+                    name = announcement.name(),
+                    title = announcement.title(),
+                    message = announcement.description(),
+                    actionText = announcement.actionText(),
+                    actionUrl = announcement.actionUrl(),
+                    iconUrl = announcement.iconUrl(),
+                    autoHide = announcement.autoHide(),
+                    delay = announcement.delay()
                 )
             )
         }
@@ -57,5 +55,4 @@ class AnnouncementService(
     }
 
     private fun cookie(announcement: Announcement) = "__w_announce_" + announcement.name()
-
 }

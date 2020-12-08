@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.editor.service
 
 import com.wutsi.blog.app.page.editor.service.link.DefaultLinkExtractor
 import com.wutsi.blog.app.page.editor.service.link.YouTubeLinkExtractor
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +24,7 @@ class LinkExtractorProviderTest {
     }
 
     @Test
-    fun other () {
+    fun other() {
         val extractor = provider.get("https://www.google.com")
         assertTrue(extractor is DefaultLinkExtractor)
     }

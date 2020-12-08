@@ -11,15 +11,15 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 
-class PWAControllerTest: SeleniumTestSupport() {
+class PWAControllerTest : SeleniumTestSupport() {
     @Value("\${wutsi.base-url}")
-    lateinit private var baseUrl: String
+    private lateinit var baseUrl: String
 
     @Value("\${wutsi.asset-url}")
-    lateinit private var assetUrl: String
+    private lateinit var assetUrl: String
 
     @Value("\${wutsi.pwa.firebase.sender-id}")
-    lateinit private var senderId: String
+    private lateinit var senderId: String
 
     val rest = RestTemplate()
 
@@ -28,7 +28,6 @@ class PWAControllerTest: SeleniumTestSupport() {
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
     }
-
 
     @Test
     fun `pwa headers`() {
@@ -50,7 +49,7 @@ class PWAControllerTest: SeleniumTestSupport() {
         val response = rest.getForEntity("$url/sw.js", String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
-        assertHeaderEquals(response,"Content-Type", "application/javascript;charset=UTF-8")
+        assertHeaderEquals(response, "Content-Type", "application/javascript;charset=UTF-8")
     }
 
     @Test
@@ -58,7 +57,7 @@ class PWAControllerTest: SeleniumTestSupport() {
         val response = rest.getForEntity("$url/a2hs.js", String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
-        assertHeaderEquals(response,"Content-Type", "application/javascript;charset=UTF-8")
+        assertHeaderEquals(response, "Content-Type", "application/javascript;charset=UTF-8")
     }
 
     @Test
@@ -113,6 +112,4 @@ class PWAControllerTest: SeleniumTestSupport() {
         val values = response.headers[header]
         assertEquals(true, values?.contains(value))
     }
-
-
 }

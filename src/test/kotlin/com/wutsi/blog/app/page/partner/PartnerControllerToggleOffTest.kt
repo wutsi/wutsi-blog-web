@@ -10,9 +10,9 @@ import java.net.URL
 import javax.xml.bind.JAXB
 
 @TestPropertySource(
-        properties = ["wutsi.toggles.wpp=false"]
+    properties = ["wutsi.toggles.wpp=false"]
 )
-class PartnerControllerToggleOffTest: SeleniumTestSupport() {
+class PartnerControllerToggleOffTest : SeleniumTestSupport() {
     @Test
     fun partnerMenuOff() {
         login()

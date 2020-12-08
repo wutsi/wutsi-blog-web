@@ -9,11 +9,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
 
-
 @Configuration
 class WebConfiguration : WebMvcConfigurer {
     @Bean
-    fun localeResolver(requestContext: RequestContext) : LocaleResolver =
+    fun localeResolver(requestContext: RequestContext): LocaleResolver =
         LocaleResolverImpl(requestContext)
 
     @Bean
@@ -28,5 +27,4 @@ class WebConfiguration : WebMvcConfigurer {
 
         registry.addInterceptor(localeChangeInterceptor())
     }
-
 }

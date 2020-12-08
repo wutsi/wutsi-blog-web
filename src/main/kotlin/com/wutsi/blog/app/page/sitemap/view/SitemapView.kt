@@ -21,11 +21,11 @@ import javax.xml.bind.Marshaller
 
 @Service
 class SitemapView(
-        private val storyBackend: StoryBackend,
-        private val userBackend: UserBackend,
-        private val mapper: SitemapMapper,
-        private val toggles: Toggles
-): View {
+    private val storyBackend: StoryBackend,
+    private val userBackend: UserBackend,
+    private val mapper: SitemapMapper,
+    private val toggles: Toggles
+) : View {
     companion object {
         const val LIMIT = 100
         const val MAX_URLS = 1000
@@ -50,16 +50,16 @@ class SitemapView(
         urls.addAll(storyUrls())
         urls.addAll(userUrls())
         return SitemapModel(
-                url = urls
+            url = urls
         )
     }
 
     private fun pageUrls(): List<UrlModel> {
         val urls = mutableListOf(
-                mapper.toUrlModel("/"),
-                mapper.toUrlModel("/about"),
-                mapper.toUrlModel("/create"),
-                mapper.toUrlModel("/writers")
+            mapper.toUrlModel("/"),
+            mapper.toUrlModel("/about"),
+            mapper.toUrlModel("/create"),
+            mapper.toUrlModel("/writers")
         )
         if (toggles.wpp) {
             urls.add(mapper.toUrlModel("/partner"))
@@ -70,30 +70,31 @@ class SitemapView(
     private fun storyUrls(): List<UrlModel> =
         stories().map { mapper.toUrlModel(it) }
 
-
     private fun userUrls(): List<UrlModel> =
-        userBackend.search(SearchUserRequest(
+        userBackend.search(
+            SearchUserRequest(
                 blog = true
-        )).users.map { mapper.toUrlModel(it) }
+            )
+        ).users.map { mapper.toUrlModel(it) }
 
-
-    private fun stories() : List<StorySummaryDto> {
+    private fun stories(): List<StorySummaryDto> {
         val stories = mutableListOf<StorySummaryDto>()
-        while(true) {
-            val tmp = storyBackend.search(SearchStoryRequest(
+        while (true) {
+            val tmp = storyBackend.search(
+                SearchStoryRequest(
                     limit = LIMIT,
                     live = true,
                     status = StoryStatus.published,
                     sortBy = StorySortStrategy.modified,
                     sortOrder = SortOrder.descending
-            )).stories
+                )
+            ).stories
             stories.addAll(tmp)
 
-            if (tmp.size < LIMIT || stories.size < MAX_URLS){
+            if (tmp.size < LIMIT || stories.size < MAX_URLS) {
                 break
             }
         }
         return stories
     }
 }
-

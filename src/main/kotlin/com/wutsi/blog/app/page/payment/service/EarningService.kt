@@ -9,15 +9,17 @@ import org.springframework.stereotype.Service
 
 @Service
 class EarningService(
-        private val mapper: PaymentMapper,
-        private val backend: EarningBackend,
-        private val requestContext: RequestContext
+    private val mapper: PaymentMapper,
+    private val backend: EarningBackend,
+    private val requestContext: RequestContext
 ) {
     fun total(year: Int): MoneyModel? {
-        val earnings = backend.search(SearchEarningRequest(
+        val earnings = backend.search(
+            SearchEarningRequest(
                 userId = requestContext.currentUser()?.id,
                 year = year
-        )).earnings
+            )
+        ).earnings
         if (earnings.isEmpty()) {
             return null
         }
@@ -26,12 +28,12 @@ class EarningService(
         return MoneyModel(amount, earnings[0].currency)
     }
     fun barChartData(year: Int): BarChartModel {
-        val earnings = backend.search(SearchEarningRequest(
+        val earnings = backend.search(
+            SearchEarningRequest(
                 userId = requestContext.currentUser()?.id,
                 year = year
-        )).earnings
+            )
+        ).earnings
         return mapper.toBarChartModel(year, earnings)
     }
-
 }
-

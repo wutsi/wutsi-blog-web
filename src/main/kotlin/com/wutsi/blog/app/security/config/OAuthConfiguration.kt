@@ -22,45 +22,45 @@ class OAuthConfiguration {
 
     @Bean(GITHUB_OAUTH_SERVICE)
     fun githubOAuthService(
-            @Value ("\${wutsi.oauth.github.client-id}") clientId: String,
-            @Value ("\${wutsi.oauth.github.client-secret}") clientSecret: String,
-            @Value ("\${wutsi.oauth.github.callback-url}") callbackUrl: String
+        @Value("\${wutsi.oauth.github.client-id}") clientId: String,
+        @Value("\${wutsi.oauth.github.client-secret}") clientSecret: String,
+        @Value("\${wutsi.oauth.github.callback-url}") callbackUrl: String
     ): OAuth20Service = ServiceBuilder(clientId)
-            .apiSecret(clientSecret)
-            .callback(callbackUrl)
-            .build(GitHubApi.instance())
+        .apiSecret(clientSecret)
+        .callback(callbackUrl)
+        .build(GitHubApi.instance())
 
     @Bean(FACEBOOK_OAUTH_SERVICE)
     fun facebookOAuthService(
-            @Value ("\${wutsi.oauth.facebook.client-id}") clientId: String,
-            @Value ("\${wutsi.oauth.facebook.client-secret}") clientSecret: String,
-            @Value ("\${wutsi.oauth.facebook.callback-url}") callbackUrl: String,
-            @Value ("\${wutsi.oauth.facebook.scope}") scope: String
+        @Value("\${wutsi.oauth.facebook.client-id}") clientId: String,
+        @Value("\${wutsi.oauth.facebook.client-secret}") clientSecret: String,
+        @Value("\${wutsi.oauth.facebook.callback-url}") callbackUrl: String,
+        @Value("\${wutsi.oauth.facebook.scope}") scope: String
     ): OAuth20Service = ServiceBuilder(clientId)
-            .apiSecret(clientSecret)
-            .withScope(scope)
-            .callback(callbackUrl)
-            .build(FacebookApi.instance())
+        .apiSecret(clientSecret)
+        .withScope(scope)
+        .callback(callbackUrl)
+        .build(FacebookApi.instance())
 
     @Bean(GOOGLE_OAUTH_SERVICE)
     fun googleOAuthService(
-            @Value ("\${wutsi.oauth.google.client-id}") clientId: String,
-            @Value ("\${wutsi.oauth.google.client-secret}") clientSecret: String,
-            @Value ("\${wutsi.oauth.google.callback-url}") callbackUrl: String,
-            @Value ("\${wutsi.oauth.google.scope}") scope: String
+        @Value("\${wutsi.oauth.google.client-id}") clientId: String,
+        @Value("\${wutsi.oauth.google.client-secret}") clientSecret: String,
+        @Value("\${wutsi.oauth.google.callback-url}") callbackUrl: String,
+        @Value("\${wutsi.oauth.google.scope}") scope: String
     ): OAuth20Service = ServiceBuilder(clientId)
-            .apiSecret(clientSecret)
-            .withScope(scope)
-            .callback(callbackUrl)
-            .build(GoogleApi20.instance())
+        .apiSecret(clientSecret)
+        .withScope(scope)
+        .callback(callbackUrl)
+        .build(GoogleApi20.instance())
 
     @Bean(TWITTER_OAUTH_SERVICE)
     fun twitterOAuthService(
-            @Value ("\${wutsi.oauth.twitter.client-id}") clientId: String,
-            @Value ("\${wutsi.oauth.twitter.client-secret}") clientSecret: String,
-            @Value ("\${wutsi.oauth.twitter.callback-url}") callbackUrl: String
+        @Value("\${wutsi.oauth.twitter.client-id}") clientId: String,
+        @Value("\${wutsi.oauth.twitter.client-secret}") clientSecret: String,
+        @Value("\${wutsi.oauth.twitter.callback-url}") callbackUrl: String
     ): OAuth10aService = ServiceBuilder(clientId)
-            .apiSecret(clientSecret)
-            .callback(callbackUrl)
-            .build(TwitterApi.instance())
+        .apiSecret(clientSecret)
+        .callback(callbackUrl)
+        .build(TwitterApi.instance())
 }

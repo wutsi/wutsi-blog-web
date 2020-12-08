@@ -6,7 +6,6 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-
 class CreateControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
@@ -19,9 +18,8 @@ class CreateControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
 
-
     @Test
-    fun `create blog for anonymous goto login` () {
+    fun `create blog for anonymous goto login`() {
         gotoPage(false)
 
         assertCurrentPageIs(PageName.LOGIN)
@@ -29,7 +27,7 @@ class CreateControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `create blog` () {
+    fun `create blog`() {
         gotoPage()
 
         assertCurrentPageIs(PageName.CREATE)
@@ -52,9 +50,8 @@ class CreateControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR)
     }
 
-
     private fun gotoPage(login: Boolean = true) {
-        if (login){
+        if (login) {
             login()
         }
         navigate("$url/create")

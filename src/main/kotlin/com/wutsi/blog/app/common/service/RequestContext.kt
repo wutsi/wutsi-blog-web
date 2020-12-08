@@ -27,23 +27,22 @@ import java.util.Optional
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
 @Component
-@Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 class RequestContext(
-        private val mapper: UserMapper,
-        private val authBackend: AuthenticationBackend,
-        private val userBackend: UserBackend,
-        private val viewBackend: ViewBackend,
-        private val togglesHolder: TogglesHolder,
-        private val tokenStorage: AccessTokenStorage,
-        private val localization: LocalizationService,
-        private val securityManager: SecurityManager,
-        private val sessionMapper: SessionMapper,
-        private val device: DeviceUIDProvider,
-        private val logger: KVLogger,
-        val request: HttpServletRequest,
-        val response: HttpServletResponse
+    private val mapper: UserMapper,
+    private val authBackend: AuthenticationBackend,
+    private val userBackend: UserBackend,
+    private val viewBackend: ViewBackend,
+    private val togglesHolder: TogglesHolder,
+    private val tokenStorage: AccessTokenStorage,
+    private val localization: LocalizationService,
+    private val securityManager: SecurityManager,
+    private val sessionMapper: SessionMapper,
+    private val device: DeviceUIDProvider,
+    private val logger: KVLogger,
+    val request: HttpServletRequest,
+    val response: HttpServletResponse
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(RequestContext::class.java)
@@ -57,11 +56,13 @@ class RequestContext(
     fun lastViewDate(): Date? {
         if (lastView == null) {
             val user = currentUser()
-            val views = viewBackend.search(SearchViewRequest(
+            val views = viewBackend.search(
+                SearchViewRequest(
                     userId = user?.id,
                     deviceId = device.get(request),
                     limit = 1
-            )).views
+                )
+            ).views
             lastView = if (views.isEmpty()) Optional.empty() else Optional.of(views[0])
         }
 
@@ -82,9 +83,9 @@ class RequestContext(
             val session = currentSession()
                 ?: return null
 
-            if (session.runAsUserId != null){
+            if (session.runAsUserId != null) {
                 superUser = mapper.toUserModel(
-                        userBackend.get(session.runAsUserId).user
+                    userBackend.get(session.runAsUserId).user
                 )
             }
         }
@@ -98,21 +99,21 @@ class RequestContext(
         }
 
         val session = currentSession()
-                ?: return null
+            ?: return null
 
         try {
             if (session.runAsUserId != null) {
                 user = mapper.toUserModel(
-                        userBackend.get(session.runAsUserId).user
+                    userBackend.get(session.runAsUserId).user
                 )
             } else {
                 user = mapper.toUserModel(
-                        userBackend.get(session.userId).user
+                    userBackend.get(session.userId).user
                 )
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             LOGGER.warn("Unable to resolve user ${session.userId}", e)
-            if (e is NotFoundException){
+            if (e is NotFoundException) {
                 tokenStorage.delete(response)
             }
         }
@@ -126,14 +127,14 @@ class RequestContext(
         }
 
         val token = accessToken()
-                ?: return null
+            ?: return null
         try {
             session = sessionMapper.toSessionModel(
-                    authBackend.session(token).session
+                authBackend.session(token).session
             )
-        } catch (e: Exception){
+        } catch (e: Exception) {
             LOGGER.warn("Unable to resolve user associate with access_token $token", e)
-            if (e is NotFoundException){
+            if (e is NotFoundException) {
                 tokenStorage.delete(response)
             }
         }
@@ -142,26 +143,26 @@ class RequestContext(
     }
 
     fun toggles(): Toggles =
-            togglesHolder.get()
+        togglesHolder.get()
 
     fun accessToken(): String? {
         return tokenStorage.get(request)
     }
 
     fun languages(): List<Locale> =
-            listOf(Locale.FRENCH, Locale.ENGLISH)
+        listOf(Locale.FRENCH, Locale.ENGLISH)
 
     fun supportsLanguage(language: String): Boolean =
-            languages().find { it.language == language } != null
+        languages().find { it.language == language } != null
 
     fun getMessage(key: String, defaultKey: String? = null, args: Array<Any>? = null, locale: Locale? = null): String {
         try {
             return localization.getMessage(key, args, locale)
-        } catch (ex: Exception){
-            if (defaultKey != null){
+        } catch (ex: Exception) {
+            if (defaultKey != null) {
                 try {
                     return localization.getMessage(defaultKey)
-                } catch(ex2: Exception){
+                } catch (ex2: Exception) {
                 }
             }
             return key
@@ -173,7 +174,7 @@ class RequestContext(
 
         logger.add("PermissionsUser", permissions)
         logger.add("PermissionsExpected", requiredPermissions)
-        if (!permissions.containsAll(requiredPermissions)){
+        if (!permissions.containsAll(requiredPermissions)) {
             LOGGER.error("required-permissions=$requiredPermissions - permissions=$permissions")
             throw ForbiddenException("permission_error")
         }

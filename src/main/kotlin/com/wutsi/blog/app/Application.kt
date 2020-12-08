@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 @EnableAspectJAutoProxy
 @EnableWebSecurity
-@ComponentScan(value=[
-    "com.wutsi.blog"
-])
+@ComponentScan(
+    value = [
+        "com.wutsi.blog"
+    ]
+)
 class Application
 
 fun main(args: Array<String>) {

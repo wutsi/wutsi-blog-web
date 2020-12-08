@@ -17,7 +17,6 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
 @RunWith(MockitoJUnitRunner::class)
 class RefererFilterTest {
     @Mock
@@ -40,7 +39,7 @@ class RefererFilterTest {
     }
 
     @Test
-    fun googleTraffic () {
+    fun googleTraffic() {
         val referer = "https://www.google.com"
         `when`(request.getHeader("Referer")).thenReturn(referer)
 
@@ -54,7 +53,7 @@ class RefererFilterTest {
     }
 
     @Test
-    fun directTraffic () {
+    fun directTraffic() {
         `when`(request.getHeader("Referer")).thenReturn("")
 
         filter.doFilter(request, response, chain)
@@ -67,7 +66,7 @@ class RefererFilterTest {
     }
 
     @Test
-    fun internalTraffic () {
+    fun internalTraffic() {
         val referer = "https://www.wutsi.com"
         `when`(request.getHeader("Referer")).thenReturn(referer)
 

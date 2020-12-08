@@ -4,8 +4,8 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.follower.service.FollowerService
-import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.settings.model.UserAttributeForm
+import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 @RequestMapping("/me/settings")
 class SettingsController(
-        private val userService: UserService,
-        private val followerService: FollowerService,
-        private val channelService: ChannelService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val userService: UserService,
+    private val followerService: FollowerService,
+    private val channelService: ChannelService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.SETTINGS
 
     @GetMapping
     fun index(
-            @RequestParam(required = false) highlight: String? = null,
-            model: Model
+        @RequestParam(required = false) highlight: String? = null,
+        model: Model
     ): String {
         model.addAttribute("highlight", highlight)
         loadFollowingUsers(model)
@@ -39,17 +39,22 @@ class SettingsController(
         return "page/settings/index"
     }
 
-    private fun loadFollowingUsers(model: Model){
+    private fun loadFollowingUsers(model: Model) {
         val userIds = followerService.searchFollowingUserIds()
-        if (userIds.isNotEmpty()){
-            model.addAttribute("followingUsers", userService.search(SearchUserRequest(
-                    userIds = userIds,
-                    limit = 20
-            )))
+        if (userIds.isNotEmpty()) {
+            model.addAttribute(
+                "followingUsers",
+                userService.search(
+                    SearchUserRequest(
+                        userIds = userIds,
+                        limit = 20
+                    )
+                )
+            )
         }
     }
 
-    private fun loadChannels(model: Model){
+    private fun loadChannels(model: Model) {
         val channels = channelService.all()
         model.addAttribute("channels", channels)
     }
@@ -61,16 +66,14 @@ class SettingsController(
 
             userService.set(request)
             return mapOf("id" to requestContext.currentUser()?.id)
-
         } catch (ex: Exception) {
             val key = errorKey(ex)
             return mapOf(
-                    "id" to requestContext.currentUser()?.id,
-                    "error" to requestContext.getMessage(key)
+                "id" to requestContext.currentUser()?.id,
+                "error" to requestContext.getMessage(key)
             )
         }
     }
-
 
     @GetMapping("/unsubscribe")
     fun unsubscribe(@RequestParam userId: Long): String {
@@ -78,15 +81,14 @@ class SettingsController(
         return "redirect:/me/settings#subscriptions"
     }
 
-
     @GetMapping("/channel/create")
     fun create(
-            @RequestParam id: String,
-            @RequestParam accessToken: String,
-            @RequestParam accessTokenSecret: String,
-            @RequestParam name: String,
-            @RequestParam pictureUrl: String,
-            @RequestParam type: ChannelType
+        @RequestParam id: String,
+        @RequestParam accessToken: String,
+        @RequestParam accessTokenSecret: String,
+        @RequestParam name: String,
+        @RequestParam pictureUrl: String,
+        @RequestParam type: ChannelType
     ): String {
         channelService.create(id, accessToken, accessTokenSecret, name, pictureUrl, type)
         return channelRedirectUrl()
@@ -104,5 +106,5 @@ class SettingsController(
     }
 
     private fun channelRedirectUrl(): String =
-            "redirect:/me/settings?highlight=channels-container#channels"
+        "redirect:/me/settings?highlight=channels-container#channels"
 }

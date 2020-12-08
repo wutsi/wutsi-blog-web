@@ -3,7 +3,7 @@ package com.wutsi.blog.app.component.announcement
 import com.wutsi.blog.SeleniumTestSupport
 import org.junit.Test
 
-class AnnouncementControllerTest: SeleniumTestSupport() {
+class AnnouncementControllerTest : SeleniumTestSupport() {
     @Test
     fun `HTML elements`() {
         login()

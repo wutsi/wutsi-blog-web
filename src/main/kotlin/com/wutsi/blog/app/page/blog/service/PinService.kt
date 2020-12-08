@@ -9,27 +9,27 @@ import org.springframework.stereotype.Service
 
 @Service
 class PinService(
-        private val api: PinApi,
-        private val mapper: PinMapper,
-        private val requestContext: RequestContext
+    private val api: PinApi,
+    private val mapper: PinMapper,
+    private val requestContext: RequestContext
 ) {
     fun create(storyId: Long) {
         val user = requestContext.currentUser()
-                ?: return
+            ?: return
 
         api.create(user.id, CreatePinRequest(storyId = storyId))
     }
 
     fun delete() {
         val user = requestContext.currentUser()
-                ?: return
+            ?: return
 
         api.delete(user.id)
     }
 
     fun get(): PinModel? {
         val user = requestContext.currentUser()
-                ?: return null
+            ?: return null
 
         try {
             return mapper.toPinModel(api.get(user.id).pin)

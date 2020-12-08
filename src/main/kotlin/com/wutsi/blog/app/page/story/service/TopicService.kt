@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class TopicService(
-        private val api: TopicApi,
-        private val mapper: TopicMapper
+    private val api: TopicApi,
+    private val mapper: TopicMapper
 ) {
     private var topics: List<TopicModel>? = null
 
-    fun all() : List<TopicModel> {
+    fun all(): List<TopicModel> {
         if (topics == null) {
             topics = api.all().topics.map { mapper.toTopicMmodel(it) }
         }
@@ -20,4 +20,3 @@ class TopicService(
 
     fun get(id: Long) = all().find { it.id == id }
 }
-

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping()
-@ConditionalOnProperty(value=["wutsi.toggles.wpp"], havingValue = "true")
+@ConditionalOnProperty(value = ["wutsi.toggles.wpp"], havingValue = "true")
 class PartnerController(
-        requestContext: RequestContext
-): AbstractPageController( requestContext) {
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.PARTNER
 
     override fun shouldBeIndexedByBots() = true
@@ -25,8 +25,7 @@ class PartnerController(
     }
 
     override fun page() = createPage(
-            title = "Wutsi Partner Program",
-            description = requestContext.getMessage("page.partner.description")
+        title = "Wutsi Partner Program",
+        description = requestContext.getMessage("page.partner.description")
     )
-
 }

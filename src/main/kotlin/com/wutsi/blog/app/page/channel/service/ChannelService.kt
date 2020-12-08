@@ -10,18 +10,18 @@ import org.springframework.stereotype.Service
 
 @Service
 class ChannelService(
-        private val api: ChannelApi,
-        private val mapper: ChannelMapper,
-        private val requestContext: RequestContext,
-        private val toggles: Toggles
+    private val api: ChannelApi,
+    private val mapper: ChannelMapper,
+    private val requestContext: RequestContext,
+    private val toggles: Toggles
 ) {
     fun all(): List<ChannelModel> {
         val user = requestContext.currentUser()
-                ?: return emptyList()
+            ?: return emptyList()
 
         val channels = api.search(userId = user.id)
-                .channels
-                .map { it.type to it }.toMap()
+            .channels
+            .map { it.type to it }.toMap()
 
         return channelTypes().map {
             val channel = channels[it]
@@ -35,14 +35,15 @@ class ChannelService(
     }
 
     fun create(
-            id: String,
-            accessToken: String,
-            accessTokenSecret: String,
-            name: String,
-            pictureUrl: String,
-            type: ChannelType
+        id: String,
+        accessToken: String,
+        accessTokenSecret: String,
+        name: String,
+        pictureUrl: String,
+        type: ChannelType
     ) {
-        api.create(CreateChannelRequest(
+        api.create(
+            CreateChannelRequest(
                 providerUserId = id,
                 accessToken = accessToken,
                 accessTokenSecret = accessTokenSecret,
@@ -50,7 +51,8 @@ class ChannelService(
                 pictureUrl = pictureUrl,
                 type = type,
                 userId = requestContext.currentUser()?.id
-        ))
+            )
+        )
     }
 
     fun delete(id: Long) {
@@ -59,10 +61,10 @@ class ChannelService(
 
     fun channelTypes(): List<ChannelType> {
         val types = mutableListOf<ChannelType>()
-        if (toggles.channelTwitter){
+        if (toggles.channelTwitter) {
             types.add(ChannelType.twitter)
         }
-        if (toggles.channelFacebook){
+        if (toggles.channelFacebook) {
             types.add(ChannelType.facebook)
         }
         return types

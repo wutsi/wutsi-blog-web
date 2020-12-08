@@ -13,21 +13,21 @@ import java.util.Date
 
 @RestController
 class BlogRssController(
-        private val userService: UserService,
-        private val storyService: StoryService,
-        @Value("\${wutsi.base-url}") private val baseUrl: String
+    private val userService: UserService,
+    private val storyService: StoryService,
+    @Value("\${wutsi.base-url}") private val baseUrl: String
 ) {
     @GetMapping("/@/{name}/rss")
     fun index(
-            @PathVariable name: String,
-            @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") startDate: Date? = null,
-            @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") endDate: Date? = null
+        @PathVariable name: String,
+        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") startDate: Date? = null,
+        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") endDate: Date? = null
     ): StoryRssView =
         StoryRssView(
-                user = userService.get(name),
-                baseUrl = baseUrl,
-                endDate = endDate,
-                startDate = startDate,
-                storyService = storyService
+            user = userService.get(name),
+            baseUrl = baseUrl,
+            endDate = endDate,
+            startDate = startDate,
+            storyService = storyService
         )
 }

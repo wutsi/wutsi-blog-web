@@ -7,13 +7,15 @@ import org.springframework.stereotype.Service
 
 @Service
 class ShareService(
-        private val api: ShareApi,
-        private val requestContext: RequestContext
+    private val api: ShareApi,
+    private val requestContext: RequestContext
 ) {
-    fun create(storyId: Long, target: String): Long = api.create(CreateShareRequest(
-                storyId = storyId,
-                target = target,
-                deviceId = requestContext.deviceId(),
-                userId = requestContext.currentUser()?.id
-        )).shareId
+    fun create(storyId: Long, target: String): Long = api.create(
+        CreateShareRequest(
+            storyId = storyId,
+            target = target,
+            deviceId = requestContext.deviceId(),
+            userId = requestContext.currentUser()?.id
+        )
+    ).shareId
 }

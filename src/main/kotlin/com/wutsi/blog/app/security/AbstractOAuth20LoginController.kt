@@ -9,16 +9,15 @@ import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.logging.KVLogger
 import javax.servlet.http.HttpServletRequest
 
-
 abstract class AbstractOAuth20LoginController(
-        logger: KVLogger,
-        objectMapper: ObjectMapper
-) : AbstractOAuthLoginController (logger, objectMapper) {
-    protected abstract fun getOAuthService() : OAuth20Service
+    logger: KVLogger,
+    objectMapper: ObjectMapper
+) : AbstractOAuthLoginController(logger, objectMapper) {
+    protected abstract fun getOAuthService(): OAuth20Service
 
     protected abstract fun getUserUrl(): String
 
-    override fun getAuthorizationUrl (request: HttpServletRequest): String {
+    override fun getAuthorizationUrl(request: HttpServletRequest): String {
         return getOAuthService().getAuthorizationUrl()
     }
 
@@ -31,7 +30,6 @@ abstract class AbstractOAuth20LoginController(
     }
 
     override fun getError(request: HttpServletRequest) = request.getParameter("error")
-
 
     protected fun toOAuthUser(accessToken: String): OAuthUser {
         val response = fetchUser(accessToken)

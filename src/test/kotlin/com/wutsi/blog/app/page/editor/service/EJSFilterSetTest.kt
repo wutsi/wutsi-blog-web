@@ -24,5 +24,4 @@ class EJSFilterSetTest {
         verify(filter1).filter(doc)
         verify(filter2).filter(doc)
     }
-
 }

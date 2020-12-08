@@ -8,7 +8,7 @@ import org.junit.Test
 import java.net.URL
 import javax.xml.bind.JAXB
 
-class SitemapControllerTest: SeleniumTestSupport() {
+class SitemapControllerTest : SeleniumTestSupport() {
     @Test
     fun `sitemap content`() {
         val sitemap = JAXB.unmarshal(URL("$url/sitemap.xml"), SitemapModel::class.java)

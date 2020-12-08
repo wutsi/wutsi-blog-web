@@ -17,6 +17,6 @@ class AnnouncementController(private val service: AnnouncementService) {
     @GetMapping()
     @ResponseBody
     fun index(@RequestParam page: String, request: HttpServletRequest, response: HttpServletResponse): AnnouncementResponse {
-        return service.get(page, request, response);
+        return service.get(page, request, response)
     }
 }

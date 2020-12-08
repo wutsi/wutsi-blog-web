@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
 class TermsAndConditionController(
-        requestContext: RequestContext
-): AbstractLegalController(requestContext){
+    requestContext: RequestContext
+) : AbstractLegalController(requestContext) {
     override fun contentPath() = "/html/legal/terms"
 
     override fun pageName() = PageName.LEGAL_TERMS
 
     override fun page() = createPage(
-            title = requestContext.getMessage("page.terms.title"),
-            description = requestContext.getMessage("page.terms.description")
+        title = requestContext.getMessage("page.terms.title"),
+        description = requestContext.getMessage("page.terms.description")
     )
 
     @GetMapping("/terms")

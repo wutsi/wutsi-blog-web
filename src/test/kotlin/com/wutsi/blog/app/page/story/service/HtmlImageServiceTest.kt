@@ -19,7 +19,7 @@ class HtmlImageServiceTest {
 
     @Test
     fun sizes() {
-        val value  = service.sizes()
+        val value = service.sizes()
         assertEquals("", value)
     }
 
@@ -31,7 +31,7 @@ class HtmlImageServiceTest {
         `when`(imageKit.transform(url, "640")).thenReturn("http://foo.com/768/1.png")
         `when`(imageKit.transform(url, "1024")).thenReturn("http://foo.com/992/1.png")
 
-        val value  = service.srcset(url)
+        val value = service.srcset(url)
         assertEquals("http://foo.com/576/1.png 320w, http://foo.com/768/1.png 640w, http://foo.com/992/1.png 1024w", value)
     }
 }

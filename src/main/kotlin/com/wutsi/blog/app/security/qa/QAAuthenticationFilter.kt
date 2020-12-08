@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse
  * AuthenticationFilter for QA testing only
  */
 class QAAuthenticationFilter(
-        pattern: String
-): AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(pattern)){
+    pattern: String
+) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(pattern)) {
     @Throws(AuthenticationException::class)
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         val accessToken = generateAccessToken()
@@ -28,16 +28,16 @@ class QAAuthenticationFilter(
     private fun generateAccessToken() = UUID.randomUUID().toString()
 
     private fun createAuthentication(accessToken: String) = OAuthTokenAuthentication(
-            principal = OAuthPrincipal(
-                    accessToken = accessToken,
-                    user = OAuthUser(
-                            id = accessToken,
-                            provider = SecurityConfiguration.PROVIDER_QA,
-                            email = "qa@wutsi.com",
-                            fullName = "QA User",
-                            pictureUrl = "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_1280.png"
-                    )
-            ),
-            accessToken = accessToken
+        principal = OAuthPrincipal(
+            accessToken = accessToken,
+            user = OAuthUser(
+                id = accessToken,
+                provider = SecurityConfiguration.PROVIDER_QA,
+                email = "qa@wutsi.com",
+                fullName = "QA User",
+                pictureUrl = "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_1280.png"
+            )
+        ),
+        accessToken = accessToken
     )
 }

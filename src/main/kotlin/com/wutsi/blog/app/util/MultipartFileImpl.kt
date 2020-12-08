@@ -6,11 +6,10 @@ import java.io.ByteArrayInputStream
 import java.io.File
 import java.net.HttpURLConnection
 
-
-class MultipartFileImpl (
-        private val bytes: ByteArray,
-        private val cnn: HttpURLConnection
-): MultipartFile {
+class MultipartFileImpl(
+    private val bytes: ByteArray,
+    private val cnn: HttpURLConnection
+) : MultipartFile {
     override fun getName() = ""
 
     override fun isEmpty() = false

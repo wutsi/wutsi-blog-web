@@ -1,6 +1,8 @@
 package com.wutsi.blog.app.page.editor.service.link
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,19 +18,19 @@ class YouTubeLinkExtractorTest {
     private lateinit var extractor: YouTubeLinkExtractor
 
     @Test
-    fun acceptYouTubeVideo (){
+    fun acceptYouTubeVideo() {
         val url = "https://www.youtube.com/watch?v=buS6MIrPBuc"
         assertTrue(extractor.accept(url))
     }
 
     @Test
-    fun acceptInvalid (){
+    fun acceptInvalid() {
         val url = "https://www.google.ca"
         assertFalse(extractor.accept(url))
     }
 
     @Test
-    fun test (){
+    fun test() {
         val url = "https://www.youtube.com/watch?v=buS6MIrPBuc"
         val meta = extractor.extract(url)
         assertEquals("Old School | Funk Mix 80s (113bpm) [Dj'S Bootleg Dance Re-Mix]", meta.title)

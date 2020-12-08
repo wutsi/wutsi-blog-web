@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.util
 
-class PageName{
+class PageName {
     companion object {
         const val BLOG = "page.blog"
 

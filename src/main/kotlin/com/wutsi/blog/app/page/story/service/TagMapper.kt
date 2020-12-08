@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service
 @Service
 class TagMapper {
     fun toTagModel(tag: TagDto) = TagModel(
-            id = tag.id,
-            name = tag.name,
-            displayName = tag.displayName,
-            totalStories = tag.totalStories
+        id = tag.id,
+        name = tag.name,
+        displayName = tag.displayName,
+        totalStories = tag.totalStories
     )
 }

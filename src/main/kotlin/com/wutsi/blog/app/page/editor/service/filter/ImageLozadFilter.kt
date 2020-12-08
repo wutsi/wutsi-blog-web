@@ -4,7 +4,7 @@ import com.wutsi.blog.app.page.editor.service.Filter
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class ImageLozadFilter: Filter {
+class ImageLozadFilter : Filter {
     override fun filter(html: Document) {
         html.select("img").forEach { filter(it) }
     }
@@ -15,7 +15,7 @@ class ImageLozadFilter: Filter {
         transform(img, "srcset")
     }
 
-    private fun transform(img: Element, attr: String){
+    private fun transform(img: Element, attr: String) {
         val value = img.attr(attr)
         if (value.isNotEmpty()) {
             img.attr("data-$attr", value)

@@ -1,9 +1,9 @@
 package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.login.model.RunAsForm
 import com.wutsi.blog.app.page.login.service.AuthenticationService
-import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.exception.ForbiddenException
 import org.springframework.stereotype.Controller
@@ -16,25 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import javax.servlet.http.HttpServletRequest
 
-
-
 @Controller
 @RequestMapping("/login/as")
 class RunAsController(
-        private val service: AuthenticationService,
-        requestContext: RequestContext
-): AbstractPageController(requestContext) {
+    private val service: AuthenticationService,
+    requestContext: RequestContext
+) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.RUN_AS
 
     @GetMapping()
     fun index(
-            @RequestParam(required = false) error: String? = null,
-            @RequestHeader(required = false) referer: String? = null,
-            model: Model,
-            request: HttpServletRequest
+        @RequestParam(required = false) error: String? = null,
+        @RequestHeader(required = false) referer: String? = null,
+        model: Model,
+        request: HttpServletRequest
     ): String {
         ensureSuperUser()
-        if (error != null){
+        if (error != null) {
             model.addAttribute("error", requestContext.getMessage(error))
         }
         model.addAttribute("form", RunAsForm())
@@ -44,7 +42,7 @@ class RunAsController(
     @PostMapping
     private fun submit(@ModelAttribute form: RunAsForm): String {
         ensureSuperUser()
-        try{
+        try {
             val name = form.name.toLowerCase()
             service.runAs(name)
             return "redirect:/@/$name"
@@ -54,8 +52,8 @@ class RunAsController(
         }
     }
 
-    private fun ensureSuperUser(){
-        if (requestContext.currentSuperUser() == null){
+    private fun ensureSuperUser() {
+        if (requestContext.currentSuperUser() == null) {
             throw ForbiddenException("permission_denied")
         }
     }

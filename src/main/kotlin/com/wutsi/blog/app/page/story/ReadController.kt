@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse
 
 @Controller
 class ReadController(
-        private val schemas: StorySchemasGenerator,
-        private val followerService: FollowerService,
-        ejsJsonReader: EJSJsonReader,
-        service: StoryService,
-        requestContext: RequestContext
-): AbstractStoryReadController(ejsJsonReader, service, requestContext) {
+    private val schemas: StorySchemasGenerator,
+    private val followerService: FollowerService,
+    ejsJsonReader: EJSJsonReader,
+    service: StoryService,
+    requestContext: RequestContext
+) : AbstractStoryReadController(ejsJsonReader, service, requestContext) {
 
     override fun pageName() = PageName.READ
 
@@ -40,25 +40,26 @@ class ReadController(
 
     @GetMapping("/read/{id}/{title}")
     fun read(
-            @PathVariable id: Long,
-            @PathVariable title: String,
-            @RequestParam(required = false) comment: String? = null,
-            @RequestParam(required = false) translate: String? = null,
-            model: Model,
-            response: HttpServletResponse): String {
+        @PathVariable id: Long,
+        @PathVariable title: String,
+        @RequestParam(required = false) comment: String? = null,
+        @RequestParam(required = false) translate: String? = null,
+        model: Model,
+        response: HttpServletResponse
+    ): String {
         return read(id, comment, translate, model, response)
     }
 
     @GetMapping("/read/{id}")
     fun read(
-            @PathVariable id: Long,
-            @RequestParam(required = false) comment: String? = null,
-            @RequestParam(required = false) translate: String? = null,
-            model: Model,
-            response: HttpServletResponse
+        @PathVariable id: Long,
+        @RequestParam(required = false) comment: String? = null,
+        @RequestParam(required = false) translate: String? = null,
+        model: Model,
+        response: HttpServletResponse
     ): String {
-        if (requestContext.toggles().translation){
-            if (!supportsLanguage(translate)){
+        if (requestContext.toggles().translation) {
+            if (!supportsLanguage(translate)) {
                 throw NotFoundException("Language not supported: $translate")
             }
 
@@ -73,12 +74,12 @@ class ReadController(
     }
 
     private fun loadTranslationInfo(translate: String?, story: StoryModel, model: Model) {
-        if (!requestContext.toggles().translation){
+        if (!requestContext.toggles().translation) {
             return
         }
 
         if (translate == null) {
-            if (!supportsLanguage(story.language)){
+            if (!supportsLanguage(story.language)) {
                 return
             }
 
@@ -86,11 +87,14 @@ class ReadController(
             if (userLocale.language != story.language && supportsLanguage(userLocale.language)) {
                 model.addAttribute("showTranslation", true)
                 model.addAttribute("translationUrl", "${story.slug}?translate=${userLocale.language}")
-                model.addAttribute("translationText", requestContext.getMessage(
+                model.addAttribute(
+                    "translationText",
+                    requestContext.getMessage(
                         key = "label.read_story_translation",
                         args = arrayOf(userLocale.getDisplayLanguage(userLocale)),
                         locale = userLocale
-                ))
+                    )
+                )
             }
         } else {
             val original = getStory(story.id)
@@ -103,20 +107,22 @@ class ReadController(
     private fun shouldShowFollowButton(story: StoryModel, model: Model) {
         val showButton = followerService.canFollow(story.user.id)
         model.addAttribute("showFollowButton", showButton)
-        if (showButton){
-            if (story.user.newsletterDeliveryDayOfWeek <= 0){
+        if (showButton) {
+            if (story.user.newsletterDeliveryDayOfWeek <= 0) {
                 model.addAttribute("followMessage", requestContext.getMessage("page.read.follow_blog"))
             } else {
                 val dayOfWeek = requestContext.getMessage("label.day_of_week.${story.user.newsletterDeliveryDayOfWeek}")
-                model.addAttribute("followMessage", requestContext.getMessage(
+                model.addAttribute(
+                    "followMessage",
+                    requestContext.getMessage(
                         "page.read.follow_newsletter", args = arrayOf(dayOfWeek)
-                ))
+                    )
+                )
             }
         }
     }
 
     private fun supportsLanguage(language: String?): Boolean =
-            language == null ||
+        language == null ||
             requestContext.supportsLanguage(language)
-
 }

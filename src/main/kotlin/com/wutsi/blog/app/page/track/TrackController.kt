@@ -18,5 +18,4 @@ class TrackController(private val service: TrackService) {
         val id = service.push(form)
         return mapOf("transactionId" to id)
     }
-
 }

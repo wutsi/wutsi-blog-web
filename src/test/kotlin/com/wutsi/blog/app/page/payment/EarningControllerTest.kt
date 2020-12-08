@@ -6,7 +6,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-class EarningControllerTest: SeleniumTestSupport()  {
+class EarningControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -34,7 +34,6 @@ class EarningControllerTest: SeleniumTestSupport()  {
         assertElementPresent(".no-earning")
     }
 
-
     @Test
     fun `invite user to join wpp`() {
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
@@ -44,7 +43,6 @@ class EarningControllerTest: SeleniumTestSupport()  {
 
         assertElementPresent("#wpp")
     }
-
 
     @Test
     fun `never invite contractory to join wpp`() {
@@ -63,8 +61,6 @@ class EarningControllerTest: SeleniumTestSupport()  {
         assertCurrentPageIs(PageName.LOGIN)
     }
 
-
-
     fun gotoPage() {
         login()
         click("nav .nav-item")
@@ -72,5 +68,4 @@ class EarningControllerTest: SeleniumTestSupport()  {
 
         assertCurrentPageIs(PageName.EARNING)
     }
-
 }

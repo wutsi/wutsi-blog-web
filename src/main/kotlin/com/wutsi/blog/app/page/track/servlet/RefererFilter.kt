@@ -13,11 +13,10 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
 @Component
 class RefererFilter(
-        private val logger: KVLogger,
-        @Value("\${wutsi.domain}") private val domain: String
+    private val logger: KVLogger,
+    @Value("\${wutsi.domain}") private val domain: String
 ) : Filter {
     companion object {
         const val DIRECT = ""
