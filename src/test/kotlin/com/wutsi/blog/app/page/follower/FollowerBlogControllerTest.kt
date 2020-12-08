@@ -11,9 +11,6 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/follower", HttpStatus.OK, "v1/follower/create.json")
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
-
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
         stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
         stub(HttpMethod.GET, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
@@ -44,7 +41,7 @@ class FollowerBlogControllerTest: SeleniumMobileTestSupport() {
         stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user99.json")
         login()
 
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-user99.json")
+        givenUserFollow(userId=1, followerUserId = 99)
         driver.get("$url/@/ray.sponsible")
 
         verifyNoFollowButtons()

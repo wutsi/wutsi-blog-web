@@ -12,10 +12,17 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.client.channel.SearchChannelResponse
+import com.wutsi.blog.client.follower.SearchFollowerRequest
+import com.wutsi.blog.client.follower.SearchFollowerResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
+import com.wutsi.blog.fixtures.FollowerApiFixtures
+import com.wutsi.blog.fixtures.PinApiFixtures
+import com.wutsi.blog.fixtures.TopicApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
+import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
+import com.wutsi.blog.sdk.ShareApi
 import com.wutsi.blog.sdk.TagApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.core.exception.NotFoundException
@@ -26,6 +33,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyLong
 import org.openqa.selenium.By
@@ -64,8 +72,10 @@ abstract class SeleniumTestSupport {
     lateinit protected var driver: WebDriver
 
     @MockBean protected lateinit var channelApi: ChannelApi
+    @MockBean protected lateinit var followerApi: FollowerApi
     @MockBean protected lateinit var newsletterApi: NewsletterApi
     @MockBean protected lateinit var pinApi: PinApi
+    @MockBean protected lateinit var shareApi: ShareApi
     @MockBean protected lateinit var tagApi: TagApi
     @MockBean protected lateinit var topicApi: TopicApi
 
@@ -111,8 +121,6 @@ abstract class SeleniumTestSupport {
 
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count.json")
 
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
-
         stub(HttpMethod.POST, "/v1/like/count", HttpStatus.OK, "v1/like/count.json")
 
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
@@ -130,6 +138,7 @@ abstract class SeleniumTestSupport {
 
     protected fun setupSdk() {
         givenNoChannel()
+        givenNoFollower()
         givenNoPin()
         givenTopics()
     }
@@ -159,6 +168,33 @@ abstract class SeleniumTestSupport {
     protected fun givenNoChannel() {
         `when`(channelApi.search(anyLong())).thenReturn(SearchChannelResponse())
         `when`(channelApi.get(anyLong())).thenThrow(NotFoundException("channel_not_found"))
+    }
+
+    protected fun givenNoFollower() {
+        `when`(followerApi.search(SearchFollowerRequest(followerUserId = 1L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(followerUserId = 3L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(followerUserId = 99L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(userId=3L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(userId=99L, followerUserId = 1L))).thenReturn(SearchFollowerResponse())
+        `when`(followerApi.search(SearchFollowerRequest(userId=1L, followerUserId = 99L))).thenReturn(SearchFollowerResponse())
+    }
+
+    protected fun givenUserFollow(userId: Long, followerUserId: Long) {
+        `when`(followerApi.search(
+                SearchFollowerRequest(followerUserId = followerUserId, userId = userId)
+        )).thenReturn(
+                SearchFollowerResponse(
+                    followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
+                )
+        )
+
+        `when`(followerApi.search(
+                SearchFollowerRequest(followerUserId = followerUserId)
+        )).thenReturn(
+                SearchFollowerResponse(
+                        followers = listOf(FollowerApiFixtures.createFolloweDto(userId, followerUserId))
+                )
+        )
     }
 
     protected fun navigate(url: String) {

@@ -1,28 +1,28 @@
 package com.wutsi.blog.app.page.follower.service
 
-import com.wutsi.blog.app.backend.FollowerBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.follower.CreateFollowerRequest
 import com.wutsi.blog.client.follower.SearchFollowerRequest
+import com.wutsi.blog.sdk.FollowerApi
 import org.springframework.stereotype.Service
 
 @Service
 class FollowerService(
-        private val backend: FollowerBackend,
+        private val api: FollowerApi,
         private val requestContext: RequestContext
 ) {
-    fun follow(userId: Long): Long = backend.create(CreateFollowerRequest(
+    fun follow(userId: Long): Long = api.create(CreateFollowerRequest(
             userId = userId,
             followerUserId = requestContext.currentUser()?.id
         )).followerId
 
     fun unfollow(userId: Long) {
-        val followers = backend.search(SearchFollowerRequest(
+        val followers = api.search(SearchFollowerRequest(
                 userId = userId,
                 followerUserId = requestContext.currentUser()?.id
         )).followers
         if (followers.isNotEmpty()){
-            backend.delete(followers[0].id)
+            api.delete(followers[0].id)
         }
     }
 
@@ -30,7 +30,7 @@ class FollowerService(
         if (!requestContext.toggles().follow || requestContext.currentUser() == null)
             return emptyList()
 
-        return backend.search(SearchFollowerRequest(
+        return api.search(SearchFollowerRequest(
                 followerUserId = requestContext.currentUser()?.id
         )).followers.map { it.userId }
     }
@@ -42,7 +42,7 @@ class FollowerService(
         if (requestContext.currentUser() == null)
             return true
 
-        return backend.search(SearchFollowerRequest(
+        return api.search(SearchFollowerRequest(
                 userId = id,
                 followerUserId = requestContext.currentUser()?.id
         )).followers.isEmpty()

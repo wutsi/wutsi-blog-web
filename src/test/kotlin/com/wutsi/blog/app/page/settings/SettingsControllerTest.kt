@@ -1,33 +1,25 @@
 package com.wutsi.blog.app.page.settings
 
-import com.wutsi.blog.ChannelApiFixtures
+import com.wutsi.blog.fixtures.ChannelApiFixtures
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
-import com.wutsi.blog.client.channel.CreateChannelRequest
-import com.wutsi.blog.client.channel.CreateChannelResponse
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import org.junit.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.`when`
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 
 class SettingsControllerTest: SeleniumTestSupport() {
-
     override fun setupWiremock() {
         super.setupWiremock()
-
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
 
         stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
 
     @Test
     fun `no subscriptions`() {
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
-
         gotoPage()
 
         assertElementPresent(".subscriptions-none")
@@ -36,6 +28,8 @@ class SettingsControllerTest: SeleniumTestSupport() {
 
     @Test
     fun `my subscriptions`() {
+        givenUserFollow(5, 1)
+
         gotoPage()
 
         assertElementPresent("#subscriptions-container .author-summary-card")

@@ -22,6 +22,8 @@ class PinControllerToggleOffTest: SeleniumTestSupport() {
 
     override fun setupSdk() {
         givenPin()
+        givenNoFollower()
+        givenNoChannel()
     }
 
     @Test

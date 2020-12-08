@@ -1,4 +1,4 @@
-package com.wutsi.blog
+package com.wutsi.blog.fixtures
 
 import com.wutsi.blog.client.pin.GetPinResponse
 import com.wutsi.blog.client.pin.PinDto

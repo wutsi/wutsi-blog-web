@@ -37,7 +37,7 @@ class WritersController(
 
     @GetMapping()
     fun index(model: Model): String {
-        val following = findFollowingIds()
+        val following = followerService.searchFollowingUserIds()
         val writers = userService.search(SearchUserRequest(
                 blog = true,
                 limit = 20,
@@ -51,7 +51,4 @@ class WritersController(
         model.addAttribute("writers", writers)
         return "page/home/writers"
     }
-
-    private fun findFollowingIds(): List<Long> =
-        followerService.searchFollowingUserIds()
 }

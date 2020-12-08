@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.page.editor
 
-import com.wutsi.blog.ChannelApiFixtures
+import com.wutsi.blog.fixtures.ChannelApiFixtures
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType

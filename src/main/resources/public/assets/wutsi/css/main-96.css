@@ -819,7 +819,7 @@ a.sso-button .fab {
 }
 .author-navbar .btn-toolbar {
     padding: var(--padding);
-    flex: none;
+    display: block;
 }
 .author-navbar .btn-toolbar .btn {
     margin: 0 auto;

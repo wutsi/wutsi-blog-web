@@ -11,9 +11,6 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/follower", HttpStatus.OK, "v1/follower/create.json")
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-empty.json")
-
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
 
@@ -59,7 +56,7 @@ class FollowerReadControllerTest: SeleniumMobileTestSupport() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-user99.json")
+        givenUserFollow(userId=99, followerUserId = 1)
         driver.get("$url/read/20/test")
 
         verifyNoFollowButtons()

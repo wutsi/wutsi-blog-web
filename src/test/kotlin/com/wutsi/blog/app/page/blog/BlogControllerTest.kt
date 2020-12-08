@@ -2,7 +2,11 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.follower.SearchFollowerRequest
+import com.wutsi.blog.client.follower.SearchFollowerResponse
+import com.wutsi.blog.fixtures.FollowerApiFixtures
 import org.junit.Test
+import org.mockito.Mockito.`when`
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -10,8 +14,13 @@ class BlogControllerTest: SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/follower/search", HttpStatus.OK, "v1/follower/search-following.json")
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
+    }
+
+    override fun setupSdk() {
+        super.setupSdk()
+
+        givenUserFollow(5, 1)
     }
 
     @Test
