@@ -2,11 +2,7 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.blog.client.follower.SearchFollowerRequest
-import com.wutsi.blog.client.follower.SearchFollowerResponse
-import com.wutsi.blog.fixtures.FollowerApiFixtures
 import org.junit.Test
-import org.mockito.Mockito.`when`
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 

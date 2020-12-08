@@ -58,7 +58,6 @@ class PinControllerToggleOffTest: SeleniumTestSupport() {
         }
         driver.get("$url/@/${username}")
 
-
         assertCurrentPageIs(PageName.BLOG)
     }
 }
