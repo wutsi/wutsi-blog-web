@@ -10,16 +10,23 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.client.follower.SearchFollowerRequest
 import com.wutsi.blog.client.follower.SearchFollowerResponse
+import com.wutsi.blog.client.like.CountLikeResponse
+import com.wutsi.blog.client.like.SearchLikeRequest
+import com.wutsi.blog.client.like.SearchLikeResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
 import com.wutsi.blog.fixtures.FollowerApiFixtures
 import com.wutsi.blog.fixtures.PinApiFixtures
 import com.wutsi.blog.fixtures.TopicApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.FollowerApi
+import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.ShareApi
@@ -69,6 +76,7 @@ abstract class SeleniumTestSupport {
 
     @MockBean protected lateinit var channelApi: ChannelApi
     @MockBean protected lateinit var followerApi: FollowerApi
+    @MockBean protected lateinit var likeApi: LikeApi
     @MockBean protected lateinit var newsletterApi: NewsletterApi
     @MockBean protected lateinit var pinApi: PinApi
     @MockBean protected lateinit var shareApi: ShareApi
@@ -115,8 +123,6 @@ abstract class SeleniumTestSupport {
 
         stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count.json")
 
-        stub(HttpMethod.POST, "/v1/like/count", HttpStatus.OK, "v1/like/count.json")
-
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
         stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
@@ -135,6 +141,12 @@ abstract class SeleniumTestSupport {
         givenNoFollower()
         givenNoPin()
         givenTopics()
+        givenNoLike()
+    }
+
+    protected fun givenNoLike() {
+        doReturn(SearchLikeResponse()).whenever(likeApi).search(com.nhaarman.mockitokotlin2.any<SearchLikeRequest>())
+        doReturn(CountLikeResponse()).whenever(likeApi).count(com.nhaarman.mockitokotlin2.any<SearchLikeRequest>())
     }
 
     protected fun givenTopics() {
@@ -147,16 +159,16 @@ abstract class SeleniumTestSupport {
                 TopicApiFixtures.createTopicDto(201, "biotech", 200)
             )
         )
-        `when`(topicApi.all()).thenReturn(response)
+        doReturn(response).whenever(topicApi).all()
+    }
+
+    protected fun givenNoPin() {
+        doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(com.nhaarman.mockitokotlin2.any())
     }
 
     protected fun givenPin(userId: Long = 1, storyId: Long = 21) {
         val pin = PinApiFixtures.createGetPinResponse(userId, storyId)
-        `when`(pinApi.get(userId)).thenReturn(pin)
-    }
-
-    protected fun givenNoPin() {
-        `when`(pinApi.get(anyLong())).thenThrow(NotFoundException("pin_not_found"))
+        doReturn(pin).whenever(pinApi).get(userId)
     }
 
     protected fun givenNoChannel() {

@@ -14,11 +14,6 @@ class PinControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
-    override fun setupSdk() {
-        givenNoChannel()
-        givenNoFollower()
-    }
-
     @Test
     fun `pinned story on my blog`() {
         givenPin()
@@ -41,8 +36,6 @@ class PinControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `no pinned story on my blog`() {
-        givenNoPin()
-
         gotoPage(true)
 
         assertElementCount("#my-stories .story-card", 7)

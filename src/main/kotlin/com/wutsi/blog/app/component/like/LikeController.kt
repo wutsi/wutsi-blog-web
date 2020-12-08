@@ -7,6 +7,7 @@ import com.wutsi.blog.app.component.like.model.LikeModel
 import com.wutsi.blog.app.component.like.service.LikeService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam

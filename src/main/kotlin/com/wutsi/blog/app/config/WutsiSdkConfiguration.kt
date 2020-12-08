@@ -2,6 +2,7 @@ package com.wutsi.blog.app.config
 
 import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.FollowerApi
+import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.Sdk
@@ -20,31 +21,29 @@ class WutsiSdkConfiguration(
     private val env: Environment
 ) {
     @Bean
-    fun channelApi(): ChannelApi =
-        sdk().channelApi()
+    fun channelApi(): ChannelApi = sdk().channelApi()
 
     @Bean
-    fun followerApi(): FollowerApi =
-        sdk().followerApi()
+    fun followerApi(): FollowerApi = sdk().followerApi()
 
     @Bean
-    fun newsletter(): NewsletterApi =
-        sdk().newsletterApi()
+    fun likeApi(): LikeApi = sdk().likeApi()
 
     @Bean
-    fun pinApi(): PinApi =
-        sdk().pinApi()
+    fun newsletter(): NewsletterApi = sdk().newsletterApi()
 
     @Bean
-    fun shareApi(): ShareApi =
-        sdk().shareApi()
-    @Bean
-    fun tagApi(): TagApi =
-        sdk().tagApi()
+    fun pinApi(): PinApi = sdk().pinApi()
 
     @Bean
-    fun topicApi(): TopicApi =
-        sdk().topicApi()
+    fun shareApi(): ShareApi = sdk().shareApi()
+
+    @Bean
+    fun tagApi(): TagApi = sdk().tagApi()
+
+    @Bean
+    fun topicApi(): TopicApi = sdk().topicApi()
+
     @Bean
     fun sdk(): Sdk =
         Sdk(
