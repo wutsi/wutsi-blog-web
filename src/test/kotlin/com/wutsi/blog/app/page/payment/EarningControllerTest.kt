@@ -38,17 +38,18 @@ class EarningControllerTest : SeleniumTestSupport() {
     fun `invite user to join wpp`() {
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
         stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
-        stub(HttpMethod.GET, "/v1/contract/user/1", HttpStatus.NOT_FOUND)
+
         gotoPage()
 
         assertElementPresent("#wpp")
     }
 
     @Test
-    fun `never invite contractory to join wpp`() {
+    fun `never invite contract to join wpp`() {
+        givenContract(1)
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
         stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
-        stub(HttpMethod.GET, "/v1/contract/user/1", HttpStatus.OK, "v1/contract/get.json")
+
         gotoPage()
 
         assertElementNotPresent("#wpp")

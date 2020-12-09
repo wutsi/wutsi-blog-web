@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.config
 
 import com.wutsi.blog.sdk.ChannelApi
+import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
@@ -22,6 +23,9 @@ class WutsiSdkConfiguration(
 ) {
     @Bean
     fun channelApi(): ChannelApi = sdk().channelApi()
+
+    @Bean
+    fun contractApi(): ContractApi = sdk().contractApi()
 
     @Bean
     fun followerApi(): FollowerApi = sdk().followerApi()

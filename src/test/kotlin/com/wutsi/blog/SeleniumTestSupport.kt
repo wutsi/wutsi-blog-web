@@ -22,10 +22,12 @@ import com.wutsi.blog.client.like.CountLikeResponse
 import com.wutsi.blog.client.like.SearchLikeRequest
 import com.wutsi.blog.client.like.SearchLikeResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
+import com.wutsi.blog.fixtures.ContractApiFixture
 import com.wutsi.blog.fixtures.FollowerApiFixtures
 import com.wutsi.blog.fixtures.PinApiFixtures
 import com.wutsi.blog.fixtures.TopicApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
+import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
@@ -74,6 +76,7 @@ abstract class SeleniumTestSupport {
     protected lateinit var driver: WebDriver
 
     @MockBean protected lateinit var channelApi: ChannelApi
+    @MockBean protected lateinit var contractApi: ContractApi
     @MockBean protected lateinit var followerApi: FollowerApi
     @MockBean protected lateinit var likeApi: LikeApi
     @MockBean protected lateinit var newsletterApi: NewsletterApi
@@ -137,11 +140,43 @@ abstract class SeleniumTestSupport {
 
     protected fun setupSdk() {
         givenNoChannel()
+        givenNoContract()
         givenNoFollower()
-
+        givenNoLike()
         givenNoPin()
         givenTopics()
-        givenNoLike()
+    }
+
+    protected fun givenNoChannel() {
+        doReturn(SearchChannelResponse()).whenever(channelApi).search(any())
+        doThrow(NotFoundException("channel_not_found")).whenever(channelApi).get(any())
+    }
+
+    protected fun givenNoContract() {
+        doThrow(NotFoundException("contract_not_found")).whenever(contractApi).get(any())
+    }
+
+    protected fun givenContract(userId: Long) {
+        doReturn(ContractApiFixture.createGetContractResponse(userId)).whenever(contractApi).get(1)
+    }
+
+    protected fun givenNoFollower() {
+        doReturn(SearchFollowerResponse()).whenever(followerApi).search(any())
+    }
+
+    protected fun givenUserFollow(userId: Long, followerUserId: Long) {
+        val response = FollowerApiFixtures.createSearchFollowerResponse(userId, followerUserId)
+        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
+        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
+    }
+
+    protected fun givenNoPin() {
+        doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(any())
+    }
+
+    protected fun givenPin(userId: Long = 1, storyId: Long = 21) {
+        val pin = PinApiFixtures.createGetPinResponse(userId, storyId)
+        doReturn(pin).whenever(pinApi).get(userId)
     }
 
     protected fun givenNoLike() {
@@ -160,35 +195,6 @@ abstract class SeleniumTestSupport {
             )
         )
         doReturn(response).whenever(topicApi).all()
-    }
-
-    protected fun givenNoPin() {
-        doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(any())
-    }
-
-    protected fun givenPin(userId: Long = 1, storyId: Long = 21) {
-        val pin = PinApiFixtures.createGetPinResponse(userId, storyId)
-        doReturn(pin).whenever(pinApi).get(userId)
-    }
-
-    protected fun givenNoChannel() {
-        doReturn(SearchChannelResponse()).whenever(channelApi).search(any())
-        doThrow(NotFoundException("channel_not_found")).whenever(channelApi).get(any())
-    }
-
-    protected fun givenNoFollower() {
-        doReturn(SearchFollowerResponse()).whenever(followerApi).search(any())
-    }
-
-    protected fun givenUserFollow(userId: Long, followerUserId: Long) {
-        val response = SearchFollowerResponse(
-            followers = listOf(
-                FollowerApiFixtures.createFolloweDto(userId = userId, followerUserId = followerUserId)
-            )
-        )
-
-        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
-        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
     }
 
     protected fun navigate(url: String) {

@@ -52,8 +52,6 @@ wutsi:
       endpoint: ${wutsi.backend.base-url}/v1/auth
     comment:
       endpoint: ${wutsi.backend.base-url}/v1/comment
-    contract:
-      endpoint: ${wutsi.backend.base-url}/v1/contract
     partner:
       endpoint: ${wutsi.backend.base-url}/v1/partner
     push_subscription:
