@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.partner.service
 
 import com.wutsi.blog.app.page.partner.model.PartnerModel
-import com.wutsi.blog.client.wpp.PartnerDto
+import com.wutsi.blog.client.payment.PartnerDto
 import org.springframework.stereotype.Service
 
 @Service

@@ -11,7 +11,7 @@ class EarningControllerTest : SeleniumTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search.json")
-        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/get.json")
+        givenPartner()
     }
 
     @Test
@@ -37,7 +37,7 @@ class EarningControllerTest : SeleniumTestSupport() {
     @Test
     fun `invite user to join wpp`() {
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
-        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
+        givenNoPartner()
 
         gotoPage()
 
@@ -45,10 +45,10 @@ class EarningControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `never invite contract to join wpp`() {
+    fun `never invite contractor to join wpp`() {
         givenContract(1)
         stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
-        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.NOT_FOUND)
+        givenNoPartner()
 
         gotoPage()
 

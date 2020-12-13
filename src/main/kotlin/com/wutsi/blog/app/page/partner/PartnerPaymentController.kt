@@ -7,7 +7,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.partner.model.PartnerForm
 import com.wutsi.blog.app.page.partner.service.PartnerService
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.blog.client.wpp.MobileProvider
+import com.wutsi.blog.client.payment.MobileProvider
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

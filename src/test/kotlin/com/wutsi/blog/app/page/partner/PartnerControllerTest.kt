@@ -1,22 +1,27 @@
 package com.wutsi.blog.app.page.partner
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.fixtures.PartnerApiFixtures
+import com.wutsi.core.exception.InternalErrorException
 import org.junit.Test
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 
 class PartnerControllerTest : SeleniumTestSupport() {
-    override fun setupWiremock() {
-        super.setupWiremock()
-
-        stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/save.json")
-    }
-
     @Test
     fun anonymousCanAccessWPP() {
         gotoPage(false)
         assertCurrentPageIs(PageName.PARTNER)
+    }
+
+    override fun setupSdk() {
+        super.setupSdk()
+
+        val response = PartnerApiFixtures.createSavePartnerResponse()
+        doReturn(response).whenever(partnerApi).save(any(), any())
     }
 
     @Test
@@ -31,12 +36,13 @@ class PartnerControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.PARTNER_PAYMENT)
         assertElementNotPresent(".alert-danger")
 
-        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/get.json") // Partner saved
         select("#country", 1)
         input("#mobile-number", "664032997")
         select("#mobile-provider", 1)
         input("#full-name", "Ray Sponsible")
         input("#email", "ray.sponsible@gmail.com")
+
+        givenPartner() // Partner Saved
         click("#btn-submit")
         assertCurrentPageIs(PageName.PARTNER_SUCCESS)
     }
@@ -65,7 +71,7 @@ class PartnerControllerTest : SeleniumTestSupport() {
 
     @Test
     fun registerToWPPBackendError() {
-        stub(HttpMethod.POST, "/v1/partner/user/1", HttpStatus.INTERNAL_SERVER_ERROR)
+        doThrow(InternalErrorException("erorr")).whenever(partnerApi).save(any(), any())
 
         gotoPage()
         assertCurrentPageIs(PageName.PARTNER)
@@ -89,7 +95,7 @@ class PartnerControllerTest : SeleniumTestSupport() {
 
     @Test
     fun updateWPPAccount() {
-        stub(HttpMethod.GET, "/v1/partner/user/1", HttpStatus.OK, "v1/partner/get.json")
+        givenPartner()
 
         gotoPage()
         assertCurrentPageIs(PageName.PARTNER)

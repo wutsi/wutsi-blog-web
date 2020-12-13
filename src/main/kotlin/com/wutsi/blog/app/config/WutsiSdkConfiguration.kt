@@ -5,6 +5,7 @@ import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
+import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.Sdk
 import com.wutsi.blog.sdk.ShareApi
@@ -34,7 +35,10 @@ class WutsiSdkConfiguration(
     fun likeApi(): LikeApi = sdk().likeApi()
 
     @Bean
-    fun newsletter(): NewsletterApi = sdk().newsletterApi()
+    fun newsletterApi(): NewsletterApi = sdk().newsletterApi()
+
+    @Bean
+    fun partnerApi(): PartnerApi = sdk().partnerApi()
 
     @Bean
     fun pinApi(): PinApi = sdk().pinApi()

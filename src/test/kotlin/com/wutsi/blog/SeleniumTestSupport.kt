@@ -24,6 +24,7 @@ import com.wutsi.blog.client.like.SearchLikeResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
 import com.wutsi.blog.fixtures.ContractApiFixture
 import com.wutsi.blog.fixtures.FollowerApiFixtures
+import com.wutsi.blog.fixtures.PartnerApiFixtures
 import com.wutsi.blog.fixtures.PinApiFixtures
 import com.wutsi.blog.fixtures.TopicApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
@@ -31,6 +32,7 @@ import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
+import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.ShareApi
 import com.wutsi.blog.sdk.TagApi
@@ -80,6 +82,7 @@ abstract class SeleniumTestSupport {
     @MockBean protected lateinit var followerApi: FollowerApi
     @MockBean protected lateinit var likeApi: LikeApi
     @MockBean protected lateinit var newsletterApi: NewsletterApi
+    @MockBean protected lateinit var partnerApi: PartnerApi
     @MockBean protected lateinit var pinApi: PinApi
     @MockBean protected lateinit var shareApi: ShareApi
     @MockBean protected lateinit var tagApi: TagApi
@@ -169,6 +172,23 @@ abstract class SeleniumTestSupport {
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
     }
+
+    protected fun givenNoPartner() {
+        doThrow(NotFoundException("partner_not_found")).whenever(partnerApi).get(any())
+    }
+
+    protected fun givenPartner() {
+        val partner = PartnerApiFixtures.createPartnerDto(
+            country = "CM",
+            mobileNumber = "664032997",
+            fullName = "Ray Sponsible",
+            userId = 1,
+            email = "ray.sponsible@gmail.com"
+        )
+        val response = PartnerApiFixtures.createGetPartnerResponse(partner)
+        doReturn(response).whenever(partnerApi).get(any())
+    }
+
 
     protected fun givenNoPin() {
         doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(any())

@@ -1,6 +1,6 @@
 package com.wutsi.blog.app.page.partner.model
 
-import com.wutsi.blog.client.wpp.MobileProvider
+import com.wutsi.blog.client.payment.MobileProvider
 
 data class PartnerForm(
     val countryCode: String = "",
