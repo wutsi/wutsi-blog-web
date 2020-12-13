@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.component.comment.service
 
-import com.wutsi.blog.app.backend.CommentBackend
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.component.comment.model.CommentCountModel
 import com.wutsi.blog.app.component.comment.model.CommentModel
@@ -9,11 +8,12 @@ import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.client.comment.CreateCommentRequest
 import com.wutsi.blog.client.comment.SearchCommentRequest
 import com.wutsi.blog.client.user.SearchUserRequest
+import com.wutsi.blog.sdk.CommentApi
 import org.springframework.stereotype.Service
 
 @Service
 class CommentService(
-    private val backend: CommentBackend,
+    private val api: CommentApi,
     private val mapper: CommentMapper,
     private val users: UserService,
     private val requestContext: RequestContext
@@ -27,13 +27,13 @@ class CommentService(
     }
 
     fun count(request: SearchCommentRequest): List<CommentCountModel> {
-        val counts = backend.count(request).counts
+        val counts = api.count(request).counts
 
         return counts.map { mapper.toCommentCountModel(it) }
     }
 
     fun list(storyId: Long, limit: Int = 50, offset: Int = 0): List<CommentModel> {
-        val comments = backend.search(
+        val comments = api.search(
             SearchCommentRequest(
                 storyIds = listOf(storyId),
                 limit = limit,
@@ -54,7 +54,7 @@ class CommentService(
     }
 
     fun create(form: CreateCommentForm): Long {
-        return backend.create(
+        return api.create(
             CreateCommentRequest(
                 storyId = form.storyId,
                 text = form.text,

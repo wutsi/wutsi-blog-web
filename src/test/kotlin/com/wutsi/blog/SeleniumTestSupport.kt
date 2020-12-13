@@ -16,18 +16,23 @@ import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.client.channel.SearchChannelResponse
+import com.wutsi.blog.client.comment.CountCommentResponse
+import com.wutsi.blog.client.comment.CreateCommentResponse
+import com.wutsi.blog.client.comment.SearchCommentResponse
 import com.wutsi.blog.client.follower.SearchFollowerRequest
 import com.wutsi.blog.client.follower.SearchFollowerResponse
 import com.wutsi.blog.client.like.CountLikeResponse
 import com.wutsi.blog.client.like.SearchLikeRequest
 import com.wutsi.blog.client.like.SearchLikeResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
+import com.wutsi.blog.fixtures.CommentApiFixtures
 import com.wutsi.blog.fixtures.ContractApiFixture
 import com.wutsi.blog.fixtures.FollowerApiFixtures
 import com.wutsi.blog.fixtures.PartnerApiFixtures
 import com.wutsi.blog.fixtures.PinApiFixtures
 import com.wutsi.blog.fixtures.TopicApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
+import com.wutsi.blog.sdk.CommentApi
 import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
@@ -77,16 +82,38 @@ abstract class SeleniumTestSupport {
 
     protected lateinit var driver: WebDriver
 
-    @MockBean protected lateinit var channelApi: ChannelApi
-    @MockBean protected lateinit var contractApi: ContractApi
-    @MockBean protected lateinit var followerApi: FollowerApi
-    @MockBean protected lateinit var likeApi: LikeApi
-    @MockBean protected lateinit var newsletterApi: NewsletterApi
-    @MockBean protected lateinit var partnerApi: PartnerApi
-    @MockBean protected lateinit var pinApi: PinApi
-    @MockBean protected lateinit var shareApi: ShareApi
-    @MockBean protected lateinit var tagApi: TagApi
-    @MockBean protected lateinit var topicApi: TopicApi
+    @MockBean
+    protected lateinit var channelApi: ChannelApi
+
+    @MockBean
+    protected lateinit var commentApi: CommentApi
+
+    @MockBean
+    protected lateinit var contractApi: ContractApi
+
+    @MockBean
+    protected lateinit var followerApi: FollowerApi
+
+    @MockBean
+    protected lateinit var likeApi: LikeApi
+
+    @MockBean
+    protected lateinit var newsletterApi: NewsletterApi
+
+    @MockBean
+    protected lateinit var partnerApi: PartnerApi
+
+    @MockBean
+    protected lateinit var pinApi: PinApi
+
+    @MockBean
+    protected lateinit var shareApi: ShareApi
+
+    @MockBean
+    protected lateinit var tagApi: TagApi
+
+    @MockBean
+    protected lateinit var topicApi: TopicApi
 
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
@@ -126,8 +153,6 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/auth", HttpStatus.OK, "v1/session/login.json")
         stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
 
-        stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count.json")
-
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
         stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
@@ -143,6 +168,7 @@ abstract class SeleniumTestSupport {
 
     protected fun setupSdk() {
         givenNoChannel()
+        givenNoComment()
         givenNoContract()
         givenNoFollower()
         givenNoLike()
@@ -203,6 +229,35 @@ abstract class SeleniumTestSupport {
         doReturn(CountLikeResponse()).whenever(likeApi).count(any<SearchLikeRequest>())
     }
 
+    protected fun givenNoComment() {
+        doReturn(SearchCommentResponse()).whenever(commentApi).search(any())
+        doReturn(CountCommentResponse()).whenever(commentApi).count(any())
+        doReturn(CreateCommentResponse(commentId = System.currentTimeMillis())).whenever(commentApi).create(any())
+    }
+
+    protected fun givenComments(storyId: Long, count: Int) {
+        val range = 1..count
+        val search = SearchCommentResponse(
+            comments = range.map {
+                CommentApiFixtures.createCommentDto(
+                    userId = it.toLong(),
+                    storyId = storyId
+                )
+            }.toList()
+        )
+        doReturn(search).whenever(commentApi).search(any())
+
+        val response = CountCommentResponse(
+            counts = listOf(
+                CommentApiFixtures.createCommentCountDto(
+                    storyId = storyId,
+                    value = count.toLong()
+                )
+            )
+        )
+        doReturn(response).whenever(commentApi).count(any())
+    }
+
     protected fun givenTopics() {
         val response = SearchTopicResponse(
             topics = listOf(
@@ -219,6 +274,7 @@ abstract class SeleniumTestSupport {
     protected fun navigate(url: String) {
         driver.get(url)
     }
+
     protected fun login() {
         navigate(url)
 

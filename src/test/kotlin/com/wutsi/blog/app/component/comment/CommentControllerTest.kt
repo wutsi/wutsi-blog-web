@@ -1,7 +1,12 @@
 package com.wutsi.blog.app.component.comment
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.comment.CountCommentResponse
+import com.wutsi.blog.fixtures.CommentApiFixtures
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -10,16 +15,28 @@ class CommentControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/comment/search", HttpStatus.OK, "v1/comment/search.json")
-        stub(HttpMethod.POST, "/v1/comment", HttpStatus.OK, "v1/comment/create.json")
-
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
 
         stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
     }
 
+    override fun setupSdk() {
+        super.setupSdk()
+
+        givenComments(20, 3)
+    }
+
     @Test
     fun `blog page showing comment count`() {
+        val response = CountCommentResponse(
+            counts = listOf(
+                CommentApiFixtures.createCommentCountDto(storyId = 20, value = 3L),
+                CommentApiFixtures.createCommentCountDto(storyId = 21, value = 5L),
+                CommentApiFixtures.createCommentCountDto(storyId = 22, value = 1L)
+            )
+        )
+        doReturn(response).whenever(commentApi).count(any())
+
         driver.get("$url/@/ray.sponsible")
 
         Thread.sleep(1000)
@@ -31,6 +48,7 @@ class CommentControllerTest : SeleniumMobileTestSupport() {
         assertElementText(".comment-badge #comment-count-25", "")
         assertElementText(".comment-badge #comment-count-26", "")
     }
+
 
     @Test
     fun `reader has comment icon with count`() {
@@ -44,7 +62,7 @@ class CommentControllerTest : SeleniumMobileTestSupport() {
 
     @Test
     fun `reader has comment icon`() {
-        stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_0.json")
+        givenNoComment()
         driver.get("$url/read/20/test")
 
         Thread.sleep(1000)
@@ -84,8 +102,7 @@ class CommentControllerTest : SeleniumMobileTestSupport() {
         click(".comment-widget textarea")
         input(".comment-widget  textarea", "new comment")
 
-        stub(HttpMethod.POST, "/v1/comment/search", HttpStatus.OK, "v1/comment/search_4_comments.json")
-        stub(HttpMethod.POST, "/v1/comment/count", HttpStatus.OK, "v1/comment/count_4.json")
+        givenComments(20, 4)
         click(".comment-widget .btn-submit")
 
         Thread.sleep(1000)
