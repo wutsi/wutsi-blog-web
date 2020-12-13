@@ -46,7 +46,7 @@ class PartnerService(
         }
         api.save(
             user.id,
-            SavePartnerRequest (
+            SavePartnerRequest(
                 fullName = form.fullName,
                 countryCode = form.countryCode,
                 mobileProvider = form.mobileProvider,

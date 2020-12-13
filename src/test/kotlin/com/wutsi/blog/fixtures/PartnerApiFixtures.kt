@@ -16,7 +16,9 @@ object PartnerApiFixtures {
         mobileNumber = mobileNumber
     )
 
-    fun createGetPartnerResponse(partner: PartnerDto) = GetPartnerResponse(partner=partner)
+    fun createGetPartnerResponse(partner: PartnerDto) = GetPartnerResponse(
+        partner = partner
+    )
 
     fun createSavePartnerResponse() = SavePartnerResponse(
         partnerId = System.currentTimeMillis()
