@@ -44,12 +44,15 @@ class PartnerService(
         if (!util.isValidNumber(mobileNumber)) {
             throw NumberParseException(NumberParseException.ErrorType.NOT_A_NUMBER, form.mobileNumber)
         }
-        api.save(user.id, SavePartnerRequest(
-            fullName = form.fullName,
-            countryCode = form.countryCode,
-            mobileProvider = form.mobileProvider,
-            mobileNumber = util.format(mobileNumber, E164),
-            email = form.email
-        ))
+        api.save(
+            user.id,
+            SavePartnerRequest (
+                fullName = form.fullName,
+                countryCode = form.countryCode,
+                mobileProvider = form.mobileProvider,
+                mobileNumber = util.format(mobileNumber, E164),
+                email = form.email
+            )
+        )
     }
 }

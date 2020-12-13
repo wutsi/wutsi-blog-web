@@ -189,7 +189,6 @@ abstract class SeleniumTestSupport {
         doReturn(response).whenever(partnerApi).get(any())
     }
 
-
     protected fun givenNoPin() {
         doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(any())
     }
