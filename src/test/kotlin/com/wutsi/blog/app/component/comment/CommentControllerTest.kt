@@ -49,7 +49,6 @@ class CommentControllerTest : SeleniumMobileTestSupport() {
         assertElementText(".comment-badge #comment-count-26", "")
     }
 
-
     @Test
     fun `reader has comment icon with count`() {
         driver.get("$url/read/20/test")
