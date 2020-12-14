@@ -7,5 +7,7 @@ data class PublishForm(
     val summary: String = "",
     val topicId: String = "",
     val tags: List<String> = emptyList(),
-    val socialMediaMessage: String = ""
+    val socialMediaMessage: String = "",
+    val publishNow: Boolean = false,
+    val scheduledPublishDate: String = ""
 )

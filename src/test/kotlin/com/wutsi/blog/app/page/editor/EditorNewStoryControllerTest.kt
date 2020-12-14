@@ -7,6 +7,8 @@ import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
 import org.junit.Test
 import org.mockito.Mockito
+import org.openqa.selenium.By
+import org.openqa.selenium.Keys
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -66,6 +68,42 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         click("#btn-read")
         assertCurrentPageIs(PageName.READ)
+    }
+
+    @Test
+    fun `user can create and schedule when to publish new story`() {
+        gotoPage(true)
+
+        assertElementHasClass("#story-load-error", "hidden")
+        assertElementHasNotClass("#story-editor", "hidden")
+
+        input("#title", "Hello world")
+        click(".ce-paragraph")
+        input(".ce-paragraph", "This is an example of paragraph containing multiple data...")
+        click("#btn-publish")
+
+        Thread.sleep(1000)
+        assertCurrentPageIs(PageName.EDITOR_READABILITY)
+        click("#btn-next")
+
+        assertCurrentPageIs(PageName.EDITOR_TAG)
+        assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
+        assertElementNotPresent(".alert-danger")
+        select("#topic-id", 1)
+        input("#tagline", "This is tagline")
+        input("#summary", "This is summary")
+        input("#socialMediaMessage", "This is awesome!! #WutsiRocks")
+        click("#publish-later-radio")
+
+        driver.findElement(By.cssSelector("#scheduled-publish-date")).sendKeys(
+            "2030",
+            Keys.TAB,
+            "05",
+            "17"
+        )
+        click("#btn-publish")
+
+        assertCurrentPageIs(PageName.STORY_DRAFT)
     }
 
     @Test

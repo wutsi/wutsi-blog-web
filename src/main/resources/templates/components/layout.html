@@ -6,73 +6,75 @@
 <!-- Header            -->
 <!-- ################# -->
 <div th:fragment="head" th:remove="tag">
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
 
-    <link rel="manifest" href="/manifest.json" th:if="${toggles.pwa}"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" />
-    <meta name="theme-color" content="#f8f8f8">
-    <meta name="apple-mobile-web-app-status-bar" content="#f8f8f8" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Wutsi" />
-    <meta name="mobile-web-app-capable" content="yes" />
+    <link href="/manifest.json" rel="manifest" th:if="${toggles.pwa}"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'"/>
+    <meta content="#f8f8f8" name="theme-color">
+    <meta content="#f8f8f8" name="apple-mobile-web-app-status-bar"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="Wutsi" name="apple-mobile-web-app-title"/>
+    <meta content="yes" name="mobile-web-app-capable"/>
 
     <meta name="wutsi:page_name" th:content="${page.name}"/>
-    <meta name="wutsi:story_id"  th:content="${story.id}" th:if="${story}"/>
-    <meta name="wutsi:hit_id"  th:content="${hitId}" th:if="${hitId}"/>
+    <meta name="wutsi:story_id" th:content="${story.id}" th:if="${story}"/>
+    <meta name="wutsi:hit_id" th:content="${hitId}" th:if="${hitId}"/>
 
-    <title th:text="${page.title}" th:if="${page.title} == 'Wutsi'"></title>
-    <title th:text="${page.title} + ' | Wutsi'" th:if="${page.title} != 'Wutsi'"></title>
+    <title th:if="${page.title} == 'Wutsi'" th:text="${page.title}"></title>
+    <title th:if="${page.title} != 'Wutsi'" th:text="${page.title} + ' | Wutsi'"></title>
 
-    <meta name="description" th:content="${page.description}" />
+    <meta name="description" th:content="${page.description}"/>
 
-    <meta property="og:site_name" th:content="Wutsi" />
-    <meta property="og:type" th:content="${page.type}" />
-    <meta property="og:url" th:content="${page.url}" />
-    <meta property="og:title" th:content="${page.title}" />
-    <meta property="og:description" th:content="${page.description}" />
-    <meta property="og:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}" />
-    <meta property="article:author" th:content="${page.author}" th:if="${page.author}" />
-    <meta property="article:published_time" th:content="${page.publishedTime}" th:if="${page.publishedTime}" />
-    <meta property="article:modified_time" th:content="${page.modifiedTime}" th:if="${page.modifiedTime}" />
-    <meta property="article:tag" th:content="${tag}" th:each="tag : ${page.tags}" />
+    <meta property="og:site_name" th:content="Wutsi"/>
+    <meta property="og:type" th:content="${page.type}"/>
+    <meta property="og:url" th:content="${page.url}"/>
+    <meta property="og:title" th:content="${page.title}"/>
+    <meta property="og:description" th:content="${page.description}"/>
+    <meta property="og:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}"/>
+    <meta property="article:author" th:content="${page.author}" th:if="${page.author}"/>
+    <meta property="article:published_time" th:content="${page.publishedTime}" th:if="${page.publishedTime}"/>
+    <meta property="article:modified_time" th:content="${page.modifiedTime}" th:if="${page.modifiedTime}"/>
+    <meta property="article:tag" th:content="${tag}" th:each="tag : ${page.tags}"/>
 
-    <meta name="twitter:card" th:content="${page.imageUrl} ? 'summary_large_image' : 'summary'" />
-    <meta name="twitter:site" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}" />
-    <meta name="twitter:creator" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}" />
-    <meta name="twitter:title" th:content="${page.title}" />
-    <meta name="twitter:description" th:content="${page.description}" />
-    <meta name="twitter:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}" />
+    <meta name="twitter:card" th:content="${page.imageUrl} ? 'summary_large_image' : 'summary'"/>
+    <meta name="twitter:site" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}"/>
+    <meta name="twitter:creator" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}"/>
+    <meta name="twitter:title" th:content="${page.title}"/>
+    <meta name="twitter:description" th:content="${page.description}"/>
+    <meta name="twitter:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}"/>
 
-    <meta name="facebook:app_id" th:content="${page.facebookAppId}" />
+    <meta name="facebook:app_id" th:content="${page.facebookAppId}"/>
 
-    <meta name="_csrf" th:content="${_csrf.token}" th:if="${_csrf}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"  th:if="${_csrf}" />
+    <meta name="_csrf" th:content="${_csrf.token}" th:if="${_csrf}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" th:if="${_csrf}"/>
 
-    <meta name="robots" th:content="${page.robots}" />
+    <meta name="robots" th:content="${page.robots}"/>
 
-    <link rel="canonical" th:href="${page.canonicalUrl}" th:if="${page.canonicalUrl}" />
+    <link rel="canonical" th:href="${page.canonicalUrl}" th:if="${page.canonicalUrl}"/>
 
-    <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/wutsi/img/favicon.ico'" />
+    <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/wutsi/img/favicon.ico'"/>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet"/>
 
-    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-22.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-96.css'" />
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-97.css'"/>
 
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
 
-    <script type="application/ld+json" th:utext="${page.schemas}" th:if="${page.schemas}"></script>
+    <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
 
-    <link rel="alternate" type="application/rss+xml" th:href="${page.rssUrl}" th:if="${page.rssUrl}"/>
+    <link rel="alternate" th:href="${page.rssUrl}" th:if="${page.rssUrl}" type="application/rss+xml"/>
 </div>
 
 
@@ -98,13 +100,13 @@
                 <a class="text-small" href="/privacy" th:text="#{label.privacy}">Privacy</a>
             </div>
             <div class="col-12 col-md-3 text-right follow-us">
-                <a target="_new" href="https://www.facebook.com/2502022716689613">
+                <a href="https://www.facebook.com/2502022716689613" target="_new">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a target="_new" href="https://www.twitter.com/wutsi2">
+                <a href="https://www.twitter.com/wutsi2" target="_new">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a target="_new" href="https://www.linkedin.com/company/wutsi-inc">
+                <a href="https://www.linkedin.com/company/wutsi-inc" target="_new">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </div>
@@ -119,41 +121,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             wutsi.domReady();
         });
     </script>
 
-    <script id="pwa-js" th:inline="javascript" th:if="${toggles.pwa}">
-    /*<![CDATA[*/
+    <script id="pwa-js" th:if="${toggles.pwa}" th:inline="javascript">
+        /*<![CDATA[*/
 
         const pushNotificationEnabled = /*[[${toggles.pwaPushNotification}]]*/'false';
         const showNotificationOptIn = /*[[${page.showNotificationOptIn}]]*/'false';
 
-        if('serviceWorker' in navigator){
+        if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('/sw.js')
-                .then(function(reg) {
+                .then(function (reg) {
                     console.log('Service Worker registered', reg);
 
                     // Upgrade
-                    reg.addEventListener('updatefound', function() {
+                    reg.addEventListener('updatefound', function () {
                         console.log('Upgrading Service Worker...');
 
                         const newWorker = reg.installing;
-                        newWorker.addEventListener('statechange', function() {
+                        newWorker.addEventListener('statechange', function () {
                             // Has service worker state changed?
                             switch (newWorker.state) {
                                 case 'installed':
                                     reg.update();
                                     console.log('Service Worker updated');
                                     break;
-                                }
+                            }
                         });
                     });
 
                     // Push Notification
-                    if (pushNotificationEnabled){
+                    if (pushNotificationEnabled) {
                         const firebaseVapidKey = /*[[${page.firebaseConfig.publicVapidKey}]]*/'';
                         const firebaseConfig = {
                             apiKey: /*[[${page.firebaseConfig.apiKey}]]*/ '',
@@ -170,7 +172,7 @@
                 });
         }
 
-    /*]]>*/
+        /*]]>*/
     </script>
     <script id="a2hs-js" src="/a2hs.js"></script>
 </footer>
@@ -184,17 +186,17 @@
          th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" href="/">
-            <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" alt="Wutsi" title="Wutsi"/></a>
+            <img alt="Wutsi" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" title="Wutsi"/></a>
 
 
         <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
             <li th:replace="components/layout :: navbar-dropdown"></li>
 
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
-                <a id="navbar-create" class="btn btn-primary" href="/create" th:text="#{button.create_blog}">Create your Blog</a>
+                <a class="btn btn-primary" href="/create" id="navbar-create" th:text="#{button.create_blog}">Create your Blog</a>
             </li>
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
-                <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
+                <a class="btn btn-light" href="/login" id="navbar-login" rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
         </ul>
     </nav>
@@ -206,16 +208,16 @@
 <!-- ################# -->
 <div th:fragment="navbar-blog(blog, showFollowButton, returnUrl)">
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-blog"
-        th:classappend="${superUser} ? super-user"
+         th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" th:href="${blog.slug}">
-            <img class="blog-logo" th:src="${blog.pictureUrl}" th:alt="${blog.fullName}" th:title="${blog.fullName}" />
+            <img class="blog-logo" th:alt="${blog.fullName}" th:src="${blog.pictureUrl}" th:title="${blog.fullName}"/>
             <span class="blog-name" th:text="${blog.fullName}">Title</span>
         </a>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.login'}">
-                <a id="navbar-login" class="btn btn-light" href="/login"  rel="nofollow" th:text="#{button.login}">Login</a>
+                <a class="btn btn-light" href="/login" id="navbar-login" rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
             <li class="nav-item" th:if="${toggles.follow} AND ${showFollowButton} AND ${page.name != 'page.login'}">
                 <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, false)"></div>
@@ -226,12 +228,12 @@
     <div class="navbar-margin">&nbsp;</div>
 </div>
 
-<li th:fragment="navbar-dropdown" class="nav-item dropdown" th:if="${user}">
-    <a class="nav-link user btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<li class="nav-item dropdown" th:fragment="navbar-dropdown" th:if="${user}">
+    <a aria-expanded="false" aria-haspopup="true" class="nav-link user btn btn-light" data-toggle="dropdown" href="#" id="navbarDropdown" role="button">
         <i class="fas fa-caret-down"></i>
     </a>
 
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <div aria-labelledby="navbarDropdown" class="dropdown-menu">
         <div class="dropdown-item-user flex">
             <a th:href="${user.slug}" th:title="${user.fullName}">
                 <img th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" th:title="${user.fullName}"/>
@@ -244,120 +246,120 @@
         </div>
         <div class="dropdown-divider"></div>
 
-        <a id="navbar-draft" class="dropdown-item" href="/me/draft" rel="nofollow" th:text="#{navbar.my-stories}" th:if="${user.blog}">My Stories</a>
-        <a id="navbar-editor" class="dropdown-item" href="/editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
-        <a id="navbar-syndicate" class="dropdown-item" href="/me/syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
-        <a id="navbar-stats" class="dropdown-item" href="/stats" rel="nofollow" th:text="#{navbar.stats}" th:if="${user.blog}">Stats</a>
+        <a class="dropdown-item" href="/me/draft" id="navbar-draft" rel="nofollow" th:if="${user.blog}" th:text="#{navbar.my-stories}">My Stories</a>
+        <a class="dropdown-item" href="/editor" id="navbar-editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
+        <a class="dropdown-item" href="/me/syndicate" id="navbar-syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
+        <a class="dropdown-item" href="/stats" id="navbar-stats" rel="nofollow" th:if="${user.blog}" th:text="#{navbar.stats}">Stats</a>
 
         <div class="dropdown-divider" th:if="${user.blog} AND (${toggles.wpp} OR ${toggles.earning})"></div>
-        <a id="navbar-wpp" class="dropdown-item" href="/partner" th:text="#{navbar.wpp}" th:if="${toggles.wpp} AND ${user.blog}">Wutsi Partner Program</a>
-        <a id="navbar-earnings" class="dropdown-item" href="/me/earning" th:text="#{navbar.earnings}" th:if="${toggles.earning} AND ${user.blog}">Earnings</a>
+        <a class="dropdown-item" href="/partner" id="navbar-wpp" th:if="${toggles.wpp} AND ${user.blog}" th:text="#{navbar.wpp}">Wutsi Partner Program</a>
+        <a class="dropdown-item" href="/me/earning" id="navbar-earnings" th:if="${toggles.earning} AND ${user.blog}"
+           th:text="#{navbar.earnings}">Earnings</a>
 
         <div class="dropdown-divider"></div>
-        <a id="navbar-settings" class="dropdown-item" href="/me/settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
+        <a class="dropdown-item" href="/me/settings" id="navbar-settings" rel="nofollow" th:text="#{navbar.settings}">Settings</a>
 
         <div class="dropdown-divider"></div>
-        <a  id="navbar-runas"class="dropdown-item" href="/login/as" rel="nofollow" th:if="${superUser}">Run As</a>
-        <a  id="navbar-logout"class="dropdown-item" href="/logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
+        <a class="dropdown-item" href="/login/as" id="navbar-runas" rel="nofollow" th:if="${superUser}">Run As</a>
+        <a class="dropdown-item" href="/logout" id="navbar-logout" rel="nofollow" th:text="#{navbar.logout}">Logout</a>
     </div>
 </li>
 
 <div th:fragment="navbar-super-user-banner">
-    <div id="super-user-banner" class="text-center" th:if="${superUser}">
+    <div class="text-center" id="super-user-banner" th:if="${superUser}">
         <b>SUPER USER MODE</b>
         <div>With Great Power comes Great Responsabilities</div>
     </div>
-<div/>
+    <div/>
 
 
+    <!-- ################# -->
+    <!-- Announcement      -->
+    <!-- ################# -->
+    <div th:fragment="announcement">
+        <div id="wutsi-announcement-container" th:if="${toggles.announcement}">
+            <div aria-atomic="true" aria-live="assertive" class="toast" data-autohide="false" id="wutsi-announcement" role="alert">
+                <div class="toast-header">
+                    <img class="rounded mr-2" height="16" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" width="16">
+                    <b class="mr-auto title" th:text="#{label.notification}">Wutsi</b>
 
-<!-- ################# -->
-<!-- Announcement      -->
-<!-- ################# -->
-<div th:fragment="announcement">
-    <div id="wutsi-announcement-container" th:if="${toggles.announcement}">
-        <div id="wutsi-announcement" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
-            <div class="toast-header">
-                <img th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" class="rounded mr-2" width="16" height="16">
-                <b class="mr-auto title" th:text="#{label.notification}">Wutsi</b>
-
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body flex">
-                <img width="32" height="32" class="hidden margin-right"/>
-                <div>
-                    <div class="message mb-1">Message</div>
-                    <div class="action" style="display: none">
-                        <a class="btn btn-sm btn-primary" href="#" th:text="#{button.learn_more}">Learn More...</a>
+                    <button aria-label="Close" class="ml-2 mb-1 close" data-dismiss="toast" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body flex">
+                    <img class="hidden margin-right" height="32" width="32"/>
+                    <div>
+                        <div class="message mb-1">Message</div>
+                        <div class="action" style="display: none">
+                            <a class="btn btn-sm btn-primary" href="#" th:text="#{button.learn_more}">Learn More...</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script id="wutsi-announcement-js" th:inline="javascript" th:if="${toggles.announcement}">
-    /*<![CDATA[*/
+        <script id="wutsi-announcement-js" th:if="${toggles.announcement}" th:inline="javascript">
+            /*<![CDATA[*/
 
-        $(document).ready(function(){
-            const page = /*[[${page.name}]]*/'';
-            wutsi.httpGet('/announcement?page=' + page, true).then(function(data){
-                console.log('announcement', data);
-                if (data.show){
-                    const announcement = data.announcement;
+            $(document).ready(function () {
+                const page = /*[[${page.name}]]*/'';
+                wutsi.httpGet('/announcement?page=' + page, true).then(function (data) {
+                    console.log('announcement', data);
+                    if (data.show) {
+                        const announcement = data.announcement;
 
-                    $('#wutsi-announcement .toast-header .title').text(announcement.title);
-                    $('#wutsi-announcement .toast-body .message').html(announcement.message);
-                    if (announcement.actionUrl) {
-                        $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
-                        $('#wutsi-announcement .toast-body .action a').text(announcement.actionText);
-                        $('#wutsi-announcement .toast-body .action').show();
+                        $('#wutsi-announcement .toast-header .title').text(announcement.title);
+                        $('#wutsi-announcement .toast-body .message').html(announcement.message);
+                        if (announcement.actionUrl) {
+                            $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
+                            $('#wutsi-announcement .toast-body .action a').text(announcement.actionText);
+                            $('#wutsi-announcement .toast-body .action').show();
+                        }
+
+                        if (announcement.autoHide) {
+                            $('#wutsi-announcement').attr('auto-hide', 'true');
+                            $('#wutsi-announcement').attr('delay', announcement.delay);
+                        } else {
+                            $('#wutsi-announcement').removeAttr('auto-hide');
+                            $('#wutsi-announcement').removeAttr('delay');
+                        }
+
+                        if (announcement.iconUrl) {
+                            const assetUrl = /*[[${page.assetUrl}]]*/'';
+                            $('#wutsi-announcement .toast-body img').attr('src', assetUrl + announcement.iconUrl);
+                            $('#wutsi-announcement .toast-body img').removeClass('hidden');
+                        } else {
+                            $('#wutsi-announcement .toast-body img').addClass('hidden');
+                        }
+
+                        console.log('showing announcement', announcement.name);
+                        $('.toast').toast('show');
+
+                        $('#wutsi-announcement').on('shown.bs.toast', function () {
+                            wutsi.track('announcement_' + announcement.name + '_show');
+                        })
+                        $('#wutsi-announcement .btn').click(function () {
+                            wutsi.track('announcement_' + announcement.name + '_click');
+                        })
                     }
-
-                    if (announcement.autoHide) {
-                        $('#wutsi-announcement').attr('auto-hide', 'true');
-                        $('#wutsi-announcement').attr('delay', announcement.delay);
-                    } else {
-                        $('#wutsi-announcement').removeAttr('auto-hide');
-                        $('#wutsi-announcement').removeAttr('delay');
-                    }
-
-                    if (announcement.iconUrl) {
-                        const assetUrl = /*[[${page.assetUrl}]]*/'';
-                        $('#wutsi-announcement .toast-body img').attr('src', assetUrl + announcement.iconUrl);
-                        $('#wutsi-announcement .toast-body img').removeClass('hidden');
-                    } else {
-                        $('#wutsi-announcement .toast-body img').addClass('hidden');
-                    }
-
-                    console.log('showing announcement', announcement.name);
-                    $('.toast').toast('show');
-
-                    $('#wutsi-announcement').on('shown.bs.toast', function () {
-                        wutsi.track('announcement_' + announcement.name + '_show');
-                    })
-                    $('#wutsi-announcement .btn').click(function () {
-                        wutsi.track('announcement_' + announcement.name + '_click');
-                    })
-                }
+                });
             });
-        });
 
-    /*]]>*/
-    </script>
-</div>
-
-<div th:fragment="next-action(name, icon, text, url, done)" class="next-action">
-    <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
-        <img th:src="${page.assetUrl} + ${icon}" /></a>
-    <a class="todo" th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
-        <span th:text="${text}">Next Action Text</span></a>
-
-    <div class="done" th:if="${done}">
-        <img th:src="${page.assetUrl} + '/assets/wutsi/img/check.png'" />
-        <span th:text="${text}">Next Action Text</span>
+            /*]]>*/
+        </script>
     </div>
-</div>
+
+    <div class="next-action" th:fragment="next-action(name, icon, text, url, done)">
+        <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
+            <img th:src="${page.assetUrl} + ${icon}"/></a>
+        <a class="todo" th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
+            <span th:text="${text}">Next Action Text</span></a>
+
+        <div class="done" th:if="${done}">
+            <img th:src="${page.assetUrl} + '/assets/wutsi/img/check.png'"/>
+            <span th:text="${text}">Next Action Text</span>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -28,6 +28,7 @@ import com.wutsi.editorjs.json.EJSJsonReader
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Service
 import java.io.StringWriter
+import java.text.SimpleDateFormat
 
 @Service
 class StoryService(
@@ -116,7 +117,8 @@ class StoryService(
                 summary = editor.summary,
                 topidId = editor.topicId.toLong(),
                 tags = editor.tags,
-                socialMediaMessage = editor.socialMediaMessage
+                socialMediaMessage = editor.socialMediaMessage,
+                scheduledPublishDateTime = if (editor.publishNow) null else SimpleDateFormat("yyyy-MM-dd").parse(editor.scheduledPublishDate)
             )
         )
     }

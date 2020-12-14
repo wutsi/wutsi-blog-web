@@ -40,5 +40,7 @@ data class StoryModel(
     val wppStatus: WPPStatus? = null,
     val socialMediaMessage: String? = null,
     val pinned: Boolean = false,
-    val pinId: Long = -1
+    val pinId: Long = -1,
+    val scheduledPublishDateTime: String? = null,
+    val scheduledPublishDateTimeAsDate: Date? = null
 )

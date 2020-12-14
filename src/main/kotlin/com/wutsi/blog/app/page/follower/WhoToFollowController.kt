@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.page.follower
 
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.common.service.ViewService
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam
 class WhoToFollowController(
     private val followerService: FollowerService,
     private val userService: UserService,
-    private val viewService: ViewService
+    private val viewService: ViewService,
+    private val requestContext: RequestContext
 ) {
     @GetMapping()
     fun add(
@@ -50,9 +52,16 @@ class WhoToFollowController(
         }
     }
 
-    private fun findAuthors(followingUserIds: List<Long>, limit: Int): List<UserModel> =
-        userService.search(SearchUserRequest(blog = true))
-            .filter { !followingUserIds.contains(it.id) }
+    private fun findAuthors(followingUserIds: List<Long>, limit: Int): List<UserModel> {
+        val userId = requestContext.currentUser()?.id
+        val users = userService.search(
+            SearchUserRequest(
+                blog = true
+            )
+        )
+
+        return users.filter { !followingUserIds.contains(it.id) && it.id != userId }
             .shuffled()
             .take(limit)
+    }
 }

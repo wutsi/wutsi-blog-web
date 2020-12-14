@@ -2,37 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div  th:fragment="toolbar">
-    <a id="toolbar-syndicate" class="btn btn-light float-right" href="/me/syndicate" th:text="#{button.syndicate_story}">Syndicate Story</a>
-    <a id="toolbar-create" class="btn btn-primary margin-right float-right" href="/editor" th:text="#{button.create_story}">New Story</a>
+<div th:fragment="toolbar">
+    <a class="btn btn-light float-right" href="/me/syndicate" id="toolbar-syndicate" th:text="#{button.syndicate_story}">Syndicate Story</a>
+    <a class="btn btn-primary margin-right float-right" href="/editor" id="toolbar-create" th:text="#{button.create_story}">New Story</a>
     <div class="clearfix"></div>
 </div>
 
-<ul th:fragment="tabs(status, totalDraftStories, totalPublishedStories)" class="nav nav-tabs">
+<ul class="nav nav-tabs" th:fragment="tabs(status, totalDraftStories, totalPublishedStories)">
     <li class="nav-item">
-        <a id="tab-draft" class="nav-link" href="/me/draft"  th:classappend="${status} == 'draft' ? 'active' : null">
+        <a class="nav-link" href="/me/draft" id="tab-draft" th:classappend="${status} == 'draft' ? 'active' : null">
             <span th:text="#{story.status.draft}">Draft</span>
             <span class="story-count badge badge-light hidden">9</span>
         </a>
     </li>
     <li class="nav-item">
-        <a id="tab-published" class="nav-link" href="/me/story/published" th:classappend="${status} == 'published' ? 'active' : null">
+        <a class="nav-link" href="/me/story/published" id="tab-published" th:classappend="${status} == 'published' ? 'active' : null">
             <span th:text="#{story.status.published}">Published</span>
             <span class="story-count badge badge-light hidden">9</span>
         </a>
     </li>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             update_story_count('draft');
             update_story_count('published');
         });
 
-        function update_story_count(status){
+        function update_story_count(status) {
             wutsi.httpGet('/story/count?status=' + status, true)
-                .then(function(response){
+                .then(function (response) {
                     var id = '#tab-' + status + ' .story-count';
-                    if (response.count > 0){
+                    if (response.count > 0) {
                         $(id).removeClass('hidden');
                         $(id).text(response.count)
                     } else {
@@ -43,15 +43,15 @@
     </script>
 </ul>
 
-<div th:fragment="listitem(story)" class="story col-12">
+<div class="story col-12" th:fragment="listitem(story)">
 
     <a th:href="${story.draft} OR !${story.live} ? '/editor/' + ${story.id} : ${story.slug}">
         <h3 class="title">
             <span th:text="${story.title}">Title</span>
             <span th:replace="components/story :: wpp-badge(${story})"></span>
         </h3>
-        <h3 class="disabled" th:text="#{story.no_title}" th:if="${story.title.isEmpty()}">Title</h3>
-        <div th:if="${story.published}" class="live" th:classappend="${story.live}? 'live-on' : 'live-off'">
+        <h3 class="disabled" th:if="${story.title.isEmpty()}" th:text="#{story.no_title}">Title</h3>
+        <div class="live" th:classappend="${story.live}? 'live-on' : 'live-off'" th:if="${story.published}">
             <span th:if="${story.live}"> <i class="fas fa-toggle-on"></i> </span>
             <span th:if="!${story.live}"> <i class="fas fa-toggle-off"></i> </span>
 
@@ -59,46 +59,53 @@
         </div>
 
         <div class="summary" th:text="${story.summary}">Summary</div>
-        <div class="disabled" th:text="#{story.no_summary}" th:if="${story.summary.isEmpty()}">Summary</div>
+        <div class="disabled" th:if="${story.summary.isEmpty()}" th:text="#{story.no_summary}">Summary</div>
     </a>
 
     <div class="meta">
-        <span th:text="#{label.modified}">Last Modified:</span> <span th:text="${story.modificationDateTime}">2 days ago</span>
+        <span th:text="#{label.modified}">Last Modified</span>: <span th:text="${story.modificationDateTime}">2 days ago</span>
         -
-        <span th:text="#{story.read_time(${story.readingMinutes})}" th:if="${story.readingMinutes} GT 0">6 min</span>
+        <span th:if="${story.readingMinutes} GT 0" th:text="#{story.read_time(${story.readingMinutes})}">6 min</span>
         (<span th:text="#{story.word_count(${story.wordCount})}">250 mots</span>)
 
         <div class="dropdown show story-dropdown-menu margin-left">
-            <a class="btn btn-light btn-sm" href="#" role="button" th:id="'story-menu-' + ${story.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a aria-expanded="false" aria-haspopup="true" class="btn btn-light btn-sm" data-toggle="dropdown" href="#" role="button"
+               th:id="'story-menu-' + ${story.id}">
                 <i class="fas fa-ellipsis-h"></i>
             </a>
 
-            <div th:id="'story-menu' + ${story.id}" class="dropdown-menu" th:aria-labelledby="'story-menu' + ${story.id}">
+            <div class="dropdown-menu" th:aria-labelledby="'story-menu' + ${story.id}" th:id="'story-menu' + ${story.id}">
                 <a class="dropdown-item menu-item-edit" th:href="'/editor/' + ${story.id}" th:text="#{button.edit}">Edit</a>
 
                 <a class="dropdown-item menu-item-preview" target="_new"
                    th:href="'/me/story/' + ${story.id} + '/preview'"
-                   th:text="#{button.preview}"
                    th:if="${story.draft} OR !${story.live}"
+                   th:text="#{button.preview}"
                 >Preview</a>
 
                 <a class="dropdown-item menu-item-publish"
                    th:href="'/me/story/' + ${story.id} + '/publish'"
-                   th:text="#{button.publish}"
                    th:if="${story.draft}"
+                   th:text="#{button.publish}"
                 >Publish</a>
 
                 <div class="dropdown-divider" th:if="${story.published}"></div>
-                <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:text="#{button.stats}" th:if="${story.published}">Stats</a>
+                <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:if="${story.published}"
+                   th:text="#{button.stats}">Stats</a>
 
                 <div class="dropdown-divider" th:if="${story.draft}"></div>
                 <a class="dropdown-item menu-item-delete"
                    th:href="'javascript: delete_story(' + ${story.id} + ')'"
-                   th:text="#{button.delete}"
                    th:if="${story.draft}"
+                   th:text="#{button.delete}"
                 >Delete</a>
             </div>
         </div>
+    </div>
+    <div class="publish-schedule" th:if="${story.draft} AND ${story.scheduledPublishDateTimeAsDate}">
+        <span th:text="#{label.publish_date}">Publish Date Modified</span>:
+        <i class="far fa-calendar-alt"></i>
+        <span class="date" th:text="${story.scheduledPublishDateTime}">Tomorrow</span>
     </div>
 </div>
 
@@ -110,7 +117,7 @@
     </div>
 </div>
 
-<div th:fragment="meta(story)" class="meta flex text-small">
+<div class="meta flex text-small" th:fragment="meta(story)">
     <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
     <div>
         <span th:text="${story.readingMinutes}">2</span>
@@ -118,24 +125,24 @@
     </div>
 </div>
 
-<div th:fragment="story-card(story, trackEvent, rank, pin)"
-     th:id="'story-card-' + ${story.id}"
-     class="story-card"
+<div class="story-card"
      th:classappend="${story.pinned} AND ${user} AND ${user.id} == ${story.user.id}?story-card-pinned"
+     th:fragment="story-card(story, trackEvent, rank, pin)"
+     th:id="'story-card-' + ${story.id}"
 >
-    <a th:href="${story.slug}"
+    <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+       th:href="${story.slug}"
        th:title="${story.title}"
-       th:wutsi-track-value = "${story.id}"
-       th:wutsi-track-rank = "${rank}"
-       th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}">
+       th:wutsi-track-rank="${rank}"
+       th:wutsi-track-value="${story.id}">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
             <img class="border lozad"
+                 th:alt="${story.title}"
                  th:data-src="${story.thumbnailImage.src}"
                  th:data-srcset="${story.thumbnailImage.srcset}"
                  th:sizes="${story.thumbnailImage.sizes}"
-                 th:alt="${story.title}"
             />
         </div>
 
@@ -153,13 +160,13 @@
     <div th:replace="components/story :: widgets(${story}, true)"></div>
 </div>
 
-<div th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)" class="story-summary-card">
+<div class="story-summary-card" th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">
     <div>
-        <a th:href="${story.slug}"
+        <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+           th:href="${story.slug}"
            th:title="${story.title}"
-           th:wutsi-track-value = "${story.id}"
-           th:wutsi-track-rank = "${rank}"
-           th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+           th:wutsi-track-rank="${rank}"
+           th:wutsi-track-value="${story.id}"
         >
             <h6 th:text="${story.title}">Title</h6>
         </a>
@@ -176,17 +183,17 @@
     </div>
 
     <div class="img-container" th:if="${story.thumbnailImage}">
-        <a th:href="${story.slug}"
+        <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+           th:href="${story.slug}"
            th:title="${story.title}"
-           th:wutsi-track-value = "${story.id}"
-           th:wutsi-track-rank = "${rank}"
-           th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
+           th:wutsi-track-rank="${rank}"
+           th:wutsi-track-value="${story.id}"
         >
             <img class="lozad"
                  th:data-src="${story.thumbnailImage.src}"
                  th:data-srcset="${story.thumbnailImage.srcset}"
-                 th:sizes="${story.thumbnailImage.sizes}"
                  th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
+                 th:sizes="${story.thumbnailImage.sizes}"
             />
         </a>
     </div>
@@ -206,32 +213,32 @@
 </div>
 
 <span th:fragment="wpp-badge(story)">
-    <i th:if="${story.wppStatus} AND ${story.wppStatus.name()} == 'approved'"
-       class="fas fa-dollar-sign story-wpp-approved"
+    <i class="fas fa-dollar-sign story-wpp-approved"
        data-toggle="popover"
-       title="Wutsi Partner Program"
        th:data-content="#{story.wpp.approved}"
+       th:if="${story.wppStatus} AND ${story.wppStatus.name()} == 'approved'"
+       title="Wutsi Partner Program"
     ></i>
 
-    <i th:if="${story.wppStatus} AND ${story.wppStatus.name()} == 'rejected'"
-       class="fas fa-dollar-sign story-wpp-rejected"
+    <i class="fas fa-dollar-sign story-wpp-rejected"
        data-toggle="popover"
-       title="Wutsi Partner Program"
        th:data-content="#{story.wpp.rejected}"
+       th:if="${story.wppStatus} AND ${story.wppStatus.name()} == 'rejected'"
+       title="Wutsi Partner Program"
     ></i>
 </span>
 
 <div th:fragment="read-also(story)" th:id="'read-also-' + ${story.id}">
     <script th:inline="javascript">
-    /*<![CDATA[*/
-        $(document).ready(function(){
+        /*<![CDATA[*/
+        $(document).ready(function () {
             const storyId = /*[[${story.id}]]*/'0';
             wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=summary', false)
-                .then(function(html){
+                .then(function (html) {
                     $('#read-also-' + storyId).html(html);
                 })
         });
-    /*]]>*/
+        /*]]>*/
     </script>
 </div>
 

@@ -64,7 +64,9 @@ class StoryMapper(
             liveDateTime = moment.format(story.liveDateTime),
             live = story.live,
             wppStatus = story.wppStatus,
-            socialMediaMessage = story.socialMediaMessage
+            socialMediaMessage = story.socialMediaMessage,
+            scheduledPublishDateTime = moment.format(story.scheduledPublishDateTime),
+            scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime
         )
     }
 
@@ -94,7 +96,9 @@ class StoryMapper(
         live = story.live,
         wppStatus = story.wppStatus,
         pinned = (pin?.storyId == story.id),
-        pinId = pin?.let { it.id } ?: -1
+        pinId = pin?.let { it.id } ?: -1,
+        scheduledPublishDateTime = moment.format(story.scheduledPublishDateTime),
+        scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime
     )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
@@ -110,13 +114,9 @@ class StoryMapper(
         }
     )
 
-    private fun nullToEmpty(value: String?): String {
-        return if (value == null) "" else value
-    }
+    private fun nullToEmpty(value: String?): String = value ?: ""
 
-    private fun nullToEmpty(topic: TopicModel?): TopicModel {
-        return if (topic == null) TopicModel() else topic
-    }
+    private fun nullToEmpty(topic: TopicModel?): TopicModel = topic ?: TopicModel()
 
     private fun readabilityColor(score: Int): String {
         if (score <= 50) {
