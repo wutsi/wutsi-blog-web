@@ -40,7 +40,10 @@ class EditorPublishedStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
-        assertElementNotPresent("#socialMediaMessage")
+        assertElementNotPresent("#social-media-message")
+        assertElementNotPresent("#scheduled-publish-date")
+        assertElementNotPresent("#publish-now-radio")
+        assertElementNotPresent("#publish-later-radio")
         input("#title", "This is the title")
         input("#tagline", "This is the tagline")
         input("#summary", "This is the Summary")
@@ -80,6 +83,10 @@ class EditorPublishedStoryControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementNotPresent(".alert-danger")
+        assertElementNotPresent("#social-media-message")
+        assertElementNotPresent("#scheduled-publish-date")
+        assertElementNotPresent("#publish-now-radio")
+        assertElementNotPresent("#publish-later-radio")
         input("#title", "This is the title")
         input("#tagline", "This is the tagline")
         input("#summary", "This is the Summary")
@@ -104,13 +111,7 @@ class EditorPublishedStoryControllerTest : SeleniumTestSupport() {
 
     private fun gotoPage() {
         login()
-
-        click("nav .nav-item")
-
-        click("#navbar-draft")
-        click("#tab-published")
-        click(".story:first-child .dropdown .btn")
-        click(".story .menu-item-edit")
+        driver.get("$url/editor/20")
 
         Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR)

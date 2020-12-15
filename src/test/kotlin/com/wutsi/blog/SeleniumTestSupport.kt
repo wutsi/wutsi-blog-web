@@ -382,10 +382,10 @@ abstract class SeleniumTestSupport {
         driver.findElement(By.cssSelector(selector)).click()
     }
 
-    protected fun input(selector: String, vararg value: String) {
+    protected fun input(selector: String, value: String) {
         val by = By.cssSelector(selector)
         driver.findElement(by).clear()
-        driver.findElement(by).sendKeys(*value)
+        driver.findElement(by).sendKeys(value)
     }
 
 

@@ -51,7 +51,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
-        input("#socialMediaMessage", "This is awesome!! #WutsiRocks")
+        input("#social-media-message", "This is awesome!! #WutsiRocks")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
 
@@ -92,7 +92,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
-        input("#socialMediaMessage", "This is awesome!! #WutsiRocks")
+        input("#social-media-message", "This is awesome!! #WutsiRocks")
         click("#publish-later-radio")
 
         driver.findElement(By.cssSelector("#scheduled-publish-date")).sendKeys(
@@ -130,6 +130,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+        input("#social-media-message", "This is awesome!! #WutsiRocks")
         click("#btn-publish")
 
         assertCurrentPageIs(PageName.EDITOR_SHARE)
@@ -158,6 +159,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+        input("#social-media-message", "This is awesome!! #WutsiRocks")
 
         stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)
         click("#btn-publish")
