@@ -54,8 +54,6 @@ wutsi:
             endpoint: ${wutsi.backend.base-url}/v1/push/subscription
         story:
             endpoint: ${wutsi.backend.base-url}/v1/story
-        user:
-            endpoint: ${wutsi.backend.base-url}/v1/user
 
         earning:
             endpoint: ${wutsi.backend.track-url}/v1/earning

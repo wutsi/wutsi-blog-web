@@ -7,17 +7,14 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
 class RunAsControllerTest : SeleniumTestSupport() {
-    @Override
-    override fun setupWiremock() {
-        super.setupWiremock()
+    override fun setUp() {
+        super.setUp()
 
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")
+        givenUser(userId = 1, name = "ray.sponsible", superUser = true)
     }
 
     @Test
     fun `super user can run as another user`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
         gotoPage()
         assertCurrentPageIs(PageName.RUN_AS)
 
@@ -33,7 +30,6 @@ class RunAsControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `run as fails`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
         gotoPage()
         assertCurrentPageIs(PageName.RUN_AS)
 
@@ -47,6 +43,8 @@ class RunAsControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `logged in user cannot see run as menu`() {
+        givenUser(userId = 1, name = "ray.sponsible", superUser = false)
+
         login()
         click("nav .nav-item")
 
@@ -55,6 +53,8 @@ class RunAsControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `logged in user cannot access run-as page`() {
+        givenUser(userId = 1, name = "ray.sponsible", superUser = false)
+
         login()
         driver.get("$url/login/as")
 
@@ -63,7 +63,6 @@ class RunAsControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `anonymous user cannot access run-as page`() {
-        login()
         driver.get("$url/login/as")
 
         assertCurrentPageIs(PageName.ERROR_403)

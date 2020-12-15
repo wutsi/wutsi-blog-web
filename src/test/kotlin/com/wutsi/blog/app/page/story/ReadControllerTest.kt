@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.fixtures.UserApiFixtures
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -14,8 +15,6 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
-
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
     @Test
@@ -73,7 +72,7 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
 
         assertElementAttribute(".author-card img", "src", "https://avatars3.githubusercontent.com/u/39621277?v=4")
         assertElementAttributeEndsWith(".author-card a", "href", "/@/ray.sponsible")
-        assertElementText(".author-card .bio", "Ray sponsible is a test user")
+        assertElementText(".author-card .bio", UserApiFixtures.DEFAULT_BIOGRAPHY)
 
         assertElementAttribute(".author-card .website", "href", "https://www.me.com/ray.sponsible")
         assertElementAttribute(".author-card .website", "wutsi-track-event", "link")

@@ -13,8 +13,6 @@ class StoryPreviewControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-draft.json")
-
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
     @Test
@@ -26,17 +24,17 @@ class StoryPreviewControllerTest : SeleniumTestSupport() {
         assertElementCount(".widget-container", 0)
         assertElementCount("#recommendation-container", 0)
         assertElementCount("#survey-container", 0)
-//        assertCurrentPageIs(PageName.STORY_PREVIEW)
+        assertCurrentPageIs(PageName.STORY_PREVIEW)
     }
 
     @Test
     fun `superuser can preview any draft story`() {
-        stub(HttpMethod.GET, "/v1/user/.+", HttpStatus.OK, "v1/user/get-superuser.json")
+        givenUser(userId = 1, superUser = true)
         gotoPage()
 
         assertElementCount(".share", 0)
         assertElementPresent("nav.super-user")
-//        assertCurrentPageIs(PageName.STORY_PREVIEW)
+        assertCurrentPageIs(PageName.STORY_PREVIEW)
     }
 
     @Test
@@ -48,7 +46,7 @@ class StoryPreviewControllerTest : SeleniumTestSupport() {
     @Test
     fun `user cannot preview another user story`() {
         gotoPage()
-        driver.get("$url/read/99?preview=true")
+        driver.get("$url/read/99/preview")
 
         assertCurrentPageIs(PageName.ERROR_403)
     }

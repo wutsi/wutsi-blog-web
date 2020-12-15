@@ -3,16 +3,12 @@ package com.wutsi.blog.app.page.follower
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 
 class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
-    override fun setupWiremock() {
-        super.setupWiremock()
+    override fun setupSdk() {
+        super.setupSdk()
 
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
-        stub(HttpMethod.GET, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
+        givenUser(99, name = "john.smith", fullName = "John Smith", blog = true)
     }
 
     @Test
@@ -37,12 +33,10 @@ class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
 
     @Test
     fun `follower cannot re-follow a blog`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user99.json")
-        givenUserFollow(1, 99)
-
+        givenUserFollow(99, 1)
         login()
 
-        driver.get("$url/@/ray.sponsible")
+        driver.get("$url/@/john.smith")
 
         verifyNoFollowButtons()
         verifyWhoToFollow()
@@ -50,24 +44,23 @@ class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
 
     @Test
     fun `non-follower user can follow a blog`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user99.json")
         login()
 
-        driver.get("$url/@/ray.sponsible")
+        driver.get("$url/@/john.smith")
 
-        verifyFollowButtons()
+        verifyFollowButtons(99, "john.smith")
 
         click(".navbar .btn-follow")
         assertCurrentPageIs(PageName.BLOG)
     }
 
-    private fun verifyFollowButtons() {
+    private fun verifyFollowButtons(userId: Long = 1, userName: String = "ray.sponsible") {
         assertElementCount(".navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
+        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=$userId&return=/@/$userName")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount(".follow-panel .btn-follow", 1)
-        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=1&return=/@/ray.sponsible")
+        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=$userId&return=/@/$userName")
         assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
     }
 

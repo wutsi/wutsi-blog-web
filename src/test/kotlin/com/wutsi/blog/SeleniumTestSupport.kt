@@ -25,12 +25,16 @@ import com.wutsi.blog.client.like.CountLikeResponse
 import com.wutsi.blog.client.like.SearchLikeRequest
 import com.wutsi.blog.client.like.SearchLikeResponse
 import com.wutsi.blog.client.story.SearchTopicResponse
+import com.wutsi.blog.client.user.CountUserResponse
+import com.wutsi.blog.client.user.GetUserResponse
+import com.wutsi.blog.client.user.SearchUserResponse
 import com.wutsi.blog.fixtures.CommentApiFixtures
 import com.wutsi.blog.fixtures.ContractApiFixture
 import com.wutsi.blog.fixtures.FollowerApiFixtures
 import com.wutsi.blog.fixtures.PartnerApiFixtures
 import com.wutsi.blog.fixtures.PinApiFixtures
 import com.wutsi.blog.fixtures.TopicApiFixtures
+import com.wutsi.blog.fixtures.UserApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.CommentApi
 import com.wutsi.blog.sdk.ContractApi
@@ -42,6 +46,7 @@ import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.ShareApi
 import com.wutsi.blog.sdk.TagApi
 import com.wutsi.blog.sdk.TopicApi
+import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
 import org.apache.commons.io.IOUtils
 import org.junit.After
@@ -115,6 +120,9 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var topicApi: TopicApi
 
+    @MockBean
+    protected lateinit var userApi: UserApi
+
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -158,12 +166,6 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
 
         stub(HttpMethod.POST, "/v1/track", HttpStatus.OK, "v1/track/push.json")
-
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1.json")
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
-        stub(HttpMethod.POST, "/v1/user/search", HttpStatus.OK, "v1/user/search.json")
-
-        stub(HttpMethod.POST, "/v1/sort", HttpStatus.OK, "v1/sort/sort.json")
     }
 
     protected fun setupSdk() {
@@ -174,6 +176,47 @@ abstract class SeleniumTestSupport {
         givenNoLike()
         givenNoPin()
         givenTopics()
+
+        givenUser(1, name = "ray.sponsible", fullName = "Ray Sponsible", blog = true)
+        givenUser(3, name = "roger.milla", fullName = "Roger Milla", blog = true, biography = "Just the best african soccer player ever!")
+        givenUser(99, name = "john.smith", fullName = "John Smith", blog = false)
+        givenUser(6666, name = "ze.god", superUser = true, blog = false)
+        givenSearchReturn5()
+    }
+
+    protected fun givenNoUser(userId: Long) {
+        doThrow(NotFoundException("user_not_found")).whenever(userApi).get(userId)
+    }
+
+    protected fun givenNoUser(username: String) {
+        doThrow(NotFoundException("user_not_found")).whenever(userApi).get(username)
+    }
+
+    protected fun givenSearchReturn5() {
+        val users = listOf(
+            UserApiFixtures.createUserSummaryDto(1, "ray.sponsible", "Ray Sponsible"),
+            UserApiFixtures.createUserSummaryDto(2, "yvon.larose", "Yvon Larose"),
+            UserApiFixtures.createUserSummaryDto(3, "roger.milla", "Roger Milla"),
+            UserApiFixtures.createUserSummaryDto(4, "omam.mbiyick", "Omam Mbiyick"),
+            UserApiFixtures.createUserSummaryDto(5, "samuel.etoo", "Samuel Etoo")
+        )
+        doReturn(SearchUserResponse(users = users)).whenever(userApi).search(any())
+        doReturn(CountUserResponse(total = 5)).whenever(userApi).count(any())
+    }
+
+    protected fun givenUser(
+        userId: Long,
+        name: String = "ray.sponsible",
+        fullName: String = "Ray Sponsible",
+        superUser: Boolean = false,
+        blog: Boolean = false,
+        biography: String = UserApiFixtures.DEFAULT_BIOGRAPHY
+    ) {
+        val response = GetUserResponse(
+            user = UserApiFixtures.createUserDto(userId, name, fullName, superUser = superUser, blog = blog, biography = biography)
+        )
+        doReturn(response).whenever(userApi).get(userId)
+        doReturn(response).whenever(userApi).get(name)
     }
 
     protected fun givenNoChannel() {

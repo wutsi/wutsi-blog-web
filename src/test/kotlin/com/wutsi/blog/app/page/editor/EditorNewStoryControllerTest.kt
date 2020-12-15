@@ -25,8 +25,6 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/story", HttpStatus.OK, "v1/story/save.json")
         stub(HttpMethod.GET, "/v1/story/[0-9]+/readability", HttpStatus.OK, "v1/story/readability.json")
         stub(HttpMethod.POST, "/v1/story/[0-9]+/publish", HttpStatus.OK, "v1/story/publish.json")
-
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
     @Test

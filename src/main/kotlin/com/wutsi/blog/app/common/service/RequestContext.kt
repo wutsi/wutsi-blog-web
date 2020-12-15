@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.common.service
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
-import com.wutsi.blog.app.backend.UserBackend
 import com.wutsi.blog.app.backend.ViewBackend
 import com.wutsi.blog.app.page.login.model.SessionModel
 import com.wutsi.blog.app.page.login.service.AccessTokenStorage
@@ -13,6 +12,7 @@ import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.security.service.SecurityManager
 import com.wutsi.blog.client.view.SearchViewRequest
 import com.wutsi.blog.client.view.ViewDto
+import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.core.logging.KVLogger
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse
 class RequestContext(
     private val mapper: UserMapper,
     private val authBackend: AuthenticationBackend,
-    private val userBackend: UserBackend,
+    private val userApi: UserApi,
     private val viewBackend: ViewBackend,
     private val togglesHolder: TogglesHolder,
     private val tokenStorage: AccessTokenStorage,
@@ -85,7 +85,7 @@ class RequestContext(
 
             if (session.runAsUserId != null) {
                 superUser = mapper.toUserModel(
-                    userBackend.get(session.runAsUserId).user
+                    userApi.get(session.runAsUserId).user
                 )
             }
         }
@@ -104,11 +104,11 @@ class RequestContext(
         try {
             if (session.runAsUserId != null) {
                 user = mapper.toUserModel(
-                    userBackend.get(session.runAsUserId).user
+                    userApi.get(session.runAsUserId).user
                 )
             } else {
                 user = mapper.toUserModel(
-                    userBackend.get(session.userId).user
+                    userApi.get(session.userId).user
                 )
             }
         } catch (e: Exception) {

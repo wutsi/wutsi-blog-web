@@ -17,8 +17,6 @@ class StatsStoryControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/stats/search/daily", HttpStatus.OK, "v1/stats/search.json")
         stub(HttpMethod.POST, "/v1/stats/search/monthly/story", HttpStatus.OK, "v1/stats/search_story.json")
         stub(HttpMethod.POST, "/v1/stats/search/monthly/traffic", HttpStatus.OK, "v1/stats/search_traffic.json")
-
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
     }
 
     @Test

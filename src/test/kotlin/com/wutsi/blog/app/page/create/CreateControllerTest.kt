@@ -12,10 +12,6 @@ class CreateControllerTest : SeleniumTestSupport() {
 
         stub(HttpMethod.POST, "/v1/story/count", HttpStatus.OK, "v1/story/count-0.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-empty.json")
-
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-user1-first-login.json")
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1-first-login.json")
-        stub(HttpMethod.POST, "/v1/user/1", HttpStatus.OK)
     }
 
     @Test
@@ -38,6 +34,8 @@ class CreateControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.CREATE_EMAIL)
         assertElementAttributeEndsWith("#btn-previous", "href", "/create")
         input(".form-control", "ray.sponsible1@gmail.com")
+
+        givenUser(userId = 1, biography = "", blog = true)
         click("#btn-next")
 
         assertCurrentPageIs(PageName.BLOG)

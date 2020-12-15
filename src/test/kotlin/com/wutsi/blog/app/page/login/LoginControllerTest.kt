@@ -2,8 +2,6 @@ package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.SeleniumTestSupport
 import org.junit.Test
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 
 class LoginControllerTest : SeleniumTestSupport() {
     @Test
@@ -37,7 +35,7 @@ class LoginControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `super-user signs in`() {
-        stub(HttpMethod.GET, "/v1/user/1", HttpStatus.OK, "v1/user/get-superuser.json")
+        givenUser(userId = 1, superUser = true)
         login()
 
         assertElementPresent("nav.super-user")

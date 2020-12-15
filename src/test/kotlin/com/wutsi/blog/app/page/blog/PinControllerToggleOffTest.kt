@@ -3,8 +3,6 @@ package com.wutsi.blog.app.page.blog
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
@@ -13,14 +11,9 @@ import org.springframework.test.context.TestPropertySource
     ]
 )
 class PinControllerToggleOffTest : SeleniumTestSupport() {
-    override fun setupWiremock() {
-        super.setupWiremock()
-
-        stub(HttpMethod.GET, "/v1/user/@/ray.sponsible", HttpStatus.OK, "v1/user/get-user1.json")
-        stub(HttpMethod.GET, "/v1/user/@/john.smith", HttpStatus.OK, "v1/user/get-user99.json")
-    }
-
     override fun setupSdk() {
+        super.setupSdk()
+
         givenPin()
         givenNoFollower()
         givenNoChannel()

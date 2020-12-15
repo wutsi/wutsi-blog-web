@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.page.sitemap.view
 
 import com.wutsi.blog.app.backend.StoryBackend
-import com.wutsi.blog.app.backend.UserBackend
 import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.sitemap.model.SitemapModel
 import com.wutsi.blog.app.page.sitemap.model.UrlModel
@@ -12,6 +11,7 @@ import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
+import com.wutsi.blog.sdk.UserApi
 import org.springframework.stereotype.Service
 import org.springframework.web.servlet.View
 import javax.servlet.http.HttpServletRequest
@@ -22,7 +22,7 @@ import javax.xml.bind.Marshaller
 @Service
 class SitemapView(
     private val storyBackend: StoryBackend,
-    private val userBackend: UserBackend,
+    private val userApi: UserApi,
     private val mapper: SitemapMapper,
     private val toggles: Toggles
 ) : View {
@@ -71,9 +71,10 @@ class SitemapView(
         stories().map { mapper.toUrlModel(it) }
 
     private fun userUrls(): List<UrlModel> =
-        userBackend.search(
+        userApi.search(
             SearchUserRequest(
-                blog = true
+                blog = true,
+                limit = 1000
             )
         ).users.map { mapper.toUrlModel(it) }
 

@@ -1,7 +1,12 @@
 package com.wutsi.blog.app.page.rss
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.rometools.rome.feed.rss.Channel
 import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.client.user.SearchUserResponse
+import com.wutsi.blog.fixtures.UserApiFixtures
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -15,13 +20,16 @@ class BlogRssControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.GET, "/v1/user/3", HttpStatus.OK, "v1/user/get-user3.json")
-        stub(HttpMethod.GET, "/v1/user/@/roger.milla", HttpStatus.OK, "v1/user/get-user3.json")
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search-user3.json")
     }
 
     @Test
     fun `return RSS for user`() {
+        val users = listOf(
+            UserApiFixtures.createUserSummaryDto(3, "roger.milla", "Roger Milla")
+        )
+        doReturn(SearchUserResponse(users = users)).whenever(userApi).search(any())
+
         val response = rest.getForEntity("$url/@/roger.milla/rss", Channel::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
 

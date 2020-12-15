@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.SeleniumTestSupport
-import org.junit.Ignore
 import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -18,18 +17,6 @@ class GoogleOneTapTest : SeleniumTestSupport() {
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         stub(HttpMethod.GET, "/v1/story/99", HttpStatus.OK, "v1/story/get-story99-user99.json")
-
-        stub(HttpMethod.GET, "/v1/user/99", HttpStatus.OK, "v1/user/get-user99.json")
-    }
-
-    @Test
-    @Ignore("The value prop is now displayed in Home page")
-    fun `GoogleOneTap should showup for anonymous user in Home`() {
-        gotoHome(false)
-
-        assertElementPresent("#g_id_onload")
-        assertElementPresent("#g_one_tap_script")
-        assertElementPresent("#g_one_tap_callback")
     }
 
     @Test

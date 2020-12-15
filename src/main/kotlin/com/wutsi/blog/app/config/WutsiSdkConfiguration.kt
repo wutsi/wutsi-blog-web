@@ -12,6 +12,7 @@ import com.wutsi.blog.sdk.Sdk
 import com.wutsi.blog.sdk.ShareApi
 import com.wutsi.blog.sdk.TagApi
 import com.wutsi.blog.sdk.TopicApi
+import com.wutsi.blog.sdk.UserApi
 import com.wutsi.blog.sdk.WutsiEnvironment
 import com.wutsi.core.http.Http
 import org.springframework.context.annotation.Bean
@@ -55,6 +56,9 @@ class WutsiSdkConfiguration(
 
     @Bean
     fun topicApi(): TopicApi = sdk().topicApi()
+
+    @Bean
+    fun userApi(): UserApi = sdk().userApi()
 
     @Bean
     fun sdk(): Sdk =

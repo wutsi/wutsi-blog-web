@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="components/layout :: head"></div>
 </head>
@@ -26,10 +26,10 @@
                 >
                     <div class="form-group">
                         <label>User Name</label>
-                        <input class="form-control" id="name" name="name" />
+                        <input class="form-control" id="name" name="name" required="required"/>
                     </div>
 
-                    <button id="btn-submit" class="btn btn-primary" type="submit">Login</button>
+                    <button class="btn btn-primary" id="btn-submit" type="submit">Login</button>
                 </form>
             </div>
         </div>
