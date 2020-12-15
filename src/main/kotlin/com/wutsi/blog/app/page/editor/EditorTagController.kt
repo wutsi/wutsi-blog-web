@@ -37,7 +37,6 @@ class EditorTagController(
     ): String {
         val story = getStory(id)
 
-
         model.addAttribute("story", story)
         model.addAttribute("error", error)
         loadTopics(model)

@@ -388,7 +388,6 @@ abstract class SeleniumTestSupport {
         driver.findElement(by).sendKeys(value)
     }
 
-
     protected fun select(selector: String, index: Int) {
         val by = By.cssSelector(selector)
         val select = Select(driver.findElement(by))
