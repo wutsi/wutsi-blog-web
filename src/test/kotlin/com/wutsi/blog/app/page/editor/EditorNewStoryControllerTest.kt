@@ -57,7 +57,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         input("#summary", "This is summary")
 
         click("#publish-to-social-media-radio")
-        Thread.sleep(1000)  // Delay before entering the message
+        Thread.sleep(1000) // Delay before entering the message
         input("#social-media-message", "This is awesome!! #WutsiRocks")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
@@ -102,11 +102,11 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         input("#summary", "This is summary")
 
         click("#publish-to-social-media-radio")
-        Thread.sleep(1000)  // Delay before entering the message
+        Thread.sleep(1000) // Delay before entering the message
         input("#social-media-message", "This is awesome!! #WutsiRocks")
 
         click("#publish-later-radio")
-        Thread.sleep(1000)  // Delay before entering the message
+        Thread.sleep(1000) // Delay before entering the message
         assertElementAttribute("#scheduled-publish-date", "disabled", null)
         driver.findElement(By.cssSelector("#scheduled-publish-date")).sendKeys(
             "2030",
