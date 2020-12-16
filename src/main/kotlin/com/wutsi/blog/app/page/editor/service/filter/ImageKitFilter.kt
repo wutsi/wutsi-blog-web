@@ -28,7 +28,7 @@ class ImageKitFilter(
         try {
             val width = img.attr("width").toInt()
             val height = img.attr("height").toInt()
-            return width > 960 || height > 960
+            return width >= 960 || height >= 960
         } catch (ex: Exception) {
             return false
         }
