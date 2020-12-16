@@ -198,7 +198,7 @@ abstract class SeleniumTestSupport {
             UserApiFixtures.createUserSummaryDto(2, "yvon.larose", "Yvon Larose"),
             UserApiFixtures.createUserSummaryDto(3, "roger.milla", "Roger Milla"),
             UserApiFixtures.createUserSummaryDto(4, "omam.mbiyick", "Omam Mbiyick"),
-            UserApiFixtures.createUserSummaryDto(5, "samuel.etoo", "Samuel Etoo")
+            UserApiFixtures.createUserSummaryDto(5, "samuel.etoo", "Samuel Etoo", blog = false)
         )
         doReturn(SearchUserResponse(users = users)).whenever(userApi).search(any())
         doReturn(CountUserResponse(total = 5)).whenever(userApi).count(any())

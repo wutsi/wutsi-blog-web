@@ -20,7 +20,7 @@ class SitemapControllerTest : SeleniumTestSupport() {
         assertHasUrl("/writers", sitemap)
         assertHasUrl("/@/ray.sponsible", sitemap)
         assertHasUrl("/@/yvon.larose", sitemap)
-        assertHasUrl("/@/Omam.Mbiyick", sitemap)
+        assertHasUrl("/@/omam.mbiyick", sitemap)
         assertHasUrl("/@/roger.milla", sitemap)
         assertHasUrl("/@/samuel.etoo", sitemap)
     }
