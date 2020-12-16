@@ -117,7 +117,8 @@ class StoryService(
                 summary = editor.summary,
                 topidId = editor.topicId.toLong(),
                 tags = editor.tags,
-                socialMediaMessage = editor.socialMediaMessage,
+                publishToSocialMedia = editor.publishToSocialMedia,
+                socialMediaMessage = if (editor.publishToSocialMedia) editor.socialMediaMessage else null,
                 scheduledPublishDateTime = if (editor.publishNow) null else SimpleDateFormat("yyyy-MM-dd").parse(editor.scheduledPublishDate)
             )
         )

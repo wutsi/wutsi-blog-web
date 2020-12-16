@@ -15,10 +15,22 @@ class ImageKitFilter(
 
     private fun filter(img: Element) {
         val url = img.attr("src")
-        val srcset = sizes.srcset(url)
-        if (srcset.isNotEmpty()) {
-            img.attr("srcset", srcset)
-            img.attr("sizes", sizes.sizes())
+        if (isLargeImage(img)) {
+            val srcset = sizes.srcset(url)
+            if (srcset.isNotEmpty()) {
+                img.attr("srcset", srcset)
+                img.attr("sizes", sizes.sizes())
+            }
+        }
+    }
+
+    private fun isLargeImage(img: Element): Boolean {
+        try {
+            val width = img.attr("width").toInt()
+            val height = img.attr("height").toInt()
+            return width > 960 || height > 960
+        } catch (ex: Exception) {
+            return false
         }
     }
 }

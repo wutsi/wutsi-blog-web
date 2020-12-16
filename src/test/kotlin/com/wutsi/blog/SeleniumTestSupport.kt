@@ -52,6 +52,7 @@ import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.runner.RunWith
@@ -397,8 +398,11 @@ abstract class SeleniumTestSupport {
         assertFalse("none".equals(driver.findElement(By.cssSelector(selector)).getCssValue("display")))
     }
 
-    protected fun assertElementAttribute(selector: String, name: String, value: String) {
-        assertEquals(value, driver.findElement(By.cssSelector(selector)).getAttribute(name))
+    protected fun assertElementAttribute(selector: String, name: String, value: String?) {
+        if (value == null)
+            assertNull(driver.findElement(By.cssSelector(selector)).getAttribute(name))
+        else
+            assertEquals(value, driver.findElement(By.cssSelector(selector)).getAttribute(name))
     }
 
     protected fun assertElementAttributeStartsWith(selector: String, name: String, value: String) {

@@ -5,7 +5,6 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
-import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito
 import org.openqa.selenium.By
@@ -47,9 +46,18 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
+        assertElementAttribute("#publish-now-radio", "checked", "true")
+        assertElementAttribute("#scheduled-publish-date", "disabled", "true")
+        assertElementAttribute("#publish-to-social-media-radio", "disabled", null)
+        assertElementAttribute("#social-media-message", "disabled", "true")
+
         select("#topic-id", 1)
+        input("#title", "This is title")
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+
+        click("#publish-to-social-media-radio")
+        Thread.sleep(1000)  // Delay before entering the message
         input("#social-media-message", "This is awesome!! #WutsiRocks")
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
@@ -70,7 +78,6 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    @Ignore("struggling to set the date")
     fun `user can create and schedule when to publish new story`() {
         gotoPage(true)
 
@@ -90,11 +97,17 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
+        input("#title", "This is title")
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
-        input("#social-media-message", "This is awesome!! #WutsiRocks")
-        click("#publish-later-radio")
 
+        click("#publish-to-social-media-radio")
+        Thread.sleep(1000)  // Delay before entering the message
+        input("#social-media-message", "This is awesome!! #WutsiRocks")
+
+        click("#publish-later-radio")
+        Thread.sleep(1000)  // Delay before entering the message
+        assertElementAttribute("#scheduled-publish-date", "disabled", null)
         driver.findElement(By.cssSelector("#scheduled-publish-date")).sendKeys(
             "2030",
             Keys.TAB,
@@ -130,7 +143,6 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
-        input("#social-media-message", "This is awesome!! #WutsiRocks")
         click("#btn-publish")
 
         assertCurrentPageIs(PageName.EDITOR_SHARE)
@@ -159,7 +171,6 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
-        input("#social-media-message", "This is awesome!! #WutsiRocks")
 
         stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)
         click("#btn-publish")
