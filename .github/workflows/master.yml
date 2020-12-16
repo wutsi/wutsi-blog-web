@@ -1,111 +1,104 @@
 name: master
 
 on:
-  push:
-    branches:
-    - master
+    push:
+        branches:
+            - master
 
 
 jobs:
 
-  #--------------------------
-  # BUILD
-  #--------------------------
-  build:
-    runs-on: ubuntu-latest
+    #--------------------------
+    # BUILD
+    #--------------------------
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: checkout
-      uses: actions/checkout@v1
+        steps:
+            -   name: checkout
+                uses: actions/checkout@v1
 
-    - name: jdk
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
+            -   name: jdk
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 1.8
 
-    - name: install-chrome
-      run: |
-        wget -N http://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
-        unzip ~/chromedriver_linux64.zip -d ~/
-        rm ~/chromedriver_linux64.zip
-        sudo mv -f ~/chromedriver /usr/local/share/
-        sudo chmod +x /usr/local/share/chromedriver
-        sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-        google-chrome --version
-        chromedriver --version
+            -   name: install-chrome
+                run: |
+                    wget -N http://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip -P ~/
+                    unzip ~/chromedriver_linux64.zip -d ~/
+                    rm ~/chromedriver_linux64.zip
+                    sudo mv -f ~/chromedriver /usr/local/share/
+                    sudo chmod +x /usr/local/share/chromedriver
+                    sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+                    google-chrome --version
+                    chromedriver --version
 
-    - name: build
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        mvn -s settings.xml install -Dheadless=true
+            -   name: build
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                run: |
+                    mvn -s settings.xml install -Dheadless=true
 
-#    - name: codecov
-#      uses: codecov/codecov-action@v1.0.5
-#      with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          fail_ci_if_error: true
+            #--------------------------
+            # INT DEPLOYMENT
+            #--------------------------
+            -   name: int-deploy
+                env:
+                    HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
+                    HEROKU_APP: int-com-wutsi-blog-web
+                run: |
+                    curl https://cli-assets.heroku.com/install.sh | sh
+                    heroku plugins:install @heroku-cli/plugin-java
+                    heroku buildpacks:clear --app ${HEROKU_APP}
+                    heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
 
+            -   name: int-asset-deploy
+                env:
+                    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+                    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+                run: |
+                    aws s3 cp \
+                      --recursive \
+                      --acl public-read \
+                      --region us-east-1 \
+                      --expires '2100-12-31T00:00:00Z' \
+                      src/main/resources/public/ s3://int-wutsi/static/wutsi-blog-web
 
-  #--------------------------
-  # INT DEPLOYMENT
-  #--------------------------
-    - name: int-deploy
-      env:
-        HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
-        HEROKU_APP: int-com-wutsi-blog-web
-      run: |
-        curl https://cli-assets.heroku.com/install.sh | sh
-        heroku plugins:install @heroku-cli/plugin-java
-        heroku buildpacks:clear --app ${HEROKU_APP}
-        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
-
-    - name: int-asset-deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      run: |
-        aws s3 cp \
-          --recursive \
-          --acl public-read \
-          --region us-east-1 \
-          --expires '2100-12-31T00:00:00Z' \
-          src/main/resources/public/ s3://int-wutsi/static/wutsi-blog-web
-
-    - name: int-healthcheck
-      run: |
-        sleep 60
-        curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+            -   name: int-healthcheck
+                run: |
+                    sleep 60
+                    curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
 
-  #--------------------------
-  # PROD DEPLOYMENT
-  #--------------------------
-    - name: prod-deploy
-      env:
-        HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
-        HEROKU_APP: com-wutsi-blog-web
-      run: |
-        curl https://cli-assets.heroku.com/install.sh | sh
-        heroku plugins:install @heroku-cli/plugin-java
-        heroku buildpacks:clear --app ${HEROKU_APP}
-        heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+            #--------------------------
+            # PROD DEPLOYMENT
+            #--------------------------
+            -   name: prod-deploy
+                env:
+                    HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
+                    HEROKU_APP: com-wutsi-blog-web
+                run: |
+                    curl https://cli-assets.heroku.com/install.sh | sh
+                    heroku plugins:install @heroku-cli/plugin-java
+                    heroku buildpacks:clear --app ${HEROKU_APP}
+                    heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
 
-    - name: prod-assets-deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      run: |
-        aws s3 cp \
-          --recursive \
-          --acl public-read \
-          --region us-east-1 \
-          --expires '2100-12-31T00:00:00Z' \
-          src/main/resources/public/ s3://prod-wutsi/static/wutsi-blog-web
+            -   name: prod-assets-deploy
+                env:
+                    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+                    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+                run: |
+                    aws s3 cp \
+                      --recursive \
+                      --acl public-read \
+                      --region us-east-1 \
+                      --expires '2100-12-31T00:00:00Z' \
+                      src/main/resources/public/ s3://prod-wutsi/static/wutsi-blog-web
 
-    - name: prod-healthcheck
-      run: |
-        sleep 60
-        curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+            -   name: prod-healthcheck
+                run: |
+                    sleep 60
+                    curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
 
