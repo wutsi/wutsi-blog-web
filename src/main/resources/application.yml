@@ -137,6 +137,7 @@ wutsi:
         like: true                      # Enable Like
         next-action: true               # Show NextAction panel on Blog page
         pin: true                       # Pin enabled?
+        post: true                      # Social post enabled?
         pwa: true                       # PWA
         pwa-add-to-homescreen: false    # Enable Badging on app icon
         pwa-badge: true                 # Enable Badging on app icon

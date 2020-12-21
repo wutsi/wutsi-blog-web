@@ -126,7 +126,7 @@ class BlogController(
 
     private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model) {
         val latestStories = LinkedHashMap<UserModel, StoryModel>()
-        val stories = storyService.search(
+        storyService.search(
             SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,

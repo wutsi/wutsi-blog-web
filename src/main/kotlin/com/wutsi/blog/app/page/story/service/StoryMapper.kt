@@ -66,7 +66,8 @@ class StoryMapper(
             wppStatus = story.wppStatus,
             socialMediaMessage = story.socialMediaMessage,
             scheduledPublishDateTime = moment.format(story.scheduledPublishDateTime),
-            scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime
+            scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime,
+            publishToSocialMedia = story.publishToSocialMedia
         )
     }
 

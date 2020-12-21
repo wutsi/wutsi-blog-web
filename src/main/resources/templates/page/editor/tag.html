@@ -79,7 +79,7 @@
                         <label class="form-check-label" th:text="#{page.story.publish.schedule.publish_now}">Now</label>
                     </div>
                     <div class="form-check margin-left">
-                        <input class="form-check-input" id='publish-later-radio' name="publishNow" th:attrappend="checked = !${publishNow} ? checked"
+                        <input class='form-check-input' id='publish-later-radio' name="publishNow" th:attrappend="checked = !${publishNow} ? checked"
                                type="radio"
                                value="false"
                         />
@@ -98,7 +98,7 @@
                 <div class="form-group margin-top-2x" th:if="${story.draft}">
                     <label class="form-check">
                         <input class="form-check-input" id='publish-to-social-media-radio' name="publishToSocialMedia"
-                               th:attrappend="checked = ${publishToSocialMedia} ? checked"
+                               th:attrappend="checked = ${story.publishToSocialMedia} ? checked"
                                type="checkbox"
                                value="true"
                         />

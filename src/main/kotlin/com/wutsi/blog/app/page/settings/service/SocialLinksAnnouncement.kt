@@ -13,7 +13,7 @@ class SocialLinksAnnouncement(
         val user = requestContext.currentUser()
         return user?.blog == true &&
             user?.hasSocialLinks == false &&
-            user.loginCount < Announcement.MAX_LOGIN
+            user?.loginCount < Announcement.MAX_LOGIN
     }
 
     override fun name() = "social_links"

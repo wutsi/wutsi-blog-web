@@ -28,7 +28,7 @@ class MailController(
     ): String {
         newsletterService.unsubscribe(email, userId)
 
-        val blog = userId?.let { userService.get(userId) } ?: null
+        val blog = userId?.let { userService.get(userId) }
         model.addAttribute("blog", blog)
         model.addAttribute("email", email)
         model.addAttribute("title", getTitle(blog))

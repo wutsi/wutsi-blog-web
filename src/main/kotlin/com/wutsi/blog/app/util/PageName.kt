@@ -41,6 +41,8 @@ class PageName {
         const val RECOMMEND = "page.recommend"
         const val RUN_AS = "page.run.as"
 
+        const val CALENDAR = "calendar"
+
         const val SETTINGS = "page.settings"
 
         const val PARTNER = "page.partner"

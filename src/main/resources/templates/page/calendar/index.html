@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar-blog(${user}, false, null)"></div>
+
+<div class="container border main-content margin-top-2x padding-2x story-list">
+
+    <h1 th:text="#{page.calendar.title}">Calendar</h1>
+
+    <ul class="pagination">
+        <li class="margin-right prev"><a th:href="'/me/calendar?date=' + ${previousWeek}" th:text="${previousWeek}">Apr 2020</a></li>
+        <li class="margin-right current"><b th:text="${currentWeek}">May 2020</b></li>
+        <li class="next"><a th:href="'/me/calendar?date=' + ${nextWeek}" th:text="${nextWeek}">Jun 2020</a></li>
+    </ul>
+
+    <table class="calendar">
+        <tr>
+            <th class="day-of-week-heading" th:each="dayOfWeek: ${dayOfWeeks}">
+                <div th:text="${dayOfWeek.name}">Monday</div>
+                <div th:text="${dayOfWeek.displayDate}">2020-01-01</div>
+            </th>
+        </tr>
+
+        <!-- Newsletter -->
+        <tr th:if="${user.newsletterDeliveryDayOfWeek} GT 0">
+            <td th:each="dayOfWeek: ${dayOfWeeks}">
+                <div class="day-of-week-card" th:if="${dayOfWeek.newsletterDelivery}">
+                    <img height="24" src="/assets/wutsi/img/newsletter.png" th:title="#{label.newsletter}" width="24"/>
+                    <span th:text="#{label.newsletter}">Newsletter</span>
+                </div>
+            </td>
+        </tr>
+
+        <!-- Stories To Publish-->
+        <tr>
+            <td th:each="dayOfWeek: ${dayOfWeeks}">
+                <div th:each="story: ${dayOfWeek.storiesToPublish}">
+                    <div class="day-of-week-card">
+                        <div class="text">
+                            <span class="badge" th:style="'background:' + ${story.color}">&nbsp;</span>
+                            <span th:text="${story.title}">Newletter</span>
+                        </div>
+                        <img height="24" src="/assets/wutsi/img/website.png" th:title="#{label.website}" width="24"/>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <!-- Social media posts -->
+        <tr>
+            <td th:each="dayOfWeek: ${dayOfWeeks}">
+                <div th:each="post: ${dayOfWeek.posts}">
+                    <div class="day-of-week-card">
+                        <div class="text">
+                            <span class="badge" th:style="'background:' + ${post.story.color}">&nbsp;</span>
+                            <a th:text="${post.story.title}" th:title="${post.story.title}">Newletter</a>
+                        </div>
+                        <img height="24" th:src="${post.channelImageUrl}" width="24"/>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

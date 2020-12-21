@@ -16,7 +16,7 @@ class WebConfiguration : WebMvcConfigurer {
         LocaleResolverImpl(requestContext)
 
     @Bean
-    fun localeChangeInterceptor(): LocaleChangeInterceptor? {
+    fun localeChangeInterceptor(): LocaleChangeInterceptor {
         val lci = LocaleChangeInterceptor()
         lci.paramName = "lang"
         return lci

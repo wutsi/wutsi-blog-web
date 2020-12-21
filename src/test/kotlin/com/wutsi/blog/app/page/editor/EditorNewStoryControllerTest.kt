@@ -5,7 +5,6 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
-import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpMethod
@@ -27,7 +26,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `user can create and publish new story`() {
-        gotoPage(true)
+        gotoPage()
 
         assertElementHasClass("#story-load-error", "hidden")
         assertElementHasNotClass("#story-editor", "hidden")
@@ -42,6 +41,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
         click("#btn-next")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
@@ -50,17 +50,19 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttribute("#publish-to-social-media-radio", "disabled", null)
         assertElementAttribute("#social-media-message", "disabled", "true")
 
-        select("#topic-id", 1)
         input("#title", "This is title")
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+        select("#topic-id", 1)
 
         click("#publish-to-social-media-radio")
         Thread.sleep(1000) // Delay before entering the message
         input("#social-media-message", "This is awesome!! #WutsiRocks")
+
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
         click("#btn-publish")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_SHARE)
         assertElementAttribute("#btn-facebook", "wutsi-share-target", "facebook")
         assertElementAttribute("#btn-facebook", "wutsi-story-id", "20")
@@ -77,9 +79,9 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    @Ignore("flaky test")
+//    @Ignore("flaky test")
     fun `user can create and schedule when to publish new story`() {
-        gotoPage(true)
+        gotoPage()
 
         assertElementHasClass("#story-load-error", "hidden")
         assertElementHasNotClass("#story-editor", "hidden")
@@ -93,6 +95,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_READABILITY)
         click("#btn-next")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
@@ -101,13 +104,13 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttribute("#publish-to-social-media-radio", "disabled", null)
         assertElementAttribute("#social-media-message", "disabled", "true")
 
-        select("#topic-id", 1)
         input("#title", "This is title")
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+        select("#topic-id", 1)
 
         click("#publish-later-radio")
-        Thread.sleep(2000) // Delay before entering the message
+        Thread.sleep(1000) // Delay before entering the message
         assertElementAttribute("#scheduled-publish-date", "disabled", null)
 
 // Unable to set date in Jenkins :-(
@@ -131,7 +134,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         )
         Mockito.`when`(channelApi.search(1L)).thenReturn(response)
 
-        gotoPage(true)
+        gotoPage()
 
         input("#title", "Hello world")
         click(".ce-paragraph")
@@ -142,19 +145,21 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_READABILITY)
         click("#btn-next")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
-        select("#topic-id", 1)
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
+        select("#topic-id", 1)
         click("#btn-publish")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_SHARE)
         assertElementNotPresent("#btn-twitter")
     }
 
     @Test
     fun `publish error`() {
-        gotoPage(true)
+        gotoPage()
 
         assertElementHasClass("#story-load-error", "hidden")
         assertElementHasNotClass("#story-editor", "hidden")
@@ -169,6 +174,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
         click("#btn-next")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
@@ -178,6 +184,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/story/20/publish", HttpStatus.INTERNAL_SERVER_ERROR)
         click("#btn-publish")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementPresent(".alert-danger")
     }
@@ -239,7 +246,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.LOGIN)
     }
 
-    private fun gotoPage(new: Boolean = false) {
+    private fun gotoPage() {
         login()
 
         driver.get("$url/editor")
