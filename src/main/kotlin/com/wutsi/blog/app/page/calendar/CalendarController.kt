@@ -75,11 +75,13 @@ class CalendarController(
         var all = mutableListOf<CalendarStoryModel>()
         all.addAll(posts.map { it.story })
 
-        val storiesToPublish = storyService.search(SearchStoryRequest(
-            status = draft,
-            userIds = listOf(userId),
-            limit = 1000
-        )).filter { willPublish(it, startDate, endDate) }
+        val storiesToPublish = storyService.search(
+            SearchStoryRequest(
+                status = draft,
+                userIds = listOf(userId),
+                limit = 1000
+            )
+        ).filter { willPublish(it, startDate, endDate) }
         all.addAll(storiesToPublish.map { mapper.toCalendarStoryModel(it) })
 
         val result = all.distinctBy { it.id }
