@@ -9,7 +9,12 @@
 <div th:replace="components/layout :: navbar-blog(${user}, false, null)"></div>
 
 <div class="container border main-content margin-top-2x padding-2x story-list">
-
+    <div>
+        <a href="/me/calendar">
+            <i class="fas fa-arrow-left"></i>
+            <span th:text="#{navbar.calendar}">Calendar</span>
+        </a>
+    </div>
     <h1 th:text="#{page.calendar.post.title}">Post</h1>
 
     <div class="margin-top-2x border-top padding-top">
@@ -50,12 +55,11 @@
         </div>
     </div>
 
-    <div class="margin-top padding-top-2x">
-        <a class="btn btn-primary" id="btn-submit" th:href="'/me/calendar/edit?id=' + ${post.id}" th:if="!${post.published}"
+    <div class="margin-top padding-top-2x" th:if="!${post.published}">
+        <a class="btn btn-primary" id="btn-submit" th:href="'/me/calendar/edit?id=' + ${post.id}"
            th:text="#{button.edit}">Edit</a>
-        <a href="/me/calendar" it="btn-cancel" th:text="#{button.close}">Close</a>
 
-        <a class="btn btn-danger float-right" href="javascript: delete_post()" id="btn-delete" th:if="!${post.published}"
+        <a class="btn btn-danger float-right" href="javascript: delete_post()" id="btn-delete"
            th:text="#{button.delete}">Delete</a>
         <div class="clearfix"></div>
     </div>

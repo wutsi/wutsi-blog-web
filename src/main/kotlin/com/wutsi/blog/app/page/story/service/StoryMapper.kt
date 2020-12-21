@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.page.story.service
 
+import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.common.service.Moment
 import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
@@ -12,7 +13,9 @@ import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import org.springframework.stereotype.Service
+import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.Date
 
 @Service
 class StoryMapper(
@@ -20,7 +23,8 @@ class StoryMapper(
     private val topicMapper: TopicMapper,
     private val topicService: TopicService,
     private val moment: Moment,
-    private val htmlImageMapper: HtmlImageModelMapper
+    private val htmlImageMapper: HtmlImageModelMapper,
+    private val localizationService: LocalizationService
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -65,7 +69,7 @@ class StoryMapper(
             live = story.live,
             wppStatus = story.wppStatus,
             socialMediaMessage = story.socialMediaMessage,
-            scheduledPublishDateTime = moment.format(story.scheduledPublishDateTime),
+            scheduledPublishDateTime = formatMediumDate(story.scheduledPublishDateTime),
             scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime,
             publishToSocialMedia = story.publishToSocialMedia
         )
@@ -98,7 +102,7 @@ class StoryMapper(
         wppStatus = story.wppStatus,
         pinned = (pin?.storyId == story.id),
         pinId = pin?.let { it.id } ?: -1,
-        scheduledPublishDateTime = moment.format(story.scheduledPublishDateTime),
+        scheduledPublishDateTime = formatMediumDate(story.scheduledPublishDateTime),
         scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime
     )
 
@@ -127,5 +131,12 @@ class StoryMapper(
         } else {
             return "green"
         }
+    }
+
+    private fun formatMediumDate(date: Date?): String {
+        date ?: return ""
+
+        val fmt = DateFormat.getDateInstance(DateFormat.MEDIUM, localizationService.getLocale())
+        return fmt.format(date)
     }
 }

@@ -87,6 +87,7 @@
                             <span id="publish-later-label" th:text="#{page.story.publish.schedule.publish_later}">Later</span>
                             <span class="required" id='publish-later-required'>*</span>
                             <input class="form-control" id="scheduled-publish-date" name="scheduledPublishDate"
+                                   placeholder="yyyy-mm-dd"
                                    th:min="${minScheduledPublishDate}"
                                    th:value="${scheduledPublishDate}"
                                    type="date"

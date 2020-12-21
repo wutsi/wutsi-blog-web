@@ -11,12 +11,26 @@
 <div class="container border main-content margin-top-2x padding-2x story-list">
 
     <h1 th:text="#{page.calendar.title}">Calendar</h1>
+    <p th:text="#{page.calendar.description}"></p>
 
     <ul class="pagination">
         <li class="margin-right prev"><a th:href="'/me/calendar?date=' + ${previousWeek}" th:text="${previousWeek}">Apr 2020</a></li>
         <li class="margin-right current"><b th:text="${currentWeek}">May 2020</b></li>
         <li class="next"><a th:href="'/me/calendar?date=' + ${nextWeek}" th:text="${nextWeek}">Jun 2020</a></li>
     </ul>
+
+    <div th:each="channel : ${channels}">
+        <div class="alert alert-warning flex" th:if="!${channel.connected}">
+            <img class="margin-right" height="48" th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type} + '.png'" width="48"/>
+            <div>
+                <div>
+                    <b th:text="#{'page.calendar.channel.' + ${channel.type} +  '.disconnected'}">Connect your Blog to publish your posts.</b>
+                </div>
+                <div th:text="#{'page.calendar.channel.disconnected'}">Connect your Blog to publish your posts.</div>
+                <a class="btn btn-sm btn-light" href="/me/settings#channels" th:text="#{button.connect_your_blog}">Connect</a>
+            </div>
+        </div>
+    </div>
 
     <div class="btn-toolbar margin-top-2x">
         <a class="btn btn-primary" href="/me/calendar/create" id="btn-create" th:text="#{button.schedule_post}">Create Post</a>
@@ -33,8 +47,9 @@
         <!-- Newsletter -->
         <tr th:if="${user.newsletterDeliveryDayOfWeek} GT 0">
             <td th:each="dayOfWeek: ${dayOfWeeks}">
-                <div class="day-of-week-card" th:if="${dayOfWeek.newsletterDelivery}">
-                    <img height="24" src="/assets/wutsi/img/newsletter.png" th:title="#{label.newsletter}" width="24"/>
+                <div class="day-of-week-card" data-placement="top" data-toggle="tooltip" th:if="${dayOfWeek.newsletterDelivery}"
+                     th:title="#{page.calendar.tooltip.newsletter}">
+                    <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/newsletter.png'" th:title="#{label.newsletter}" width="24"/>
                     <span th:text="#{label.newsletter}">Newsletter</span>
                 </div>
             </td>
@@ -44,13 +59,15 @@
         <tr>
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="story: ${dayOfWeek.storiesToPublish}">
-                    <a th:href="${story.url}">
+                    <a data-toggle="tooltip" th:href="${story.url}" th:title="#{page.calendar.tooltip.publish}">
                         <div class="day-of-week-card">
                             <div class="text">
                                 <span class="badge" th:style="'background:' + ${story.color}">&nbsp;</span>
                                 <span th:text="${story.title}">Story</span>
                             </div>
-                            <img height="24" src="/assets/wutsi/img/website.png" th:title="#{label.online}" width="24"/>
+                            <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/website.png'" th:title="#{label.online}" width="24"/>
+                            <i class="fas fa-toggle-on" th:if="${story.published}"></i>
+                            <i class="fas fa-toggle-off" th:if="!${story.published}"></i>
                         </div>
                     </a>
                 </div>
@@ -61,25 +78,32 @@
         <tr>
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="post: ${dayOfWeek.posts}">
-                    <a th:href="${post.url}">
+                    <a data-toggle="tooltip" th:href="${post.url}" th:title="#{'page.calendar.tooltip.' + ${post.channel.type}}">
                         <div class="day-of-week-card">
                             <div class="text">
                                 <span class="badge" th:style="'background:' + ${post.story.color}">&nbsp;</span>
                                 <span th:text="${post.story.title}">Newletter</span>
                             </div>
-                            <img height="24" th:src="${post.channelImageUrl}" th:title="${post.channel.name}" width="24"/>
+                            <img height="24"
+                                 th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${post.channel.type} + '.png'"
+                                 th:title="${post.channel.name}" width="24"/>
+                            <i class="fas fa-toggle-on" th:if="${post.published}"></i>
+                            <i class="fas fa-toggle-off" th:if="!${post.published}"></i>
                         </div>
                     </a>
                 </div>
             </td>
         </tr>
     </table>
-
-
 </div>
 
 <div th:replace="components/layout :: footer"></div>
 
 </body>
 
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>
 </html>

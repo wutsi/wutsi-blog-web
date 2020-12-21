@@ -1357,6 +1357,17 @@ a.sso-button .fab {
     text-overflow: ellipsis;
 }
 
+.day-of-week-card .fa-toggle-on {
+    color: darkgreen;
+    float: right;
+    margin-top: 1em;
+}
+
+.day-of-week-card .fa-toggle-off {
+    float: right;
+    margin-top: 1em;
+}
+
 .calendar .day-of-week-card .text .badge {
     margin-right: var(--margin-small);
 }

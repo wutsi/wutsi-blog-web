@@ -44,6 +44,10 @@ class CalendarController(
         val posts = postService.search(startDate, endDate)
         val stories = loadStories(posts, startDate, endDate)
 
+        // Channels
+        val channels = posts.map { it.channel }.distinctBy { it.type }
+        model.addAttribute("channels", channels)
+
         // Calendar
         var date = startDate
         var dayOfWeeks = mutableListOf<DayOfWeekModel>()

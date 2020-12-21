@@ -14,10 +14,10 @@ class ChannelMapper(
 ) {
     fun toChannelModel(obj: ChannelDto) = ChannelModel(
         id = obj.id,
-        name = requestContext.getMessage("channel.${obj.type}"),
+        name = obj.name,
         type = obj.type,
         userId = obj.userId,
-        pictureUrl = "$assetUrl/assets/wutsi/img/social/${obj.type}.png",
+        pictureUrl = obj.pictureUrl,
         connected = true
     )
 
