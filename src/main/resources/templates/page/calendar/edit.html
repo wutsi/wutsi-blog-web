@@ -17,17 +17,20 @@
 
         <div class="form-group">
             <label>
-                <span th:text="#{page.calendar.editor.channel}">Where to Publish</span>
-                <span class="required">*</span>
+                <span th:text="#{page.calendar.editor.story}">Story to Publish</span>
             </label>
-            <div class="form-control" th:text="${channel.name}">Story</div>
+            <div class="form-control" th:text="${story.title}">Story</div>
         </div>
 
         <div class="form-group">
             <label>
-                <span th:text="#{page.calendar.editor.story}">Story to Publish</span>
+                <span th:text="#{page.calendar.editor.channel}">Where to Publish</span>
+                <span class="required">*</span>
             </label>
-            <div class="form-control" th:text="${story.title}">Story</div>
+            <div class="form-control">
+                <img height="24" th:src="${channel.pictureUrl}" width="24"/>
+                <span th:text="${channel.name}">Twitter</span>
+            </div>
         </div>
 
         <div class="form-group">

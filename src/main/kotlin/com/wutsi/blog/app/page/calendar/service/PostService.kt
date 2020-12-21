@@ -29,7 +29,7 @@ class PostService(
 ) {
     fun get(id: Long): CalendarPostModel {
         val post = api.get(id).post
-        val story = storyService.get(id)
+        val story = storyService.get(post.storyId)
         val channel = channelService.all().find { it.type == post.channelType }
         return mapper.toPostModel(post, channel, story)
     }
@@ -64,18 +64,27 @@ class PostService(
     }
 
     fun create(form: CreatePostForm) {
-        api.create(CreatePostRequest(
-            storyId = form.storyId.toLong(),
-            channelType = form.channelType,
-            scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime),
-            message = form.message
-        ))
+        api.create(
+            CreatePostRequest(
+                storyId = form.storyId.toLong(),
+                channelType = form.channelType,
+                scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime),
+                message = form.message
+            )
+        )
     }
 
     fun update(form: UpdatePostForm) {
-        api.update(form.id, UpdatePostRequest(
-            message = form.message,
-            scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime)
-        ))
+        api.update(
+            form.id,
+            UpdatePostRequest(
+                message = form.message,
+                scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime)
+            )
+        )
+    }
+
+    fun delete(id: Long) {
+        api.delete(id)
     }
 }

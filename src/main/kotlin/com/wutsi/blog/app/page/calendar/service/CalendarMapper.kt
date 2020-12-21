@@ -9,30 +9,42 @@ import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.client.post.PostDto
+import com.wutsi.blog.client.post.PostStatus
 import com.wutsi.blog.client.post.PostSummaryDto
 import com.wutsi.blog.client.story.StoryStatus.draft
 import com.wutsi.blog.client.story.StoryStatus.published
 import com.wutsi.core.util.DateUtils
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.text.DateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.Date
 
 @Service
 class CalendarMapper(
     private val requestContext: RequestContext,
-    private val localizationService: LocalizationService
+    private val localizationService: LocalizationService,
+    @Value("\${wutsi.base-url}") private val baseUrl: String,
+    @Value("\${wutsi.asset-url}") private val assetUrl: String
 ) {
     fun toPostModel(post: PostDto, channel: ChannelModel?, story: StoryModel?) = CalendarPostModel(
         id = post.id,
         status = post.status,
         story = story?.let { toCalendarStoryModel(it) } ?: CalendarStoryModel(),
-        pictureUrl = post.pictureUrl,
+        pictureUrl = if (post.pictureUrl.isNullOrEmpty()) story?.thumbnailUrl else post.pictureUrl,
         message = post.message,
         channel = channel?.let { it } ?: ChannelModel(),
         channelType = post.channelType,
         scheduledPostDateTime = post.scheduledPostDateTime,
-        channelImageUrl = "/assets/wutsi/img/social/${post.channelType.name}.png"
+        postDateTime = post.postDateTime,
+        channelImageUrl = "$assetUrl/assets/wutsi/img/social/${post.channelType.name}.png",
+        hasMessage = !post.message.isNullOrEmpty(),
+        published = post.status == PostStatus.published,
+        url = "/me/calendar/post?id=${post.id}",
+        postDateTimeText = format(post.postDateTime),
+        scheduledPostDateTimeText = format(post.scheduledPostDateTime)
     )
 
     fun toPostModel(post: PostSummaryDto, channel: ChannelModel?, story: StoryModel?) = CalendarPostModel(
@@ -44,7 +56,9 @@ class CalendarMapper(
         channel = channel?.let { it } ?: ChannelModel(),
         channelType = post.channelType,
         scheduledPostDateTime = post.scheduledPostDateTime,
-        channelImageUrl = "/assets/wutsi/img/social/${post.channelType.name}.png"
+        channelImageUrl = "/assets/wutsi/img/social/${post.channelType.name}.png",
+        url = "/me/calendar/post?id=${post.id}",
+        scheduledPostDateTimeText = format(post.scheduledPostDateTime)
     )
 
     fun toCalendarStoryModel(story: StoryModel) = CalendarStoryModel(
@@ -52,7 +66,13 @@ class CalendarMapper(
         title = story.title,
         status = story.status,
         scheduledPublishDateTime = story.scheduledPublishDateTimeAsDate,
-        publishDateTime = story.publishedDateTimeAsDate
+        publishDateTime = story.publishedDateTimeAsDate,
+        published = story.published,
+        publishedDateTime = story.publishedDateTimeAsDate,
+        url = if (story.published) story.slug else "/editor/${story.id}",
+        readUrl = "$baseUrl${story.slug}",
+        scheduledPublishDateTimeText = format(story.scheduledPublishDateTimeAsDate),
+        publishedDateTimeText = format(story.publishedDateTimeAsDate)
     )
 
     fun toDayOfWeekModel(
@@ -79,5 +99,12 @@ class CalendarMapper(
             return date == DateUtils.toLocalDate(story.scheduledPublishDateTime)
         }
         return false
+    }
+
+    private fun format(date: Date?): String {
+        date ?: return ""
+
+        val fmt = DateFormat.getDateInstance(DateFormat.MEDIUM, localizationService.getLocale())
+        return fmt.format(date)
     }
 }

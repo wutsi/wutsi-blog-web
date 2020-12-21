@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar-blog(${user}, false, null)"></div>
+
+<div class="container border main-content margin-top-2x padding-2x story-list">
+
+    <h1 th:text="#{page.calendar.post.title}">Post</h1>
+
+    <div class="margin-top-2x border-top padding-top">
+        <h4 th:text="#{label.story}">Story</h4>
+        <div>
+            <span th:text="${post.story.title}">Story Title</span>
+            <span class="badge" th:classappend="${post.story.published} ? 'badge-success' : 'badge-secondary'"
+                  th:text="#{'story.status.' + ${post.story.status}}"
+            >Published</span>
+        </div>
+        <div class="margin-top">
+            <b th:text="#{label.publish_date}">Date Publication</b>:
+            <i class="far fa-calendar-alt"></i>
+            <span th:if="${post.story.published}" th:text="${post.story.publishedDateTimeText}">2020-20-10</span>
+            <span th:if="!${post.story.published}" th:text="${post.story.scheduledPublishDateTimeText}">2020-20-10</span>
+        </div>
+    </div>
+
+    <div class="margin-top-2x border-top padding-top">
+        <h4 th:text="#{label.post}">Post</h4>
+        <div>
+            <img height="24" th:src="${post.channel.pictureUrl}" width="24"/>
+            <span th:text="${post.channel.name}">Twitter</span>
+            <span class="badge badge-success" th:if="${post.published}" th:text="#{label.published}">Published</span>
+        </div>
+        <div class="margin-top">
+            <b th:text="#{label.publish_date}">Date Publication</b>:
+            <i class="far fa-calendar-alt"></i>
+            <span th:if="${post.published}" th:text="${post.postDateTimeText}">2020-20-10</span>
+            <span th:if="!${post.published}" th:text="${post.scheduledPostDateTimeText}">2020-20-10</span>
+        </div>
+        <div class="social-post-card margin-top-2x">
+            <div class="padding">
+                <div th:text="${post.message}">Message</div>
+                <div class="message-url" th:text="${post.story.readUrl}">URL</div>
+            </div>
+            <img th:src="${post.pictureUrl}"/>
+        </div>
+    </div>
+
+    <div class="margin-top padding-top-2x">
+        <a class="btn btn-primary" id="btn-submit" th:href="'/me/calendar/edit?id=' + ${post.id}" th:if="!${post.published}"
+           th:text="#{button.edit}">Edit</a>
+        <a href="/me/calendar" it="btn-cancel" th:text="#{button.close}">Close</a>
+
+        <a class="btn btn-danger float-right" href="javascript: delete_post()" id="btn-delete" th:if="!${post.published}"
+           th:text="#{button.delete}">Delete</a>
+        <div class="clearfix"></div>
+    </div>
+
+
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function delete_post() {
+        const id = /*[[${post.id}]]*/ '';
+        if (confirm(/*[[#{label.confirm_delete_post}]]*/'')) {
+            window.location.href = '/me/calendar/post/delete?id=' + id;
+        }
+    }
+
+    /*]]>*/
+</script>
+
+</body>
+
+</html>

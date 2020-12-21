@@ -33,11 +33,13 @@ class CreatePostController(
 
     @GetMapping
     fun index(model: Model): String {
-        val stories = storyService.search(SearchStoryRequest(
-            userIds = listOf(requestContext.currentUser()!!.id),
-            sortBy = no_sort,
-            limit = 100
-        ))
+        val stories = storyService.search(
+            SearchStoryRequest(
+                userIds = listOf(requestContext.currentUser()!!.id),
+                sortBy = no_sort,
+                limit = 100
+            )
+        ).filter { it.published || it.scheduledPublishDateTimeAsDate != null }
         model.addAttribute("stories", stories)
 
         val channels = channelService.all()

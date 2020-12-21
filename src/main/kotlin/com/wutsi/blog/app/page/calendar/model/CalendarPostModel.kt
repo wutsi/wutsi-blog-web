@@ -17,6 +17,11 @@ data class CalendarPostModel(
     val message: String? = null,
     val pictureUrl: String? = null,
     val socialPostId: String? = null,
-    val scheduledPostDateTime: Date,
-    val postDateTime: Date? = null
+    val scheduledPostDateTime: Date = Date(),
+    val postDateTime: Date? = null,
+    val scheduledPostDateTimeText: String = "",
+    val postDateTimeText: String? = null,
+    val hasMessage: Boolean = false,
+    val published: Boolean = false,
+    val url: String = ""
 )

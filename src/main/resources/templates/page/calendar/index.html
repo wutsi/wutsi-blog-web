@@ -44,13 +44,15 @@
         <tr>
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="story: ${dayOfWeek.storiesToPublish}">
-                    <div class="day-of-week-card">
-                        <div class="text">
-                            <span class="badge" th:style="'background:' + ${story.color}">&nbsp;</span>
-                            <span th:text="${story.title}">Newletter</span>
+                    <a th:href="${story.url}">
+                        <div class="day-of-week-card">
+                            <div class="text">
+                                <span class="badge" th:style="'background:' + ${story.color}">&nbsp;</span>
+                                <span th:text="${story.title}">Story</span>
+                            </div>
+                            <img height="24" src="/assets/wutsi/img/website.png" th:title="#{label.online}" width="24"/>
                         </div>
-                        <img height="24" src="/assets/wutsi/img/website.png" th:title="#{label.website}" width="24"/>
-                    </div>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -59,13 +61,15 @@
         <tr>
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="post: ${dayOfWeek.posts}">
-                    <div class="day-of-week-card">
-                        <div class="text">
-                            <span class="badge" th:style="'background:' + ${post.story.color}">&nbsp;</span>
-                            <a th:text="${post.story.title}" th:title="${post.story.title}">Newletter</a>
+                    <a th:href="${post.url}">
+                        <div class="day-of-week-card">
+                            <div class="text">
+                                <span class="badge" th:style="'background:' + ${post.story.color}">&nbsp;</span>
+                                <span th:text="${post.story.title}">Newletter</span>
+                            </div>
+                            <img height="24" th:src="${post.channelImageUrl}" th:title="${post.channel.name}" width="24"/>
                         </div>
-                        <img height="24" th:src="${post.channelImageUrl}" width="24"/>
-                    </div>
+                    </a>
                 </div>
             </td>
         </tr>

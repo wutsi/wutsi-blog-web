@@ -9,6 +9,12 @@ data class CalendarStoryModel(
     val title: String = "",
     var color: String = "",
     val status: StoryStatus = draft,
+    val publishDateTime: Date? = null,
+    val published: Boolean = false,
     val scheduledPublishDateTime: Date? = null,
-    val publishDateTime: Date? = null
+    val publishedDateTime: Date? = null,
+    val url: String = "",
+    val readUrl: String = "",
+    val scheduledPublishDateTimeText: String = "",
+    val publishedDateTimeText: String = ""
 )
