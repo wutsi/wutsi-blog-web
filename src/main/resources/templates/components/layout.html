@@ -246,9 +246,12 @@
         </div>
         <div class="dropdown-divider"></div>
 
+        <a class="dropdown-item" href="/create" id="navbar-create-blog" rel="nofollow" th:if="!${user.blog}" th:text="#{navbar.create-blog}">Start
+            Writing</a>
         <a class="dropdown-item" href="/me/draft" id="navbar-draft" rel="nofollow" th:if="${user.blog}" th:text="#{navbar.my-stories}">My Stories</a>
-        <a class="dropdown-item" href="/editor" id="navbar-editor" rel="nofollow" th:text="#{navbar.new-stories}">New Story</a>
-        <a class="dropdown-item" href="/me/syndicate" id="navbar-syndicate" rel="nofollow" th:text="#{navbar.syndicate-story}">Import Story</a>
+        <a class="dropdown-item" href="/editor" id="navbar-editor" rel="nofollow" th:if="${user.blog}" th:text="#{navbar.new-stories}">New Story</a>
+        <a class="dropdown-item" href="/me/syndicate" id="navbar-syndicate" rel="nofollow" th:if="${user.blog}" th:text="#{navbar.syndicate-story}">Import
+            Story</a>
         <a class="dropdown-item" href="/me/calendar" id="navbar-calendar" rel="nofollow" th:if="${user.blog} AND ${toggles.post}"
            th:text="#{navbar.calendar}">Calendar</a>
 
