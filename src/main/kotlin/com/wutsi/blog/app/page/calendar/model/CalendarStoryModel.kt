@@ -9,5 +9,6 @@ data class CalendarStoryModel(
     val title: String = "",
     var color: String = "",
     val status: StoryStatus = draft,
-    val scheduledPublishDateTime: Date? = null
+    val scheduledPublishDateTime: Date? = null,
+    val publishDateTime: Date? = null
 )

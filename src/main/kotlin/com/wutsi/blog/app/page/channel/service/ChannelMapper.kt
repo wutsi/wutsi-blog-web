@@ -1,15 +1,16 @@
 package com.wutsi.blog.app.page.channel.service
 
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.client.channel.ChannelDto
 import com.wutsi.blog.client.channel.ChannelType
 import org.springframework.stereotype.Service
 
 @Service
-class ChannelMapper {
+class ChannelMapper(private val requestContext: RequestContext) {
     fun toChannelModel(obj: ChannelDto) = ChannelModel(
         id = obj.id,
-        name = obj.name,
+        name = requestContext.getMessage("channel.${obj.type}"),
         type = obj.type,
         userId = obj.userId,
         pictureUrl = obj.pictureUrl,
@@ -18,6 +19,7 @@ class ChannelMapper {
 
     fun toChannelModel(type: ChannelType) = ChannelModel(
         type = type,
+        name = requestContext.getMessage("channel.${type}"),
         connected = false
     )
 }

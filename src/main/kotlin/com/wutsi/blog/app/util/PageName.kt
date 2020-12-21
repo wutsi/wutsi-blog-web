@@ -42,6 +42,8 @@ class PageName {
         const val RUN_AS = "page.run.as"
 
         const val CALENDAR = "calendar"
+        const val CALENDAR_CREATE = "calendar.create"
+        const val CALENDAR_EDIT = "calendar.edit"
 
         const val SETTINGS = "page.settings"
 

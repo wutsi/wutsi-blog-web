@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar-blog(${user}, false, null)"></div>
+
+<div class="container border main-content margin-top-2x padding-2x story-list">
+
+    <h1 th:text="#{page.calendar.editor.title}">Schedule a Post</h1>
+
+    <form autocomplete="off" class="margin-top-2x" method="post" th:action="@{/me/calendar/create}" th:object="${post}">
+        <div class="form-group">
+            <label>
+                <span th:text="#{page.calendar.editor.channel}">Where to Publish</span>
+                <span class="required">*</span>
+            </label>
+            <select class="form-control" id="channel-type" name="channelType" required="required" th:field="*{channelType}">
+                <option value=""></option>
+                <option
+                    th:each="channel : ${channels}"
+                    th:text="${channel.name}"
+                    th:value="${channel.type}"
+                >Facebook
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span th:text="#{page.calendar.editor.story}">Story to Publish</span>
+                <span class="required">*</span>
+            </label>
+            <select class="form-control" id="story" name="storyId" required="required" th:field="*{storyId}">
+                <option value=""></option>
+                <option
+                    th:each="story : ${stories}"
+                    th:text="${story.title}"
+                    th:value="${story.id}"
+                >This is the title of the story
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span th:text="#{page.calendar.editor.message}">Message to Publish</span>
+            </label>
+            <textarea class="form-control" id="message" name="message" rows="3" th:field="*{message}"></textarea>
+            <small class="form-text text-muted" th:text="#{page.calendar.editor.message.help}">Help</small>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span th:text="#{page.calendar.editor.scheduled-date}">When to Publish</span>
+                <span class="required">*</span>
+            </label>
+            <input class="form-control" id="post-date" name="scheduledDateTime" required="required" th:field="*{scheduledDateTime}" th:min="${minDate}"
+                   type="date"></input>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="margin-top padding-top">
+            <button class="btn btn-primary" id="btn-submit" th:text="#{button.save}" type="submit">Save</button>
+            <a href="/me/calendar" it="btn-cancel" th:text="#{button.cancel}">Cancel</a>
+        </div>
+    </form>
+
+
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+
+</html>

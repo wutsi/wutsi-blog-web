@@ -60,40 +60,52 @@ class CalendarController(
     }
 
     private fun startDate(date: String?): LocalDate {
-        date ?: return beginingOfTheWeek()
+        date ?: return beginningOfTheWeek()
 
         try {
-            return beginingOfTheWeek(LocalDate.parse(date))
+            return beginningOfTheWeek(LocalDate.parse(date))
         } catch (ex: Exception) {
-            return beginingOfTheWeek()
+            return beginningOfTheWeek()
         }
     }
 
     private fun loadStories(posts: List<CalendarPostModel>, startDate: LocalDate, endDate: LocalDate): List<CalendarStoryModel> {
         val userId = requestContext.currentUser()?.id ?: return emptyList()
 
+        // Stories from post
         var all = mutableListOf<CalendarStoryModel>()
         all.addAll(posts.map { it.story })
 
-        val storiesToPublish = storyService.search(
+        // Stories to publish
+        storyService.search(
             SearchStoryRequest(
                 status = draft,
                 userIds = listOf(userId),
                 limit = 1000
             )
         ).filter { willPublish(it, startDate, endDate) }
-        all.addAll(storiesToPublish.map { mapper.toCalendarStoryModel(it) })
+            .forEach {
+                val storyId = it.id
+                if (all.find { it.id == storyId } == null) {
+                    all.add(mapper.toCalendarStoryModel(it))
+                }
+            }
 
-        val result = all.distinctBy { it.id }
+        // Assign colors
+        val ids = all.map { it.id }.distinctBy { it }
         val colors = arrayOf(
             "orange", "blue", "darkgreen", "darkred", "magenta"
         )
         var i = 0
-        result.forEach { it.color = colors[i++ % colors.size] }
-        return result
+        val idToColor = ids.map { it to colors[i++ % colors.size] }.toMap()
+
+        all.forEach {
+            it.color = idToColor[it.id] ?: "black"
+        }
+        return all.distinctBy { it.id }
     }
 
-    private fun beginingOfTheWeek(date: LocalDate = LocalDate.now()): LocalDate {
+    private fun beginningOfTheWeek(date: LocalDate = LocalDate.now()): LocalDate {
         var cur = date
         while (cur.dayOfWeek != SUNDAY)
             cur = date.plusDays(-1)

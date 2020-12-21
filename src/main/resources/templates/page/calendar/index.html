@@ -18,7 +18,11 @@
         <li class="next"><a th:href="'/me/calendar?date=' + ${nextWeek}" th:text="${nextWeek}">Jun 2020</a></li>
     </ul>
 
-    <table class="calendar">
+    <div class="btn-toolbar margin-top-2x">
+        <a class="btn btn-primary" href="/me/calendar/create" id="btn-create" th:text="#{button.schedule_post}">Create Post</a>
+    </div>
+
+    <table class="calendar margin-top">
         <tr>
             <th class="day-of-week-heading" th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:text="${dayOfWeek.name}">Monday</div>
