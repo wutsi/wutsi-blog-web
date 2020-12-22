@@ -1381,8 +1381,8 @@ a.sso-button .fab {
 .social-post-card img {
     display: block;
     margin: 0 auto;
-    width: 800px;
-    height: 400px;
+    max-width: 800px;
+    max-height: 400px;
 }
 
 .social-post-card .message-url {

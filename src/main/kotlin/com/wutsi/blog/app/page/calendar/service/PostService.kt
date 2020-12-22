@@ -11,6 +11,7 @@ import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.post.CreatePostRequest
 import com.wutsi.blog.client.post.SearchPostRequest
+import com.wutsi.blog.client.post.SetPostPictureRequest
 import com.wutsi.blog.client.post.UpdatePostRequest
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.sdk.PostApi
@@ -86,5 +87,11 @@ class PostService(
 
     fun delete(id: Long) {
         api.delete(id)
+    }
+
+    fun setPicture(id: Long, pictureUrl: String) {
+        api.setPicture(id, SetPostPictureRequest(
+            pictureUrl = pictureUrl
+        ))
     }
 }

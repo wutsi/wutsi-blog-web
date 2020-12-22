@@ -32,4 +32,10 @@ class ShowPostController(
         postService.delete(id)
         return "redirect:/me/calendar"
     }
+
+    @GetMapping("/picture")
+    fun picture(@RequestParam id: Long, @RequestParam url: String): String {
+        postService.setPicture(id, url)
+        return "redirect:/me/calendar/post?id=$id"
+    }
 }

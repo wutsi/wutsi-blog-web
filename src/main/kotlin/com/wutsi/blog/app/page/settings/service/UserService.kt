@@ -38,6 +38,8 @@ class UserService(
     }
 
     fun set(request: UserAttributeForm) {
+        requestContext.currentUser() ?: return
+
         api.set(
             requestContext.currentUser()?.id!!,
             UpdateUserAttributeRequest(

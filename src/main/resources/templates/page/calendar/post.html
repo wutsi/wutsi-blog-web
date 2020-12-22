@@ -52,6 +52,10 @@
                 <div class="message-url" th:text="${post.story.readUrl}">URL</div>
             </div>
             <img th:src="${post.pictureUrl}"/>
+            <div class="padding">
+                <button class="btn-upload btn btn-sm btn-light margin-top" th:text="#{button.change_picture}">Upload Logo</button>
+                <input class="hidden" id="file-upload" type="file"/>
+            </div>
         </div>
     </div>
 
@@ -79,6 +83,23 @@
             window.location.href = '/me/calendar/post/delete?id=' + id;
         }
     }
+
+    $('.btn-upload').click(function () {
+        $('#file-upload').click();
+    });
+
+    $('#file-upload').change(function () {
+        const file = $(this).prop('files')[0];
+
+        console.log('Uploading ', file);
+        if (file.type.startsWith('image/')) {
+            wutsi.upload(file)
+                .then(function (data) {
+                    const id = /*[[${post.id}]]*/ '';
+                    window.location.href = '/me/calendar/post/picture?id=' + id + '&url=' + data.url;
+                });
+        }
+    });
 
     /*]]>*/
 </script>
