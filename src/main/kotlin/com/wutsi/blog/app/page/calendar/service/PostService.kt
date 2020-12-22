@@ -90,8 +90,11 @@ class PostService(
     }
 
     fun setPicture(id: Long, pictureUrl: String) {
-        api.setPicture(id, SetPostPictureRequest(
-            pictureUrl = pictureUrl
-        ))
+        api.setPicture(
+            postId = id,
+            request = SetPostPictureRequest(
+                pictureUrl = pictureUrl
+            )
+        )
     }
 }
