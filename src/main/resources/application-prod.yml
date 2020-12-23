@@ -1,74 +1,75 @@
 wutsi:
-  asset-url: https://${wutsi.storage.s3.bucket}.s3.amazonaws.com/static/wutsi-blog-web
-  domain: www.wutsi.com
-  base-url: https://${wutsi.domain}
+    asset-url: https://${wutsi.storage.s3.bucket}.s3.amazonaws.com/static/wutsi-blog-web
+    domain: www.wutsi.com
+    base-url: https://${wutsi.domain}
 
-  backend:
-    base-url: https://com-wutsi-blog.herokuapp.com
-    track-url: https://com-wutsi-track.herokuapp.com
+    backend:
+        base-url: https://com-wutsi-blog.herokuapp.com
+        track-url: https://com-wutsi-track.herokuapp.com
 
-  image-kit:   # Configuration of integration with imagekit.io
-    origin-url: "https://s3.amazonaws.com/prod-wutsi"
-    endpoint-url: "https://ik.imagekit.io/toifevuwjn"
+    image-kit: # Configuration of integration with imagekit.io
+        origin-url: "https://s3.amazonaws.com/prod-wutsi"
+        endpoint-url: "https://ik.imagekit.io/toifevuwjn"
 
-  oauth:
-      facebook:
-        client-id: "466330503408293"
-      github:
-        client-id: "900cfd0accedc133ea5b"
-      google:
-        api-key: "AIzaSyA2TnJHA13MhGMZWtJC48NMqkTnASFBtyU"
-        client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
-      twitter:
-        client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
+    oauth:
+        facebook:
+            client-id: "466330503408293"
+        github:
+            client-id: "900cfd0accedc133ea5b"
+        google:
+            api-key: "AIzaSyA2TnJHA13MhGMZWtJC48NMqkTnASFBtyU"
+            client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
+        twitter:
+            client-id: "WWFN2AU1eCQFmY9vzMgv6sCmX"
 
-  pwa:
-    manifest:
-      name: "Wutsi"
-    firebase:
-      project-id: "wutsi-205420"
-      api-key: "AIzaSyA2TnJHA13MhGMZWtJC48NMqkTnASFBtyU"
-      app-id: "1:28035834807:web:59482c9ccb00953cbbbe32"
-      public-vapid-key: "BIn7dWZwYvAhHCUtmdyrF7E4ZEJm2FT15yscJxsSNSFZJ1aTQiUQXIfXRjiEpHowTmHtfsxS2ch3wOWfgijo8-0"
-      sender-id: "28035834807"
+    pwa:
+        manifest:
+            name: "Wutsi"
+        firebase:
+            project-id: "wutsi-205420"
+            api-key: "AIzaSyA2TnJHA13MhGMZWtJC48NMqkTnASFBtyU"
+            app-id: "1:28035834807:web:59482c9ccb00953cbbbe32"
+            public-vapid-key: "BIn7dWZwYvAhHCUtmdyrF7E4ZEJm2FT15yscJxsSNSFZJ1aTQiUQXIfXRjiEpHowTmHtfsxS2ch3wOWfgijo8-0"
+            sender-id: "28035834807"
 
-  google:
-    ga:
-      code: "UA-120456146-1"
-    ad-sense:
-      code: "ca-pub-8667372924137381"
+    google:
+        ga:
+            code: "UA-120456146-1"
+        ad-sense:
+            code: "ca-pub-8667372924137381"
 
-  facebook:
-    app-id: "466330503408293"
-    pixel:
-      code: "553466401984152"
+    facebook:
+        app-id: "466330503408293"
+        pixel:
+            code: "553466401984152"
 
-  storage:
-    s3:
-      bucket: "prod-wutsi"
+    storage:
+        s3:
+            bucket: "prod-wutsi"
 
-  toggles:
-    announcement: true
-    channel: true
-    channel-twitter: true
-    channel-facebook: false
-    comment: true
-    earning: true
-    follow: true
-    google-ad-sense: false            # Google AdSense request rejected :-(
-    google-one-tap-sign-in: true
-    imagekit: true
-    like: true
-    pin: true
-    pwa: true
-    pwa-badge: true
-    pwa-push-notification: false
-    translation: true
-    recommendation: true
-    publish: true
-    sso-facebook: true
-    sso-google: true
-    sso-github: false
-    sso-twitter: true
-    wpp: true
+    toggles:
+        announcement: true
+        channel: true
+        channel-twitter: true
+        channel-facebook: false
+        comment: true
+        earning: true
+        follow: true
+        google-ad-sense: false            # Google AdSense request rejected :-(
+        google-one-tap-sign-in: true
+        imagekit: true
+        like: true
+        pin: true
+        pwa: true
+        pwa-add-to-homescreen: false
+        pwa-badge: true
+        pwa-push-notification: false
+        translation: true
+        recommendation: true
+        publish: true
+        sso-facebook: true
+        sso-google: true
+        sso-github: false
+        sso-twitter: true
+        wpp: true
 

@@ -141,7 +141,7 @@ wutsi:
         pwa: true                       # PWA
         pwa-add-to-homescreen: false    # Enable Badging on app icon
         pwa-badge: true                 # Enable Badging on app icon
-        pwa-push-notification: false    # Enable PWA Push Notification?
+        pwa-push-notification: true     # Enable PWA Push Notification?
         qa-login: false                 # Login provider for QA
         recommendation: true            # Show articles recommendations in reader
         translation: true               # Enable translation
