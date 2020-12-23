@@ -29,7 +29,7 @@
             </label>
             <div class="form-control">
                 <img height="24" th:src="${channel.pictureUrl}" width="24"/>
-                <span th:text="${channel.name}">Twitter</span>
+                <span th:text="#{'channel.' + ${channel.type}}">Twitter</span>
             </div>
         </div>
 
@@ -46,7 +46,8 @@
                 <span th:text="#{page.calendar.editor.scheduled-date}">When to Publish</span>
                 <span class="required">*</span>
             </label>
-            <input class="form-control" id="post-date" name="scheduledDateTime" placeholder="yyyy-mm-dd" required="required" th:field="*{scheduledDateTime}"
+            <input class="form-control" id="post-date" name="scheduledDateTime" placeholder="yyyy-mm-dd" required="required"
+                   th:field="*{scheduledDateTime}"
                    th:min="${minDate}" type="date"></input>
         </div>
 

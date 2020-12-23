@@ -22,6 +22,7 @@ data class CalendarPostModel(
     val scheduledPostDateTimeText: String = "",
     val postDateTimeText: String? = null,
     val hasMessage: Boolean = false,
+    val hasPicture: Boolean = false,
     val published: Boolean = false,
     val url: String = ""
 )

@@ -38,7 +38,7 @@
                 <option value=""></option>
                 <option
                     th:each="channel : ${channels}"
-                    th:text="${channel.name}"
+                    th:text="#{'channel.' + ${channel.type}}"
                     th:value="${channel.type}"
                 >Facebook
                 </option>
@@ -58,7 +58,8 @@
                 <span th:text="#{page.calendar.editor.scheduled-date}">When to Publish</span>
                 <span class="required">*</span>
             </label>
-            <input class="form-control" id="post-date" name="scheduledDateTime" placeholder="yyyy-mm-dd" required="required" th:field="*{scheduledDateTime}"
+            <input class="form-control" id="post-date" name="scheduledDateTime" placeholder="yyyy-mm-dd" required="required"
+                   th:field="*{scheduledDateTime}"
                    th:min="${minDate}" type="date"></input>
         </div>
 

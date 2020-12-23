@@ -33,7 +33,7 @@ class CalendarMapper(
         id = post.id,
         status = post.status,
         story = story?.let { toCalendarStoryModel(it) } ?: CalendarStoryModel(),
-        pictureUrl = if (post.pictureUrl.isNullOrEmpty()) story?.thumbnailUrl else post.pictureUrl,
+        pictureUrl = pictureUrl(post, story),
         message = post.message,
         channel = channel?.let { it } ?: ChannelModel(),
         channelType = post.channelType,
@@ -41,11 +41,15 @@ class CalendarMapper(
         postDateTime = post.postDateTime,
         channelImageUrl = "$assetUrl/assets/wutsi/img/social/${post.channelType.name}.png",
         hasMessage = !post.message.isNullOrEmpty(),
+        hasPicture = !pictureUrl(post, story).isNullOrEmpty(),
         published = post.status == PostStatus.published,
         url = "/me/calendar/post?id=${post.id}",
         postDateTimeText = format(post.postDateTime),
         scheduledPostDateTimeText = format(post.scheduledPostDateTime)
     )
+
+    private fun pictureUrl(post: PostDto, story: StoryModel?): String? =
+        if (post.pictureUrl.isNullOrEmpty()) story?.thumbnailUrl else post.pictureUrl
 
     fun toPostModel(post: PostSummaryDto, channel: ChannelModel?, story: StoryModel?) = CalendarPostModel(
         id = post.id,

@@ -126,11 +126,29 @@
         });
     </script>
 
+    <script th:if="${toggles.pwaPushNotification}" th:inline="javascript">
+        /*<![CDATA[*/
+        function pwa_notification_init() {
+            const showNotificationOptIn = /*[[${page.showNotificationOptIn}]]*/'false';
+            const firebaseVapidKey = /*[[${page.firebaseConfig.publicVapidKey}]]*/'';
+            const firebaseConfig = {
+                apiKey: /*[[${page.firebaseConfig.apiKey}]]*/ '',
+                projectId: /*[[${page.firebaseConfig.projectId}]]*/ '',
+                messagingSenderId: /*[[${page.firebaseConfig.senderId}]]*/ '',
+                appId: /*[[${page.firebaseConfig.appId}]]*/ ''
+            };
+            firebase_setup(reg, firebaseConfig, firebaseVapidKey, showNotificationOptIn)
+        }
+
+        /*]]>*/
+    </script>
+    <script th:if="!${toggles.pwaPushNotification}">
+        function pwa_notification_init() {
+        }
+    </script>
+
     <script id="pwa-js" th:if="${toggles.pwa}" th:inline="javascript">
         /*<![CDATA[*/
-
-        const pushNotificationEnabled = /*[[${toggles.pwaPushNotification}]]*/'false';
-        const showNotificationOptIn = /*[[${page.showNotificationOptIn}]]*/'false';
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
@@ -155,17 +173,7 @@
                     });
 
                     // Push Notification
-                    if (pushNotificationEnabled) {
-                        const firebaseVapidKey = /*[[${page.firebaseConfig.publicVapidKey}]]*/'';
-                        const firebaseConfig = {
-                            apiKey: /*[[${page.firebaseConfig.apiKey}]]*/ '',
-                            projectId: /*[[${page.firebaseConfig.projectId}]]*/ '',
-                            messagingSenderId: /*[[${page.firebaseConfig.senderId}]]*/ '',
-                            appId: /*[[${page.firebaseConfig.appId}]]*/ ''
-                        };
-                        firebase_setup(reg, firebaseConfig, firebaseVapidKey, showNotificationOptIn)
-                    }
-
+                    pwa_notification_init();
                 })
                 .catch(function (err) {
                     console.error('service worker not registered', err);
@@ -174,6 +182,7 @@
 
         /*]]>*/
     </script>
+
     <script id="a2hs-js" src="/a2hs.js"></script>
 </footer>
 

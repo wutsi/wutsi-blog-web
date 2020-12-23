@@ -109,10 +109,10 @@ class CalendarController(
         return all.distinctBy { it.id }
     }
 
-    private fun beginningOfTheWeek(date: LocalDate = LocalDate.now()): LocalDate {
-        var cur = date
+    private fun beginningOfTheWeek(date: LocalDate? = null): LocalDate {
+        var cur = date?.let { it } ?: LocalDate.now()
         while (cur.dayOfWeek != SUNDAY)
-            cur = date.plusDays(-1)
+            cur = cur.plusDays(-1)
         return cur
     }
 
