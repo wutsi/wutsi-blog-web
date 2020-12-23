@@ -48,8 +48,8 @@
         </div>
         <div class="social-post-card margin-top-2x">
             <div class="padding">
-                <div th:text="${post.message}">Message</div>
-                <div class="message-url" th:text="${post.story.readUrl}">URL</div>
+                <span th:text="${post.message}">Message</span>.
+                <span class="message-url" th:text="${post.story.readUrl}">URL</span>
             </div>
             <div>
                 <img th:if="${post.hasPicture}" th:src="${post.pictureUrl}"/>

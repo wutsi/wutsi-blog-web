@@ -62,7 +62,8 @@ class CalendarMapper(
         scheduledPostDateTime = post.scheduledPostDateTime,
         channelImageUrl = "/assets/wutsi/img/social/${post.channelType.name}.png",
         url = "/me/calendar/post?id=${post.id}",
-        scheduledPostDateTimeText = format(post.scheduledPostDateTime)
+        scheduledPostDateTimeText = format(post.scheduledPostDateTime),
+        published = post.status == PostStatus.published
     )
 
     fun toCalendarStoryModel(story: StoryModel) = CalendarStoryModel(

@@ -52,7 +52,7 @@ class CreatePostController(
 
     @PostMapping
     fun submit(@ModelAttribute form: CreatePostForm): String {
-        postService.create(form)
-        return "redirect:/me/calendar"
+        val id = postService.create(form)
+        return "redirect:/me/calendar/post?id=$id"
     }
 }

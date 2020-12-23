@@ -64,15 +64,15 @@ class PostService(
         }
     }
 
-    fun create(form: CreatePostForm) {
-        api.create(
+    fun create(form: CreatePostForm): Long {
+        return api.create(
             CreatePostRequest(
                 storyId = form.storyId.toLong(),
                 channelType = form.channelType,
                 scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime),
                 message = form.message
             )
-        )
+        ).postId
     }
 
     fun update(form: UpdatePostForm) {
