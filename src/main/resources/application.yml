@@ -99,8 +99,7 @@ wutsi:
             callback-url: "${wutsi.base-url}/login/google/callback"
             scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
         linkedin:
-            api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
-            client-id: "86s3t89456jpcj"
+            client-id: "000000000"
             client-secret: "00000000"
             callback-url: "${wutsi.base-url}/login/linkedin/callback"
             scope: "r_liteprofile r_emailaddress w_member_social"
