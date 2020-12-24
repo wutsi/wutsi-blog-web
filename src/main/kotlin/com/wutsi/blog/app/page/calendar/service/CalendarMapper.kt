@@ -77,7 +77,8 @@ class CalendarMapper(
         url = if (story.published) story.slug else "/editor/${story.id}",
         readUrl = "$baseUrl${story.slug}",
         scheduledPublishDateTimeText = format(story.scheduledPublishDateTimeAsDate),
-        publishedDateTimeText = format(story.publishedDateTimeAsDate)
+        publishedDateTimeText = format(story.publishedDateTimeAsDate),
+        innerStory = story
     )
 
     fun toDayOfWeekModel(

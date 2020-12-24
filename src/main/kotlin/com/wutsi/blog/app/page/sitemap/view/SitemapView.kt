@@ -58,7 +58,6 @@ class SitemapView(
         val urls = mutableListOf(
             mapper.toUrlModel("/"),
             mapper.toUrlModel("/about"),
-            mapper.toUrlModel("/create"),
             mapper.toUrlModel("/writers")
         )
         if (toggles.wpp) {

@@ -1,5 +1,6 @@
 package com.wutsi.blog.app.page.calendar.model
 
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StoryStatus.draft
 import java.util.Date
@@ -16,5 +17,6 @@ data class CalendarStoryModel(
     val url: String = "",
     val readUrl: String = "",
     val scheduledPublishDateTimeText: String = "",
-    val publishedDateTimeText: String = ""
+    val publishedDateTimeText: String = "",
+    val innerStory: StoryModel = StoryModel()
 )

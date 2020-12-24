@@ -1,9 +1,9 @@
 package com.wutsi.blog.app.page.calendar
 
-import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.calendar.model.UpdatePostForm
 import com.wutsi.blog.app.page.calendar.service.PostService
+import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.core.util.DateUtils
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -21,14 +21,16 @@ import java.util.Date
 @RequestMapping("/me/calendar/edit")
 @ConditionalOnProperty(value = ["wutsi.toggles.post"], havingValue = "true")
 class EditPostController(
-    private val postService: PostService,
+    postService: PostService,
     requestContext: RequestContext
-) : AbstractPageController(requestContext) {
+) : AbstractPostController(postService, requestContext) {
     override fun pageName() = PageName.CALENDAR_EDIT
+
+    override fun requiredPermissions(): List<Permission> = listOf(Permission.owner)
 
     @GetMapping()
     fun index(@RequestParam id: Long, model: Model): String {
-        val post = postService.get(id)
+        val post = getPost(id)
         model.addAttribute("story", post.story)
         model.addAttribute("channel", post.channel)
 

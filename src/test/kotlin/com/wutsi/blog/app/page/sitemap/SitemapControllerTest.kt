@@ -12,7 +12,7 @@ class SitemapControllerTest : SeleniumTestSupport() {
     @Test
     fun `sitemap content`() {
         val sitemap = JAXB.unmarshal(URL("$url/sitemap.xml"), SitemapModel::class.java)
-        assertEquals(17, sitemap.url.size)
+        assertEquals(16, sitemap.url.size)
 
         assertHasUrl("/", sitemap)
         assertHasUrl("/partner", sitemap)
