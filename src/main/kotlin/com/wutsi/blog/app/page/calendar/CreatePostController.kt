@@ -7,8 +7,9 @@ import com.wutsi.blog.app.page.calendar.service.PostService
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.SortOrder.descending
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.StorySortStrategy.no_sort
+import com.wutsi.blog.client.story.StorySortStrategy.created
 import com.wutsi.core.util.DateUtils
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
@@ -36,8 +37,9 @@ class CreatePostController(
         val stories = storyService.search(
             SearchStoryRequest(
                 userIds = listOf(requestContext.currentUser()!!.id),
-                sortBy = no_sort,
-                limit = 100
+                sortBy = created,
+                sortOrder = descending,
+                limit = 365
             )
         ).filter { it.published || it.scheduledPublishDateTimeAsDate != null }
         model.addAttribute("stories", stories)

@@ -10,7 +10,9 @@ import com.wutsi.blog.app.page.calendar.service.PostService
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.SortOrder.descending
 import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StorySortStrategy.created
 import com.wutsi.core.util.DateUtils
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
@@ -83,7 +85,9 @@ class CalendarController(
         storyService.search(
             SearchStoryRequest(
                 userIds = listOf(userId),
-                limit = 100
+                sortBy = created,
+                sortOrder = descending,
+                limit = 365
             )
         ).filter { accept(it, startDate, endDate) }
             .forEach {

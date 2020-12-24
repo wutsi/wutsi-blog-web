@@ -213,7 +213,7 @@ class StoryService(
         return if (response.storyIds.isEmpty()) emptyList() else search(
             SearchStoryRequest(
                 storyIds = response.storyIds,
-                sortBy = StorySortStrategy.no_sort
+                sortBy = StorySortStrategy.none
             )
         )
     }
