@@ -67,6 +67,9 @@ class ChannelService(
         if (toggles.channelFacebook) {
             types.add(ChannelType.facebook)
         }
+        if (toggles.channelLinkedin) {
+            types.add(ChannelType.linkedin)
+        }
         return types
     }
 }

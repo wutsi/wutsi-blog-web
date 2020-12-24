@@ -3,6 +3,7 @@ package com.wutsi.blog.app.security.config
 import com.github.scribejava.apis.FacebookApi
 import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.apis.GoogleApi20
+import com.github.scribejava.apis.LinkedInApi20
 import com.github.scribejava.apis.TwitterApi
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.oauth.OAuth10aService
@@ -18,6 +19,7 @@ class OAuthConfiguration {
         const val FACEBOOK_OAUTH_SERVICE: String = "FACEBOOK_OAUTH_SERVICE"
         const val GOOGLE_OAUTH_SERVICE: String = "GOOGLE_OAUTH_SERVICE"
         const val TWITTER_OAUTH_SERVICE: String = "TWITTER_OAUTH_SERVICE"
+        const val LINKEDIN_OAUTH_SERVICE: String = "LINKEDIN_OAUTH_SERVICE"
     }
 
     @Bean(GITHUB_OAUTH_SERVICE)
@@ -53,6 +55,18 @@ class OAuthConfiguration {
         .withScope(scope)
         .callback(callbackUrl)
         .build(GoogleApi20.instance())
+
+    @Bean(LINKEDIN_OAUTH_SERVICE)
+    fun linkedinOAuthService(
+        @Value("\${wutsi.oauth.linkedin.client-id}") clientId: String,
+        @Value("\${wutsi.oauth.linkedin.client-secret}") clientSecret: String,
+        @Value("\${wutsi.oauth.linkedin.callback-url}") callbackUrl: String,
+        @Value("\${wutsi.oauth.linkedin.scope}") scope: String
+    ): OAuth20Service = ServiceBuilder(clientId)
+        .apiSecret(clientSecret)
+        .withScope(scope)
+        .callback(callbackUrl)
+        .build(LinkedInApi20.instance())
 
     @Bean(TWITTER_OAUTH_SERVICE)
     fun twitterOAuthService(

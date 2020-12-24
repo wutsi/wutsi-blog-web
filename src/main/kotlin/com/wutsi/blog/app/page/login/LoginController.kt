@@ -53,6 +53,7 @@ class LoginController(
         model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
         model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
         model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
+        model.addAttribute("linkedinUrl", loginUrl("/login/linkedin", redirect))
 
         loadTargetUser(xreason, redirectUrl, model)
         return "page/login/index"

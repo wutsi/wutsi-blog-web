@@ -52,6 +52,7 @@ wutsi:
         channel: true
         channel-twitter: true
         channel-facebook: false
+        channel-linkedin: false
         comment: true
         earning: true
         follow: true

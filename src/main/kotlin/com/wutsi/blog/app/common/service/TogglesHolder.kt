@@ -10,6 +10,7 @@ class Toggles {
     var channel: Boolean = false
     var channelTwitter: Boolean = false
     var channelFacebook: Boolean = false
+    var channelLinkedin: Boolean = false
     var comment: Boolean = false
     var earning: Boolean = false
     var follow: Boolean = false
@@ -30,6 +31,7 @@ class Toggles {
     var ssoGoogle: Boolean = false
     var ssoGithub: Boolean = false
     var ssoTwitter: Boolean = false
+    var ssoLinkedin: Boolean = false
     var qaLogin: Boolean = false
     var wpp: Boolean = false
 }

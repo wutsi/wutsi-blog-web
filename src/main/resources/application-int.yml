@@ -16,7 +16,9 @@ wutsi:
             client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
         twitter:
             client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
-
+        linkedin:
+            client-id: "86s3t89456jpcj"
+            client-secret: "mKugyvexZBOyQPv9"
     pwa:
         manifest:
             name: "Wutsi - Int"
@@ -29,8 +31,10 @@ wutsi:
         channel: true
         channel-twitter: true
         channel-facebook: false
+        channel-linkedin: true
         pwa-push-notification: false
         sso-facebook: true
         sso-google: true
         sso-github: false
         sso-twitter: true
+        sso-linkedin: true
