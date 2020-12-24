@@ -45,7 +45,7 @@ class EditorShareController(
             val all = channels.all()
             model.addAttribute("channelTwitter", all.find { it.type == ChannelType.twitter && it.connected })
             model.addAttribute("channelFacebook", all.find { it.type == ChannelType.facebook && it.connected })
-            model.addAttribute("channelLinkedin", all.find { it.type == ChannelType.linkedin && !it.connected })
+            model.addAttribute("channelLinkedin", all.find { it.type == ChannelType.linkedin && it.connected })
         } catch (ex: Exception) {
         }
     }

@@ -41,7 +41,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
         click("#btn-next")
 
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
@@ -95,7 +95,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_READABILITY)
         click("#btn-next")
 
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementAttributeEndsWith("#btn-previous", "href", "/me/story/20/readability")
         assertElementNotPresent(".alert-danger")
@@ -174,7 +174,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttributeEndsWith("#btn-previous", "href", "/editor/20")
         click("#btn-next")
 
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         assertCurrentPageIs(PageName.EDITOR_TAG)
         assertElementNotPresent(".alert-danger")
         select("#topic-id", 1)
