@@ -31,14 +31,14 @@ class ShowPostController(
 
     @GetMapping("/delete")
     fun delete(@RequestParam id: Long): String {
-        val post = getPost(id)  // Get the post to ensure you have access
+        val post = getPost(id) // Get the post to ensure you have access
         postService.delete(post.id)
         return "redirect:/me/calendar"
     }
 
     @GetMapping("/picture")
     fun picture(@RequestParam id: Long, @RequestParam url: String): String {
-        val post = getPost(id)  // Get the post to ensure you have access
+        val post = getPost(id) // Get the post to ensure you have access
         postService.setPicture(post.id, url)
         return "redirect:/me/calendar/post?id=$id"
     }
