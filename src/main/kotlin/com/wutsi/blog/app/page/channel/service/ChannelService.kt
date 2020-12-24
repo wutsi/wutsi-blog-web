@@ -39,7 +39,7 @@ class ChannelService(
         accessToken: String,
         accessTokenSecret: String,
         name: String,
-        pictureUrl: String,
+        pictureUrl: String?,
         type: ChannelType
     ) {
         api.create(

@@ -1,40 +1,40 @@
 wutsi:
-    asset-url: https://${wutsi.storage.s3.bucket}.s3.amazonaws.com/static/wutsi-blog-web
-    domain: int-com-wutsi-blog-web.herokuapp.com
-    base-url: https://${wutsi.domain}
+  asset-url: https://${wutsi.storage.s3.bucket}.s3.amazonaws.com/static/wutsi-blog-web
+  domain: int-com-wutsi-blog-web.herokuapp.com
+  base-url: https://${wutsi.domain}
 
-    backend:
-        base-url: https://int-com-wutsi-blog.herokuapp.com
-        track-url: https://int-com-wutsi-track.herokuapp.com
+  backend:
+    base-url: https://int-com-wutsi-blog.herokuapp.com
+    track-url: https://int-com-wutsi-track.herokuapp.com
 
-    oauth:
-        github:
-            client-id: "43bf80531cd351c84f5b"
-        facebook:
-            client-id: "629340480740249"
-        google:
-            api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
-            client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
-        twitter:
-            client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
-        linkedin:
-            client-id: "86s3t89456jpcj"
-    pwa:
-        manifest:
-            name: "Wutsi - Int"
+  oauth:
+    github:
+      client-id: "43bf80531cd351c84f5b"
+    facebook:
+      client-id: "629340480740249"
+    google:
+      api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
+      client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
+    twitter:
+      client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
+    linkedin:
+      client-id: "86s3t89456jpcj"
+  pwa:
+    manifest:
+      name: "Wutsi - Int"
 
-    storage:
-        s3:
-            bucket: "int-wutsi"
+  storage:
+    s3:
+      bucket: "int-wutsi"
 
-    toggles:
-        channel: true
-        channel-twitter: true
-        channel-facebook: false
-        channel-linkedin: true
-        pwa-push-notification: false
-        sso-facebook: true
-        sso-google: true
-        sso-github: false
-        sso-twitter: true
-        sso-linkedin: true
+  toggles:
+    channel: true
+    channel-twitter: true
+    channel-facebook: false
+    channel-linkedin: true
+    pwa-push-notification: false
+    sso-facebook: true
+    sso-google: true
+    sso-github: false
+    sso-twitter: true
+    sso-linkedin: false

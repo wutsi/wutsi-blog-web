@@ -11,7 +11,6 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.StoryStatus.draft
 import com.wutsi.core.util.DateUtils
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
@@ -83,11 +82,10 @@ class CalendarController(
         // Stories to publish
         storyService.search(
             SearchStoryRequest(
-                status = draft,
                 userIds = listOf(userId),
-                limit = 1000
+                limit = 100
             )
-        ).filter { willPublish(it, startDate, endDate) }
+        ).filter { accept(it, startDate, endDate) }
             .forEach {
                 val storyId = it.id
                 if (all.find { it.id == storyId } == null) {
@@ -116,10 +114,15 @@ class CalendarController(
         return cur
     }
 
-    private fun willPublish(story: StoryModel, startDate: LocalDate, endDate: LocalDate): Boolean {
-        story.scheduledPublishDateTimeAsDate ?: return false
+    private fun accept(story: StoryModel, startDate: LocalDate, endDate: LocalDate): Boolean {
+        val time = if (story.draft && story.scheduledPublishDateTimeAsDate != null) {
+            story.scheduledPublishDateTimeAsDate.time
+        } else if (story.published) {
+            story.publishedDateTimeAsDate!!.time
+        } else {
+            return false
+        }
 
-        val time = story.scheduledPublishDateTimeAsDate.time
         return DateUtils.toDate(startDate).time <= time &&
             DateUtils.toDate(endDate).time >= time
     }

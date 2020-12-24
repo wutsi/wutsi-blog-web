@@ -87,7 +87,7 @@ class SettingsController(
         @RequestParam accessToken: String,
         @RequestParam accessTokenSecret: String,
         @RequestParam name: String,
-        @RequestParam pictureUrl: String,
+        @RequestParam(required = false) pictureUrl: String? = null,
         @RequestParam type: ChannelType
     ): String {
         channelService.create(id, accessToken, accessTokenSecret, name, pictureUrl, type)
