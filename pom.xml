@@ -187,6 +187,11 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+        <repository>
             <id>github-wutsi-blog-client</id>
             <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
         </repository>
