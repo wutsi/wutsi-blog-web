@@ -38,7 +38,8 @@ class LinkedinLoginController(
         val user = toOAuthUser(accessToken)
 
         return "/me/settings/channel/create?" +
-            "accessToken=$accessToken" +
+            "id=${user.id}" +
+            "&accessToken=$accessToken" +
             "&accessTokenSecret=-" +
             "&name=" + URLEncoder.encode(user.fullName, "utf-8") +
             /*"&pictureUrl=${user.pictureUrl}" +*/
