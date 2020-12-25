@@ -63,7 +63,7 @@ wutsi:
     imagekit: true
     like: true
     pin: true
-    post: false
+    post: truegit
     pwa: true
     pwa-add-to-homescreen: false
     pwa-badge: true
