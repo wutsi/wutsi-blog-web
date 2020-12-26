@@ -49,8 +49,8 @@
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div class="day-of-week-card" data-placement="top" data-toggle="tooltip" th:if="${dayOfWeek.newsletterDelivery}"
                      th:title="#{page.calendar.tooltip.newsletter}">
+                    <div th:text="#{label.newsletter}">Newsletter</div>
                     <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/newsletter.png'" th:title="#{label.newsletter}" width="24"/>
-                    <span th:text="#{label.newsletter}">Newsletter</span>
                 </div>
             </td>
         </tr>
@@ -59,13 +59,13 @@
         <tr>
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="story: ${dayOfWeek.storiesToPublish}">
-                    <a data-toggle="tooltip" th:href="${story.url}" th:title="#{page.calendar.tooltip.publish}">
+                    <a data-toggle="tooltip" th:href="${story.url}" th:title="${story.title}">
                         <div class="day-of-week-card">
                             <div class="text">
                                 <span class="badge" th:style="'background:' + ${story.color}">&nbsp;</span>
                                 <span th:text="${story.title}">Story</span>
                             </div>
-                            <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/website.png'" th:title="#{label.online}" width="24"/>
+                            <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" th:title="#{label.online}" width="24"/>
                             <i class="fas fa-toggle-on" th:if="${story.published}"></i>
                             <i class="fas fa-toggle-off" th:if="!${story.published}"></i>
                         </div>
@@ -78,7 +78,7 @@
         <tr>
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="post: ${dayOfWeek.posts}">
-                    <a data-toggle="tooltip" th:href="${post.url}" th:title="#{'page.calendar.tooltip.' + ${post.channel.type}}">
+                    <a data-toggle="tooltip" th:href="${post.url}" th:title="${post.story.title}">
                         <div class="day-of-week-card">
                             <div class="text">
                                 <span class="badge" th:style="'background:' + ${post.story.color}">&nbsp;</span>

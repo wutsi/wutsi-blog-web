@@ -52,7 +52,7 @@
                 <span class="message-url" th:text="${post.story.readUrl}">URL</span>
             </div>
             <div>
-                <img th:if="${post.hasPicture}" th:src="${post.pictureUrl}"/>
+                <img class="border" th:if="${post.hasPicture}" th:src="${post.pictureUrl}"/>
                 <div class="padding border" th:if="!${post.hasPicture}" th:text="#{label.no_picture}">No Picture</div>
             </div>
             <div class="padding">
