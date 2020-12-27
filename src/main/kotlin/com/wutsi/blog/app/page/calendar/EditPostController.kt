@@ -48,6 +48,6 @@ class EditPostController(
     @PostMapping
     fun submit(@ModelAttribute form: UpdatePostForm): String {
         postService.update(form)
-        return "redirect:/me/calendar"
+        return "redirect:/me/calendar/post?id=${form.id}"
     }
 }
