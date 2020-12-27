@@ -36,7 +36,10 @@
     <div class="margin-top-2x border-top padding-top">
         <h4 th:text="#{label.post}">Post</h4>
         <div>
-            <img height="24" th:src="${post.channel.pictureUrl}" width="24"/>
+            <img height="24"
+                 th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${post.channel.type} + '.png'"
+                 th:title="${post.channel.name}" width="24"
+            />
             <span th:text="#{'channel.' + ${post.channel.type}}">Twitter</span>
             <span class="badge badge-success" th:if="${post.published}" th:text="#{label.published}">Published</span>
         </div>
