@@ -28,7 +28,9 @@
                 <span class="required">*</span>
             </label>
             <div class="form-control">
-                <img height="24" th:src="${channel.pictureUrl}" width="24"/>
+                <img height="24"
+                     th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type} + '.png'" width="24"
+                />
                 <span th:text="#{'channel.' + ${channel.type}}">Twitter</span>
             </div>
         </div>
