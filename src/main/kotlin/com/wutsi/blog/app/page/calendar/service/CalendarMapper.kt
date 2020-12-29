@@ -45,11 +45,12 @@ class CalendarMapper(
         published = post.status == PostStatus.published,
         url = "/me/calendar/post?id=${post.id}",
         postDateTimeText = format(post.postDateTime),
-        scheduledPostDateTimeText = format(post.scheduledPostDateTime)
+        scheduledPostDateTimeText = format(post.scheduledPostDateTime),
+        includeLink = post.includeLink
     )
 
     private fun pictureUrl(post: PostDto, story: StoryModel?): String? =
-        if (post.pictureUrl.isNullOrEmpty()) story?.thumbnailUrl else post.pictureUrl
+        if (post.pictureUrl.isNullOrEmpty() && post.includeLink) story?.thumbnailUrl else post.pictureUrl
 
     fun toPostModel(post: PostSummaryDto, channel: ChannelModel?, story: StoryModel?) = CalendarPostModel(
         id = post.id,

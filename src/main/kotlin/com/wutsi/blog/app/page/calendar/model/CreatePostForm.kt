@@ -7,5 +7,6 @@ data class CreatePostForm(
     val storyId: String = "",
     val channelType: ChannelType = unknown,
     val message: String = "",
-    val scheduledDateTime: String = ""
+    val scheduledDateTime: String = "",
+    val includeLink: Boolean = true
 )

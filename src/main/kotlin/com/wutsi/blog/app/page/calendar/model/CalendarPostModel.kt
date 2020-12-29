@@ -24,5 +24,6 @@ data class CalendarPostModel(
     val hasMessage: Boolean = false,
     val hasPicture: Boolean = false,
     val published: Boolean = false,
-    val url: String = ""
+    val url: String = "",
+    val includeLink: Boolean = false
 )

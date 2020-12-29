@@ -54,6 +54,16 @@
         </div>
 
         <div class="form-group">
+            <label class="form-check">
+                <input class="form-check-input" id='include-link' name="includeLink" th:field="*{includeLink}"
+                       type="checkbox"
+                       value="true"
+                />
+                <span th:text="#{page.calendar.editor.include-link}">Include link into message</span>
+            </label>
+        </div>
+
+        <div class="form-group">
             <label>
                 <span th:text="#{page.calendar.editor.scheduled-date}">When to Publish</span>
                 <span class="required">*</span>

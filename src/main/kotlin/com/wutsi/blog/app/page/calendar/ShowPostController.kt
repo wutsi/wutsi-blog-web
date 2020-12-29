@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.calendar.service.PostService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.channel.ChannelType.linkedin
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -26,6 +27,7 @@ class ShowPostController(
     fun index(@RequestParam id: Long, model: Model): String {
         val post = getPost(id)
         model.addAttribute("post", post)
+        model.addAttribute("canChangePicture", post.channel.type != linkedin)
         return "page/calendar/post"
     }
 

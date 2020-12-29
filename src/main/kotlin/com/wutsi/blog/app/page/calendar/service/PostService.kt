@@ -70,7 +70,8 @@ class PostService(
                 storyId = form.storyId.toLong(),
                 channelType = form.channelType,
                 scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime),
-                message = form.message
+                message = form.message,
+                includeLink = form.includeLink
             )
         ).postId
     }
@@ -80,7 +81,8 @@ class PostService(
             form.id,
             UpdatePostRequest(
                 message = form.message,
-                scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime)
+                scheduledPostDateTime = SimpleDateFormat("yyyy-MM-dd").parse(form.scheduledDateTime),
+                includeLink = form.includeLink
             )
         )
     }

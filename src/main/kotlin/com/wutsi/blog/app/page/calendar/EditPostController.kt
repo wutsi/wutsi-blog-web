@@ -38,7 +38,8 @@ class EditPostController(
         val request = UpdatePostForm(
             id = post.id,
             message = post.message?.let { it } ?: "",
-            scheduledDateTime = fmt.format(post.scheduledPostDateTime)
+            scheduledDateTime = fmt.format(post.scheduledPostDateTime),
+            includeLink = post.includeLink
         )
         model.addAttribute("post", request)
         model.addAttribute("minDate", fmt.format(DateUtils.addDays(Date(), 1)))
