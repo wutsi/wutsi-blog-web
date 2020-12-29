@@ -10,7 +10,6 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder.descending
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy.created
-import com.wutsi.core.util.DateUtils
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -48,7 +47,7 @@ class CreatePostController(
         model.addAttribute("channels", channels)
 
         model.addAttribute("post", CreatePostForm())
-        model.addAttribute("minDate", SimpleDateFormat("yyyy-MM-dd").format(DateUtils.addDays(Date(), 1)))
+        model.addAttribute("minDate", SimpleDateFormat("yyyy-MM-dd").format(Date()))
         return "page/calendar/create"
     }
 

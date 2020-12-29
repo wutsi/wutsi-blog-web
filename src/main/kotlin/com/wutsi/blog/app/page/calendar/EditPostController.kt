@@ -5,7 +5,6 @@ import com.wutsi.blog.app.page.calendar.model.UpdatePostForm
 import com.wutsi.blog.app.page.calendar.service.PostService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.core.util.DateUtils
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -42,7 +41,7 @@ class EditPostController(
             includeLink = post.includeLink
         )
         model.addAttribute("post", request)
-        model.addAttribute("minDate", fmt.format(DateUtils.addDays(Date(), 1)))
+        model.addAttribute("minDate", fmt.format(Date()))
         return "page/calendar/edit"
     }
 
