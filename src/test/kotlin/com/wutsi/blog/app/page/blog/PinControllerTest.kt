@@ -47,7 +47,7 @@ class PinControllerTest : SeleniumTestSupport() {
 
         gotoPage()
 
-        assertNoPin()
+        assertElementHasClass("#story-card-21", "story-card-pinned")
     }
 
     @Test
