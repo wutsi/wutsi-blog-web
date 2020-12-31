@@ -126,7 +126,7 @@
 </div>
 
 <div class="story-card"
-     th:classappend="${story.pinned} AND ${user} AND ${user.id} == ${story.user.id}?story-card-pinned"
+     th:classappend="${story.pinned} ?story-card-pinned"
      th:fragment="story-card(story, trackEvent, rank, pin)"
      th:id="'story-card-' + ${story.id}"
 >

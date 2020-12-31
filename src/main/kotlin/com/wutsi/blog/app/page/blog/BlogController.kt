@@ -17,6 +17,7 @@ import com.wutsi.blog.client.SortOrder
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
+import com.wutsi.blog.client.story.SortAlgorithmType.most_recent
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import org.springframework.stereotype.Controller
@@ -57,7 +58,7 @@ class BlogController(
     }
 
     private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        val pin = loadPin(model)
+        val pin = loadPin(blog, model)
         val stories = loadMyStories(blog, pin, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
@@ -82,12 +83,25 @@ class BlogController(
             sortOrder = SortOrder.descending,
             limit = limit
         )
-        val stories = storyService.search(request, pin)
+
+        var stories = storyService.search(request, pin)
         if (!stories.isEmpty()) {
+            if (shouldSortStories(blog)) {
+                stories = storyService.sort(
+                    stories = stories,
+                    bubbleDownViewedStories = true,
+                    algorithm = most_recent,
+                    statsHoursOffset = 24 * 7
+                )
+            }
+
             model.addAttribute("myStories", pinStory(stories, pin?.storyId))
         }
         return stories
     }
+
+    private fun shouldSortStories(blog: UserModel): Boolean =
+        blog.id != requestContext.currentUser()?.id
 
     private fun pinStory(stories: List<StoryModel>, pinnedStoryId: Long?): List<StoryModel> {
         val pinnedStory = stories.find { it.id == pinnedStoryId }
@@ -146,11 +160,11 @@ class BlogController(
         model.addAttribute("latestStories", latestStories.values.take(5))
     }
 
-    private fun loadPin(model: Model): PinModel? {
+    private fun loadPin(blog: UserModel, model: Model): PinModel? {
         if (!requestContext.toggles().pin)
             return null
 
-        val pin = pinService.get()
+        val pin = pinService.get(blog)
         model.addAttribute("pin", pin)
         return pin
     }

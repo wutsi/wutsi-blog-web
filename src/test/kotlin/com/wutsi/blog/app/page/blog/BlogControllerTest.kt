@@ -43,6 +43,8 @@ class BlogControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `anonymous blog page`() {
+        stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
+
         gotoPage()
 
         assertElementText(".author-card h1", "Ray Sponsible")

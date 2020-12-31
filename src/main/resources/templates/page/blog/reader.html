@@ -1,40 +1,40 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="components/layout :: head"></div>
 </head>
 
 <body class="paper">
-    <div th:replace="components/layout :: navbar"></div>
+<div th:replace="components/layout :: navbar"></div>
 
-    <div class="container">
-        <div class="row">
-            <div id="following-stories" class="content-main col-12 offset-lg-1 col-lg-6">
-                <div th:each="story,it: ${followingStories}">
-                    <div th:replace="components/story :: story-card(${story}, 'read', ${it.index}, null)"></div>
+<div class="container">
+    <div class="row">
+        <div class="content-main col-12 offset-lg-1 col-lg-6" id="following-stories">
+            <div th:each="story,it: ${followingStories}">
+                <div th:replace="components/story :: story-card(${story}, 'read', ${it.index}, ${pin})"></div>
 
-                    <div th:if="${it.index} == 0">
-                        <div th:replace="components/follow :: who-to-follow"></div>
-                    </div>
-                </div>
-                <div th:if="!${followingStories} OR ${followingStories.isEmpty()}">
+                <div th:if="${it.index} == 0">
                     <div th:replace="components/follow :: who-to-follow"></div>
                 </div>
             </div>
+            <div th:if="!${followingStories} OR ${followingStories.isEmpty()}">
+                <div th:replace="components/follow :: who-to-follow"></div>
+            </div>
+        </div>
 
-            <div class="col-12 col-lg-4 content-sidebar">
-                <div id="latest-stories" class="story-list" th:if="${latestStories} AND !${latestStories.isEmpty()}">
-                    <h4 class="title" th:text="#{page.blog.latest_stories}">From Blog you Follow</h4>
-                    <div th:each="story,it: ${latestStories}">
-                        <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
-                    </div>
+        <div class="col-12 col-lg-4 content-sidebar">
+            <div class="story-list" id="latest-stories" th:if="${latestStories} AND !${latestStories.isEmpty()}">
+                <h4 class="title" th:text="#{page.blog.latest_stories}">From Blog you Follow</h4>
+                <div th:each="story,it: ${latestStories}">
+                    <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div th:replace="components/layout :: announcement"></div>
-    <div th:replace="components/layout :: footer"></div>
+<div th:replace="components/layout :: announcement"></div>
+<div th:replace="components/layout :: footer"></div>
 
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.blog.service
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.blog.model.PinModel
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.pin.CreatePinRequest
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.core.exception.NotFoundException
@@ -27,10 +28,7 @@ class PinService(
         api.delete(user.id)
     }
 
-    fun get(): PinModel? {
-        val user = requestContext.currentUser()
-            ?: return null
-
+    fun get(user: UserModel): PinModel? {
         try {
             return mapper.toPinModel(api.get(user.id).pin)
         } catch (ex: NotFoundException) {
