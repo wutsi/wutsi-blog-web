@@ -114,7 +114,7 @@ class CalendarController(
 
     private fun beginningOfTheWeek(date: LocalDate? = null): LocalDate {
         var cur = date?.let { it } ?: LocalDate.now()
-        return DateUtils.beginningOfTheWeek(cur)
+        return DateUtils.beginingOfTheWeek(cur)
     }
 
     private fun accept(story: StoryModel, startDate: LocalDate, endDate: LocalDate): Boolean {

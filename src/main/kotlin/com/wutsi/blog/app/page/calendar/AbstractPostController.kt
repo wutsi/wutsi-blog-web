@@ -24,7 +24,7 @@ abstract class AbstractPostController(
     }
 
     protected fun calendarUrl(post: CalendarPostModel): String =
-        "/me/calendar?date=" + DateUtils.beginningOfTheWeek(
+        "/me/calendar?date=" + DateUtils.beginingOfTheWeek(
             DateUtils.toLocalDate(post.scheduledPostDateTime)
         )
 
