@@ -1347,6 +1347,11 @@ a.sso-button .fab {
     vertical-align: top;
 }
 
+.calendar td.separator {
+    border-top: 1px solid var(--border-color);
+    padding: 0;
+}
+
 .calendar .day-of-week-card {
     background: white;
 }

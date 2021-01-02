@@ -42,12 +42,13 @@ class EditPostController(
         )
         model.addAttribute("post", request)
         model.addAttribute("minDate", fmt.format(Date()))
+        model.addAttribute("calendarUrl", calendarUrl(post))
         return "page/calendar/edit"
     }
 
     @PostMapping
     fun submit(@ModelAttribute form: UpdatePostForm): String {
         postService.update(form)
-        return "redirect:/me/calendar/post?id=${form.id}"
+        return "redirect:" + postUrl(form.id)
     }
 }

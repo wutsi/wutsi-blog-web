@@ -28,6 +28,7 @@ class ShowPostController(
         val post = getPost(id)
         model.addAttribute("post", post)
         model.addAttribute("canChangePicture", post.channel.type != linkedin)
+        model.addAttribute("calendarUrl", calendarUrl(post))
         return "page/calendar/post"
     }
 
@@ -35,13 +36,13 @@ class ShowPostController(
     fun delete(@RequestParam id: Long): String {
         val post = getPost(id) // Get the post to ensure you have access
         postService.delete(post.id)
-        return "redirect:/me/calendar"
+        return "redirect:" + calendarUrl(post)
     }
 
     @GetMapping("/picture")
     fun picture(@RequestParam id: Long, @RequestParam url: String): String {
         val post = getPost(id) // Get the post to ensure you have access
         postService.setPicture(post.id, url)
-        return "redirect:/me/calendar/post?id=$id"
+        return "redirect:" + postUrl(post.id)
     }
 }

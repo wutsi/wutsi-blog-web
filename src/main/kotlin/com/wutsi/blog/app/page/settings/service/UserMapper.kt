@@ -38,6 +38,7 @@ class UserMapper(private val imageKit: ImageKitService) {
         linkedinId = user.linkedinId,
         youtubeId = user.youtubeId,
         newsletterDeliveryDayOfWeek = user.newsletterDeliveryDayOfWeek,
+        hasNewsletter = user.newsletterDeliveryDayOfWeek > 0,
         hasSocialLinks = user.facebookId != null ||
             user.youtubeId != null ||
             user.linkedinId != null ||

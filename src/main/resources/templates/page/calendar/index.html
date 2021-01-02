@@ -19,6 +19,17 @@
         <li class="next"><a th:href="'/me/calendar?date=' + ${nextWeek}" th:text="${nextWeek}">Jun 2020</a></li>
     </ul>
 
+
+    <div class="alert alert-warning flex" th:if="!${user.hasNewsletter}">
+        <img class="margin-right" height="48" th:src="${page.assetUrl} + '/assets/wutsi/img/newsletter.png'" width="48"/>
+        <div>
+            <div>
+                <b th:text="#{'page.calendar.channel.newsletter.disconnected'}">Connect your Blog to publish your posts.</b>
+            </div>
+            <div th:text="#{'page.calendar.channel.disconnected'}">Connect your Blog to publish your posts.</div>
+            <a class="btn btn-sm btn-light" href="/me/settings#newsletter" th:text="#{button.setup_newsletter}">Connect</a>
+        </div>
+    </div>
     <div th:each="channel : ${channels}">
         <div class="alert alert-warning flex" th:if="!${channel.connected}">
             <img class="margin-right" height="48" th:src="${page.assetUrl} + '/assets/wutsi/img/social/' + ${channel.type} + '.png'" width="48"/>
@@ -31,6 +42,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="btn-toolbar margin-top-2x">
         <a class="btn btn-primary" href="/me/calendar/create" id="btn-create" th:text="#{button.schedule_post}">Create Post</a>
@@ -45,18 +57,22 @@
         </tr>
 
         <!-- Newsletter -->
-        <tr th:if="${user.newsletterDeliveryDayOfWeek} GT 0">
+        <tr th:if="${user.hasNewsletter}">
             <td th:each="dayOfWeek: ${dayOfWeeks}">
-                <div class="day-of-week-card" data-placement="top" data-toggle="tooltip" th:if="${dayOfWeek.newsletterDelivery}"
-                     th:title="#{page.calendar.tooltip.newsletter}">
-                    <div th:text="#{label.newsletter}">Newsletter</div>
-                    <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/newsletter.png'" th:title="#{label.newsletter}" width="24"/>
-                </div>
+                <a href="/me/settings#newsletter" th:if="${dayOfWeek.newsletterDelivery}">
+                    <div class="day-of-week-card" data-placement="top" data-toggle="tooltip" th:title="#{page.calendar.tooltip.newsletter}">
+                        <div th:text="#{label.newsletter}">Newsletter</div>
+                        <img height="24" th:src="${page.assetUrl} + '/assets/wutsi/img/newsletter.png'" th:title="#{label.newsletter}" width="24"/>
+                    </div>
+                </a>
             </td>
+        </tr>
+        <tr th:if="${user.hasNewsletter} AND (${hasStoryToPublish} OR ${hasPostToPublish})">
+            <td class="separator" th:each="dayOfWeek: ${dayOfWeeks}"></td>
         </tr>
 
         <!-- Stories To Publish-->
-        <tr>
+        <tr th:if="${hasStoryToPublish}">
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="story: ${dayOfWeek.storiesToPublish}">
                     <a data-toggle="tooltip" th:href="${story.url}" th:title="${story.title}">
@@ -73,9 +89,12 @@
                 </div>
             </td>
         </tr>
+        <tr th:if="${hasStoryToPublish} AND ${hasPostToPublish}">
+            <td class="separator" th:each="dayOfWeek: ${dayOfWeeks}"></td>
+        </tr>
 
         <!-- Social media posts -->
-        <tr>
+        <tr th:if="${hasPostToPublish}">
             <td th:each="dayOfWeek: ${dayOfWeeks}">
                 <div th:each="post: ${dayOfWeek.posts}">
                     <a data-toggle="tooltip" th:href="${post.url}" th:title="${post.story.title}">

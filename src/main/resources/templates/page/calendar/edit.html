@@ -67,7 +67,7 @@
         <!-- Toolbar -->
         <div class="margin-top padding-top">
             <button class="btn btn-primary" id="btn-submit" th:text="#{button.save}" type="submit">Save</button>
-            <a href="/me/calendar" it="btn-cancel" th:text="#{button.cancel}">Cancel</a>
+            <a it="btn-cancel" th:href="${calendarUrl}" th:text="#{button.cancel}">Cancel</a>
         </div>
     </form>
 

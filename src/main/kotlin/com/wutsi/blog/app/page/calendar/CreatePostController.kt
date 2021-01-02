@@ -1,11 +1,11 @@
 package com.wutsi.blog.app.page.calendar
 
-import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.calendar.model.CreatePostForm
 import com.wutsi.blog.app.page.calendar.service.PostService
 import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.story.service.StoryService
+import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder.descending
 import com.wutsi.blog.client.story.SearchStoryRequest
@@ -24,12 +24,15 @@ import java.util.Date
 @RequestMapping("/me/calendar/create")
 @ConditionalOnProperty(value = ["wutsi.toggles.post"], havingValue = "true")
 class CreatePostController(
-    private val postService: PostService,
     private val storyService: StoryService,
     private val channelService: ChannelService,
+
+    postService: PostService,
     requestContext: RequestContext
-) : AbstractPageController(requestContext) {
+) : AbstractPostController(postService, requestContext) {
     override fun pageName() = PageName.CALENDAR_CREATE
+
+    override fun requiredPermissions(): List<Permission> = listOf(Permission.owner)
 
     @GetMapping
     fun index(model: Model): String {
@@ -54,6 +57,6 @@ class CreatePostController(
     @PostMapping
     fun submit(@ModelAttribute form: CreatePostForm): String {
         val id = postService.create(form)
-        return "redirect:/me/calendar/post?id=$id"
+        return "redirect:" + postUrl(id)
     }
 }

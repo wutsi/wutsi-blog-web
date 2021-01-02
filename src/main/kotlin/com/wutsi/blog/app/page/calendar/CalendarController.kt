@@ -20,7 +20,6 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.time.DayOfWeek.SUNDAY
 import java.time.LocalDate
 
 @Controller
@@ -61,6 +60,8 @@ class CalendarController(
         model.addAttribute("currentWeek", startDate)
         model.addAttribute("nextWeek", startDate.plusDays(7))
         model.addAttribute("previousWeek", startDate.minusDays(7))
+        model.addAttribute("hasStoryToPublish", dayOfWeeks.flatMap { it.storiesToPublish }.isNotEmpty())
+        model.addAttribute("hasPostToPublish", dayOfWeeks.flatMap { it.posts }.isNotEmpty())
         return "page/calendar/index"
     }
 
@@ -113,9 +114,7 @@ class CalendarController(
 
     private fun beginningOfTheWeek(date: LocalDate? = null): LocalDate {
         var cur = date?.let { it } ?: LocalDate.now()
-        while (cur.dayOfWeek != SUNDAY)
-            cur = cur.plusDays(-1)
-        return cur
+        return DateUtils.beginningOfTheWeek(cur)
     }
 
     private fun accept(story: StoryModel, startDate: LocalDate, endDate: LocalDate): Boolean {
