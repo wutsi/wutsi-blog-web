@@ -124,8 +124,8 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl) {
         const me = this;
         wutsi.httpPost('/comment', data, true)
             .then(function () {
-                wutsi.track('comment')
                 me.load_items();
+                wutsi.track('comment')
             })
             .catch(function (error) {
                 console.log('Unable to create comment', error);
