@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="components/layout :: head"></div>
 </head>
@@ -13,14 +13,15 @@
     <!-- Article -->
     <article class="border padding reader main-content">
         <div th:if="${user} AND ${user.id} == ${story.user.id}">
-            <div id="story-menu" class="dropdown show story-dropdown-menu float-right">
-                <a class="btn btn-light btn-sm" href="#" role="button" th:id="'story-menu-' + ${story.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown show story-dropdown-menu float-right" id="story-menu">
+                <a aria-expanded="false" aria-haspopup="true" class="btn btn-light btn-sm" data-toggle="dropdown" href="#" role="button"
+                   th:id="'story-menu-' + ${story.id}">
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
 
                 <div class="dropdown-menu" th:aria-labelledby="'story-menu' + ${story.id}">
                     <a class="dropdown-item menu-item-edit" th:href="'/editor/' + ${story.id}" th:text="#{button.edit}">Edit</a>
-                    <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:text="#{button.stats}" th:if="${story.published}">Stats</a>
+                    <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:if="${story.published}" th:text="#{button.stats}">Stats</a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -30,25 +31,25 @@
         <h1 class="title" th:text="${story.title}">Title</h1>
 
         <!-- Translation -->
-        <div id="translation-container" class="margin-bottom" th:if="!${preview} AND ${showTranslation}">
+        <div class="margin-bottom" id="translation-container" th:if="!${preview} AND ${showTranslation}">
             <div th:if="${translationUrl}">
                 <b>
-                    <a class="translation-url" rel="nofollow" wutsi-track-event="translate"
-                      th:href="${translationUrl}"
-                      th:text="${translationText}">Translate...</a>
+                    <a class="translation-url" rel="nofollow" th:href="${translationUrl}"
+                       th:text="${translationText}"
+                       wutsi-track-event="translate">Translate...</a>
                 </b>
             </div>
             <div th:if="${translationOriginalUrl}">
                 <span th:text="#{label.translated_from}">Translated from</span>:
                 <b>
-                    <a class="translation-original-url" wutsi-track-event="translate_back"
-                      th:href="${translationOriginalUrl}"
-                      th:text="${translationOriginalTitle}">Story Title</a>
+                    <a class="translation-original-url" th:href="${translationOriginalUrl}"
+                       th:text="${translationOriginalTitle}"
+                       wutsi-track-event="translate_back">Story Title</a>
                 </b>
             </div>
         </div>
 
-        <h2 class="tagline text-center" th:text="${story.tagline}" th:if="!${story.tagline.isEmpty()}">Tagline</h2>
+        <h2 class="tagline text-center" th:if="!${story.tagline.isEmpty()}" th:text="${story.tagline}">Tagline</h2>
 
         <!-- Author -->
         <div class="margin-top uppercase text-small">
@@ -110,7 +111,7 @@
     </div>
 
     <!-- Author -->
-    <div id="author-container" class="story-author-card ">
+    <div class="story-author-card " id="author-container">
         <div th:replace="components/author :: card(${story.user}, true)"></div>
     </div>
 
@@ -123,35 +124,35 @@
 <div th:replace="components/layout :: announcement"></div>
 <div th:replace="components/layout :: footer"></div>
 
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8" th:if="${hasTwitterEmbed}"></script>
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-twitter-2.js'"  th:if="${hasTwitterEmbed}"></script>
+<script charset="utf-8" src="https://platform.twitter.com/widgets.js" th:if="${hasTwitterEmbed}"></script>
+<script th:if="${hasTwitterEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-twitter-2.js'"></script>
 
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-youtube-1.js'"  th:if="${hasYouTubeEmbed}"></script>
+<script th:if="${hasYouTubeEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-youtube-1.js'"></script>
 
 <script src="https://player.vimeo.com/api/player.js" th:if="${hasVimeoEmbed}"></script>
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-1.js'"  th:if="${hasVimeoEmbed}"></script>
+<script th:if="${hasVimeoEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-1.js'"></script>
 
-<link rel="stylesheet" type="text/css" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'"  th:if="${hasCode} OR ${hasRaw}" />
-<script th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'" th:if="${hasCode} OR ${hasRaw}"></script>
+<link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'" th:if="${hasCode} OR ${hasRaw}" type="text/css"/>
+<script th:if="${hasCode} OR ${hasRaw}" th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'"></script>
 
-<script id="track-script" th:inline="javascript" th:if="!${user} OR ${user.id} != ${story.user.id}">
-/*<![CDATA[*/
+<script id="track-script" th:if="!${user} OR ${user.id} != ${story.user.id}" th:inline="javascript">
+    /*<![CDATA[*/
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         var prettify = /*[[${hasCode} OR ${hasRaw}]]*/'0';
         var lastScrollPercent = -1;
 
         wutsi.track('readstart');
-        window.addEventListener('beforeunload', function(){
+        window.addEventListener('beforeunload', function () {
             wutsi.track('readend');
         });
 
-        if (prettify){
+        if (prettify) {
             PR.prettyPrint();
         }
 
-        $(window).on('scroll', function(){
+        $(window).on('scroll', function () {
             if (!should_track_scroll()) {
                 return;
             }
@@ -161,7 +162,7 @@
                 c = $(window).height();
 
             var scrollPercent = ((s / (d - c)) * 100) | 0;
-            if (scrollPercent % 20 == 0 && scrollPercent > lastScrollPercent && scrollPercent > 0){
+            if (scrollPercent % 20 == 0 && scrollPercent > lastScrollPercent && scrollPercent > 0) {
                 const tmpScrollPercent = lastScrollPercent;
                 lastScrollPercent = scrollPercent;
                 console.log('ScrollPercent', scrollPercent);
@@ -181,54 +182,54 @@
         }
     });
 
-/*]]>*/
+    /*]]>*/
 </script>
 
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-10.js'" th:if="${toggles.comment}"></script>
-<script id="comment-script" th:inline="javascript" th:if="${toggles.comment}">
-/*<![CDATA[*/
+<script th:if="${toggles.comment}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-11.js'"></script>
+<script id="comment-script" th:if="${toggles.comment}" th:inline="javascript">
+    /*<![CDATA[*/
 
     var wcomment;
-    $(document).ready(function(){
+    $(document).ready(function () {
         wcomment = new WutsiCommentWidget(
-                /*[[${story.id}]]*/ '0',
-                /*[[!${user}]]*/ true,
-                /*[[${story.slug}]]*/ ''
+            /*[[${story.id}]]*/ '0',
+            /*[[!${user}]]*/ true,
+            /*[[${story.slug}]]*/ ''
         );
         wcomment.load();
 
         // Open the comment drawer based on query parameter
         const href = window.location.href;
         const index = href.indexOf('?');
-        if (index>0 && href.indexOf('comment=', index) > 0){
+        if (index > 0 && href.indexOf('comment=', index) > 0) {
             wcomment.show()
         }
     });
 
-/*]]>*/
+    /*]]>*/
 </script>
 
-<script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-like-widget-6.js'" th:if="${toggles.like}"></script>
-<script id="like-script" th:inline="javascript" th:if="${toggles.like}">
-/*<![CDATA[*/
+<script th:if="${toggles.like}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-like-widget-6.js'"></script>
+<script id="like-script" th:if="${toggles.like}" th:inline="javascript">
+    /*<![CDATA[*/
 
     var wlike;
-    $(document).ready(function(){
+    $(document).ready(function () {
         wlike = new WutsiLikeWidget(
-                /*[[${story.id}]]*/ '0',
-                /*[[!${user}]]*/ true,
-                /*[[${story.slug}]]*/ ''
+            /*[[${story.id}]]*/ '0',
+            /*[[!${user}]]*/ true,
+            /*[[${story.slug}]]*/ ''
         );
 
         // like based on query parameter
         const href = window.location.href;
         const index = href.indexOf('?');
-        if (index>0 && href.indexOf('like=', index) > 0){
+        if (index > 0 && href.indexOf('like=', index) > 0) {
             wlike.like()
         }
     });
 
-/*]]>*/
+    /*]]>*/
 </script>
 
 

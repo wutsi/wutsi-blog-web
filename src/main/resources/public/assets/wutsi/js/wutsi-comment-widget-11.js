@@ -1,4 +1,4 @@
-function WutsiCommentWidget(storyId, anonymous, storyUrl){
+function WutsiCommentWidget(storyId, anonymous, storyUrl) {
     this.visible = false;
     this.config = {
         selectors: {
@@ -8,11 +8,11 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         }
     };
 
-    this.load = function() {
+    this.load = function () {
         console.log('Loading comments', storyId);
 
         const me = this;
-        $(document).mouseup(function(e) {
+        $(document).mouseup(function (e) {
             if (!me.visible) {
                 return;
             }
@@ -32,12 +32,12 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         this.visible = true;
 
         wutsi.httpGet('/comment/widget?storyId=' + storyId, false)
-            .then(function(html){
+            .then(function (html) {
                 $(selector).html(html);
             });
     };
 
-    this.hide = function() {
+    this.hide = function () {
         console.log('Hiding comments...');
 
         const selector = this.selector(this.config.selectors.content);
@@ -46,10 +46,10 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         wutsi.update_comment_count();
     };
 
-    this.load_items = function() {
+    this.load_items = function () {
         const selector = this.selector(this.config.selectors.list);
         wutsi.httpGet('/comment/list?storyId=' + storyId, false)
-            .then(function(html){
+            .then(function (html) {
                 $(selector).html(html);
 
                 // Linkify the text
@@ -58,34 +58,34 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
     };
 
 
-    this.contentReady = function(){
+    this.contentReady = function () {
         const me = this;
 
         this.end_edit();
         this.load_items();
 
         const textarea = this.selector('textarea');
-        $(textarea).click(function(){
+        $(textarea).click(function () {
             if ($(this).is('[readonly]')) {
                 me.begin_edit();
             }
         });
-        if (!anonymous){
+        if (!anonymous) {
             me.begin_edit();
         }
 
         const button = this.selector('.btn-submit');
-        $(button).click(function(){
+        $(button).click(function () {
             me.submit($(textarea).val());
         });
 
         const close = this.selector('.close');
-        $(close).click(function(){
+        $(close).click(function () {
             me.hide();
         });
     };
 
-    this.begin_edit = function() {
+    this.begin_edit = function () {
         console.log('Begin comment edition');
 
         if (anonymous) {
@@ -115,7 +115,7 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         $(button).hide();
     };
 
-    this.submit = function(text) {
+    this.submit = function (text) {
         console.log('Submitting comment', text);
         const data = {
             storyId: storyId,
@@ -123,19 +123,19 @@ function WutsiCommentWidget(storyId, anonymous, storyUrl){
         };
         const me = this;
         wutsi.httpPost('/comment', data, true)
-            .then(function(){
+            .then(function () {
+                wutsi.track('comment')
                 me.load_items();
             })
-            .catch(function(error){
+            .catch(function (error) {
                 console.log('Unable to create comment', error);
             })
-            .finally(function(){
+            .finally(function () {
                 me.end_edit();
-                wutsi.track('comment')
             });
     };
 
-    this.selector = function(q){
+    this.selector = function (q) {
         return '#comment-widget-' + storyId + ' ' + q;
     }
 }
