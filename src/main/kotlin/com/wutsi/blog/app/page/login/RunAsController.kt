@@ -40,7 +40,7 @@ class RunAsController(
     }
 
     @PostMapping
-    private fun submit(@ModelAttribute form: RunAsForm): String {
+    fun submit(@ModelAttribute form: RunAsForm): String {
         ensureSuperUser()
         try {
             val name = form.name.toLowerCase()

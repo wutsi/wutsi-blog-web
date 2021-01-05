@@ -1,10 +1,10 @@
-function Wutsi (){
-    this.track = function (event, value, label){
+function Wutsi() {
+    this.track = function (event, value, label) {
         this.track_ga(wutsi.page_name(), event, value, label);
         return this.track_wutsi(event, value);
     };
 
-    this.track_ga = function(category, event, value, label) {
+    this.track_ga = function (category, event, value, label) {
         if (typeof gtag != 'function') {
             return
         }
@@ -20,7 +20,7 @@ function Wutsi (){
         }
     };
 
-    this.track_wutsi = function(event, value) {
+    this.track_wutsi = function (event, value) {
         const page = this.page_name();
         if (page != 'page.read') {  // Only push to wutsi story events
             return
@@ -28,7 +28,7 @@ function Wutsi (){
 
         const data = {
             time: new Date().getTime(),
-            pid:  this.story_id(),
+            pid: this.story_id(),
             event: event,
             page: page,
             ua: navigator.userAgent,
@@ -37,7 +37,7 @@ function Wutsi (){
             url: window.location.href
         };
         return this.httpPost('/track', data, true)
-            .catch(function(){
+            .catch(function () {
                 const key = 'track.' + data.time;
                 const value = JSON.stringify(data);
                 console.log('Adding into LocalStorage', key, value);
@@ -45,17 +45,17 @@ function Wutsi (){
             });
     };
 
-    this.track_wutsi_job = function(){
+    this.track_wutsi_job = function () {
         // console.log('Running the track Job');
 
-        for (var i = 0; i < localStorage.length; i++){
+        for (var i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            if (key.startsWith('track.')){
+            if (key.startsWith('track.')) {
                 try {
                     const data = JSON.parse(localStorage.getItem(key));
                     console.log('Pushing stored tracking event', key, data);
                     this.httpPost('/track', data, true)
-                        .then (function(){
+                        .then(function () {
                             console.log('track-event', key, ' sent');
                             console.log('Removing from LocalStorage', key);
                             localStorage.removeItem(key);
@@ -84,7 +84,7 @@ function Wutsi (){
         this.update_like_count();
 
         /* tracking */
-        $('[wutsi-track-event]').click(function(){
+        $('[wutsi-track-event]').click(function () {
             const event = $(this).attr("wutsi-track-event");
             const value = $(this).attr("wutsi-track-value");
             const title = $(this).attr("title");
@@ -97,7 +97,7 @@ function Wutsi (){
         });
 
         /* sharing */
-        $('[wutsi-share-target]').click(function(){
+        $('[wutsi-share-target]').click(function () {
             const target = $(this).attr("wutsi-share-target");
             const storyId = $(this).attr("wutsi-story-id");
             if (storyId && target) {
@@ -106,10 +106,10 @@ function Wutsi (){
         });
     };
 
-    this.update_comment_count = function() {
+    this.update_comment_count = function () {
         var qs = '';
-        $('[data-comment-story-id]').each(function(index, item){
-            if (qs.length > 0){
+        $('[data-comment-story-id]').each(function (index, item) {
+            if (qs.length > 0) {
                 qs += '&'
             }
             qs += 'storyId=' + $(item).attr('data-comment-story-id');
@@ -117,17 +117,17 @@ function Wutsi (){
         if (qs.length > 0) {
             this.httpGet('/comment/count?' + qs, true)
                 .then(function (counts) {
-                    $(counts).each(function(index, item){
+                    $(counts).each(function (index, item) {
                         $('#comment-count-' + item.storyId).text(item.valueText);
                     });
                 });
         }
     };
 
-    this.update_like_count = function(storyId = 0) {
+    this.update_like_count = function (storyId = 0) {
         var qs = '';
-        $('[data-like-story-id]').each(function(index, item){
-            if (qs.length > 0){
+        $('[data-like-story-id]').each(function (index, item) {
+            if (qs.length > 0) {
                 qs += '&'
             }
             qs += 'storyId=' + $(item).attr('data-like-story-id');
@@ -143,12 +143,12 @@ function Wutsi (){
                 .then(function (counts) {
                     if (storyId !== 0) {
                         const found = counts.find(item => item.storyId === storyId);
-                        if(found === undefined){
+                        if (found === undefined) {
                             $('#like-count-' + storyId).text('');
                             return;
                         }
                     }
-                    $(counts).each(function(index, item){
+                    $(counts).each(function (index, item) {
                         $('#like-count-' + item.storyId).text(item.valueText);
                     });
                 });
@@ -156,7 +156,7 @@ function Wutsi (){
             // Highlight the stories the user like
             this.httpGet('/like/search?' + qs, true)
                 .then(function (likes) {
-                    $(likes).each(function(index, item){
+                    $(likes).each(function (index, item) {
                         $('#like-icon-' + item.storyId).attr('class', 'fas fa-heart like-icon like-icon-liked');
                     });
                 });
@@ -167,24 +167,24 @@ function Wutsi (){
         const ua = navigator.userAgent;
         return /iPhone|iPad|iPod|Android/i.test(ua)
             || ((ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1))  /* Facebook in-app browser */
-        ;
+            ;
     };
 
-    this.httpGet = function(url, json) {
-        return new Promise(function(resolve, reject){
+    this.httpGet = function (url, json) {
+        return new Promise(function (resolve, reject) {
             $.ajax({
                 method: 'GET',
                 url: url,
                 dataType: json ? 'json' : null,
-                contentType: json ? 'application/json': null,
+                contentType: json ? 'application/json' : null,
                 headers: {
                     'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
                 },
-                success: function(data) {
+                success: function (data) {
                     console.log('GET ', url, json ? data : '');
                     resolve(data)
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error('GET ', url, error);
                     reject(error)
                 }
@@ -193,24 +193,24 @@ function Wutsi (){
 
     };
 
-    this.httpPost = function(url, data, json) {
-        return new Promise(function(resolve, reject) {
+    this.httpPost = function (url, data, json) {
+        return new Promise(function (resolve, reject) {
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: json ? JSON.stringify(data) : data,
                 dataType: json ? 'json' : null,
-                contentType: json ? 'application/json': false,
+                contentType: json ? 'application/json' : false,
                 cache: false,
                 processData: false,
                 headers: {
                     'X-CSRF-TOKEN': $("meta[name='_csrf']").attr("content")
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log('POST ', url, data, response);
                     resolve(response)
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error('POST ', url, data, error);
                     reject(error)
                 }
@@ -218,7 +218,7 @@ function Wutsi (){
         });
     };
 
-    this.upload = function(file) {
+    this.upload = function (file) {
         console.log('Uploading ', file);
 
         const form = new FormData();
@@ -226,7 +226,7 @@ function Wutsi (){
         return wutsi.httpPost('/upload', form);
     };
 
-    this.share = function(storyId, target) {
+    this.share = function (storyId, target) {
         const fbAppId = document.head.querySelector("[name=facebook\\:app_id]").content;
         const title = document.head.querySelector("[property=og\\:title]").content;
         const url = document.head.querySelector("[property=og\\:url]").content;
@@ -245,14 +245,13 @@ function Wutsi (){
         }
 
         this.track('share-' + target);
-        this.httpPost('/share?storyId=' + storyId + '&target=' + target, {}, true);
     }
 
-    this.linkify = function(selector) {
-        $(selector).each(function(){
+    this.linkify = function (selector) {
+        $(selector).each(function () {
             const text = $(this).html();
             const xtext = text.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a target="_new" href="$1">$1</a> ');
-            $(this).html( xtext );
+            $(this).html(xtext);
         });
     }
 
@@ -285,7 +284,7 @@ setInterval(function () {
 }, 30000);
 
 // Handle all errors
-window.onerror = function(message, source, line, col, error) {
+window.onerror = function (message, source, line, col, error) {
     const label = source + ' - ' + line + ':' + col + ' ' + message;
     wutsi.track_ga('error', 'error', null, label)
 };

@@ -10,7 +10,6 @@ import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.PostApi
 import com.wutsi.blog.sdk.Sdk
-import com.wutsi.blog.sdk.ShareApi
 import com.wutsi.blog.sdk.TagApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
@@ -51,9 +50,6 @@ class WutsiSdkConfiguration(
 
     @Bean
     fun postApi(): PostApi = sdk().postApi()
-
-    @Bean
-    fun shareApi(): ShareApi = sdk().shareApi()
 
     @Bean
     fun tagApi(): TagApi = sdk().tagApi()
