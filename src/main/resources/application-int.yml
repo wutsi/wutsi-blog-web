@@ -35,6 +35,6 @@ wutsi:
     pwa-push-notification: false
     sso-facebook: true
     sso-google: true
-    sso-github: false
+    sso-github: true
     sso-twitter: true
     sso-linkedin: false

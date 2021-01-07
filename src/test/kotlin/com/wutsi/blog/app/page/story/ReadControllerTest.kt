@@ -124,9 +124,10 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
     fun `share to Social Network`() {
         driver.get("$url/read/20/looks-good")
 
+        assertElementNotVisible(".share-box")
         click("#share-menu")
 
-        val url = "http://localhost:8081/read/20/lorem-ipsum"
+        assertElementVisible(".share-box")
         assertElementAttribute(".share-box .btn-facebook", "wutsi-share-target", "facebook")
         assertElementAttribute(".share-box .btn-facebook", "wutsi-story-id", "20")
 
@@ -141,6 +142,14 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
 
         assertElementAttribute(".share-box .btn-linkedin", "wutsi-share-target", "linkedin")
         assertElementAttribute(".share-box .btn-linkedin", "wutsi-story-id", "20")
+    }
+
+    @Test
+    fun `open share box on read`() {
+        login()
+        driver.get("$url/read/20/looks-good?share=1")
+
+        assertElementVisible(".share-box")
     }
 
     @Test
