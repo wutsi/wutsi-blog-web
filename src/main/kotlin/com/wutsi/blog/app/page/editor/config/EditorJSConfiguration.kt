@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.editor.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
+import com.wutsi.blog.app.page.editor.service.filter.ButtonFilter
 import com.wutsi.blog.app.page.editor.service.filter.ImageKitFilter
 import com.wutsi.blog.app.page.editor.service.filter.ImageLozadFilter
 import com.wutsi.blog.app.page.editor.service.filter.LinkTargetFilter
@@ -42,12 +43,10 @@ class EditorJSConfiguration(
         imageSize: HtmlImageService
     ) = EJSFilterSet(
         arrayListOf(
-            linkFilter(),
+            LinkTargetFilter(websiteUrl),
             ImageKitFilter(imageSize),
+            ButtonFilter(),
             ImageLozadFilter() /* should be the LAST image filter */
         )
     )
-
-    @Bean
-    fun linkFilter() = LinkTargetFilter(websiteUrl)
 }

@@ -1,4 +1,4 @@
-function WutsiEJS (holderId, publishCallback){
+function WutsiEJS(holderId, publishCallback) {
     this.holderId = holderId;
     this.editorjs = null;
     this.model = {
@@ -22,12 +22,12 @@ function WutsiEJS (holderId, publishCallback){
         }
     };
 
-    this.setup = function(storyId) {
+    this.setup = function (storyId) {
         console.log('Setup story', storyId);
 
         /* load locally */
         const data = window.localStorage.getItem("document-" + storyId);
-        if (data){
+        if (data) {
             console.log('Initializing from local storage');
             this.init(JSON.parse(data));
         } else {
@@ -75,7 +75,7 @@ function WutsiEJS (holderId, publishCallback){
         }
     };
 
-    this.init = function(model) {
+    this.init = function (model) {
         console.log('Initializing', model);
 
         this.model = model;
@@ -84,18 +84,18 @@ function WutsiEJS (holderId, publishCallback){
         this.init_toolbar();
         this.init_autosave();
 
-        $(this.config.selectors.title).keypress(function(){
+        $(this.config.selectors.title).keypress(function () {
             model.dirty = true;
         });
     };
 
-    this.init_title = function(model) {
+    this.init_title = function (model) {
         console.log('Initializing title');
 
         $(this.config.selectors.title).text(model.title);
     };
 
-    this.init_editorjs = function(model) {
+    this.init_editorjs = function (model) {
         console.log('Initializing EditorJS');
 
         const tools = {
@@ -137,11 +137,11 @@ function WutsiEJS (holderId, publishCallback){
 
             image: {
                 class: ImageTool,
-                config:{
+                config: {
                     uploader: {
-                        uploadByFile: function(file) {
+                        uploadByFile: function (file) {
                             return wutsi.upload(file)
-                                .then(function(data){
+                                .then(function (data) {
                                     return {
                                         success: 1,
                                         file: {
@@ -153,9 +153,9 @@ function WutsiEJS (holderId, publishCallback){
                                 })
                         },
 
-                        uploadByUrl: function(url) {
+                        uploadByUrl: function (url) {
                             return wutsi.httpGet('/upload?url=' + url)
-                                .then(function(data){
+                                .then(function (data) {
                                     return {
                                         success: 1,
                                         file: {
@@ -172,7 +172,11 @@ function WutsiEJS (holderId, publishCallback){
 
             inlineCode: InlineCode,
             code: CodeTool,
-            raw: RawTool
+            raw: RawTool,
+            AnyButton: {
+                class: AnyButton,
+                inlineToolbar: false
+            },
         };
 
         this.editorjs = new EditorJS({
@@ -186,11 +190,11 @@ function WutsiEJS (holderId, publishCallback){
         });
     };
 
-    this.init_toolbar = function() {
+    this.init_toolbar = function () {
         const me = this;
 
         // Publish button
-        if (this.model.draft){
+        if (this.model.draft) {
             $(this.config.selectors.storyStatusDraft).removeClass('hidden');
         } else {
             $(this.config.selectors.storyStatusPublished).removeClass('hidden');
@@ -203,7 +207,7 @@ function WutsiEJS (holderId, publishCallback){
 
         // Close button
         $(this.config.selectors.btnClose).on('click', function () {
-            me.editorjs_server_save(function(){
+            me.editorjs_server_save(function () {
                 if (me.model.draft) {
                     window.location.href = '/me/draft';
                 } else {
@@ -213,7 +217,7 @@ function WutsiEJS (holderId, publishCallback){
         });
     };
 
-    this.init_autosave = function() {
+    this.init_autosave = function () {
         const me = this;
         setInterval(function () {
             me.editorjs_local_save()
@@ -221,7 +225,7 @@ function WutsiEJS (holderId, publishCallback){
     };
 
 
-    this.editorjs_server_save = function(resolve) {
+    this.editorjs_server_save = function (resolve) {
         console.log('Saving remotely');
 
         const me = this;
@@ -232,7 +236,7 @@ function WutsiEJS (holderId, publishCallback){
         this.saving();
         return this.editorjs
             .save()
-            .then(function(data){
+            .then(function (data) {
                 const request = {
                     id: storyId,
                     title: title,
@@ -240,7 +244,7 @@ function WutsiEJS (holderId, publishCallback){
                 };
 
                 wutsi.httpPost(saveUrl, request, true)
-                    .then(function(story){
+                    .then(function (story) {
                         window.localStorage.removeItem("document-" + storyId);
 
                         me.storyId = story.id;
@@ -253,9 +257,9 @@ function WutsiEJS (holderId, publishCallback){
             });
     };
 
-    this.editorjs_local_save = function() {
+    this.editorjs_local_save = function () {
         console.log('Saving locally. dirty=' + this.model.dirty);
-        if (this.model.dirty == false){
+        if (this.model.dirty == false) {
             return;
         }
 
@@ -267,23 +271,23 @@ function WutsiEJS (holderId, publishCallback){
         const me = this;
         this.editorjs
             .save()
-            .then(function(data){
+            .then(function (data) {
                 console.log('Saved', data);
 
                 me.model.content = data;
                 window.localStorage.setItem('document-' + id, JSON.stringify(me.model));
                 me.saved();
             })
-            .catch(function(error){
+            .catch(function (error) {
                 me.saved(error);
             });
     };
 
-    this.saving = function() {
+    this.saving = function () {
         $(this.config.selectors.saveStatus).removeClass('hidden');
     };
 
-    this.saved = function(error) {
+    this.saved = function (error) {
         $(this.config.selectors.saveStatus).addClass('hidden');
         this.model.dirty = (error != null);
     };

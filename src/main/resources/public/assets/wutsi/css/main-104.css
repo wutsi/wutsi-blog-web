@@ -696,6 +696,10 @@ a.sso-button .fab {
     width: 75%;
 }
 
+.reader .content div.button {
+    text-align: center;
+}
+
 .reader .content .twitter-tweet {
     margin: 0 auto;
 }
