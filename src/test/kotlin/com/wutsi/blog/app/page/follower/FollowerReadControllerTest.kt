@@ -32,7 +32,7 @@ class FollowerReadControllerTest : SeleniumMobileTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
         driver.get("$url/read/20/test")
 
-        verifyFollowButtons(99, "john.smith")
+        verifyFollowButtons("john.smith")
         verifyWhoToFollow()
 
         click(".navbar .btn-follow")
@@ -60,13 +60,13 @@ class FollowerReadControllerTest : SeleniumMobileTestSupport() {
         verifyWhoToFollow()
     }
 
-    private fun verifyFollowButtons(userId: Long = 1, userName: String = "ray.sponsible") {
+    private fun verifyFollowButtons(userName: String = "ray.sponsible") {
         assertElementCount(".navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=$userId&return=/read/20/lorem-ipsum")
+        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/@/$userName/follow?return=/read/20/lorem-ipsum")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount(".follow-panel .btn-follow", 1)
-        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=$userId&return=/@/$userName")
+        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/@/$userName/follow?return=/@/$userName")
         assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
     }
 

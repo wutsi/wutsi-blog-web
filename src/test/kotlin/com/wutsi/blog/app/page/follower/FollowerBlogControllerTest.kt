@@ -48,19 +48,19 @@ class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
 
         driver.get("$url/@/john.smith")
 
-        verifyFollowButtons(99, "john.smith")
+        verifyFollowButtons("john.smith")
 
         click(".navbar .btn-follow")
         assertCurrentPageIs(PageName.BLOG)
     }
 
-    private fun verifyFollowButtons(userId: Long = 1, userName: String = "ray.sponsible") {
+    private fun verifyFollowButtons(userName: String = "ray.sponsible") {
         assertElementCount(".navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/follow?userId=$userId&return=/@/$userName")
+        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/@/$userName/follow?return=/@/$userName")
         assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
 
         assertElementCount(".follow-panel .btn-follow", 1)
-        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/follow?userId=$userId&return=/@/$userName")
+        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "@/$userName/follow?return=/@/$userName")
         assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
     }
 

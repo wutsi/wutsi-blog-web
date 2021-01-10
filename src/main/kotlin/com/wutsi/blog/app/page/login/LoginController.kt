@@ -29,6 +29,7 @@ class LoginController(
         private val LOGGER = LoggerFactory.getLogger(LoginController::class.java)
         private const val REASON_CREATE_BLOG = "create-blog"
         private const val REASON_FOLLOW = "follow"
+        private val PATH_FOLLOW = "/@/.*/follow".toRegex()
     }
 
     @GetMapping()
@@ -69,7 +70,7 @@ class LoginController(
         if (redirectUrl != null && domain.equals(redirectUrl.host)) {
             if (redirectUrl.path.startsWith("/create")) {
                 return REASON_CREATE_BLOG
-            } else if (redirectUrl.path == "/follow") {
+            } else if (PATH_FOLLOW.matches(redirectUrl.path.toLowerCase())) {
                 return REASON_FOLLOW
             }
         }

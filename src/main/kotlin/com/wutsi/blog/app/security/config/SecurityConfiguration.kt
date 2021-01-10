@@ -57,7 +57,7 @@ class SecurityConfiguration(
             .antMatchers("/stats/**/*").authenticated()
             .antMatchers("/create").authenticated()
             .antMatchers("/create/**/*").authenticated()
-            .antMatchers("/follow").authenticated()
+            .antMatchers("/@/*/follow").authenticated()
             .antMatchers("/pin/**/*").authenticated()
             .antMatchers(HttpMethod.POST, "/upload").authenticated()
 
