@@ -36,6 +36,6 @@ class FollowController(
         } catch (ex: Exception) {
             LOGGER.error("${requestContext.currentUser()?.id} is not able to follow $username", ex)
         }
-        return "redirect:$`return`"
+        return if (`return` == null) "redirect:/@/$username" else "redirect:$`return`"
     }
 }
