@@ -30,12 +30,12 @@ class FollowController(
         @PathVariable username: String,
         @RequestParam(required = false) `return`: String? = null
     ): String {
+        val user = userService.get(username)
         try {
-            val user = userService.get(username)
             service.follow(user.id)
         } catch (ex: Exception) {
             LOGGER.error("${requestContext.currentUser()?.id} is not able to follow $username", ex)
         }
-        return if (`return` == null) "redirect:/@/$username" else "redirect:$`return`"
+        return if (`return` == null) "redirect:${user.slug}" else "redirect:$`return`"
     }
 }
