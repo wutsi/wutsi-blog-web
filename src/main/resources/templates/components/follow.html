@@ -18,8 +18,8 @@
 
 <a class="btn btn-follow"
    th:classappend="primaryButton ? 'btn-primary' : 'btn-light'" th:fragment="follow-button(blog, returnUrl, primaryButton, includeNameInCaption)"
-   th:href="'/@/' + ${blog.name} + '/follow?return=' + ${returnUrl}"
-   wutsi-track-event="follow"
+   th:href="'/@/' + ${blog.name} + '/follow?return=' + ${returnUrl} + '&page=' + ${page.name} + '&hitId=' + ${hitId}"
+   wutsi-track-event="follow-click"
 >
     <span th:text="#{button.follow}">Follow</span>
     <span th:if="${includeNameInCaption}" th:text="' @' + ${blog.name}">@ray.sponsible</span>
@@ -27,7 +27,7 @@
 
 <a class="btn btn-light btn-unfollow"
    th:fragment="unfollow-button(blog)" th:href="'/me/settings/unsubscribe?userId=' + ${blog.id}"
-   wutsi-track-event="unfollow"
+   wutsi-track-event="unfollow-click"
 >
     <span th:text="#{button.unfollow}">Unfollow</span>
 </a>
