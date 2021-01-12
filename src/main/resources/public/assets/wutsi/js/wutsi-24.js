@@ -104,6 +104,16 @@ function Wutsi() {
                 wutsi.share(storyId, target);
             }
         });
+
+        /* follow */
+        $('[wutsi-follow-target]').click(function () {
+            const target = $(this).attr("wutsi-follow-target");
+            const returnUrl = $(this).attr("wutsi-follow-return-url");
+            if (target) {
+                wutsi.follow(target, returnUrl);
+            }
+        });
+
     };
 
     this.update_comment_count = function () {
@@ -245,6 +255,11 @@ function Wutsi() {
         }
 
         this.track('share-' + target);
+    }
+
+    this.follow = function (name, returnUrl) {
+        const url = '/@/' + name + '/follow?return=' + returnUrl + '&page=' + this.page_name() + '&hitId=' + this.hit_id();
+        document.location.href = url;
     }
 
     this.linkify = function (selector) {

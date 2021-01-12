@@ -1,75 +1,64 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="components/layout :: head"></div>
 </head>
 
 <body class="paper">
-    <div th:replace="components/layout :: navbar-blog(${blog}, ${showFollowButton}, ${blog.slug})"></div>
+<div th:replace="components/layout :: navbar-blog(${blog}, ${showFollowButton}, ${blog.slug})"></div>
 
-    <div class="author-navbar">
-        <div th:replace="components/author :: card(${blog}, !${toggles.follow})"></div>
+<div class="author-navbar">
+    <div th:replace="components/author :: card(${blog}, !${toggles.follow})"></div>
 
-        <div class="container-fluid next-action-container" th:if="${nextAction}">
-            <h4 class="title" th:text="#{next-action.title}">Your Next Action</h4>
-            <div class="row margin-top">
-                <div class="col-12 col-md-4 next-action-biography">
-                    <div th:replace="components/layout :: next-action(name='biography', icon='/assets/wutsi/img/settings.png', text=#{next-action.item.biography}, url='/me/settings?highlight=biography-container#general', done=!${nextAction.biography})"></div>
-                </div>
-                <div class="col-12 col-md-4 next-action-newsletter">
-                    <div th:replace="components/layout :: next-action(name='newsletter', icon='/assets/wutsi/img/newsletter.png', text=#{next-action.item.newsletter}, url='/me/settings?highlight=newsletter-container#newsletter', done=!${nextAction.newsletter})"></div>
-                </div>
-                <div class="col-12 col-md-4 next-action-twitter">
-                    <div th:replace="components/layout :: next-action(name='twitter', icon='/assets/wutsi/img/social/twitter.png', text=#{next-action.item.twitter}, url='/me/settings?highlight=channels-container#channels', done=!${nextAction.twitter})"></div>
-                </div>
-            </div>
-        </div>
-
-        <div th:if="${showCreateStoryButton}" class="btn-toolbar">
-            <a id="btn-create-story" class="btn btn-primary" href="/editor" th:text="#{button.create_first_story}">Write your first Story</a>
-            <a id="btn-import-story" class="btn btn-light" href="/me/syndicate" th:text="#{button.syndicate_story}">Import Story</a>
-        </div>
-        <div id="btn-follow-container" th:if="${showFollowButton}">
-            <div th:replace="components/follow :: panel(${blog}, ${blog.slug}, null)"></div>
-        </div>
+    <div class="btn-toolbar" th:if="${showCreateStoryButton}">
+        <a class="btn btn-primary" href="/editor" id="btn-create-story" th:text="#{button.create_first_story}">Write your first Story</a>
+        <a class="btn btn-light" href="/me/syndicate" id="btn-import-story" th:text="#{button.syndicate_story}">Import Story</a>
     </div>
+    <div id="btn-follow-container" th:if="${showFollowButton}">
+        <div th:replace="components/follow :: panel(${blog}, ${blog.slug}, null)"></div>
+    </div>
+</div>
 
-    <div class="container margin-top">
-        <div class="row">
-            <div id="my-stories" class="col-12 offset-lg-1 col-lg-6 content-main">
-                <div th:each="story, it: ${myStories}">
-                    <div th:replace="components/story :: story-card(${story}, 'read', ${it.index}, ${pin})"></div>
+<div class="container margin-top">
+    <div class="row">
+        <div class="col-12 offset-lg-1 col-lg-6 content-main" id="my-stories">
+            <div th:each="story, it: ${myStories}">
+                <div th:replace="components/story :: story-card(${story}, 'read', ${it.index}, ${pin})"></div>
 
-                    <div th:if="${it.index} == 0">
-                        <div th:replace="components/follow :: who-to-follow"></div>
-                    </div>
-                </div>
-
-                <div th:if="!${myStories} OR ${myStories.isEmpty()}">
+                <div th:if="${it.index} == 0">
                     <div th:replace="components/follow :: who-to-follow"></div>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4 content-sidebar">
-                <div id="following-stories" class="story-list" th:if="${followingStories} AND !${followingStories.isEmpty()}">
-                    <h4 class="title" th:text="#{page.blog.from_blog_you_follow}">From Blog you Follow</h4>
-                    <div th:each="story,it: ${followingStories}">
-                        <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
-                    </div>
-                </div>
+            <div th:if="!${myStories} OR ${myStories.isEmpty()}">
+                <div th:replace="components/follow :: who-to-follow"></div>
+            </div>
+        </div>
 
-                <div id="latest-stories" class="story-list" th:if="${latestStories} AND !${latestStories.isEmpty()}">
-                    <h4 class="title" th:text="#{page.blog.latest_stories}">Latest Story</h4>
-                    <div th:each="story,it: ${latestStories}">
-                        <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
-                    </div>
+        <div class="col-12 col-lg-4 content-sidebar">
+            <div th:if="${user} AND ${user.id} == ${blog.id}">
+                <div th:replace="components/layout :: next-action(${blog.id})"></div>
+            </div>
+
+            <div class="story-list" id="following-stories" th:if="${followingStories} AND !${followingStories.isEmpty()}">
+                <h4 class="title" th:text="#{page.blog.from_blog_you_follow}">From Blog you Follow</h4>
+                <div th:each="story,it: ${followingStories}">
+                    <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
+                </div>
+            </div>
+
+            <div class="story-list" id="latest-stories" th:if="${latestStories} AND !${latestStories.isEmpty()}">
+                <h4 class="title" th:text="#{page.blog.latest_stories}">Latest Story</h4>
+                <div th:each="story,it: ${latestStories}">
+                    <div th:replace="components/story :: story-summary-card(${story}, false, 'read', ${it.index})"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div th:replace="components/layout :: announcement"></div>
-    <div th:replace="components/layout :: footer"></div>
+<div th:replace="components/layout :: announcement"></div>
+<div th:replace="components/layout :: footer"></div>
 
 </body>
 </html>

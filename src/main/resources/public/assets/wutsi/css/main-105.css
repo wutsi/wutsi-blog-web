@@ -1064,7 +1064,7 @@ a.sso-button .fab {
 
 /* ==== CONTENT SIDEBAR ===== */
 .content-sidebar .story-list {
-    margin-top: var(--margin);
+    margin-bottom: var(--margin);
 }
 
 .content-sidebar .story-list:first-child {
@@ -1248,47 +1248,37 @@ a.sso-button .fab {
 }
 
 /* ==== NEXT ACTION  === */
-.next-action-container {
+.next-action {
     background: var(--highlight-color-light);
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    margin: var(--margin) auto;
-    padding: 1em;
-    width: 90%;
 }
 
-.next-action-container .title {
-    text-align: center;
-    margin: 0;
+.next-action h4 {
+    padding: var(--padding);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.next-action {
-    margin-top: var(--margin);
-}
-
-.next-action span {
-    vertical-align: middle;
-}
-
-.next-action .done span {
-    color: gray;
-}
-
-.next-action .todo span {
-    font-weight: bold;
-}
-
-.next-action img {
-    width: 48px;
-    height: 48px;
-    margin-right: 1em;
-    vertical-align: middle;
+.next-action .content {
+    padding: var(--padding);
 }
 
 .next-action a {
     color: var(--highlight-color);
-    text-decoration: underline;
+    text-decoration: none;
     vertical-align: middle;
+}
+
+.next-action img {
+    width: 32px;
+    height: 32px;
+    margin-right: var(--margin);
+    vertical-align: middle;
+}
+
+.next-action a span {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 /* ======== TELL YOUR FRIENDS ========= */
@@ -1411,6 +1401,7 @@ a.sso-button .fab {
 
 .btn-primary {
     background-color: var(--highlight-color);
+    color: #ffffff !important;
 }
 
 .btn-light {

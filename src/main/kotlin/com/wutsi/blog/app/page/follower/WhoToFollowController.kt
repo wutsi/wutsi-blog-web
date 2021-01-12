@@ -21,7 +21,7 @@ class WhoToFollowController(
     private val requestContext: RequestContext
 ) {
     @GetMapping()
-    fun add(
+    fun who(
         @RequestParam(required = false, defaultValue = "3") limit: Int = 3,
         model: Model
     ): String {

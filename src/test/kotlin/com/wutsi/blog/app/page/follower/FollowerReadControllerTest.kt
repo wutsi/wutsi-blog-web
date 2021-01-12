@@ -62,12 +62,10 @@ class FollowerReadControllerTest : SeleniumMobileTestSupport() {
 
     private fun verifyFollowButtons(userName: String = "ray.sponsible") {
         assertElementCount(".navbar .btn-follow", 1)
-        assertElementAttributeEndsWith(".navbar .btn-follow", "href", "/@/$userName/follow?return=/read/20/lorem-ipsum")
-        assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow")
+        assertElementAttribute(".navbar .btn-follow", "wutsi-track-event", "follow-click")
 
         assertElementCount(".follow-panel .btn-follow", 1)
-        assertElementAttributeEndsWith(".follow-panel .btn-follow", "href", "/@/$userName/follow?return=/@/$userName")
-        assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow")
+        assertElementAttribute(".follow-panel .btn-follow", "wutsi-track-event", "follow-click")
     }
 
     private fun verifyNoFollowButtons() {

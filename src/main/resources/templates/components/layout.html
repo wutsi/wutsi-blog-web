@@ -67,8 +67,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-23.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-104.css'"/>
+    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-24.js'"></script>
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-105.css'"/>
 
     <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
 
@@ -363,17 +363,18 @@
         </script>
     </div>
 
-    <div class="next-action" th:fragment="next-action(name, icon, text, url, done)">
-        <a th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
-            <img th:src="${page.assetUrl} + ${icon}"/></a>
-        <a class="todo" th:href="${url}" th:if="!${done}" th:wutsi-track-event="'next-best-action-' + ${name}">
-            <span th:text="${text}">Next Action Text</span></a>
+    <div id="next-action-container" th:fragment="next-action(userId)">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
 
-        <div class="done" th:if="${done}">
-            <img th:src="${page.assetUrl} + '/assets/wutsi/img/check.png'"/>
-            <span th:text="${text}">Next Action Text</span>
-        </div>
+            $(document).ready(function () {
+                $('#next-action-container').load('/next-action?id=' + /*[[${userId}]]*/'');
+            });
+
+            /*]]>*/
+        </script>
     </div>
+</div>
 
 </body>
 </html>
