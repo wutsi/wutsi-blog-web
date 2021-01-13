@@ -1254,6 +1254,10 @@ a.sso-button .fab {
     border-radius: 10px;
 }
 
+.content-sidebar .next-action {
+    margin-bottom: var(--margin);
+}
+
 .next-action h4 {
     padding: var(--padding);
     border-bottom: 1px solid var(--border-color);

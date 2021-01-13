@@ -24,13 +24,13 @@ class NewsletterNextActionTest {
 
     @Test
     fun getWeekday() {
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 1)))
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 2)))
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 3)))
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 4)))
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 5)))
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 6)))
-        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 7)))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 1), emptyList()))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 2), emptyList()))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 3), emptyList()))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 4), emptyList()))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 5), emptyList()))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 6), emptyList()))
+        assertNull(nba.get(UserModel(newsletterDeliveryDayOfWeek = 7), emptyList()))
     }
 
     @Test
@@ -42,7 +42,7 @@ class NewsletterNextActionTest {
     private fun testNoNewsletter(weekday: Int) {
         doReturn("This is title").whenever(requestContext).getMessage(any(), eq(null), eq(null), eq(null))
 
-        val result = nba.get(UserModel(newsletterDeliveryDayOfWeek = weekday))
+        val result = nba.get(UserModel(newsletterDeliveryDayOfWeek = weekday), emptyList())
 
         assertEquals("newsletter", result?.name)
         assertEquals("/assets/wutsi/img/newsletter.png", result?.iconUrl)

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.util.regex.Pattern
 
 @Controller
 @RequestMapping
@@ -25,7 +24,6 @@ class FollowController(
 ) : AbstractPageController(requestContext) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(FollowerService::class.java)
-        private val ID_PATTERN = Pattern.compile("/read/([0-9]+).*")
     }
 
     override fun pageName() = PageName.FOLLOW
@@ -35,7 +33,8 @@ class FollowController(
         @PathVariable username: String,
         @RequestParam(required = false) `return`: String? = null,
         @RequestParam(required = false) page: String? = null,
-        @RequestParam(required = false) hitId: String? = null
+        @RequestParam(required = false) hitId: String? = null,
+        @RequestParam(required = false) storyId: String? = null
     ): String {
         val user = userService.get(username)
         try {
@@ -43,7 +42,7 @@ class FollowController(
             track(
                 hitId = hitId,
                 page = page,
-                returnUrl = `return`
+                storyId = storyId
             )
         } catch (ex: Exception) {
             LOGGER.error("${requestContext.currentUser()?.id} is not able to follow $username", ex)
@@ -51,7 +50,7 @@ class FollowController(
         return if (`return` == null) "redirect:${user.slug}" else "redirect:$`return`"
     }
 
-    private fun track(hitId: String?, page: String?, returnUrl: String?) {
+    private fun track(hitId: String?, page: String?, storyId: String?) {
         trackService.push(
             PushTrackForm(
                 time = System.currentTimeMillis(),
@@ -59,16 +58,8 @@ class FollowController(
                 event = "follow",
                 hid = hitId,
                 page = page,
-                pid = returnUrl?.let { extractStoryId(it) } ?: null
+                pid = storyId
             )
         )
-    }
-
-    fun extractStoryId(url: String): String? {
-        val matcher = ID_PATTERN.matcher(url)
-        while (matcher.find()) {
-            return matcher.group(1)
-        }
-        return null
     }
 }

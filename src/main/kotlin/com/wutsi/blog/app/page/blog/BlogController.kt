@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.blog.model.NextActionModel
 import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.blog.service.PinService
 import com.wutsi.blog.app.page.channel.service.ChannelService
@@ -14,7 +13,6 @@ import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder
-import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.SortAlgorithmType
 import com.wutsi.blog.client.story.SortAlgorithmType.most_recent
@@ -62,7 +60,6 @@ class BlogController(
         val stories = loadMyStories(blog, pin, model, 50)
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
-        loadNextStep(blog, model)
         shouldShowFollowButton(blog, model)
         shouldShowCreateStory(blog, stories, model)
         return "page/blog/writer"
@@ -167,20 +164,6 @@ class BlogController(
         val pin = pinService.get(blog)
         model.addAttribute("pin", pin)
         return pin
-    }
-
-    private fun loadNextStep(blog: UserModel, model: Model) {
-        if (!requestContext.toggles().nextAction || blog.id != requestContext.currentUser()?.id)
-            return
-
-        val nextAction = NextActionModel(
-            biography = blog.biography.isNullOrEmpty(),
-            twitter = channelService.all().filter { it.type == ChannelType.twitter && it.connected }.isEmpty(),
-            newsletter = blog.newsletterDeliveryDayOfWeek <= 0
-        )
-        if (nextAction.biography || nextAction.twitter || nextAction.newsletter) {
-            model.addAttribute("nextAction", nextAction)
-        }
     }
 
     private fun shouldShowFollowButton(blog: UserModel, model: Model) {

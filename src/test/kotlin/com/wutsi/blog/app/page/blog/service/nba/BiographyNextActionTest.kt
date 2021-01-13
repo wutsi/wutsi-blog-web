@@ -26,7 +26,7 @@ class BiographyNextActionTest {
     fun get() {
         val blog = UserModel(biography = "yo")
 
-        val result = nba.get(blog)
+        val result = nba.get(blog, emptyList())
         assertNull(result)
     }
 
@@ -36,7 +36,7 @@ class BiographyNextActionTest {
 
         val blog = UserModel(biography = null)
 
-        val result = nba.get(blog)
+        val result = nba.get(blog, emptyList())
         assertEquals("biography", result?.name)
         assertEquals("/assets/wutsi/img/settings.png", result?.iconUrl)
         assertEquals("/me/settings?highlight=biography-container#general", result?.url)
@@ -49,7 +49,7 @@ class BiographyNextActionTest {
 
         val blog = UserModel(biography = null)
 
-        val result = nba.get(blog)
+        val result = nba.get(blog, emptyList())
         assertEquals("biography", result?.name)
         assertEquals("/assets/wutsi/img/settings.png", result?.iconUrl)
         assertEquals("/me/settings?highlight=biography-container#general", result?.url)

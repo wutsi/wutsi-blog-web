@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class NextActionConfiguration(private val requestContext: RequestContext) {
+class NextActionConfiguration(
+    private val requestContext: RequestContext
+) {
 
     @Bean
     fun nextActionSet(): NextActionSet {

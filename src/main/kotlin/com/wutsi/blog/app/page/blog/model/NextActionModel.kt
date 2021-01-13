@@ -1,7 +1,8 @@
 package com.wutsi.blog.app.page.blog.model
 
 data class NextActionModel(
-    val biography: Boolean = false,
-    val twitter: Boolean = false,
-    val newsletter: Boolean = false
+    val name: String,
+    val title: String,
+    val url: String,
+    val iconUrl: String
 )
