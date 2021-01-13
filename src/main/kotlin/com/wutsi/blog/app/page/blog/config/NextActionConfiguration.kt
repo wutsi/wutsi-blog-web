@@ -14,12 +14,14 @@ class NextActionConfiguration(private val requestContext: RequestContext) {
 
     @Bean
     fun nextActionSet(): NextActionSet {
-        return NextActionSet(actions = listOf(
-            biographyNextAction(),
-            newsletterNextAction(),
-            twitterNextAction(),
-            linkedInNextAction()
-        ))
+        return NextActionSet(
+            actions = listOf(
+                biographyNextAction(),
+                newsletterNextAction(),
+                twitterNextAction(),
+                linkedInNextAction()
+            )
+        )
     }
 
     @Bean
