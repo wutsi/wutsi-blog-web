@@ -172,11 +172,16 @@ function WutsiEJS(holderId, publishCallback) {
 
             inlineCode: InlineCode,
             code: CodeTool,
-            raw: RawTool,
+            raw: RawTool/*,
             AnyButton: {
                 class: AnyButton,
-                inlineToolbar: false
-            },
+                inlineToolbar: false,
+                config: {
+                    css: {
+                        btn: "ejs-btn"
+                    }
+                }
+            }*/
         };
 
         this.editorjs = new EditorJS({
