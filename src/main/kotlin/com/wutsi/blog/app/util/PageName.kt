@@ -56,6 +56,7 @@ class PageName {
         const val STORY_PREVIEW = "page.story.preview"
         const val STORY_PUBLISHED = "page.story.published"
         const val STORY_SYNDICATE = "page.story.syndicate"
+        const val STORY_CAROUSEL = "page.story.carousel"
 
         const val STATS_STORY = "page.stats.story"
         const val STATS_USER = "page.stats.user"

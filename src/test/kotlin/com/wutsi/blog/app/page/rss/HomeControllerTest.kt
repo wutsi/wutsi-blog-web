@@ -9,6 +9,8 @@ class HomeControllerTest : SeleniumTestSupport() {
     fun `home page`() {
         driver.get(url)
 
+        assertElementCount(".author-carousel div.author", 3)
+        assertElementCount(".story-carousel div.story-card", 3)
         assertCurrentPageIs(PageName.HOME)
     }
 

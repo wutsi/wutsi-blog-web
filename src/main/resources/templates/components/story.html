@@ -242,6 +242,25 @@
     </script>
 </div>
 
+<div th:fragment="carousel(id, topicId, title)" th:id="'story-carousel-' + ${id}">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            const id = /*[[${id}]]*/ '';
+            const title = /*[[${title}]]*/ '';
+            const topicId = /*[[${topicId}]]*/ '';
+            var url = '/story/carousel?title=' + encodeURIComponent(title);
+            if (topicId && topicId > 0) {
+                url = url + '&topicId=' + topicId;
+            }
+            wutsi.httpGet(url, false)
+                .then(function (html) {
+                    $('#story-carousel-' + id).html(html);
+                })
+        });
+        /*]]>*/
+    </script>
+</div>
 
 </body>
 </html>
