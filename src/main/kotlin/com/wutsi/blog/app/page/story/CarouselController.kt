@@ -17,7 +17,7 @@ class CarouselController(
     private val storyService: StoryService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
-    override fun pageName(): String = PageName.STORY_CAROUSEL;
+    override fun pageName(): String = PageName.STORY_CAROUSEL
 
     @GetMapping("/story/carousel")
     fun recommend(
