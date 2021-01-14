@@ -5,7 +5,9 @@ import com.wutsi.blog.app.page.blog.service.NextActionSet
 import com.wutsi.blog.app.page.blog.service.nba.BiographyNextAction
 import com.wutsi.blog.app.page.blog.service.nba.LinkedInNextAction
 import com.wutsi.blog.app.page.blog.service.nba.NewsletterNextAction
+import com.wutsi.blog.app.page.blog.service.nba.SocialMediaNextAction
 import com.wutsi.blog.app.page.blog.service.nba.TwitterNextAction
+import com.wutsi.blog.app.page.blog.service.nba.WebsiteNextAction
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -21,7 +23,9 @@ class NextActionConfiguration(
                 biographyNextAction(),
                 newsletterNextAction(),
                 twitterNextAction(),
-                linkedInNextAction()
+                linkedInNextAction(),
+                socialLinkNextAction(),
+                websiteNextAction()
             )
         )
     }
@@ -37,4 +41,10 @@ class NextActionConfiguration(
 
     @Bean
     fun newsletterNextAction() = NewsletterNextAction(requestContext)
+
+    @Bean
+    fun websiteNextAction() = WebsiteNextAction(requestContext)
+
+    @Bean
+    fun socialLinkNextAction() = SocialMediaNextAction(requestContext)
 }
