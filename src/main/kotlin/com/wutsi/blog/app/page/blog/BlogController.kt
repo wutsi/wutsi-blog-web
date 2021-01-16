@@ -4,7 +4,6 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.blog.service.PinService
-import com.wutsi.blog.app.page.channel.service.ChannelService
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
@@ -29,7 +28,6 @@ class BlogController(
     private val followerService: FollowerService,
     private val storyService: StoryService,
     private val schemas: PersonSchemasGenerator,
-    private val channelService: ChannelService,
     private val pinService: PinService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
