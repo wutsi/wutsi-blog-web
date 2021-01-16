@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
 import org.slf4j.LoggerFactory
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import java.net.URL
 import java.net.URLDecoder
 import java.util.LinkedHashMap
+import java.util.regex.Pattern
 import javax.servlet.http.HttpServletRequest
 
 @Controller
@@ -29,7 +31,7 @@ class LoginController(
         private val LOGGER = LoggerFactory.getLogger(LoginController::class.java)
         private const val REASON_CREATE_BLOG = "create-blog"
         private const val REASON_FOLLOW = "follow"
-        private val PATH_FOLLOW = "/@/.*/follow".toRegex()
+        private val PATH_FOLLOW = Pattern.compile("/@/(.*)/follow")
     }
 
     @GetMapping()
@@ -49,6 +51,10 @@ class LoginController(
         model.addAttribute("info", info(xreason))
         model.addAttribute("title", title(xreason))
         model.addAttribute("return", `return`)
+        if (xreason == REASON_FOLLOW) {
+            model.addAttribute("blog", getBlogToFollow(redirectUrl!!))
+            model.addAttribute("followBlog", true)
+        }
 
         model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
         model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
@@ -70,7 +76,7 @@ class LoginController(
         if (redirectUrl != null && domain.equals(redirectUrl.host)) {
             if (redirectUrl.path.startsWith("/create")) {
                 return REASON_CREATE_BLOG
-            } else if (PATH_FOLLOW.matches(redirectUrl.path.toLowerCase())) {
+            } else if (PATH_FOLLOW.matcher(redirectUrl.path.toLowerCase()).matches()) {
                 return REASON_FOLLOW
             }
         }
@@ -140,4 +146,17 @@ class LoginController(
 
     private fun decode(value: String): String =
         URLDecoder.decode(value, "UTF-8")
+
+    private fun getBlogToFollow(redirectUrl: URL): UserModel? {
+        try {
+            val matcher = PATH_FOLLOW.matcher(redirectUrl.path.toLowerCase())
+            while (matcher.find()) {
+                val name = matcher.group(1)
+                return userService.get(name)
+            }
+        } catch (ex: Exception) {
+            LOGGER.error("Unable to resolve user from $redirectUrl", ex)
+        }
+        return null
+    }
 }

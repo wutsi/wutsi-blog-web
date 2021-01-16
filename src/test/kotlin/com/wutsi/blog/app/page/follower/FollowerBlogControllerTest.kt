@@ -21,13 +21,19 @@ class FollowerBlogControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous can follow any blog`() {
+    fun `anonymous who try to follow a blog is redirected to login page`() {
         driver.get("$url/@/ray.sponsible")
 
         verifyFollowButtons()
         verifyWhoToFollow()
 
         click(".navbar .btn-follow")
+        assertCurrentPageIs(PageName.LOGIN)
+    }
+
+    @Test
+    fun `anonymous who go straight to follow URL is redirected to login page`() {
+        driver.get("$url/@/ray.sponsible/follow")
         assertCurrentPageIs(PageName.LOGIN)
     }
 
