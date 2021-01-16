@@ -24,6 +24,7 @@ class UserMapper(private val imageKit: ImageKitService) {
         linkedinUrl = linkedinUrl(user),
         twitterUrl = twitterUrl(user),
         youtubeUrl = youtubeUrl(user),
+        rssUrl = rssUrl(user),
         superUser = user.superUser,
         blog = user.blog,
         storyCount = user.storyCount,
@@ -64,6 +65,9 @@ class UserMapper(private val imageKit: ImageKitService) {
     private fun youtubeUrl(user: UserDto): String? {
         return if (user.youtubeId == null) null else "https://www.youtube.com/channel/${user.youtubeId}"
     }
+
+    private fun rssUrl(user: UserDto): String =
+        slug(user) + "/rss"
 
     fun toUserModel(user: UserSummaryDto) = UserModel(
         id = user.id,

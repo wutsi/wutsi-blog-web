@@ -15,6 +15,7 @@ data class UserModel(
     val twitterUrl: String? = null,
     val linkedinUrl: String? = null,
     val youtubeUrl: String? = null,
+    val rssUrl: String? = null,
     val slug: String = "",
     val superUser: Boolean = false,
     val language: String? = null,
