@@ -128,7 +128,7 @@ class BlogController(
         )
         val followingStories = storyService.sort(
             stories = stories,
-            algorithm = SortAlgorithmType.most_viewed,
+            algorithm = SortAlgorithmType.no_sort,
             bubbleDownViewedStories = true,
             statsHoursOffset = 7 * 24
         )
@@ -136,7 +136,7 @@ class BlogController(
     }
 
     private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model) {
-        val latestStories = LinkedHashMap<UserModel, StoryModel>()
+        val latestStoryMap = LinkedHashMap<UserModel, StoryModel>()
         storyService.search(
             SearchStoryRequest(
                 status = StoryStatus.published,
@@ -149,12 +149,18 @@ class BlogController(
             .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
             .forEach {
                 val user = it.user
-                if (!latestStories.containsKey(user)) {
-                    latestStories[user] = it
+                if (!latestStoryMap.containsKey(user)) {
+                    latestStoryMap[user] = it
                 }
             }
+        val latestStories = storyService.sort(
+            stories = latestStoryMap.values.toList(),
+            algorithm = SortAlgorithmType.no_sort,
+            bubbleDownViewedStories = true,
+            statsHoursOffset = 7 * 24
+        )
 
-        model.addAttribute("latestStories", latestStories.values.take(5))
+        model.addAttribute("latestStories", latestStories.take(5))
     }
 
     private fun loadPin(blog: UserModel, model: Model): PinModel? {

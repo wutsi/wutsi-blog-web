@@ -6,8 +6,12 @@
 
 <body>
 
-<div th:if="!{blog}" th:replace="components/layout :: navbar"></div>
-<div th:if="${blog}" th:replace="components/layout :: navbar-blog(${blog}, false, null)"></div>
+<div th:if="${blog}">
+    <div th:replace="components/layout :: navbar-blog(${blog}, false, null)"></div>
+</div>
+<div th:if="!${blog}">
+    <div th:replace="components/layout :: navbar"></div>
+</div>
 
 <div class="container">
     <div class="row">
