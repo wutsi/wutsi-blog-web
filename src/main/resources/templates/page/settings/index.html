@@ -75,6 +75,7 @@
             <a name="social_media" th:if="${user.blog}"></a>
             <div class="setting-section" id="social_media-container" th:if="${user.blog}">
                 <h4 th:text="#{label.social_media}">Social Links</h4>
+                <p th:text="#{page.settings.social_media.info}">Add links to your social media accounts to help your reader to follow you</p>
                 <div
                     th:replace="components/settings :: inline_social_input_form(title='https://www.facebook.com/', name='facebook_id', value=${user.facebookId}, placeholder=#{page.settings.facebook.placeholder})"></div>
                 <div
@@ -88,6 +89,7 @@
             <a name="newsletter" th:if="${user.blog}"></a>
             <div class="setting-section" id="newsletter-container" th:if="${user.blog}">
                 <h4 th:text="#{label.my_newsletter}">Newsletter</h4>
+                <p th:text="#{page.settings.newsletter.info}">Send your stories to your subscribers via e-mail. Configure the day of delivery</p>
                 <div
                     th:replace="components/settings :: inline_input_form(title='', name='newsletter_delivery_day_of_week', value=${user.newsletterDeliveryDayOfWeek}, maxlen='', control='day_of_week', type='', placeholder=#{page.settings.newsletter.placeholder})"></div>
             </div>
@@ -95,6 +97,7 @@
             <a name="channels" th:if="${user.blog}"></a>
             <div class="setting-section" id="channels-container" th:if="${user.blog}">
                 <h4 th:text="#{label.my_channels}">My Channels</h4>
+                <p th:text="#{page.settings.channel.info}">Publish on social media</p>
                 <div th:each="channel : ${channels}">
                     <div th:replace="components/settings :: channel(${channel})"></div>
                 </div>
