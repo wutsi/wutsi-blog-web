@@ -126,9 +126,11 @@ class LoginController(
     }
 
     private fun splitQuery(url: URL): Map<String, String> {
+        if (url.query == null)
+            return emptyMap()
+
         val queryPairs: MutableMap<String, String> = LinkedHashMap()
-        val query = url.query
-        val pairs = query.split("&").toTypedArray()
+        val pairs = url.query.split("&").toTypedArray()
         for (pair in pairs) {
             val idx = pair.indexOf("=")
             queryPairs[decode(pair.substring(0, idx))] = decode(pair.substring(idx + 1))
