@@ -66,19 +66,23 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
-.fa-facebook-square {
+.fa-facebook-square,
+.fa-facebook-f {
     color: #3b5998
 }
 
-.fa-linkedin {
+.fa-linkedin,
+.fa-linkedin-in {
     color: #0e76a8;
 }
 
-.fa-youtube-square {
+.fa-youtube-square,
+.fa-youtube {
     color: #ff0000;
 }
 
-.fa-twitter-square {
+.fa-twitter-square,
+.fa-twitter {
     color: #0084b4;
 }
 
@@ -88,6 +92,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .fa-facebook-messenger {
     color: #00B2FF;
+}
+
+.fa-rss, .fa-rss-square {
+    color: #ee802f
 }
 
 .fa-check-circle, .fa-check {
@@ -970,7 +978,6 @@ a.sso-button .fab {
 
 .author-card .fab,
 .author-card .fas {
-    color: var(--text-color);
     font-size: 1.2em;
     margin-right: 1em;
 }
