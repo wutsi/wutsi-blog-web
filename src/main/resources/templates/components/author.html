@@ -49,7 +49,7 @@
                wutsi-track-event="link"
                wutsi-track-value="youtube"
             >
-                <i class="fab fa-youtube-square"></i>
+                <i class="fab fa-youtube"></i>
             </a>
             <a class="social-link linkedin"
                target="_new"
@@ -59,12 +59,31 @@
                wutsi-track-event="link"
                wutsi-track-value="linkedin"
             >
-                <i class="fab fa-linkedin-in"></i>
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a class="social-link whatsapp"
+               target="_new"
+               th:href="${me.whatsappUrl}"
+               th:if="${me.whatsappUrl} AND !${me.whatsappUrl.isEmpty()}"
+               title="Whatsapp"
+               wutsi-track-event="link"
+               wutsi-track-value="whatsapp"
+            >
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a class="social-link telegram"
+               target="_new"
+               th:href="${me.telegramUrl}"
+               th:if="${me.telegramUrl} AND !${me.telegramUrl.isEmpty()}"
+               title="Telegram"
+               wutsi-track-event="link"
+               wutsi-track-value="telegram"
+            >
+                <i class="fab fa-telegram-plane"></i>
             </a>
             <a class="social-link rss"
                target="_new"
                th:href="${me.rssUrl}"
-               th:if="${me.rssUrl} AND !${me.rssUrl.isEmpty()}"
                title="RSS"
                wutsi-track-event="link"
                wutsi-track-value="rss"

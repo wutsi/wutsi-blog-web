@@ -26,6 +26,9 @@
                         <a href="#social_media" th:text="#{label.social_media}">Social Media</a>
                     </div>
                     <div th:if="${user.blog}">
+                        <a href="#instant_messaging" th:text="#{label.instant_messaging}">Instant Messaging</a>
+                    </div>
+                    <div th:if="${user.blog}">
                         <a href="#newsletter" th:text="#{label.my_newsletter}">My Newsletter</a>
                     </div>
                     <div th:if="${user.blog}">
@@ -83,7 +86,19 @@
                 <div
                     th:replace="components/settings :: inline_social_input_form(title='https://www.youtube.com/channel/', name='youtube_id', value=${user.youtubeId}, placeholder=#{page.settings.youtube.placeholder})"></div>
                 <div
-                    th:replace="components/settings :: inline_social_input_form(title='https://www.linked.com/in/', name='linked_id', value=${user.linkedinId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
+                    th:replace="components/settings :: inline_social_input_form(title='https://www.linked.com/in/', name='linkedin_id', value=${user.linkedinId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
+            </div>
+
+            <a name="instant_messaging" th:if="${user.blog}"></a>
+            <div class="setting-section" id="instant_messaging-container" th:if="${user.blog}">
+                <h4 th:text="#{label.instant_messaging}">Social Links</h4>
+                <p th:text="#{page.settings.instant_messaging.info}">Configure your messengers to receive direct messages from your readers</p>
+
+                <div
+                    th:replace="components/settings :: inline_input_form(title=#{label.whatsapp_number}, name='whatsapp_id', value=${user.whatsappId}, maxlen=50, control='input', type='text', placeholder=#{page.settings.whatsapp.placeholder})"></div>
+
+                <div
+                    th:replace="components/settings :: inline_input_form(title=#{label.telegram_username}, name='telegram_id', value=${user.telegramId}, maxlen=50, control='input', type='text', placeholder=#{page.settings.telegram.placeholder})"></div>
             </div>
 
             <a name="newsletter" th:if="${user.blog}"></a>

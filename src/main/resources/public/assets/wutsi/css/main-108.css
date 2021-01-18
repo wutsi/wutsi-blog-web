@@ -76,6 +76,16 @@ h1, h2, h3, h4, h5, h6 {
     color: #0e76a8;
 }
 
+.fa-whatsapp-square,
+.fa-whatsapp {
+    color: #25D366
+}
+
+.fa-telegram,
+.fa-telegram-plane {
+    color: #0088cc
+}
+
 .fa-youtube-square,
 .fa-youtube {
     color: #ff0000;

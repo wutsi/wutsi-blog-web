@@ -20,11 +20,14 @@ class UserMapper(private val imageKit: ImageKitService) {
         email = user.email,
         loginCount = user.loginCount,
         slug = slug(user),
-        facebookUrl = facebookUrl(user),
-        linkedinUrl = linkedinUrl(user),
-        twitterUrl = twitterUrl(user),
-        youtubeUrl = youtubeUrl(user),
-        rssUrl = rssUrl(user),
+        facebookUrl = user.facebookId?.let { "https://www.facebook.com/$it" } ?: null,
+        linkedinUrl = user.linkedinId?.let { "https://www.linkedin.com/in/$it" } ?: null,
+        twitterUrl = user.twitterId?.let { "https://www.twitter.com/$it" } ?: null,
+        youtubeUrl = user.youtubeId?.let { "https://www.youtube.com/channel/$it" } ?: null,
+        telegramUrl = user.telegramId?.let { "http://t.me/$it" } ?: null,
+        whatsappUrl = user.whatsappId?.let { "http://wa.me/$it" } ?: null,
+        messengerUrl = user.facebookId?.let { "http://m.me/$it" } ?: null,
+        rssUrl = slug(user) + "/rss",
         superUser = user.superUser,
         blog = user.blog,
         storyCount = user.storyCount,
@@ -38,36 +41,20 @@ class UserMapper(private val imageKit: ImageKitService) {
         twitterId = user.twitterId,
         linkedinId = user.linkedinId,
         youtubeId = user.youtubeId,
+        telegramId = user.telegramId,
+        whatsappId = user.whatsappId,
         newsletterDeliveryDayOfWeek = user.newsletterDeliveryDayOfWeek,
         hasNewsletter = user.newsletterDeliveryDayOfWeek > 0,
         hasSocialLinks = user.facebookId != null ||
             user.youtubeId != null ||
             user.linkedinId != null ||
             user.twitterId != null
+
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
 
     fun slug(user: UserSummaryDto) = "/@/${user.name}"
-
-    private fun facebookUrl(user: UserDto): String? {
-        return if (user.facebookId == null) null else "https://www.facebook.com/${user.facebookId}"
-    }
-
-    private fun twitterUrl(user: UserDto): String? {
-        return if (user.twitterId == null) null else "https://www.twitter.com/${user.twitterId}"
-    }
-
-    private fun linkedinUrl(user: UserDto): String? {
-        return if (user.linkedinId == null) null else "https://www.linkedin.com/in/${user.linkedinId}"
-    }
-
-    private fun youtubeUrl(user: UserDto): String? {
-        return if (user.youtubeId == null) null else "https://www.youtube.com/channel/${user.youtubeId}"
-    }
-
-    private fun rssUrl(user: UserDto): String =
-        slug(user) + "/rss"
 
     fun toUserModel(user: UserSummaryDto) = UserModel(
         id = user.id,
