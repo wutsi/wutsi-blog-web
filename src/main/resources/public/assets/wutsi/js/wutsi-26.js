@@ -134,6 +134,24 @@ function Wutsi() {
         }
     };
 
+    this.like = function (storyId) {
+
+        var url = '/like?storyId=' + storyId + '&page=' + this.page_name() + '&hitId=' + this.hit_id();
+        var icon = $('#like-icon-' + storyId);
+        if ($(icon).hasClass('like-icon-liked')) {
+            var likeId = $(icon).attr('data-like-id');
+            if (likeId && likeId != '') {
+                url += '&likeId=' + likeId;
+            }
+        }
+
+        const me = this;
+        wutsi.httpPost(url, {}, true)
+            .then(function () {
+                me.update_like_count();
+            });
+    };
+
     this.update_like_count = function (storyId = 0) {
         var qs = '';
         $('[data-like-story-id]').each(function (index, item) {
@@ -168,6 +186,7 @@ function Wutsi() {
                 .then(function (likes) {
                     $(likes).each(function (index, item) {
                         $('#like-icon-' + item.storyId).attr('class', 'fas fa-heart like-icon like-icon-liked');
+                        $('#like-icon-' + item.storyId).attr('data-like-id', item.id);
                     });
                 });
         }

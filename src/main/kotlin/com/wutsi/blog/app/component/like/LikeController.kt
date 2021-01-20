@@ -5,6 +5,8 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.component.like.model.LikeCountModel
 import com.wutsi.blog.app.component.like.model.LikeModel
 import com.wutsi.blog.app.component.like.service.LikeService
+import com.wutsi.blog.app.page.track.model.PushTrackForm
+import com.wutsi.blog.app.page.track.service.TrackService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,24 +19,40 @@ import org.springframework.web.bind.annotation.ResponseBody
 @RequestMapping("/like")
 class LikeController(
     requestContext: RequestContext,
-    private val likeService: LikeService
+    private val likeService: LikeService,
+    private val trackService: TrackService
 ) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.LIKE
 
-    /**
-     * Like or Unlike story
-     */
     @ResponseBody
     @PostMapping(produces = ["application/json"])
-    fun like(@RequestParam storyId: Long): LikeModel {
-        val likes = likeService.search(listOf(storyId))
-
-        if (likes.isEmpty()) {
-            return likeService.create(storyId = storyId)
+    fun like(
+        @RequestParam storyId: Long,
+        @RequestParam(required = false) likeId: Long? = null,
+        @RequestParam(required = false) page: String? = null,
+        @RequestParam(required = false) hitId: String? = null
+    ): LikeModel {
+        if (likeId != null) {
+            likeService.delete(likeId)
+            return LikeModel(id = likeId)
         } else {
-            likeService.delete(likes.get(0).id)
-            return LikeModel(storyId = storyId)
+            val result = likeService.create(storyId = storyId)
+            track(hitId, page, storyId)
+            return result
         }
+    }
+
+    private fun track(hitId: String?, page: String?, storyId: Long) {
+        trackService.push(
+            PushTrackForm(
+                time = System.currentTimeMillis(),
+                url = requestContext.request.getHeader("Referer"),
+                event = "like",
+                hid = hitId,
+                page = page,
+                pid = storyId.toString()
+            )
+        )
     }
 
     /**
@@ -48,13 +66,7 @@ class LikeController(
         if (userId == null) {
             return emptyList()
         } else {
-            val likes = likeService.search(storyId.toList())
-            return likes.map {
-                LikeModel(
-                    storyId = it.storyId,
-                    userId = userId
-                )
-            }
+            return likeService.search(storyId.toList())
         }
     }
 

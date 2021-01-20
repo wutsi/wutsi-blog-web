@@ -4,7 +4,6 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumMobileTestSupport
-import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.like.CountLikeResponse
 import com.wutsi.blog.client.like.SearchLikeRequest
 import com.wutsi.blog.fixtures.LikeApiFixtures
@@ -59,13 +58,17 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous is redirected to login when liking`() {
+    fun `anonymous like a story`() {
+        val count = CountLikeResponse(
+            counts = listOf(
+                LikeApiFixtures.createLikeCountDto(20, 2)
+            )
+        )
+        doReturn(count).whenever(likeApi).count(any<SearchLikeRequest>())
+
         driver.get("$url/read/20/test")
+
+        assertElementText(".like-widget .like-badge .like-count", "2")
         click(".like-widget .like-badge")
-
-        assertCurrentPageIs(PageName.LOGIN)
-
-        assertElementPresent(".return")
-        assertElementAttributeEndsWith(".return", "href", "/read/20/lorem-ipsum")
     }
 }

@@ -209,18 +209,10 @@
     /*]]>*/
 </script>
 
-<script th:if="${toggles.like}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-like-widget-6.js'"></script>
 <script id="like-script" th:if="${toggles.like}" th:inline="javascript">
     /*<![CDATA[*/
 
-    var wlike;
     $(document).ready(function () {
-        wlike = new WutsiLikeWidget(
-            /*[[${story.id}]]*/ '0',
-            /*[[!${user}]]*/ true,
-            /*[[${story.slug}]]*/ ''
-        );
-
         // like based on query parameter
         const href = window.location.href;
         const index = href.indexOf('?');

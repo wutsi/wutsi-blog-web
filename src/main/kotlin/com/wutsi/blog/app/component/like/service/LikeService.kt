@@ -26,10 +26,12 @@ class LikeService(
     }
 
     fun search(storyIds: List<Long>): List<LikeModel> {
+        val userId = requestContext.currentUser()?.id
         val likes = api.search(
             SearchLikeRequest(
                 storyIds = storyIds,
-                userId = requestContext.currentUser()!!.id
+                userId = userId,
+                deviceId = userId?.let { null } ?: requestContext.deviceId()
             )
         ).likes
 
@@ -40,7 +42,7 @@ class LikeService(
         val likeResponse = api.create(
             CreateLikeRequest(
                 storyId = storyId,
-                userId = requestContext.currentUser()!!.id
+                userId = requestContext.currentUser()?.id
             )
         )
 
@@ -48,7 +50,7 @@ class LikeService(
             LikeDto(
                 id = likeResponse.likeId,
                 storyId = storyId,
-                userId = requestContext.currentUser()!!.id
+                userId = requestContext.currentUser()?.id
             )
         )
     }
