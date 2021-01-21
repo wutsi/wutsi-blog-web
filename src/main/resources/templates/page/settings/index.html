@@ -29,9 +29,6 @@
                         <a href="#instant_messaging" th:text="#{label.instant_messaging}">Instant Messaging</a>
                     </div>
                     <div th:if="${user.blog}">
-                        <a href="#newsletter" th:text="#{label.my_newsletter}">My Newsletter</a>
-                    </div>
-                    <div th:if="${user.blog}">
                         <a href="#channels" th:text="#{label.my_channels}">My Channels</a>
                     </div>
                     <div>
@@ -95,18 +92,10 @@
                 <p th:text="#{page.settings.instant_messaging.info}">Configure your messengers to receive direct messages from your readers</p>
 
                 <div
-                    th:replace="components/settings :: inline_input_form(title=#{label.whatsapp_number}, name='whatsapp_id', value=${user.whatsappId}, maxlen=50, control='input', type='text', placeholder=#{page.settings.whatsapp.placeholder})"></div>
+                    th:replace="components/settings :: inline_social_input_form(title='https://wa.me/', name='whatsapp_id', value=${user.whatsappId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
 
                 <div
-                    th:replace="components/settings :: inline_input_form(title=#{label.telegram_username}, name='telegram_id', value=${user.telegramId}, maxlen=50, control='input', type='text', placeholder=#{page.settings.telegram.placeholder})"></div>
-            </div>
-
-            <a name="newsletter" th:if="${user.blog}"></a>
-            <div class="setting-section" id="newsletter-container" th:if="${user.blog}">
-                <h4 th:text="#{label.my_newsletter}">Newsletter</h4>
-                <p th:text="#{page.settings.newsletter.info}">Send your stories to your subscribers via e-mail. Configure the day of delivery</p>
-                <div
-                    th:replace="components/settings :: inline_input_form(title='', name='newsletter_delivery_day_of_week', value=${user.newsletterDeliveryDayOfWeek}, maxlen='', control='day_of_week', type='', placeholder=#{page.settings.newsletter.placeholder})"></div>
+                    th:replace="components/settings :: inline_social_input_form(title='https://t.me/', name='telegram_id', value=${user.telegramId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
             </div>
 
             <a name="channels" th:if="${user.blog}"></a>

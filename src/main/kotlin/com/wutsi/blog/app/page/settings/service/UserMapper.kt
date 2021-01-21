@@ -43,12 +43,12 @@ class UserMapper(private val imageKit: ImageKitService) {
         youtubeId = user.youtubeId,
         telegramId = user.telegramId,
         whatsappId = user.whatsappId,
-        newsletterDeliveryDayOfWeek = user.newsletterDeliveryDayOfWeek,
-        hasNewsletter = user.newsletterDeliveryDayOfWeek > 0,
-        hasSocialLinks = user.facebookId != null ||
-            user.youtubeId != null ||
-            user.linkedinId != null ||
-            user.twitterId != null
+        hasInstantMessagingLinks = !user.telegramId.isNullOrEmpty() ||
+            !user.whatsappId.isNullOrEmpty(),
+        hasSocialLinks = !user.facebookId.isNullOrEmpty() ||
+            !user.youtubeId.isNullOrEmpty() ||
+            !user.linkedinId.isNullOrEmpty() ||
+            !user.twitterId.isNullOrEmpty()
 
     )
 

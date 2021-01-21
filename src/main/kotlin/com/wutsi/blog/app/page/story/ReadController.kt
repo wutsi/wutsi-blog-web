@@ -108,21 +108,10 @@ class ReadController(
         val showButton = followerService.canFollow(story.user.id)
         model.addAttribute("showFollowButton", showButton)
         if (showButton) {
-            if (story.user.newsletterDeliveryDayOfWeek <= 0) {
-                model.addAttribute("followMessage", requestContext.getMessage("page.read.follow_blog"))
-            } else {
-                val dayOfWeek = requestContext.getMessage("label.day_of_week.${story.user.newsletterDeliveryDayOfWeek}")
-                model.addAttribute(
-                    "followMessage",
-                    requestContext.getMessage(
-                        "page.read.follow_newsletter", args = arrayOf(dayOfWeek)
-                    )
-                )
-            }
+            model.addAttribute("followMessage", requestContext.getMessage("page.read.follow_blog"))
         }
     }
 
     private fun supportsLanguage(language: String?): Boolean =
-        language == null ||
-            requestContext.supportsLanguage(language)
+        language == null || requestContext.supportsLanguage(language)
 }

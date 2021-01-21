@@ -31,12 +31,11 @@ data class UserModel(
     val whatsappId: String? = null,
     val telegramId: String? = null,
     val hasSocialLinks: Boolean = false,
+    val hasInstantMessagingLinks: Boolean = false,
     val hasMessengerLinks: Boolean = false,
     val blog: Boolean = true,
     val storyCount: Long = 0,
     val followerCount: Long = 0,
     val followerCountText: String = "",
-    val newsletterDeliveryDayOfWeek: Int = -1,
-    val hasNewsletter: Boolean = false,
     val hasFollowers: Boolean = false
 )

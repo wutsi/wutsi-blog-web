@@ -3,8 +3,8 @@ package com.wutsi.blog.app.page.blog.config
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.blog.service.NextActionSet
 import com.wutsi.blog.app.page.blog.service.nba.BiographyNextAction
+import com.wutsi.blog.app.page.blog.service.nba.InstantMessagingNextAction
 import com.wutsi.blog.app.page.blog.service.nba.LinkedInNextAction
-import com.wutsi.blog.app.page.blog.service.nba.NewsletterNextAction
 import com.wutsi.blog.app.page.blog.service.nba.SocialMediaNextAction
 import com.wutsi.blog.app.page.blog.service.nba.TwitterNextAction
 import com.wutsi.blog.app.page.blog.service.nba.WebsiteNextAction
@@ -21,7 +21,7 @@ class NextActionConfiguration(
         return NextActionSet(
             actions = listOf(
                 biographyNextAction(),
-                newsletterNextAction(),
+                imNextAction(),
                 twitterNextAction(),
                 linkedInNextAction(),
                 socialLinkNextAction(),
@@ -40,7 +40,7 @@ class NextActionConfiguration(
     fun twitterNextAction() = TwitterNextAction(requestContext)
 
     @Bean
-    fun newsletterNextAction() = NewsletterNextAction(requestContext)
+    fun imNextAction() = InstantMessagingNextAction(requestContext)
 
     @Bean
     fun websiteNextAction() = WebsiteNextAction(requestContext)

@@ -94,7 +94,7 @@ class CalendarMapper(
             DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
                 .withLocale(localizationService.getLocale())
         ),
-        newsletterDelivery = date.dayOfWeek.value == user?.newsletterDeliveryDayOfWeek,
+        newsletterDelivery = false,
         posts = posts.filter { date == DateUtils.toLocalDate(it.scheduledPostDateTime) },
         storiesToPublish = stories.filter { publishedOn(date, it) }
     )

@@ -16,7 +16,6 @@ object UserApiFixtures {
         followerCount: Long = 1,
         blog: Boolean = true,
         loginCount: Long = 4,
-        newsletterDeliveryDayOfWeek: Int = 0,
         language: String = "fr",
         superUser: Boolean = false
     ) = UserDto(
@@ -34,7 +33,6 @@ object UserApiFixtures {
         linkedinId = name,
         facebookId = name,
         twitterId = name,
-        newsletterDeliveryDayOfWeek = newsletterDeliveryDayOfWeek,
         loginCount = loginCount,
         superUser = superUser,
         websiteUrl = "https://www.me.com/$name"
