@@ -92,10 +92,10 @@
                 <p th:text="#{page.settings.instant_messaging.info}">Configure your messengers to receive direct messages from your readers</p>
 
                 <div
-                    th:replace="components/settings :: inline_social_input_form(title='https://wa.me/', name='whatsapp_id', value=${user.whatsappId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
+                    th:replace="components/settings :: inline_social_input_form(title='https://wa.me/', name='whatsapp_id', value=${user.whatsappId}, placeholder=#{page.settings.whatsapp.placeholder})"></div>
 
                 <div
-                    th:replace="components/settings :: inline_social_input_form(title='https://t.me/', name='telegram_id', value=${user.telegramId}, placeholder=#{page.settings.linkedin.placeholder})"></div>
+                    th:replace="components/settings :: inline_social_input_form(title='https://t.me/', name='telegram_id', value=${user.telegramId}, placeholder=#{page.settings.telegram.placeholder})"></div>
             </div>
 
             <a name="channels" th:if="${user.blog}"></a>
