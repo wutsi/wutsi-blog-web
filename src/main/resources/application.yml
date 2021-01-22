@@ -1,159 +1,158 @@
 twitter:
-    consumer-key: "000000"
-    consumer-secret: "0000000"
+  consumer-key: "000000"
+  consumer-secret: "0000000"
 
 spring:
-    autoconfigure:
-        exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 
-    security:
-        basic:
-            enabled: false
+  security:
+    basic:
+      enabled: false
 
-    servlet:
-        multipart:
-            max-file-size: 10240KB
-            max-request-size: 10240KB
+  servlet:
+    multipart:
+      max-file-size: 10240KB
+      max-request-size: 10240KB
 
 server:
-    port: 8081
-    error:
-        whitelabel:
-            enabled: false
-    compression:
-        enabled: true
-        mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
-        min-response-size: 512
+  port: 8081
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
+    min-response-size: 512
 
 logging:
-    level:
-        root: INFO
-        com.wutsi: DEBUG
-        org.springframework: INFO
+  level:
+    root: INFO
+    com.wutsi: DEBUG
+    org.springframework: INFO
 
-    pattern:
-        console: "%d Type=%level Logger=%c Thread=%thread %m%n"
-        file: "%d Type=%level Logger=%c Thread=%thread %m%n"
+  pattern:
+    console: "%d Type=%level Logger=%c Thread=%thread %m%n"
+    file: "%d Type=%level Logger=%c Thread=%thread %m%n"
 
 wutsi:
-    site-display-name: "Wutsi"
-    asset-url: ""
-    domain: localhost
-    base-url: "http://${wutsi.domain}:8081"
+  site-display-name: "Wutsi"
+  asset-url: ""
+  domain: localhost
+  base-url: "http://${wutsi.domain}:8081"
 
-    aws:
-        s3:
-            region: "us-east-1"
+  aws:
+    s3:
+      region: "us-east-1"
 
-    backend:
-        base-url: http://localhost:8080
-        track-url: http://localhost:8082
-        authentication:
-            endpoint: ${wutsi.backend.base-url}/v1/auth
-        push_subscription:
-            endpoint: ${wutsi.backend.base-url}/v1/push/subscription
-        story:
-            endpoint: ${wutsi.backend.base-url}/v1/story
+  backend:
+    base-url: http://localhost:8080
+    track-url: http://localhost:8082
+    authentication:
+      endpoint: ${wutsi.backend.base-url}/v1/auth
+    push_subscription:
+      endpoint: ${wutsi.backend.base-url}/v1/push/subscription
+    story:
+      endpoint: ${wutsi.backend.base-url}/v1/story
 
-        earning:
-            endpoint: ${wutsi.backend.track-url}/v1/earning
-        stats:
-            endpoint: ${wutsi.backend.track-url}/v1/stats
-        track:
-            endpoint: ${wutsi.backend.track-url}/v1/track
-        view:
-            endpoint: ${wutsi.backend.track-url}/v1/view
+    earning:
+      endpoint: ${wutsi.backend.track-url}/v1/earning
+    stats:
+      endpoint: ${wutsi.backend.track-url}/v1/stats
+    track:
+      endpoint: ${wutsi.backend.track-url}/v1/track
+    view:
+      endpoint: ${wutsi.backend.track-url}/v1/view
 
+  facebook:
+    app-id: "629340480740249"
+    pixel:
+      code:
+
+  google:
+    ga:
+      code:
+    ad-sense:
+      code:
+
+  http:
+    client-id: wutsi-blog-web
+
+  image-kit: # Configuration of integration with imagekit.io
+    origin-url: "https://s3.amazonaws.com/int-wutsi"
+    endpoint-url: "https://ik.imagekit.io/cx8qxsgz4d"
+
+  oauth:
+    github:
+      client-id: "2430c202b7d87c5eddce"
+      client-secret: "cf900a9f2c73012795ea95a4ecf16be80555659e"
+      callback-url: ${wutsi.base-url}/login/github/callback
     facebook:
-        app-id: "629340480740249"
-        pixel:
-            code:
-
+      client-id: "00000000"
+      client-secret: "00000000"
+      callback-url: "${wutsi.base-url}/login/facebook/callback"
+      scope: "public_profile"
     google:
-        ga:
-            code:
-        ad-sense:
-            code:
+      api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
+      client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
+      client-secret: "00000000"
+      callback-url: "${wutsi.base-url}/login/google/callback"
+      scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+    linkedin:
+      client-id: "000000000"
+      client-secret: "00000000"
+      callback-url: "${wutsi.base-url}/login/linkedin/callback"
+      scope: "r_liteprofile r_emailaddress w_member_social"
+    twitter:
+      client-id: "0000000"
+      client-secret: "0000000000"
+      callback-url: "${wutsi.base-url}/login/twitter/callback"
 
-    http:
-        client-id: wutsi-blog-web
+  pwa:
+    manifest:
+      name: "Wutsi"
+    firebase:
+      project-id: "wutsi-int-274521"
+      api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
+      app-id: "1:255903690741:web:87ac16910084876e07fabc"
+      public-vapid-key: "BFmAST-JbJbs_viT2GQQ2iS36HSioZ2B-Q0xgETvjKJyBGVZdfE2DqO9VmWycDe5JEYQ3tDaGuqz_fA0PN_4ZPs"
+      sender-id: "255903690741"
 
-    image-kit: # Configuration of integration with imagekit.io
-        origin-url: "https://s3.amazonaws.com/int-wutsi"
-        endpoint-url: "https://ik.imagekit.io/cx8qxsgz4d"
+  storage:
+    local:
+      directory: "${user.home}/wutsi/upload"
+    servlet:
+      path: "/storage"
+      hostname: "localhost:${server.port}"
+      url: "http://${wutsi.storage.servlet.hostname}${wutsi.storage.servlet.path}"
+    s3:
+      bucket:
 
-    oauth:
-        github:
-            client-id: "2430c202b7d87c5eddce"
-            client-secret: "cf900a9f2c73012795ea95a4ecf16be80555659e"
-            callback-url: ${wutsi.base-url}/login/github/callback
-        facebook:
-            client-id: "00000000"
-            client-secret: "00000000"
-            callback-url: "${wutsi.base-url}/login/facebook/callback"
-            scope: "public_profile"
-        google:
-            api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
-            client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
-            client-secret: "00000000"
-            callback-url: "${wutsi.base-url}/login/google/callback"
-            scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
-        linkedin:
-            client-id: "000000000"
-            client-secret: "00000000"
-            callback-url: "${wutsi.base-url}/login/linkedin/callback"
-            scope: "r_liteprofile r_emailaddress w_member_social"
-        twitter:
-            client-id: "0000000"
-            client-secret: "0000000000"
-            callback-url: "${wutsi.base-url}/login/twitter/callback"
-
-    pwa:
-        manifest:
-            name: "Wutsi"
-        firebase:
-            project-id: "wutsi-int-274521"
-            api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
-            app-id: "1:255903690741:web:87ac16910084876e07fabc"
-            public-vapid-key: "BFmAST-JbJbs_viT2GQQ2iS36HSioZ2B-Q0xgETvjKJyBGVZdfE2DqO9VmWycDe5JEYQ3tDaGuqz_fA0PN_4ZPs"
-            sender-id: "255903690741"
-
-    storage:
-        local:
-            directory: "${user.home}/wutsi/upload"
-        servlet:
-            path: "/storage"
-            hostname: "localhost:${server.port}"
-            url: "http://${wutsi.storage.servlet.hostname}${wutsi.storage.servlet.path}"
-        s3:
-            bucket:
-
-    toggles:
-        announcement: true              # Enable announcenement
-        channel: true                   # Enable publication channels
-        channel-twitter: true           # Enable Twitter Channel
-        channel-facebook: true          # Enable Facebook Channel
-        channel-linkedin: true          # Enable LinkedIn Channel
-        comment: true                   # Enable Comments
-        earning: true                   # Show Earnings
-        follow: true                    # Enable follow?
-        google-ad-sense: true           # Google Ad Sense?
-        google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
-        image-kit: true                 # Integration with imagekit.io
-        like: true                      # Enable Like
-        next-action: true               # Show NextAction panel on Blog page
-        pin: true                       # Pin enabled?
-        post: true                      # Social post enabled?
-        pwa: true                       # PWA
-        pwa-add-to-homescreen: false    # Enable Badging on app icon
-        pwa-badge: true                 # Enable Badging on app icon
-        pwa-push-notification: true     # Enable PWA Push Notification?
-        qa-login: false                 # Login provider for QA
-        recommendation: true            # Show articles recommendations in reader
-        translation: true               # Enable translation
-        sso-facebook: false             # SSO Login with social network sites
-        sso-google: false
-        sso-twitter: false
-        sso-github: true
-        sso-linkedin: false
-        wpp: true                       # Wutsi Partner Program
+  toggles:
+    channel: true                   # Enable publication channels
+    channel-twitter: true           # Enable Twitter Channel
+    channel-facebook: true          # Enable Facebook Channel
+    channel-linkedin: true          # Enable LinkedIn Channel
+    comment: true                   # Enable Comments
+    earning: true                   # Show Earnings
+    follow: true                    # Enable follow?
+    google-ad-sense: true           # Google Ad Sense?
+    google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
+    image-kit: true                 # Integration with imagekit.io
+    like: true                      # Enable Like
+    next-action: true               # Show NextAction panel on Blog page
+    pin: true                       # Pin enabled?
+    post: true                      # Social post enabled?
+    pwa: true                       # PWA
+    pwa-add-to-homescreen: false    # Enable Badging on app icon
+    pwa-badge: true                 # Enable Badging on app icon
+    pwa-push-notification: true     # Enable PWA Push Notification?
+    qa-login: false                 # Login provider for QA
+    recommendation: true            # Show articles recommendations in reader
+    translation: true               # Enable translation
+    sso-facebook: false             # SSO Login with social network sites
+    sso-google: false
+    sso-twitter: false
+    sso-github: true
+    sso-linkedin: false
+    wpp: true                       # Wutsi Partner Program

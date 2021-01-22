@@ -68,7 +68,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-26.js'"></script>
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-108.css'"/>
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-109.css'"/>
 
     <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
 
@@ -286,82 +286,6 @@
     </div>
     <div/>
 
-
-    <!-- ################# -->
-    <!-- Announcement      -->
-    <!-- ################# -->
-    <div th:fragment="announcement">
-        <div id="wutsi-announcement-container" th:if="${toggles.announcement}">
-            <div aria-atomic="true" aria-live="assertive" class="toast" data-autohide="false" id="wutsi-announcement" role="alert">
-                <div class="toast-header">
-                    <img class="rounded mr-2" height="16" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'" width="16">
-                    <b class="mr-auto title" th:text="#{label.notification}">Wutsi</b>
-
-                    <button aria-label="Close" class="ml-2 mb-1 close" data-dismiss="toast" type="button">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body flex">
-                    <img class="hidden margin-right" height="32" width="32"/>
-                    <div>
-                        <div class="message mb-1">Message</div>
-                        <div class="action" style="display: none">
-                            <a class="btn btn-sm btn-primary" href="#" th:text="#{button.learn_more}">Learn More...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script id="wutsi-announcement-js" th:if="${toggles.announcement}" th:inline="javascript">
-            /*<![CDATA[*/
-
-            $(document).ready(function () {
-                const page = /*[[${page.name}]]*/'';
-                wutsi.httpGet('/announcement?page=' + page, true).then(function (data) {
-                    console.log('announcement', data);
-                    if (data.show) {
-                        const announcement = data.announcement;
-
-                        $('#wutsi-announcement .toast-header .title').text(announcement.title);
-                        $('#wutsi-announcement .toast-body .message').html(announcement.message);
-                        if (announcement.actionUrl) {
-                            $('#wutsi-announcement .toast-body .action a').attr('href', announcement.actionUrl);
-                            $('#wutsi-announcement .toast-body .action a').text(announcement.actionText);
-                            $('#wutsi-announcement .toast-body .action').show();
-                        }
-
-                        if (announcement.autoHide) {
-                            $('#wutsi-announcement').attr('auto-hide', 'true');
-                            $('#wutsi-announcement').attr('delay', announcement.delay);
-                        } else {
-                            $('#wutsi-announcement').removeAttr('auto-hide');
-                            $('#wutsi-announcement').removeAttr('delay');
-                        }
-
-                        if (announcement.iconUrl) {
-                            const assetUrl = /*[[${page.assetUrl}]]*/'';
-                            $('#wutsi-announcement .toast-body img').attr('src', assetUrl + announcement.iconUrl);
-                            $('#wutsi-announcement .toast-body img').removeClass('hidden');
-                        } else {
-                            $('#wutsi-announcement .toast-body img').addClass('hidden');
-                        }
-
-                        console.log('showing announcement', announcement.name);
-                        $('.toast').toast('show');
-
-                        $('#wutsi-announcement').on('shown.bs.toast', function () {
-                            wutsi.track('announcement_' + announcement.name + '_show');
-                        })
-                        $('#wutsi-announcement .btn').click(function () {
-                            wutsi.track('announcement_' + announcement.name + '_click');
-                        })
-                    }
-                });
-            });
-
-            /*]]>*/
-        </script>
-    </div>
 
     <div id="next-action-container" th:fragment="next-action(userId)">
         <script th:inline="javascript">

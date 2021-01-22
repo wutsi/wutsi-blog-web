@@ -904,14 +904,6 @@ a.sso-button .fab {
 /*  WUTSI COMPONENTS                                                        */
 /*                                                                          */
 /* ======================================================================== */
-/* ==== ANNOUNCEMENT ==== */
-#wutsi-announcement-container {
-    position: fixed;
-    bottom: 8em;
-    left: 1em;
-}
-
-
 /*======= AUTHOR LIST =======*/
 .author-list .title {
     padding: var(--padding);

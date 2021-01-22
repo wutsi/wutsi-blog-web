@@ -50,7 +50,6 @@ wutsi:
       bucket: "prod-wutsi"
 
   toggles:
-    announcement: true
     channel: true
     channel-twitter: true
     channel-facebook: false
