@@ -6,19 +6,23 @@ import org.jsoup.nodes.Element
 
 class ButtonFilter : Filter {
     override fun filter(html: Document) {
-        html.select("div.button a").forEach { filter(it) }
+        html.select("div.button").forEach { filter(it) }
     }
 
-    private fun filter(img: Element) {
+    private fun filter(div: Element) {
+        val img = div.selectFirst("a") ?: return
+
+        if (div.hasClass("large")) {
+            div.addClass("text-center")
+        }
+
         img.addClass("btn")
         img.addClass("btn-primary")
-    }
-
-    private fun transform(img: Element, attr: String) {
-        val value = img.attr(attr)
-        if (value.isNotEmpty()) {
-            img.attr("data-$attr", value)
-            img.removeAttr(attr)
+        if (div.hasClass("large")) {
+            img.addClass("btn-lg")
+        }
+        if (div.hasClass("stretched")) {
+            img.addClass("btn-block")
         }
     }
 }

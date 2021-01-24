@@ -714,10 +714,6 @@ a.sso-button .fab {
     width: 75%;
 }
 
-.reader .content div.button {
-    text-align: center;
-}
-
 .reader .content .twitter-tweet {
     margin: 0 auto;
 }
@@ -1458,6 +1454,10 @@ a.sso-button .fab {
 .ce-header {
     margin: 0 !important;
     padding: 0 !important;
+}
+
+.ce-block__content .button-container__form__select {
+    display: none;
 }
 
 

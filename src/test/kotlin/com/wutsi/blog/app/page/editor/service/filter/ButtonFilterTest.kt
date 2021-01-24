@@ -8,10 +8,10 @@ class ButtonFilterTest {
     private val filter = ButtonFilter()
 
     @Test
-    fun filterExternal() {
+    fun filter() {
         val doc = Jsoup.parse(
             "<body>" +
-                "<div class='button'><a href='http://www.google.ca'>Yo</a></div>" +
+                "<div class='button stretched large centered'><a href='http://www.google.ca'>Yo</a></div>" +
                 "<div><a href='http://www.yahoo.ca'>Yo</a></div>" +
                 "<a href='http://www.msn.ca'>Yo</a>"
         )
@@ -21,8 +21,8 @@ class ButtonFilterTest {
             "<html>\n" +
                 " <head></head>\n" +
                 " <body>\n" +
-                "  <div class=\"button\">\n" +
-                "   <a href=\"http://www.google.ca\" class=\"btn btn-primary\">Yo</a>\n" +
+                "  <div class=\"button stretched large centered text-center\">\n" +
+                "   <a href=\"http://www.google.ca\" class=\"btn btn-primary btn-lg btn-block\">Yo</a>\n" +
                 "  </div>\n" +
                 "  <div>\n" +
                 "   <a href=\"http://www.yahoo.ca\">Yo</a>\n" +
