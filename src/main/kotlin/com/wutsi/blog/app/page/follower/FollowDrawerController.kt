@@ -48,7 +48,6 @@ class FollowDrawerController(
             impressionCount() >= MAX_DAILY_IMPRESSION_COUNT || /* Not too many impressions */
             !requestContext.toggles().followDrawer || /* Toggles enabled */
             !requestContext.toggles().follow ||
-            !isLoggedIn() || /* user not logged in */
             !followService.canFollow(userId) /* user cannot follow the blog */
         )
             return false
@@ -56,9 +55,6 @@ class FollowDrawerController(
         val storyIds = viewService.storiesViewedThisMonth()
         return storyIds.size >= MAX_MONTHLY_FREE_VIEWED_STORIES
     }
-
-    private fun isLoggedIn(): Boolean =
-        requestContext.currentUser() != null
 
     fun impressionCount(): Int {
         val value = CookieHelper.get(impressionKey(), requestContext.request)

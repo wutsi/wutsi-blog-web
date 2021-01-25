@@ -14,7 +14,7 @@ class FollowDrawerControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous can see drawer`() {
+    fun `anonymous see see drawer`() {
         driver.get("$url/read/20/test")
 
         verifyDrawer()

@@ -1033,9 +1033,10 @@ a.sso-button .fab {
     right: 1em;
     top: 1em;
     padding: 1em;
-    height: 220px;
+    height: 160px;
     width: 350px;
     z-index: 10000;
+    font-size: 90%;
 }
 
 #follow-drawer h3 {

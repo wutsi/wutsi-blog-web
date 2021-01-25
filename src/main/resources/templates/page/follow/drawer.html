@@ -1,7 +1,6 @@
 <div id="follow-drawer" th:if="${show}">
-    <h4 th:text="#{page.read.follow_drawer}">Hi! Please follow my Blog</h4>
     <p th:text="#{page.read.follow_drawer.value}"></p>
-    <div class="buttons margin-top-2x">
+    <div class="buttons">
         <div>
             <div th:replace="components/follow :: follow-button(${user}, ${storyUrl}, true, true)"></div>
         </div>
@@ -13,7 +12,7 @@
     <script th:inline="javascript">
         $(document).ready(function () {
             $('#follow-drawer .btn-close').click(function () {
-                $('#follow-drawer').hide('show')
+                $('#follow-drawer').hide('slow')
             });
 
             wutsi.track('follow_drawer');
