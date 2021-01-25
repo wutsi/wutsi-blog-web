@@ -39,8 +39,8 @@
     <script th:inline="javascript">
         $(document).ready(function () {
             const userId = /*[[${user.id}]]*/ '0';
-            const storyId = /*[[${story.id}]]*/ '';
-            wutsi.httpGet('/follow/drawer?userId=' + userId + '&storyId=' + storyId, false)
+            const storyUrl = /*[[${story.slug}]]*/ '';
+            wutsi.httpGet('/follow/drawer?userId=' + userId + '&storyUrl=' + storyUrl, false)
                 .then(function (html) {
                     $('#follow-drawer-container').html(html);
                 });

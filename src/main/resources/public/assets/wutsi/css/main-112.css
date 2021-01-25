@@ -1025,20 +1025,17 @@ a.sso-button .fab {
 
 /* ==== FOLLOW DRAWER ====== */
 #follow-drawer {
-    background: var(--highlight-color-light);
-    box-shadow: 4em 4em 4em 4em rgba(68, 68, 68, 0.7);
-    padding: 2em;
-    border-top: 1px solid var(--border-color);
+    background: white;
+    box-shadow: 6px 6px rgba(68, 68, 68, 0.3);
+    border: 1px solid var(--text-color-gray);
     text-align: center;
     position: fixed;
-    left: 0;
-    bottom: 0;
-    height: 50%;
+    right: 1em;
+    top: 1em;
+    padding: 1em;
+    height: 220px;
+    width: 350px;
     z-index: 10000;
-}
-
-#follow-drawer .head {
-    opacity: 50%;
 }
 
 #follow-drawer h3 {

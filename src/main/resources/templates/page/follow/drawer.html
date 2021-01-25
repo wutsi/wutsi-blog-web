@@ -1,14 +1,12 @@
 <div id="follow-drawer" th:if="${show}">
-    <div class="blur">&nbsp;</div>
-
-    <h3 th:text="#{page.read.follow_drawer}">Hi! Please follow my Blog</h3>
-
-    <div class="buttons margin-top-4x">
+    <h4 th:text="#{page.read.follow_drawer}">Hi! Please follow my Blog</h4>
+    <p th:text="#{page.read.follow_drawer.value}"></p>
+    <div class="buttons margin-top-2x">
         <div>
             <div th:replace="components/follow :: follow-button(${user}, ${storyUrl}, true, true)"></div>
         </div>
         <div class="margin-top">
-            <a class="btn-close" href="#" th:text="#{button.close}" wutsi-track-event="follow_drawer_close">Close</a>
+            <a class="btn-close" href="#" th:text="#{button.not_now}" wutsi-track-event="follow_drawer_close">Close</a>
         </div>
     </div>
 
