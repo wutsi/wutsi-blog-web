@@ -1,0 +1,32 @@
+{
+  "views": [
+    {
+      "id": 1,
+      "storyId": 20,
+      "userId": 1,
+      "deviceId": "sample-device",
+      "viewDateTime": 1085325914000
+    },
+    {
+      "id": 2,
+      "storyId": 21,
+      "userId": 1,
+      "deviceId": "sample-device",
+      "viewDateTime": 1085325914000
+    },
+    {
+      "id": 3,
+      "storyId": 22,
+      "userId": 1,
+      "deviceId": "sample-device",
+      "viewDateTime": 1085325914000
+    },
+    {
+      "id": 4,
+      "storyId": 23,
+      "userId": 1,
+      "deviceId": "sample-device",
+      "viewDateTime": 1085325914000
+    }
+  ]
+}

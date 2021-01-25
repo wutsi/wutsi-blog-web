@@ -223,6 +223,11 @@
     /*]]>*/
 </script>
 
+<!-- Follow drawer -->
+<div th:replace="components/follow :: drawer(${story.user}, ${story})"></div>
+
+<!-- PAW badge -->
 <div th:replace="components/pwa :: reset-badge"></div>
+
 </body>
 </html>

@@ -1,0 +1,24 @@
+<div id="follow-drawer" th:if="${show}">
+    <div class="blur">&nbsp;</div>
+
+    <h3 th:text="#{page.read.follow_drawer}">Hi! Please follow my Blog</h3>
+
+    <div class="buttons margin-top-4x">
+        <div>
+            <div th:replace="components/follow :: follow-button(${user}, ${storyUrl}, true, true)"></div>
+        </div>
+        <div class="margin-top">
+            <a class="btn-close" href="#" th:text="#{button.close}" wutsi-track-event="follow_drawer_close">Close</a>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#follow-drawer .btn-close').click(function () {
+                $('#follow-drawer').hide('show')
+            });
+
+            wutsi.track('follow_drawer');
+        });
+    </script>
+</div>

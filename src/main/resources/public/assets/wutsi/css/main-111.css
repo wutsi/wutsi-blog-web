@@ -1023,6 +1023,31 @@ a.sso-button .fab {
     margin: var(--margin) 0;
 }
 
+/* ==== FOLLOW DRAWER ====== */
+#follow-drawer {
+    background: var(--highlight-color-light);
+    box-shadow: 4em 4em 4em 4em rgba(68, 68, 68, 0.7);
+    padding: 2em;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 50%;
+    z-index: 10000;
+}
+
+#follow-drawer .head {
+    opacity: 50%;
+}
+
+#follow-drawer h3 {
+    text-align: center;
+}
+
+#follow-drawer .buttons {
+    text-align: center;
+}
 
 /* ==== CHANNEL ====== */
 .channel {

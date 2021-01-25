@@ -34,6 +34,19 @@
     <span th:text="#{button.unfollow}">Unfollow</span>
 </a>
 
+<div th:fragment="drawer(user,story)" th:if="${toggles.follow} AND ${toggles.followDrawer}">
+    <div id="follow-drawer-container"></div>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            const userId = /*[[${user.id}]]*/ '0';
+            const storyId = /*[[${story.id}]]*/ '';
+            wutsi.httpGet('/follow/drawer?userId=' + userId + '&storyId=' + storyId, false)
+                .then(function (html) {
+                    $('#follow-drawer-container').html(html);
+                });
+        });
+    </script>
+</div>
 
 </body>
 </html>

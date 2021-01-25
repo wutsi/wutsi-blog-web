@@ -41,8 +41,8 @@ class FollowerService(
         ).followers.map { it.userId }
     }
 
-    fun canFollow(id: Long): Boolean {
-        if (!requestContext.toggles().follow || requestContext.currentUser()?.id == id)
+    fun canFollow(userId: Long): Boolean {
+        if (!requestContext.toggles().follow || requestContext.currentUser()?.id == userId)
             return false
 
         if (requestContext.currentUser() == null)
@@ -50,7 +50,7 @@ class FollowerService(
 
         return api.search(
             SearchFollowerRequest(
-                userId = id,
+                userId = userId,
                 followerUserId = requestContext.currentUser()?.id
             )
         ).followers.isEmpty()
