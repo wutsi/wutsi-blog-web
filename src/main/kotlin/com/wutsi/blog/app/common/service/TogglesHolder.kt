@@ -13,7 +13,7 @@ class Toggles {
     var comment: Boolean = false
     var earning: Boolean = false
     var follow: Boolean = false
-    var followDrawer: Boolean = false
+    var followPopup: Boolean = false
     var googleAdSense: Boolean = false
     var googleOneTapSignIn: Boolean = false
     var imageKit: Boolean = false

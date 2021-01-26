@@ -34,15 +34,15 @@
     <span th:text="#{button.unfollow}">Unfollow</span>
 </a>
 
-<div th:fragment="drawer(user,story)" th:if="${toggles.follow} AND ${toggles.followDrawer}">
-    <div id="follow-drawer-container"></div>
+<div th:fragment="popup(user,story)" th:if="${toggles.follow} AND ${toggles.followPopup}">
+    <div id="follow-popup-container"></div>
     <script th:inline="javascript">
         $(document).ready(function () {
             const userId = /*[[${user.id}]]*/ '0';
             const storyUrl = /*[[${story.slug}]]*/ '';
-            wutsi.httpGet('/follow/drawer?userId=' + userId + '&storyUrl=' + storyUrl, false)
+            wutsi.httpGet('/follow/popup?userId=' + userId + '&storyUrl=' + storyUrl, false)
                 .then(function (html) {
-                    $('#follow-drawer-container').html(html);
+                    $('#follow-popup-container').html(html);
                 });
         });
     </script>

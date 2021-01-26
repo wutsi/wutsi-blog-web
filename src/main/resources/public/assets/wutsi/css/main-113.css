@@ -1024,26 +1024,24 @@ a.sso-button .fab {
 }
 
 /* ==== FOLLOW DRAWER ====== */
-#follow-drawer {
+#follow-popup {
     background: white;
     box-shadow: 6px 6px rgba(68, 68, 68, 0.3);
     border: 1px solid var(--text-color-gray);
-    text-align: center;
     position: fixed;
     right: 1em;
     top: 1em;
     padding: 1em;
-    height: 160px;
     width: 350px;
     z-index: 10000;
     font-size: 90%;
 }
 
-#follow-drawer h3 {
-    text-align: center;
+#follow-popup .content {
+    width: 100%;
 }
 
-#follow-drawer .buttons {
+#follow-popup .buttons {
     text-align: center;
 }
 
@@ -1079,6 +1077,10 @@ a.sso-button .fab {
 
 .follow-panel .message {
     margin-bottom: var(--margin);
+}
+
+.btn-follow {
+    white-space: nowrap;
 }
 
 

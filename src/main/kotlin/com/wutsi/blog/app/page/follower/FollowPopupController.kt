@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-@RequestMapping("/follow/drawer")
-class FollowDrawerController(
+@RequestMapping("/follow/popup")
+class FollowPopupController(
     private val viewService: ViewService,
     private val followService: FollowerService,
     private val userService: UserService,
@@ -32,22 +32,24 @@ class FollowDrawerController(
         model: Model
     ): String {
         if (shouldShow(userId)) {
-            val user = userService.get(userId)
+            val blog = userService.get(userId)
             trackImpression()
 
             model.addAttribute("show", true)
-            model.addAttribute("user", user)
-            model.addAttribute("followUrl", "${user.slug}/follow")
+            model.addAttribute("blog", blog)
+            model.addAttribute("user", requestContext.currentUser())
+            model.addAttribute("followUrl", "${blog.slug}/follow")
             model.addAttribute("storyUrl", storyUrl)
         }
-        return "page/follow/drawer"
+        return "page/follow/popup"
     }
 
     private fun shouldShow(userId: Long): Boolean {
         if (
             impressionCount() >= MAX_DAILY_IMPRESSION_COUNT || /* Not too many impressions */
-            !requestContext.toggles().followDrawer || /* Toggles enabled */
+            !requestContext.toggles().followPopup || /* Toggles enabled */
             !requestContext.toggles().follow ||
+            requestContext.currentUser() == null || /* no current user */
             !followService.canFollow(userId) /* user cannot follow the blog */
         )
             return false

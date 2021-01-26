@@ -57,7 +57,7 @@ wutsi:
     comment: true
     earning: true
     follow: true
-    follow-drawer: false
+    follow-popup: false
     google-ad-sense: false            # Google AdSense request rejected :-(
     google-one-tap-sign-in: true
     imagekit: true

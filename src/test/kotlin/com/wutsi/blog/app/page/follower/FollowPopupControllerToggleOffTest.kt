@@ -8,10 +8,10 @@ import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(
     properties = [
-        "wutsi.toggles.follow-drawer=false"
+        "wutsi.toggles.follow-popup=false"
     ]
 )
-class FollowDrawerControllerToggleOffTest : SeleniumMobileTestSupport() {
+class FollowPopupControllerToggleOffTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -20,14 +20,14 @@ class FollowDrawerControllerToggleOffTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous can see drawer`() {
+    fun `anonymous can see popup`() {
         driver.get("$url/read/20/test")
 
         verifyNoDrawer()
     }
 
     @Test
-    fun `non-subscriber can see drawer`() {
+    fun `non-subscriber can see popup`() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -37,7 +37,7 @@ class FollowDrawerControllerToggleOffTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `subscriber cannot see drawer`() {
+    fun `subscriber cannot see popup`() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -48,7 +48,7 @@ class FollowDrawerControllerToggleOffTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `subscriber cannot see drawer in his story`() {
+    fun `subscriber cannot see popup in his story`() {
         login()
 
         driver.get("$url/read/20/test")
@@ -59,6 +59,6 @@ class FollowDrawerControllerToggleOffTest : SeleniumMobileTestSupport() {
     private fun verifyNoDrawer() {
         Thread.sleep(1000)
 
-        assertElementCount("#follow-drawer", 0)
+        assertElementCount("#follow-popup", 0)
     }
 }

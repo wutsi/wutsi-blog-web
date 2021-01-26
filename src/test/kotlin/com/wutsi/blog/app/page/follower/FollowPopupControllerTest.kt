@@ -5,7 +5,7 @@ import org.junit.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
-class FollowDrawerControllerTest : SeleniumMobileTestSupport() {
+class FollowPopupControllerTest : SeleniumMobileTestSupport() {
     override fun setupWiremock() {
         super.setupWiremock()
 
@@ -14,14 +14,14 @@ class FollowDrawerControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `anonymous see see drawer`() {
+    fun `anonymous see see popup`() {
         driver.get("$url/read/20/test")
 
         verifyDrawer()
     }
 
     @Test
-    fun `non-subscriber can see drawer`() {
+    fun `non-subscriber can see popup`() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -31,7 +31,7 @@ class FollowDrawerControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `subscriber cannot see drawer`() {
+    fun `subscriber cannot see popup`() {
         login()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
@@ -42,7 +42,7 @@ class FollowDrawerControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `subscriber cannot see drawer in his story`() {
+    fun `subscriber cannot see popup in his story`() {
         login()
 
         driver.get("$url/read/20/test")
@@ -53,12 +53,12 @@ class FollowDrawerControllerTest : SeleniumMobileTestSupport() {
     private fun verifyDrawer() {
         Thread.sleep(1000)
 
-        assertElementVisible("#follow-drawer")
+        assertElementVisible("#follow-popup")
     }
 
     private fun verifyNoDrawer() {
         Thread.sleep(1000)
 
-        assertElementCount("#follow-drawer", 0)
+        assertElementCount("#follow-popup", 0)
     }
 }
