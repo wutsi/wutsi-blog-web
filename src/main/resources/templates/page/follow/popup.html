@@ -2,7 +2,7 @@
     <div class="flex">
         <img class="margin-right" height="48" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" width="48"/>
         <div class="content">
-            <a class="btn-close close"> <i class="fas fa-times"></i> </a>
+            <a class="btn-close close" wutsi-track-event="follow_popup_close"> <i class="fas fa-times"></i> </a>
 
             <b th:text="${user.fullName}">Ray Sponsible</b>
             <div th:if="${user.email}" th:text="${user.email}">ray.sponsible@gmail.com</div>

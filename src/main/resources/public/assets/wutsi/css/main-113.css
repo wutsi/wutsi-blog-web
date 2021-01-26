@@ -1026,7 +1026,6 @@ a.sso-button .fab {
 /* ==== FOLLOW DRAWER ====== */
 #follow-popup {
     background: white;
-    box-shadow: 6px 6px rgba(68, 68, 68, 0.3);
     border: 1px solid var(--text-color-gray);
     position: fixed;
     right: 1em;
@@ -1577,6 +1576,15 @@ and (orientation: portrait) {
         position: fixed;
         width: 100%;
         z-index: 1;
+    }
+
+    /* =====  FOLLOW POPUP ======= */
+    #follow-popup {
+        left: 0;
+        right: auto;
+        bottom: auto;
+        top: 0;
+        width: 100%
     }
 }
 
