@@ -73,7 +73,7 @@ class StoryRssView(
         user?.let { it.biography } ?: "Wutsi RSS Feed"
 
     private fun getLink(): String =
-        if (user == null) baseUrl else "$baseUrl/@/${user.slug}"
+        if (user == null) baseUrl else "$baseUrl${user.slug}"
 
     private fun findStories(): List<StoryModel> = storyService.search(
         SearchStoryRequest(
