@@ -27,13 +27,6 @@ class HomeControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `Google Ad-Sense`() {
-        driver.get(url)
-        assertElementPresent("script#ad-sense-code")
-        assertElementAttribute("script#ad-sense-code", "data-ad-client", "test-ad-sense")
-    }
-
-    @Test
     fun `home page Google Analytics`() {
         driver.get(url)
         assertElementPresent("script#ga-code")

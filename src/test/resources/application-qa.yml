@@ -11,8 +11,6 @@ wutsi:
   google:
     ga:
       code: "test"
-    ad-sense:
-      code: "test-ad-sense"
 
   facebook:
     pixel:
@@ -27,7 +25,6 @@ wutsi:
 
   toggles:
     coming-soon: false
-    google-add-sense: true
     google-one-tap-sign-in: false
     pwa-add-to-homescreen: true
     pwa-badge: false

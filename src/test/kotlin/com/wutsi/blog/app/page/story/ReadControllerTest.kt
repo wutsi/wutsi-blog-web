@@ -255,13 +255,6 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `Google Ad-Sense`() {
-        driver.get("$url/read/20/looks-good")
-        assertElementPresent("script#ad-sense-code")
-        assertElementAttribute("script#ad-sense-code", "data-ad-client", "test-ad-sense")
-    }
-
-    @Test
     fun `Google Analytics`() {
         driver.get("$url/read/20/looks-good")
         assertElementPresent("script#ga-code")

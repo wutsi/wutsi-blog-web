@@ -37,8 +37,6 @@ wutsi:
   google:
     ga:
       code: "UA-120456146-1"
-    ad-sense:
-      code: "ca-pub-8667372924137381"
 
   facebook:
     app-id: "466330503408293"
@@ -58,7 +56,6 @@ wutsi:
     earning: true
     follow: true
     follow-popup: true
-    google-ad-sense: false            # Google AdSense request rejected :-(
     google-one-tap-sign-in: true
     imagekit: true
     like: true

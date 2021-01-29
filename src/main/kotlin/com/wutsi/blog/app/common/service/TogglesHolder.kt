@@ -14,7 +14,6 @@ class Toggles {
     var earning: Boolean = false
     var follow: Boolean = false
     var followPopup: Boolean = false
-    var googleAdSense: Boolean = false
     var googleOneTapSignIn: Boolean = false
     var imageKit: Boolean = false
     var like: Boolean = false
