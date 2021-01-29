@@ -98,8 +98,8 @@
 
                 <div class="form-group margin-top-2x" th:if="${story.draft}">
                     <label class="form-check">
-                        <input class="form-check-input" id='publish-to-social-media-radio' name="publishToSocialMedia"
-                               th:attrappend="checked = ${story.publishToSocialMedia} ? checked"
+                        <input checked="checked" class="form-check-input" id='publish-to-social-media-radio'
+                               name="publishToSocialMedia"
                                type="checkbox"
                                value="true"
                         />
