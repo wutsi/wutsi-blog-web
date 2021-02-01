@@ -10,6 +10,7 @@ class Toggles {
     var channelTwitter: Boolean = false
     var channelFacebook: Boolean = false
     var channelLinkedin: Boolean = false
+    var channelTelegram: Boolean = false
     var comment: Boolean = false
     var earning: Boolean = false
     var follow: Boolean = false

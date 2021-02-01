@@ -70,6 +70,9 @@ class ChannelService(
         if (toggles.channelLinkedin) {
             types.add(ChannelType.linkedin)
         }
+        if (toggles.channelTelegram) {
+            types.add(ChannelType.telegram)
+        }
         return types
     }
 }

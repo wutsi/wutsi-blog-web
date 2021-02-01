@@ -126,11 +126,16 @@ wutsi:
     s3:
       bucket:
 
+  telegram:
+    bot:
+      title: WutsiBot
+
   toggles:
     channel: true                   # Enable publication channels
     channel-twitter: true           # Enable Twitter Channel
     channel-facebook: true          # Enable Facebook Channel
     channel-linkedin: true          # Enable LinkedIn Channel
+    channel-telegram: true          # Enable Telegram Channel
     comment: true                   # Enable Comments
     earning: true                   # Show Earnings
     follow: true                    # Enable follow?

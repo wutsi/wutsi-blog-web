@@ -11,6 +11,7 @@ import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.PostApi
 import com.wutsi.blog.sdk.Sdk
 import com.wutsi.blog.sdk.TagApi
+import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.blog.sdk.WutsiEnvironment
@@ -59,6 +60,9 @@ class WutsiSdkConfiguration(
 
     @Bean
     fun userApi(): UserApi = sdk().userApi()
+
+    @Bean
+    fun telegramApi(): TelegramApi = sdk().telegramApi()
 
     @Bean
     fun sdk(): Sdk =
