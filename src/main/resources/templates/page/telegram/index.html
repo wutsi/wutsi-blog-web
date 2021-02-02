@@ -6,7 +6,7 @@
 
 <body>
 
-<div th:replace="components/layout :: navbar-blog(${user}, false, null)"></div>
+<div th:replace="components/layout :: navbar"></div>
 
 <div class="container">
     <div class="row margin-bottom-4x">
@@ -22,7 +22,7 @@
                     <img height="64" th:src="${page.assetUrl} + '/assets/wutsi/img/social/telegram.png'" width="64"/>
                 </div>
 
-                <div class="alert alert-danger padding-top" th:if="${error}" th:text="${error}">Error</div>
+                <div class="alert alert-danger margin-top" th:if="${error}" th:utext="${error}">Error</div>
 
                 <form class="margin-top-2x" method="POST" th:action="@{/telegram}">
                     <div class="form-group">
@@ -32,6 +32,7 @@
                         </label>
                         <div class="form-check margin-left">
                             <input checked="checked" class='form-check-input' id="telegram-group-radio" name="chatType"
+                                   th:attrappend="checked = ${chatType} == 'group'? checked"
                                    type="radio"
                                    value="group"
                             />
@@ -39,6 +40,7 @@
                         </div>
                         <div class="form-check margin-left">
                             <input class='form-check-input' id="telegram-group-channel" name="chatType"
+                                   th:attrappend="checked = ${chatType} == 'channel'? checked"
                                    type="radio"
                                    value="channel"
                             />
@@ -53,7 +55,7 @@
                         <p class="telegram-channel" th:utext="#{page.telegram.chat_type.channel.help(${botTitle})}">
                             Add <b>WutsiBot</b> in the Telegram Channel
                         </p>
-                        <div>
+                        <div th:if="${helpUrl}">
                             <i class="fas fa-question-circle"></i>
                             <span th:utext="#{page.telegram.need_help(${helpUrl})}">Need help</span>
                         </div>
@@ -65,7 +67,7 @@
                             <b class="telegram-channel" th:text="#{page.telegram.chat_title_channel}">Channel Name</b>
                             <span class="required">*</span>
                         </label>
-                        <input class="form-control" id="telegram-chat-title" name="chatTitle" required="required"/>
+                        <input class="form-control" id="telegram-chat-title" name="chatTitle" required="required" th:value="${chatTitle}"/>
                     </div>
 
                     <div class="form-group">
@@ -73,11 +75,11 @@
                             <b th:text="#{page.telegram.username}">Username</b>
                             <span class="required">*</span>
                         </label>
-                        <input class="form-control" name="username" required="required"/>
+                        <input class="form-control" id="telegram-username" name="username" required="required" th:value="${username}"/>
                     </div>
 
                     <div class="margin-top-2x">
-                        <button class="btn btn-primary float-right" id="btn-next" th:text="#{button.connect}" type="submit">Connect</button>
+                        <button class="btn btn-primary float-right" id="btn-telegram-connect" th:text="#{button.connect}" type="submit">Connect</button>
                     </div>
                 </form>
                 <div class="clearfix"></div>

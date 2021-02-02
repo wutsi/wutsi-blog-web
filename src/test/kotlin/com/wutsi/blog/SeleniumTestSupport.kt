@@ -44,6 +44,7 @@ import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.TagApi
+import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
@@ -113,6 +114,9 @@ abstract class SeleniumTestSupport {
 
     @MockBean
     protected lateinit var tagApi: TagApi
+
+    @MockBean
+    protected lateinit var telegramApi: TelegramApi
 
     @MockBean
     protected lateinit var topicApi: TopicApi

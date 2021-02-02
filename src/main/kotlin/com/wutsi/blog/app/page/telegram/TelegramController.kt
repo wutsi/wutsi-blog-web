@@ -30,14 +30,23 @@ class TelegramController(
     override fun pageName() = PageName.TELEGRAM
 
     @GetMapping("/telegram")
-    fun index(@RequestParam error: String? = null, model: Model): String {
+    fun index(
+        @RequestParam(required = false) error: String? = null,
+        @RequestParam(required = false, defaultValue = "") title: String = "",
+        @RequestParam(required = false, defaultValue = "") username: String = "",
+        @RequestParam(required = false, defaultValue = "group") type: String = "group",
+        model: Model
+    ): String {
         if (error != null) {
-            val key = "error.${error}"
+            val key = "error.${error}.${type}"
             val message = requestContext.getMessage(key = key, args = arrayOf(botTitle))
             model.addAttribute("error", message)
         }
         model.addAttribute("helpUrl", helpUrl)
         model.addAttribute("botTitle", botTitle)
+        model.addAttribute("chatTitle", title)
+        model.addAttribute("chatType", type)
+        model.addAttribute("username", username)
         return "page/telegram/index"
     }
 
@@ -53,7 +62,10 @@ class TelegramController(
                 "&name=" + URLEncoder.encode(chat.title, "utf-8") +
                 "&type=" + ChannelType.telegram
         } catch (ex: Exception) {
-            return "redirect:/telegram?error=${ex.message}"
+            return "redirect:/telegram?error=${ex.message}&" +
+                "&type=${form.chatType}" +
+                "&title=" + URLEncoder.encode(form.chatTitle, "utf-8") +
+                "&username=" + URLEncoder.encode(form.username, "utf-8")
         }
     }
 }
