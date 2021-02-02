@@ -24,7 +24,8 @@ class TelegramController(
     private val telegramService: TelegramService,
     requestContext: RequestContext,
 
-    @Value("\${wutsi.telegram.bot.title}") private val botTitle: String
+    @Value("\${wutsi.telegram.bot.title}") private val botTitle: String,
+    @Value("\${wutsi.telegram.help-url}") private val helpUrl: String
 ) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.TELEGRAM
 
@@ -35,6 +36,7 @@ class TelegramController(
             val message = requestContext.getMessage(key = key, args = arrayOf(botTitle))
             model.addAttribute("error", message)
         }
+        model.addAttribute("helpUrl", helpUrl)
         model.addAttribute("botTitle", botTitle)
         return "page/telegram/index"
     }

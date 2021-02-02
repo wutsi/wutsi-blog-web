@@ -127,6 +127,7 @@ wutsi:
       bucket:
 
   telegram:
+    help-url: "https://www.google.com"
     bot:
       title: WutsiBot
 
