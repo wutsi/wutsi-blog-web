@@ -38,7 +38,7 @@ class TelegramController(
         model: Model
     ): String {
         if (error != null) {
-            val key = "error.${error}.${type}"
+            val key = "error.${error}.$type"
             val message = requestContext.getMessage(key = key, args = arrayOf(botTitle))
             model.addAttribute("error", message)
         }

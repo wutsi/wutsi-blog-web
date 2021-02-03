@@ -55,7 +55,7 @@
                         <p class="telegram-channel" th:utext="#{page.telegram.chat_type.channel.help(${botTitle})}">
                             Add <b>WutsiBot</b> in the Telegram Channel
                         </p>
-                        <div th:if="${helpUrl}">
+                        <div th:if="${helpUrl} AND !${helpUrl.isEmpty()}">
                             <i class="fas fa-question-circle"></i>
                             <span th:utext="#{page.telegram.need_help(${helpUrl})}">Need help</span>
                         </div>

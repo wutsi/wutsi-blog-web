@@ -16,11 +16,13 @@ class TelegramService(
     private val api: TelegramApi
 ) {
     fun connect(form: TelegramForm): TelegramChatModel {
-        val response = api.checkAccess(CheckBotAccessRequest(
-            username = form.username,
-            chatType = TelegramChatType.valueOf(form.chatType),
-            chatTitle = form.chatTitle
-        ))
+        val response = api.checkAccess(
+            CheckBotAccessRequest(
+                username = form.username,
+                chatType = TelegramChatType.valueOf(form.chatType),
+                chatTitle = form.chatTitle
+            )
+        )
         return TelegramChatModel(
             id = response.chatId,
             title = response.chatName
