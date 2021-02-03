@@ -31,7 +31,7 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
 
         driver.get("$url/@/ray.sponsible")
 
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         assertElementText("#like-count-20", "2")
         assertElementText("#like-count-21", "1")
         assertElementText("#like-count-22", "3")
