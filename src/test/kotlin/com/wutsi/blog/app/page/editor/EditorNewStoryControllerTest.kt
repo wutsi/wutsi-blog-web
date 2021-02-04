@@ -48,15 +48,13 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttribute("#publish-now-radio", "checked", "true")
         assertElementAttribute("#scheduled-publish-date", "disabled", "true")
         assertElementAttribute("#publish-to-social-media-radio", "disabled", null)
-        assertElementAttribute("#social-media-message", "disabled", "true")
+        assertElementAttribute("#social-media-message", "disabled", null)
 
         input("#title", "This is title")
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
         select("#topic-id", 1)
 
-        click("#publish-to-social-media-radio")
-        Thread.sleep(1000) // Delay before entering the message
         input("#social-media-message", "This is awesome!! #WutsiRocks")
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-draft.json")
@@ -102,7 +100,7 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertElementAttribute("#publish-now-radio", "checked", "true")
         assertElementAttribute("#scheduled-publish-date", "disabled", "true")
         assertElementAttribute("#publish-to-social-media-radio", "disabled", null)
-        assertElementAttribute("#social-media-message", "disabled", "true")
+        assertElementAttribute("#social-media-message", "disabled", null)
 
         input("#title", "This is title")
         input("#tagline", "This is tagline")
