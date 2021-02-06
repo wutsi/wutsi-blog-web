@@ -22,7 +22,7 @@ class WutsiErrorController(
         val message = request.getAttribute("javax.servlet.error.message") as String
         logger.add("ErrorMessage", message)
 
-        val exception = request.getAttribute("javax.servlet.error.exception") as Throwable
+        val exception = request.getAttribute("javax.servlet.error.exception") as Throwable?
         if (exception != null) {
             logger.log(exception)
         }
