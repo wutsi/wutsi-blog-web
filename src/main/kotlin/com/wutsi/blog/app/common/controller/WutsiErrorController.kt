@@ -3,7 +3,7 @@ package com.wutsi.blog.app.common.controller
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.util.ModelAttributeName
 import com.wutsi.blog.app.util.PageName
-import org.slf4j.LoggerFactory
+import com.wutsi.core.logging.KVLogger
 import org.springframework.boot.web.servlet.error.ErrorController
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -12,25 +12,22 @@ import javax.servlet.http.HttpServletRequest
 
 @Controller
 class WutsiErrorController(
-    requestContext: RequestContext
+    requestContext: RequestContext,
+    private val logger: KVLogger
 ) : ErrorController, AbstractPageController(requestContext) {
-    companion object {
-        private val LOGGER = LoggerFactory.getLogger(WutsiErrorController::class.java)
-    }
-
     override fun pageName(): String = ""
 
     @GetMapping("/error")
     fun error(request: HttpServletRequest, model: Model): String {
-        val code: Int? = request.getAttribute("javax.servlet.error.status_code") as Int
-        val exception = request.getAttribute("javax.servlet.error.exception")
         val message = request.getAttribute("javax.servlet.error.message") as String
+        logger.add("ErrorMessage", message)
+
+        val exception = request.getAttribute("javax.servlet.error.exception") as Throwable
         if (exception != null) {
-            LOGGER.error("StatusCode=$code - $message", exception as Throwable)
-        } else {
-            LOGGER.error("StatusCode=$code - $message")
+            logger.log(exception)
         }
 
+        val code: Int? = request.getAttribute("javax.servlet.error.status_code") as Int
         model.addAttribute(ModelAttributeName.PAGE, toPage(code))
         if (code == 400) {
             return "page/error/404"
