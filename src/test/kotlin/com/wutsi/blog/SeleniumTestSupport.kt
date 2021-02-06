@@ -68,6 +68,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
+import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -263,8 +264,8 @@ abstract class SeleniumTestSupport {
         doThrow(NotFoundException("pin_not_found")).whenever(pinApi).get(any())
     }
 
-    protected fun givenPin(userId: Long = 1, storyId: Long = 21) {
-        val pin = PinApiFixtures.createGetPinResponse(userId, storyId)
+    protected fun givenPin(userId: Long = 1, storyId: Long = 21, creationDate: Date = Date()) {
+        val pin = PinApiFixtures.createGetPinResponse(userId, storyId, creationDate)
         doReturn(pin).whenever(pinApi).get(userId)
     }
 

@@ -1,8 +1,11 @@
 package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.SeleniumTestSupport
+import com.wutsi.blog.app.page.blog.service.PinService
 import com.wutsi.blog.app.util.PageName
+import org.apache.commons.lang.time.DateUtils
 import org.junit.Test
+import java.util.Date
 
 class PinControllerTest : SeleniumTestSupport() {
     @Test
@@ -27,6 +30,24 @@ class PinControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `no pinned story on my blog`() {
+        gotoPage(true)
+
+        assertElementCount("#my-stories .story-card", 7)
+        assertElementHasNotClass("#my-stories .story-card:first-child", "story-card-pinned")
+
+        assertElementHasNotClass("#story-card-20", "story-card-pinned")
+        assertElementAttributeEndsWith("#story-card-20 .btn-pin", "href", "/pin/add?storyId=20")
+        assertElementAttribute("#story-card-20 .btn-pin", "wutsi-track-event", "pin")
+
+        assertElementHasNotClass("#story-card-21", "story-card-pinned")
+        assertElementAttributeEndsWith("#story-card-21 .btn-pin", "href", "/pin/add?storyId=21")
+        assertElementAttribute("#story-card-21 .btn-pin", "wutsi-track-event", "pin")
+    }
+
+    @Test
+    fun `do not show expired pins`() {
+        givenPin(creationDate = DateUtils.addMonths(Date(), -(PinService.MAX_DURATION_DAYS + 1)))
+
         gotoPage(true)
 
         assertElementCount("#my-stories .story-card", 7)
