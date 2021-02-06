@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.client.like.CountLikeResponse
+import com.wutsi.blog.client.like.CreateLikeResponse
 import com.wutsi.blog.client.like.SearchLikeRequest
 import com.wutsi.blog.fixtures.LikeApiFixtures
 import org.junit.Test
@@ -43,34 +44,40 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
 
     @Test
     fun `user like a story`() {
+        login()
+        driver.get("$url/read/20/test")
+
+        val create = CreateLikeResponse(likeId = 11)
+        doReturn(create).whenever(likeApi).create(any())
+
         val count = CountLikeResponse(
             counts = listOf(
                 LikeApiFixtures.createLikeCountDto(20, 2)
             )
         )
-        doReturn(count).whenever(likeApi).count(any<SearchLikeRequest>())
-
-        login()
-        driver.get("$url/read/20/test")
+        doReturn(count).whenever(likeApi).count(any())
+        click(".like-widget .like-badge")
 
         Thread.sleep(5000)
         assertElementText(".like-widget .like-badge .like-count", "2")
-        click(".like-widget .like-badge")
     }
 
     @Test
     fun `anonymous like a story`() {
+        driver.get("$url/read/20/test")
+
+        val create = CreateLikeResponse(likeId = 11)
+        doReturn(create).whenever(likeApi).create(any())
+
         val count = CountLikeResponse(
             counts = listOf(
                 LikeApiFixtures.createLikeCountDto(20, 2)
             )
         )
         doReturn(count).whenever(likeApi).count(any<SearchLikeRequest>())
-
-        driver.get("$url/read/20/test")
+        click(".like-widget .like-badge")
 
         Thread.sleep(5000)
         assertElementText(".like-widget .like-badge .like-count", "2")
-        click(".like-widget .like-badge")
     }
 }
