@@ -53,6 +53,7 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
         login()
         driver.get("$url/read/20/test")
 
+        Thread.sleep(5000)
         assertElementText(".like-widget .like-badge .like-count", "2")
         click(".like-widget .like-badge")
     }
@@ -68,6 +69,7 @@ class LikeControllerTest : SeleniumMobileTestSupport() {
 
         driver.get("$url/read/20/test")
 
+        Thread.sleep(5000)
         assertElementText(".like-widget .like-badge .like-count", "2")
         click(".like-widget .like-badge")
     }
