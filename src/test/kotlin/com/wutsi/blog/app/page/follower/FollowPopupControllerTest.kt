@@ -81,7 +81,7 @@ class FollowPopupControllerTest : SeleniumMobileTestSupport() {
     }
 
     private fun verifyDrawer() {
-        Thread.sleep(1000)
+        Thread.sleep(15000)
 
         assertElementVisible("#follow-popup")
         assertElementAttribute("#follow-popup .btn-follow", "wutsi-track-event", "follow_popup_click")
