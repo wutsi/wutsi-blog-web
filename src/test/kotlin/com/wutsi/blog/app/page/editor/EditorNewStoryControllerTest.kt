@@ -64,12 +64,19 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.EDITOR_SHARE)
         assertElementAttribute("#btn-facebook", "wutsi-share-target", "facebook")
         assertElementAttribute("#btn-facebook", "wutsi-story-id", "20")
+        assertElementNotPresent("#msg-facebook-shared")
 
         assertElementAttribute("#btn-twitter", "wutsi-share-target", "twitter")
         assertElementAttribute("#btn-twitter", "wutsi-story-id", "20")
+        assertElementNotPresent("#msg-twitter-shared")
 
         assertElementAttribute("#btn-linkedin", "wutsi-share-target", "linkedin")
         assertElementAttribute("#btn-linkedin", "wutsi-story-id", "20")
+        assertElementNotPresent("#msg-linkedin-shared")
+
+        assertElementAttribute("#btn-telegram", "wutsi-share-target", "telegram")
+        assertElementAttribute("#btn-telegram", "wutsi-story-id", "20")
+        assertElementNotPresent("#msg-telegram-shared")
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
         click("#btn-read")
@@ -77,7 +84,6 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-//    @Ignore("flaky test")
     fun `user can create and schedule when to publish new story`() {
         gotoPage()
 
@@ -148,11 +154,14 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         input("#tagline", "This is tagline")
         input("#summary", "This is summary")
         select("#topic-id", 1)
+
+        stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published-on-social-media.json")
         click("#btn-publish")
 
         Thread.sleep(1000)
         assertCurrentPageIs(PageName.EDITOR_SHARE)
         assertElementNotPresent("#btn-twitter")
+        assertElementPresent("#msg-twitter-shared")
     }
 
     @Test

@@ -349,7 +349,7 @@ footer.page-footer .follow-us .fab {
 
 
 /*======= LOGIN =======*/
-a.sso-button {
+.sso-button {
     padding: .5em 1em;
     text-align: left;
     display: block;
@@ -358,14 +358,18 @@ a.sso-button {
     text-decoration: none;
 }
 
+.sso-button .fab {
+    font-size: 1.3em;
+    margin-right: var(--margin-small);
+}
+
 a.sso-button:hover {
     text-decoration: none;
     border: 1px solid var(--border-color);
 }
 
-a.sso-button .fab {
-    font-size: 1.3em;
-    margin-right: var(--margin-small);
+.sso-button-shared {
+    color: var(--text-color-gray);
 }
 
 /*======= EDITOR =======*/

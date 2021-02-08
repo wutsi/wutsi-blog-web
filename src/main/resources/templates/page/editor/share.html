@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${page.language}">
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="components/layout :: head"></div>
 </head>
@@ -21,34 +21,76 @@
 
             <!-- Share -->
             <div class="margin-top-2x">
-                <a id="btn-facebook" target="_share" class="sso-button margin-top" wutsi-share-target="facebook"
-                   th:wutsi-story-id="${story.id}"
-                   th:if="!${channelFacebook}"
-                >
-                    <i class="fab fa-facebook-square"></i>
-                    <span th:text="#{page.share.facebook}">Share with Facebook</span>
-                </a>
-                <a id="btn-twitter" target="_share" class="sso-button margin-top" wutsi-share-target="twitter"
-                   th:wutsi-story-id="${story.id}"
-                   th:if="!${channelTwitter}"
-                >
-                    <i class="fab fa-twitter-square"></i>
-                    <span th:text="#{page.share.twitter}">Sign in with Twitter</span>
-                </a>
-                <a id="btn-linkedin" target="_share" class="sso-button margin-top" wutsi-share-target="linkedin"
-                    th:wutsi-story-id="${story.id}"
-                    th:if="!${channelLinkedin}"
-                >
-                    <i class="fab fa-linkedin"></i>
-                    <span th:text="#{page.share.linkedin}">Sign in with Linked</span>
-                </a>
+                <div class="margin-top">
+                    <a class="sso-button" id="btn-facebook" target="_share" th:if="!${channelFacebook}"
+                       th:wutsi-story-id="${story.id}"
+                       wutsi-share-target="facebook"
+                    >
+                        <i class="fab fa-facebook-square"></i>
+                        <span th:text="#{page.share.facebook}">Share with Facebook</span>
+                    </a>
+
+                    <div class="sso-button sso-button-shared msg-twitter-shared" th:if="${channelFacebook}">
+                        <i class="fab fa-facebook-square"></i>
+                        <span th:text="#{page.share.story_shared('Facebook')}">Story shared on Facebook</span>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+
+                <div class="margin-top">
+                    <a class="sso-button" id="btn-twitter" target="_share" th:if="!${channelTwitter}"
+                       th:wutsi-story-id="${story.id}"
+                       wutsi-share-target="twitter"
+                    >
+                        <i class="fab fa-twitter-square"></i>
+                        <span th:text="#{page.share.twitter}">Sign in with Twitter</span>
+                    </a>
+
+                    <div class="sso-button sso-button-shared msg-twitter-shared" th:if="${channelTwitter}">
+                        <i class="fab fa-twitter-square"></i>
+                        <span th:text="#{page.share.story_shared('Twitter')}">Story shared on Twitter</span>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+
+                <div class="margin-top">
+                    <a class="sso-button" id="btn-linkedin" target="_share" th:if="!${channelLinkedin}"
+                       th:wutsi-story-id="${story.id}"
+                       wutsi-share-target="linkedin"
+                    >
+                        <i class="fab fa-linkedin"></i>
+                        <span th:text="#{page.share.linkedin}">Sign in with Linked</span>
+                    </a>
+
+                    <div class="sso-button sso-button-shared msg-linkedin-shared" th:if="${channelLinkedin}">
+                        <i class="fab fa-linkedin"></i>
+                        <span th:text="#{page.share.story_shared('LinkedIn')}">Story shared on LinkedIn</span>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+
+                <div class="margin-top">
+                    <a class="sso-button" id="btn-telegram" target="_share" th:if="!${channelTelegram}"
+                       th:wutsi-story-id="${story.id}"
+                       wutsi-share-target="telegram"
+                    >
+                        <i class="fab fa-telegram"></i>
+                        <span th:text="#{page.share.telegram}">Share in with Telegram</span>
+                    </a>
+
+                    <div class="sso-button sso-button-shared msg-telegram-shared" th:if="${channelTelegram}">
+                        <i class="fab fa-telegram"></i>
+                        <span th:text="#{page.share.story_shared('Telegram')}">Story shared on Telegram</span>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
             </div>
 
             <!-- Toolbar -->
             <div class="margin-top padding-top">
-                <a id="btn-read" class="float-right btn btn-light"
-                        th:href="${story.slug}"
-                        th:text="#{page.share.read}"
+                <a class="float-right btn btn-light" id="btn-read"
+                   th:href="${story.slug}"
+                   th:text="#{page.share.read}"
                 >Read Story</a>
             </div>
 

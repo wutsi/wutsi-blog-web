@@ -36,16 +36,20 @@ class EditorShareController(
         model.addAttribute("story", story)
         model.addAttribute("storyUrl", "${websiteUrl}${story.slug}")
         model.addAttribute("page", toPage(story))
-        loadChannels(model)
+        loadChannels(story, model)
         return "page/editor/share"
     }
 
-    fun loadChannels(model: Model) {
+    fun loadChannels(story: StoryModel, model: Model) {
+        if (!story.publishToSocialMedia)
+            return
+
         try {
             val all = channels.all()
             model.addAttribute("channelTwitter", all.find { it.type == ChannelType.twitter && it.connected })
             model.addAttribute("channelFacebook", all.find { it.type == ChannelType.facebook && it.connected })
             model.addAttribute("channelLinkedin", all.find { it.type == ChannelType.linkedin && it.connected })
+            model.addAttribute("channelTelegram", all.find { it.type == ChannelType.telegram && it.connected })
         } catch (ex: Exception) {
         }
     }

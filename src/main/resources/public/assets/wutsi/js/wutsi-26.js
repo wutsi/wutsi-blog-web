@@ -271,6 +271,8 @@ function Wutsi() {
             window.location.href = 'whatsapp://send?text=' + encodeURIComponent(xurl);
         } else if (target == 'messenger') {
             window.location.href = 'fb-messenger://share/?app_id=' + fbAppId + '&link=' + encodeURIComponent(xurl);
+        } else if (target == 'telegram') {
+            window.location.href = 'https://telegram.me/share/url?url=' + xurl + '&text=' + encodeURIComponent(title);
         }
 
         this.track('share-' + target);

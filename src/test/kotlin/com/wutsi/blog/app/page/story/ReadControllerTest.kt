@@ -142,6 +142,9 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
 
         assertElementAttribute(".share-box .btn-linkedin", "wutsi-share-target", "linkedin")
         assertElementAttribute(".share-box .btn-linkedin", "wutsi-story-id", "20")
+
+        assertElementAttribute(".share-box .btn-telegram", "wutsi-share-target", "telegram")
+        assertElementAttribute(".share-box .btn-telegram", "wutsi-story-id", "20")
     }
 
     @Test
