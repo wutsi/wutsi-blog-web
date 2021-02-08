@@ -1,11 +1,11 @@
 package com.wutsi.blog.app.page.follower
 
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.common.service.ViewService
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName
+import com.wutsi.core.logging.KVLogger
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 @RequestMapping("/follow/popup")
 class FollowPopupController(
-    private val viewService: ViewService,
     private val followService: FollowerService,
     private val userService: UserService,
-    private val requestContext: RequestContext
+    private val requestContext: RequestContext,
+    private val logger: KVLogger
 ) {
     companion object {
-        private val MAX_MONTHLY_FREE_VIEWED_STORIES = 3
         private val MAX_DAILY_IMPRESSION_COUNT = 3
     }
 
@@ -40,25 +39,36 @@ class FollowPopupController(
             model.addAttribute("user", requestContext.currentUser())
             model.addAttribute("followUrl", "${blog.slug}/follow")
             model.addAttribute("storyUrl", storyUrl)
+
+            logger.add("ShowPopup", true)
+        } else {
+            logger.add("ShowPopup", false)
         }
         return "page/follow/popup"
     }
 
-    private fun shouldShow(userId: Long): Boolean {
-        if (
-            impressionCount() >= MAX_DAILY_IMPRESSION_COUNT || /* Not too many impressions */
-            !requestContext.toggles().followPopup || /* Toggles enabled */
-            !requestContext.toggles().follow ||
-            requestContext.currentUser() == null || /* no current user */
-            !followService.canFollow(userId) /* user cannot follow the blog */
-        )
-            return false
+    private fun shouldShow(userId: Long): Boolean =
+        evaluateRuleToggle() &&
+            evaluateRuleImpressionCount() &&
+            evaluateRuleUserNotAnonymous() &&
+            evaluateRuleUserNotFollower(userId)
 
-        val storyIds = viewService.storiesViewedThisMonth()
-        return storyIds.size >= MAX_MONTHLY_FREE_VIEWED_STORIES
+    private fun evaluateRuleToggle(): Boolean {
+        val value = requestContext.toggles().followPopup &&
+            requestContext.toggles().follow
+        logger.add("RuleToggle", value)
+        return value
     }
 
-    fun impressionCount(): Int {
+    private fun evaluateRuleImpressionCount(): Boolean {
+        val count = impressionCount()
+        val value = count <= MAX_DAILY_IMPRESSION_COUNT
+        logger.add("ImpressionCount", count)
+        logger.add("RuleImpressionCount", value)
+        return value
+    }
+
+    private fun impressionCount(): Int {
         val value = CookieHelper.get(impressionKey(), requestContext.request)
             ?: return 0
         try {
@@ -66,6 +76,18 @@ class FollowPopupController(
         } catch (ex: Exception) {
             return 0
         }
+    }
+
+    private fun evaluateRuleUserNotAnonymous(): Boolean {
+        val value = requestContext.currentUser() != null
+        logger.add("RuleUserNotAnonymous", value)
+        return value
+    }
+
+    private fun evaluateRuleUserNotFollower(userId: Long): Boolean {
+        val value = followService.canFollow(userId)
+        logger.add("RuleUserNotFollower", value)
+        return value
     }
 
     private fun trackImpression() {
@@ -79,5 +101,5 @@ class FollowPopupController(
     }
 
     private fun impressionKey(): String =
-        CookieName.FOLLOW_DRAWER
+        CookieName.FOLLOW_POPUP
 }

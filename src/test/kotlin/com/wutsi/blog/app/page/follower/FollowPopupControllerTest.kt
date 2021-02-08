@@ -14,7 +14,6 @@ class FollowPopupControllerTest : SeleniumMobileTestSupport() {
         super.setupWiremock()
 
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-published.json")
-        stub(HttpMethod.POST, "/v1/view/search", HttpStatus.OK, "v1/view/search.json")
     }
 
     @Test
@@ -37,7 +36,8 @@ class FollowPopupControllerTest : SeleniumMobileTestSupport() {
         verifyDrawer()
 
         click("#follow-popup .btn-follow")
-        Thread.sleep(1000)
+
+        Thread.sleep(15000) // It takes 10s to display the popup!
         assertElementNotVisible("#follow-popup")
         assertElementNotVisible(".navbar .btn-follow")
         assertElementNotVisible(".follow-panel")
@@ -54,7 +54,7 @@ class FollowPopupControllerTest : SeleniumMobileTestSupport() {
 
         click("#follow-popup .btn-close")
 
-        Thread.sleep(1000)
+        Thread.sleep(15000) // It takes 10s to display the popup!
         assertElementNotVisible("#follow-popup")
         assertElementVisible(".navbar .btn-follow")
         assertElementVisible(".follow-panel")

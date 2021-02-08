@@ -1,4 +1,4 @@
-<div id="follow-popup" th:if="${show}">
+<div id="follow-popup" style="display:none" th:if="${show}">
     <div class="flex">
         <img class="margin-right" height="48" th:if="${user.pictureUrl}" th:src="${user.pictureUrl}" width="48"/>
         <div class="content">
@@ -35,11 +35,20 @@
                 follow_popup_close();
             });
 
-            wutsi.track('follow_popup_show');
+            setTimeout(function () {
+                follow_popup_show()
+            }, 10000);
         });
 
+        function follow_popup_show() {
+            $('#follow-popup').slideDown();
+            wutsi.track('follow_popup_show');
+            $('.content-main').addClass('follow-popup-content-below');
+        }
+
         function follow_popup_close() {
-            $('#follow-popup').hide()
+            $('#follow-popup').hide();
+            $('.content-main').removeClass('follow-popup-content-below');
         }
     </script>
 </div>

@@ -148,6 +148,7 @@ h1, h2, h3, h4, h5, h6 {
     animation: flash-highlight-annimation 3000ms ease-out;
 }
 
+
 @keyframes flash-highlight-annimation {
     0% {
         background-color: white;
@@ -1030,7 +1031,7 @@ a.sso-button .fab {
     position: fixed;
     right: 1em;
     top: 1em;
-    padding: 1em;
+    padding: 2em;
     width: 350px;
     z-index: 10000;
     font-size: 90%;
@@ -1042,6 +1043,10 @@ a.sso-button .fab {
 
 #follow-popup .buttons {
     text-align: center;
+}
+
+.follow-popup-content-below {
+    opacity: 50%;
 }
 
 /* ==== CHANNEL ====== */
