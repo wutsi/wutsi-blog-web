@@ -75,19 +75,19 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
         assertElementText(".author-card .bio", UserApiFixtures.DEFAULT_BIOGRAPHY)
 
         assertElementAttribute(".author-card .website", "href", "https://www.me.com/ray.sponsible")
-        assertElementAttribute(".author-card .website", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .website", "wutsi-track-event", "link-website")
         assertElementAttribute(".author-card .website", "wutsi-track-value", "website")
 
         assertElementAttribute(".author-card .facebook", "href", "https://www.facebook.com/ray.sponsible")
-        assertElementAttribute(".author-card .facebook", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .facebook", "wutsi-track-event", "link-facebook")
         assertElementAttribute(".author-card .facebook", "wutsi-track-value", "facebook")
 
         assertElementAttribute(".author-card .twitter", "href", "https://www.twitter.com/ray.sponsible")
-        assertElementAttribute(".author-card .twitter", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .twitter", "wutsi-track-event", "link-twitter")
         assertElementAttribute(".author-card .twitter", "wutsi-track-value", "twitter")
 
         assertElementAttribute(".author-card .linkedin", "href", "https://www.linkedin.com/in/ray.sponsible")
-        assertElementAttribute(".author-card .linkedin", "wutsi-track-event", "link")
+        assertElementAttribute(".author-card .linkedin", "wutsi-track-event", "link-linkedin")
         assertElementAttribute(".author-card .linkedin", "wutsi-track-value", "linkedin")
 
         assertElementText("h1", "Lorem Ipsum")
