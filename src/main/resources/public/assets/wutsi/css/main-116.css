@@ -263,6 +263,13 @@ nav.super-user {
     font-size: 0.8em;
 }
 
+.navbar .navbar-brand .blog-name {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
 .navbar .nav-link {
     padding: 0;
 }
@@ -1516,6 +1523,10 @@ and (orientation: portrait) {
     .container {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .navbar .navbar-brand .blog-name {
+        max-width: 150px;
     }
 
     .reader .content div.link-tool div.meta p.description {
