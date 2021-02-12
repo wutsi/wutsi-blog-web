@@ -109,7 +109,7 @@
             <span class="follower-count" th:if="${me.followerCount} == 1" th:utext="#{label.1_follower(${me.followerCountText})}">1 Follower</span>
             <span class="follower-count" th:if="${me.followerCount} GT 1" th:utext="#{label.n_followers(${me.followerCountText})}">40 Followers</span>
         </div>
-        <div class="text-small biography" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
+        <div class="text-small biography d-none d-md-block" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
     <div class="btn-container" th:if="${showFollowButton}">
         <div th:replace="components/follow :: follow-button(${me}, ${me.slug}, false, false)"></div>
