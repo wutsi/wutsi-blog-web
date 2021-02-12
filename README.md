@@ -1,8 +1,8 @@
 WebApp for the wutsi blog platform
 
 
-![](https://github.com/WutsiTeam/wutsi-blog-web/workflows/master/badge.svg)
-![](https://github.com/WutsiTeam/wutsi-blog-web/workflows/pull_request/badge.svg)
+![](https://github.com/wutsi/wutsi-blog-web/workflows/master/badge.svg)
+![](https://github.com/wutsi/wutsi-blog-web/workflows/pull_request/badge.svg)
 ![](https://img.shields.io/badge/jdk-1.8-brightgreen.svg)
 ![](https://img.shields.io/badge/language-kotlin-blue.svg)
 
