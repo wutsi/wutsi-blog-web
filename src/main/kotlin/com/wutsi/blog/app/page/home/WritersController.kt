@@ -42,7 +42,7 @@ class WritersController(
             SearchUserRequest(
                 blog = true,
                 limit = 20,
-                sortBy = UserSortStrategy.stories,
+                sortBy = UserSortStrategy.last_publication,
                 sortOrder = SortOrder.descending
             )
         ).filter {
