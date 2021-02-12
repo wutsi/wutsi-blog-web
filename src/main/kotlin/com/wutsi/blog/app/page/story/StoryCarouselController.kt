@@ -21,14 +21,14 @@ class StoryCarouselController(
 
     @GetMapping("/story/carousel")
     fun recommend(
-        @RequestParam(required = false) topicId: Long? = null,
+        @RequestParam(required = false, defaultValue = "-1") topicId: Long = -1,
         @RequestParam(required = false) title: String? = null,
         model: Model
     ): String {
         val stories = storyService.sort(
             stories = storyService.search(
                 SearchStoryRequest(
-                    topicId = topicId,
+                    topicId = if (topicId > -1) topicId else null,
                     sortBy = published,
                     limit = 20
                 )
