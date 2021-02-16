@@ -139,6 +139,7 @@ wutsi:
     channel-telegram: true          # Enable Telegram Channel
     comment: true                   # Enable Comments
     earning: true                   # Show Earnings
+    facebook-pixel: false           # Facebook Pixel - Disable since we are no longer doing ads on FB
     follow: true                    # Enable follow?
     follow-popup: true              # Display the Popup to Follow
     google-one-tap-sign-in: false   # Integration of Google One Tag signin - https://developers.google.com/identity/one-tap/web
