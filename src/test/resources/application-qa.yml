@@ -25,6 +25,7 @@ wutsi:
 
   toggles:
     coming-soon: false
+    facebook-pixel: true
     google-one-tap-sign-in: false
     pwa-add-to-homescreen: true
     pwa-badge: false
