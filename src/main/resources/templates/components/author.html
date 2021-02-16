@@ -105,9 +105,10 @@
         <a class="full-name" th:href="${me.slug}" th:text="${me.fullName}" th:title="${me.fullName}">Ray Sponsible</a>
         <div class="text-small">
             @<span class="name" th:text="${me.name}">ray.sponsible</span>
-
-            <span class="follower-count" th:if="${me.followerCount} == 1" th:utext="#{label.1_follower(${me.followerCountText})}">1 Follower</span>
-            <span class="follower-count" th:if="${me.followerCount} GT 1" th:utext="#{label.n_followers(${me.followerCountText})}">40 Followers</span>
+        </div>
+        <div class="text-small">
+            <span th:if="${me.followerCount} == 1" th:utext="#{label.1_follower(${me.followerCountText})}">1 Follower</span>
+            <span th:if="${me.followerCount} GT 1" th:utext="#{label.n_followers(${me.followerCountText})}">40 Followers</span>
         </div>
         <div class="text-small biography d-none d-md-block" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class BlogController(
@@ -31,6 +32,11 @@ class BlogController(
     private val pinService: PinService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
+    companion object {
+        const val STORY_PAGE_SIZE: Int = 10
+        const val VIEWED_STORIES_TTL_HOURS: Int = 7 * 24
+    }
+
     override fun pageName() = PageName.BLOG
 
     override fun shouldBeIndexedByBots() = true
@@ -53,9 +59,21 @@ class BlogController(
             loadReader(followingUserIds, blog, model)
     }
 
+    @GetMapping("/@/{name}/my-stories")
+    fun myStories(@PathVariable name: String, @RequestParam offset: Int, model: Model): String {
+        val blog = userService.get(name)
+        val stories = loadMyStories(blog, null, model, offset)
+
+        model.addAttribute("blog", blog)
+        model.addAttribute("stories", stories)
+
+        return "page/blog/stories"
+    }
+
     private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
         val pin = loadPin(blog, model)
-        val stories = loadMyStories(blog, pin, model, 50)
+        val stories = loadMyStories(blog, pin, model)
+
         loadFollowingStories(followingUserIds, model, 10)
         loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, model)
@@ -63,48 +81,32 @@ class BlogController(
         return "page/blog/writer"
     }
 
-    private fun loadReader(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        loadFollowingStories(followingUserIds, model, 50)
-        loadLatestStories(blog, followingUserIds, model)
-        return "page/blog/reader"
-    }
-
-    private fun loadMyStories(blog: UserModel, pin: PinModel?, model: Model, limit: Int): List<StoryModel> {
-        val request = SearchStoryRequest(
-            userIds = listOf(blog.id),
-            status = StoryStatus.published,
-            live = true,
-            sortBy = StorySortStrategy.published,
-            sortOrder = SortOrder.descending,
-            limit = limit
+    private fun loadMyStories(blog: UserModel, pin: PinModel?, model: Model, offset: Int = 0): List<StoryModel> {
+        val limit = STORY_PAGE_SIZE
+        val stories = storyService.search(
+            pin = pin,
+            request = SearchStoryRequest(
+                userIds = listOf(blog.id),
+                status = StoryStatus.published,
+                live = true,
+                sortBy = StorySortStrategy.published,
+                sortOrder = SortOrder.descending,
+                limit = limit,
+                offset = offset
+            )
         )
 
-        var stories = storyService.search(request, pin)
-        if (!stories.isEmpty()) {
-            if (shouldSortStories(blog)) {
-                stories = storyService.sort(
-                    stories = stories,
-                    bubbleDownViewedStories = true,
-                    algorithm = most_recent,
-                    statsHoursOffset = 24 * 7
-                )
-            }
+        val xstories = bubbleDownViewedStories(stories, blog)
+        val result = pinStory(xstories, pin?.storyId)
 
-            model.addAttribute("myStories", pinStory(stories, pin?.storyId))
+        model.addAttribute("myStories", result)
+
+        if (result.size >= limit) {
+            val nextOffset = offset + limit;
+            model.addAttribute("moreUrl", "/@/${blog.name}/my-stories?offset=$nextOffset")
+            model.addAttribute("nextOffset", nextOffset)
+            model.addAttribute("offset", offset)
         }
-        return stories
-    }
-
-    private fun shouldSortStories(blog: UserModel): Boolean =
-        blog.id != requestContext.currentUser()?.id
-
-    private fun pinStory(stories: List<StoryModel>, pinnedStoryId: Long?): List<StoryModel> {
-        val pinnedStory = stories.find { it.id == pinnedStoryId }
-            ?: return stories
-
-        val result = mutableListOf<StoryModel>()
-        result.add(pinnedStory)
-        result.addAll(stories.filter { it.id != pinnedStory.id })
         return result
     }
 
@@ -159,6 +161,37 @@ class BlogController(
         )
 
         model.addAttribute("latestStories", latestStories.take(5))
+    }
+
+    private fun bubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): List<StoryModel> {
+        if (!shouldBubbleDownViewedStories(stories, blog))
+            return stories
+
+        return storyService.sort(
+            stories = stories,
+            bubbleDownViewedStories = true,
+            algorithm = most_recent,
+            statsHoursOffset = VIEWED_STORIES_TTL_HOURS
+        )
+    }
+
+    private fun shouldBubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): Boolean =
+        stories.isNotEmpty() && blog.id != requestContext.currentUser()?.id
+
+    private fun pinStory(stories: List<StoryModel>, pinnedStoryId: Long?): List<StoryModel> {
+        val pinnedStory = stories.find { it.id == pinnedStoryId }
+            ?: return stories
+
+        val result = mutableListOf<StoryModel>()
+        result.add(pinnedStory)
+        result.addAll(stories.filter { it.id != pinnedStory.id })
+        return result
+    }
+
+    private fun loadReader(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
+        loadFollowingStories(followingUserIds, model, 50)
+        loadLatestStories(blog, followingUserIds, model)
+        return "page/blog/reader"
     }
 
     private fun loadPin(blog: UserModel, model: Model): PinModel? {

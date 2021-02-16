@@ -175,15 +175,22 @@ class StoryService(
 
     private fun searchUserMap(stories: List<StorySummaryDto>): Map<Long, UserModel?> {
         val userIds = stories.map { it.userId }.toSet().toList()
-        return userService.search(
-            SearchUserRequest(
-                userIds = userIds,
-                limit = userIds.size,
-                offset = 0
+        if (userIds.isEmpty()) {
+            return emptyMap()
+        } else if (userIds.size == 1) {
+            val user = userService.get(userIds[0])
+            return mapOf(user.id to user)
+        } else {
+            return userService.search(
+                SearchUserRequest(
+                    userIds = userIds,
+                    limit = userIds.size,
+                    offset = 0
+                )
             )
-        )
-            .map { it.id to it }
-            .toMap()
+                .map { it.id to it }
+                .toMap()
+        }
     }
 
     fun generateHtmlContent(story: StoryModel): String {
