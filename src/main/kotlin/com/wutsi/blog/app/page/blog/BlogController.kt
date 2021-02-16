@@ -102,7 +102,7 @@ class BlogController(
         model.addAttribute("myStories", result)
 
         if (result.size >= limit) {
-            val nextOffset = offset + limit;
+            val nextOffset = offset + limit
             model.addAttribute("moreUrl", "/@/${blog.name}/my-stories?offset=$nextOffset")
             model.addAttribute("nextOffset", nextOffset)
             model.addAttribute("offset", offset)
