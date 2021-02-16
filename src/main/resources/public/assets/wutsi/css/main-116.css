@@ -1518,6 +1518,11 @@ and (orientation: portrait) {
         padding-right: 0;
     }
 
+    .reader .content figure img {
+        width: 400px;
+        height: 180px;
+    }
+
     .reader .content div.link-tool div.meta p.description {
         display: none;
     }
@@ -1574,6 +1579,15 @@ and (orientation: portrait) {
         max-height: 180px;
         overflow: hidden;
     }
+
+    .story-card img {
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+        width: 400px;
+        height: 180px;
+    }
+
 
     /* ===== WIDGET CONTAINER ==== */
     .reader .widget-container {
