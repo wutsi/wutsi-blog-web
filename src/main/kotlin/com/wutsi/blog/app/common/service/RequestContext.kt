@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.common.service
 
+import au.com.flyingkite.mobiledetect.UAgentInfo
 import com.wutsi.blog.app.backend.AuthenticationBackend
-import com.wutsi.blog.app.backend.ViewBackend
 import com.wutsi.blog.app.page.login.model.SessionModel
 import com.wutsi.blog.app.page.login.service.AccessTokenStorage
 import com.wutsi.blog.app.page.login.service.SessionMapper
@@ -10,8 +10,6 @@ import com.wutsi.blog.app.page.settings.service.UserMapper
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.security.service.SecurityManager
-import com.wutsi.blog.client.view.SearchViewRequest
-import com.wutsi.blog.client.view.ViewDto
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
@@ -21,9 +19,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.stereotype.Component
-import java.util.Date
 import java.util.Locale
-import java.util.Optional
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -33,7 +29,6 @@ class RequestContext(
     private val mapper: UserMapper,
     private val authBackend: AuthenticationBackend,
     private val userApi: UserApi,
-    private val viewBackend: ViewBackend,
     private val togglesHolder: TogglesHolder,
     private val tokenStorage: AccessTokenStorage,
     private val localization: LocalizationService,
@@ -51,22 +46,17 @@ class RequestContext(
     private var user: UserModel? = null
     private var superUser: UserModel? = null
     private var session: SessionModel? = null
-    private var lastView: Optional<ViewDto>? = null
+    private var mobileUserAgent: Boolean? = null
 
-    fun lastViewDate(): Date? {
-        if (lastView == null) {
-            val user = currentUser()
-            val views = viewBackend.search(
-                SearchViewRequest(
-                    userId = user?.id,
-                    deviceId = device.get(request),
-                    limit = 1
-                )
-            ).views
-            lastView = if (views.isEmpty()) Optional.empty() else Optional.of(views[0])
+    fun isMobileUserAgent(): Boolean {
+        if (mobileUserAgent == null) {
+            val ua = UAgentInfo(
+                request.getHeader("User-Agent"),
+                request.getHeader("Accept")
+            )
+            mobileUserAgent = ua.detectMobileQuick()
         }
-
-        return lastView?.map { it.viewDateTime }?.orElse(null)
+        return mobileUserAgent!!
     }
 
     fun deviceId(): String = device.get(request)
