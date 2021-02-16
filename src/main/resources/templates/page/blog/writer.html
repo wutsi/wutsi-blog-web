@@ -33,6 +33,8 @@
             <div th:if="!${myStories} OR ${myStories.size() LT 2}">
                 <div th:replace="components/follow :: who-to-follow"></div>
             </div>
+
+            <div th:replace="components/story :: load-more(${moreUrl})"></div>
         </div>
 
         <div class="col-12 col-lg-4 content-sidebar">
