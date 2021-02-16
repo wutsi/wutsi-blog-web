@@ -1586,6 +1586,12 @@ and (orientation: portrait) {
         overflow: hidden;
     }
 
+    .story-card img {
+        width: 400px;
+        height: 180px;
+    }
+
+
     /* ===== WIDGET CONTAINER ==== */
     .reader .widget-container {
         background: white;
