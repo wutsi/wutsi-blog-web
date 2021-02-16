@@ -22,3 +22,11 @@ spaces_around_brackets = outside
 spaces_around_operators = false
 wildcard_import_limit = 99
 max_line_length = off
+
+[*.html]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_style = unset
+indent_size = unset
