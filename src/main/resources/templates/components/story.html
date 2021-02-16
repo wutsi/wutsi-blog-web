@@ -138,11 +138,12 @@
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
-            <img class="border lozad"
+            <img class="lozad"
                  th:alt="${story.title}"
                  th:data-src="${story.thumbnailImage.src}"
                  th:data-srcset="${story.thumbnailImage.srcset}"
                  th:sizes="${story.thumbnailImage.sizes}"
+                 th:src="${page.assetUrl} + '/assets/wutsi/img/empty-image.png'"
             />
         </div>
 
@@ -194,6 +195,7 @@
                  th:data-srcset="${story.thumbnailImage.srcset}"
                  th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
                  th:sizes="${story.thumbnailImage.sizes}"
+                 th:src="${page.assetUrl} + '/assets/wutsi/img/empty-image.png'"
             />
         </a>
     </div>

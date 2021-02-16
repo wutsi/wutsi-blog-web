@@ -40,6 +40,10 @@ wutsi:
   asset-url: ""
   domain: localhost
   base-url: "http://${wutsi.domain}:8081"
+  thumbnail:
+    mobile:
+      width: 400
+      height: 180
 
   aws:
     s3:

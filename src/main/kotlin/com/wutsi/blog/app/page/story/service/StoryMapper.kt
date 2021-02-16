@@ -1,7 +1,9 @@
 package com.wutsi.blog.app.page.story.service
 
+import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.common.service.Moment
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityModel
 import com.wutsi.blog.app.page.editor.model.ReadabilityRuleModel
@@ -12,6 +14,7 @@ import com.wutsi.blog.client.story.ReadabilityDto
 import com.wutsi.blog.client.story.StoryDto
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -24,7 +27,12 @@ class StoryMapper(
     private val topicService: TopicService,
     private val moment: Moment,
     private val htmlImageMapper: HtmlImageModelMapper,
-    private val localizationService: LocalizationService
+    private val localizationService: LocalizationService,
+    private val imageKit: ImageKitService,
+    private val requestContext: RequestContext,
+
+    @Value("\${wutsi.thumbnail.mobile.width}") private val mobileThumbnailWidth: Int,
+    @Value("\${wutsi.thumbnail.mobile.height}") private val mobileThumbnailHeight: Int
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -38,7 +46,7 @@ class StoryMapper(
             title = nullToEmpty(story.title),
             tagline = nullToEmpty(story.tagline),
             contentType = story.contentType,
-            thumbnailUrl = if (story.thumbnailUrl == null) null else story.thumbnailUrl,
+            thumbnailUrl = generateThubmailUrl(story.thumbnailUrl),
             thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
             wordCount = story.wordCount,
             sourceUrl = story.sourceUrl,
@@ -79,7 +87,7 @@ class StoryMapper(
         id = story.id,
         title = nullToEmpty(story.title),
         tagline = nullToEmpty(story.tagline),
-        thumbnailUrl = story.thumbnailUrl,
+        thumbnailUrl = generateThubmailUrl(story.thumbnailUrl),
         thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
         wordCount = story.wordCount,
         sourceUrl = story.sourceUrl,
@@ -138,5 +146,17 @@ class StoryMapper(
 
         val fmt = DateFormat.getDateInstance(DateFormat.MEDIUM, localizationService.getLocale())
         return fmt.format(date)
+    }
+
+    private fun generateThubmailUrl(url: String?): String? {
+        if (url == null || !requestContext.isMobileUserAgent()) {
+            return url
+        } else {
+            return imageKit.transform(
+                url = url,
+                width = mobileThumbnailWidth.toString(),
+                height = mobileThumbnailWidth.toString()
+            )
+        }
     }
 }
