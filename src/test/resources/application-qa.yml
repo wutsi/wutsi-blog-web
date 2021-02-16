@@ -22,7 +22,6 @@ wutsi:
     start-date: "2020-09-01"
     end-date: "2030-10-01"
 
-
   toggles:
     coming-soon: false
     facebook-pixel: true
