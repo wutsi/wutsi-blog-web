@@ -11,7 +11,7 @@ class ImageKitService(
 ) {
     fun accept(url: String?) = enabled && url?.startsWith(originUrl) == true
 
-    fun transform(url: String?, width: String? = null, height: String? = null): String? {
+    fun transform(url: String?, width: String? = null, height: String? = null, autoFocus: Boolean = false): String? {
         if (!accept(url)) {
             return url
         }
@@ -20,11 +20,11 @@ class ImageKitService(
         val i = xurl.lastIndexOf('/')
         val prefix = xurl.substring(0, i)
         val suffix = xurl.substring(i)
-        val tr = transformations(width, height)
+        val tr = transformations(width, height, autoFocus)
         return prefix + tr + suffix
     }
 
-    private fun transformations(width: String? = null, height: String? = null, autoFocus: Boolean = true): String {
+    private fun transformations(width: String? = null, height: String? = null, autoFocus: Boolean): String {
         if (width == null && height == null) {
             return ""
         }

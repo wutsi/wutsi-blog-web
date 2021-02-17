@@ -162,13 +162,15 @@ class StoryMapper(
                 return imageKit.transform(
                     url = url,
                     width = mobileThumbnailSmallWidth.toString(),
-                    height = mobileThumbnailSmallHeight.toString()
+                    height = mobileThumbnailSmallHeight.toString(),
+                    autoFocus = true
                 )
             } else {
                 return imageKit.transform(
                     url = url,
                     width = mobileThumbnailLargeWidth.toString(),
-                    height = mobileThumbnailLargeHeight.toString()
+                    height = mobileThumbnailLargeHeight.toString(),
+                    autoFocus = true
                 )
             }
         }
