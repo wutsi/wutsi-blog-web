@@ -51,7 +51,6 @@ class BlogController(
         model.addAttribute("blog", blog)
         model.addAttribute("page", getPage(blog))
 
-
         return if (blog.blog)
             loadWriter(blog, model)
         else {
