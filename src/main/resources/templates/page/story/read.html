@@ -131,8 +131,8 @@
 <script src="https://player.vimeo.com/api/player.js" th:if="${hasVimeoEmbed}"></script>
 <script th:if="${hasVimeoEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-1.js'"></script>
 
-<link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.css'" th:if="${hasCode} OR ${hasRaw}" type="text/css"/>
-<script th:if="${hasCode} OR ${hasRaw}" th:src="${page.assetUrl} + '/assets/prettify/js/prettify.js'"></script>
+<link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.min.css'" th:if="${hasCode} OR ${hasRaw}" type="text/css"/>
+<script th:if="${hasCode} OR ${hasRaw}" th:src="${page.assetUrl} + '/assets/prettify/js/prettify.min.js'"></script>
 
 <script id="track-script" th:if="!${user} OR ${user.id} != ${story.user.id}" th:inline="javascript">
     /*<![CDATA[*/

@@ -54,8 +54,8 @@ wutsi:
           width: 400
           height: 252
         small:
-          width: 100
-          height: 52
+          width: 150
+          height:94
 
   thumbnail:
     mobile:

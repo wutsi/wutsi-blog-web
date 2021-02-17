@@ -24,21 +24,26 @@ class ImageKitService(
         return prefix + tr + suffix
     }
 
-    private fun transformations(width: String? = null, height: String? = null): String {
+    private fun transformations(width: String? = null, height: String? = null, autoFocus: Boolean = true): String {
         if (width == null && height == null) {
             return ""
         }
         val sb = StringBuilder()
-        sb.append("/tr:")
         if (width != null) {
             sb.append("w-$width")
         }
         if (height != null) {
-            if (width != null) {
+            if (!sb.isEmpty()) {
                 sb.append(",")
             }
             sb.append("h-$height")
         }
-        return sb.toString()
+        if (autoFocus) {
+            if (!sb.isEmpty()) {
+                sb.append(",")
+            }
+            sb.append("fo-auto")
+        }
+        return "/tr:" + sb.toString()
     }
 }

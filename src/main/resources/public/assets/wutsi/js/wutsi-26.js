@@ -276,12 +276,12 @@ function Wutsi() {
         }
 
         this.track('share-' + target);
-    }
+    };
 
     this.follow = function (name, returnUrl) {
         const url = '/@/' + name + '/follow?return=' + encodeURIComponent(returnUrl) + '&page=' + this.page_name() + '&hitId=' + this.hit_id() + '&storyId=' + this.story_id();
         document.location.href = url;
-    }
+    };
 
     this.linkify = function (selector) {
         $(selector).each(function () {
@@ -289,7 +289,7 @@ function Wutsi() {
             const xtext = text.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a target="_new" href="$1">$1</a> ');
             $(this).html(xtext);
         });
-    }
+    };
 
     this.cookie = function (name) {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -310,7 +310,7 @@ function Wutsi() {
         var meta = document.head.querySelector("[name=wutsi\\:hit_id]");
         return meta ? meta.content : null
     };
-}
+};
 
 var wutsi = new Wutsi();
 
