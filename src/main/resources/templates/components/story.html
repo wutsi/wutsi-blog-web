@@ -44,7 +44,6 @@
 </ul>
 
 <div class="story col-12" th:fragment="listitem(story)">
-
     <a th:href="${story.draft} OR !${story.live} ? '/editor/' + ${story.id} : ${story.slug}">
         <h3 class="title">
             <span th:text="${story.title}">Title</span>
@@ -137,12 +136,10 @@
        th:wutsi-track-value="${story.id}">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
-        <div class="img-container margin-bottom" th:if="${story.thumbnailImage}">
+        <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
             <img class="lozad"
                  th:alt="${story.title}"
-                 th:data-src="${story.thumbnailImage.src}"
-                 th:data-srcset="${story.thumbnailImage.srcset}"
-                 th:sizes="${story.thumbnailImage.sizes}"
+                 th:data-src="${story.thumbnailLargeUrl}"
                  th:src="${page.assetUrl} + '/assets/wutsi/img/empty-image.png'"
             />
         </div>
@@ -183,7 +180,7 @@
         <div th:replace="components/story :: widgets(${story}, false)"></div>
     </div>
 
-    <div class="img-container" th:if="${story.thumbnailImage}">
+    <div class="img-container" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
         <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
            th:href="${story.slug}"
            th:title="${story.title}"
@@ -191,10 +188,7 @@
            th:wutsi-track-value="${story.id}"
         >
             <img class="lozad"
-                 th:data-src="${story.thumbnailImage.src}"
-                 th:data-srcset="${story.thumbnailImage.srcset}"
-                 th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}"
-                 th:sizes="${story.thumbnailImage.sizes}"
+                 th:data-src="${story.thumbnailSmallUrl}"
                  th:src="${page.assetUrl} + '/assets/wutsi/img/empty-image.png'"
             />
         </a>

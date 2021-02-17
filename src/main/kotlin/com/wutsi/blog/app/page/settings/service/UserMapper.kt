@@ -5,17 +5,22 @@ import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
 import com.wutsi.core.util.NumberUtils
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.Locale
 
 @Service
-class UserMapper(private val imageKit: ImageKitService) {
+class UserMapper(
+    private val imageKit: ImageKitService,
+    @Value("\${wutsi.image.user.small.width}") private val pictureSmallWidth: Int
+) {
     fun toUserModel(user: UserDto) = UserModel(
         id = user.id,
         name = user.name,
         biography = user.biography,
         fullName = user.fullName,
-        pictureUrl = pictureUrl(user.pictureUrl),
+        pictureUrl = user.pictureUrl,
+        pictureSmallUrl = imageKit.transform(user.pictureUrl, pictureSmallWidth.toString()),
         websiteUrl = user.websiteUrl,
         email = user.email,
         loginCount = user.loginCount,
@@ -60,7 +65,8 @@ class UserMapper(private val imageKit: ImageKitService) {
         id = user.id,
         name = user.name,
         fullName = user.fullName,
-        pictureUrl = pictureUrl(user.pictureUrl),
+        pictureUrl = user.pictureUrl,
+        pictureSmallUrl = imageKit.transform(user.pictureUrl, pictureSmallWidth.toString()),
         slug = slug(user),
         biography = user.biography,
         storyCount = user.storyCount,
@@ -68,6 +74,4 @@ class UserMapper(private val imageKit: ImageKitService) {
         hasFollowers = user.followerCount > 0,
         followerCountText = NumberUtils.toHumanReadable(user.followerCount)
     )
-
-    private fun pictureUrl(url: String?) = if (url == null) null else imageKit.transform(url, "128px")
 }

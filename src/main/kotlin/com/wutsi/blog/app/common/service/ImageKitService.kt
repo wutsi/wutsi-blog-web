@@ -9,14 +9,14 @@ class ImageKitService(
     @Value("\${wutsi.image-kit.origin-url}") private val originUrl: String,
     @Value("\${wutsi.image-kit.endpoint-url}") private val endpoint: String
 ) {
-    fun accept(url: String) = enabled && url.startsWith(originUrl)
+    fun accept(url: String?) = enabled && url?.startsWith(originUrl) == true
 
-    fun transform(url: String, width: String? = null, height: String? = null): String {
+    fun transform(url: String?, width: String? = null, height: String? = null): String? {
         if (!accept(url)) {
             return url
         }
 
-        val xurl = endpoint + url.substring(originUrl.length)
+        val xurl = endpoint + url?.substring(originUrl.length)
         val i = xurl.lastIndexOf('/')
         val prefix = xurl.substring(0, i)
         val suffix = xurl.substring(i)

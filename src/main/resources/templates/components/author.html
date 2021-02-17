@@ -4,7 +4,7 @@
 
 <div class="author-card" th:fragment="card(me, showPicture)" th:with="inBlogPage=${page.name == 'page.blog'}">
     <a th:href="${me.slug}" th:if="${showPicture}" th:title="${me.fullName}">
-        <img class="margin-right" th:alt="${me.fullName}" th:src="${me.pictureUrl}"/></a>
+        <img class="margin-right" th:alt="${me.fullName}" th:src="${me.pictureSmallUrl}"/></a>
 
     <div>
         <h1 th:if="${inBlogPage}" th:text="${me.fullName}">Ray Sponsible</h1>
@@ -99,7 +99,7 @@
 
 <div class="author-summary-card" th:fragment="summary-card(me, showFollowButton, showUnfollowButton)">
     <a th:href="${me.slug}">
-        <img class="margin-right" th:alt="${me.fullName}" th:src="${me.pictureUrl}"/>
+        <img class="margin-right" th:alt="${me.fullName}" th:src="${me.pictureSmallUrl}"/>
     </a>
     <div>
         <a class="full-name" th:href="${me.slug}" th:text="${me.fullName}" th:title="${me.fullName}">Ray Sponsible</a>

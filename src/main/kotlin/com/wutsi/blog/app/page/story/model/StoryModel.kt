@@ -13,6 +13,8 @@ data class StoryModel(
     val tagline: String = "",
     val thumbnailImage: HtmlImageModel? = null,
     val thumbnailUrl: String? = null,
+    val thumbnailLargeUrl: String? = null,
+    val thumbnailSmallUrl: String? = null,
     val sourceUrl: String? = null,
     val sourceSite: String? = null,
     val wordCount: Int = 0,
