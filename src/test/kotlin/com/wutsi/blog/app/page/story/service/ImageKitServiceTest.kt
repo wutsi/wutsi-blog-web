@@ -32,6 +32,14 @@ class ImageKitServiceTest {
     }
 
     @Test
+    fun transformWithFocus() {
+        val url = "http://www.google.com/img/a/b/1.png"
+        val result = service.transform(url, "400px", "150px", true)
+
+        assertEquals("http://www.imagekit.io/43043094/img/a/b/tr:w-400px,h-150px,fo-auto/1.png", result)
+    }
+
+    @Test
     fun transformNone() {
         val url = "http://www.google.com/img/a/b/1.png"
         val result = service.transform(url)

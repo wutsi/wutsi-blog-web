@@ -409,6 +409,56 @@
           <!-- additional 3rd party ruleset(s) can be specified here -->
         </dependencies>
       </plugin>
+
+      <!-- JS minification -->
+      <plugin>
+        <groupId>com.github.blutorange</groupId>
+        <artifactId>closure-compiler-maven-plugin</artifactId>
+        <version>2.21.0</version>
+        <configuration>
+          <baseSourceDir>${project.basedir}/src/main/resources</baseSourceDir>
+          <baseTargetDir>${project.build.directory}/classes</baseTargetDir>
+        </configuration>
+        <executions>
+          <execution>
+            <id>default-minify</id>
+            <configuration>
+              <encoding>UTF-8</encoding>
+              <sourceDir>public/assets/wutsi</sourceDir>
+              <targetDir>public/assets/wutsi</targetDir>
+              <outputFilename>#{path}/#{basename}.#{extension}</outputFilename>
+              <includes>**/*.js</includes>
+              <excludes>**/*.min.js</excludes>
+              <skipMerge>true</skipMerge>
+              <closureLanguageOut>ECMASCRIPT5</closureLanguageOut>
+            </configuration>
+            <goals>
+              <goal>minify</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- CSS minification -->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <version>1.5.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <force>true</force>
+          <nosuffix>true</nosuffix>
+          <includes>**/*.css</includes>
+          <excludes>**/*.min.css</excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 

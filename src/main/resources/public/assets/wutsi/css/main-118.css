@@ -1577,8 +1577,12 @@ and (orientation: portrait) {
     }
 
     /*==== STORY COMPONENT ===== */
+    .story-summary-card .img-container {
+        max-width: 150px;
+    }
+
     .story-summary-card img {
-        width: 100px;
+        width: 150px;
     }
 
     .story-card .img-container {
