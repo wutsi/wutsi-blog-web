@@ -31,8 +31,10 @@ class StoryMapper(
     private val imageKit: ImageKitService,
     private val requestContext: RequestContext,
 
-    @Value("\${wutsi.thumbnail.mobile.width}") private val mobileThumbnailWidth: Int,
-    @Value("\${wutsi.thumbnail.mobile.height}") private val mobileThumbnailHeight: Int
+    @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int,
+    @Value("\${wutsi.image.story.mobile.large.height}") private val mobileThumbnailLargeHeight: Int,
+    @Value("\${wutsi.image.story.mobile.small.width}") private val mobileThumbnailSmallWidth: Int,
+    @Value("\${wutsi.image.story.mobile.small.height}") private val mobileThumbnailSmallHeight: Int
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -46,7 +48,9 @@ class StoryMapper(
             title = nullToEmpty(story.title),
             tagline = nullToEmpty(story.tagline),
             contentType = story.contentType,
-            thumbnailUrl = generateThubmailUrl(story.thumbnailUrl),
+            thumbnailUrl = story.thumbnailUrl,
+            thumbnailLargeUrl = generateThubmailUrl(story.thumbnailUrl, false),
+            thumbnailSmallUrl = generateThubmailUrl(story.thumbnailUrl, true),
             thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
             wordCount = story.wordCount,
             sourceUrl = story.sourceUrl,
@@ -87,7 +91,9 @@ class StoryMapper(
         id = story.id,
         title = nullToEmpty(story.title),
         tagline = nullToEmpty(story.tagline),
-        thumbnailUrl = generateThubmailUrl(story.thumbnailUrl),
+        thumbnailUrl = story.thumbnailUrl,
+        thumbnailLargeUrl = generateThubmailUrl(story.thumbnailUrl, false),
+        thumbnailSmallUrl = generateThubmailUrl(story.thumbnailUrl, true),
         thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
         wordCount = story.wordCount,
         sourceUrl = story.sourceUrl,
@@ -148,15 +154,23 @@ class StoryMapper(
         return fmt.format(date)
     }
 
-    private fun generateThubmailUrl(url: String?): String? {
+    private fun generateThubmailUrl(url: String?, small: Boolean): String? {
         if (url == null || !requestContext.isMobileUserAgent()) {
             return url
         } else {
-            return imageKit.transform(
-                url = url,
-                width = mobileThumbnailWidth.toString(),
-                height = mobileThumbnailWidth.toString()
-            )
+            if (small) {
+                return imageKit.transform(
+                    url = url,
+                    width = mobileThumbnailSmallWidth.toString(),
+                    height = mobileThumbnailSmallHeight.toString()
+                )
+            } else {
+                return imageKit.transform(
+                    url = url,
+                    width = mobileThumbnailLargeWidth.toString(),
+                    height = mobileThumbnailLargeHeight.toString()
+                )
+            }
         }
     }
 }

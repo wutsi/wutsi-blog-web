@@ -40,6 +40,23 @@ wutsi:
   asset-url: ""
   domain: localhost
   base-url: "http://${wutsi.domain}:8081"
+  image:
+    user:
+      small:
+        width: 128
+        height: 128
+    story:
+      large:
+        width: 1200
+        height: 630
+      mobile:
+        large:
+          width: 400
+          height: 252
+        small:
+          width: 100
+          height: 52
+
   thumbnail:
     mobile:
       width: 400
