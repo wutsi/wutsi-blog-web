@@ -33,7 +33,8 @@ class BlogController(
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     companion object {
-        const val STORY_PAGE_SIZE: Int = 10
+        const val MAIN_PAGE_SIZE: Int = 10
+        const val SIDEBAR_SIZE: Int = 10
         const val VIEWED_STORIES_TTL_HOURS: Int = 7 * 24
     }
 
@@ -50,13 +51,14 @@ class BlogController(
         model.addAttribute("blog", blog)
         model.addAttribute("page", getPage(blog))
 
-        val followingUserIds = followerService.searchFollowingUserIds()
-            .filter { it != blog.id }
-
         return if (blog.blog)
-            loadWriter(followingUserIds, blog, model)
-        else
+            loadWriter(blog, model)
+        else {
+            val followingUserIds = followerService.searchFollowingUserIds()
+                .filter { it != blog.id }
+
             loadReader(followingUserIds, blog, model)
+        }
     }
 
     @GetMapping("/@/{name}/my-stories")
@@ -70,19 +72,52 @@ class BlogController(
         return "page/blog/stories"
     }
 
-    private fun loadWriter(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
+    @GetMapping("/@/{name}/writer-sidebar")
+    fun writerSidebar(@PathVariable name: String, model: Model): String {
+        // Blog
+        val blog = userService.get(name)
+        model.addAttribute("blog", blog)
+        model.addAttribute("user", requestContext.currentUser())
+
+        // Recent stories
+        val stories = storyService.search(
+            SearchStoryRequest(
+                status = StoryStatus.published,
+                live = true,
+                sortBy = StorySortStrategy.published,
+                sortOrder = SortOrder.descending,
+                limit = 2 * SIDEBAR_SIZE
+            )
+        ).filter { it.user.id != blog.id }
+
+        // Filter follower stories
+        val followingUserIds = followerService.searchFollowingUserIds()
+            .filter { it != blog.id }
+        val followingStories = stories.filter { followingUserIds.contains(it.user.id) }
+        model.addAttribute("followingStories", followingStories)
+
+        // Recent stories
+        val followingStoryIds = followingStories.map { it.id }
+        val latestStories = stories.filter { !followingStoryIds.contains(it.id) }
+        model.addAttribute("latestStories", latestStories)
+
+        return "page/blog/writer_sidebar"
+    }
+
+    private fun loadWriter(blog: UserModel, model: Model): String {
         val pin = loadPin(blog, model)
         val stories = loadMyStories(blog, pin, model)
 
-        loadFollowingStories(followingUserIds, model, 10)
-        loadLatestStories(blog, followingUserIds, model)
         shouldShowFollowButton(blog, model)
         shouldShowCreateStory(blog, stories, model)
+
+        model.addAttribute("sidebarUrl", "/@/${blog.name}/writer-sidebar")
+
         return "page/blog/writer"
     }
 
     private fun loadMyStories(blog: UserModel, pin: PinModel?, model: Model, offset: Int = 0): List<StoryModel> {
-        val limit = STORY_PAGE_SIZE
+        val limit = MAIN_PAGE_SIZE
         val stories = storyService.search(
             pin = pin,
             request = SearchStoryRequest(
@@ -157,7 +192,7 @@ class BlogController(
             stories = latestStoryMap.values.toList(),
             algorithm = SortAlgorithmType.no_sort,
             bubbleDownViewedStories = true,
-            statsHoursOffset = 7 * 24
+            statsHoursOffset = VIEWED_STORIES_TTL_HOURS
         )
 
         model.addAttribute("latestStories", latestStories.take(5))
