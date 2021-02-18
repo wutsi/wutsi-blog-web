@@ -1617,11 +1617,3 @@ and (orientation: portrait) {
         width: 100%
     }
 }
-
-/*@media screen*/
-/*  and (min-device-width: 1200px) {*/
-/*    .post .img-container {*/
-/*        max-height: 320px;*/
-/*        overflow: hidden;*/
-/*    }*/
-/*}*/
