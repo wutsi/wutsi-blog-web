@@ -55,16 +55,8 @@
 
     <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/wutsi/img/favicon.ico'"/>
 
-    <!-- BEGIN: FONTAWESOME-->
-    <script type="text/css">
-        /* Content from public/assets/wutsi/css/fontawesome-preload-v5.7.2.css  */
-        @font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(../webfonts/fa-brands-400.eot);src:url(../webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(../webfonts/fa-brands-400.woff2) format("woff2"),url(../webfonts/fa-brands-400.woff) format("woff"),url(../webfonts/fa-brands-400.ttf) format("truetype"),url(../webfonts/fa-brands-400.svg#fontawesome) format("svg")}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;font-display:swap;src:url(../webfonts/fa-regular-400.eot);src:url(../webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(../webfonts/fa-regular-400.woff2) format("woff2"),url(../webfonts/fa-regular-400.woff) format("woff"),url(../webfonts/fa-regular-400.ttf) format("truetype"),url(../webfonts/fa-regular-400.svg#fontawesome) format("svg")}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;font-display:swap;src:url(../webfonts/fa-solid-900.eot);src:url(../webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(../webfonts/fa-solid-900.woff2) format("woff2"),url(../webfonts/fa-solid-900.woff) format("woff"),url(../webfonts/fa-solid-900.ttf) format("truetype"),url(../webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fa,.fab,.fal,.far,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-comment-alt:before{content:"\f27a"}.fa-facebook:before{content:"\f09a"}.fa-facebook-f:before{content:"\f39e"}.fa-heart:before{content:"\f004"}.fa-linkedin:before{content:"\f08c"}.fa-rss-square:before{content:"\f143"}.fa-telegram:before{content:"\f2c6"}.fa-twitter:before{content:"\f099"}.fa-whatsapp-square:before{content:"\f40c"}.fa-youtube:before{content:"\f167"}.fab{font-family:"Font Awesome 5 Brands"}.far{font-weight:400}.fa,.far,.fas{font-family:"Font Awesome 5 Free"}.fa,.fas{font-weight:900}
-    </script>
-    <link as="style" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
-    <noscript>
-        <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
-    </noscript>
-    <!-- END: FONTAWESOME -->
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://use.fontawesome.com/releases/v5.7.2/fonts/fontawesome-webfont.woff2?v=5.7.2"/>
 
     <!-- BEGIN: BOOTSTRAP -->
     <script type="text/css">
@@ -94,7 +86,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-27.js'"></script>
+    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-28.js'"></script>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
 </div>
