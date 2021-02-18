@@ -422,8 +422,10 @@
         <executions>
           <execution>
             <id>default-minify</id>
+            <phase>prepare-package</phase>
             <configuration>
               <encoding>UTF-8</encoding>
+              <force>true</force>
               <sourceDir>public/assets/wutsi</sourceDir>
               <targetDir>public/assets/wutsi</targetDir>
               <outputFilename>#{path}/#{basename}.#{extension}</outputFilename>
@@ -435,7 +437,6 @@
             <goals>
               <goal>minify</goal>
             </goals>
-            <phase>generate-resources</phase>
           </execution>
         </executions>
       </plugin>
@@ -447,6 +448,7 @@
         <version>1.5.1</version>
         <executions>
           <execution>
+            <phase>prepare-package</phase>
             <goals>
               <goal>compress</goal>
             </goals>

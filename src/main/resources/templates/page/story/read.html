@@ -124,9 +124,9 @@
 <div th:replace="components/layout :: footer"></div>
 
 <script charset="utf-8" src="https://platform.twitter.com/widgets.js" th:if="${hasTwitterEmbed}"></script>
-<script th:if="${hasTwitterEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-twitter-3.js'"></script>
+<script th:if="${hasTwitterEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-twitter-4.js'"></script>
 
-<script th:if="${hasYouTubeEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-youtube-2.js'"></script>
+<script th:if="${hasYouTubeEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-youtube-3.js'"></script>
 <script th:if="${hasYouTubeEmbed}">
     function onYouTubeIframeAPIReady() {
         $('.youtube .player').each(function () {
@@ -139,7 +139,7 @@
     }
 </script>
 <script src="https://player.vimeo.com/api/player.js" th:if="${hasVimeoEmbed}"></script>
-<script th:if="${hasVimeoEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-2.js'"></script>
+<script th:if="${hasVimeoEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-3.js'"></script>
 
 <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.min.css'" th:if="${hasCode} OR ${hasRaw}" type="text/css"/>
 <script th:if="${hasCode} OR ${hasRaw}" th:src="${page.assetUrl} + '/assets/prettify/js/prettify.min.js'"></script>
@@ -194,7 +194,7 @@
     /*]]>*/
 </script>
 
-<script th:if="${toggles.comment}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-12.js'"></script>
+<script th:if="${toggles.comment}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-comment-widget-13.js'"></script>
 <script id="comment-script" th:if="${toggles.comment}" th:inline="javascript">
     /*<![CDATA[*/
 
