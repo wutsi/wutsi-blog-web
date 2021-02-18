@@ -1,3 +1,4 @@
+/*===== BOOTSTRAP ======*/
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -335,4 +336,334 @@ button, select {
     right: 0;
     left: 0;
     z-index: 1030
+}
+
+
+/*===== FONTAWESOME ======*/
+.fa-1x {
+    font-size: 1em
+}
+
+.fa-2x {
+    font-size: 2em
+}
+
+.fa, .fab, .fal, .far, .fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1
+}
+
+.fa-caret-down:before {
+    content: "\f0d7"
+}
+
+.fa-arrow-left:before {
+    content: "\f060"
+}
+
+.fa-calendar:before {
+    content: "\f133"
+}
+
+.fa-calendar-alt:before {
+    content: "\f073"
+}
+
+.fa-check:before {
+    content: "\f00c"
+}
+
+.fa-check-circle:before {
+    content: "\f058"
+}
+
+.fa-chevron-right:before {
+    content: "\f054"
+}
+
+.fa-chevron-left:before {
+    content: "\f053"
+}
+
+.fa-comment:before {
+    content: "\f075"
+}
+
+.fa-comment-alt:before {
+    content: "\f27a"
+}
+
+.fa-dollar-sign:before {
+    content: "\f155"
+}
+
+.fa-ellipsis-h:before {
+    content: "\f141"
+}
+
+.fa-exchange-alt:before {
+    content: "\f362"
+}
+
+.fa-facebook:before {
+    content: "\f09a"
+}
+
+.fa-facebook-f:before {
+    content: "\f39e"
+}
+
+.fa-facebook-messenger:before {
+    content: "\f39f"
+}
+
+.fa-github-square:before {
+    content: "\f092"
+}
+
+.fa-google:before {
+    content: "\f1a0"
+}
+
+.fa-heart:before {
+    content: "\f004"
+}
+
+.fa-linkedin:before {
+    content: "\f08c"
+}
+
+.fa-linkedin-in:before {
+    content: "\f0e1"
+}
+
+.fa-question:before {
+    content: "\f128"
+}
+
+.fa-question-circle:before {
+    content: "\f059"
+}
+
+.fa-rss-square:before {
+    content: "\f143"
+}
+
+.fa-share:before {
+    content: "\f064"
+}
+
+.fa-share-alt:before {
+    content: "\f1e0"
+}
+
+.fa-spin {
+    animation: fa-spin 2s infinite linear
+}
+
+.fa-spinner:before {
+    content: "\f110"
+}
+
+.fa-telegram:before {
+    content: "\f2c6"
+}
+
+.fa-telegram-plane:before {
+    content: "\f3fe"
+}
+
+.fa-thumbtack:before {
+    content: "\f08d"
+}
+
+.fa-times:before {
+    content: "\f00d"
+}
+
+.fa-toggle-off:before {
+    content: "\f204"
+}
+
+.fa-toggle-on:before {
+    content: "\f205"
+}
+
+.fa-twitter:before {
+    content: "\f099"
+}
+
+.fa-twitter-square:before {
+    content: "\f081"
+}
+
+.fa-whatsapp:before {
+    content: "\f232"
+}
+
+.fa-whatsapp-square:before {
+    content: "\f40c"
+}
+
+.fa-youtube:before {
+    content: "\f167"
+}
+
+.fa-youtube-square:before {
+    content: "\f431"
+}
+
+.fab {
+    font-family: "Font Awesome 5 Brands"
+}
+
+.far {
+    font-weight: 400
+}
+
+.fa, .far, .fas {
+    font-family: "Font Awesome 5 Free"
+}
+
+.fa, .fas {
+    font-weight: 900
+}
+
+/*==== WUTSI ====== */
+body {
+    --highlight-color: #1D7EDF;
+    --highlight-color-light: #e4edf7;
+    --background-light: #f8f8f8;
+    --background-pinned: #ffffed;
+
+    --text-color: #404040;
+    --text-color-gray: gray;
+    --text-color-error: darkred;
+    --text-color-success: var(--highlight-color);
+    --border-color: rgba(0, 0, 0, .125);
+
+    --margin: 1em;
+    --margin-small: 0.5em;
+    --padding: 1em;
+    --padding-small: 0.5em;
+
+    --card-background-color: #ffffff;
+
+    background: var(--background-light);
+    color: var(--text-color);
+    font-family: 'PT Sans', sans-serif;
+}
+
+
+a {
+    color: var(--highlight-color)
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
+}
+
+.flex {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+.highlight {
+    color: var(--highlight-color);
+}
+
+.disabled {
+    color: var(--text-color-gray);
+    font-style: italic;
+}
+
+.required {
+    color: darkred;
+    font-weight: bold;
+}
+
+.fa-facebook-square,
+.fa-facebook-f {
+    color: #3b5998
+}
+
+.fa-linkedin,
+.fa-linkedin-in {
+    color: #0e76a8;
+}
+
+.fa-whatsapp-square,
+.fa-whatsapp {
+    color: #25D366
+}
+
+.fa-telegram,
+.fa-telegram-plane {
+    color: #0088cc
+}
+
+.fa-youtube-square,
+.fa-youtube {
+    color: #ff0000;
+}
+
+.fa-twitter-square,
+.fa-twitter {
+    color: #0084b4;
+}
+
+.fa-whatsapp-square {
+    color: #25D366;
+}
+
+.fa-facebook-messenger {
+    color: #00B2FF;
+}
+
+.fa-rss, .fa-rss-square {
+    color: #ee802f
+}
+
+.fa-check-circle, .fa-check {
+    color: darkgreen;
+}
+
+.border {
+    border: 1px solid var(--border-color);
+}
+
+.border-highlight {
+    border: 1px solid var(--highlight-color)
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.border-top {
+    border-top: 1px solid var(--border-color);
+}
+
+.border-right {
+    border-right: 1px solid var(--border-color);
+}
+
+.box-filled {
+    background-color: var(--background-light);
+}
+
+.box-filled-white {
+    background-color: white;
+}
+
+.box-filled-highlight-light {
+    background-color: var(--highlight-color-light);
 }
