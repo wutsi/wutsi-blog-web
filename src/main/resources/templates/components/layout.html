@@ -55,8 +55,16 @@
 
     <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/wutsi/img/favicon.ico'"/>
 
-    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://use.fontawesome.com/releases/v5.7.2/fonts/fontawesome-webfont.woff2?v=5.7.2"/>
+    <!-- BEGIN: FONTAWESOME-->
+    <script type="text/css">
+        /* Content from public/assets/wutsi/css/fontawesome-preload-v5.7.2.css  */
+        .fa,.fab,.fal,.far,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-comment-alt:before{content:"\f27a"}.fa-facebook:before{content:"\f09a"}.fa-facebook-f:before{content:"\f39e"}.fa-heart:before{content:"\f004"}.fa-linkedin:before{content:"\f08c"}.fa-rss-square:before{content:"\f143"}.fa-telegram:before{content:"\f2c6"}.fa-twitter:before{content:"\f099"}.fa-whatsapp-square:before{content:"\f40c"}.fa-youtube:before{content:"\f167"}.fab{font-family:"Font Awesome 5 Brands"}.far{font-weight:400}.fa,.far,.fas{font-family:"Font Awesome 5 Free"}.fa,.fas{font-weight:900}
+    </script>
+    <link as="style" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+    <noscript>
+        <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+    </noscript>
+    <!-- END: FONTAWESOME -->
 
     <!-- BEGIN: BOOTSTRAP -->
     <script type="text/css">
@@ -78,7 +86,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-119.css'"/>
+    <link rel="stylesheet" th:href="${page.assetUrl} + '/assets/wutsi/css/main-120.css'"/>
     <link rel="alternate" th:href="${page.rssUrl}" th:if="${page.rssUrl}" type="application/rss+xml"/>
     <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
 
