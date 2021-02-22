@@ -55,9 +55,18 @@
 
     <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/wutsi/img/favicon.ico'"/>
 
-    <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <!-- BEGIN: Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap">
+    <link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/css2?family=Lora&display=swap">
+    <link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet"/>
+    </noscript>
+    <!-- END: Google Fonts -->
+
 
     <!-- BEGIN: PRELOAD: assets/wutsi/css/reload.css -->
     <script type="text/css">
@@ -78,10 +87,9 @@
     <link href="/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-28.js'"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script async th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-29.js'"></script>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
 </div>
@@ -128,11 +136,6 @@
     <div th:replace="components/facebook :: pixel"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            wutsi.domReady();
-        });
-    </script>
 
     <script th:if="${toggles.pwaPushNotification}" th:inline="javascript">
         /*<![CDATA[*/
