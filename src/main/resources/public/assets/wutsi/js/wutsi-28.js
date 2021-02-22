@@ -325,3 +325,7 @@ window.onerror = function (message, source, line, col, error) {
     wutsi.track_ga('error', 'error', null, label)
 };
 
+$(document).ready(function () {
+    wutsi.domReady();
+});
+
