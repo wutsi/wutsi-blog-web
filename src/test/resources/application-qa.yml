@@ -28,6 +28,7 @@ wutsi:
     google-one-tap-sign-in: false
     pwa-add-to-homescreen: true
     pwa-badge: false
+    pwa-push-notification: true
     sso-facebook: true
     sso-google: true
     sso-twitter: true
