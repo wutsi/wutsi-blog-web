@@ -139,6 +139,7 @@
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
             <img class="lozad"
                  th:alt="${story.title}"
+                 th:attr="width=${story.thumbnailLargeWidth} ? ${story.thumbnailLargeWidth}, height=${story.thumbnailLargeHeight} ? ${story.thumbnailLargeHeight}"
                  th:data-src="${story.thumbnailLargeUrl}"
                  th:src="${page.assetUrl} + '/assets/wutsi/img/empty-image.png'"
             />
@@ -188,6 +189,7 @@
            th:wutsi-track-value="${story.id}"
         >
             <img class="lozad"
+                 th:attr="width=${story.thumbnailSmallWidth} ? ${story.thumbnailSmallWidth}, height=${story.thumbnailSmallHeight} ? ${story.thumbnailSmallHeight}"
                  th:data-src="${story.thumbnailSmallUrl}"
                  th:src="${page.assetUrl} + '/assets/wutsi/img/empty-image.png'"
             />

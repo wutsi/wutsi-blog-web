@@ -50,7 +50,11 @@ class StoryMapper(
             contentType = story.contentType,
             thumbnailUrl = story.thumbnailUrl,
             thumbnailLargeUrl = generateThubmailUrl(story.thumbnailUrl, false),
+            thumbnailLargeHeight = thumbnailHeight(false),
+            thumbnailLargeWidth = thumbnailWidth(false),
             thumbnailSmallUrl = generateThubmailUrl(story.thumbnailUrl, true),
+            thumbnailSmallHeight = thumbnailHeight(true),
+            thumbnailSmallWidth = thumbnailWidth(true),
             thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
             wordCount = story.wordCount,
             sourceUrl = story.sourceUrl,
@@ -93,7 +97,11 @@ class StoryMapper(
         tagline = nullToEmpty(story.tagline),
         thumbnailUrl = story.thumbnailUrl,
         thumbnailLargeUrl = generateThubmailUrl(story.thumbnailUrl, false),
+        thumbnailLargeHeight = thumbnailHeight(false),
+        thumbnailLargeWidth = thumbnailWidth(false),
         thumbnailSmallUrl = generateThubmailUrl(story.thumbnailUrl, true),
+        thumbnailSmallHeight = thumbnailHeight(true),
+        thumbnailSmallWidth = thumbnailWidth(true),
         thumbnailImage = htmlImageMapper.toHtmlImageMapper(story.thumbnailUrl),
         wordCount = story.wordCount,
         sourceUrl = story.sourceUrl,
@@ -174,5 +182,19 @@ class StoryMapper(
                 )
             }
         }
+    }
+
+    private fun thumbnailWidth(small: Boolean): Int? {
+        if (!requestContext.isMobileUserAgent())
+            return null
+
+        return if (small) mobileThumbnailSmallWidth else mobileThumbnailLargeWidth
+    }
+
+    private fun thumbnailHeight(small: Boolean): Int? {
+        if (!requestContext.isMobileUserAgent())
+            return null
+
+        return if (small) mobileThumbnailSmallHeight else mobileThumbnailLargeHeight
     }
 }

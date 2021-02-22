@@ -98,8 +98,10 @@ wutsi:
     client-id: wutsi-blog-web
 
   image-kit: # Configuration of integration with imagekit.io
-    origin-url: "https://s3.amazonaws.com/int-wutsi"
-    endpoint-url: "https://ik.imagekit.io/cx8qxsgz4d"
+    #    origin-url: "https://s3.amazonaws.com/int-wutsi"
+    #    endpoint-url: "https://ik.imagekit.io/cx8qxsgz4d"
+    origin-url: "https://s3.amazonaws.com/prod-wutsi"
+    endpoint-url: "https://ik.imagekit.io/toifevuwjn"
 
   oauth:
     github:

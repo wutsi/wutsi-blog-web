@@ -203,7 +203,7 @@
          th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" href="/">
-            <img alt="Wutsi" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" title="Wutsi"/></a>
+            <img alt="Wutsi" height="50" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'" title="Wutsi"/></a>
 
 
         <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
@@ -228,7 +228,7 @@
          th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" th:href="${blog.slug}">
-            <img class="blog-logo" th:alt="${blog.fullName}" th:if="${blog.pictureUrl}" th:src="${blog.pictureSmallUrl}" th:title="${blog.fullName}"/>
+            <img class="blog-logo" height="50" th:alt="${blog.fullName}" th:if="${blog.pictureUrl}" th:src="${blog.pictureSmallUrl}" th:title="${blog.fullName}"/>
             <span class="blog-name" th:text="${blog.fullName}">Title</span>
         </a>
 
