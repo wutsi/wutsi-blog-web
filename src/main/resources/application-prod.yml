@@ -65,7 +65,7 @@ wutsi:
     post: true
     pwa: true
     pwa-add-to-homescreen: false
-    pwa-badge: true
+    pwa-badge: false
     pwa-push-notification: false
     translation: true
     recommendation: true
