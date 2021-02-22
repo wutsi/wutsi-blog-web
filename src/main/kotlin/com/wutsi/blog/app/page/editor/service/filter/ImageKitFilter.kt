@@ -23,7 +23,6 @@ class ImageKitFilter(
                 try {
                     filter(it)
                 } catch (ex: Exception) {
-
                 }
             }
     }
