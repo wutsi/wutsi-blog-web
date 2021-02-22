@@ -1,6 +1,8 @@
 package com.wutsi.blog.app.page.editor.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wutsi.blog.app.common.service.ImageKitService
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.editor.service.filter.ButtonFilter
 import com.wutsi.blog.app.page.editor.service.filter.ImageKitFilter
@@ -20,7 +22,8 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class EditorJSConfiguration(
     private val objectMapper: ObjectMapper,
-    @Value("\${wutsi.base-url}") private val websiteUrl: String
+    @Value("\${wutsi.base-url}") private val websiteUrl: String,
+    @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int
 ) {
     @Bean
     fun htmlWriter() = EJSHtmlWriter(tagProvider())
@@ -40,11 +43,13 @@ class EditorJSConfiguration(
     @Autowired
     @Bean
     fun ejsFilterSet(
-        imageSize: HtmlImageService
+        imageSize: HtmlImageService,
+        imageKitService: ImageKitService,
+        requestContext: RequestContext
     ) = EJSFilterSet(
         arrayListOf(
             LinkTargetFilter(websiteUrl),
-            ImageKitFilter(imageSize),
+            ImageKitFilter(imageSize, imageKitService, requestContext, mobileThumbnailLargeWidth),
             ButtonFilter(),
             ImageLozadFilter() /* should be the LAST image filter */
         )
