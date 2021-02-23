@@ -37,7 +37,7 @@ class CommentControllerTest : SeleniumMobileTestSupport() {
 
         driver.get("$url/@/ray.sponsible")
 
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         assertElementText(".comment-badge #comment-count-20", "3")
         assertElementText(".comment-badge #comment-count-21", "5")
         assertElementText(".comment-badge #comment-count-22", "1")
