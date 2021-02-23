@@ -89,9 +89,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-29.js'"></script>
+    <script async th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-30.js'"></script>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
+
+    <link rel="alternate" th:href="${page.rssUrl}" th:if="${page.rssUrl}" type="application/rss+xml"/>
+    <link rel="preload" as="image" th:href="${url}" th:each="url : ${page.preloadImageUrls}"/>
 </div>
 
 
@@ -135,7 +138,7 @@
 
     <div th:replace="components/facebook :: pixel"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js" th:if="${toggles.lozad}"></script>
 
     <script th:if="${toggles.pwaPushNotification}" th:inline="javascript">
         /*<![CDATA[*/

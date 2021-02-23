@@ -49,7 +49,6 @@ class BlogController(
         val blog = userService.get(name)
 
         model.addAttribute("blog", blog)
-        model.addAttribute("page", getPage(blog))
 
         return if (blog.blog)
             loadWriter(blog, model)
@@ -112,6 +111,7 @@ class BlogController(
         shouldShowCreateStory(blog, stories, model)
 
         model.addAttribute("sidebarUrl", "/@/${blog.name}/writer-sidebar")
+        model.addAttribute("page", getPage(blog, stories))
 
         return "page/blog/writer"
     }
@@ -145,10 +145,10 @@ class BlogController(
         return result
     }
 
-    private fun loadFollowingStories(followingUserIds: List<Long>, model: Model, limit: Int) {
+    private fun loadFollowingStories(followingUserIds: List<Long>, model: Model, limit: Int): List<StoryModel> {
         // Find following users
         if (followingUserIds.isEmpty())
-            return
+            return emptyList()
 
         // Find stories from following users
         val stories = storyService.search(
@@ -168,9 +168,10 @@ class BlogController(
             statsHoursOffset = 7 * 24
         )
         model.addAttribute("followingStories", followingStories)
+        return followingStories
     }
 
-    private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model) {
+    private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model): List<StoryModel> {
         val latestStoryMap = LinkedHashMap<UserModel, StoryModel>()
         storyService.search(
             SearchStoryRequest(
@@ -196,6 +197,7 @@ class BlogController(
         )
 
         model.addAttribute("latestStories", latestStories.take(5))
+        return latestStories
     }
 
     private fun bubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): List<StoryModel> {
@@ -225,7 +227,9 @@ class BlogController(
 
     private fun loadReader(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
         loadFollowingStories(followingUserIds, model, 50)
-        loadLatestStories(blog, followingUserIds, model)
+        val stories = loadLatestStories(blog, followingUserIds, model)
+
+        model.addAttribute("page", getPage(blog, stories))
         return "page/blog/reader"
     }
 
@@ -250,7 +254,7 @@ class BlogController(
         model.addAttribute("showCreateStoryButton", count == 0)
     }
 
-    protected fun getPage(user: UserModel) = createPage(
+    protected fun getPage(user: UserModel, stories: List<StoryModel>) = createPage(
         name = pageName(),
         title = user.fullName,
         description = if (user.biography == null) "" else user.biography,
@@ -258,6 +262,7 @@ class BlogController(
         url = url(user),
         imageUrl = user.pictureUrl,
         schemas = schemas.generate(user),
-        rssUrl = "${user.slug}/rss"
+        rssUrl = "${user.slug}/rss",
+        preloadImageUrls = stories.map { it.thumbnailLargeUrl }.filter { !it.isNullOrBlank() }.take(3) as List<String>
     )
 }

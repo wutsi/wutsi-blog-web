@@ -91,7 +91,8 @@ abstract class AbstractPageController(
         canonicalUrl: String? = null,
         tags: List<String> = emptyList(),
         showNotificationOptIn: Boolean = false,
-        rssUrl: String? = null
+        rssUrl: String? = null,
+        preloadImageUrls: List<String> = emptyList()
     ) = PageModel(
         name = name,
         title = title,
@@ -117,6 +118,7 @@ abstract class AbstractPageController(
         imageUrl = imageUrl,
         rssUrl = rssUrl,
         showNotificationOptIn = showNotificationOptIn,
+        preloadImageUrls = preloadImageUrls,
         firebaseConfig = FirebaseConfigModel(
             apiKey = firebaseApiKey,
             appId = firebaseAppId,

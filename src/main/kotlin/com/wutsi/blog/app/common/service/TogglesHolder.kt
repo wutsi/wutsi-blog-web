@@ -19,6 +19,7 @@ class Toggles {
     var googleOneTapSignIn: Boolean = false
     var imageKit: Boolean = false
     var like: Boolean = false
+    var lozad: Boolean = false
     var nextAction: Boolean = false
     var pin: Boolean = false
     var post: Boolean = false
