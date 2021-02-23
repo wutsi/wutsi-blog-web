@@ -1,36 +1,60 @@
 package com.wutsi.blog.app.page.editor.service.filter
 
+import com.wutsi.blog.app.common.service.ImageKitService
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.Filter
 import com.wutsi.blog.app.page.story.service.HtmlImageService
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
 class ImageKitFilter(
-    private val sizes: HtmlImageService
+    private val sizes: HtmlImageService,
+    private val imageKitService: ImageKitService,
+    private val requestContext: RequestContext,
+    private val mobileThumbnailLargeWidth: Int
 ) : Filter {
+    companion object {
+        const val LARGE_IMAGE_SIZE = 960
+    }
+
     override fun filter(html: Document) {
         html.select("img")
-            .forEach { filter(it) }
+            .forEach {
+                try {
+                    filter(it)
+                } catch (ex: Exception) {
+                }
+            }
     }
 
     private fun filter(img: Element) {
         val url = img.attr("src")
-        if (isLargeImage(img)) {
-            val srcset = sizes.srcset(url)
-            if (srcset.isNotEmpty()) {
-                img.attr("srcset", srcset)
-                img.attr("sizes", sizes.sizes())
+        val width = attrAsInt(img, "width")
+        val height = attrAsInt(img, "height")
+
+        if (requestContext.isMobileUserAgent()) {
+            if (width > mobileThumbnailLargeWidth) {
+                val xurl = imageKitService.transform(url, width = mobileThumbnailLargeWidth.toString())
+                img.attr("src", xurl)
+                img.attr("width", "400")
+                img.removeAttr("height")
+            }
+        } else {
+            if (width > LARGE_IMAGE_SIZE || height > LARGE_IMAGE_SIZE) {
+                val srcset = sizes.srcset(url)
+                if (srcset.isNotEmpty()) {
+                    img.attr("srcset", srcset)
+                    img.attr("sizes", sizes.sizes())
+                }
             }
         }
     }
 
-    private fun isLargeImage(img: Element): Boolean {
+    private fun attrAsInt(elt: Element, name: String): Int {
         try {
-            val width = img.attr("width").toInt()
-            val height = img.attr("height").toInt()
-            return width >= 960 || height >= 960
+            return elt.attr(name).toInt()
         } catch (ex: Exception) {
-            return false
+            return 0
         }
     }
 }
