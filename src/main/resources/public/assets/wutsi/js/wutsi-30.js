@@ -74,8 +74,10 @@ function Wutsi() {
         });
 
         /* lozad */
-        const observer = lozad();
-        observer.observe();
+        if (typeof lozad === "function") {
+            const observer = lozad();
+            observer.observe();
+        }
 
         /* comments */
         this.update_comment_count();
