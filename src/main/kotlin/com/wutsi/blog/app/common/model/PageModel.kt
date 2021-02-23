@@ -25,5 +25,6 @@ data class PageModel(
     val schemas: String?,
     val firebaseConfig: FirebaseConfigModel,
     val showNotificationOptIn: Boolean = false,
-    val rssUrl: String? = null
+    val rssUrl: String? = null,
+    val preloadImageUrls: List<String> = emptyList()
 )

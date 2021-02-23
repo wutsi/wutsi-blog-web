@@ -92,6 +92,9 @@
     <script async th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-29.js'"></script>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
+
+    <link rel="alternate" th:href="${page.rssUrl}" th:if="${page.rssUrl}" type="application/rss+xml"/>
+    <link rel="preload" as="image" th:href="${url}" th:each="url : ${page.preloadImageUrls}"/>
 </div>
 
 
@@ -135,7 +138,7 @@
 
     <div th:replace="components/facebook :: pixel"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js" th:if="${toggles.lozad}"></script>
 
     <script th:if="${toggles.pwaPushNotification}" th:inline="javascript">
         /*<![CDATA[*/

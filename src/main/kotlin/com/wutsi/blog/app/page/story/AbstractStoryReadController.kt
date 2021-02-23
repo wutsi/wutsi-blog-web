@@ -72,6 +72,7 @@ abstract class AbstractStoryReadController(
         twitterUserId = story.user.twitterId,
         canonicalUrl = story.sourceUrl,
         schemas = generateSchemas(story),
-        showNotificationOptIn = showNotificationOptIn()
+        showNotificationOptIn = showNotificationOptIn(),
+        preloadImageUrls = story.thumbnailLargeUrl?.let { listOf(it) } ?: emptyList()
     )
 }

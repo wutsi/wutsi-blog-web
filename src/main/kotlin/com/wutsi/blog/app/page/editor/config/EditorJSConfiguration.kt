@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class EditorJSConfiguration(
     private val objectMapper: ObjectMapper,
+    private val requestContext: RequestContext,
     @Value("\${wutsi.base-url}") private val websiteUrl: String,
     @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int
 ) {
@@ -51,7 +52,7 @@ class EditorJSConfiguration(
             LinkTargetFilter(websiteUrl),
             ImageKitFilter(imageSize, imageKitService, requestContext, mobileThumbnailLargeWidth),
             ButtonFilter(),
-            ImageLozadFilter() /* should be the LAST image filter */
+            ImageLozadFilter(requestContext) /* should be the LAST image filter */
         )
     )
 }
