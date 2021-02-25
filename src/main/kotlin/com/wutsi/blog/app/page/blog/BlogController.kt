@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.common.service.ViewService
 import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.blog.service.PinService
 import com.wutsi.blog.app.page.follower.service.FollowerService
@@ -13,8 +14,6 @@ import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.SortAlgorithmType
-import com.wutsi.blog.client.story.SortAlgorithmType.most_recent
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import org.springframework.stereotype.Controller
@@ -30,12 +29,12 @@ class BlogController(
     private val storyService: StoryService,
     private val schemas: PersonSchemasGenerator,
     private val pinService: PinService,
+    private val viewService: ViewService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     companion object {
         const val MAIN_PAGE_SIZE: Int = 10
         const val SIDEBAR_SIZE: Int = 10
-        const val VIEWED_STORIES_TTL_HOURS: Int = 7 * 24
     }
 
     override fun pageName() = PageName.BLOG
@@ -145,7 +144,7 @@ class BlogController(
         return result
     }
 
-    private fun loadFollowingStories(followingUserIds: List<Long>, model: Model, limit: Int): List<StoryModel> {
+    private fun loadFollowingStories(followingUserIds: List<Long>, blog: UserModel, model: Model, limit: Int): List<StoryModel> {
         // Find following users
         if (followingUserIds.isEmpty())
             return emptyList()
@@ -161,12 +160,7 @@ class BlogController(
                 limit = limit
             )
         )
-        val followingStories = storyService.sort(
-            stories = stories,
-            algorithm = SortAlgorithmType.no_sort,
-            bubbleDownViewedStories = true,
-            statsHoursOffset = 7 * 24
-        )
+        val followingStories = bubbleDownViewedStories(stories, blog)
         model.addAttribute("followingStories", followingStories)
         return followingStories
     }
@@ -189,12 +183,7 @@ class BlogController(
                     latestStoryMap[user] = it
                 }
             }
-        val latestStories = storyService.sort(
-            stories = latestStoryMap.values.toList(),
-            algorithm = SortAlgorithmType.no_sort,
-            bubbleDownViewedStories = true,
-            statsHoursOffset = VIEWED_STORIES_TTL_HOURS
-        )
+        val latestStories = bubbleDownViewedStories(latestStoryMap.values.toList(), blog)
 
         model.addAttribute("latestStories", latestStories.take(5))
         return latestStories
@@ -204,12 +193,12 @@ class BlogController(
         if (!shouldBubbleDownViewedStories(stories, blog))
             return stories
 
-        return storyService.sort(
-            stories = stories,
-            bubbleDownViewedStories = true,
-            algorithm = most_recent,
-            statsHoursOffset = VIEWED_STORIES_TTL_HOURS
-        )
+        val viewedStoryIds = viewService.findViewedStoryIdsLastWeek()
+
+        val result = mutableListOf<StoryModel>()
+        result.addAll(stories.filter { !viewedStoryIds.contains(it.id) })
+        result.addAll(stories.filter { viewedStoryIds.contains(it.id) })
+        return result
     }
 
     private fun shouldBubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): Boolean =
@@ -226,7 +215,7 @@ class BlogController(
     }
 
     private fun loadReader(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
-        loadFollowingStories(followingUserIds, model, 50)
+        loadFollowingStories(followingUserIds, blog, model, 50)
         val stories = loadLatestStories(blog, followingUserIds, model)
 
         model.addAttribute("page", getPage(blog, stories))

@@ -168,6 +168,8 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
 
         stub(HttpMethod.POST, "/v1/track", HttpStatus.OK, "v1/track/push.json")
+
+        stub(HttpMethod.POST, "/v1/view", HttpStatus.OK, "v1/view/search-empty.json")
     }
 
     protected fun setupSdk() {

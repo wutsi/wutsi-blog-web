@@ -6,9 +6,10 @@ import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.view.SearchPreferredAuthorRequest
 import com.wutsi.blog.client.view.SearchViewRequest
-import com.wutsi.core.util.DateUtils
+import org.apache.commons.lang.time.DateUtils
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.time.LocalDate
+import java.util.Date
 
 @Service
 class ViewService(
@@ -16,23 +17,26 @@ class ViewService(
     private val requestContext: RequestContext,
     private val userService: UserService
 ) {
-    fun storiesViewedThisMonth(): Set<Long> {
-        val today = LocalDate.now()
-        val startDate = DateUtils.toDate(today.year, today.monthValue, 1)
-        val request = SearchViewRequest(
-            deviceId = requestContext.deviceId(),
-            userId = requestContext.currentUser()?.id,
-            viewStartDate = DateUtils.beginingOfTheDay(startDate),
-            viewEndDate = DateUtils.endOfTheDay(
-                DateUtils.addDays(
-                    DateUtils.addMonths(startDate, 1),
-                    -1
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(ViewService::class.java)
+    }
+
+    fun findViewedStoryIdsLastWeek(): Collection<Long> {
+        try {
+            val now = Date()
+            val views = viewBackend.search(
+                SearchViewRequest(
+                    userId = requestContext.currentUser()?.id,
+                    deviceId = requestContext.deviceId(),
+                    viewStartDate = DateUtils.addDays(now, -7),
+                    viewEndDate = now
                 )
-            ),
-            limit = 100
-        )
-        val views = viewBackend.search(request).views
-        return views.map { it.storyId }.toSet()
+            ).views
+            return views.map { it.storyId }.toSet()
+        } catch (ex: Exception) {
+            LOGGER.error("Unable to load viewed stories", ex)
+            return emptyList()
+        }
     }
 
     fun findPreferredAuthors(limit: Int = 3): List<UserModel> {
