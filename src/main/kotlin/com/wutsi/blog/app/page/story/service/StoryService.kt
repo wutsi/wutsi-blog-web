@@ -78,6 +78,7 @@ class StoryService(
         return stories.map { mapper.toStoryModel(it, users[it.userId], pin) }
     }
 
+    @Deprecated("slow function ")
     fun sort(
         stories: List<StoryModel>,
         algorithm: SortAlgorithmType,

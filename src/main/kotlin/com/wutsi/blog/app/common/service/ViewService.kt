@@ -6,9 +6,9 @@ import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.view.SearchPreferredAuthorRequest
 import com.wutsi.blog.client.view.SearchViewRequest
-import com.wutsi.core.util.DateUtils
+import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Service
-import java.time.LocalDate
+import java.util.Date
 
 @Service
 class ViewService(
@@ -16,22 +16,14 @@ class ViewService(
     private val requestContext: RequestContext,
     private val userService: UserService
 ) {
-    fun storiesViewedThisMonth(): Set<Long> {
-        val today = LocalDate.now()
-        val startDate = DateUtils.toDate(today.year, today.monthValue, 1)
-        val request = SearchViewRequest(
-            deviceId = requestContext.deviceId(),
+    fun findViewedStoryIdsLastWeek(): Collection<Long> {
+        val now = Date()
+        val views = viewBackend.search(SearchViewRequest(
             userId = requestContext.currentUser()?.id,
-            viewStartDate = DateUtils.beginingOfTheDay(startDate),
-            viewEndDate = DateUtils.endOfTheDay(
-                DateUtils.addDays(
-                    DateUtils.addMonths(startDate, 1),
-                    -1
-                )
-            ),
-            limit = 100
-        )
-        val views = viewBackend.search(request).views
+            deviceId = requestContext.deviceId(),
+            viewStartDate = DateUtils.addDays(now, -7),
+            viewEndDate = now
+        )).views
         return views.map { it.storyId }.toSet()
     }
 
