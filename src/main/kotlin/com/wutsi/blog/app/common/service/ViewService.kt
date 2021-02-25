@@ -18,12 +18,14 @@ class ViewService(
 ) {
     fun findViewedStoryIdsLastWeek(): Collection<Long> {
         val now = Date()
-        val views = viewBackend.search(SearchViewRequest(
-            userId = requestContext.currentUser()?.id,
-            deviceId = requestContext.deviceId(),
-            viewStartDate = DateUtils.addDays(now, -7),
-            viewEndDate = now
-        )).views
+        val views = viewBackend.search(
+            SearchViewRequest(
+                userId = requestContext.currentUser()?.id,
+                deviceId = requestContext.deviceId(),
+                viewStartDate = DateUtils.addDays(now, -7),
+                viewEndDate = now
+            )
+        ).views
         return views.map { it.storyId }.toSet()
     }
 
