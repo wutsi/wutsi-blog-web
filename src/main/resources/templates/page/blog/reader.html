@@ -17,7 +17,7 @@
                     <div th:replace="components/follow :: who-to-follow"></div>
                 </div>
             </div>
-            <div th:if="!${followingStories} OR ${followingStories.size() LT 2}">
+            <div th:if="!${followingStories} OR ${followingStories.size() LT 3}">
                 <div th:replace="components/follow :: who-to-follow"></div>
             </div>
         </div>
