@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.common.service.ViewService
 import com.wutsi.blog.app.page.blog.model.PinModel
 import com.wutsi.blog.app.page.blog.service.PinService
 import com.wutsi.blog.app.page.follower.service.FollowerService
@@ -29,7 +28,6 @@ class BlogController(
     private val storyService: StoryService,
     private val schemas: PersonSchemasGenerator,
     private val pinService: PinService,
-    private val viewService: ViewService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     companion object {
@@ -125,13 +123,13 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
+                bubbleDownViewedStories = true,
                 limit = limit,
                 offset = offset
             )
         )
 
-        val xstories = bubbleDownViewedStories(stories, blog)
-        val result = pinStory(xstories, pin?.storyId)
+        val result = pinStory(stories, pin?.storyId)
 
         model.addAttribute("myStories", result)
 
@@ -150,17 +148,17 @@ class BlogController(
             return emptyList()
 
         // Find stories from following users
-        val stories = storyService.search(
+        val followingStories = storyService.search(
             SearchStoryRequest(
                 userIds = followingUserIds,
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
+                bubbleDownViewedStories = true,
                 limit = limit
             )
         )
-        val followingStories = bubbleDownViewedStories(stories, blog)
         model.addAttribute("followingStories", followingStories)
         return followingStories
     }
@@ -173,6 +171,7 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
+                bubbleDownViewedStories = true,
                 limit = 50
             )
         )
@@ -183,22 +182,9 @@ class BlogController(
                     latestStoryMap[user] = it
                 }
             }
-        val latestStories = bubbleDownViewedStories(latestStoryMap.values.toList(), blog)
-
+        val latestStories = latestStoryMap.values.toList()
         model.addAttribute("latestStories", latestStories.take(5))
         return latestStories
-    }
-
-    private fun bubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): List<StoryModel> {
-        if (!shouldBubbleDownViewedStories(stories, blog))
-            return stories
-
-        val viewedStoryIds = viewService.findViewedStoryIdsLastWeek()
-
-        val result = mutableListOf<StoryModel>()
-        result.addAll(stories.filter { !viewedStoryIds.contains(it.id) })
-        result.addAll(stories.filter { viewedStoryIds.contains(it.id) })
-        return result
     }
 
     private fun shouldBubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): Boolean =
