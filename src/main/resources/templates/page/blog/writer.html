@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div th:if="!${myStories} OR ${myStories.size() LT 2}">
+            <div th:if="!${myStories} OR ${myStories.size() LT 3}">
                 <div th:replace="components/follow :: who-to-follow"></div>
             </div>
 
