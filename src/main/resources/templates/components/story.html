@@ -137,7 +137,8 @@
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-            <img th:alt="${story.title}"
+            <img loading="lazy"
+                 th:alt="${story.title}"
                  th:attr="width=${story.thumbnailLargeWidth} ? ${story.thumbnailLargeWidth}, height=${story.thumbnailLargeHeight} ? ${story.thumbnailLargeHeight}"
                  th:src="${story.thumbnailLargeUrl}"
             />
@@ -186,9 +187,9 @@
            th:wutsi-track-rank="${rank}"
            th:wutsi-track-value="${story.id}"
         >
-            <img
-                th:attr="width=${story.thumbnailSmallWidth} ? ${story.thumbnailSmallWidth}, height=${story.thumbnailSmallHeight} ? ${story.thumbnailSmallHeight}"
-                th:src="${story.thumbnailSmallUrl}"
+            <img loading="lazy"
+                 th:attr="width=${story.thumbnailSmallWidth} ? ${story.thumbnailSmallWidth}, height=${story.thumbnailSmallHeight} ? ${story.thumbnailSmallHeight}"
+                 th:src="${story.thumbnailSmallUrl}"
             />
         </a>
     </div>
