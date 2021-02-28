@@ -238,6 +238,13 @@ class BlogController(
         imageUrl = user.pictureUrl,
         schemas = schemas.generate(user),
         rssUrl = "${user.slug}/rss",
-        preloadImageUrls = stories.map { it.thumbnailLargeUrl }.filter { !it.isNullOrBlank() }.take(3) as List<String>
+        preloadImageUrls = preloadImages(user, stories)
     )
+
+    private fun preloadImages(user: UserModel, stories: List<StoryModel>): List<String> {
+        val result = mutableListOf<String>()
+        if (user.pictureSmallUrl != null) result.add(user.pictureSmallUrl)
+        result.addAll(stories.map { it.thumbnailLargeUrl }.filter { !it.isNullOrBlank() }.take(1) as List<String>)
+        return result
+    }
 }
