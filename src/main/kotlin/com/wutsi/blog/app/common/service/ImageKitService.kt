@@ -12,9 +12,9 @@ class ImageKitService(
     fun accept(url: String?) = enabled && url?.startsWith(originUrl) == true
 
     fun transform(url: String?, width: String? = null, height: String? = null, autoFocus: Boolean = false): String? {
-        if (!accept(url)) {
-            return url
-        }
+//        if (!accept(url)) {
+//            return url
+//        }
 
         val xurl = endpoint + url?.substring(originUrl.length)
         val i = xurl.lastIndexOf('/')

@@ -205,14 +205,14 @@ class StoryMapper(
 
     private fun thumbnailWidth(small: Boolean): Int? {
         if (!requestContext.isMobileUserAgent())
-            return null
+            return if (small) desktopThumbnailSmallWidth else desktopThumbnailLargeWidth
 
         return if (small) mobileThumbnailSmallWidth else mobileThumbnailLargeWidth
     }
 
     private fun thumbnailHeight(small: Boolean): Int? {
         if (!requestContext.isMobileUserAgent())
-            return null
+            return if (small) desktopThumbnailSmallHeight else desktopThumbnailLargeHeight
 
         return if (small) mobileThumbnailSmallHeight else mobileThumbnailLargeHeight
     }
