@@ -46,9 +46,13 @@ wutsi:
         width: 128
         height: 128
     story:
-      large:
-        width: 1200
-        height: 630
+      desktop:
+        large:
+          width: 960
+          height: 604
+        small:
+          width: 300
+          height: 189
       mobile:
         large:
           width: 400

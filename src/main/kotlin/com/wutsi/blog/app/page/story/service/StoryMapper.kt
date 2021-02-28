@@ -31,6 +31,11 @@ class StoryMapper(
     private val imageKit: ImageKitService,
     private val requestContext: RequestContext,
 
+    @Value("\${wutsi.image.story.desktop.large.width}") private val desktopThumbnailLargeWidth: Int,
+    @Value("\${wutsi.image.story.desktop.large.height}") private val desktopThumbnailLargeHeight: Int,
+    @Value("\${wutsi.image.story.desktop.small.width}") private val desktopThumbnailSmallWidth: Int,
+    @Value("\${wutsi.image.story.desktop.small.height}") private val desktopThumbnailSmallHeight: Int,
+
     @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int,
     @Value("\${wutsi.image.story.mobile.large.height}") private val mobileThumbnailLargeHeight: Int,
     @Value("\${wutsi.image.story.mobile.small.width}") private val mobileThumbnailSmallWidth: Int,
@@ -164,7 +169,21 @@ class StoryMapper(
 
     private fun generateThubmailUrl(url: String?, small: Boolean): String? {
         if (url == null || !requestContext.isMobileUserAgent()) {
-            return url
+            if (small) {
+                return imageKit.transform(
+                    url = url,
+                    width = desktopThumbnailSmallWidth.toString(),
+                    height = desktopThumbnailSmallHeight.toString(),
+                    autoFocus = true
+                )
+            } else {
+                return imageKit.transform(
+                    url = url,
+                    width = desktopThumbnailLargeWidth.toString(),
+                    height = desktopThumbnailLargeHeight.toString(),
+                    autoFocus = true
+                )
+            }
         } else {
             if (small) {
                 return imageKit.transform(
@@ -186,14 +205,14 @@ class StoryMapper(
 
     private fun thumbnailWidth(small: Boolean): Int? {
         if (!requestContext.isMobileUserAgent())
-            return null
+            return if (small) desktopThumbnailSmallWidth else desktopThumbnailLargeWidth
 
         return if (small) mobileThumbnailSmallWidth else mobileThumbnailLargeWidth
     }
 
     private fun thumbnailHeight(small: Boolean): Int? {
         if (!requestContext.isMobileUserAgent())
-            return null
+            return if (small) desktopThumbnailSmallHeight else desktopThumbnailLargeHeight
 
         return if (small) mobileThumbnailSmallHeight else mobileThumbnailLargeHeight
     }
