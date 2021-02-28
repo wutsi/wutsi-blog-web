@@ -91,7 +91,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-30.js'"></script>
+    <script async th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-30.js'"></script>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
 
@@ -136,10 +136,9 @@
     </div>
 
     <div th:replace="components/google :: analytics"></div>
-    <div th:replace="components/google :: firebase"></div>
+    <div th:if="${toggles.facebookPixel}" th:replace="components/facebook :: pixel" ></div>
 
-    <div th:replace="components/facebook :: pixel"></div>
-
+    <div th:if="${toggles.pwaPushNotification}" th:replace="components/google :: firebase"></div>
     <script th:if="${toggles.pwaPushNotification}" th:inline="javascript">
         /*<![CDATA[*/
         function pwa_notification_init() {
@@ -196,7 +195,6 @@
 
         /*]]>*/
     </script>
-
     <script id="a2hs-js" src="/a2hs.js" th:if="${toggles.pwa} AND ${toggles.pwaAddToHomescreen}"></script>
 </footer>
 
