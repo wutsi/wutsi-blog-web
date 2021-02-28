@@ -59,10 +59,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: |
           aws s3 sync \
-            --recursive \
             --acl public-read \
             --region us-east-1 \
-            --content-encoding 'gzip' \
             --expires '2100-12-31T00:00:00Z' \
             target/classes/public/ s3://int-wutsi/static/wutsi-blog-web
 
@@ -91,11 +89,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: |
           aws s3 sync \
-          --recursive \
           --acl public-read \
           --region us-east-1 \
           --expires '2100-12-31T00:00:00Z' \
-          --content-encoding 'gzip' \
           target/classes/public/ s3://prod-wutsi/static/wutsi-blog-web
 
 
