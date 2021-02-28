@@ -7,7 +7,6 @@ import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.editor.service.filter.ButtonFilter
 import com.wutsi.blog.app.page.editor.service.filter.ImageFilter
 import com.wutsi.blog.app.page.editor.service.filter.LinkTargetFilter
-import com.wutsi.blog.app.page.story.service.HtmlImageService
 import com.wutsi.editorjs.html.EJSHtmlReader
 import com.wutsi.editorjs.html.EJSHtmlWriter
 import com.wutsi.editorjs.html.tag.TagProvider
@@ -23,7 +22,9 @@ class EditorJSConfiguration(
     private val objectMapper: ObjectMapper,
     private val requestContext: RequestContext,
     @Value("\${wutsi.base-url}") private val websiteUrl: String,
-    @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int
+    @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int,
+    @Value("\${wutsi.image.story.desktop.large.width}") private val desktopThumbnailLargeWidth: Int
+
 ) {
     @Bean
     fun htmlWriter() = EJSHtmlWriter(tagProvider())
@@ -43,13 +44,12 @@ class EditorJSConfiguration(
     @Autowired
     @Bean
     fun ejsFilterSet(
-        imageSize: HtmlImageService,
         imageKitService: ImageKitService,
         requestContext: RequestContext
     ) = EJSFilterSet(
         arrayListOf(
             LinkTargetFilter(websiteUrl),
-            ImageFilter(imageSize, imageKitService, requestContext, mobileThumbnailLargeWidth),
+            ImageFilter(imageKitService, requestContext, desktopThumbnailLargeWidth, mobileThumbnailLargeWidth),
             ButtonFilter()
         )
     )
