@@ -68,17 +68,6 @@ function Wutsi() {
     };
 
     this.domReady = function () {
-        /* popover */
-        $('[data-toggle="popover"]').popover({
-            trigger: 'hover'
-        });
-
-        /* lozad */
-        if (typeof lozad === "function") {
-            const observer = lozad();
-            observer.observe();
-        }
-
         /* comments */
         this.update_comment_count();
 
