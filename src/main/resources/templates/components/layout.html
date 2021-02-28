@@ -232,7 +232,7 @@
          th:classappend="${superUser} ? super-user"
     >
         <a class="navbar-brand" th:href="${blog.slug}">
-            <img class="blog-logo" height="50" th:alt="${blog.fullName}" th:if="${blog.pictureUrl}" th:src="${blog.pictureSmallUrl}" th:title="${blog.fullName}"/>
+            <img class="blog-logo" height="50" width="50" th:alt="${blog.fullName}" th:if="${blog.pictureUrl}" th:src="${blog.pictureSmallUrl}" th:title="${blog.fullName}"/>
             <span class="blog-name" th:text="${blog.fullName}">Title</span>
         </a>
 
