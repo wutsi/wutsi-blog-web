@@ -41,10 +41,12 @@
     </div>
     <script>
         $(document).ready(function () {
-            if (wutsi.isMobile()) {
-                $('.share-box .btn-whatsapp').removeClass('hidden');
-                $('.share-box .btn-messenger').removeClass('hidden');
-            }
+            setTimeout(function () {
+                if (wutsi.isMobile()) {
+                    $('.share-box .btn-whatsapp').removeClass('hidden');
+                    $('.share-box .btn-messenger').removeClass('hidden');
+                }
+            }, 2000);
 
             $('.share-box .close').click(function () {
                 $('.share-box').hide();

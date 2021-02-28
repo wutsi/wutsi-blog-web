@@ -26,7 +26,7 @@ class StoryPublishedControllerTest : SeleniumTestSupport() {
     fun `user should see his published stories`() {
         gotoPage()
 
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         assertElementText("#tab-draft .story-count", "11")
         assertElementCount(".story", 3)
     }

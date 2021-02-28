@@ -227,7 +227,7 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
     fun `show recommendations when available`() {
         driver.get("$url/read/20/looks-good")
 
-        Thread.sleep(1000)
+        Thread.sleep(5000)
         assertElementCount("#recommendation-container .story-summary-card", 7)
         assertElementAttribute("#recommendation-container .story-summary-card a", "wutsi-track-event", "xread")
 

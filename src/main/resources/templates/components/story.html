@@ -24,8 +24,12 @@
 
     <script>
         $(document).ready(function () {
-            update_story_count('draft');
-            update_story_count('published');
+            setTimeout(function () {
+                update_story_count('draft');
+            }, 2000);
+            setTimeout(function () {
+                update_story_count('published');
+            }, 2000)
         });
 
         function update_story_count(status) {
@@ -228,11 +232,13 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(document).ready(function () {
-            const storyId = /*[[${story.id}]]*/'0';
-            wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=summary', false)
-                .then(function (html) {
-                    $('#read-also-' + storyId).html(html);
-                })
+            setTimeout(function () {
+                const storyId = /*[[${story.id}]]*/'0';
+                wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=summary', false)
+                    .then(function (html) {
+                        $('#read-also-' + storyId).html(html);
+                    })
+            }, 2000)
         });
         /*]]>*/
     </script>

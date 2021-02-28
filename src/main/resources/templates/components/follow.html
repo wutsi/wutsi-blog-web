@@ -38,12 +38,14 @@
     <div id="follow-popup-container"></div>
     <script th:inline="javascript">
         $(document).ready(function () {
-            const userId = /*[[${user.id}]]*/ '0';
-            const storyUrl = /*[[${story.slug}]]*/ '';
-            wutsi.httpGet('/follow/popup?userId=' + userId + '&storyUrl=' + storyUrl, false)
-                .then(function (html) {
-                    $('#follow-popup-container').html(html);
-                });
+            setTimeout(function () {
+                const userId = /*[[${user.id}]]*/ '0';
+                const storyUrl = /*[[${story.slug}]]*/ '';
+                wutsi.httpGet('/follow/popup?userId=' + userId + '&storyUrl=' + storyUrl, false)
+                    .then(function (html) {
+                        $('#follow-popup-container').html(html);
+                    });
+            }, 2000);
         });
     </script>
 </div>
