@@ -656,6 +656,46 @@ h1, h2, h3, h4, h5, h6 {
     border-right: 1px solid var(--border-color);
 }
 
+.padding {
+    padding: 1em;
+}
+
+.padding-2x {
+    padding: 2em;
+}
+
+.padding-top {
+    padding-top: 1em;
+}
+
+.padding-left {
+    padding-left: 1em;
+}
+
+.padding-right {
+    padding-top: 1em;
+}
+
+.padding-none {
+    padding: 0;
+}
+
+.margin-left {
+    margin-left: 1em;
+}
+
+.margin-right {
+    margin-right: 1em;
+}
+
+.margin-bottom {
+    margin-bottom: 1em;
+}
+
+.margin-top {
+    margin-top: 1em;
+}
+
 .box-filled {
     background-color: var(--background-light);
 }
@@ -668,7 +708,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--highlight-color-light);
 }
 
-/* ==== FOLLOW PANEL ==== */
 .follow-panel {
     background: var(--highlight-color-light);
     padding: var(--padding);
@@ -765,6 +804,53 @@ nav.super-user {
 .navbar-margin {
     margin-top: 67px;
 }
+
+.author-navbar {
+    background: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    margin-top: -1.6em;
+}
+
+.author-navbar .btn-toolbar {
+    padding: var(--padding);
+    display: block;
+}
+
+.author-navbar .btn-toolbar .btn {
+    margin: 0 auto;
+}
+
+.author-card {
+    background: var(--card-background-color);
+    display: flex;
+    padding: var(--padding);
+}
+
+.author-card img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.author-card h1 {
+    font-size: 1.5em;
+}
+
+.author-card .fab,
+.author-card .fas {
+    font-size: 1.2em;
+    margin-right: 1em;
+}
+
+.author-card .follower-count {
+    font-size: 1em;
+    display: inline-block;
+}
+
+.story-card .title {
+    font-size: 1.5em;
+}
+
 
 @media only screen
 and (max-width: 480px)
