@@ -5,8 +5,7 @@ import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.service.EJSFilterSet
 import com.wutsi.blog.app.page.editor.service.filter.ButtonFilter
-import com.wutsi.blog.app.page.editor.service.filter.ImageKitFilter
-import com.wutsi.blog.app.page.editor.service.filter.ImageLozadFilter
+import com.wutsi.blog.app.page.editor.service.filter.ImageFilter
 import com.wutsi.blog.app.page.editor.service.filter.LinkTargetFilter
 import com.wutsi.blog.app.page.story.service.HtmlImageService
 import com.wutsi.editorjs.html.EJSHtmlReader
@@ -50,9 +49,8 @@ class EditorJSConfiguration(
     ) = EJSFilterSet(
         arrayListOf(
             LinkTargetFilter(websiteUrl),
-            ImageKitFilter(imageSize, imageKitService, requestContext, mobileThumbnailLargeWidth),
-            ButtonFilter(),
-            ImageLozadFilter(requestContext) /* should be the LAST image filter */
+            ImageFilter(imageSize, imageKitService, requestContext, mobileThumbnailLargeWidth),
+            ButtonFilter()
         )
     )
 }

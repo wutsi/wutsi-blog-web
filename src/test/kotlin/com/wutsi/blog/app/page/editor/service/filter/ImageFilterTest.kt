@@ -16,7 +16,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class ImageKitFilterTest {
+class ImageFilterTest {
     @Mock
     private lateinit var size: HtmlImageService
 
@@ -26,11 +26,11 @@ class ImageKitFilterTest {
     @Mock
     private lateinit var requestContext: RequestContext
 
-    private lateinit var filter: ImageKitFilter
+    private lateinit var filter: ImageFilter
 
     @Before
     fun setUp() {
-        filter = ImageKitFilter(size, imageKitService, requestContext, 400)
+        filter = ImageFilter(size, imageKitService, requestContext, 400)
 
         doReturn("foo-480px.gif 480w, foo-800px.gif 800w").whenever(size).srcset(any())
         doReturn("yo-man").whenever(size).sizes()
@@ -50,7 +50,7 @@ class ImageKitFilterTest {
                 " <head></head>\n" +
                 " <body>\n" +
                 "  Hello \n" +
-                "  <img src=\"bar.gif\" width=\"400\">world\n" +
+                "  <img src=\"bar.gif\" width=\"400\" loading=\"lazy\">world\n" +
                 " </body>\n" +
                 "</html>",
             doc.html()
@@ -67,7 +67,7 @@ class ImageKitFilterTest {
                 " <head></head>\n" +
                 " <body>\n" +
                 "  Hello \n" +
-                "  <img src=\"foo.gif\" width=\"300\" height=\"200\">world\n" +
+                "  <img src=\"foo.gif\" width=\"300\" height=\"200\" loading=\"lazy\">world\n" +
                 " </body>\n" +
                 "</html>",
             doc.html()

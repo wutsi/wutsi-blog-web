@@ -7,7 +7,7 @@ import com.wutsi.blog.app.page.story.service.HtmlImageService
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class ImageKitFilter(
+class ImageFilter(
     private val sizes: HtmlImageService,
     private val imageKitService: ImageKitService,
     private val requestContext: RequestContext,
@@ -32,11 +32,12 @@ class ImageKitFilter(
         val width = attrAsInt(img, "width")
         val height = attrAsInt(img, "height")
 
+        img.attr("loading", "lazy")
         if (requestContext.isMobileUserAgent()) {
             if (width > mobileThumbnailLargeWidth) {
                 val xurl = imageKitService.transform(url, width = mobileThumbnailLargeWidth.toString())
                 img.attr("src", xurl)
-                img.attr("width", "400")
+                img.attr("width", mobileThumbnailLargeWidth.toString())
                 img.removeAttr("height")
             }
         } else {

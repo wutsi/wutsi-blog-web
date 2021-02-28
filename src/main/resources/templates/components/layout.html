@@ -138,8 +138,6 @@
 
     <div th:replace="components/facebook :: pixel"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js" th:if="${toggles.lozad}"></script>
-
     <script th:if="${toggles.pwaPushNotification}" th:inline="javascript">
         /*<![CDATA[*/
         function pwa_notification_init() {
