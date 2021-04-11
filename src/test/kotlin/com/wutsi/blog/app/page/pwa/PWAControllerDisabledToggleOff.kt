@@ -32,7 +32,7 @@ class PWAControllerDisabledToggleOff : SeleniumTestSupport() {
         driver.get(url)
         assertCurrentPageIs(PageName.HOME)
 
-        assertElementPresent("script#a2hs-js")
+        assertElementNotPresent("script#a2hs-js")
         assertElementNotPresent("link#a2hs-css")
         assertElementNotPresent("#a2hs-container")
     }
@@ -42,7 +42,7 @@ class PWAControllerDisabledToggleOff : SeleniumTestSupport() {
         driver.get("$url/read/20/test")
         assertCurrentPageIs(PageName.READ)
 
-        assertElementPresent("script#a2hs-js")
+        assertElementNotPresent("script#a2hs-js")
         assertElementNotPresent("#a2hs-container")
     }
 
