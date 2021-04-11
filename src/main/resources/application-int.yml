@@ -11,7 +11,8 @@ wutsi:
     github:
       client-id: "43bf80531cd351c84f5b"
     facebook:
-      client-id: "629340480740249"
+      client-id: "158315786201583"
+      scope: "public_profile,pages_manage_posts"
     google:
       api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
       client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
@@ -30,7 +31,7 @@ wutsi:
   toggles:
     channel: true
     channel-twitter: true
-    channel-facebook: false
+    channel-facebook: true
     channel-linkedin: true
     pwa-push-notification: false
     sso-facebook: true
