@@ -8,6 +8,7 @@ class NewsletterService(
     private val api: NewsletterApi
 ) {
     fun unsubscribe(email: String, userId: Long? = null) {
+
         if (userId == null)
             api.unsubscribe(email)
         else

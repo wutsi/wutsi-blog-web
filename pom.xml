@@ -17,7 +17,7 @@
   <properties>
     <jacoco.threshold.line>0.74</jacoco.threshold.line>
     <jacoco.threshold.class>0.74</jacoco.threshold.class>
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
 
     <!-- Library versions - in ALPHABETICAL ORDER-->
     <common-lang.version>2.4</common-lang.version>
@@ -34,10 +34,13 @@
     <selenium.version>3.141.59</selenium.version>
     <wiremock.version>1.57</wiremock.version>
 
-    <wutsi-blog-client.version>1.144.0</wutsi-blog-client.version>
+    <wutsi-blog-client.version>1.149.0</wutsi-blog-client.version>
     <wutsi-core.version>1.27.0</wutsi-core.version>
     <wutsi-core-aws.version>1.12.0</wutsi-core-aws.version>
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
+
+    <wutsi-email-sdk-kotlin.version>1.0.0</wutsi-email-sdk-kotlin.version>
+    <wutsi-stream-rabbitmq.version>1.0.0</wutsi-stream-rabbitmq.version>
   </properties>
 
   <dependencies>
@@ -68,6 +71,29 @@
       <version>${wutsi-extractor.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.wutsi</groupId>
+      <artifactId>wutsi-stream-rabbitmq</artifactId>
+      <version>${wutsi-stream-rabbitmq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.email</groupId>
+      <artifactId>email-sdk-kotlin</artifactId>
+      <version>${wutsi-email-sdk-kotlin.version}</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>2.3.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>2.3.3</version>
+      <scope>runtime</scope>
+    </dependency>
 
     <!-- KOTLIN -->
     <dependency>
@@ -197,20 +223,8 @@
       <url>http://jcenter.bintray.com</url>
     </repository>
     <repository>
-      <id>github-wutsi-blog-client</id>
-      <url>https://maven.pkg.github.com/wutsi/wutsi-blog-client</url>
-    </repository>
-    <repository>
-      <id>github-wutsi-core</id>
-      <url>https://maven.pkg.github.com/wutsi/wutsi-core</url>
-    </repository>
-    <repository>
-      <id>github-wutsi-core-aws</id>
-      <url>https://maven.pkg.github.com/wutsi/wutsi-core-aws</url>
-    </repository>
-    <repository>
-      <id>github-wutsi-extractor</id>
-      <url>https://maven.pkg.github.com/wutsi/wutsi-extractor</url>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/wutsi/*</url>
     </repository>
   </repositories>
 

@@ -186,3 +186,7 @@ wutsi:
     sso-github: true
     sso-linkedin: false
     wpp: true                       # Wutsi Partner Program
+
+
+rabbitmq:
+  enabled: false

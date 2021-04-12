@@ -39,3 +39,9 @@ wutsi:
     sso-github: true
     sso-twitter: true
     sso-linkedin: false
+
+
+rabbitmq:
+  enabled: true
+  url: ${CLOUDAMQP_URL}
+  thread-pool-size: 8
