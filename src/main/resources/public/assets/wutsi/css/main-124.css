@@ -1274,6 +1274,10 @@ a.sso-button:hover {
     margin-top: var(--margin);
 }
 
+/* ==== STORY CAROUSEL ====== */
+.story-carousel .img-container img {
+    height: auto;
+}
 
 /* ==== VALUE PROPOSITION  === */
 .value-prop ul {
