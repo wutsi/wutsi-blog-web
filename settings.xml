@@ -4,48 +4,33 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-    <activeProfiles>
-        <activeProfile>default</activeProfile>
-    </activeProfiles>
+  <activeProfiles>
+    <activeProfile>default</activeProfile>
+  </activeProfiles>
 
-    <profiles>
-        <profile>
-            <id>default</id>
-            <repositories>
-                <repository>
-                    <id>maven</id>
-                    <name>maven</name>
-                    <url>https://repo1.maven.org/maven2</url>
-                </repository>
-                <repository>
-                    <id>central</id>
-                    <name>bintray</name>
-                    <url>http://jcenter.bintray.com</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
+  <profiles>
+    <profile>
+      <id>default</id>
+      <repositories>
+        <repository>
+          <id>maven</id>
+          <name>maven</name>
+          <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+          <id>central</id>
+          <name>bintray</name>
+          <url>http://jcenter.bintray.com</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
-    <servers>
-        <server>
-            <id>github-wutsi-blog-client</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-core</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-core-aws</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>github-wutsi-extractor</id>
-            <username>wutsi</username>
-            <password>${GITHUB_TOKEN}</password>
-        </server>
-    </servers>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>wutsi</username>
+      <password>${GITHUB_TOKEN}</password>
+    </server>
+  </servers>
 </settings>
