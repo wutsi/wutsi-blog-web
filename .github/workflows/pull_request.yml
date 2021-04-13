@@ -34,4 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn -s settings.xml install -Dheadless=true
+          mvn -s settings.xml install -Dmaven.test.skip=true -Dheadless=true

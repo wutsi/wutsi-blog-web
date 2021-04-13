@@ -1,17 +1,24 @@
 package com.wutsi.blog.app.page.mail.service
 
-import com.wutsi.blog.sdk.NewsletterApi
+import com.wutsi.blog.app.common.service.SiteProvider
+import com.wutsi.email.event.EmailEventType
+import com.wutsi.email.event.UnsubscriptionSubmittedEventPayload
+import com.wutsi.stream.EventStream
 import org.springframework.stereotype.Component
 
 @Component
 class NewsletterService(
-    private val api: NewsletterApi
+    private val emailEventStream: EventStream,
+    private val siteProvider: SiteProvider
 ) {
     fun unsubscribe(email: String, userId: Long? = null) {
-
-        if (userId == null)
-            api.unsubscribe(email)
-        else
-            api.unsubscribe(userId, email)
+        emailEventStream.enqueue(
+            type = EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn,
+            payload = UnsubscriptionSubmittedEventPayload(
+                userId = userId,
+                email = email,
+                siteId = siteProvider.siteId()
+            )
+        )
     }
 }

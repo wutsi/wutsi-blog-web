@@ -40,7 +40,6 @@ import com.wutsi.blog.sdk.CommentApi
 import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
-import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.TagApi
@@ -103,9 +102,6 @@ abstract class SeleniumTestSupport {
 
     @MockBean
     protected lateinit var likeApi: LikeApi
-
-    @MockBean
-    protected lateinit var newsletterApi: NewsletterApi
 
     @MockBean
     protected lateinit var partnerApi: PartnerApi
