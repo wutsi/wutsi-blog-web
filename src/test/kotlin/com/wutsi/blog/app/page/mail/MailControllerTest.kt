@@ -26,7 +26,7 @@ class MailControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.MAIL_UNSUBSCRIBE)
 
         val payload = argumentCaptor<UnsubscriptionSubmittedEventPayload>()
-        verify(emailEventStream).publish(
+        verify(emailEventStream).enqueue(
             eq(EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn),
             payload.capture()
         )
@@ -44,7 +44,7 @@ class MailControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.MAIL_UNSUBSCRIBE)
 
         val payload = argumentCaptor<UnsubscriptionSubmittedEventPayload>()
-        verify(emailEventStream).publish(
+        verify(emailEventStream).enqueue(
             eq(EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn),
             payload.capture()
         )

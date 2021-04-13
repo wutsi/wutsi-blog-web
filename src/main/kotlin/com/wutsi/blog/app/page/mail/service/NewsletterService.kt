@@ -12,7 +12,7 @@ class NewsletterService(
     private val siteProvider: SiteProvider
 ) {
     fun unsubscribe(email: String, userId: Long? = null) {
-        emailEventStream.publish(
+        emailEventStream.enqueue(
             type = EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn,
             payload = UnsubscriptionSubmittedEventPayload(
                 userId = userId,
