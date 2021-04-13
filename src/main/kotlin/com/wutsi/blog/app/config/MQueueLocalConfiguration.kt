@@ -1,6 +1,5 @@
 package com.wutsi.blog.config
 
-import com.wutsi.email.event.EmailEventStream
 import com.wutsi.stream.Event
 import com.wutsi.stream.EventHandler
 import com.wutsi.stream.EventStream
@@ -18,9 +17,9 @@ class MQueueLocalConfiguration(
     @Autowired
     private val eventPublisher: ApplicationEventPublisher
 ) {
-    @Bean(name = ["emailEventStream"], destroyMethod = "close")
-    fun emailEventStream(): EventStream = eventStream(
-        name = EmailEventStream.NAME
+    @Bean(destroyMethod = "close")
+    fun eventStream(): EventStream = eventStream(
+        name = "wutsi-blog-web"
     )
 
     private fun eventStream(name: String): EventStream = FileEventStream(

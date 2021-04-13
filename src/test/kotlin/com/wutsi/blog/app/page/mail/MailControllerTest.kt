@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 
 class MailControllerTest : SeleniumTestSupport() {
     @MockBean
-    private lateinit var emailEventStream: EventStream
+    private lateinit var eventStream: EventStream
 
     @Test
     fun unsubscribeFromBlog() {
@@ -26,7 +26,7 @@ class MailControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.MAIL_UNSUBSCRIBE)
 
         val payload = argumentCaptor<UnsubscriptionSubmittedEventPayload>()
-        verify(emailEventStream).enqueue(
+        verify(eventStream).enqueue(
             eq(EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn),
             payload.capture()
         )
@@ -44,7 +44,7 @@ class MailControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(PageName.MAIL_UNSUBSCRIBE)
 
         val payload = argumentCaptor<UnsubscriptionSubmittedEventPayload>()
-        verify(emailEventStream).enqueue(
+        verify(eventStream).enqueue(
             eq(EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn),
             payload.capture()
         )

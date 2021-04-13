@@ -2,7 +2,6 @@ package com.wutsi.blog.config
 
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.ConnectionFactory
-import com.wutsi.email.event.EmailEventStream
 import com.wutsi.stream.Event
 import com.wutsi.stream.EventHandler
 import com.wutsi.stream.EventStream
@@ -42,9 +41,9 @@ class MQueueRemoteConfiguration(
         .newConnection(executorService())
         .createChannel()
 
-    @Bean(name = ["emailEventStream"], destroyMethod = "close")
+    @Bean(destroyMethod = "close")
     fun emailEventStream(): EventStream = eventStream(
-        name = EmailEventStream.NAME
+        name = "wutsi-blog-web"
     )
 
     private fun eventStream(name: String): EventStream = RabbitMQEventStream(

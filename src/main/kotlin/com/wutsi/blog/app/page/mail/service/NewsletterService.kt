@@ -9,11 +9,11 @@ import java.net.URLDecoder
 
 @Component
 class NewsletterService(
-    private val emailEventStream: EventStream,
+    private val eventStream: EventStream,
     private val siteProvider: SiteProvider
 ) {
     fun unsubscribe(email: String, userId: Long? = null) {
-        emailEventStream.enqueue(
+        eventStream.enqueue(
             type = EmailEventType.UNSUBSCRIPTION_SUBMITTED.urn,
             payload = UnsubscriptionSubmittedEventPayload(
                 userId = userId,
