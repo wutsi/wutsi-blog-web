@@ -35,7 +35,7 @@ class StoryCarouselController(
             ),
             bubbleDownViewedStories = true,
             algorithm = no_sort
-        )
+        ).filter { !it.user.testUser }
 
         model.addAttribute("title", title)
         model.addAttribute("stories", stories.take(3))

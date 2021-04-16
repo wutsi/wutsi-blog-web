@@ -96,7 +96,12 @@ class StoryService(
             as List<StoryModel>
     }
 
-    private fun doSort(stories: List<StoryModel>, algorithm: SortAlgorithmType, statsHoursOffset: Int, bubbleDownViewedStories: Boolean = true): SortStoryResponse {
+    private fun doSort(
+        stories: List<StoryModel>,
+        algorithm: SortAlgorithmType,
+        statsHoursOffset: Int,
+        bubbleDownViewedStories: Boolean = true
+    ): SortStoryResponse {
         return backend.sort(
             SortStoryRequest(
                 storyIds = stories.map { it.id },
@@ -223,6 +228,6 @@ class StoryService(
                 storyIds = response.storyIds,
                 sortBy = StorySortStrategy.none
             )
-        )
+        ).filter { !it.user.testUser }
     }
 }

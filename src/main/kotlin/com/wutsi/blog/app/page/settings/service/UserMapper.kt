@@ -53,8 +53,8 @@ class UserMapper(
         hasSocialLinks = !user.facebookId.isNullOrEmpty() ||
             !user.youtubeId.isNullOrEmpty() ||
             !user.linkedinId.isNullOrEmpty() ||
-            !user.twitterId.isNullOrEmpty()
-
+            !user.twitterId.isNullOrEmpty(),
+        testUser = user.testUser
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
@@ -72,6 +72,7 @@ class UserMapper(
         storyCount = user.storyCount,
         followerCount = user.followerCount,
         hasFollowers = user.followerCount > 0,
-        followerCountText = NumberUtils.toHumanReadable(user.followerCount)
+        followerCountText = NumberUtils.toHumanReadable(user.followerCount),
+        testUser = user.testUser
     )
 }

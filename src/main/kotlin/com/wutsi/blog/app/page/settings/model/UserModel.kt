@@ -38,5 +38,6 @@ data class UserModel(
     val storyCount: Long = 0,
     val followerCount: Long = 0,
     val followerCountText: String = "",
-    val hasFollowers: Boolean = false
+    val hasFollowers: Boolean = false,
+    val testUser: Boolean = false
 )
