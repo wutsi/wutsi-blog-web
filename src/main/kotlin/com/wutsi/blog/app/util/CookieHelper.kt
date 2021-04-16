@@ -15,7 +15,8 @@ object CookieHelper {
 
     fun remove(name: String, response: HttpServletResponse) {
         val cookie = Cookie(name, "")
-        cookie.maxAge = 0
+        cookie.maxAge = -1
+        cookie.path = "/"
         response.addCookie(cookie)
     }
 
