@@ -57,7 +57,7 @@ class TogglesHolder(
         )
 
         value.ssoFacebook = !CookieHelper.get(COOKIE_FACEBOOK, requestContext.request).isNullOrEmpty()
-        value.channelFacebook = !CookieHelper.get(COOKIE_FACEBOOK, requestContext.request).isNullOrEmpty()
+        value.channelFacebook = value.ssoFacebook
         return value
     }
 }

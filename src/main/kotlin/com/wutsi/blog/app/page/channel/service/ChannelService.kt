@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.channel.service
 
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.common.service.Toggles
+import com.wutsi.blog.app.common.service.TogglesHolder
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.CreateChannelRequest
@@ -13,7 +13,7 @@ class ChannelService(
     private val api: ChannelApi,
     private val mapper: ChannelMapper,
     private val requestContext: RequestContext,
-    private val toggles: Toggles
+    private val togglesHolder: TogglesHolder
 ) {
     fun all(): List<ChannelModel> {
         val user = requestContext.currentUser()
@@ -61,6 +61,7 @@ class ChannelService(
 
     fun channelTypes(): List<ChannelType> {
         val types = mutableListOf<ChannelType>()
+        val toggles = togglesHolder.get()
         if (toggles.channelTwitter) {
             types.add(ChannelType.twitter)
         }
