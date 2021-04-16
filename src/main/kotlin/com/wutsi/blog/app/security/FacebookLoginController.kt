@@ -39,7 +39,7 @@ class FacebookLoginController(
 
         return "/me/settings/channel/create?" +
             "id=${user.id}" +
-            "accessToken=$accessToken" +
+            "&accessToken=$accessToken" +
             "&accessTokenSecret=-" +
             "&name=" + URLEncoder.encode(user.fullName, "utf-8") +
             "&pictureUrl=${user.pictureUrl}" +
