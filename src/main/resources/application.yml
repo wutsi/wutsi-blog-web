@@ -114,7 +114,7 @@ wutsi:
       client-id: "00000000"
       client-secret: "00000000"
       callback-url: "${wutsi.base-url}/login/facebook/callback"
-      scope: "public_profile"
+      scope: "public_profile,pages_manage_posts"
     google:
       api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
       client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
