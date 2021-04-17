@@ -1,7 +1,6 @@
 package com.wutsi.blog.app.common.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.blog.app.util.CookieHelper
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
@@ -55,8 +54,6 @@ class TogglesHolder(
             objectMapper.writeValueAsString(toggles),
             Toggles::class.java
         )
-
-        value.ssoFacebook = !CookieHelper.get(COOKIE_FACEBOOK, requestContext.request).isNullOrEmpty()
         value.channelFacebook = value.ssoFacebook
         return value
     }
