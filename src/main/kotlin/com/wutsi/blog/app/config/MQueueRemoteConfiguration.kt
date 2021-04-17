@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
+import org.springframework.scheduling.annotation.Scheduled
 import java.util.concurrent.ExecutorService
 
 @Configuration
@@ -23,7 +24,11 @@ class MQueueRemoteConfiguration(
     @Value(value = "\${rabbitmq.url}")
     private val url: String,
     @Value(value = "\${rabbitmq.thread-pool-size}")
-    private val threadPoolSize: Int
+    private val threadPoolSize: Int,
+    @Value(value = "\${rabbitmq.max-retries}")
+    private val maxRetries: Int,
+    @Value(value = "\${rabbitmq.queue-ttl-seconds}")
+    private val queueTtlSeconds: Long
 ) {
     @Bean
     public fun connectionFactory(): ConnectionFactory {
@@ -42,13 +47,11 @@ class MQueueRemoteConfiguration(
         .createChannel()
 
     @Bean(destroyMethod = "close")
-    fun emailEventStream(): EventStream = eventStream(
-        name = "wutsi-blog-web"
-    )
-
-    private fun eventStream(name: String): EventStream = RabbitMQEventStream(
-        name = name,
+    fun eventStream(): EventStream = RabbitMQEventStream(
+        name = "wutsi-blog-web",
         channel = channel(),
+        queueTtlSeconds = queueTtlSeconds,
+        maxRetries = maxRetries,
         handler = object : EventHandler {
             override fun onEvent(event: Event) {
                 eventPublisher.publishEvent(event)
@@ -59,4 +62,9 @@ class MQueueRemoteConfiguration(
     @Bean
     public fun rabbitMQHealthIndicator(): HealthIndicator =
         com.wutsi.stream.rabbitmq.RabbitMQHealthIndicator(channel())
+
+    @Scheduled(cron = "\${rabbitmq.replay-cron}")
+    public fun replayDlq() {
+        (eventStream() as com.wutsi.stream.rabbitmq.RabbitMQEventStream).replayDlq()
+    }
 }
