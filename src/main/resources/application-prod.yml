@@ -55,7 +55,7 @@ wutsi:
     channel-telegram: false
     comment: true
     earning: true
-    event-stream-tracking: false
+    event-stream-tracking: true
     facebook-pixel: false
     follow: true
     follow-popup: true
