@@ -164,6 +164,7 @@ wutsi:
     channel-telegram: true          # Enable Telegram Channel
     comment: true                   # Enable Comments
     earning: true                   # Show Earnings
+    event-stream-tracking: true     # Tracking via EventStream
     facebook-pixel: false           # Facebook Pixel - Disable since we are no longer doing ads on FB
     follow: true                    # Enable follow?
     follow-popup: true              # Display the Popup to Follow
