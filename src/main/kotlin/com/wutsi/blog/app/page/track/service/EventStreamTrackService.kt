@@ -8,6 +8,7 @@ import com.wutsi.stream.EventStream
 import com.wutsi.tracking.dto.PushTrackRequest
 import com.wutsi.tracking.event.TrackSubmittedEventPayload
 import com.wutsi.tracking.event.TrackingEventType
+import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Service
 
@@ -20,7 +21,12 @@ class EventStreamTrackService(
     private val eventStream: EventStream,
     private val requestContext: RequestContext
 ) : TrackService {
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(EventStreamTrackService::class.java)
+    }
+
     override fun push(form: PushTrackForm): String {
+        LOGGER.info("push($form)")
         eventStream.publish(
             type = TrackingEventType.TRACK_SUBMITTED.urn,
             payload = createPayload(form)

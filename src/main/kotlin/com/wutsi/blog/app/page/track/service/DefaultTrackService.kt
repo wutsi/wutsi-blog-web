@@ -7,6 +7,7 @@ import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName
 import com.wutsi.blog.client.track.PushTrackRequest
 import com.wutsi.core.logging.KVLogger
+import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Service
 import javax.servlet.http.HttpServletRequest
@@ -22,7 +23,12 @@ class DefaultTrackService(
     private val requestContext: RequestContext,
     private val logger: KVLogger
 ) : TrackService {
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(DefaultTrackService::class.java)
+    }
+
     override fun push(form: PushTrackForm): String {
+        LOGGER.info("push($form)")
         val request = createRequest(form)
         log(request)
         return backend.push(request).transactionId
