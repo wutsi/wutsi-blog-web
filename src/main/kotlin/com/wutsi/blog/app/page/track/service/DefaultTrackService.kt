@@ -7,15 +7,9 @@ import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName
 import com.wutsi.blog.client.track.PushTrackRequest
 import com.wutsi.core.logging.KVLogger
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.stereotype.Service
 import javax.servlet.http.HttpServletRequest
 
-@Service
-@ConditionalOnProperty(
-    value = ["wutsi.toggles.event-stream-tracking"],
-    havingValue = "false"
-)
+//@Service
 class DefaultTrackService(
     private val backend: TrackBackend,
     private val request: HttpServletRequest,
