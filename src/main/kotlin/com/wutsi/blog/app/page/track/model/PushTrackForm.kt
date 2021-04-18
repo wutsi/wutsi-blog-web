@@ -10,5 +10,9 @@ data class PushTrackForm(
     val pid: String? = null,
     val value: String? = null,
     val hid: String? = null,
-    val url: String? = null
+    val url: String? = null,
+    val duid: String? = null,
+    val ua: String? = null,
+    val uid: String? = null,
+    val referer: String? = null
 )
