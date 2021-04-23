@@ -86,8 +86,6 @@ wutsi:
       endpoint: ${wutsi.backend.track-url}/v1/stats
     track:
       endpoint: ${wutsi.backend.track-url}/v1/track
-    view:
-      endpoint: ${wutsi.backend.track-url}/v1/view
 
   facebook:
     app-id: "629340480740249"

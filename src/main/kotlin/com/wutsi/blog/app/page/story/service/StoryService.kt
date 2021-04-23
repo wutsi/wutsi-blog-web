@@ -16,9 +16,6 @@ import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.SortAlgorithmType
-import com.wutsi.blog.client.story.SortStoryRequest
-import com.wutsi.blog.client.story.SortStoryResponse
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
@@ -76,42 +73,6 @@ class StoryService(
 
         val users = searchUserMap(stories)
         return stories.map { mapper.toStoryModel(it, users[it.userId], pin) }
-    }
-
-    @Deprecated("slow function ")
-    fun sort(
-        stories: List<StoryModel>,
-        algorithm: SortAlgorithmType,
-        statsHoursOffset: Int = 24 * 7,
-        bubbleDownViewedStories: Boolean = true
-    ): List<StoryModel> {
-        if (stories.size <= 1)
-            return stories
-
-        val response = doSort(stories, algorithm, statsHoursOffset, bubbleDownViewedStories)
-        val storyMap = stories.map { it.id to it }.toMap()
-        return response.storyIds
-            .map { storyMap[it] }
-            .filter { it != null }
-            as List<StoryModel>
-    }
-
-    private fun doSort(
-        stories: List<StoryModel>,
-        algorithm: SortAlgorithmType,
-        statsHoursOffset: Int,
-        bubbleDownViewedStories: Boolean = true
-    ): SortStoryResponse {
-        return backend.sort(
-            SortStoryRequest(
-                storyIds = stories.map { it.id },
-                bubbleDownViewedStories = bubbleDownViewedStories,
-                userId = requestContext.currentUser()?.id,
-                deviceId = requestContext.deviceId(),
-                algorithm = algorithm,
-                statsHoursOffset = statsHoursOffset
-            )
-        )
     }
 
     fun publish(editor: PublishForm) {

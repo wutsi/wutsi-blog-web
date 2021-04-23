@@ -5,7 +5,6 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.SortAlgorithmType.no_sort
 import com.wutsi.blog.client.story.StorySortStrategy.published
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -25,16 +24,13 @@ class StoryCarouselController(
         @RequestParam(required = false) title: String? = null,
         model: Model
     ): String {
-        val stories = storyService.sort(
-            stories = storyService.search(
-                SearchStoryRequest(
-                    topicId = if (topicId > -1) topicId else null,
-                    sortBy = published,
-                    limit = 20
-                )
-            ),
-            bubbleDownViewedStories = true,
-            algorithm = no_sort
+        val stories = storyService.search(
+            SearchStoryRequest(
+                topicId = if (topicId > -1) topicId else null,
+                sortBy = published,
+                limit = 20,
+                bubbleDownViewedStories = true
+            )
         ).filter { !it.user.testUser }
 
         model.addAttribute("title", title)

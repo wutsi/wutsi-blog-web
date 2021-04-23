@@ -40,8 +40,10 @@
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
 
     <wutsi-email-sdk-kotlin.version>1.1.0</wutsi-email-sdk-kotlin.version>
-    <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
+    <wutsi-stats-sdk-kotlin.version>1.0.0</wutsi-stats-sdk-kotlin.version>
     <wutsi-stream-rabbitmq.version>1.4.0</wutsi-stream-rabbitmq.version>
+    <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
+    <wutsi-tracing.version>1.2.0</wutsi-tracing.version>
   </properties>
 
   <dependencies>
@@ -73,9 +75,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.wutsi.tracking</groupId>
-      <artifactId>tracking-sdk-kotlin</artifactId>
-      <version>${wutsi-tracking-sdk-kotlin.version}</version>
+      <groupId>com.wutsi.email</groupId>
+      <artifactId>email-sdk-kotlin</artifactId>
+      <version>${wutsi-email-sdk-kotlin.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi</groupId>
@@ -83,11 +85,20 @@
       <version>${wutsi-stream-rabbitmq.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.wutsi.email</groupId>
-      <artifactId>email-sdk-kotlin</artifactId>
-      <version>${wutsi-email-sdk-kotlin.version}</version>
+      <groupId>com.wutsi.stats</groupId>
+      <artifactId>stats-sdk-kotlin</artifactId>
+      <version>${wutsi-stats-sdk-kotlin.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.wutsi.tracking</groupId>
+      <artifactId>tracking-sdk-kotlin</artifactId>
+      <version>${wutsi-tracking-sdk-kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.tracing</groupId>
+      <artifactId>wutsi-tracing</artifactId>
+      <version>${wutsi-tracing.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>jakarta.xml.bind</groupId>

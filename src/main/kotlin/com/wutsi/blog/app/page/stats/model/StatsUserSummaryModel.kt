@@ -6,6 +6,6 @@ data class StatsUserSummaryModel(
     val totalReadTime: Long,
     val totalReadTimeText: String,
     val averageReadTime: Long,
-    val averageReadTimeText: String,
-    val percentReadTimeText: String
+    val averageReadTimeText: String = "",
+    val percentReadTimeText: String = ""
 )
