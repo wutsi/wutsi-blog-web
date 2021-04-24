@@ -21,6 +21,7 @@ class StoryMailPixelController(
 ) {
     companion object {
         val PAGE = "page.read"
+        val REFERER = "pixel.mail.wutsi.com"
     }
 
     @GetMapping("/{storyId}.png", produces = ["image/png"])
@@ -63,7 +64,8 @@ class StoryMailPixelController(
                 uid = userId?.toString(),
                 page = PAGE,
                 event = "readstart",
-                ua = userAgent
+                ua = userAgent,
+                referer = REFERER
             )
         )
 
@@ -78,7 +80,8 @@ class StoryMailPixelController(
                     page = PAGE,
                     event = "scroll",
                     value = "100",
-                    ua = userAgent
+                    ua = userAgent,
+                    referer = REFERER
                 )
             )
         }
