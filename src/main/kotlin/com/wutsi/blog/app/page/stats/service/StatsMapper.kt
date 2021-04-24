@@ -53,7 +53,8 @@ class StatsMapper(
             totalViewsText = NumberUtils.toHumanReadable(totalViews),
             totalReadTime = totalReadTime,
             totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime),
-            averageReadTime = averageReadTime
+            averageReadTime = averageReadTime,
+            averageReadTimeText = DurationUtils.secondsToHumanReadable(averageReadTime)
         )
     }
 
