@@ -127,11 +127,11 @@ class StatsService(
     fun barChartData(story: StoryModel, type: StatsType, year: Int, month: Int): BarChartModel {
         val startDate = LocalDate.of(year, month, 1)
         val endDate = startDate.plusMonths(1).minusDays(1)
-        val viewerKpis = statsApi.storyMonthlyKpis(
+        val viewerKpis = statsApi.storyDailyKpis(
             storyId = story.id,
             type = KpiType.VIEWER.name,
-            year = year,
-            month = month,
+            startDate = startDate,
+            endDate = endDate,
             limit = LIMIT
         ).kpis
 
