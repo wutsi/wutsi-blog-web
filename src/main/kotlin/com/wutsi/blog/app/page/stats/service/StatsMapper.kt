@@ -8,8 +8,10 @@ import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.stats.model.TrafficModel
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.core.util.DurationUtils
 import com.wutsi.core.util.NumberUtils
+import com.wutsi.stats.dto.KpiType
 import com.wutsi.stats.dto.StoryKpi
 import com.wutsi.stats.dto.StoryTraffic
 import com.wutsi.stats.dto.UserKpi
@@ -21,6 +23,7 @@ import java.time.LocalDate
 
 @Service
 class StatsMapper(
+    private val storyMapper: StoryMapper,
     private val requestContext: RequestContext,
     private val localization: LocalizationService
 ) {
@@ -52,6 +55,12 @@ class StatsMapper(
             totalReadTimeText = DurationUtils.secondsToHumanReadable(totalReadTime),
             averageReadTime = averageReadTime
         )
+    }
+
+    fun toStatsStorySummaryModel(story: StoryModel, kpis: List<StoryKpi>): StatsStorySummaryModel {
+        val viewerKpi = kpis.filter { it.storyId == story.id && it.type.toLowerCase() == KpiType.VIEWER.name }
+        val readTimeKpis = kpis.filter { it.storyId == story.id && it.type.toLowerCase() == KpiType.READ_TIME.name }
+        return toStatsStorySummaryModel(story, viewerKpi, readTimeKpis)
     }
 
     fun toTrafficModel(obj: StoryTraffic, totalValue: Double): TrafficModel {

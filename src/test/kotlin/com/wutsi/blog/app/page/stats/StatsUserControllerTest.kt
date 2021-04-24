@@ -34,8 +34,8 @@ class StatsUserControllerTest : SeleniumTestSupport() {
             value = 20,
             date = LocalDate.now()
         )
-        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyMonthlyKpis(any(), any(), any(), any(), any(), any())
-        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyDailyKpis(any(), any(), any(), any(), any(), any())
+        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyMonthlyKpis(any(), any(), any(), any(), any(), any(), any())
+        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyDailyKpis(any(), any(), any(), any(), any(), any(), any())
 
         val userKpi = UserKpi(
             value = 30,

@@ -6,7 +6,10 @@ import com.wutsi.blog.app.page.stats.model.StatsStorySummaryModel
 import com.wutsi.blog.app.page.stats.model.StatsUserSummaryModel
 import com.wutsi.blog.app.page.stats.model.TrafficModel
 import com.wutsi.blog.app.page.story.model.StoryModel
+import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.client.stats.StatsType
+import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.stats.StatsApi
 import com.wutsi.stats.dto.KpiType
 import org.springframework.stereotype.Service
@@ -16,51 +19,61 @@ import java.time.LocalDate
 class StatsService(
     private val statsApi: StatsApi,
     private val mapper: StatsMapper,
+    private val storyService: StoryService,
+
     private val requestContext: RequestContext
 ) {
+    companion object {
+        const val LIMIT = 1000
+    }
+
     fun user(year: Int, month: Int): StatsUserSummaryModel {
         val userId = requestContext.currentUser()!!.id
         val viewerKpis = statsApi.userMonthlyKpis(
             userId = userId,
             year = year,
             month = month,
-            type = KpiType.VIEWER.name
+            type = KpiType.VIEWER.name,
+            limit = LIMIT
         ).kpis
 
         val readTimeKpis = statsApi.userMonthlyKpis(
             userId = userId,
             year = year,
             month = month,
-            type = KpiType.READ_TIME.name
+            type = KpiType.READ_TIME.name,
+            limit = LIMIT
         ).kpis
         return mapper.toStatsUserSummaryModel(viewerKpis, readTimeKpis)
     }
 
     fun stories(year: Int, month: Int): List<StatsStorySummaryModel> {
-        return emptyList()
-//        val stats = backend.search(
-//            SearchMonthlyStatsStoryRequest(
-//                userId = requestContext.currentUser()?.id,
-//                year = year,
-//                month = month
-//            )
-//        ).stats
-//        if (stats.isEmpty()) {
-//            return emptyList()
-//        }
-//
-//        val storyIds = stats.map { it.storyId }.toSet()
-//        val stories = storyBackend.search(
-//            SearchStoryRequest(
-//                storyIds = storyIds.toList(),
-//                status = StoryStatus.published,
-//                live = true,
-//                limit = 50
-//            )
-//        ).stories
-//        return stories
-//            .map { mapper.toStatsStorySummaryModel(it, stats) }
-//            .filter { it.totalReadTime > 0 }
+        val kpis = statsApi.storyMonthlyKpis(
+            userId = requestContext.currentUser()?.id,
+            year = year,
+            month = month,
+            storyId = null,
+            type = null,
+            offset = 0,
+            limit = LIMIT
+        ).kpis
+
+        val storyIds = kpis.map { it.storyId }.toSet()
+        if (storyIds.isEmpty())
+            return emptyList()
+
+        val request = SearchStoryRequest(
+            storyIds = storyIds.toList(),
+            status = StoryStatus.published,
+            live = true,
+            limit = storyIds.size,
+            offset = 0
+        )
+        val stories = storyService.search(request)
+
+        return stories
+            .map { mapper.toStatsStorySummaryModel(it, kpis) }
+            .filter { it.totalReadTime > 0 }
     }
 
     fun story(story: StoryModel, year: Int, month: Int): StatsStorySummaryModel {
@@ -68,14 +81,18 @@ class StatsService(
             storyId = story.id,
             year = year,
             month = month,
-            type = KpiType.VIEWER.name
+            type = KpiType.VIEWER.name,
+            limit = LIMIT,
+            offset = 0
         ).kpis
 
         val readTimeKpis = statsApi.storyMonthlyKpis(
             storyId = story.id,
             year = year,
             month = month,
-            type = KpiType.READ_TIME.name
+            type = KpiType.READ_TIME.name,
+            limit = LIMIT,
+            offset = 0
         ).kpis
 
         return mapper.toStatsStorySummaryModel(story, viewerKpis, readTimeKpis)
@@ -85,7 +102,8 @@ class StatsService(
         val traffics = statsApi.storyMonthlyTraffic(
             storyId = story.id,
             month = month,
-            year = year
+            year = year,
+            limit = LIMIT
         ).traffics
         val totalValue = traffics.sumByDouble { it.value.toDouble() }
 
@@ -98,7 +116,8 @@ class StatsService(
         val traffics = statsApi.userMonthlyTraffic(
             userId = requestContext.currentUser()!!.id,
             month = month,
-            year = year
+            year = year,
+            limit = LIMIT
         ).traffics
         val totalValue = traffics.sumByDouble { it.value.toDouble() }
 
@@ -115,7 +134,7 @@ class StatsService(
             type = KpiType.VIEWER.name,
             year = year,
             month = month,
-            limit = 31
+            limit = LIMIT
         ).kpis
 
         return mapper.toBarChartModel(startDate, endDate, viewerKpis)

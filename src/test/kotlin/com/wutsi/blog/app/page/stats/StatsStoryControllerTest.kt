@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.stats.StatsApi
+import com.wutsi.stats.dto.KpiType
 import com.wutsi.stats.dto.SearchStoryKpiResponse
 import com.wutsi.stats.dto.SearchStoryTrafficResponse
 import com.wutsi.stats.dto.SearchUserKpiResponse
@@ -33,14 +34,16 @@ class StatsStoryControllerTest : SeleniumTestSupport() {
         val storyKpi = StoryKpi(
             storyId = 20,
             value = 20,
-            date = LocalDate.now()
+            date = LocalDate.now(),
+            type = KpiType.VIEWER.name
         )
-        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyMonthlyKpis(any(), any(), any(), any(), any(), any())
-        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyDailyKpis(any(), any(), any(), any(), any(), any())
+        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyMonthlyKpis(any(), any(), any(), any(), any(), any(), any())
+        doReturn(SearchStoryKpiResponse(listOf(storyKpi))).whenever(api).storyDailyKpis(any(), any(), any(), any(), any(), any(), any())
 
         val userKpi = UserKpi(
             value = 30,
-            date = LocalDate.now()
+            date = LocalDate.now(),
+            type = KpiType.VIEWER.name
         )
         doReturn(SearchUserKpiResponse(listOf(userKpi))).whenever(api).userMonthlyKpis(any(), any(), any(), any(), any(), any())
 
@@ -81,6 +84,7 @@ class StatsStoryControllerTest : SeleniumTestSupport() {
 
         click("#navbar-draft")
         click("#tab-published")
+        Thread.sleep(1000)
         click(".story:first-child .dropdown .btn")
         click(".story .menu-item-stats")
     }
