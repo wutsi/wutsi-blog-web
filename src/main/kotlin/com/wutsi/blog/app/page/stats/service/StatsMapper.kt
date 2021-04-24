@@ -58,8 +58,8 @@ class StatsMapper(
     }
 
     fun toStatsStorySummaryModel(story: StoryModel, kpis: List<StoryKpi>): StatsStorySummaryModel {
-        val viewerKpi = kpis.filter { it.storyId == story.id && it.type.toLowerCase() == KpiType.VIEWER.name }
-        val readTimeKpis = kpis.filter { it.storyId == story.id && it.type.toLowerCase() == KpiType.READ_TIME.name }
+        val viewerKpi = kpis.filter { it.storyId == story.id && it.type.equals(KpiType.VIEWER.name, true) }
+        val readTimeKpis = kpis.filter { it.storyId == story.id && it.type.equals(KpiType.READ_TIME.name, true) }
         return toStatsStorySummaryModel(story, viewerKpi, readTimeKpis)
     }
 

@@ -52,8 +52,6 @@ class StatsService(
             userId = requestContext.currentUser()?.id,
             year = year,
             month = month,
-            storyId = null,
-            type = null,
             offset = 0,
             limit = LIMIT
         ).kpis
