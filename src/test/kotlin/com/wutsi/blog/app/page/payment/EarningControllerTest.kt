@@ -1,21 +1,38 @@
 package com.wutsi.blog.app.page.payment
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.earning.EarningApi
+import com.wutsi.earning.dto.Earning
+import com.wutsi.earning.dto.SearchEarningResponse
 import org.junit.Test
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
+import org.springframework.boot.test.mock.mockito.MockBean
+import java.time.LocalDate
 
 class EarningControllerTest : SeleniumTestSupport() {
+    @MockBean
+    private lateinit var api: EarningApi
+
     override fun setupWiremock() {
         super.setupWiremock()
 
-        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search.json")
+        doReturn(SearchEarningResponse()).whenever(api).userEarnings(any(), any())
         givenPartner()
     }
 
     @Test
     fun `user can view his earnings`() {
+        val earning = Earning(
+            userId = 1L,
+            amount = 5000,
+            date = LocalDate.now(),
+            currency = "XAF"
+        )
+        doReturn(SearchEarningResponse(listOf(earning))).whenever(api).userEarnings(any(), any())
+
         gotoPage()
 
         Thread.sleep(5000)
@@ -26,7 +43,6 @@ class EarningControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `user has no earning`() {
-        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
         gotoPage()
 
         assertElementNotPresent(".tui-chart")
@@ -36,7 +52,6 @@ class EarningControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `invite user to join wpp`() {
-        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
         givenNoPartner()
 
         gotoPage()
@@ -47,7 +62,6 @@ class EarningControllerTest : SeleniumTestSupport() {
     @Test
     fun `never invite contractor to join wpp`() {
         givenContract(1)
-        stub(HttpMethod.POST, "/v1/earning/search", HttpStatus.OK, "v1/earning/search_empty.json")
         givenNoPartner()
 
         gotoPage()

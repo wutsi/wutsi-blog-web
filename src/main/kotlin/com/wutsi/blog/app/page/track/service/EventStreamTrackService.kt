@@ -9,14 +9,9 @@ import com.wutsi.stream.EventStream
 import com.wutsi.tracking.dto.PushTrackRequest
 import com.wutsi.tracking.event.TrackSubmittedEventPayload
 import com.wutsi.tracking.event.TrackingEventType
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Service
 
 @Service
-@ConditionalOnProperty(
-    value = ["wutsi.toggles.event-stream-tracking"],
-    havingValue = "true"
-)
 class EventStreamTrackService(
     private val eventStream: EventStream,
     private val requestContext: RequestContext,

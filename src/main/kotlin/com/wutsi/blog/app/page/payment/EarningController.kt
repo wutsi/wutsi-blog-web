@@ -29,13 +29,11 @@ class EarningController(
 
     @GetMapping()
     fun index(
-        @RequestParam(required = false) year: String ? = null,
+        @RequestParam(required = false) year: String? = null,
         model: Model
     ): String {
         val currentYear = toYear(year)
         loadYear(currentYear, model)
-        loadTotal(currentYear, model)
-        loadTotal(currentYear, model)
 
         model.addAttribute("joinWPP", shouldJoinWPP())
         return "page/payment/earning"
@@ -51,14 +49,14 @@ class EarningController(
         model.addAttribute("previousYearUrl", "/me/earning?year=$previousYear")
     }
 
-    private fun loadTotal(year: Int, model: Model) {
-        val total = service.total(year)
-        if (total != null) {
-            model.addAttribute("total", total)
-        }
-    }
-
     private fun shouldJoinWPP() = !contracts.hasContract() && !partners.isPartner()
+
+    @ResponseBody
+    @GetMapping(value = ["/total"], produces = ["application/json"])
+    fun total(@RequestParam year: Int): Map<String, String> {
+        val total = service.total(year)
+        return mapOf("value" to total.toString())
+    }
 
     @ResponseBody
     @GetMapping(value = ["/bar-chart-data"], produces = ["application/json"])

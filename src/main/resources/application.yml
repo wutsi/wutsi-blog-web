@@ -80,12 +80,6 @@ wutsi:
     story:
       endpoint: ${wutsi.backend.base-url}/v1/story
 
-    earning:
-      endpoint: ${wutsi.backend.track-url}/v1/earning
-    stats:
-      endpoint: ${wutsi.backend.track-url}/v1/stats
-    track:
-      endpoint: ${wutsi.backend.track-url}/v1/track
 
   facebook:
     app-id: "629340480740249"
