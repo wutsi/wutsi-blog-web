@@ -22,7 +22,7 @@
         <div class="row margin-top-2x">
             <div class="col-12 col-md-6 padding margin-bottom">
                 <h5 th:text="#{page.earning.kpi.total_earnings}">Total Earnings</h5>
-                <i class="fas fa-spinner fa-spin" id="total-earning-spinner"></i>
+                <i class="fas fa-spinner fa-spin" id="total-earning-spinner" th:if="!${joinWPP}"></i>
                 <h3 class="total-earning highlight" id="total-earning">
                 </h3>
             </div>
@@ -136,10 +136,15 @@
         $('#total-earning-spinner').hide();
     }
 
-    $(document).ready(function () {
-        load_chart();
-        load_total();
-    })
+    setTimeout(
+        function () {
+            $(document).ready(function () {
+                load_chart();
+                load_total();
+            })
+        },
+        1000
+    );
 
     /*]]>*/
 </script>
