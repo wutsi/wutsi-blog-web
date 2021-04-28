@@ -42,15 +42,6 @@ class EarningControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `user has no earning`() {
-        gotoPage()
-
-        assertElementNotPresent(".tui-chart")
-        assertElementNotPresent(".total-earning")
-        assertElementPresent(".no-earning")
-    }
-
-    @Test
     fun `invite user to join wpp`() {
         givenNoPartner()
 
