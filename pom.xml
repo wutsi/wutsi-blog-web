@@ -30,7 +30,7 @@
     <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
     <mockito.version>2.22.0</mockito.version>
-    <rome.version>1.10.0</rome.version>
+    <rome.version>1.15.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
     <selenium.version>3.141.59</selenium.version>
     <wiremock.version>1.57</wiremock.version>
