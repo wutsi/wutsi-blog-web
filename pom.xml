@@ -33,7 +33,7 @@
     <rome.version>1.10.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
     <selenium.version>3.141.59</selenium.version>
-    <wiremock.version>1.57</wiremock.version>
+    <wiremock.version>1.58</wiremock.version>
 
     <wutsi-blog-client.version>1.151.0</wutsi-blog-client.version>
     <wutsi-core.version>1.27.0</wutsi-core.version>
