@@ -6,7 +6,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import com.wutsi.earning.EarningApi
 import com.wutsi.earning.EarningApiBuilder
 import com.wutsi.stream.ObjectMapperBuilder
-import feign.RequestInterceptor
+import com.wutsi.tracing.TracingRequestInterceptor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +16,8 @@ import org.springframework.core.env.Profiles
 @Configuration
 class EarningApiConfiguration(
     @Autowired private val env: Environment,
-    @Autowired private val tracingRequestInterceptor: RequestInterceptor
+    @Autowired private val tracingRequestInterceptor: TracingRequestInterceptor,
+    @Autowired private val apiKeyRequestInterceptor: TracingRequestInterceptor
 ) {
     @Bean
     fun earningApi(): EarningApi {
@@ -29,7 +30,7 @@ class EarningApiConfiguration(
             .build(
                 env = earningEnvironment(),
                 mapper = mapper,
-                interceptors = listOf(tracingRequestInterceptor)
+                interceptors = listOf(tracingRequestInterceptor, apiKeyRequestInterceptor)
             )
     }
 
