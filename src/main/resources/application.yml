@@ -191,5 +191,5 @@ rabbitmq:
 
 security:
   api-key:
-    id: ${API_KEY_ID:9dae2945-b95c-4b41-b9c9-cb695a2f7722}
+    id: "9dae2945-b95c-4b41-b9c9-cb695a2f7722"
     header: "Authorization"
