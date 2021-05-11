@@ -47,6 +47,9 @@ class PageName {
 
         const val SETTINGS = "page.settings"
 
+        const val MONETIZATION = "page.monetization"
+        const val MONETIZATION_EDIT = "page.monetization.edit"
+
         const val PARTNER = "page.partner"
         const val PARTNER_JOIN = "page.partner.join"
         const val PARTNER_PAYMENT = "page.partner.payment"

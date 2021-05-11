@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="components/layout :: navbar"></div>
+
+<div class="container">
+    <div class="row margin-top-2x margin-bottom-4x">
+        <div class="col-12 offset-md-3 col-md-6 margin-top-2x">
+
+            <div class="main-content border padding-2x margin-top-2x">
+                <h1 class="margin-top text-center" th:text="#{page.monetization.header}">Monetization</h1>
+                <div class="margin-top text-center" th:text="#{page.monetization.sub_header}"></div>
+
+                <div class="alert alert-danger margin-top" th:if="${error}" th:text="${error}">Error</div>
+
+                <form autocomplete="off" class="margin-top-2x" id="form-payment" method="post"
+                      th:action="@{/me/monetization/setup}" th:object="${form}"
+                >
+                    <input name="id" th:field="*{id}" th:if="${form.id}" type="hidden"/>
+                    <input name="name" th:field="*{name}" type="hidden"/>
+
+                    <div class="form-group">
+                        <label>
+                            <span th:text="#{label.yearly.subscription}">Yearly Subscription</span>
+                            <span class="required">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input class="form-control" id="yearly" min="1" required="required" step="1" th:field="*{yearly}" type="number">
+                            <div class="input-group-append">
+                                <span class="input-group-text" th:text="${form.currency}">XAF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group margin-top-2x">
+                        <label th:text="#{page.monetization.description}">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="2" th:field="*{description}">
+                        </textarea>
+                        <small class="form-text text-muted" th:text="#{page.monetization.description.help}">Help</small>
+                    </div>
+
+                    <!-- Toolbar -->
+                    <div class="margin-top padding-top">
+                        <button class="btn btn-primary" id="btn-submit" th:text="#{button.save}" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+</html>

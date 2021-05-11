@@ -169,4 +169,8 @@ class RequestContext(
             throw ForbiddenException("permission_error")
         }
     }
+
+    fun currency(): String = "XAF"
+
+    fun siteId(): Long = 1L
 }

@@ -31,6 +31,9 @@
                     <div th:if="${user.blog}">
                         <a href="#channels" th:text="#{label.my_channels}">My Channels</a>
                     </div>
+                    <div th:if="${user.blog} AND ${toggles.monetization}">
+                        <a href="#monetization" th:text="#{label.monetization}">Monetization</a>
+                    </div>
                     <div>
                         <a href="#subscriptions" th:text="#{label.my_subscriptions}">My Subscriptions</a>
                     </div>
@@ -105,6 +108,21 @@
                 <div th:each="channel : ${channels}">
                     <div th:replace="components/settings :: channel(${channel})"></div>
                 </div>
+            </div>
+
+            <a name="monetization" th:if="${toggles.monetization}"></a>
+            <div class="setting-section" id="monetization-container" th:if="${user.blog} AND ${toggles.monetization}">
+                <h4 th:text="#{label.monetization}">Monetization</h4>
+                <div id="monetization-content">
+                    <center>
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </center>
+                </div>
+                <script>
+                    fetch('/me/monetization')
+                        .then(response => response.text())
+                        .then(html => document.getElementById('monetization-content').innerHTML = html);
+                </script>
             </div>
 
             <a name="subscriptions"></a>

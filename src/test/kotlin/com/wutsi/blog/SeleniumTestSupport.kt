@@ -47,6 +47,8 @@ import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
+import com.wutsi.subscription.SubscriptionApi
+import com.wutsi.subscription.dto.SearchPlanResponse
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -121,6 +123,9 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var userApi: UserApi
 
+    @MockBean
+    protected lateinit var subscriptionApi: SubscriptionApi
+
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -182,6 +187,8 @@ abstract class SeleniumTestSupport {
         givenUser(99, name = "john.smith", fullName = "John Smith", blog = false)
         givenUser(6666, name = "ze.god", superUser = true, blog = false)
         givenSearchReturn5()
+
+        doReturn(SearchPlanResponse()).whenever(subscriptionApi).partnerPlans(any(), any())
     }
 
     protected fun givenNoUser(userId: Long) {

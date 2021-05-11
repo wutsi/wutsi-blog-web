@@ -36,17 +36,18 @@
     <wiremock.version>1.58</wiremock.version>
 
     <wutsi-blog-client.version>1.151.0</wutsi-blog-client.version>
-    <wutsi-core.version>1.27.0</wutsi-core.version>
+    <wutsi-core.version>1.28.0</wutsi-core.version>
     <wutsi-core-aws.version>1.12.0</wutsi-core-aws.version>
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
 
     <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
     <wutsi-email-sdk-kotlin.version>1.3.0</wutsi-email-sdk-kotlin.version>
-    <wutsi-security.version>1.0.0</wutsi-security.version>
+    <wutsi-security.version>1.2.0</wutsi-security.version>
     <wutsi-stats-sdk-kotlin.version>1.1.0</wutsi-stats-sdk-kotlin.version>
-    <wutsi-stream-rabbitmq.version>1.5.0</wutsi-stream-rabbitmq.version>
+    <wutsi-stream-rabbitmq.version>1.7.0</wutsi-stream-rabbitmq.version>
+    <wutsi-subscription-sdk.version>1.1.0</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
-    <wutsi-tracing.version>1.2.0</wutsi-tracing.version>
+    <wutsi-tracing.version>1.4.0</wutsi-tracing.version>
   </properties>
 
   <dependencies>
@@ -111,6 +112,11 @@
       <groupId>com.wutsi.tracing</groupId>
       <artifactId>wutsi-tracing</artifactId>
       <version>${wutsi-tracing.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.subscription</groupId>
+      <artifactId>subscription-sdk-kotlin</artifactId>
+      <version>${wutsi-subscription-sdk.version}</version>
     </dependency>
 
     <dependency>

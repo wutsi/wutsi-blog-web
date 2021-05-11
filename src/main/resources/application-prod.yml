@@ -62,6 +62,7 @@ wutsi:
     google-one-tap-sign-in: true
     imagekit: true
     like: true
+    monetization: false
     pin: true
     post: true
     pwa: true
