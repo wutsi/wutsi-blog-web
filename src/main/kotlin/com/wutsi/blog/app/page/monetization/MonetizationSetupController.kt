@@ -39,7 +39,8 @@ class MonetizationSetupController(
         model.addAttribute("error", error)
         if (plan != null) {
             model.addAttribute(
-                "form", PlanForm(
+                "form",
+                PlanForm(
                     id = plan.id,
                     name = NAME,
                     description = description ?: plan.description,
@@ -49,7 +50,8 @@ class MonetizationSetupController(
             )
         } else {
             model.addAttribute(
-                "form", PlanForm(
+                "form",
+                PlanForm(
                     name = NAME,
                     currency = requestContext.currency()
                 )
