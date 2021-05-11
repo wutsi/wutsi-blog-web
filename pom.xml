@@ -29,7 +29,7 @@
     <libphonenumber.version>8.12.21</libphonenumber.version>
     <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
-    <mockito.version>2.22.0</mockito.version>
+    <mockito.version>2.28.2</mockito.version>
     <rome.version>1.15.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
     <selenium.version>3.141.59</selenium.version>
