@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/me/monetization")
+@RequestMapping("/monetization")
 class MonetizationController(
     private val service: MonetizationService,
     requestContext: RequestContext

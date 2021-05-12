@@ -8,7 +8,7 @@ import com.wutsi.subscription.dto.PlanRate
 import org.springframework.stereotype.Service
 
 @Service
-class PlanMapper {
+class MonetizationMapper {
     fun toPlanModel(plan: Plan) = PlanModel(
         id = plan.id,
         name = plan.name,

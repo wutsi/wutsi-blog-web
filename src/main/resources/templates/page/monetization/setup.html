@@ -19,7 +19,7 @@
                 <div class="alert alert-danger margin-top" th:if="${error}" th:text="${error}">Error</div>
 
                 <form autocomplete="off" class="margin-top-2x" id="form-payment" method="post"
-                      th:action="@{/me/monetization/setup}" th:object="${form}"
+                      th:action="@{/monetization/setup}" th:object="${form}"
                 >
                     <input name="id" th:field="*{id}" th:if="${form.id}" type="hidden"/>
                     <input name="name" th:field="*{name}" type="hidden"/>

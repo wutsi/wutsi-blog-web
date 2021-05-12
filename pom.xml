@@ -17,19 +17,21 @@
   <properties>
     <jacoco.threshold.line>0.74</jacoco.threshold.line>
     <jacoco.threshold.class>0.74</jacoco.threshold.class>
+    <jacoco.version>0.8.7</jacoco.version>
     <java.version>11</java.version>
 
     <!-- Library versions - in ALPHABETICAL ORDER-->
-    <common-lang.version>2.4</common-lang.version>
-    <commons-io.version>2.4</commons-io.version>
+    <common-lang.version>2.6</common-lang.version>
+    <commons-io.version>2.8.0</commons-io.version>
     <jackson.version>2.12.3</jackson.version>
     <klint.version>0.41.0</klint.version>
     <kotlin.version>1.5.0</kotlin.version>
     <kotlin-mockito.version>2.2.0</kotlin-mockito.version>
-    <libphonenumber.version>8.12.21</libphonenumber.version>
-    <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+    <libphonenumber.version>8.12.23</libphonenumber.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
-    <mockito.version>2.22.0</mockito.version>
+    <mockito.version>2.28.2</mockito.version>
     <rome.version>1.15.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
     <selenium.version>3.141.59</selenium.version>
@@ -127,7 +129,7 @@
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
-      <version>2.3.3</version>
+      <version>2.3.4</version>
       <scope>runtime</scope>
     </dependency>
 
@@ -380,7 +382,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.2</version>
+        <version>${jacoco.version}</version>
         <executions>
           <execution>
             <id>default-prepare-agent</id>
@@ -427,7 +429,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
+        <version>${maven-antrun-plugin.version}</version>
         <executions>
           <execution>
             <id>ktlint</id>

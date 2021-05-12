@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import java.net.URLEncoder
 
 @Controller
-@RequestMapping("/me/monetization/setup")
+@RequestMapping("/monetization/setup")
 class MonetizationSetupController(
     private val service: MonetizationService,
     requestContext: RequestContext

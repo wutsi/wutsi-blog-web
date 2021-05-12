@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.monetization.service
 
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.monetization.PlanMapper
+import com.wutsi.blog.app.page.monetization.MonetizationMapper
 import com.wutsi.blog.app.page.monetization.model.PlanForm
 import com.wutsi.blog.app.page.monetization.model.PlanModel
 import com.wutsi.subscription.SubscriptionApi
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class MonetizationService(
     private val api: SubscriptionApi,
-    private val mapper: PlanMapper,
+    private val mapper: MonetizationMapper,
     private val requestContext: RequestContext
 ) {
     fun save(form: PlanForm) {

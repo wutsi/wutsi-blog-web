@@ -114,13 +114,14 @@
             <a name="monetization" th:if="${toggles.monetization}"></a>
             <div class="setting-section" id="monetization-container" th:if="${user.blog} AND ${toggles.monetization}">
                 <h4 th:text="#{label.monetization}">Monetization</h4>
+                <p th:text="#{page.settings.monetization.info}">Publish on social media</p>
                 <div id="monetization-content">
                     <center>
                         <i class="fas fa-spinner fa-spin"></i>
                     </center>
                 </div>
                 <script>
-                    fetch('/me/monetization')
+                    fetch('/monetization')
                         .then(response => response.text())
                         .then(html => document.getElementById('monetization-content').innerHTML = html);
                 </script>
