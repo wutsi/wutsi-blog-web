@@ -53,6 +53,8 @@ class MonetizationSetupController(
                 "form",
                 PlanForm(
                     name = NAME,
+                    description = description ?: "",
+                    yearly = yearly ?: "",
                     currency = requestContext.currency()
                 )
             )
@@ -68,7 +70,8 @@ class MonetizationSetupController(
         } catch (ex: Exception) {
             LOGGER.error("Unable to setup monetization", ex)
             val error = requestContext.getMessage("error.unexpected")
-            return "redirect:/me/monetization/setup?yearly=${form.yearly}" +
+            return "redirect:/me/monetization/setup" +
+                "?yearly=${form.yearly}" +
                 "&error=" + URLEncoder.encode(error, "utf-8") +
                 "&description=" + URLEncoder.encode(form.description, "utf-8")
         }

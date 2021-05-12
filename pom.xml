@@ -45,7 +45,7 @@
     <wutsi-security.version>1.2.0</wutsi-security.version>
     <wutsi-stats-sdk-kotlin.version>1.1.0</wutsi-stats-sdk-kotlin.version>
     <wutsi-stream-rabbitmq.version>1.7.0</wutsi-stream-rabbitmq.version>
-    <wutsi-subscription-sdk.version>1.1.0</wutsi-subscription-sdk.version>
+    <wutsi-subscription-sdk.version>1.1.1</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
     <wutsi-tracing.version>1.4.0</wutsi-tracing.version>
   </properties>
