@@ -78,8 +78,8 @@ wutsi:
     sso-twitter: false
     wpp: true
 
-rabbitmq:
-  enabled: true
-security:
-  api-key:
-    id: ${API_KEY_ID}
+  rabbitmq:
+    enabled: true
+  security:
+    api-key:
+      id: ${API_KEY_ID}
