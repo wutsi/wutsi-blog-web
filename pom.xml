@@ -23,7 +23,6 @@
     <!-- Library versions - in ALPHABETICAL ORDER-->
     <common-lang.version>2.6</common-lang.version>
     <commons-io.version>2.8.0</commons-io.version>
-    <jackson.version>2.12.3</jackson.version>
     <klint.version>0.41.0</klint.version>
     <kotlin.version>1.5.0</kotlin.version>
     <kotlin-mockito.version>2.2.0</kotlin-mockito.version>
@@ -43,13 +42,10 @@
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
 
     <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
-    <wutsi-email-sdk-kotlin.version>1.3.0</wutsi-email-sdk-kotlin.version>
-    <wutsi-security.version>1.2.0</wutsi-security.version>
     <wutsi-stats-sdk-kotlin.version>1.1.0</wutsi-stats-sdk-kotlin.version>
-    <wutsi-stream-rabbitmq.version>1.7.0</wutsi-stream-rabbitmq.version>
     <wutsi-subscription-sdk.version>1.1.1</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
-    <wutsi-tracing.version>1.4.0</wutsi-tracing.version>
+    <wutsi-platform.version>1.1.0</wutsi-platform.version>
   </properties>
 
   <dependencies>
@@ -81,24 +77,14 @@
     </dependency>
 
     <dependency>
+      <groupId>com.wutsi.platform</groupId>
+      <artifactId>wutsi-platform</artifactId>
+      <version>${wutsi-platform.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.wutsi.earning</groupId>
       <artifactId>earning-sdk-kotlin</artifactId>
       <version>${wutsi-earning-sdk-kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.email</groupId>
-      <artifactId>email-sdk-kotlin</artifactId>
-      <version>${wutsi-email-sdk-kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi</groupId>
-      <artifactId>wutsi-stream-rabbitmq</artifactId>
-      <version>${wutsi-stream-rabbitmq.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.security</groupId>
-      <artifactId>wutsi-security</artifactId>
-      <version>${wutsi-security.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi.stats</groupId>
@@ -109,11 +95,6 @@
       <groupId>com.wutsi.tracking</groupId>
       <artifactId>tracking-sdk-kotlin</artifactId>
       <version>${wutsi-tracking-sdk-kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.tracing</groupId>
-      <artifactId>wutsi-tracing</artifactId>
-      <version>${wutsi-tracing.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi.subscription</groupId>
@@ -232,21 +213,6 @@
       <groupId>au.com.flyingkite</groupId>
       <artifactId>mobiledetect</artifactId>
       <version>${mobiledetect.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-parameter-names</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jdk8</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
 
     <!-- Selenium -->

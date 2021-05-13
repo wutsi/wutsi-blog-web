@@ -47,6 +47,9 @@ import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
+import com.wutsi.site.SiteApi
+import com.wutsi.site.dto.GetSiteResponse
+import com.wutsi.site.dto.Site
 import com.wutsi.subscription.SubscriptionApi
 import com.wutsi.subscription.dto.SearchPlanResponse
 import org.apache.commons.io.IOUtils
@@ -126,6 +129,9 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var subscriptionApi: SubscriptionApi
 
+    @MockBean
+    protected lateinit var siteApi: SiteApi
+
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -188,8 +194,21 @@ abstract class SeleniumTestSupport {
         givenUser(6666, name = "ze.god", superUser = true, blog = false)
         givenSearchReturn5()
 
+        val site = createSite()
         doReturn(SearchPlanResponse()).whenever(subscriptionApi).partnerPlans(any(), any())
+        doReturn(GetSiteResponse(site)).whenever(siteApi).get(any())
     }
+
+    protected fun createSite() = Site(
+        id = 1L,
+        name = "wutsi",
+        displayName = "Wutsi",
+        websiteUrl = "http://localhost:8081",
+        currency = "XAF",
+        internationalCurrency = "EUR",
+        language = "fr",
+        domainName = "localhost"
+    )
 
     protected fun givenNoUser(userId: Long) {
         doThrow(NotFoundException("user_not_found")).whenever(userApi).get(userId)

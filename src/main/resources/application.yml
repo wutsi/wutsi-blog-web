@@ -36,6 +36,7 @@ logging:
     file: "%d Type=%level Logger=%c Thread=%thread %m%n"
 
 wutsi:
+  client-id: wutsi-blog-web
   site-display-name: "Wutsi"
   asset-url: ""
   domain: localhost
@@ -91,7 +92,7 @@ wutsi:
       code:
 
   http:
-    client-id: wutsi-blog-web
+    client-id: ${wutsi.client-id}
 
   image-kit: # Configuration of integration with imagekit.io
     origin-url: "https://s3.amazonaws.com/int-wutsi"
@@ -182,15 +183,9 @@ wutsi:
     wpp: true                       # Wutsi Partner Program
 
 
-rabbitmq:
-  enabled: false
-  url: ${CLOUDAMQP_URL}
-  thread-pool-size: 8
-  max-retries: 10
-  queue-ttl-seconds: 86400       # 24 heures
-  replay-cron: "0 */15 * * * *"  # Replay DLQ every 15 mins
-
-security:
-  api-key:
-    id: "9dae2945-b95c-4b41-b9c9-cb695a2f7722"
-    header: "Authorization"
+  rabbitmq:
+    enabled: false
+    url: ${CLOUDAMQP_URL}
+  security:
+    api-key:
+      id: "9dae2945-b95c-4b41-b9c9-cb695a2f7722"

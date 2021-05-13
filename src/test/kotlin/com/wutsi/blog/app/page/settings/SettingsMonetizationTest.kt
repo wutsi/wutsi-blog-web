@@ -13,7 +13,7 @@ import com.wutsi.subscription.dto.SearchPlanResponse
 import com.wutsi.subscription.dto.UpdatePlanResponse
 import org.junit.Test
 
-class MonetizationSettingsTest : SeleniumTestSupport() {
+class SettingsMonetizationTest : SeleniumTestSupport() {
     @Test
     fun `setup monetization`() {
         // Goto settings page

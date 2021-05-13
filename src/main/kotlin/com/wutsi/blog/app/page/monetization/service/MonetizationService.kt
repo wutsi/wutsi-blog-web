@@ -24,7 +24,7 @@ class MonetizationService(
                     siteId = requestContext.siteId(),
                     name = form.name,
                     description = form.description,
-                    currency = requestContext.currency(),
+                    currency = requestContext.site().currency,
                     partnerId = requestContext.currentUser()?.id,
                     yearlyRate = yearly,
                     monthlyRate = yearly / 12
@@ -63,7 +63,7 @@ class MonetizationService(
     fun currentPlan(): PlanModel? {
         val userId = requestContext.currentUser()?.id ?: return null
 
-        val plans = api.partnerPlans(userId, requestContext.currency())
+        val plans = api.partnerPlans(userId, requestContext.site().currency)
             .plans
             .filter { it.active }
             .map { mapper.toPlanModel(it) }

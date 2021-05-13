@@ -5,7 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import com.wutsi.earning.EarningApi
 import com.wutsi.earning.EarningApiBuilder
-import com.wutsi.security.apikey.ApiKeyRequestInterceptor
+import com.wutsi.platform.security.apikey.ApiKeyRequestInterceptor
 import com.wutsi.stream.ObjectMapperBuilder
 import com.wutsi.tracing.TracingRequestInterceptor
 import org.springframework.beans.factory.annotation.Autowired
