@@ -4,8 +4,10 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.monetization.MonetizationMapper
 import com.wutsi.blog.app.page.monetization.model.PlanForm
 import com.wutsi.blog.app.page.monetization.model.PlanModel
+import com.wutsi.blog.app.page.monetization.model.SubscriptionModel
 import com.wutsi.subscription.SubscriptionApi
 import com.wutsi.subscription.dto.CreatePlanRequest
+import com.wutsi.subscription.dto.Status
 import com.wutsi.subscription.dto.UpdatePlanRequest
 import org.springframework.stereotype.Service
 
@@ -15,7 +17,7 @@ class MonetizationService(
     private val mapper: MonetizationMapper,
     private val requestContext: RequestContext
 ) {
-    fun save(form: PlanForm) {
+    fun savePlan(form: PlanForm) {
         val yearly = form.yearly.toLong()
 
         if (form.id == null) {
@@ -44,8 +46,8 @@ class MonetizationService(
         }
     }
 
-    fun deactivate() {
-        val plan = currentPlan()
+    fun deactivatePlan(partnerId: Long) {
+        val plan = currentPlan(partnerId)
         if (plan != null) {
             api.updatePlan(
                 planId = plan.id,
@@ -60,14 +62,21 @@ class MonetizationService(
         }
     }
 
-    fun currentPlan(): PlanModel? {
-        val userId = requestContext.currentUser()?.id ?: return null
-
-        val plans = api.partnerPlans(userId, requestContext.site().currency)
+    fun currentPlan(partnerId: Long): PlanModel? {
+        val plans = api.partnerPlans(partnerId, requestContext.site().internationalCurrency)
             .plans
             .filter { it.active }
             .map { mapper.toPlanModel(it) }
 
         return if (plans.isEmpty()) null else plans[0]
+    }
+
+    fun currentSubscription(partnerId: Long): SubscriptionModel? {
+        val subscriberId = requestContext.currentUser()?.id ?: return null
+        val subscriptions = api.partnerSubscriptions(partnerId, Status.ACTIVE.name, subscriberId).subscriptions
+        return if (subscriptions.isEmpty())
+            null
+        else
+            mapper.toSubscriptionModel(subscriptions[0])
     }
 }

@@ -24,17 +24,21 @@ class MonetizationController(
 
     @GetMapping
     fun index(model: Model): String {
-        val plan = service.currentPlan()
-        if (plan != null)
-            model.addAttribute("plan", plan)
-
+        val partnerId = requestContext.currentUser()?.id
+        if (partnerId != null) {
+            val plan = service.currentPlan(partnerId)
+            if (plan != null)
+                model.addAttribute("plan", plan)
+        }
         return "page/monetization/index"
     }
 
     @GetMapping("/deactivate")
     fun deactivate(model: Model): String {
         try {
-            service.deactivate()
+            val partnerId = requestContext.currentUser()?.id
+            if (partnerId != null)
+                service.deactivatePlan(partnerId)
         } catch (ex: Exception) {
             LOGGER.error("Unable to setup monetization", ex)
         }

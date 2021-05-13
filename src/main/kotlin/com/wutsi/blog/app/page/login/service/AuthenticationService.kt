@@ -18,4 +18,8 @@ class AuthenticationService(
             )
         )
     }
+
+    fun loginUrl(url: String, redirectUrl: String?): String {
+        return if (redirectUrl == null) url else "$url?redirect=$redirectUrl"
+    }
 }

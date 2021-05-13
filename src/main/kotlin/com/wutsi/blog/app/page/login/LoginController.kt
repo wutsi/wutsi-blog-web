@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.login.service.AuthenticationService
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/login")
 class LoginController(
     private val userService: UserService,
+    private val authenticationService: AuthenticationService,
     @Value("\${wutsi.domain}") private val domain: String,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
@@ -56,11 +58,11 @@ class LoginController(
             model.addAttribute("followBlog", true)
         }
 
-        model.addAttribute("googleUrl", loginUrl("/login/google", redirect))
-        model.addAttribute("facebookUrl", loginUrl("/login/facebook", redirect))
-        model.addAttribute("githubUrl", loginUrl("/login/github", redirect))
-        model.addAttribute("twitterUrl", loginUrl("/login/twitter", redirect))
-        model.addAttribute("linkedinUrl", loginUrl("/login/linkedin", redirect))
+        model.addAttribute("googleUrl", authenticationService.loginUrl("/login/google", redirect))
+        model.addAttribute("facebookUrl", authenticationService.loginUrl("/login/facebook", redirect))
+        model.addAttribute("githubUrl", authenticationService.loginUrl("/login/github", redirect))
+        model.addAttribute("twitterUrl", authenticationService.loginUrl("/login/twitter", redirect))
+        model.addAttribute("linkedinUrl", authenticationService.loginUrl("/login/linkedin", redirect))
 
         loadTargetUser(xreason, redirectUrl, model)
         return "page/login/index"
@@ -87,10 +89,6 @@ class LoginController(
         val savedRequest = request.session.getAttribute("SPRING_SECURITY_SAVED_REQUEST") as SavedRequest?
             ?: return null
         return URL(savedRequest.redirectUrl)
-    }
-
-    private fun loginUrl(url: String, redirectUrl: String?): String {
-        return if (redirectUrl == null) url else "$url?redirect=$redirectUrl"
     }
 
     private fun title(reason: String?): String {

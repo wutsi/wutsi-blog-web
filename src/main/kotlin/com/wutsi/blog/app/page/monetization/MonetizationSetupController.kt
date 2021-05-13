@@ -35,7 +35,8 @@ class MonetizationSetupController(
         @RequestParam(required = false) error: String? = null,
         model: Model
     ): String {
-        val plan = service.currentPlan()
+        val partnerId = requestContext.currentUser()!!.id
+        val plan = service.currentPlan(partnerId)
         model.addAttribute("error", error)
         if (plan != null) {
             model.addAttribute(
@@ -65,7 +66,7 @@ class MonetizationSetupController(
     @PostMapping
     fun setup(@ModelAttribute form: PlanForm, model: Model): String {
         try {
-            service.save(form)
+            service.savePlan(form)
             return "redirect:/me/settings?highlight=monetization-container#monetization"
         } catch (ex: Exception) {
             LOGGER.error("Unable to setup monetization", ex)
