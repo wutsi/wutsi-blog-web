@@ -27,7 +27,7 @@ server:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
     com.wutsi: DEBUG
     org.springframework: INFO
 
