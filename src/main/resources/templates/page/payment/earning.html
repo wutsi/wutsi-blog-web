@@ -65,9 +65,6 @@
                     .then(function (data) {
                         init_total(data)
                     })
-                    .catch(function (err) {
-                        total_loaded(err)
-                    })
             });
     }
 
@@ -84,9 +81,6 @@
                 wutsi.httpGet(url, true)
                     .then(function (data) {
                         init_chart(data)
-                    })
-                    .catch(function (err) {
-                        chart_loaded(err)
                     })
             });
     }

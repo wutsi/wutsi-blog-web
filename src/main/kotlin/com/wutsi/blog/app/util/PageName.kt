@@ -65,6 +65,8 @@ class PageName {
         const val STATS_USER = "page.stats.user"
 
         const val SUBSCRIPTION = "page.subscription"
+        const val SUBSCRIPTION_SUCCESS = "page.subscription_success"
+        const val SUBSCRIPTION_CANCEL = "page.subscription_cancel"
 
         const val TELEGRAM = "page.telegram"
 

@@ -31,6 +31,7 @@
     <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
     <mockito.version>2.28.2</mockito.version>
+    <paypal-checkout-sdk.version>1.0.3</paypal-checkout-sdk.version>
     <rome.version>1.15.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
     <selenium.version>3.141.59</selenium.version>
@@ -42,6 +43,7 @@
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
 
     <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
+    <wutsi-order-sdk-kotlin.version>1.0.6</wutsi-order-sdk-kotlin.version>
     <wutsi-stats-sdk-kotlin.version>1.1.0</wutsi-stats-sdk-kotlin.version>
     <wutsi-subscription-sdk.version>1.1.2</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
@@ -101,6 +103,11 @@
       <artifactId>subscription-sdk-kotlin</artifactId>
       <version>${wutsi-subscription-sdk.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.wutsi.order</groupId>
+      <artifactId>order-sdk-kotlin</artifactId>
+      <version>${wutsi-order-sdk-kotlin.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
@@ -124,6 +131,12 @@
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-reflect</artifactId>
       <version>${kotlin.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.paypal.sdk</groupId>
+      <artifactId>checkout-sdk</artifactId>
+      <version>${paypal-checkout-sdk.version}</version>
     </dependency>
 
     <!-- SOCIAL -->

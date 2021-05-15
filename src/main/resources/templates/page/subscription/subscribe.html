@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body class="paper">
+<div th:replace="components/layout :: navbar-blog(${blog}, false, ${blog.slug})"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+
+            <div class="main-content border text-center padding-2x margin-bottom-4x" th:if="${plan}">
+                <h1 th:text="${blog.fullName}">Blog Name</h1>
+                <p th:text="${blog.biography}">Blog bio</p>
+
+                <div class="border rounded">
+                    <div class="row padding">
+                        <div class="col-12 col-md-6">
+                            <b class="highlight" th:text="${plan.rate.yearly}">10000 XAF</b>
+                            /
+                            <span th:text="#{label.year}">year</span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a class="btn btn-primary btn-block" th:href="${checkoutMobileUrl}">
+                                S'abonner
+                                <i class="margin-left fas fa-mobile-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row padding border-top">
+                        <div class="col-12 col-md-6">
+                            <b class="highlight" th:text="${plan.internationalRate.yearly}">10 EUR</b>
+                            /
+                            <span th:text="#{label.year}">year</span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a class="btn btn-primary btn-block" th:href="${checkoutPaypalUrl}">
+                                S'abonner
+                                <i class="margin-left fab fa-paypal"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="border-top padding" th:if="!${plan.description.isEmpty()}" th:text="${plan.description}">
+                        Description
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+</html>

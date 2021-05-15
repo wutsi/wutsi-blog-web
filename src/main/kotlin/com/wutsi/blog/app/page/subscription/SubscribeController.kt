@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.blog
+package com.wutsi.blog.app.page.subscription
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
@@ -28,6 +28,10 @@ class SubscribeController(
     @GetMapping("/@/{name}/subscribe")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = userService.get(name)
+        if (!blog.blog) {
+            LOGGER.warn("User#$name is not a Blog. Redirecting to his home page")
+            return "redirect:/@/${blog.name}"
+        }
 
         // Subscription
         val plan = monetizationService.currentPlan(blog.id)
@@ -36,6 +40,9 @@ class SubscribeController(
             if (subscription != null) {
                 LOGGER.info("User is subscribed to Blog#${blog.id}")
                 return "redirect:/@/${blog.name}"
+            } else {
+                model.addAttribute("checkoutPaypalUrl", "/checkout/paypal?planId=${plan.id}")
+                model.addAttribute("checkoutMobileUrl", "/checkout/mobile?planId=${plan.id}")
             }
         }
 
@@ -53,6 +60,6 @@ class SubscribeController(
         model.addAttribute("blog", blog)
         model.addAttribute("plan", plan)
 
-        return "page/blog/subscribe"
+        return "page/subscription/subscribe"
     }
 }
