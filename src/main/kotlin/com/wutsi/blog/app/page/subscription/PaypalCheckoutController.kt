@@ -36,8 +36,8 @@ class PaypalCheckoutController(
 
     @GetMapping("/checkout/paypal")
     fun paypal(
-        @RequestParam planId:
-        Long, model: Model
+        @RequestParam planId: Long,
+        model: Model
     ): String {
         val site = requestContext.site()
         val plan = subscriptionApi.getPlan(planId, site.internationalCurrency).plan
