@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.subscription
+package com.wutsi.blog.app.page.paypal
 
 import com.paypal.core.PayPalHttpClient
 import com.paypal.orders.AmountBreakdown
@@ -56,7 +56,7 @@ class PaypalCheckoutController(
                 productRateId = plan.convertedRate.id,
                 currency = plan.convertedRate.currency,
                 description = "${user.fullName} | ${site.displayName}",
-                total = plan.convertedRate.yearly,
+                total = plan.convertedRate.yearly.toDouble(),
                 customerId = requestContext.currentUser()?.id
             )
         ).orderId
@@ -82,13 +82,15 @@ class PaypalCheckoutController(
             .checkoutPaymentIntent("CAPTURE")
             .applicationContext(createApplicationContext(site, user))
 
-    private fun createApplicationContext(site: Site, user: UserModel): ApplicationContext =
-        ApplicationContext()
+    private fun createApplicationContext(site: Site, user: UserModel): ApplicationContext {
+        val redirectUrl = "http://localhost:8081"
+        return ApplicationContext()
             .brandName(site.displayName)
-            .returnUrl("${site.websiteUrl}/@/${user.name}/subscribe/success")
-            .cancelUrl("${site.websiteUrl}/@/${user.name}/subscribe/cancel")
+            .returnUrl("$redirectUrl/checkout/paypal/success")
+            .cancelUrl("$redirectUrl/@/${user.name}/subscribe/cancel")
             .locale(requestContext.currentUser()?.language)
             .shippingPreference("NO_SHIPPING")
+    }
 
     private fun createPurchaseUnitRequest(order: Order): PurchaseUnitRequest =
         PurchaseUnitRequest()
