@@ -16,6 +16,10 @@
                 <h1 th:text="${blog.fullName}">Blog Name</h1>
                 <p th:text="${blog.biography}">Blog bio</p>
 
+                <div class="alert alert-danger" th:if="${error}" th:text="${error}">
+                    Error
+                </div>
+
                 <div class="border rounded">
                     <div class="row padding">
                         <div class="col-12 col-md-6">

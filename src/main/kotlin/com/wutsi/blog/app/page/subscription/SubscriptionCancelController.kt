@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
-class SubscribtionSuccessController(
+class SubscriptionCancelController(
     private val userService: UserService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
-    override fun pageName() = PageName.SUBSCRIPTION_SUCCESS
+    override fun pageName() = PageName.SUBSCRIPTION_CANCEL
 
-    @GetMapping("/@/{name}/subscribe/success")
+    @GetMapping("/@/{name}/subscribe/cancel")
     fun index(@PathVariable name: String, model: Model): String {
         val blog = userService.get(name)
 
         model.addAttribute("blog", blog)
-        return "page/subscription/success"
+        return "page/subscription/cancel"
     }
 }

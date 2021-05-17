@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.time.LocalDate
 
 @Controller
 class PaypalCheckoutController(
@@ -43,7 +44,7 @@ class PaypalCheckoutController(
         val plan = subscriptionApi.getPlan(planId, site.internationalCurrency).plan
         val user = requestContext.currentUser()!!
         val orderId = createOrder(plan, site, user)
-        val url = preparePaypalCheckout(orderId, site, user)
+        val url = preparePaypalCheckout(orderId, site)
 
         return "redirect:$url"
     }
@@ -65,10 +66,10 @@ class PaypalCheckoutController(
         return orderId
     }
 
-    private fun preparePaypalCheckout(orderId: Long, site: Site, user: UserModel): String {
+    private fun preparePaypalCheckout(orderId: Long, site: Site): String {
         val order = orderApi.getOrder(orderId).order
 
-        val request = OrdersCreateRequest().requestBody(createOrderRequest(order, site, user))
+        val request = OrdersCreateRequest().requestBody(createOrderRequest(order, site))
         val result = paypalClient.execute(request).result()
         val url = result.links().find { it.rel() == "approve" }?.href()
 
@@ -76,18 +77,22 @@ class PaypalCheckoutController(
         return url!!
     }
 
-    private fun createOrderRequest(order: Order, site: Site, user: UserModel): OrderRequest =
+    private fun createOrderRequest(order: Order, site: Site): OrderRequest =
         OrderRequest()
             .purchaseUnits(listOf(createPurchaseUnitRequest(order)))
-            .checkoutPaymentIntent("CAPTURE")
-            .applicationContext(createApplicationContext(site, user))
+            .checkoutPaymentIntent("AUTHORIZE")
+            .applicationContext(createApplicationContext(site))
 
-    private fun createApplicationContext(site: Site, user: UserModel): ApplicationContext {
-        val redirectUrl = site.websiteUrl
+    private fun createApplicationContext(site: Site): ApplicationContext {
+        val redirectUrl = requestContext.request.requestURL
+        val port = requestContext.request.serverPort
+        if (port != 80 && port != 443)
+            redirectUrl.append(":$port")
+
         return ApplicationContext()
             .brandName(site.displayName)
             .returnUrl("$redirectUrl/checkout/paypal/success")
-            .cancelUrl("$redirectUrl/@/${user.name}/subscribe/cancel")
+            .cancelUrl("$redirectUrl/checkout/paypal/cancel")
             .locale(requestContext.currentUser()?.language)
             .shippingPreference("NO_SHIPPING")
     }
@@ -114,7 +119,7 @@ class PaypalCheckoutController(
     private fun createItem(order: Order): Item =
         Item().name(order.description)
             .quantity("1")
-            .sku(order.productId.toString())
+            .sku(order.productId.toString() + "." + LocalDate.now())
             .unitAmount(
                 Money()
                     .value(order.total.toString())

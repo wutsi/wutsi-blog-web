@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class SubscribeController(
@@ -26,12 +27,20 @@ class SubscribeController(
     override fun pageName() = PageName.SUBSCRIPTION
 
     @GetMapping("/@/{name}/subscribe")
-    fun index(@PathVariable name: String, model: Model): String {
+    fun index(
+        @PathVariable name: String,
+        @RequestParam(required = false) error: String? = null,
+        model: Model
+    ): String {
         val blog = userService.get(name)
         if (!blog.blog) {
             LOGGER.warn("User#$name is not a Blog. Redirecting to his home page")
             return "redirect:/@/${blog.name}"
         }
+
+        // Error
+        if (error != null)
+            model.addAttribute("error", requestContext.getMessage(error))
 
         // Subscription
         val plan = monetizationService.currentPlan(blog.id)

@@ -14,11 +14,20 @@
 
             <div class="main-content border text-center padding-2x margin-bottom-4x">
                 <h1 th:text="${blog.fullName}">Blog Name</h1>
-                <p th:text="${blog.biography}">Blog bio</p>
 
-                <div class="border rounded">
-                    <h4>Thank you for Subscribing!</h4>
-                    <p>Bla...bla...bla...</p>
+                <div class="border rounded padding text-left">
+                    <h4 th:text="page.subscription.subscribed.success_title">Thank you for your payment</h4>
+                    <p th:text="page.subscription.subscribed.success_message_1">
+                        Your transaction has been completed, and a receipt for your purchase has been emailed to you.
+                    </p>
+                    <p th:text="page.subscription.subscribed.success_message_2">
+                        You are now a Premium subscriber
+                    </p>
+                    <p>
+                        <b>
+                            <a th:href="${blog.slug}" th:text="page.subscription.subscribed.back_to_blog">Back to my Blog </a>
+                        </b>
+                    </p>
                 </div>
             </div>
 
