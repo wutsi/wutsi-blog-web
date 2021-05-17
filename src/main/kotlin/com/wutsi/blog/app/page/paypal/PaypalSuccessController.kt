@@ -25,11 +25,16 @@ class PaypalSuccessController(
     ): String {
         LOGGER.info("PayPal payment successful. Finalizing...")
 
-        val request = OrdersCaptureRequest(token)
-        request.requestBody(OrderActionRequest())
-        paypalClient.execute(request)
+        val user = requestContext.currentUser()
+        try {
+            val request = OrdersCaptureRequest(token)
+            request.requestBody(OrderActionRequest())
+            paypalClient.execute(request)
 
-        val user = requestContext.currentUser()!!
-        return "redirect:/@/${user.name}/subscribe/success"
+            return "redirect:/@/${user?.name}/subscribe/success"
+        } catch (ex: Exception) {
+            LOGGER.error("Payment error", ex)
+            return "redirect:/@/${user?.name}/subscribe?error=error.paypal_failed"
+        }
     }
 }

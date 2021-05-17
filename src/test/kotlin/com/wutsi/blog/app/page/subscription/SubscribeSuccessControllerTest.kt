@@ -4,7 +4,7 @@ import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import org.junit.Test
 
-class SubscriptionSuccessControllerTest : SeleniumTestSupport() {
+class SubscribeSuccessControllerTest : SeleniumTestSupport() {
     @Test
     fun index() {
         navigate("$url/@/ray.sponsible/subscribe/success")
