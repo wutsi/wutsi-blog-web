@@ -8,11 +8,11 @@ import com.paypal.core.PayPalHttpClient
 import com.paypal.http.HttpResponse
 import com.paypal.orders.LinkDescription
 import com.paypal.orders.Order
-import com.paypal.orders.OrdersCreateRequest
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.paypal.service.PayPalHttpClientBuilder
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.order.dto.CreateOrderResponse
+import com.wutsi.order.dto.GetOrderResponse
 import com.wutsi.subscription.dto.GetPlanResponse
 import com.wutsi.subscription.dto.Plan
 import com.wutsi.subscription.dto.PlanRate
@@ -82,12 +82,14 @@ class SubscribeControllerTest : SeleniumTestSupport() {
 
         doReturn(SearchSubscriptionResponse(emptyList())).whenever(subscriptionApi).partnerSubscriptions(any(), any(), any())
 
+        val order = createOrder(11)
         doReturn(CreateOrderResponse(11)).whenever(orderApi).createOrder(any())
+        doReturn(GetOrderResponse(order)).whenever(orderApi).getOrder(any())
 
-        val order = createPaypalOrder()
+        val paypalOrder = createPaypalOrder()
         val response = mock<HttpResponse<Order>>()
-        doReturn(order).whenever(response).result()
-        doReturn(response).whenever(paypalClient).execute(any() as OrdersCreateRequest)
+        doReturn(paypalOrder).whenever(response).result()
+        doReturn(response).whenever(paypalClient).execute<HttpResponse<Order>>(any())
 
         login()
         navigate("$url/@/ray.sponsible/subscribe")
@@ -137,4 +139,8 @@ class SubscribeControllerTest : SeleniumTestSupport() {
                     .href("http://localhost:$port/paypal/express_checkout")
             )
         )
+
+    private fun createOrder(id: Long) = com.wutsi.order.dto.Order(
+        id = id
+    )
 }
