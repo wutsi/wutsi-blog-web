@@ -83,7 +83,7 @@ class PaypalCheckoutController(
             .applicationContext(createApplicationContext(site, user))
 
     private fun createApplicationContext(site: Site, user: UserModel): ApplicationContext {
-        val redirectUrl = "http://localhost:8081"
+        val redirectUrl = site.websiteUrl
         return ApplicationContext()
             .brandName(site.displayName)
             .returnUrl("$redirectUrl/checkout/paypal/success")
