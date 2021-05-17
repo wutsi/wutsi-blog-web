@@ -1,6 +1,5 @@
 package com.wutsi.blog.app.page.paypal
 
-import com.paypal.core.PayPalHttpClient
 import com.paypal.orders.AmountBreakdown
 import com.paypal.orders.AmountWithBreakdown
 import com.paypal.orders.ApplicationContext
@@ -10,6 +9,7 @@ import com.paypal.orders.OrderRequest
 import com.paypal.orders.OrdersCreateRequest
 import com.paypal.orders.PurchaseUnitRequest
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.paypal.service.PayPalHttpClientBuilder
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.order.OrderApi
 import com.wutsi.order.dto.CreateOrderRequest
@@ -29,7 +29,7 @@ class PaypalCheckoutController(
     private val requestContext: RequestContext,
     private val subscriptionApi: SubscriptionApi,
     private val orderApi: OrderApi,
-    private val paypalClient: PayPalHttpClient
+    private val paypalBuilder: PayPalHttpClientBuilder
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(PaypalCheckoutController::class.java)
@@ -70,7 +70,7 @@ class PaypalCheckoutController(
         val order = orderApi.getOrder(orderId).order
 
         val request = OrdersCreateRequest().requestBody(createOrderRequest(order, site))
-        val result = paypalClient.execute(request).result()
+        val result = paypalBuilder.build(site).execute(request).result()
         val url = result.links().find { it.rel() == "approve" }?.href()
 
         LOGGER.info("Creating Paypal Order. paypal_url=$url")

@@ -47,7 +47,10 @@ import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
+import com.wutsi.order.OrderApi
 import com.wutsi.site.SiteApi
+import com.wutsi.site.SiteAttribute
+import com.wutsi.site.dto.Attribute
 import com.wutsi.site.dto.GetSiteResponse
 import com.wutsi.site.dto.Site
 import com.wutsi.subscription.SubscriptionApi
@@ -132,6 +135,9 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var siteApi: SiteApi
 
+    @MockBean
+    protected lateinit var orderApi: OrderApi
+
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -207,7 +213,10 @@ abstract class SeleniumTestSupport {
         currency = "XAF",
         internationalCurrency = "EUR",
         language = "fr",
-        domainName = "localhost"
+        domainName = "localhost",
+        attributes = listOf(
+            Attribute(urn = SiteAttribute.PAYPAL_ENABLED.urn, "true")
+        )
     )
 
     protected fun givenNoUser(userId: Long) {

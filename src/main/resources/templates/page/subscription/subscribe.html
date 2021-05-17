@@ -21,27 +21,27 @@
                 </div>
 
                 <div class="border rounded">
-                    <div class="row padding">
+                    <div class="row padding" th:if="${mobilePaymentEnabled}">
                         <div class="col-12 col-md-6">
                             <b class="highlight" th:text="${plan.rate.yearly}">10000 XAF</b>
                             /
                             <span th:text="#{label.year}">year</span>
                         </div>
                         <div class="col-12 col-md-6">
-                            <a class="btn btn-primary btn-block" th:href="${checkoutMobileUrl}">
+                            <a class="btn btn-primary btn-block" id="btn-mobile-checkout" th:href="${checkoutMobileUrl}">
                                 S'abonner
                                 <i class="margin-left fas fa-mobile-alt"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="row padding border-top">
+                    <div class="row padding border-top" th:if="${paypalPaymentEnabled}">
                         <div class="col-12 col-md-6">
                             <b class="highlight" th:text="${plan.internationalRate.yearly}">10 EUR</b>
                             /
                             <span th:text="#{label.year}">year</span>
                         </div>
                         <div class="col-12 col-md-6">
-                            <a class="btn btn-primary btn-block" th:href="${checkoutPaypalUrl}">
+                            <a class="btn btn-primary btn-block" id="btn-paypal-checkout" th:href="${checkoutPaypalUrl}">
                                 S'abonner
                                 <i class="margin-left fab fa-paypal"></i>
                             </a>
