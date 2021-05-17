@@ -80,7 +80,7 @@ class PaypalCheckoutController(
     private fun createOrderRequest(order: Order, site: Site): OrderRequest =
         OrderRequest()
             .purchaseUnits(listOf(createPurchaseUnitRequest(order)))
-            .checkoutPaymentIntent("AUTHORIZE")
+            .checkoutPaymentIntent("CAPTURE")
             .applicationContext(createApplicationContext(site))
 
     private fun createApplicationContext(site: Site): ApplicationContext {

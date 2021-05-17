@@ -34,7 +34,7 @@ class SubscribeController(
     ): String {
         val blog = userService.get(name)
         if (!blog.blog) {
-            LOGGER.warn("User#$name is not a Blog. Redirecting to his home page")
+            LOGGER.warn("$name is not a Blog. Redirecting to his home page")
             return "redirect:/@/${blog.name}"
         }
 
@@ -47,9 +47,10 @@ class SubscribeController(
         if (plan != null) {
             val subscription = monetizationService.currentSubscription(blog.id)
             if (subscription != null) {
-                LOGGER.info("User is subscribed to Blog#${blog.id}")
+                LOGGER.info("$name is subscribed to Blog#${blog.id}")
                 return "redirect:/@/${blog.name}"
             } else {
+                LOGGER.info("$name has no subscription")
                 model.addAttribute("checkoutPaypalUrl", "/checkout/paypal?planId=${plan.id}")
                 model.addAttribute("checkoutMobileUrl", "/checkout/mobile?planId=${plan.id}")
             }
@@ -58,7 +59,7 @@ class SubscribeController(
         // User
         val user = requestContext.currentUser()
         if (user == null) {
-            val redirectUrl = requestContext.request.requestURL.toString()
+            val redirectUrl = requestContext.request.requestURI
             model.addAttribute("googleLoginUrl", authenticationService.loginUrl("/login/google", redirectUrl))
         } else {
             // Check of the user already follow the blog

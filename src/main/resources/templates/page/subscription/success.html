@@ -16,16 +16,19 @@
                 <h1 th:text="${blog.fullName}">Blog Name</h1>
 
                 <div class="border rounded padding text-left">
-                    <h4 th:text="page.subscription.subscribed.success_title">Thank you for your payment</h4>
-                    <p th:text="page.subscription.subscribed.success_message_1">
+                    <h4>
+                        <i class="fa fa-check-circle"></i>
+                        <span th:text="#{page.subscription.subscribed.success_title}">Thank you for your payment</span>
+                    </h4>
+                    <p th:text="#{page.subscription.subscribed.success_message_1}">
                         Your transaction has been completed, and a receipt for your purchase has been emailed to you.
                     </p>
-                    <p th:text="page.subscription.subscribed.success_message_2">
+                    <p th:text="#{page.subscription.subscribed.success_message_2}">
                         You are now a Premium subscriber
                     </p>
                     <p>
                         <b>
-                            <a th:href="${blog.slug}" th:text="page.subscription.subscribed.back_to_blog">Back to my Blog </a>
+                            <a th:href="${blog.slug}" th:text="#{page.subscription.subscribed.back_to_blog}">Back to my Blog </a>
                         </b>
                     </p>
                 </div>
