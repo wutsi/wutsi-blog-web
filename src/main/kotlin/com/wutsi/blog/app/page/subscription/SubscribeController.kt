@@ -120,9 +120,10 @@ class SubscribeController(
             return "redirect:${blog.slug}"
 
         // Follow the blog
+        val joinUrl = "/@/${blog.name}/subscribe/join?redirectUrl=$redirectUrl"
         model.addAttribute("redirectUrl", redirectUrl)
-        model.addAttribute("joinUrl", "/@/${blog.name}/subscribe/join?redirectUrl=$redirectUrl")
-        model.addAttribute("googleUrl", authenticationService.loginUrl("/login/google", redirectUrl))
+        model.addAttribute("joinUrl", joinUrl)
+        model.addAttribute("googleUrl", authenticationService.loginUrl("/login/google", joinUrl))
         return "page/subscription/free"
     }
 
