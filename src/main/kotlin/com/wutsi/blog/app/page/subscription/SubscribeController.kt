@@ -121,7 +121,7 @@ class SubscribeController(
 
         // Follow the blog
         model.addAttribute("redirectUrl", redirectUrl)
-        model.addAttribute("joinUrl", "/@/${blog.name}/subscribe/join?redirectUrl=${redirectUrl}")
+        model.addAttribute("joinUrl", "/@/${blog.name}/subscribe/join?redirectUrl=$redirectUrl")
         model.addAttribute("googleUrl", authenticationService.loginUrl("/login/google", redirectUrl))
         return "page/subscription/free"
     }
