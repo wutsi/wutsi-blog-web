@@ -12,6 +12,7 @@ import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.paypal.service.PayPalHttpClientBuilder
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.follower.CreateFollowerResponse
+import com.wutsi.blog.client.follower.SearchFollowerResponse
 import com.wutsi.order.dto.CreateOrderResponse
 import com.wutsi.order.dto.GetOrderResponse
 import com.wutsi.subscription.dto.GetPlanResponse
@@ -104,6 +105,7 @@ class SubscribeControllerPremiumTest : SeleniumTestSupport() {
     @Test
     fun `Premium - follow the blog when there are no plan for authenticated user`() {
         doReturn(SearchPlanResponse(emptyList())).whenever(subscriptionApi).partnerPlans(any(), any())
+        doReturn(SearchFollowerResponse()).whenever(followerApi).search(any())
 
         login()
         navigate("$url/@/roger.milla/subscribe?premium=1")

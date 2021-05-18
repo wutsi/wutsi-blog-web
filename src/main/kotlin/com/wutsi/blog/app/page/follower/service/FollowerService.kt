@@ -48,11 +48,17 @@ class FollowerService(
         if (requestContext.currentUser() == null)
             return true
 
+        return !isFollowing(userId)
+    }
+
+    fun isFollowing(userId: Long): Boolean {
+        val user = requestContext.currentUser() ?: return false
+
         return api.search(
             SearchFollowerRequest(
                 userId = userId,
-                followerUserId = requestContext.currentUser()?.id
+                followerUserId = user.id
             )
-        ).followers.isEmpty()
+        ).followers.isNotEmpty()
     }
 }

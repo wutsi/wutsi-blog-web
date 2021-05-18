@@ -22,6 +22,6 @@ class PaypalCancelController(
         LOGGER.info("PayPal payment failed")
 
         val user = requestContext.currentUser()!!
-        return "redirect:/@/${user.name}/subscribe?error=error.paypal_failed"
+        return "redirect:/@/${user.name}/subscribe?premium=1&error=error.paypal_failed"
     }
 }

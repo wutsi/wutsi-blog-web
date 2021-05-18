@@ -92,12 +92,17 @@ class SubscribeController(
     }
 
     private fun premium(blog: UserModel, model: Model): String? {
+        if (!requestContext.toggles().monetization) {
+            LOGGER.warn("Monetization is not enabled")
+            return null
+        }
+
         val plan = monetizationService.currentPlan(blog.id) ?: return null
         model.addAttribute("plan", plan)
 
         val subscription = monetizationService.currentSubscription(blog.id)
         if (subscription != null)
-            return "redirect:/@/${blog.name}" // Already subscribed - Goto home base
+            return "redirect:/@/${blog.name}?subscribed=1&premium=1" // Already subscribed - Goto home base
 
         val site = requestContext.site()
         val paypalPaymentEnabled = isPaypalPaymentEnabled(site)
@@ -106,7 +111,7 @@ class SubscribeController(
             model.addAttribute("checkoutPaypalUrl", "/checkout/paypal?planId=${plan.id}")
         }
 
-        val mobilePaymentEnabled = false
+        val mobilePaymentEnabled = isMobilePaymentEnabled(site)
         if (mobilePaymentEnabled) {
             model.addAttribute("showMobileButton", mobilePaymentEnabled)
             model.addAttribute("checkoutMobileUrl", "/checkout/mobile?planId=${plan.id}")
@@ -116,8 +121,9 @@ class SubscribeController(
 
     private fun free(blog: UserModel, model: Model, redirectUrl: String): String {
         // User cannot follow the flog
-        if (!followerService.canFollow(blog.id))
-            return "redirect:${blog.slug}"
+        val user = requestContext.currentUser()
+        if (user != null && followerService.isFollowing(blog.id))
+            return "redirect:${blog.slug}?subscribed=1"
 
         // Follow the blog
         val joinUrl = "/@/${blog.name}/subscribe/join?redirectUrl=$redirectUrl"
@@ -129,4 +135,7 @@ class SubscribeController(
 
     private fun isPaypalPaymentEnabled(site: Site): Boolean =
         site.attributes.find { it.urn == SiteAttribute.PAYPAL_ENABLED.urn }?.value == "true"
+
+    private fun isMobilePaymentEnabled(site: Site): Boolean =
+        false
 }
