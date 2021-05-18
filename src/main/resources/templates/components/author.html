@@ -113,7 +113,7 @@
         <div class="text-small biography d-none d-md-block" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
     <div class="btn-container" th:if="${showFollowButton}">
-        <div th:replace="components/follow :: follow-button(${me}, ${me.slug}, false, false)"></div>
+        <div th:replace="components/follow :: follow-button(${me}, ${me.slug}, false, false, false)"></div>
     </div>
     <div class="btn-container" th:if="${showUnfollowButton}">
         <div th:replace="components/follow :: unfollow-button(${me})"></div>

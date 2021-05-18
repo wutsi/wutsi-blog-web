@@ -13,7 +13,7 @@
 
 <div class="follow-panel" th:fragment="panel(blog,returnUrl,message)" th:if="${toggles.follow}">
     <div class="message" th:if="${message}" th:utext="${message}">Message</div>
-    <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, true, true)"></div>
+    <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, false, true)"></div>
 </div>
 
 <button class="btn btn-follow"

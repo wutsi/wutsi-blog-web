@@ -21,7 +21,10 @@
 
                 <div class="rounded text-center">
                     <div th:if="${user}">
-                        <div th:replace="components/follow :: follow-button(${blog}, ${redirectUrl}, true, true, true)"></div>
+                        <a class="btn btn-follow btn-primary btn-block" th:href="${joinUrl}" wutsi-track-event="subscribe">
+                            <span th:text="#{button.follow}">Follow</span>
+                            <span th:text="' @' + ${blog.name}">@ray.sponsible</span>
+                        </a>
                     </div>
                     <div th:if="!${user}">
                         <a class="sso-button margin-top" id="btn-google" th:href="${googleUrl}" wutsi-track-event="follow_google">

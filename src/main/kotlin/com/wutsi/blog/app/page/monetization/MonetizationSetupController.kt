@@ -23,7 +23,7 @@ class MonetizationSetupController(
 ) : AbstractPageController(requestContext) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(MonetizationSetupController::class.java)
-        private const val NAME = "Default"
+        private const val NAME = "Premium"
     }
 
     override fun pageName() = PageName.MONETIZATION_EDIT

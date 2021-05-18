@@ -35,6 +35,7 @@ class SubscribeController(
     fun index(
         @PathVariable name: String,
         @RequestParam(required = false) error: String? = null,
+        @RequestParam(required = false) premium: String? = null,
         model: Model
     ): String {
         // Error
@@ -55,16 +56,42 @@ class SubscribeController(
         model.addAttribute("redirectUrl", redirectUrl)
 
         // Paid Subscription
-        var result = paid(blog, model)
-
-        // Free Subscription
-        if (result == null)
-            result = free(blog, model, redirectUrl)
-
-        return result
+        if (premium == "1") {
+            val result = premium(blog, model)
+            return if (result == null)
+                return free(blog, model, redirectUrl)
+            else
+                return result
+        } else {
+            return free(blog, model, redirectUrl)
+        }
     }
 
-    private fun paid(blog: UserModel, model: Model): String? {
+    @GetMapping("/@/{name}/subscribe/join")
+    fun join(
+        @PathVariable name: String,
+        @RequestParam(required = false) redirectUrl: String? = null
+    ): String {
+        val blog = userService.get(name)
+        if (!blog.blog) {
+            LOGGER.warn("$name is not a Blog. Redirecting to his home page")
+            return "redirect:${blog.slug}"
+        }
+
+        try {
+            followerService.follow(blog.id)
+
+            return if (redirectUrl == null)
+                "redirect:${blog.slug}"
+            else
+                "redirect:$redirectUrl"
+        } catch (ex: Exception) {
+            LOGGER.error("Unable to follow the blog", ex)
+            return "redirect:${blog.slug}/subscribe?error=error.unexpected"
+        }
+    }
+
+    private fun premium(blog: UserModel, model: Model): String? {
         val plan = monetizationService.currentPlan(blog.id) ?: return null
         model.addAttribute("plan", plan)
 
@@ -84,7 +111,7 @@ class SubscribeController(
             model.addAttribute("showMobileButton", mobilePaymentEnabled)
             model.addAttribute("checkoutMobileUrl", "/checkout/mobile?planId=${plan.id}")
         }
-        return "page/subscription/paid"
+        return "page/subscription/premium"
     }
 
     private fun free(blog: UserModel, model: Model, redirectUrl: String): String {
@@ -94,6 +121,7 @@ class SubscribeController(
 
         // Follow the blog
         model.addAttribute("redirectUrl", redirectUrl)
+        model.addAttribute("joinUrl", "/@/${blog.name}/subscribe/join?redirectUrl=${redirectUrl}")
         model.addAttribute("googleUrl", authenticationService.loginUrl("/login/google", redirectUrl))
         return "page/subscription/free"
     }

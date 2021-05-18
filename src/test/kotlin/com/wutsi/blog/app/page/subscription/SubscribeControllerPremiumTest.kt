@@ -11,6 +11,7 @@ import com.paypal.orders.Order
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.paypal.service.PayPalHttpClientBuilder
 import com.wutsi.blog.app.util.PageName
+import com.wutsi.blog.client.follower.CreateFollowerResponse
 import com.wutsi.order.dto.CreateOrderResponse
 import com.wutsi.order.dto.GetOrderResponse
 import com.wutsi.subscription.dto.GetPlanResponse
@@ -26,7 +27,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.web.server.LocalServerPort
 import java.time.LocalDate
 
-class SubscribeControllerTest : SeleniumTestSupport() {
+class SubscribeControllerPremiumTest : SeleniumTestSupport() {
     @LocalServerPort
     lateinit var port: Integer
 
@@ -48,21 +49,21 @@ class SubscribeControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `cannot subscribe if user is not a blog`() {
+    fun `Premium - cannot subscribe if user is not a blog`() {
         login()
-        navigate("$url/@/john.smith/subscribe")
+        navigate("$url/@/john.smith/subscribe?premium=1")
         assertCurrentPageIs(PageName.BLOG)
     }
 
     @Test
-    fun `cannot subscribe if the blog do not have subscription plan`() {
+    fun `Premium - cannot subscribe if the blog do not have subscription plan`() {
         login()
-        navigate("$url/@/ray.sponsible/subscribe")
+        navigate("$url/@/ray.sponsible/subscribe?premium=1")
         assertCurrentPageIs(PageName.BLOG)
     }
 
     @Test
-    fun `cannot subscription if the current user has a subscription plan`() {
+    fun `Premium - cannot subscription if the current user has a subscription plan`() {
         val plan = createPlan()
         doReturn(SearchPlanResponse(listOf(plan))).whenever(subscriptionApi).partnerPlans(any(), any())
 
@@ -70,12 +71,12 @@ class SubscribeControllerTest : SeleniumTestSupport() {
         doReturn(SearchSubscriptionResponse(listOf(subscription))).whenever(subscriptionApi).partnerSubscriptions(any(), any(), any())
 
         login()
-        navigate("$url/@/ray.sponsible/subscribe")
+        navigate("$url/@/ray.sponsible/subscribe?premium=1")
         assertCurrentPageIs(PageName.BLOG)
     }
 
     @Test
-    fun `subscribe with PayPal`() {
+    fun `Premium - subscribe with PayPal`() {
         val plan = createPlan()
         doReturn(SearchPlanResponse(listOf(plan))).whenever(subscriptionApi).partnerPlans(any(), any())
         doReturn(GetPlanResponse(plan)).whenever(subscriptionApi).getPlan(any(), any())
@@ -92,7 +93,7 @@ class SubscribeControllerTest : SeleniumTestSupport() {
         doReturn(response).whenever(paypalClient).execute<HttpResponse<Order>>(any())
 
         login()
-        navigate("$url/@/ray.sponsible/subscribe")
+        navigate("$url/@/ray.sponsible/subscribe?premium=1")
         assertCurrentPageIs(PageName.SUBSCRIPTION)
 
         click("#btn-paypal-checkout")
@@ -101,21 +102,23 @@ class SubscribeControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `show subscribe button when there are no plan for authenticated user`() {
+    fun `Premium - follow the blog when there are no plan for authenticated user`() {
         doReturn(SearchPlanResponse(emptyList())).whenever(subscriptionApi).partnerPlans(any(), any())
 
         login()
-        navigate("$url/@/roger.milla/subscribe")
+        navigate("$url/@/roger.milla/subscribe?premium=1")
         assertCurrentPageIs(PageName.SUBSCRIPTION)
 
-        assertElementCount(".btn-follow", 1)
+        doReturn(CreateFollowerResponse(11)).whenever(followerApi).create(any())
+        click(".btn-follow")
+        assertCurrentPageIs(PageName.BLOG)
     }
 
     @Test
-    fun `show login buttons when there are no plan for anonymous user`() {
+    fun `Premium - show login buttons when there are no plan for anonymous user`() {
         doReturn(SearchPlanResponse(emptyList())).whenever(subscriptionApi).partnerPlans(any(), any())
 
-        navigate("$url/@/roger.milla/subscribe")
+        navigate("$url/@/roger.milla/subscribe?premium=1")
         assertCurrentPageIs(PageName.SUBSCRIPTION)
 
         assertElementCount("#btn-google", 1)
