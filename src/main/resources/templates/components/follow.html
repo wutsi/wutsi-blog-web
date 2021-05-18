@@ -34,21 +34,6 @@
     <span th:text="#{button.unfollow}">Unfollow</span>
 </a>
 
-<div th:fragment="popup(user,story)" th:if="${toggles.follow} AND ${toggles.followPopup}">
-    <div id="follow-popup-container"></div>
-    <script th:inline="javascript">
-        $(document).ready(function () {
-            setTimeout(function () {
-                const userId = /*[[${user.id}]]*/ '0';
-                const storyUrl = /*[[${story.slug}]]*/ '';
-                wutsi.httpGet('/follow/popup?userId=' + userId + '&storyUrl=' + storyUrl, false)
-                    .then(function (html) {
-                        $('#follow-popup-container').html(html);
-                    });
-            }, 2000);
-        });
-    </script>
-</div>
 
 </body>
 </html>

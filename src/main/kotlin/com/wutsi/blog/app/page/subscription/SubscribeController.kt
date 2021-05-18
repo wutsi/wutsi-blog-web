@@ -36,6 +36,7 @@ class SubscribeController(
         @PathVariable name: String,
         @RequestParam(required = false) error: String? = null,
         @RequestParam(required = false) premium: String? = null,
+        @RequestParam(required = false) redirect: String? = null,
         model: Model
     ): String {
         // Error
@@ -52,7 +53,7 @@ class SubscribeController(
         model.addAttribute("user", requestContext.currentUser())
 
         // Redirect Url
-        val redirectUrl = blog.slug
+        val redirectUrl = redirect ?: blog.slug
         model.addAttribute("redirectUrl", redirectUrl)
 
         // Paid Subscription

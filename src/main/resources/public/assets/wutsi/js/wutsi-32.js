@@ -270,7 +270,7 @@ function Wutsi() {
     };
 
     this.follow = function (name, returnUrl) {
-        const url = '/@/' + name + '/follow?return=' + encodeURIComponent(returnUrl) + '&page=' + this.page_name() + '&hitId=' + this.hit_id() + '&storyId=' + this.story_id();
+        const url = '/@/' + name + '/subscribe?return=' + encodeURIComponent(returnUrl);
         document.location.href = url;
     };
 

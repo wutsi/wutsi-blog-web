@@ -58,7 +58,7 @@ wutsi:
     event-stream-tracking: true
     facebook-pixel: false
     follow: true
-    follow-popup: true
+    follow-popup: false
     google-one-tap-sign-in: true
     imagekit: true
     like: true
