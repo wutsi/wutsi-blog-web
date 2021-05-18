@@ -100,6 +100,27 @@ class SubscribeControllerTest : SeleniumTestSupport() {
         assertTrue(paypal.visited)
     }
 
+    @Test
+    fun `show subscribe button when there are no plan for authenticated user`() {
+        doReturn(SearchPlanResponse(emptyList())).whenever(subscriptionApi).partnerPlans(any(), any())
+
+        login()
+        navigate("$url/@/roger.milla/subscribe")
+        assertCurrentPageIs(PageName.SUBSCRIPTION)
+
+        assertElementCount(".btn-follow", 1)
+    }
+
+    @Test
+    fun `show login buttons when there are no plan for anonymous user`() {
+        doReturn(SearchPlanResponse(emptyList())).whenever(subscriptionApi).partnerPlans(any(), any())
+
+        navigate("$url/@/roger.milla/subscribe")
+        assertCurrentPageIs(PageName.SUBSCRIPTION)
+
+        assertElementCount("#btn-google", 1)
+    }
+
     private fun createSubscription() = Subscription(
         id = 1,
         siteId = 1,

@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
 
-            <div class="main-content border text-center padding-2x margin-bottom-4x" th:if="${plan}">
+            <div class="main-content border text-center padding-2x margin-bottom-4x">
                 <h1 th:text="${blog.fullName}">Blog Name</h1>
                 <p th:text="${blog.biography}">Blog bio</p>
 
@@ -20,28 +20,31 @@
                     Error
                 </div>
 
-                <div class="border rounded">
-                    <div class="row padding" th:if="${mobilePaymentEnabled}">
+                <div class="container-fluid border rounded">
+                    <div class="row padding border-bottom" th:if="${showMobileButton}">
                         <div class="col-12 col-md-6">
                             <b class="highlight" th:text="${plan.rate.yearly}">10000 XAF</b>
                             /
                             <span th:text="#{label.year}">year</span>
                         </div>
                         <div class="col-12 col-md-6">
-                            <a class="btn btn-primary btn-block" id="btn-mobile-checkout" th:href="${checkoutMobileUrl}">
+                            <a class="btn btn-primary btn-block" id="btn-mobile-checkout" th:href="${checkoutMobileUrl}"
+                               wutsi-track-event="subscribe_mobile">
                                 S'abonner
                                 <i class="margin-left fas fa-mobile-alt"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="row padding border-top" th:if="${paypalPaymentEnabled}">
+
+                    <div class="row padding border-bottom" th:if="${showPaypalButton}">
                         <div class="col-12 col-md-6">
                             <b class="highlight" th:text="${plan.internationalRate.yearly}">10 EUR</b>
                             /
                             <span th:text="#{label.year}">year</span>
                         </div>
                         <div class="col-12 col-md-6">
-                            <a class="btn btn-primary btn-block" id="btn-paypal-checkout" th:href="${checkoutPaypalUrl}">
+                            <a class="btn btn-primary btn-block" id="btn-paypal-checkout" th:href="${checkoutPaypalUrl}"
+                               wutsi-track-event="subscribe_paypal">
                                 S'abonner
                                 <i class="margin-left fab fa-paypal"></i>
                             </a>
@@ -50,6 +53,11 @@
                     <div class="border-top padding" th:if="!${plan.description.isEmpty()}" th:text="${plan.description}">
                         Description
                     </div>
+                </div>
+
+                <div class="margin-top text-center">
+                    <a class="text-small" th:href="${redirectUrl}" th:text="#{page.subscription.no_thanks}" wutsi-track-event="subscribe_no_thanks">No
+                        Thanks!</a>
                 </div>
             </div>
 

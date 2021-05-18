@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html th:lang="${page.language}" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="components/layout :: head"></div>
+</head>
+
+<body class="paper">
+<div th:replace="components/layout :: navbar-blog(${blog}, false, ${blog.slug})"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+
+            <div class="main-content border text-center padding-2x margin-bottom-4x">
+                <h1 th:text="${blog.fullName}">Blog Name</h1>
+                <p th:text="${blog.biography}">Blog bio</p>
+
+                <div class="alert alert-danger" th:if="${error}" th:text="${error}">
+                    Error
+                </div>
+
+                <div class="rounded text-center">
+                    <div th:if="${user}">
+                        <div th:replace="components/follow :: follow-button(${blog}, ${redirectUrl}, true, true, true)"></div>
+                    </div>
+                    <div th:if="!${user}">
+                        <a class="sso-button margin-top" id="btn-google" th:href="${googleUrl}" wutsi-track-event="follow_google">
+                            <i class="fab fa-google"></i>
+                            <span th:text="#{page.subscription.subscribe_google}">Subscribed with Google</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="margin-top text-center">
+                    <a class="text-small" th:href="${redirectUrl}" th:text="#{page.subscription.no_thanks}" wutsi-track-event="follow_no_thanks">No
+                        Thanks!</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="components/layout :: footer"></div>
+
+</body>
+</html>

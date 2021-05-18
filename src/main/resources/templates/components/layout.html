@@ -241,7 +241,7 @@
                 <a class="btn btn-light" href="/login" id="navbar-login" rel="nofollow" th:text="#{button.login}">Login</a>
             </li>
             <li class="nav-item" th:if="${toggles.follow} AND ${showFollowButton} AND ${page.name != 'page.login'}">
-                <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, false)"></div>
+                <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, false, false)"></div>
             </li>
             <li th:replace="components/layout :: navbar-dropdown"></li>
         </ul>
