@@ -12,6 +12,6 @@ class FollowController {
     fun follow(
         @PathVariable username: String
     ): String {
-        return "redirect:/@/${username}/subscribe"
+        return "redirect:/@/$username/subscribe"
     }
 }

@@ -27,14 +27,15 @@
                         </a>
                     </div>
                     <div th:if="!${user}">
-                        <a class="sso-button margin-top" id="btn-google" th:href="${googleUrl}" wutsi-track-event="follow_google">
+                        <a class="sso-button margin-top" id="btn-google" th:href="${googleUrl}" wutsi-track-event="subscribe_google">
                             <i class="fab fa-google"></i>
                             <span th:text="#{page.subscription.subscribe_google}">Subscribed with Google</span>
                         </a>
                     </div>
                 </div>
                 <div class="margin-top text-center">
-                    <a class="text-small" th:href="${redirectUrl}" th:text="#{page.subscription.no_thanks}" wutsi-track-event="follow_no_thanks">No
+                    <a class="text-small" id="btn-no-thanks" th:href="${redirectUrl}" th:text="#{page.subscription.no_thanks}"
+                       wutsi-track-event="subscribe_no_thanks">No
                         Thanks!</a>
                 </div>
 
