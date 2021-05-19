@@ -29,7 +29,7 @@ class MonetizationMapper {
 
     fun toSubscriptionModel(subscription: Subscription) = SubscriptionModel(
         id = subscription.id,
-        planId = subscription.planId,
+        plan = toPlanModel(subscription.plan),
         subscriberId = subscription.subscriberId
     )
 }
