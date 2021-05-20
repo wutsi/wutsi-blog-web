@@ -1,6 +1,8 @@
 package com.wutsi.blog.app.page.story.model
 
 import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.client.story.StoryAccess
+import com.wutsi.blog.client.story.StoryAccess.PUBLIC
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.WPPStatus
 import java.util.Date
@@ -49,6 +51,7 @@ data class StoryModel(
     val pinId: Long = -1,
     val scheduledPublishDateTime: String? = null,
     val scheduledPublishDateTimeAsDate: Date? = null,
-    val publishToSocialMedia: Boolean = false
+    val publishToSocialMedia: Boolean = false,
+    val access: StoryAccess = PUBLIC
 
 )

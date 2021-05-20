@@ -1,6 +1,8 @@
 package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.follower.service.FollowerService
+import com.wutsi.blog.app.page.monetization.service.MonetizationService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable
 @Controller
 class StoryPreviewController(
     ejsJsonReader: EJSJsonReader,
+    followerService: FollowerService,
+    monetizationService: MonetizationService,
     service: StoryService,
     requestContext: RequestContext
-) : AbstractStoryReadController(ejsJsonReader, service, requestContext) {
+) : AbstractStoryReadController(ejsJsonReader, followerService, monetizationService, service, requestContext) {
 
     override fun pageName() = PageName.STORY_PREVIEW
 

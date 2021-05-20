@@ -86,7 +86,8 @@ class StoryService(
                 tags = editor.tags,
                 publishToSocialMedia = editor.publishToSocialMedia,
                 socialMediaMessage = if (editor.publishToSocialMedia) editor.socialMediaMessage else null,
-                scheduledPublishDateTime = if (editor.publishNow) null else SimpleDateFormat("yyyy-MM-dd").parse(editor.scheduledPublishDate)
+                scheduledPublishDateTime = if (editor.publishNow) null else SimpleDateFormat("yyyy-MM-dd").parse(editor.scheduledPublishDate),
+                access = editor.access
             )
         )
     }
@@ -160,12 +161,12 @@ class StoryService(
         }
     }
 
-    fun generateHtmlContent(story: StoryModel): String {
+    fun generateHtmlContent(story: StoryModel, summary: Boolean = false): String {
         if (story.content == null) {
             return ""
         }
 
-        val ejs = ejsJsonReader.read(story.content)
+        val ejs = ejsJsonReader.read(story.content, summary)
         val html = StringWriter()
         ejsHtmlWriter.write(ejs, html)
 

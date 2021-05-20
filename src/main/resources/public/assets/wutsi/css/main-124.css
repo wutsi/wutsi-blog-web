@@ -1083,6 +1083,22 @@ a.sso-button:hover {
 }
 
 
+/* ==== PAYWALL ==== */
+.story-paywall {
+    background: var(--highlight-color-light);
+    border: 1px solid var(--highlight-color);
+    padding: var(--padding);
+    text-align: center;
+}
+
+.story-paywall-fadeout {
+    background: white;
+    opacity: 50%;
+    height: 4em;
+    margin-top: -4em;
+}
+
+
 /* ==== FOLLOW PANEL ==== */
 .follow-panel {
     background: var(--highlight-color-light);

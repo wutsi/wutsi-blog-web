@@ -290,5 +290,39 @@
     </div>
 </div>
 
+<div id="story-paywall" th:fragment="story-paywall(story)">
+    <div class="story-paywall-fadeout" th:if="!${fullAccess}"></div>
+    <div class="story-paywall" th:if="!${fullAccess}">
+        <div class="text-small" th:if="${user}">
+            Dear <b ${user.fullName} class="th:text=">Ray Sponsible</b>
+        </div>
+
+        <div th:if="${story.access.name() == 'SUBSCRIBER'}">
+            <div>
+                This Story is for <b>Subscribers</b>
+            </div>
+            <div class="margin-top">
+                <a class="btn btn-light" th:href="${story.user.slug} + '/subscribe'" th:text="#{button.follow}">Subscriber</a>
+            </div>
+            <div class="margin-top text-small" th:if="!${user}">
+                Already a Subscribed? <b><a href="/login">Login</a></b>
+            </div>
+        </div>
+
+        <div th:if="${story.access.name() == 'PREMIUM_SUBSCRIBER'}">
+            <div>
+                This Story is for my <b>Premium Subscribers</b>
+            </div>
+            <div class="margin-top">
+                <a class="btn btn-primary" th:href="${story.user.slug} + '/subscribe?premium=1'" th:text="button.follow">Subscriber</a>
+            </div>
+            <div class="margin-top text-small" th:if="!${user}">
+                <small>
+                    Already a Premium Subscriber? <b><a href="/login">Login</a></b>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

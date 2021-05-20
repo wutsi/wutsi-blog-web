@@ -57,13 +57,6 @@ class SubscribeControllerPremiumTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `Premium - cannot subscribe if the blog do not have subscription plan`() {
-        login()
-        navigate("$url/@/ray.sponsible/subscribe?premium=1")
-        assertCurrentPageIs(PageName.BLOG)
-    }
-
-    @Test
     fun `Premium - cannot subscription if the current user has a subscription plan`() {
         val plan = createPlan()
         doReturn(SearchPlanResponse(listOf(plan))).whenever(subscriptionApi).partnerPlans(any(), any())
@@ -129,7 +122,7 @@ class SubscribeControllerPremiumTest : SeleniumTestSupport() {
     private fun createSubscription() = Subscription(
         id = 1,
         siteId = 1,
-        planId = 1,
+        plan = Plan(1),
         orderId = 111,
         status = "ACTIVE",
         startDate = LocalDate.now().minusDays(1),

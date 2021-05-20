@@ -92,7 +92,8 @@ class StoryMapper(
             socialMediaMessage = story.socialMediaMessage,
             scheduledPublishDateTime = formatMediumDate(story.scheduledPublishDateTime),
             scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime,
-            publishToSocialMedia = story.publishToSocialMedia
+            publishToSocialMedia = story.publishToSocialMedia,
+            access = story.access
         )
     }
 
@@ -130,7 +131,8 @@ class StoryMapper(
         pinned = (pin?.storyId == story.id),
         pinId = pin?.let { it.id } ?: -1,
         scheduledPublishDateTime = formatMediumDate(story.scheduledPublishDateTime),
-        scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime
+        scheduledPublishDateTimeAsDate = story.scheduledPublishDateTime,
+        access = story.access
     )
 
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(

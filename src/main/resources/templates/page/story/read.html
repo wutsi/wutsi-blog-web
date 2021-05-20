@@ -65,10 +65,46 @@
         </div>
 
         <!-- Content -->
-        <div class="content margin-top" th:utext="${html}">This is a block</div>
+        <div class="content margin-top" th:utext="${html}">
+            This is the content of the story
+        </div>
+
+        <!-- Paywall -->
+        <div class="story-paywall-fadeout" th:if="!${fullAccess}"></div>
+        <div class="story-paywall" id="story-paywall" th:if="!${fullAccess}">
+            <div class="text-small" th:if="${user}">
+                Dear <b ${user.fullName} class="th:text=">Ray Sponsible</b>
+            </div>
+
+            <div th:if="${story.access.name() == 'SUBSCRIBER'}">
+                <div>
+                    This Story is for <b>Subscribers</b>
+                </div>
+                <div class="margin-top">
+                    <a class="btn btn-light" th:href="${story.user.slug} + '/subscribe'" th:text="#{button.follow}">Subscriber</a>
+                </div>
+                <div class="margin-top text-small" th:if="!${user}">
+                    Already a Subscribed? <b><a href="/login">Login</a></b>
+                </div>
+            </div>
+
+            <div th:if="${story.access.name() == 'PREMIUM_SUBSCRIBER'}">
+                <div>
+                    This Story is for my <b>Premium Subscribers</b>
+                </div>
+                <div class="margin-top">
+                    <a class="btn btn-primary" th:href="${story.user.slug} + '/subscribe?premium=1'" th:text="button.follow">Subscriber</a>
+                </div>
+                <div class="margin-top text-small" th:if="!${user}">
+                    <small>
+                        Already a Premium Subscriber? <b><a href="/login">Login</a></b>
+                    </small>
+                </div>
+            </div>
+        </div>
 
         <!-- Tags -->
-        <div class="tag-container">
+        <div class="tag-container" th:if="${fullAccess}">
             <div class="tag margin-top margin-right" th:each="tag : ${story.tags}">
                 <span th:text="${tag.displayName}">Tag</span>
             </div>
@@ -90,32 +126,33 @@
         </div>
     </article>
 
-    <!-- Follow -->
-    <div th:if="${showFollowButton}">
-        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug}, ${followMessage})"></div>
-    </div>
 
     <!-- PWA Install -->
-    <div th:if="${toggles.pwa}">
+    <div th:if="${toggles.pwa} AND ${fullAccess}">
         <div th:replace="components/pwa :: a2hs-card"></div>
     </div>
 
     <!-- Recommendations -->
-    <div id="recommendation-container" th:if="!${preview} AND ${toggles.recommendation}">
+    <div id="recommendation-container" th:if="!${preview} AND ${toggles.recommendation} AND ${fullAccess}">
         <div th:replace="components/story :: read-also(${story})"></div>
     </div>
 
     <!-- PWA Push Notification -->
-    <div th:if="!${preview} AND ${toggles.pwa} AND ${toggles.pwaPushNotification}">
+    <div th:if="!${preview} AND ${toggles.pwa} AND ${toggles.pwaPushNotification} AND ${fullAccess}">
         <div th:replace="components/pwa :: push-card"></div>
     </div>
 
     <!-- Author -->
-    <div class="story-author-card " id="author-container">
+    <div class="story-author-card " id="author-container" th:if="${fullAccess}">
         <div th:replace="components/author :: card(${story.user}, true)"></div>
     </div>
 
-    <div th:replace="components/follow :: who-to-follow"></div>
+    <!-- Follow -->
+    <div th:if="${showFollowButton} AND ${fullAccess}">
+        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug}, ${followMessage})"></div>
+    </div>
+
+
     <div class="margin-bottom-4x">&nbsp;</div>
 </div>
 
