@@ -98,16 +98,19 @@
 
                 <div class="form-group margin-top-2x" th:if="${toggles.monetization}">
                     <label th:text="#{page.story.publish.access}">Who can read the Story?</label>
-                    <select class="form-control" id="access">
+                    <select class="form-control" id="access" name="access">
                         <option th:attrappend="selected = ${story.access.name()} == 'PUBLIC' ? selected" th:text="#{story.access.PUBLIC}"
                                 value="PUBLIC">
                             Everybody
                         </option>
+                        <!--
                         <option th:attrappend="selected = ${story.access.name()} == 'SUBSCRIBER' ? selected" th:text="#{story.access.SUBSCRIBER}"
                                 value="SUBSCRIBER">
                             My Subscribers
                         </option>
+                        -->
                         <option th:attrappend="selected = ${story.access.name()} == 'PREMIUM_SUBSCRIBER' ? selected"
+                                th:if="${plan}"
                                 th:text="#{story.access.PREMIUM_SUBSCRIBER}"
                                 value="PREMIUM_SUBSCRIBER">
                             My Premium Subscribers
