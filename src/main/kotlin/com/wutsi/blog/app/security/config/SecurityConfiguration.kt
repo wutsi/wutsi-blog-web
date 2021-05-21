@@ -60,6 +60,7 @@ class SecurityConfiguration(
             .antMatchers("/pin/**/*").authenticated()
             .antMatchers(HttpMethod.POST, "/upload").authenticated()
             .antMatchers("/monetization/setup").authenticated()
+            .antMatchers("/checkout/**/*").authenticated()
 
             .anyRequest().permitAll()
 
