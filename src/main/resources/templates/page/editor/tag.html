@@ -103,12 +103,10 @@
                                 value="PUBLIC">
                             Everybody
                         </option>
-                        <!--
                         <option th:attrappend="selected = ${story.access.name()} == 'SUBSCRIBER' ? selected" th:text="#{story.access.SUBSCRIBER}"
                                 value="SUBSCRIBER">
                             My Subscribers
                         </option>
-                        -->
                         <option th:attrappend="selected = ${story.access.name()} == 'PREMIUM_SUBSCRIBER' ? selected"
                                 th:if="${plan}"
                                 th:text="#{story.access.PREMIUM_SUBSCRIBER}"

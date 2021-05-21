@@ -52,7 +52,8 @@ class EditorTagController(
         if (!requestContext.toggles().monetization)
             return
 
-        val plan = monetizationService.currentPlan(requestContext.currentUser().id)
+        val userId = requestContext.currentUser()!!.id
+        val plan = monetizationService.currentPlan(userId)
         model.addAttribute("plan", plan)
     }
 
