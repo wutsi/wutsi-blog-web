@@ -50,7 +50,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="border-top padding" th:if="!${plan.description.isEmpty()}" th:text="${plan.description}">
+                    <div class="border-top padding text-left" th:if="!${plan.description.isEmpty()}" th:utext="${plan.descriptionHtml}">
                         Description
                     </div>
                 </div>

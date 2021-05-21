@@ -53,5 +53,10 @@ data class StoryModel(
     val scheduledPublishDateTimeAsDate: Date? = null,
     val publishToSocialMedia: Boolean = false,
     val access: StoryAccess = PUBLIC
+) {
+    fun isPublic(): Boolean =
+        access == PUBLIC
 
-)
+    fun isNotPublic(): Boolean =
+        !isPublic()
+}

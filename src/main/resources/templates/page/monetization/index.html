@@ -6,7 +6,7 @@
             <span th:text="#{label.year}">year</span>
         </b>
     </div>
-    <div class="padding border-top" th:if="!${plan.description.isEmpty()}" th:text="${plan.description}">
+    <div class="padding border-top" th:if="!${plan.description.isEmpty()}" th:utext="${plan.descriptionHtml}">
         Description
     </div>
     <div class="padding border-top">

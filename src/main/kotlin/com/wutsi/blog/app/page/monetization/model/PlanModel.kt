@@ -5,6 +5,7 @@ data class PlanModel(
     val partnerId: Long = -1,
     val name: String = "",
     val description: String = "",
+    val descriptionHtml: String = "",
     val active: Boolean = true,
     val rate: PlanRateModel = PlanRateModel(),
     val internationalRate: PlanRateModel = PlanRateModel()

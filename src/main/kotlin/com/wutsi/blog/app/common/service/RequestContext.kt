@@ -120,13 +120,15 @@ class RequestContext(
         }
 
         val token = accessToken()
-            ?: return null
+        if (token.isNullOrEmpty())
+            return null
+
         try {
             session = sessionMapper.toSessionModel(
                 authBackend.session(token).session
             )
         } catch (e: Exception) {
-            LOGGER.warn("Unable to resolve user associate with access_token $token", e)
+//            LOGGER.warn("Unable to resolve user associate with access_token $token", e)
             if (e is NotFoundException) {
                 tokenStorage.delete(response)
             }

@@ -7,6 +7,7 @@ import com.wutsi.blog.app.page.monetization.model.SubscriptionModel
 import com.wutsi.subscription.dto.Plan
 import com.wutsi.subscription.dto.PlanRate
 import com.wutsi.subscription.dto.Subscription
+import org.apache.commons.text.StringEscapeUtils
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,6 +17,9 @@ class MonetizationMapper {
         partnerId = plan.partnerId,
         name = plan.name,
         description = if (plan.description.isNullOrEmpty()) "" else plan.description,
+        descriptionHtml = StringEscapeUtils.escapeHtml4(
+            if (plan.description.isNullOrEmpty()) "" else plan.description
+        ).replace("\n", "<br>"),
         rate = toPlanRateModel(plan.rate),
         active = plan.active,
         internationalRate = toPlanRateModel(plan.convertedRate)

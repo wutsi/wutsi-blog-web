@@ -42,13 +42,15 @@ abstract class AbstractStoryReadController(
 
     protected open fun hasFullAccess(story: StoryModel): Boolean {
         val blogId = story.user.id
-        if (story.access == SUBSCRIBER) {
-            return followerService.isFollowing(blogId)
-        } else if (story.access == PREMIUM_SUBSCRIBER && requestContext.toggles().monetization) {
-            monetizationService.currentPlan(blogId)
-                ?: return true // The blog has not Premium Plan
-            monetizationService.currentSubscription(blogId)
-                ?: return false // The current user has no subscription
+        if (blogId != requestContext.currentUser()?.id) {
+            if (story.access == SUBSCRIBER) {
+                return followerService.isFollowing(blogId)
+            } else if (story.access == PREMIUM_SUBSCRIBER && requestContext.toggles().monetization) {
+                monetizationService.currentPlan(blogId)
+                    ?: return true // The blog has not Premium Plan
+                monetizationService.currentSubscription(blogId)
+                    ?: return false // The current user has no subscription
+            }
         }
         return true
     }
