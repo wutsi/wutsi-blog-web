@@ -120,7 +120,7 @@
 
     <!-- Follow -->
     <div th:if="${showFollowButton} AND ${fullAccess}">
-        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug}, ${followMessage})"></div>
+        <div th:replace="components/follow :: panel(${story.user}, ${story.user.slug}, '')"></div>
     </div>
 
 
