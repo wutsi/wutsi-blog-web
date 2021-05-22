@@ -289,7 +289,7 @@
 <div id="story-paywall" th:fragment="paywall(story)">
     <div class="story-paywall-fadeout"></div>
     <div class="story-paywall">
-        <div class="text-small" th:if="${user}" th:utext="#{component.paywall.greetings(${user.fullName})}">
+        <div th:if="${user}" th:utext="#{component.paywall.greetings(${user.fullName})}">
             Dear <b ${user.fullName} class="th:text=">Ray Sponsible</b>
         </div>
 
