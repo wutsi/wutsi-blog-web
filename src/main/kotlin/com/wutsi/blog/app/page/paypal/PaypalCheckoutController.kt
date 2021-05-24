@@ -58,7 +58,7 @@ class PaypalCheckoutController(
                 currency = plan.convertedRate.currency,
                 description = "${user.fullName} | ${site.displayName}",
                 total = plan.convertedRate.yearly.toDouble(),
-                customerId = requestContext.currentUser()?.id
+                partnerId = requestContext.currentUser()?.id
             )
         ).orderId
 
