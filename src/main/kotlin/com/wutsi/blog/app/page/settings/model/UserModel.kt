@@ -37,7 +37,14 @@ data class UserModel(
     val blog: Boolean = true,
     val storyCount: Long = 0,
     val followerCount: Long = 0,
+    val subscriberCount: Long = 0,
     val followerCountText: String = "",
-    val hasFollowers: Boolean = false,
+    val subscriberCountText: String = "",
     val testUser: Boolean = false
-)
+) {
+    fun hasFollowers(): Boolean =
+        followerCount > 0
+
+    fun hasSubscribers(): Boolean =
+        subscriberCount > 0
+}

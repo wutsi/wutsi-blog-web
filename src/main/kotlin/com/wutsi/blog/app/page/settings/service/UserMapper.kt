@@ -38,7 +38,6 @@ class UserMapper(
         storyCount = user.storyCount,
         followerCount = user.followerCount,
         followerCountText = NumberUtils.toHumanReadable(user.followerCount),
-        hasFollowers = user.followerCount > 0,
         readAllLanguages = user.readAllLanguages,
         language = user.language,
         locale = if (user.language == null) null else Locale(user.language, "CM"),
@@ -54,7 +53,9 @@ class UserMapper(
             !user.youtubeId.isNullOrEmpty() ||
             !user.linkedinId.isNullOrEmpty() ||
             !user.twitterId.isNullOrEmpty(),
-        testUser = user.testUser
+        testUser = user.testUser,
+        subscriberCount = user.subscriberCount,
+        subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount)
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
@@ -71,8 +72,9 @@ class UserMapper(
         biography = user.biography,
         storyCount = user.storyCount,
         followerCount = user.followerCount,
-        hasFollowers = user.followerCount > 0,
         followerCountText = NumberUtils.toHumanReadable(user.followerCount),
+        subscriberCount = user.subscriberCount,
+        subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount),
         testUser = user.testUser
     )
 }
