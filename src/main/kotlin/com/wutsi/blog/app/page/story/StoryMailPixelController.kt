@@ -21,7 +21,7 @@ class StoryMailPixelController(
 ) {
     companion object {
         val PAGE = "page.read"
-        val REFERER = "pixel.mail.wutsi.com"
+        val REFERER = "https://pixel.mail.wutsi.com"
     }
 
     @GetMapping("/{storyId}.png", produces = ["image/png"])
