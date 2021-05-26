@@ -30,13 +30,15 @@ class FollowerService(
         }
     }
 
-    fun searchFollowingUserIds(): List<Long> {
+    fun searchFollowingUserIds(limit: Int = 1000, offset: Int = 0): List<Long> {
         if (!requestContext.toggles().follow || requestContext.currentUser() == null)
             return emptyList()
 
         return api.search(
             SearchFollowerRequest(
-                followerUserId = requestContext.currentUser()?.id
+                followerUserId = requestContext.currentUser()?.id,
+                limit = limit,
+                offset = offset
             )
         ).followers.map { it.userId }
     }
