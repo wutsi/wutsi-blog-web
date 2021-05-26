@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.time.Clock
 import java.util.UUID
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Controller
@@ -31,6 +32,7 @@ class StoryMailPixelController(
         @RequestParam("u", required = false) userId: Long? = null,
         @RequestParam("d", required = false) durationMinutes: Int? = null,
         @RequestParam("c", required = false) campaign: String? = null,
+        request: HttpServletRequest,
         response: HttpServletResponse
     ) {
         try {
@@ -40,7 +42,8 @@ class StoryMailPixelController(
             response.addHeader("Pragma", "no-cache")
             IOUtils.copy(png, response.outputStream)
         } finally {
-            track(storyId, userAgent, userId, durationMinutes, campaign)
+            val url = request.requestURL.toString() + (request.queryString?.let { "?$it" } ?: "")
+            track(storyId, userAgent, userId, durationMinutes, url)
         }
     }
 
@@ -49,7 +52,7 @@ class StoryMailPixelController(
         userAgent: String?,
         userId: Long?,
         durationMinutes: Int?,
-        campaign: String?
+        url: String
     ) {
         val hitId = UUID.randomUUID().toString()
         val deviceId = UUID.randomUUID().toString()
@@ -65,7 +68,8 @@ class StoryMailPixelController(
                 page = PAGE,
                 event = "readstart",
                 ua = userAgent,
-                referer = REFERER
+                referer = REFERER,
+                url = url
             )
         )
 
@@ -81,7 +85,8 @@ class StoryMailPixelController(
                     event = "scroll",
                     value = "100",
                     ua = userAgent,
-                    referer = REFERER
+                    referer = REFERER,
+                    url = url
                 )
             )
         }

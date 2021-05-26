@@ -79,6 +79,7 @@ class StoryMailPixelControllerTest {
         assertEquals("555", request.firstValue.uid)
         assertEquals("readstart", request.firstValue.event)
         assertEquals(time, request.firstValue.time)
+        assertEquals("http://localhost:$port/story/pixel/1.png?u=555&d=1", request.firstValue.url)
 
         assertEquals(request.firstValue.hid, request.secondValue.hid)
         assertEquals("1", request.secondValue.pid)
@@ -89,6 +90,7 @@ class StoryMailPixelControllerTest {
         assertEquals("scroll", request.secondValue.event)
         assertEquals("100", request.secondValue.value)
         assertEquals(time + 1 * 60 * 1000, request.secondValue.time)
+        assertEquals("http://localhost:$port/story/pixel/1.png?u=555&d=1", request.secondValue.url)
     }
 
     @Test
@@ -110,5 +112,6 @@ class StoryMailPixelControllerTest {
         assertEquals("555", request.firstValue.uid)
         assertEquals("readstart", request.firstValue.event)
         assertEquals(time, request.firstValue.time)
+        assertEquals("http://localhost:$port/story/pixel/1.png?u=555", request.firstValue.url)
     }
 }
