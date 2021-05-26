@@ -118,8 +118,8 @@
 
 <div class="meta flex text-small" th:fragment="meta(story)">
     <div class="margin-right" th:text="${story.publishedDateTime}">12 May</div>
-    <div>
-        <span th:if="${story.readingMinutes} GT 0" th:text="${story.readingMinutes}">2</span>
+    <div th:if="${story.readingMinutes} GT 0">
+        <span th:text="${story.readingMinutes}">2</span>
         <span th:text="#{label.minutes}">min</span>
     </div>
 </div>
