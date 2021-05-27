@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
+import com.wutsi.blog.app.util.PageName
 import org.apache.commons.io.IOUtils
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,7 +22,6 @@ class StoryMailPixelController(
     private val clock: Clock
 ) {
     companion object {
-        val PAGE = "page.read"
         val REFERER = "https://pixel.mail.wutsi.com"
     }
 
@@ -65,7 +65,7 @@ class StoryMailPixelController(
                 duid = deviceId,
                 pid = storyId.toString(),
                 uid = userId?.toString(),
-                page = PAGE,
+                page = PageName.READ,
                 event = "readstart",
                 ua = userAgent,
                 referer = REFERER,
@@ -81,7 +81,7 @@ class StoryMailPixelController(
                     duid = deviceId,
                     pid = storyId.toString(),
                     uid = userId.toString(),
-                    page = PAGE,
+                    page = PageName.READ,
                     event = "scroll",
                     value = "100",
                     ua = userAgent,
