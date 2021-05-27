@@ -5,9 +5,9 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.wutsi.blog.app.page.story.StoryMailPixelController
 import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
+import com.wutsi.blog.app.util.PageName
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -29,23 +29,13 @@ class StoryMailPixelControllerTest {
     @LocalServerPort
     private lateinit var port: Integer
 
-//    @Mock
-//    private lateinit var response: HttpServletResponse
-//
-//    @Mock
-//    private lateinit var servletOutputStream: ServletOutputStream
-
     @MockBean
     private lateinit var clock: Clock
-
-//    @InjectMocks
-//    private lateinit var controllerStory: StoryMailPixelController
 
     private val time = 100000L
 
     @Before
     fun setUp() {
-//        doReturn(servletOutputStream).whenever(response).outputStream
         doReturn(time).whenever(clock).millis()
     }
 
@@ -75,7 +65,7 @@ class StoryMailPixelControllerTest {
         assertEquals("1", request.firstValue.pid)
         assertEquals(request.firstValue.duid, request.firstValue.duid)
         assertEquals("test", request.firstValue.ua)
-        assertEquals(StoryMailPixelController.PAGE, request.firstValue.page)
+        assertEquals(PageName.READ, request.firstValue.page)
         assertEquals("555", request.firstValue.uid)
         assertEquals("readstart", request.firstValue.event)
         assertEquals(time, request.firstValue.time)
@@ -85,7 +75,7 @@ class StoryMailPixelControllerTest {
         assertEquals("1", request.secondValue.pid)
         assertEquals(request.firstValue.duid, request.secondValue.duid)
         assertEquals("test", request.secondValue.ua)
-        assertEquals(StoryMailPixelController.PAGE, request.secondValue.page)
+        assertEquals(PageName.READ, request.firstValue.page)
         assertEquals("555", request.secondValue.uid)
         assertEquals("scroll", request.secondValue.event)
         assertEquals("100", request.secondValue.value)
@@ -108,7 +98,7 @@ class StoryMailPixelControllerTest {
         assertEquals("1", request.firstValue.pid)
         assertEquals(request.firstValue.duid, request.firstValue.duid)
         assertEquals("test", request.firstValue.ua)
-        assertEquals(StoryMailPixelController.PAGE, request.firstValue.page)
+        assertEquals(PageName.READ, request.firstValue.page)
         assertEquals("555", request.firstValue.uid)
         assertEquals("readstart", request.firstValue.event)
         assertEquals(time, request.firstValue.time)

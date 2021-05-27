@@ -40,7 +40,7 @@ class EventStreamTrackService(
         event = form.event,
         pid = form.pid,
         uid = form.uid ?: requestContext.currentUser()?.id?.toString(),
-        referer = CookieHelper.get(CookieName.REFERER, requestContext.request),
+        referer = form.referer ?: CookieHelper.get(CookieName.REFERER, requestContext.request),
         ua = form.ua ?: requestContext.request.getHeader("User-Agent"),
         duid = form.duid ?: CookieHelper.get(CookieName.DEVICE_UID, requestContext.request),
         hid = form.hid,
