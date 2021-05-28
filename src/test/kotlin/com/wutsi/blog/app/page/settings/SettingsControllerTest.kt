@@ -11,7 +11,6 @@ import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
 import com.wutsi.blog.fixtures.UserApiFixtures
 import com.wutsi.core.exception.ConflictException
-import com.wutsi.core.exception.InternalErrorException
 import org.junit.Test
 
 class SettingsControllerTest : SeleniumTestSupport() {
@@ -58,18 +57,8 @@ class SettingsControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `user cancel blog name`() {
-        testCancel("full_name", "Ray Sponsible", "Ray Blog")
-    }
-
-    @Test
     fun `user can change email`() {
         testUpdate("email", "ray.sponsible@gmail.com", "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com")
-    }
-
-    @Test
-    fun `user cancel email`() {
-        testCancel("email", "ray.sponsible@gmail.com", "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com")
     }
 
     @Test
@@ -86,26 +75,8 @@ class SettingsControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `user can cancel biography`() {
-        testCancel("biography", UserApiFixtures.DEFAULT_BIOGRAPHY, "...")
-    }
-
-    @Test
-    fun `user update - unexpected error`() {
-        doThrow(InternalErrorException("duplicate_email")).whenever(userApi).set(any(), any())
-
-        val error = "Ooup! une erreur innatendue est survenue!"
-        testUpdate("biography", UserApiFixtures.DEFAULT_BIOGRAPHY, "...", error)
-    }
-
-    @Test
     fun `user can change website`() {
         testUpdate("website_url", "https://www.me.com/ray.sponsible", "https://www.avatar.com/ray.sponsible")
-    }
-
-    @Test
-    fun `user can cancel website`() {
-        testCancel("website_url", "https://www.me.com/ray.sponsible", "...")
     }
 
     @Test
@@ -174,6 +145,7 @@ class SettingsControllerTest : SeleniumTestSupport() {
         click("nav .nav-item")
         click("#navbar-settings")
 
+        Thread.sleep(1000)
         assertCurrentPageIs(PageName.SETTINGS)
     }
 }

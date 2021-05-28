@@ -2,6 +2,7 @@ package com.wutsi.blog.fixtures
 
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
+import com.wutsi.blog.client.user.WalletDto
 
 object UserApiFixtures {
     val DEFAULT_BIOGRAPHY: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. http://gog.me"
@@ -18,7 +19,8 @@ object UserApiFixtures {
         blog: Boolean = true,
         loginCount: Long = 4,
         language: String = "fr",
-        superUser: Boolean = false
+        superUser: Boolean = false,
+        wallet: WalletDto? = null
     ) = UserDto(
         id = id,
         name = name,
@@ -37,7 +39,8 @@ object UserApiFixtures {
         twitterId = name,
         loginCount = loginCount,
         superUser = superUser,
-        websiteUrl = "https://www.me.com/$name"
+        websiteUrl = "https://www.me.com/$name",
+        wallet = wallet
     )
 
     fun createUserSummaryDto(

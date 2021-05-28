@@ -1,9 +1,13 @@
 package com.wutsi.blog.app.page.settings.service
 
 import com.wutsi.blog.app.common.service.ImageKitService
+import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.page.settings.model.UserModel
+import com.wutsi.blog.app.page.settings.model.WalletModel
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
+import com.wutsi.blog.client.user.WalletDto
+import com.wutsi.blog.client.user.WalletType
 import com.wutsi.core.util.NumberUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -12,6 +16,7 @@ import java.util.Locale
 @Service
 class UserMapper(
     private val imageKit: ImageKitService,
+    private val localizationService: LocalizationService,
     @Value("\${wutsi.image.user.small.width}") private val pictureSmallWidth: Int
 ) {
     fun toUserModel(user: UserDto) = UserModel(
@@ -55,7 +60,8 @@ class UserMapper(
             !user.twitterId.isNullOrEmpty(),
         testUser = user.testUser,
         subscriberCount = user.subscriberCount,
-        subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount)
+        subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount),
+        wallet = toWalletModel(user.wallet, user.language?.let { it } ?: "fr")
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
@@ -77,4 +83,18 @@ class UserMapper(
         subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount),
         testUser = user.testUser
     )
+
+    fun toWalletModel(wallet: WalletDto?, language: String): WalletModel? {
+        if (wallet == null || wallet.type == WalletType.INVALID)
+            return null
+
+        return WalletModel(
+            type = wallet.type,
+            mobileProvider = wallet.mobileProvider,
+            mobileNumber = wallet.mobileNumber,
+            fullName = wallet.fullName,
+            country = wallet.country,
+            countryDisplayName = Locale(language, wallet.country).getDisplayCountry(Locale(language))
+        )
+    }
 }

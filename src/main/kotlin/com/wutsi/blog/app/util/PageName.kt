@@ -47,6 +47,9 @@ class PageName {
 
         const val SETTINGS = "page.settings"
 
+        const val WALLET = "page.wallet"
+        const val WALLET_EDIT = "page.wallet.edit"
+
         const val MONETIZATION = "page.monetization"
         const val MONETIZATION_EDIT = "page.monetization.edit"
 

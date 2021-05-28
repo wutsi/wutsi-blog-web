@@ -37,17 +37,17 @@
     <selenium.version>3.141.59</selenium.version>
     <wiremock.version>1.58</wiremock.version>
 
-    <wutsi-blog-client.version>1.155.3</wutsi-blog-client.version>
+    <wutsi-blog-client.version>1.155.5</wutsi-blog-client.version>
     <wutsi-core.version>1.28.0</wutsi-core.version>
     <wutsi-core-aws.version>1.12.0</wutsi-core-aws.version>
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
 
     <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
-    <wutsi-order-sdk-kotlin.version>1.0.10</wutsi-order-sdk-kotlin.version>
+    <wutsi-order-sdk-kotlin.version>1.0.13</wutsi-order-sdk-kotlin.version>
     <wutsi-stats-sdk-kotlin.version>1.1.0</wutsi-stats-sdk-kotlin.version>
     <wutsi-subscription-sdk.version>1.1.4</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
-    <wutsi-platform.version>1.1.1</wutsi-platform.version>
+    <wutsi-platform.version>1.1.7</wutsi-platform.version>
   </properties>
 
   <dependencies>

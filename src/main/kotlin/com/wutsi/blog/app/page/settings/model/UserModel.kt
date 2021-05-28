@@ -40,7 +40,8 @@ data class UserModel(
     val subscriberCount: Long = 0,
     val followerCountText: String = "",
     val subscriberCountText: String = "",
-    val testUser: Boolean = false
+    val testUser: Boolean = false,
+    val wallet: WalletModel? = null
 ) {
     fun hasFollowers(): Boolean =
         followerCount > 0

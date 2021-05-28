@@ -34,6 +34,9 @@
                     <div th:if="${user.blog} AND ${toggles.monetization}">
                         <a href="#monetization" th:text="#{label.monetization}">Monetization</a>
                     </div>
+                    <div th:if="${user.blog} AND ${toggles.monetization}">
+                        <a href="#wallet" th:text="#{label.wallet}">Wallet</a>
+                    </div>
                     <div>
                         <a href="#subscriptions" th:text="#{label.my_subscriptions}">My Subscriptions</a>
                     </div>
@@ -111,20 +114,38 @@
             </div>
 
             <!-- MONETIZATION -->
-            <a name="monetization" th:if="${toggles.monetization}"></a>
-            <div class="setting-section" id="monetization-container" th:if="${user.blog} AND ${toggles.monetization}">
-                <h4 th:text="#{label.monetization}">Monetization</h4>
-                <p th:text="#{page.settings.monetization.info}">Publish on social media</p>
-                <div id="monetization-content">
-                    <center>
-                        <i class="fas fa-spinner fa-spin"></i>
-                    </center>
+            <div th:if="${toggles.monetization} AND ${user.blog}">
+                <a name="monetization"></a>
+                <div class="setting-section" id="monetization-container" th:if="${user.blog}">
+                    <h4 th:text="#{label.monetization}">Monetization</h4>
+                    <p th:text="#{page.settings.monetization.info}">Monetization</p>
+                    <div id="monetization-content">
+                        <center>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </center>
+                    </div>
+                    <script>
+                        fetch('/monetization')
+                            .then(response => response.text())
+                            .then(html => document.getElementById('monetization-content').innerHTML = html);
+                    </script>
                 </div>
-                <script>
-                    fetch('/monetization')
-                        .then(response => response.text())
-                        .then(html => document.getElementById('monetization-content').innerHTML = html);
-                </script>
+
+                <a name="wallet"></a>
+                <div class="setting-section" id="wallet-container">
+                    <h4 th:text="#{label.wallet}">Mobile Wallet</h4>
+                    <p th:text="#{page.settings.wallet.info}">Monetization</p>
+                    <div id="wallet-content">
+                        <center>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </center>
+                    </div>
+                    <script>
+                        fetch('/wallet')
+                            .then(response => response.text())
+                            .then(html => document.getElementById('wallet-content').innerHTML = html);
+                    </script>
+                </div>
             </div>
 
             <a name="subscriptions"></a>

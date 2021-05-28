@@ -1,0 +1,23 @@
+<div class="border rounded" id="wallet-card" th:if="${wallet}">
+    <div class="padding">
+        <b th:text="${wallet.fullName}">Ray Sponsible</b>
+    </div>
+    <div class="padding border-top">
+        <span th:text="${wallet.mobileNumber}">+237 4343989438</span>
+        <br/>
+        <span th:text="${wallet.countryDisplayName}">Cameroon</span>
+    </div>
+    <div class="padding border-top">
+        <a class="btn btn-primary btn-small btn-edit" href="/wallet/setup" th:text="#{button.edit}">Edit</a>
+        <a class="btn btn-danger btn-small btn-delete float-right" href="/wallet/deactivate"
+           th:onclick="'return confirm(\'' + #{label.confirm_delete_wallet} + '\')'"
+           th:text="#{button.deactivate}">Delete</a>
+    </div>
+</div>
+
+<div class="border rounded" id="wallet-card-none" th:if="!${wallet}">
+    <div class="padding" th:text="#{label.wallet_none}">Description</div>
+    <div class="padding border-top">
+        <a class="btn btn-primary btn-small btn-setup" href="/wallet/setup" th:text="#{button.setup_wallet}">Edit</a>
+    </div>
+</div>

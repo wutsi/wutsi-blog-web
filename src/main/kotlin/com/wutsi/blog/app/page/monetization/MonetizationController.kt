@@ -40,7 +40,7 @@ class MonetizationController(
             if (partnerId != null)
                 service.deactivatePlan(partnerId)
         } catch (ex: Exception) {
-            LOGGER.error("Unable to setup monetization", ex)
+            LOGGER.error("Unable to deactivate monetization", ex)
         }
         return "redirect:/me/settings?highlight=monetization-container#monetization"
     }
