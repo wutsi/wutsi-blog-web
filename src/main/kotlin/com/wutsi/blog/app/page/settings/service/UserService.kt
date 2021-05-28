@@ -9,6 +9,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserAttributeForm
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.wallet.model.WalletForm
+import com.wutsi.blog.client.user.MobileProvider
 import com.wutsi.blog.client.user.MobileProvider.INVALID
 import com.wutsi.blog.client.user.SaveWalletRequest
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -78,15 +79,14 @@ class UserService(
 
         val util = PhoneNumberUtil.getInstance()
         val mobileNumber = util.parse(form.mobileNumber, form.country)
-        if (!util.isValidNumber(mobileNumber)) {
+        if (!util.isValidNumber(mobileNumber))
             throw NumberParseException(NOT_A_NUMBER, form.mobileNumber)
-        }
 
         api.wallet(
             user.id,
             SaveWalletRequest(
                 type = MOBILE,
-                mobileProvider = form.mobileProvider,
+                mobileProvider = MobileProvider.valueOf(form.mobileProvider.name),
                 fullName = form.fullName,
                 country = form.country,
                 mobileNumber = util.format(mobileNumber, E164)

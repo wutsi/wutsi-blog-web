@@ -3,9 +3,13 @@
         <b th:text="${wallet.fullName}">Ray Sponsible</b>
     </div>
     <div class="padding border-top">
-        <span th:text="${wallet.mobileNumber}">+237 4343989438</span>
-        <br/>
-        <span th:text="${wallet.countryDisplayName}">Cameroon</span>
+        <div>
+            <img height="16" th:src="'http://www.geognos.com/api/en/countries/flag/' + ${wallet.country} + '.png'"/>
+            <span th:text="${wallet.mobileNumber}">+237 4343989438</span>
+        </div>
+        <div class="margin-top">
+            <img height="48" th:src="${page.assetUrl} + ${wallet.mobileProvider.imagePath}"/>
+        </div>
     </div>
     <div class="padding border-top">
         <a class="btn btn-primary btn-small btn-edit" href="/wallet/setup" th:text="#{button.edit}">Edit</a>

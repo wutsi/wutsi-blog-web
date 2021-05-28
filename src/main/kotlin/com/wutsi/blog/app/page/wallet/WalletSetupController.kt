@@ -1,15 +1,14 @@
 package com.wutsi.blog.app.page.wallet
 
 import com.google.i18n.phonenumbers.NumberParseException
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.wutsi.blog.app.common.controller.AbstractPageController
+import com.wutsi.blog.app.common.model.MobileProviderModel
+import com.wutsi.blog.app.common.model.MobileProviderModel.INVALID
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.settings.service.UserMapper
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.wallet.model.WalletForm
 import com.wutsi.blog.app.util.PageName
-import com.wutsi.blog.client.user.MobileProvider
-import com.wutsi.blog.client.user.MobileProvider.INVALID
-import com.wutsi.blog.client.user.MobileProvider.MTN
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -25,6 +24,7 @@ import java.util.Locale
 @RequestMapping("/wallet/setup")
 class WalletSetupController(
     private val service: UserService,
+    private val mapper: UserMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     companion object {
@@ -37,12 +37,14 @@ class WalletSetupController(
     fun setup(
         @RequestParam(required = false) error: String? = null,
         @RequestParam(required = false) mobileNumber: String? = null,
-        @RequestParam(required = false) mobileProvider: MobileProvider? = null,
+        @RequestParam(required = false) mobileProvider: MobileProviderModel? = null,
         @RequestParam(required = false) country: String? = null,
         @RequestParam(required = false) fullName: String? = null,
         model: Model
     ): String {
-        model.addAttribute("error", error)
+        if (error != null)
+            model.addAttribute("error", requestContext.getMessage(error))
+
         model.addAttribute("providers", getPaymentProviders())
         model.addAttribute("countries", getCountries())
 
@@ -63,7 +65,7 @@ class WalletSetupController(
                 "form",
                 WalletForm(
                     fullName = fullName ?: wallet.fullName,
-                    mobileNumber = formatMobileNumber(
+                    mobileNumber = mapper.formatMobileNumber(
                         mobileNumber ?: wallet.mobileNumber,
                         country ?: wallet.country
                     ),
@@ -93,19 +95,10 @@ class WalletSetupController(
         }
     }
 
-    private fun formatMobileNumber(mobileNumber: String, country: String): String {
-        try {
-            val util = PhoneNumberUtil.getInstance()
-            val number = util.parse(mobileNumber, country)
-            return util.format(number, PhoneNumberUtil.PhoneNumberFormat.NATIONAL)
-        } catch (ex: Exception) {
-            return mobileNumber
-        }
-    }
-
     private fun getPaymentProviders(): List<String> =
         arrayListOf(
-            MTN.name
+            MobileProviderModel.MTN.name,
+            MobileProviderModel.ORANGE.name
         )
 
     private fun getCountries(): List<Locale> {

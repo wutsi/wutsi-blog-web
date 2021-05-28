@@ -1,11 +1,10 @@
 package com.wutsi.blog.app.page.wallet.model
 
-import com.wutsi.blog.client.user.MobileProvider
-import com.wutsi.blog.client.user.MobileProvider.INVALID
+import com.wutsi.blog.app.common.model.MobileProviderModel
 
 public data class WalletForm(
-    public val mobileNumber: String = "",
-    public val mobileProvider: MobileProvider = INVALID,
-    public val country: String = "",
-    public val fullName: String = ""
+    val mobileNumber: String = "",
+    val mobileProvider: MobileProviderModel = MobileProviderModel.INVALID,
+    val country: String = "",
+    val fullName: String = ""
 )

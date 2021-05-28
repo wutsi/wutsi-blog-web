@@ -1,9 +1,14 @@
 package com.wutsi.blog.app.page.settings.service
 
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.wutsi.blog.app.common.model.MobileProviderModel
 import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.model.WalletModel
+import com.wutsi.blog.client.user.MobileProvider
+import com.wutsi.blog.client.user.MobileProvider.MTN
+import com.wutsi.blog.client.user.MobileProvider.ORANGE
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
 import com.wutsi.blog.client.user.WalletDto
@@ -90,11 +95,29 @@ class UserMapper(
 
         return WalletModel(
             type = wallet.type,
-            mobileProvider = wallet.mobileProvider,
-            mobileNumber = wallet.mobileNumber,
+            mobileProvider = toMobileProviderModel(wallet.mobileProvider),
+            mobileNumber = formatMobileNumber(wallet.mobileNumber, wallet.country),
             fullName = wallet.fullName,
             country = wallet.country,
             countryDisplayName = Locale(language, wallet.country).getDisplayCountry(Locale(language))
         )
+    }
+
+    fun toMobileProviderModel(provider: MobileProvider): MobileProviderModel =
+        if (provider == MTN)
+            MobileProviderModel.MTN
+        else if (provider == ORANGE)
+            MobileProviderModel.ORANGE
+        else
+            MobileProviderModel.INVALID
+
+    fun formatMobileNumber(mobileNumber: String, country: String): String {
+        try {
+            val util = PhoneNumberUtil.getInstance()
+            val number = util.parse(mobileNumber, country)
+            return util.format(number, PhoneNumberUtil.PhoneNumberFormat.NATIONAL)
+        } catch (ex: Exception) {
+            return mobileNumber
+        }
     }
 }
