@@ -922,6 +922,10 @@ a.sso-button:hover {
     border-top: 1px solid var(--border-color);
 }
 
+#home-author-list .author-list:first-child .author-summary-card {
+    border-top: none;
+}
+
 
 /*======= AUTHOR NAVBAR =======*/
 .author-navbar {

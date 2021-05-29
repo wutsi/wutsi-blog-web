@@ -43,7 +43,7 @@ class HomeController(
                 sortBy = last_publication,
                 sortOrder = descending
             )
-        )
+        ).take(5)
 
         model.addAttribute("writers", writers)
         return "page/home/index"
