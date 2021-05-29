@@ -26,12 +26,14 @@
 
 <hr/>
 
-<div class="container" id="home-author-list">
+<div class="container">
     <div class="row">
         <div class="col-12 col-md-8 offset-md-2">
-            <h2 class="text-center margin-bottom" th:text="#{page.home.contributor.title}">Who writes on Wutsi?</h2>
-            <div class="author-list" th:each="writer : ${writers}">
-                <div th:replace="components/author :: summary-card(${writer}, false, false)"></div>
+            <h2 class="text-center padding" th:text="#{page.home.contributor.title}">Who writes on Wutsi?</h2>
+            <div id="home-author-list">
+                <div class="author-list" th:each="writer : ${writers}">
+                    <div th:replace="components/author :: summary-card(${writer}, false, false)"></div>
+                </div>
             </div>
             <div class="text-center margin-top">
                 <a class="btn btn-light btn-writers" href="/writers" th:text="#{button.browse_writers}" wutsi-track-event="browse_writers">
