@@ -23,49 +23,21 @@
     </div>
 </div>
 
+
 <hr/>
 
-<div class="container margin-top">
+<div class="container" id="home-author-list">
     <div class="row">
         <div class="col-12 col-md-8 offset-md-2">
-            <section class="text-center padding-2x">
-                <h2 th:text="#{page.home.contributor.title}">Who writes on Wutsi?</h2>
-                <div class="container-fluid author-carousel">
-                    <div class="row">
-                        <div class="col-12 col-md-4 text-center padding author">
-                            <a href="/@/clesh7">
-                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/clesh7.jpg'"/>
-                                <h6 class="margin-top">Eccl&eacute;siaste Deudjui</h6>
-                                <div class="text-small" th:text="#{page.home.contributor.clesh7}">writes about various social issues, with a good touch of
-                                    humour
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-12 col-md-4 text-center padding author">
-                            <a href="/@/emmanuelngwa">
-                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/ngwa.jpg'"/>
-                                <h6 class="margin-top">Emmanuel Ngwa</h6>
-                                <div class="text-small" th:text="#{page.home.contributor.ngwa}">writes about art and culture, with a punchy and
-                                    uncompromising style
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-12 col-md-4 text-center padding author">
-                            <a href="/@/tifos">
-                                <img class="author" th:src="${page.assetUrl} + '/assets/wutsi/img/blog/tifos.png'"/>
-                                <h6 class="margin-top">Tifos</h6>
-                                <div class="text-small" th:text="#{page.home.contributor.tifos}">writes about sport, especially football</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+            <h2 class="text-center margin-bottom" th:text="#{page.home.contributor.title}">Who writes on Wutsi?</h2>
+            <div class="author-list" th:each="writer : ${writers}">
+                <div th:replace="components/author :: summary-card(${writer}, false, false)"></div>
+            </div>
+            <div class="text-center margin-top">
                 <a class="btn btn-light btn-writers" href="/writers" th:text="#{button.browse_writers}" wutsi-track-event="browse_writers">
                     Browse for more Writers
                 </a>
-            </section>
+            </div>
         </div>
     </div>
 </div>
