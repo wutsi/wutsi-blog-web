@@ -31,7 +31,7 @@ class EventStreamTrackService(
     )
 
     fun createRequest(form: PushTrackForm) = PushTrackRequest(
-        time = System.currentTimeMillis(),
+        time = form.time,
         value = form.value,
         long = form.long,
         lat = form.lat,
