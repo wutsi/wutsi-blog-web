@@ -49,6 +49,16 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
+    fun `story tracking not available for super-user`() {
+        givenUser(1, name = "ray.sponsible", fullName = "Ray Sponsible", blog = true, superUser = true)
+
+        login()
+        driver.get("$url/read/20/test")
+
+        assertElementNotPresent("#track-script")
+    }
+
+    @Test
     fun `story tracking available for non-story owner`() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story20-user99.json")
         login()
@@ -160,7 +170,11 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
         stub(HttpMethod.GET, "/v1/story/20", HttpStatus.OK, "v1/story/get-story-imported.json")
         driver.get("$url/read/20/looks-good")
 
-        assertElementAttribute("head link[rel=canonical]", "href", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter")
+        assertElementAttribute(
+            "head link[rel=canonical]",
+            "href",
+            "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter"
+        )
     }
 
     @Test

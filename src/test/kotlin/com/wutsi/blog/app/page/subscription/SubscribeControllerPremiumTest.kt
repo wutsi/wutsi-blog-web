@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.subscription
 
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
@@ -73,7 +74,7 @@ class SubscribeControllerPremiumTest : SeleniumTestSupport() {
     fun `Premium - subscribe with PayPal`() {
         val plan = createPlan()
         doReturn(SearchPlanResponse(listOf(plan))).whenever(subscriptionApi).partnerPlans(any(), any())
-        doReturn(GetPlanResponse(plan)).whenever(subscriptionApi).getPlan(any(), any())
+        doReturn(GetPlanResponse(plan)).whenever(subscriptionApi).getPlan(any(), any(), anyOrNull())
 
         doReturn(SearchSubscriptionResponse(emptyList())).whenever(subscriptionApi).partnerSubscriptions(any(), any(), any())
 

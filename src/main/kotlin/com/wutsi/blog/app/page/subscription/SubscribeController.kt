@@ -138,5 +138,5 @@ class SubscribeController(
         site.attributes.find { it.urn == SiteAttribute.PAYPAL_ENABLED.urn }?.value == "true"
 
     private fun isMobilePaymentEnabled(site: Site): Boolean =
-        false
+        true
 }

@@ -23,7 +23,8 @@
                 <div class="container-fluid border rounded">
                     <div class="row padding border-bottom" th:if="${showMobileButton}">
                         <div class="col-12 col-md-6">
-                            <b class="highlight" th:text="${plan.rate.yearly}">10000 XAF</b>
+                            <img height="32" th:src="${page.assetUrl} + '/assets/wutsi/img/payment/mtn.svg'"/>
+                            <span><b class="highlight" th:text="${plan.rate.yearly}">10000 XAF</b></span>
                             /
                             <span th:text="#{label.year}">year</span>
                         </div>
@@ -31,14 +32,14 @@
                             <a class="btn btn-primary btn-block" id="btn-mobile-checkout" th:href="${checkoutMobileUrl}"
                                wutsi-track-event="subscribe_mobile">
                                 S'abonner
-                                <i class="margin-left fas fa-mobile-alt"></i>
                             </a>
                         </div>
                     </div>
 
                     <div class="row padding border-bottom" th:if="${showPaypalButton}">
                         <div class="col-12 col-md-6">
-                            <b class="highlight" th:text="${plan.internationalRate.yearly}">10 EUR</b>
+                            <img height="32" th:src="${page.assetUrl} + '/assets/wutsi/img/payment/paypal.png'"/>
+                            <span><b class="highlight" th:text="${plan.internationalRate.yearly}">10 EUR</b></span>
                             /
                             <span th:text="#{label.year}">year</span>
                         </div>
@@ -46,7 +47,6 @@
                             <a class="btn btn-primary btn-block" id="btn-paypal-checkout" th:href="${checkoutPaypalUrl}"
                                wutsi-track-event="subscribe_paypal">
                                 S'abonner
-                                <i class="margin-left fab fa-paypal"></i>
                             </a>
                         </div>
                     </div>
