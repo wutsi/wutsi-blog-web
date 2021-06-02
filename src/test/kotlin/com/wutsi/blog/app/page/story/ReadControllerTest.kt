@@ -238,40 +238,6 @@ class ReadControllerTest : SeleniumMobileTestSupport() {
     }
 
     @Test
-    fun `show recommendations when available`() {
-        driver.get("$url/read/20/looks-good")
-
-        Thread.sleep(5000)
-        assertElementCount("#recommendation-container .story-summary-card", 7)
-        assertElementAttribute("#recommendation-container .story-summary-card a", "wutsi-track-event", "xread")
-
-        assertElementCount("#recommendation-container .btn-read-more", 1)
-        assertElementAttribute("#recommendation-container .btn-read-more", "wutsi-track-event", "xread_more")
-        assertElementAttributeEndsWith("#recommendation-container .btn-read-more", "href", "/@/ray.sponsible")
-    }
-
-    @Test
-    fun `show no recommendations when none are available`() {
-        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend-none.json")
-
-        driver.get("$url/read/20/looks-good")
-
-        Thread.sleep(5000)
-        assertElementCount("#recommendation-container .post", 0)
-
-        assertElementCount("#recommendation-container .btn-read-more", 0)
-    }
-
-    @Test
-    fun `show no recommendations on backend errors`() {
-        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.INTERNAL_SERVER_ERROR)
-        driver.get("$url/read/20/looks-good")
-
-        Thread.sleep(5000)
-        assertElementCount("#recommendation-container .post", 0)
-    }
-
-    @Test
     fun `Google Analytics`() {
         driver.get("$url/read/20/looks-good")
         assertElementPresent("script#ga-code")

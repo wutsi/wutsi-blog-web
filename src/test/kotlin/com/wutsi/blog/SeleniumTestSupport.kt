@@ -11,6 +11,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
@@ -48,11 +49,15 @@ import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.order.OrderApi
+import com.wutsi.similarity.SimilarityApi
+import com.wutsi.similarity.dto.GetSimilarStoriesResponse
 import com.wutsi.site.SiteApi
 import com.wutsi.site.SiteAttribute
 import com.wutsi.site.dto.Attribute
 import com.wutsi.site.dto.GetSiteResponse
 import com.wutsi.site.dto.Site
+import com.wutsi.stats.StatsApi
+import com.wutsi.stats.dto.SearchViewResponse
 import com.wutsi.subscription.SubscriptionApi
 import com.wutsi.subscription.dto.SearchPlanResponse
 import org.apache.commons.io.IOUtils
@@ -138,6 +143,12 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var orderApi: OrderApi
 
+    @MockBean
+    protected lateinit var statsApi: StatsApi
+
+    @MockBean
+    protected lateinit var similarityApi: SimilarityApi
+
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -199,6 +210,9 @@ abstract class SeleniumTestSupport {
         val site = createSite()
         doReturn(SearchPlanResponse()).whenever(subscriptionApi).partnerPlans(any(), any())
         doReturn(GetSiteResponse(site)).whenever(siteApi).get(any())
+
+        doReturn(SearchViewResponse()).whenever(statsApi).views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        doReturn(GetSimilarStoriesResponse()).whenever(similarityApi).getSimilarStories(any(), any())
     }
 
     protected fun createSite() = Site(

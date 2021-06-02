@@ -44,7 +44,8 @@
 
     <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
     <wutsi-order-sdk-kotlin.version>1.0.13</wutsi-order-sdk-kotlin.version>
-    <wutsi-stats-sdk-kotlin.version>1.1.0</wutsi-stats-sdk-kotlin.version>
+    <wutsi-similarity-sdk.version>1.0.1</wutsi-similarity-sdk.version>
+    <wutsi-stats-sdk-kotlin.version>1.2.1</wutsi-stats-sdk-kotlin.version>
     <wutsi-subscription-sdk.version>1.1.4</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.0.0</wutsi-tracking-sdk-kotlin.version>
     <wutsi-platform.version>1.1.7</wutsi-platform.version>
@@ -89,6 +90,11 @@
       <version>${wutsi-earning-sdk-kotlin.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.wutsi.similarity</groupId>
+      <artifactId>similarity-sdk-kotlin</artifactId>
+      <version>${wutsi-similarity-sdk.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.wutsi.stats</groupId>
       <artifactId>stats-sdk-kotlin</artifactId>
       <version>${wutsi-stats-sdk-kotlin.version}</version>
@@ -130,6 +136,11 @@
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-reflect</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-coroutines-core</artifactId>
       <version>${kotlin.version}</version>
     </dependency>
 

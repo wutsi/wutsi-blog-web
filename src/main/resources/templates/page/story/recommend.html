@@ -1,4 +1,4 @@
-<div class="story-read-also" th:if="!${stories.isEmpty()}">
+<div class="story-read-also" th:if="!${stories} OR !${stories.isEmpty()}">
     <h3 class="title" th:text="#{label.read_also}">Read Also</h3>
     <div th:each="story,it : ${stories}">
         <div th:replace="components/story :: story-summary-card(${story}, true, 'xread', ${it.index})"></div>
@@ -10,10 +10,10 @@
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
-</div>
 
-<script>
-    $(document).ready(function(){
-        wutsi.domReady();
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            wutsi.domReady();
+        });
+    </script>
+</div>

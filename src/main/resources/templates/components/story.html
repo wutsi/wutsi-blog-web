@@ -228,14 +228,14 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(document).ready(function () {
-            setTimeout(function () {
-                const storyId = /*[[${story.id}]]*/'0';
-                wutsi.httpGet('/recommend?storyId=' + storyId + '&layout=summary', false)
-                    .then(function (html) {
-                        $('#read-also-' + storyId).html(html);
-                    })
-            }, 2000)
+            const storyId = /*[[${story.id}]]*/'0';
+            const url = '/recommend?storyId=' + storyId + '&layout=summary';
+            fetch(url)
+                .then(response => response.text())
+                .then(html => document.getElementById('read-also-' + storyId).innerHTML = html)
+                .catch(e => console.error(e));
         });
+
         /*]]>*/
     </script>
 </div>

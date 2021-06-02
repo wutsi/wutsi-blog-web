@@ -71,6 +71,7 @@ wutsi:
     pwa-push-notification: false
     translation: true
     recommendation: true
+    recommendation-similarity: false
     publish: true
     sso-facebook: true
     sso-google: true

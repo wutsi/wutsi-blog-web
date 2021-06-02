@@ -4,8 +4,8 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import com.wutsi.platform.security.apikey.ApiKeyRequestInterceptor
-import com.wutsi.stats.StatsApi
-import com.wutsi.stats.StatsApiBuilder
+import com.wutsi.similarity.SimilarityApi
+import com.wutsi.similarity.SimilarityApiBuilder
 import com.wutsi.stream.ObjectMapperBuilder
 import com.wutsi.tracing.TracingRequestInterceptor
 import feign.Request
@@ -18,21 +18,21 @@ import org.springframework.core.env.Profiles
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 @Configuration
-class StatsApiConfiguration(
+class SimilarityApiConfiguration(
     @Autowired private val env: Environment,
     @Autowired private val tracingRequestInterceptor: TracingRequestInterceptor,
     @Autowired private val apiKeyRequestInterceptor: ApiKeyRequestInterceptor
 ) {
     @Bean
-    fun statsApi(): StatsApi {
+    fun similarityApi(): SimilarityApi {
         val mapper = ObjectMapperBuilder().build()
         mapper.registerModule(ParameterNamesModule())
         mapper.registerModule(Jdk8Module())
         mapper.registerModule(JavaTimeModule())
 
-        return StatsApiBuilder()
+        return SimilarityApiBuilder()
             .build(
-                env = statsEnvironment(),
+                env = similarityEnvironment(),
                 mapper = mapper,
                 interceptors = listOf(tracingRequestInterceptor, apiKeyRequestInterceptor),
                 retryer = Retryer.NEVER_RETRY,
@@ -44,9 +44,9 @@ class StatsApiConfiguration(
             )
     }
 
-    fun statsEnvironment(): com.wutsi.stats.Environment =
+    fun similarityEnvironment(): com.wutsi.similarity.Environment =
         if (env.acceptsProfiles(Profiles.of("prod")))
-            com.wutsi.stats.Environment.PRODUCTION
+            com.wutsi.similarity.Environment.PRODUCTION
         else
-            com.wutsi.stats.Environment.SANDBOX
+            com.wutsi.similarity.Environment.SANDBOX
 }
