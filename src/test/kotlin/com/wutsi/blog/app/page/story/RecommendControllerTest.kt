@@ -43,7 +43,6 @@ class RecommendControllerTest : SeleniumMobileTestSupport() {
         doReturn(SearchViewResponse(views)).whenever(statsApi)
             .views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
 
-
         driver.get("$url/read/20/looks-good")
 
         Thread.sleep(5000)
@@ -85,7 +84,6 @@ class RecommendControllerTest : SeleniumMobileTestSupport() {
         )
         doThrow(RuntimeException::class).whenever(statsApi)
             .views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
-
 
         driver.get("$url/read/20/looks-good")
 
