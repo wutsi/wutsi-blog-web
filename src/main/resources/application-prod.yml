@@ -13,7 +13,8 @@ wutsi:
 
   oauth:
     github:
-      client-id: "900cfd0accedc133ea5b"
+      client-id: ${GITHUB_CLIENT_ID}
+      client-secret: ${GITHUB_CLIENT_SECRET}
 
   pwa:
     manifest:
