@@ -81,13 +81,14 @@ class BlogController(
 
         // Recent stories
         val stories = storyService.search(
-            SearchStoryRequest(
+            request = SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
                 limit = 2 * SIDEBAR_SIZE
-            )
+            ),
+            bubbleDownIds = recentViewsService.get()
         ).filter { it.user.id != blog.id }
 
         // Filter follower stories
