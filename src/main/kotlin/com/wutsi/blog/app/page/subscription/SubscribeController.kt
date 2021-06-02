@@ -131,6 +131,7 @@ class SubscribeController(
         model.addAttribute("redirectUrl", redirectUrl)
         model.addAttribute("joinUrl", joinUrl)
         model.addAttribute("googleUrl", authenticationService.loginUrl("/login/google", joinUrl))
+        model.addAttribute("yahooUrl", authenticationService.loginUrl("/login/yahoo", joinUrl))
         return "page/subscription/free"
     }
 

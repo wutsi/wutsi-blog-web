@@ -5,6 +5,7 @@ import com.github.scribejava.apis.GitHubApi
 import com.github.scribejava.apis.GoogleApi20
 import com.github.scribejava.apis.LinkedInApi20
 import com.github.scribejava.apis.TwitterApi
+import com.github.scribejava.apis.YahooApi20
 import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.oauth.OAuth10aService
 import com.github.scribejava.core.oauth.OAuth20Service
@@ -20,6 +21,7 @@ class OAuthConfiguration {
         const val GOOGLE_OAUTH_SERVICE: String = "GOOGLE_OAUTH_SERVICE"
         const val TWITTER_OAUTH_SERVICE: String = "TWITTER_OAUTH_SERVICE"
         const val LINKEDIN_OAUTH_SERVICE: String = "LINKEDIN_OAUTH_SERVICE"
+        const val YAHOO_OAUTH_SERVICE: String = "YAHOO_OAUTH_SERVICE"
     }
 
     @Bean(GITHUB_OAUTH_SERVICE)
@@ -77,4 +79,14 @@ class OAuthConfiguration {
         .apiSecret(clientSecret)
         .callback(callbackUrl)
         .build(TwitterApi.instance())
+
+    @Bean(YAHOO_OAUTH_SERVICE)
+    fun yahooOAuthService(
+        @Value("\${wutsi.oauth.yahoo.client-id}") clientId: String,
+        @Value("\${wutsi.oauth.yahoo.client-secret}") clientSecret: String,
+        @Value("\${wutsi.oauth.yahoo.callback-url}") callbackUrl: String
+    ): OAuth20Service = ServiceBuilder(clientId)
+        .apiSecret(clientSecret)
+        .callback(callbackUrl)
+        .build(YahooApi20.instance())
 }

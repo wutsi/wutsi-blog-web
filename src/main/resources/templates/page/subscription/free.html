@@ -32,6 +32,12 @@
                             <span th:text="#{page.subscription.subscribe_google}">Subscribed with Google</span>
                         </a>
                     </div>
+                    <div th:if="!${user} AND ${toggles.ssoYahoo}">
+                        <a class="sso-button margin-top" id="btn-yahoo" th:href="${yahooUrl}" wutsi-track-event="subscribe_yahoo">
+                            <i class="fab fa-yahoo"></i>
+                            <span th:text="#{page.subscription.subscribe_yahoo}">Subscribed with Yahoo</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="margin-top text-center">
                     <a class="text-small" id="btn-no-thanks" th:href="${redirectUrl}" th:text="#{page.subscription.no_thanks}"

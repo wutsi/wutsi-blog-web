@@ -76,6 +76,7 @@ wutsi:
     sso-google: true
     sso-github: false
     sso-twitter: false
+    sso-yahoo: false
     wpp: true
 
   rabbitmq:

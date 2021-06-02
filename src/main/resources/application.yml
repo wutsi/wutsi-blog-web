@@ -123,6 +123,10 @@ wutsi:
       client-id: "0000000"
       client-secret: "0000000000"
       callback-url: "${wutsi.base-url}/login/twitter/callback"
+    yahoo:
+      client-id: "0000000"
+      client-secret: "0000000000"
+      callback-url: "${wutsi.base-url}/login/yahoo/callback"
 
   pwa:
     manifest:
@@ -180,6 +184,7 @@ wutsi:
     sso-twitter: false
     sso-github: true
     sso-linkedin: false
+    sso-yahoo: false
     wpp: true                       # Wutsi Partner Program
 
 
