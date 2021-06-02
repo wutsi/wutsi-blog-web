@@ -8,6 +8,6 @@ class CookieName {
         const val REFERER = "__w_rfr"
         const val LOCALE = "__w_loc"
         const val DEVICE_UID = DeviceUIDProvider.COOKIE_NAME
-        const val FOLLOW_POPUP = "__w_fp"
+        const val VIEWS = "__w_vw"
     }
 }

@@ -27,17 +27,6 @@ class StatsService(
         const val LIMIT = 1000
     }
 
-    fun recentlyViewed(userId: Long?, deviceId: String?): List<Long> {
-        val today = LocalDate.now()
-        return statsApi.views(
-            userId = userId,
-            deviceId = deviceId,
-            startDate = today.minusDays(7),
-            endDate = today,
-            limit = 100
-        ).views.map { it.storyId }.toSet().toList()
-    }
-
     fun user(year: Int, month: Int): StatsUserSummaryModel {
         val userId = requestContext.currentUser()!!.id
         val viewerKpis = statsApi.userMonthlyKpis(
