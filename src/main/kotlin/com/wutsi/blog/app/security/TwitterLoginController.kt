@@ -13,6 +13,7 @@ import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URLEncoder
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/login/twitter")
+@ConditionalOnProperty(value = ["wutsi.toggles.sso-twitter"], havingValue = "true")
 class TwitterLoginController(
     logger: KVLogger,
     objectMapper: ObjectMapper,

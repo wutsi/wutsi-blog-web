@@ -59,6 +59,7 @@ class OAuthConfiguration {
         .callback(callbackUrl)
         .build(GoogleApi20.instance())
 
+    @ConditionalOnProperty(value = ["wutsi.toggles.sso-linkedin"], havingValue = "true")
     @Bean(LINKEDIN_OAUTH_SERVICE)
     fun linkedinOAuthService(
         @Value("\${wutsi.oauth.linkedin.client-id}") clientId: String,
@@ -71,6 +72,7 @@ class OAuthConfiguration {
         .callback(callbackUrl)
         .build(LinkedInApi20.instance())
 
+    @ConditionalOnProperty(value = ["wutsi.toggles.sso-twitter"], havingValue = "true")
     @Bean(TWITTER_OAUTH_SERVICE)
     fun twitterOAuthService(
         @Value("\${wutsi.oauth.twitter.client-id}") clientId: String,

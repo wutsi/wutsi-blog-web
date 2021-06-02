@@ -115,13 +115,13 @@ wutsi:
       callback-url: "${wutsi.base-url}/login/google/callback"
       scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
     linkedin:
-      client-id: "000000000"
-      client-secret: "00000000"
+      client-id: ${LINKEDIN_CLIENT_ID}
+      client-secret: ${LINKEDIN_CLIENT_SECRET}
       callback-url: "${wutsi.base-url}/login/linkedin/callback"
       scope: "r_liteprofile r_emailaddress w_member_social"
     twitter:
-      client-id: "0000000"
-      client-secret: "0000000000"
+      client-id: ${TWITTER_CLIENT_ID}
+      client-secret: ${TWITTER_CLIENT_SECRET}
       callback-url: "${wutsi.base-url}/login/twitter/callback"
     yahoo:
       client-id: ${YAHOO_CLIENT_ID}

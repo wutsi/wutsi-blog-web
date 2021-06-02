@@ -16,10 +16,7 @@ wutsi:
     google:
       api-key: "AIzaSyD5-Sf-lZTyJpMXcZS6DPb1LNJN9tnmIMA"
       client-id: "255903690741-okpg7c4dje7764qgs2mtetjr48ipshpe.apps.googleusercontent.com"
-    twitter:
-      client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
-    linkedin:
-      client-id: "86s3t89456jpcj"
+
   pwa:
     manifest:
       name: "Wutsi - Int"
