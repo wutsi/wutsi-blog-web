@@ -63,6 +63,7 @@ class LoginController(
         model.addAttribute("githubUrl", authenticationService.loginUrl("/login/github", redirect))
         model.addAttribute("twitterUrl", authenticationService.loginUrl("/login/twitter", redirect))
         model.addAttribute("linkedinUrl", authenticationService.loginUrl("/login/linkedin", redirect))
+        model.addAttribute("yahooUrl", authenticationService.loginUrl("/login/yahoo", redirect))
 
         loadTargetUser(xreason, redirectUrl, model)
         return "page/login/index"

@@ -35,6 +35,7 @@ class SubscribeControllerFreeTest : SeleniumMobileTestSupport() {
 
         assertElementCount(".btn-follow", 0)
         assertElementCount("#btn-google", 1)
+        assertElementCount("#btn-yahoo", 1)
     }
 
     @Test
@@ -46,6 +47,7 @@ class SubscribeControllerFreeTest : SeleniumMobileTestSupport() {
 
         assertElementCount(".btn-follow", 0)
         assertElementCount("#btn-google", 1)
+        assertElementCount("#btn-yahoo", 1)
     }
 
     @Test

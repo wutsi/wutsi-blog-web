@@ -18,6 +18,8 @@ class LoginControllerTest : SeleniumTestSupport() {
         validateButton("facebook")
         validateButton("github")
         validateButton("twitter")
+        validateButton("linkedin")
+        validateButton("yahoo")
     }
 
     @Test
@@ -31,6 +33,8 @@ class LoginControllerTest : SeleniumTestSupport() {
         validateButton("facebook")
         validateButton("github")
         validateButton("twitter")
+        validateButton("linkedin")
+        validateButton("yahoo")
     }
 
     @Test

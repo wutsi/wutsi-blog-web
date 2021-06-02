@@ -33,5 +33,6 @@ wutsi:
     sso-google: true
     sso-twitter: true
     sso-github: true
+    sso-linkedin: true
     sso-yahoo: true
     qa-login: true

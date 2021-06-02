@@ -69,6 +69,13 @@
                             <span th:if="!${createBlog}" th:text="#{page.login.signin-linkedin}">Sign in with Linkedin</span>
                             <span th:if="${createBlog}" th:text="#{page.login.signup-linkedin}">Sign in with Linkedin</span>
                         </a>
+                        <a class="sso-button margin-top" id="btn-yahoo" th:href="${yahooUrl}" th:if="${toggles.ssoYahoo}"
+                           wutsi-track-event="login"
+                           wutsi-track-value="yahoo">
+                            <i class="fab fa-yahoo"></i>
+                            <span th:if="!${createBlog}" th:text="#{page.login.signin-yahoo}">Sign in with Yahoo</span>
+                            <span th:if="${createBlog}" th:text="#{page.login.signup-yahoo}">Sign in with Yahoo</span>
+                        </a>
                     </div>
                 </div>
 
