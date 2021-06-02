@@ -2,6 +2,7 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class StoryCarouselController(
     private val storyService: StoryService,
+    private val recentViewsService: RecentViewsService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     override fun pageName(): String = PageName.STORY_CAROUSEL
@@ -25,12 +27,13 @@ class StoryCarouselController(
         model: Model
     ): String {
         val stories = storyService.search(
-            SearchStoryRequest(
+            request = SearchStoryRequest(
                 topicId = if (topicId > -1) topicId else null,
                 sortBy = published,
-                limit = 20,
-                bubbleDownViewedStories = true
-            )
+                limit = 10,
+                bubbleDownViewedStories = false
+            ),
+            bubbleDownIds = recentViewsService.get()
         ).filter { !it.user.testUser }
 
         model.addAttribute("title", title)

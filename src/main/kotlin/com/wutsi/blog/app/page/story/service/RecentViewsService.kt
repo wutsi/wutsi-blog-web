@@ -21,9 +21,9 @@ class RecentViewsService(
         }
     }
 
-    fun get(userId: Long?, deviceId: String?): List<Long> {
+    fun get(): List<Long> {
         val ids = getViewedFromCookie()
-        ids.addAll(getViewedFromServer(userId, deviceId))
+        ids.addAll(getViewedFromServer())
 
         return ids.toSet().toList()
     }
@@ -41,12 +41,12 @@ class RecentViewsService(
                 .toMutableList()
     }
 
-    private fun getViewedFromServer(userId: Long?, deviceId: String?): List<Long> {
+    private fun getViewedFromServer(): List<Long> {
         val today = LocalDate.now()
         return try {
             statsApi.views(
-                userId = userId,
-                deviceId = deviceId,
+                userId = requestContext.currentUser()?.id,
+                deviceId = requestContext.deviceId(),
                 startDate = today.minusDays(7),
                 endDate = today,
                 limit = 100

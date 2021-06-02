@@ -65,10 +65,16 @@ class StoryService(
         return mapper.toStoryModel(story, user)
     }
 
-    fun search(request: SearchStoryRequest, pin: PinModel? = null): List<StoryModel> {
-        val stories = backend.search(request).stories
+    fun search(request: SearchStoryRequest, pin: PinModel? = null, bubbleDownIds: List<Long> = emptyList()): List<StoryModel> {
+        val stories = backend.search(request).stories.toMutableList()
         if (stories.isEmpty()) {
             return emptyList()
+        }
+        if (bubbleDownIds.isNotEmpty()) {
+            val head = stories.filter { !bubbleDownIds.contains(it.id) }
+            val tail = stories.filter { bubbleDownIds.contains(it.id) }
+            stories.addAll(head)
+            stories.addAll(tail)
         }
 
         val users = searchUserMap(stories)

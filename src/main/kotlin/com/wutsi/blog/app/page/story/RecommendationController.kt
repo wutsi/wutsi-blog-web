@@ -51,9 +51,7 @@ class RecommendationController(
 
         if (similarStoryIds.isNotEmpty()) {
             // Bubble down viewed stories
-            val userId = requestContext.currentUser()?.id
-            val deviceId = requestContext.deviceId()
-            val viewedStoryIds: List<Long> = recentViewsService.get(userId, deviceId)
+            val viewedStoryIds: List<Long> = recentViewsService.get()
             val recommendIds = merge(similarStoryIds, viewedStoryIds, limit)
 
             // Fetch the stories
