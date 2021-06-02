@@ -58,11 +58,12 @@ class RecommendationController(
 
             // Fetch the stories
             val storyIds = recommendIds.toMutableList()
-            storyIds.add(storyId)
+            if (!recommendIds.contains(storyId))
+                storyIds.add(storyId)
             val stories = storyService.search(
                 SearchStoryRequest(
                     storyIds = storyIds,
-                    limit = limit
+                    limit = storyIds.size
                 )
             ).map { it.id to it }.toMap()
 
