@@ -35,6 +35,7 @@ class OAuthConfiguration {
         .callback(callbackUrl)
         .build(GitHubApi.instance())
 
+    @ConditionalOnProperty(value = ["wutsi.toggles.sso-facebook"], havingValue = "true")
     @Bean(FACEBOOK_OAUTH_SERVICE)
     fun facebookOAuthService(
         @Value("\${wutsi.oauth.facebook.client-id}") clientId: String,
@@ -47,6 +48,7 @@ class OAuthConfiguration {
         .callback(callbackUrl)
         .build(FacebookApi.instance())
 
+    @ConditionalOnProperty(value = ["wutsi.toggles.sso-google"], havingValue = "true")
     @Bean(GOOGLE_OAUTH_SERVICE)
     fun googleOAuthService(
         @Value("\${wutsi.oauth.google.client-id}") clientId: String,

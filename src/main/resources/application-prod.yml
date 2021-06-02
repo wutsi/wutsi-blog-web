@@ -12,13 +12,8 @@ wutsi:
     endpoint-url: "https://ik.imagekit.io/toifevuwjn"
 
   oauth:
-    facebook:
-      client-id: "466330503408293"
     github:
       client-id: "900cfd0accedc133ea5b"
-    google:
-      api-key: "AIzaSyA2TnJHA13MhGMZWtJC48NMqkTnASFBtyU"
-      client-id: "28035834807-789vmmloq8u12nvvp4ki2bbcqsqvskf0.apps.googleusercontent.com"
 
   pwa:
     manifest:

@@ -23,6 +23,13 @@ wutsi:
     end-date: "2030-10-01"
 
   oauth:
+    google:
+      api-key: "1111"
+      client-id: "1111"
+      client-secret: "1111"
+    facebook:
+      client-id: "1111"
+      client-secret: "1111"
     linkedin:
       client-id: "1111"
       client-secret: "1111"
