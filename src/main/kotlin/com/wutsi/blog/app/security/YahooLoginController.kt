@@ -7,11 +7,13 @@ import com.wutsi.blog.app.security.config.SecurityConfiguration
 import com.wutsi.blog.app.security.oauth.OAuthUser
 import com.wutsi.core.logging.KVLogger
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/login/yahoo")
+@ConditionalOnProperty(value = ["wutsi.toggles.sso-yahoo"], havingValue = "true")
 class YahooLoginController(
     logger: KVLogger,
     objectMapper: ObjectMapper,

@@ -124,8 +124,8 @@ wutsi:
       client-secret: "0000000000"
       callback-url: "${wutsi.base-url}/login/twitter/callback"
     yahoo:
-      client-id: "0000000"
-      client-secret: "0000000000"
+      client-id: ${YAHOO_CLIENT_ID}
+      client-secret: ${YAHOO_CLIENT_SECRET}
       callback-url: "${wutsi.base-url}/login/yahoo/callback"
 
   pwa:

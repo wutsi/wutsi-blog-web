@@ -20,9 +20,6 @@ wutsi:
       client-id: "2PiTx1X6MaWil1se3gAlf3RkF"
     linkedin:
       client-id: "86s3t89456jpcj"
-    yahoo:
-      client-id: ${YAHOO_CLIENT_ID}
-      client-secret: ${YAHOO_CLIENT_SECRET}
   pwa:
     manifest:
       name: "Wutsi - Int"

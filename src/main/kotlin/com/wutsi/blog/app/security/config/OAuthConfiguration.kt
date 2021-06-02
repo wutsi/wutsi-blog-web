@@ -10,6 +10,7 @@ import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.oauth.OAuth10aService
 import com.github.scribejava.core.oauth.OAuth20Service
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -80,6 +81,7 @@ class OAuthConfiguration {
         .callback(callbackUrl)
         .build(TwitterApi.instance())
 
+    @ConditionalOnProperty(value = ["wutsi.toggles.sso-yahoo"], havingValue = "true")
     @Bean(YAHOO_OAUTH_SERVICE)
     fun yahooOAuthService(
         @Value("\${wutsi.oauth.yahoo.client-id}") clientId: String,
