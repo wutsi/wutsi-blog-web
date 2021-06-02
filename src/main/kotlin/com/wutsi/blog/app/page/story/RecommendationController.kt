@@ -33,11 +33,7 @@ class RecommendationController(
         model: Model
     ): String {
         try {
-            if (requestContext.toggles().recommendationSimilarity)
-                similarityRecommender(storyId, model)
-            else
-                legacyRecommender(storyId, model)
-
+            similarityRecommender(storyId, model)
             model.addAttribute("layout", layout)
         } catch (ex: Exception) {
             LOGGER.warn("Unable to find Story recommendations", ex)
@@ -48,26 +44,26 @@ class RecommendationController(
     fun similarityRecommender(storyId: Long, model: Model) {
         val limit = 10
         val similarStoryIds: List<Long> = recommendationService.similar(storyId, 2 * limit)
+        if (similarStoryIds.isEmpty())
+            return
 
-        if (similarStoryIds.isNotEmpty()) {
-            // Bubble down viewed stories
-            val viewedStoryIds: List<Long> = recentViewsService.get()
-            val recommendIds = merge(similarStoryIds, viewedStoryIds, limit)
+        // Bubble down viewed stories
+        val viewedStoryIds: List<Long> = recentViewsService.get()
+        val recommendIds = merge(similarStoryIds, viewedStoryIds, limit)
 
-            // Fetch the stories
-            val storyIds = recommendIds.toMutableList()
-            if (!recommendIds.contains(storyId))
-                storyIds.add(storyId)
-            val stories = storyService.search(
-                SearchStoryRequest(
-                    storyIds = storyIds,
-                    limit = storyIds.size
-                )
-            ).map { it.id to it }.toMap()
+        // Fetch the stories
+        val storyIds = recommendIds.toMutableList()
+        if (!recommendIds.contains(storyId))
+            storyIds.add(storyId)
+        val stories = storyService.search(
+            SearchStoryRequest(
+                storyIds = storyIds,
+                limit = storyIds.size
+            )
+        ).map { it.id to it }.toMap()
 
-            model.addAttribute("stories", recommendIds.map { stories[it] }.filterNotNull())
-            model.addAttribute("blog", stories[storyId]?.user)
-        }
+        model.addAttribute("stories", recommendIds.map { stories[it] }.filterNotNull())
+        model.addAttribute("blog", stories[storyId]?.user)
     }
 
     private fun merge(similarStoryIds: List<Long>, viewedStoryIds: List<Long>, limit: Int): List<Long> {
@@ -75,13 +71,5 @@ class RecommendationController(
         ids.removeAll(viewedStoryIds)
         ids.addAll(viewedStoryIds)
         return ids.take(limit)
-    }
-
-    fun legacyRecommender(storyId: Long, model: Model) {
-        val story = storyService.get(storyId)
-        val stories = storyService.recommend(storyId)
-
-        model.addAttribute("stories", stories)
-        model.addAttribute("blog", story.user)
     }
 }

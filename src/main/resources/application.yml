@@ -174,7 +174,6 @@ wutsi:
     pwa-push-notification: false    # Enable PWA Push Notification?
     qa-login: false                 # Login provider for QA
     recommendation: true            # Show articles recommendations in reader
-    recommendation-similarity: true # REcommendation with similarity algo?
     translation: true               # Enable translation
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
