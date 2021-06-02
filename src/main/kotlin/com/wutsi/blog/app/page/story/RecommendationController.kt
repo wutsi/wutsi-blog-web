@@ -7,6 +7,7 @@ import com.wutsi.blog.app.page.story.service.RecommendationService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,6 +20,9 @@ class RecommendationController(
     private val statsService: StatsService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(RecommendationController::class.java)
+    }
 
     override fun pageName() = PageName.RECOMMEND
 
@@ -28,12 +32,16 @@ class RecommendationController(
         @RequestParam(required = false, defaultValue = "summary") layout: String = "summary",
         model: Model
     ): String {
-        if (requestContext.toggles().recommendationSimilarity)
-            similarityRecommender(storyId, model)
-        else
-            legacyRecommender(storyId, model)
+        try {
+            if (requestContext.toggles().recommendationSimilarity)
+                similarityRecommender(storyId, model)
+            else
+                legacyRecommender(storyId, model)
 
-        model.addAttribute("layout", layout)
+            model.addAttribute("layout", layout)
+        } catch (ex: Exception) {
+            LOGGER.warn("Unable to find Story recommendations", ex)
+        }
         return "page/story/recommend"
     }
 
