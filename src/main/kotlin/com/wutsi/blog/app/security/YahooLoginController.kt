@@ -19,7 +19,7 @@ class YahooLoginController(
 ) : AbstractOAuth20LoginController(logger, objectMapper) {
     override fun getOAuthService() = oauth
 
-    override fun getUserUrl() = "https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/teams"
+    override fun getUserUrl() = "https://api.login.yahoo.com/openid/v1/userinfo"
 
     override fun toOAuthUser(attrs: Map<String, Any>) = OAuthUser(
         id = attrs["sub"].toString(),
