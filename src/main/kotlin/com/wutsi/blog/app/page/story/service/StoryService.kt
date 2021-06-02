@@ -73,6 +73,7 @@ class StoryService(
         if (bubbleDownIds.isNotEmpty()) {
             val head = stories.filter { !bubbleDownIds.contains(it.id) }
             val tail = stories.filter { bubbleDownIds.contains(it.id) }
+            stories.clear()
             stories.addAll(head)
             stories.addAll(tail)
         }
