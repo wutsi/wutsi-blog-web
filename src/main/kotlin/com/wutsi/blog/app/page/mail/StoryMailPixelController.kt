@@ -1,4 +1,4 @@
-package com.wutsi.blog.app.page.story
+package com.wutsi.blog.app.page.mail
 
 import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Controller
 @RequestMapping("/story/pixel")
+@Deprecated("Replaced by MailTrackingController")
 class StoryMailPixelController(
     private val trackService: TrackService,
     private val clock: Clock
