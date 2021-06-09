@@ -160,7 +160,6 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
-                bubbleDownViewedStories = true,
                 limit = limit
             ),
             bubbleDownIds = viewedIds
@@ -170,27 +169,25 @@ class BlogController(
     }
 
     private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model): List<StoryModel> {
-        val latestStoryMap = LinkedHashMap<UserModel, StoryModel>()
+        val userIds = mutableSetOf<Long>()
+        val stories = mutableListOf<StoryModel>()
         storyService.search(
             SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
-                bubbleDownViewedStories = true,
                 limit = 50
             )
         )
             .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
             .forEach {
-                val user = it.user
-                if (!latestStoryMap.containsKey(user)) {
-                    latestStoryMap[user] = it
+                if (!userIds.contains(it.user.id)) {
+                    stories.add(it)
                 }
             }
-        val latestStories = latestStoryMap.values.toList()
-        model.addAttribute("latestStories", latestStories.take(5))
-        return latestStories
+        model.addAttribute("latestStories", stories.take(5))
+        return stories
     }
 
     private fun shouldBubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): Boolean =

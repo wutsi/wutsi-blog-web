@@ -33,8 +33,7 @@ class StoryCarouselController(
             request = SearchStoryRequest(
                 topicId = if (topicId > -1) topicId else null,
                 sortBy = published,
-                limit = 10,
-                bubbleDownViewedStories = false
+                limit = 10
             ),
             bubbleDownIds = recentViewsService.get()
         ).forEach {
