@@ -112,7 +112,8 @@ class StoryService(
     fun import(url: String): Long {
         val request = ImportStoryRequest(
             url = url,
-            accessToken = requestContext.accessToken()
+            accessToken = requestContext.accessToken(),
+            siteId = requestContext.siteId()
         )
         return backend.import(request).storyId
     }
@@ -145,7 +146,8 @@ class StoryService(
         contentType = "application/editorjs",
         content = editor.content,
         title = editor.title,
-        accessToken = requestContext.accessToken()
+        accessToken = requestContext.accessToken(),
+        siteId = requestContext.siteId()
     )
 
     private fun searchUserMap(stories: List<StorySummaryDto>): Map<Long, UserModel?> {

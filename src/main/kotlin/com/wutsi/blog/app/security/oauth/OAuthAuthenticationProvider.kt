@@ -1,17 +1,17 @@
 package com.wutsi.blog.app.security.oauth
 
 import com.wutsi.blog.app.backend.AuthenticationBackend
+import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.client.user.AuthenticateRequest
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
-import javax.servlet.http.HttpServletRequest
 
 @Component
 class OAuthAuthenticationProvider(
     private val backend: AuthenticationBackend,
-    private val request: HttpServletRequest
+    private val requestContext: RequestContext
 ) : AuthenticationProvider {
     override fun authenticate(auth: Authentication): Authentication {
         val authentication = auth as OAuthTokenAuthentication
@@ -28,12 +28,13 @@ class OAuthAuthenticationProvider(
                 fullName = user.fullName,
                 email = user.email,
                 providerUserId = user.id,
-                language = LocaleContextHolder.getLocale().language
+                language = LocaleContextHolder.getLocale().language,
+                siteId = requestContext.siteId()
             )
         )
 
-        authentication.setAuthenticated(true)
-        request.getSession(true).maxInactiveInterval = 84600 // 1d
+        authentication.isAuthenticated = true
+        requestContext.request.getSession(true).maxInactiveInterval = 84600 // 1d
         return authentication
     }
 
