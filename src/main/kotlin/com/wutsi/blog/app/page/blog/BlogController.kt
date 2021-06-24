@@ -13,6 +13,7 @@ import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder
+import com.wutsi.blog.client.story.SearchStoryContext
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
@@ -127,9 +128,9 @@ class BlogController(
                 status = StoryStatus.published,
                 live = true,
                 sortBy = StorySortStrategy.published,
-                sortOrder = SortOrder.descending,
                 limit = limit,
-                offset = offset
+                offset = offset,
+                sortOrder = SortOrder.descending
             ),
             bubbleDownIds = viewedIds
         )
@@ -158,9 +159,12 @@ class BlogController(
                 userIds = followingUserIds,
                 status = StoryStatus.published,
                 live = true,
-                sortBy = StorySortStrategy.published,
-                sortOrder = SortOrder.descending,
-                limit = limit
+                sortBy = StorySortStrategy.recommended,
+                limit = limit,
+                context = SearchStoryContext(
+                    userId = requestContext.currentUser()?.id,
+                    deviceType = requestContext.deviceId()
+                )
             ),
             bubbleDownIds = viewedIds
         )
@@ -175,9 +179,13 @@ class BlogController(
             SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
-                sortBy = StorySortStrategy.published,
+                sortBy = StorySortStrategy.recommended,
                 sortOrder = SortOrder.descending,
-                limit = 50
+                limit = 50,
+                context = SearchStoryContext(
+                    userId = requestContext.currentUser()?.id,
+                    deviceType = requestContext.deviceId()
+                )
             )
         )
             .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
@@ -189,9 +197,6 @@ class BlogController(
         model.addAttribute("latestStories", stories.take(5))
         return stories
     }
-
-    private fun shouldBubbleDownViewedStories(stories: List<StoryModel>, blog: UserModel): Boolean =
-        stories.isNotEmpty() && blog.id != requestContext.currentUser()?.id
 
     private fun pinStory(stories: List<StoryModel>, pinnedStoryId: Long?): List<StoryModel> {
         val pinnedStory = stories.find { it.id == pinnedStoryId }

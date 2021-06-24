@@ -7,7 +7,7 @@ import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.StorySortStrategy.published
+import com.wutsi.blog.client.story.StorySortStrategy.recommended
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -32,8 +32,8 @@ class StoryCarouselController(
         storyService.search(
             request = SearchStoryRequest(
                 topicId = if (topicId > -1) topicId else null,
-                sortBy = published,
-                limit = 10
+                sortBy = recommended,
+                limit = 50
             ),
             bubbleDownIds = recentViewsService.get()
         ).forEach {
@@ -42,7 +42,6 @@ class StoryCarouselController(
                 stories.add(it)
             }
         }
-
         model.addAttribute("title", title)
         model.addAttribute("stories", stories.take(3))
         return "page/story/carousel"
