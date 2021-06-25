@@ -22,10 +22,6 @@ function Wutsi() {
 
     this.track_wutsi = function (event, value) {
         const page = this.page_name();
-        if (page != 'page.read' && event != 'click') {  // Only push to click or reader events
-            return
-        }
-
         const data = {
             time: new Date().getTime(),
             pid: this.story_id(),
