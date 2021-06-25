@@ -5,7 +5,6 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.component.like.model.LikeCountModel
 import com.wutsi.blog.app.component.like.model.LikeModel
 import com.wutsi.blog.app.component.like.service.LikeService
-import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
@@ -36,23 +35,8 @@ class LikeController(
             likeService.delete(likeId)
             return LikeModel(id = likeId)
         } else {
-            val result = likeService.create(storyId = storyId)
-            track(hitId, page, storyId)
-            return result
+            return likeService.create(storyId = storyId)
         }
-    }
-
-    private fun track(hitId: String?, page: String?, storyId: Long) {
-        trackService.push(
-            PushTrackForm(
-                time = System.currentTimeMillis(),
-                url = requestContext.request.getHeader("Referer"),
-                event = "like",
-                hid = hitId,
-                page = page,
-                pid = storyId.toString()
-            )
-        )
     }
 
     /**
