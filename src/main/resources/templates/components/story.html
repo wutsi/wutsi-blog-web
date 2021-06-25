@@ -129,11 +129,11 @@
      th:fragment="story-card(story, trackEvent, rank, pin)"
      th:id="'story-card-' + ${story.id}"
 >
-    <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
-       th:href="${story.slug}"
+    <a th:href="${story.slug}"
        th:title="${story.title}"
        th:wutsi-track-rank="${rank}"
-       th:wutsi-track-value="${story.id}">
+       th:wutsi-track-value="${story.id}"
+       wutsi-track-event="click">
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
@@ -160,11 +160,11 @@
 
 <div class="story-summary-card" th:fragment="story-summary-card(story, showAuthor, trackEvent, rank)">
     <div>
-        <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
-           th:href="${story.slug}"
+        <a th:href="${story.slug}"
            th:title="${story.title}"
            th:wutsi-track-rank="${rank}"
            th:wutsi-track-value="${story.id}"
+           wutsi-track-event="click"
         >
             <h6 th:text="${story.title}">Title</h6>
         </a>
