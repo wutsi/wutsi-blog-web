@@ -24,7 +24,7 @@ function Wutsi() {
         const page = this.page_name();
         const data = {
             time: new Date().getTime(),
-            pid: this.story_id(),
+            pid: (event == 'click' ? value : this.story_id()),
             event: event,
             page: page,
             ua: navigator.userAgent,
@@ -289,7 +289,7 @@ function Wutsi() {
     };
 
     this.story_id = function () {
-        var meta = document.head.querySelector("[name=wutsi\\:story_id]");
+        const meta = document.head.querySelector("[name=wutsi\\:story_id]");
         return meta ? meta.content : null
     };
 
