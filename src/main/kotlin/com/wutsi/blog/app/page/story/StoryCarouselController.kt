@@ -4,6 +4,7 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.RecentViewsService
+import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.story.SearchStoryRequest
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam
 class StoryCarouselController(
     private val storyService: StoryService,
     private val recentViewsService: RecentViewsService,
+    private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     override fun pageName(): String = PageName.STORY_CAROUSEL
 
     @GetMapping("/story/carousel")
-    fun recommend(
+    fun search(
         @RequestParam(required = false, defaultValue = "-1") topicId: Long = -1,
         @RequestParam(required = false) title: String? = null,
         model: Model
@@ -43,7 +45,7 @@ class StoryCarouselController(
             }
         }
         model.addAttribute("title", title)
-        model.addAttribute("stories", stories.take(3))
+        model.addAttribute("stories", mapper.setImpressions(stories.take(3)))
         return "page/story/carousel"
     }
 }

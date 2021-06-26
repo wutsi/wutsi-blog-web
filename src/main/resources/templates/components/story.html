@@ -131,9 +131,11 @@
 >
     <a th:href="${story.slug}"
        th:title="${story.title}"
+       th:wutsi-track-impressions="${story.impressions}"
        th:wutsi-track-rank="${rank}"
        th:wutsi-track-value="${story.id}"
-       wutsi-track-event="click">
+       wutsi-track-event="click"
+    >
         <h2 class="title" th:text="${story.title}">Title</h2>
 
         <div class="img-container margin-bottom" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
@@ -162,6 +164,7 @@
     <div>
         <a th:href="${story.slug}"
            th:title="${story.title}"
+           th:wutsi-track-impression="${story.impressions}"
            th:wutsi-track-rank="${rank}"
            th:wutsi-track-value="${story.id}"
            wutsi-track-event="click"
@@ -181,11 +184,12 @@
     </div>
 
     <div class="img-container" th:if="${story.thumbnailUrl} AND !${story.thumbnailUrl.isEmpty()}">
-        <a th:attrappend="wutsi-track-event= ${trackEvent} ? ${trackEvent}"
-           th:href="${story.slug}"
+        <a th:href="${story.slug}"
            th:title="${story.title}"
+           th:wutsi-track-impression="${story.impressions}"
            th:wutsi-track-rank="${rank}"
            th:wutsi-track-value="${story.id}"
+           wutsi-track-event="click"
         >
             <img loading="lazy"
                  th:attr="width=${story.thumbnailSmallWidth} ? ${story.thumbnailSmallWidth}"

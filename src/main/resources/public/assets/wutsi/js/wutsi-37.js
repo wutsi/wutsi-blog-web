@@ -1,7 +1,7 @@
 function Wutsi() {
-    this.track = function (event, value, label) {
+    this.track = function (event, value, label, impressions) {
         this.track_ga(wutsi.page_name(), event, value, label);
-        return this.track_wutsi(event, value);
+        return this.track_wutsi(event, value, impressions);
     };
 
     this.track_ga = function (category, event, value, label) {
@@ -20,7 +20,7 @@ function Wutsi() {
         }
     };
 
-    this.track_wutsi = function (event, value) {
+    this.track_wutsi = function (event, value, impressions) {
         const page = this.page_name();
         const data = {
             time: new Date().getTime(),
@@ -30,7 +30,8 @@ function Wutsi() {
             ua: navigator.userAgent,
             value: (value ? value : null),
             hid: this.hit_id(),
-            url: window.location.href
+            url: window.location.href,
+            impressions: impressions
         };
         return this.httpPost('/track', data, true)
             .catch(function () {
@@ -75,7 +76,8 @@ function Wutsi() {
             const event = $(this).attr("wutsi-track-event");
             const value = $(this).attr("wutsi-track-value");
             const title = $(this).attr("title");
-            wutsi.track(event, value, title);
+            const impressions = $(this).attr("wutsi-track-impressions");
+            wutsi.track(event, value, title, impressions);
 
             const rank = $(this).attr("wutsi-track-rank");
             if (rank) {

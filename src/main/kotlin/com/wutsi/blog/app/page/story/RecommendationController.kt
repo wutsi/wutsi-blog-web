@@ -3,6 +3,7 @@ package com.wutsi.blog.app.page.story
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.service.RecentViewsService
+import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import org.slf4j.LoggerFactory
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 class RecommendationController(
     private val storyService: StoryService,
     private val recentViewsService: RecentViewsService,
+    private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     companion object {
@@ -32,7 +34,7 @@ class RecommendationController(
         try {
             val viewedStoryIds: List<Long> = recentViewsService.get()
             val stories = storyService.recommend(storyId, viewedStoryIds, 20)
-            model.addAttribute("stories", stories.take(3))
+            model.addAttribute("stories", mapper.setImpressions(stories.take(3)))
             if (stories.isNotEmpty()) {
                 val story = storyService.get(storyId)
                 model.addAttribute("blog", story.user)

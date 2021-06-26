@@ -14,5 +14,6 @@ data class PushTrackForm(
     val duid: String? = null,
     val ua: String? = null,
     val uid: String? = null,
-    val referer: String? = null
+    val referer: String? = null,
+    val impressions: String? = null
 )

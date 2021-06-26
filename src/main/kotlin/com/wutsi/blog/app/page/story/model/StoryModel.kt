@@ -52,7 +52,8 @@ data class StoryModel(
     val scheduledPublishDateTime: String? = null,
     val scheduledPublishDateTimeAsDate: Date? = null,
     val publishToSocialMedia: Boolean = false,
-    val access: StoryAccess = PUBLIC
+    val access: StoryAccess = PUBLIC,
+    var impressions: String = ""
 ) {
     fun isPublic(): Boolean =
         access == PUBLIC

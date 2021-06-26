@@ -10,6 +10,7 @@ import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.RecentViewsService
+import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder
@@ -31,6 +32,7 @@ class BlogController(
     private val schemas: PersonSchemasGenerator,
     private val pinService: PinService,
     private val recentViewsService: RecentViewsService,
+    private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     companion object {
@@ -136,8 +138,7 @@ class BlogController(
         )
 
         val result = pinStory(stories, pin?.storyId)
-
-        model.addAttribute("myStories", result)
+        model.addAttribute("myStories", mapper.setImpressions(result))
 
         if (result.size >= limit) {
             val nextOffset = offset + limit
@@ -165,7 +166,7 @@ class BlogController(
             ),
             bubbleDownIds = viewedIds
         )
-        model.addAttribute("followingStories", followingStories)
+        model.addAttribute("followingStories", mapper.setImpressions(followingStories))
         return followingStories
     }
 
@@ -191,7 +192,7 @@ class BlogController(
                     stories.add(it)
                 }
             }
-        model.addAttribute("latestStories", stories.take(5))
+        model.addAttribute("latestStories", mapper.setImpressions(stories.take(5)))
         return stories
     }
 

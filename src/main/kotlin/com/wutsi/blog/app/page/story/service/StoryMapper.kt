@@ -135,6 +135,17 @@ class StoryMapper(
         access = story.access
     )
 
+    fun setImpressions(stories: List<StoryModel>): List<StoryModel> {
+        stories.forEach {
+            val storyId = it.id
+            it.impressions = stories
+                .filter { it.id != storyId }
+                .map { it.id.toString() }
+                .joinToString(separator = "|")
+        }
+        return stories
+    }
+
     fun toReadabilityModel(obj: ReadabilityDto) = ReadabilityModel(
         score = obj.score,
         scoreThreshold = obj.scoreThreshold,

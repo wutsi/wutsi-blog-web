@@ -44,6 +44,8 @@ class EventStreamTrackService(
         ua = form.ua ?: requestContext.request.getHeader("User-Agent"),
         duid = form.duid ?: CookieHelper.get(CookieName.DEVICE_UID, requestContext.request),
         hid = form.hid,
-        url = form.url
+        url = form.url,
+        siteid = requestContext.siteId().toString(),
+        impressions = form.impressions
     )
 }
