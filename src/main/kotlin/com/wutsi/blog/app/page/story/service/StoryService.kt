@@ -192,7 +192,7 @@ class StoryService(
                 limit = limit,
                 context = createSearchContext()
             )
-        ).stories
+        ).stories.filter { it.id != storyId }
         val users = searchUserMap(stories)
         return stories.map { mapper.toStoryModel(it, users[it.userId], null) }
     }
