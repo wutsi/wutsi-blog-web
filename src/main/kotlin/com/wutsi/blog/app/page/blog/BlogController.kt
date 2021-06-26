@@ -161,10 +161,7 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.recommended,
                 limit = limit,
-                context = SearchStoryContext(
-                    userId = requestContext.currentUser()?.id,
-                    deviceType = requestContext.deviceId()
-                )
+                context = storyService.createSearchContext()
             ),
             bubbleDownIds = viewedIds
         )

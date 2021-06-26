@@ -49,8 +49,6 @@ import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.order.OrderApi
-import com.wutsi.similarity.SimilarityApi
-import com.wutsi.similarity.dto.GetSimilarStoriesResponse
 import com.wutsi.site.SiteApi
 import com.wutsi.site.SiteAttribute
 import com.wutsi.site.dto.Attribute
@@ -146,9 +144,6 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var statsApi: StatsApi
 
-    @MockBean
-    protected lateinit var similarityApi: SimilarityApi
-
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -188,7 +183,7 @@ abstract class SeleniumTestSupport {
         stub(HttpMethod.GET, "/v1/auth/.*", HttpStatus.OK, "v1/session/get-session1.json")
 
         stub(HttpMethod.POST, "/v1/story/search", HttpStatus.OK, "v1/story/search.json")
-        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend.json")
+        stub(HttpMethod.POST, "/v1/story/recommend", HttpStatus.OK, "v1/story/recommend-none.json")
         stub(HttpMethod.POST, "/v1/story/sort", HttpStatus.OK, "v1/story/sort.json")
     }
 
@@ -212,7 +207,6 @@ abstract class SeleniumTestSupport {
         doReturn(GetSiteResponse(site)).whenever(siteApi).get(any())
 
         doReturn(SearchViewResponse()).whenever(statsApi).views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
-        doReturn(GetSimilarStoriesResponse()).whenever(similarityApi).getSimilarStories(any(), any())
     }
 
     protected fun createSite() = Site(

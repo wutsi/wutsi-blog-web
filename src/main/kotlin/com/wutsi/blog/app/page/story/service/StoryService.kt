@@ -15,8 +15,8 @@ import com.wutsi.blog.client.story.PublishStoryRequest
 import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
+import com.wutsi.blog.client.story.SearchStoryContext
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -66,21 +66,22 @@ class StoryService(
     }
 
     fun search(request: SearchStoryRequest, pin: PinModel? = null, bubbleDownIds: List<Long> = emptyList()): List<StoryModel> {
-        val stories = backend.search(request).stories.toMutableList()
-        if (stories.isEmpty()) {
-            return emptyList()
-        }
-        if (bubbleDownIds.isNotEmpty()) {
-            val head = stories.filter { !bubbleDownIds.contains(it.id) }
-            val tail = stories.filter { bubbleDownIds.contains(it.id) }
-            stories.clear()
-            stories.addAll(head)
-            stories.addAll(tail)
-        }
-
+        val stories = bubbleDown(backend.search(request).stories, bubbleDownIds)
         val users = searchUserMap(stories)
         return stories.map { mapper.toStoryModel(it, users[it.userId], pin) }
     }
+
+    private fun bubbleDown(stories: List<StorySummaryDto>, bubbleDownIds: List<Long>): List<StorySummaryDto> =
+        if (stories.isNotEmpty() && bubbleDownIds.isNotEmpty()) {
+            val result = mutableListOf<StorySummaryDto>()
+            val head = stories.filter { !bubbleDownIds.contains(it.id) }
+            val tail = stories.filter { bubbleDownIds.contains(it.id) }
+            result.addAll(head)
+            result.addAll(tail)
+
+            result
+        } else
+            stories
 
     fun publish(editor: PublishForm) {
         backend.publish(
@@ -184,21 +185,21 @@ class StoryService(
         return doc.html()
     }
 
-    fun recommend(storyId: Long): List<StoryModel> {
-        val response = backend.recommend(
+    fun recommend(storyId: Long, bubbleDownIds: List<Long> = emptyList(), limit: Int = 20): List<StoryModel> {
+        val stories = backend.recommend(
             RecommendStoryRequest(
                 storyId = storyId,
-                userId = requestContext.currentUser()?.id,
-                deviceId = requestContext.deviceId(),
-                limit = 9
+                limit = limit,
+                context = createSearchContext()
             )
-        )
-
-        return if (response.storyIds.isEmpty()) emptyList() else search(
-            SearchStoryRequest(
-                storyIds = response.storyIds,
-                sortBy = StorySortStrategy.none
-            )
-        ).filter { !it.user.testUser }
+        ).stories
+        val users = searchUserMap(stories)
+        return stories.map { mapper.toStoryModel(it, users[it.userId], null) }
     }
+
+    fun createSearchContext() = SearchStoryContext(
+        userId = requestContext.currentUser()?.id,
+        deviceType = requestContext.deviceId(),
+        language = requestContext.currentUser()?.language
+    )
 }
