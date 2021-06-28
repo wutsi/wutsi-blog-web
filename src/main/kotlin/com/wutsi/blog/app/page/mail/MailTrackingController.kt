@@ -111,6 +111,21 @@ class MailTrackingController(
                 pid = storyId?.toString() ?: "",
                 uid = userId?.toString() ?: "",
                 page = PageName.READ,
+                event = "click",
+                ua = userAgent,
+                referer = REFERER,
+                url = url
+            )
+        )
+
+        trackService.push(
+            PushTrackForm(
+                time = time,
+                hid = hitId,
+                duid = deviceId,
+                pid = storyId?.toString() ?: "",
+                uid = userId?.toString() ?: "",
+                page = PageName.READ,
                 event = "readstart",
                 ua = userAgent,
                 referer = REFERER,

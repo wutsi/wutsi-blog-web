@@ -62,7 +62,7 @@ class MailTrackingControllerTest {
         cnn.headerFields // Will download content
 
         val request = argumentCaptor<PushTrackForm>()
-        verify(trackService, times(2)).push(request.capture())
+        verify(trackService, times(3)).push(request.capture())
 
         assertEquals("1111", request.firstValue.hid)
         assertEquals("1", request.firstValue.pid)
@@ -70,20 +70,30 @@ class MailTrackingControllerTest {
         assertEquals("test", request.firstValue.ua)
         assertEquals(PageName.READ, request.firstValue.page)
         assertEquals("555", request.firstValue.uid)
-        assertEquals("readstart", request.firstValue.event)
+        assertEquals("click", request.firstValue.event)
         assertEquals(time, request.firstValue.time)
         assertEquals("http://localhost:$port/mail/track/1.png?u=555&d=1&hid=1111&did=2222", request.firstValue.url)
 
-        assertEquals("1111", request.firstValue.hid)
+        assertEquals("1111", request.secondValue.hid)
         assertEquals("1", request.secondValue.pid)
-        assertEquals("2222", request.firstValue.duid)
+        assertEquals("2222", request.secondValue.duid)
         assertEquals("test", request.secondValue.ua)
-        assertEquals(PageName.READ, request.firstValue.page)
+        assertEquals(PageName.READ, request.secondValue.page)
         assertEquals("555", request.secondValue.uid)
-        assertEquals("scroll", request.secondValue.event)
-        assertEquals("100", request.secondValue.value)
-        assertEquals(time + 1 * 60 * 1000, request.secondValue.time)
+        assertEquals("readstart", request.secondValue.event)
+        assertEquals(time, request.secondValue.time)
         assertEquals("http://localhost:$port/mail/track/1.png?u=555&d=1&hid=1111&did=2222", request.secondValue.url)
+
+        assertEquals("1111", request.thirdValue.hid)
+        assertEquals("1", request.thirdValue.pid)
+        assertEquals("2222", request.thirdValue.duid)
+        assertEquals("test", request.thirdValue.ua)
+        assertEquals(PageName.READ, request.thirdValue.page)
+        assertEquals("555", request.thirdValue.uid)
+        assertEquals("scroll", request.thirdValue.event)
+        assertEquals("100", request.thirdValue.value)
+        assertEquals(time + 1 * 60 * 1000, request.thirdValue.time)
+        assertEquals("http://localhost:$port/mail/track/1.png?u=555&d=1&hid=1111&did=2222", request.thirdValue.url)
     }
 
     @Test
@@ -95,7 +105,7 @@ class MailTrackingControllerTest {
         cnn.headerFields // Will download content
 
         val request = argumentCaptor<PushTrackForm>()
-        verify(trackService).push(request.capture())
+        verify(trackService, times(2)).push(request.capture())
 
         assertEquals("1111", request.firstValue.hid)
         assertEquals("1", request.firstValue.pid)
@@ -103,9 +113,19 @@ class MailTrackingControllerTest {
         assertEquals("test", request.firstValue.ua)
         assertEquals(PageName.READ, request.firstValue.page)
         assertEquals("555", request.firstValue.uid)
-        assertEquals("readstart", request.firstValue.event)
+        assertEquals("click", request.firstValue.event)
         assertEquals(time, request.firstValue.time)
         assertEquals("http://localhost:$port/mail/track/1.png?u=555&hid=1111&did=2222", request.firstValue.url)
+
+        assertEquals("1111", request.secondValue.hid)
+        assertEquals("1", request.secondValue.pid)
+        assertEquals("2222", request.secondValue.duid)
+        assertEquals("test", request.secondValue.ua)
+        assertEquals(PageName.READ, request.secondValue.page)
+        assertEquals("555", request.secondValue.uid)
+        assertEquals("readstart", request.secondValue.event)
+        assertEquals(time, request.secondValue.time)
+        assertEquals("http://localhost:$port/mail/track/1.png?u=555&hid=1111&did=2222", request.secondValue.url)
     }
 
     @Test
@@ -116,15 +136,15 @@ class MailTrackingControllerTest {
         val headers = cnn.headerFields // Will download content
 
         assertEquals(302, cnn.responseCode)
-        assertEquals("http://www.google.com", headers["Location"])
+        assertEquals(true, headers["Location"]?.contains("http://www.google.com"))
 
         val request = argumentCaptor<PushTrackForm>()
         verify(trackService).push(request.capture())
 
         assertEquals("1111", request.firstValue.hid)
-        assertEquals("1", request.firstValue.pid)
+//        assertEquals("1", request.firstValue.pid)
         assertEquals("2222", request.firstValue.duid)
-        assertEquals("test", request.firstValue.ua)
+        assertEquals("Java/11.0.8", request.firstValue.ua)
         assertEquals(PageName.READ, request.firstValue.page)
         assertEquals("555", request.firstValue.uid)
         assertEquals("link", request.firstValue.event)
