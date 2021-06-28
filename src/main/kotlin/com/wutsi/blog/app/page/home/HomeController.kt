@@ -5,6 +5,7 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.schemas.WutsiSchemasGenerator
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.service.RecentViewsService
+import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder.descending
@@ -24,6 +25,7 @@ class HomeController(
     private val userService: UserService,
     private val storyService: StoryService,
     private val recentViewsService: RecentViewsService,
+    private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.HOME
@@ -61,7 +63,7 @@ class HomeController(
             ),
             bubbleDownIds = recentViewsService.get()
         ).take(20)
-        model.addAttribute("stories", stories)
+        model.addAttribute("stories", mapper.setImpressions(stories))
 
         return "page/home/index"
     }
