@@ -11,9 +11,7 @@ class HomeControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(PageName.HOME)
         assertElementCount(".author-list .author-summary-card", 5)
-
-        Thread.sleep(5000)
-        assertElementCount(".story-carousel div.story-card", 3)
+        assertElementCount(".story-summary-card", 7)
     }
 
     @Test

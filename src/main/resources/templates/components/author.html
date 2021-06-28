@@ -113,6 +113,7 @@
         <div class="text-small">
             @<span class="name" th:text="${me.name}">ray.sponsible</span>
         </div>
+        <!--
         <div class="text-small" th:if="${me.blog}">
             <span th:if="${me.followerCount} == 1" th:utext="#{label.1_follower(${me.followerCountText})}">1 Follower</span>
             <span th:if="${me.followerCount} GT 1" th:utext="#{label.n_followers(${me.followerCountText})}">40 Followers</span>
@@ -120,6 +121,7 @@
             <span class="follower-count margin-left" th:if="${me.subscriberCount} == 1" th:utext="#{label.1_subscriber(${me.subscriberCountText})}">1 Super Fan</span>
             <span class="follower-count margin-left" th:if="${me.subscriberCount} GT 1" th:utext="#{label.n_subscribers(${me.subscriberCountText})}">40 Super Fans</span>
         </div>
+        -->
         <div class="text-small biography" th:if="${me.biography}" th:text="${me.biography}">Biography</div>
     </div>
     <div class="btn-container" th:if="${showFollowButton}">

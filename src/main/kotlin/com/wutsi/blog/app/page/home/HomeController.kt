@@ -4,8 +4,12 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.schemas.WutsiSchemasGenerator
 import com.wutsi.blog.app.page.settings.service.UserService
+import com.wutsi.blog.app.page.story.service.RecentViewsService
+import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder.descending
+import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StorySortStrategy.recommended
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.user.UserSortStrategy.last_publication
 import org.springframework.stereotype.Controller
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 class HomeController(
     private val schemas: WutsiSchemasGenerator,
     private val userService: UserService,
+    private val storyService: StoryService,
+    private val recentViewsService: RecentViewsService,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.HOME
@@ -36,16 +42,28 @@ class HomeController(
 
     @GetMapping
     fun index(model: Model): String {
+        // Writers
         val writers = userService.search(
             SearchUserRequest(
                 blog = true,
-                limit = 10,
+                limit = 3,
                 sortBy = last_publication,
                 sortOrder = descending
             )
-        ).take(5)
-
+        )
         model.addAttribute("writers", writers)
+
+        // Suggestions
+        val stories = storyService.search(
+            request = SearchStoryRequest(
+                sortBy = recommended,
+                limit = 50
+            ),
+            bubbleDownIds = recentViewsService.get()
+        ).take(20)
+        model.addAttribute("stories", stories)
+
+
         return "page/home/index"
     }
 }
