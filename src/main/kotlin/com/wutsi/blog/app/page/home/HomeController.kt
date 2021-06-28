@@ -63,7 +63,6 @@ class HomeController(
         ).take(20)
         model.addAttribute("stories", stories)
 
-
         return "page/home/index"
     }
 }
