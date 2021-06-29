@@ -13,10 +13,12 @@ import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy.recommended
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.user.UserSortStrategy.last_publication
+import org.apache.commons.lang.time.DateUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import java.util.Date
 
 @Controller
 @RequestMapping("/")
@@ -55,15 +57,28 @@ class HomeController(
         )
         model.addAttribute("writers", writers)
 
-        // Suggestions
-        val stories = storyService.search(
+        // Recent
+        val views = recentViewsService.get()
+        val recent = storyService.search(
+            request = SearchStoryRequest(
+                sortBy = recommended,
+                limit = 10,
+                publishedStartDate = DateUtils.addDays(Date(), -7)
+            ),
+            bubbleDownIds = views
+        ).take(5)
+        model.addAttribute("recentStories", mapper.setImpressions(recent))
+
+        // Recommendations
+        val recentIds = recent.map { it.id }
+        val recommended = storyService.search(
             request = SearchStoryRequest(
                 sortBy = recommended,
                 limit = 50
             ),
-            bubbleDownIds = recentViewsService.get()
-        ).take(20)
-        model.addAttribute("stories", mapper.setImpressions(stories))
+            bubbleDownIds = views
+        ).filter { !recentIds.contains(it.id) }.take(10)
+        model.addAttribute("recommendedStories", mapper.setImpressions(recommended))
 
         return "page/home/index"
     }
