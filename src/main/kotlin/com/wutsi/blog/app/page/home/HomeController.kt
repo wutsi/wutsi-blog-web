@@ -66,7 +66,7 @@ class HomeController(
                 publishedStartDate = DateUtils.addDays(Date(), -7)
             ),
             bubbleDownIds = views
-        ).take(5)
+        ).take(3)
         model.addAttribute("recentStories", mapper.setImpressions(recent))
 
         // Recommendations
