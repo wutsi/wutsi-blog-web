@@ -10,6 +10,7 @@ import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder.descending
 import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StorySortStrategy.published
 import com.wutsi.blog.client.story.StorySortStrategy.recommended
 import com.wutsi.blog.client.user.SearchUserRequest
 import com.wutsi.blog.client.user.UserSortStrategy.last_publication
@@ -61,7 +62,7 @@ class HomeController(
         val views = recentViewsService.get()
         val recent = storyService.search(
             request = SearchStoryRequest(
-                sortBy = recommended,
+                sortBy = published,
                 limit = 10,
                 publishedStartDate = DateUtils.addDays(Date(), -7)
             ),
