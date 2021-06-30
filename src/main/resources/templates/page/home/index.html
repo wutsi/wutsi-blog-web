@@ -8,29 +8,9 @@
 
 <div th:replace="components/layout :: navbar"></div>
 
-<!--
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-8 offset-md-2">
-            <section class="text-center padding-2x">
-                <h1 th:text="#{page.home.main.title}">A place for African Writers</h1>
-                <p class="margin-top" th:text="#{page.home.main.subtitle}">Create your Blog. Build your Audience. Monetize your Blog</p>
-                <p class="highlight" th:text="#{page.home.its_free}"><b>It's all free!</b></p>
-                <a class="btn btn-lg btn-primary" href="/create" th:text="#{button.create_blog}" wutsi-track-event="create_blog">
-                    Create your Blog
-                </a>
-            </section>
-        </div>
-    </div>
-</div>
-
-
-<hr/>
--->
-
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6 offset-md-1 border-right">
+        <div class="col-12 col-md-6 offset-md-1">
             <div th:if="!${recentStories.isEmpty()}">
                 <h2 class="text-center" th:text="#{page.home.story.recent}">Recent Stories</h2>
                 <div th:each="story,it: ${recentStories}">
@@ -44,20 +24,20 @@
                 <div th:replace="components/story :: story-summary-card(${story}, true, 'click', ${it.index})"></div>
             </div>
         </div>
-        <div class="col-12 col-md-4">
-            <div id="home-author-list">
-                <div class="author-list" th:each="writer : ${writers}">
-                    <div th:replace="components/author :: summary-card(${writer}, false, false)"></div>
-                </div>
-            </div>
-
-            <div class="text-center padding border-top">
-                <h2 th:text="#{page.home.main.title}">A place for African Writers</h2>
+        <div class="col-12 col-md-4" id="home-sidebar">
+            <div class="text-center padding margin-top margin-bottom rounded" id="value-prop-main">
+                <h1 th:text="#{page.home.main.title}">A place for African Writers</h1>
                 <p class="margin-top" th:text="#{page.home.main.subtitle}">Create your Blog. Build your Audience. Monetize your Blog</p>
                 <p class="highlight" th:text="#{page.home.its_free}"><b>It's all free!</b></p>
                 <a class="btn btn-lg btn-primary" href="/create" th:text="#{button.create_blog}" wutsi-track-event="create_blog">
                     Create your Blog
                 </a>
+            </div>
+
+            <div id="home-author-list">
+                <div class="author-list" th:each="writer : ${writers}">
+                    <div th:replace="components/author :: summary-card(${writer}, false, false)"></div>
+                </div>
             </div>
         </div>
     </div>

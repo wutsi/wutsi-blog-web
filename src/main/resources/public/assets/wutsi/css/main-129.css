@@ -1325,6 +1325,19 @@ a.sso-button:hover {
     margin-right: 1em;
 }
 
+#value-prop-main {
+    border: 1px solid var(--border-color);
+    background: var(--light);
+}
+
+#value-prop-main h1 {
+    size: 2em;
+}
+
+#home-sidebar {
+    border-left: 1px solid var(--border-color);
+}
+
 /* ==== NEXT ACTION  === */
 .next-action {
     background: var(--highlight-color-light);
@@ -1579,6 +1592,11 @@ and (orientation: portrait) {
         position: relative;
         top: auto;
     }
+
+    #home-sidebar {
+        border-left: none;
+    }
+
 
     /*===== AUTHOR COMPONENT =====*/
     .author-summary-card img {
