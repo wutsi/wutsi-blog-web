@@ -60,6 +60,7 @@ class HomeController(
 
         // Recent
         val views = recentViewsService.get()
+        val authorIds = mutableSetOf<Long>()
         val recent = storyService.search(
             request = SearchStoryRequest(
                 sortBy = published,
@@ -67,7 +68,14 @@ class HomeController(
                 publishedStartDate = DateUtils.addDays(Date(), -7)
             ),
             bubbleDownIds = views
-        ).take(3)
+        ).filter {
+            if (authorIds.contains(it.user.id)) {
+                false
+            } else {
+                authorIds.add(it.user.id)
+                true
+            }
+        }.take(3)
         model.addAttribute("recentStories", mapper.setImpressions(recent))
 
         // Recommendations
