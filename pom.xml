@@ -32,7 +32,7 @@
     <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
     <mockito.version>2.28.2</mockito.version>
-    <paypal-checkout-sdk.version>1.0.3</paypal-checkout-sdk.version>
+    <paypal-checkout-sdk.version>1.0.5</paypal-checkout-sdk.version>
     <rome.version>1.15.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
     <selenium.version>3.141.59</selenium.version>
