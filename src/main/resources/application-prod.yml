@@ -64,7 +64,7 @@ wutsi:
     translation: true
     recommendation: true
     publish: true
-    sso-facebook: true
+    sso-facebook: false
     sso-google: true
     sso-github: false
     sso-twitter: false

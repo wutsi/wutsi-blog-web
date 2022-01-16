@@ -44,9 +44,9 @@
     <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
 
     <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
-    <wutsi-order-sdk-kotlin.version>1.0.13</wutsi-order-sdk-kotlin.version>
+    <wutsi-order-sdk-kotlin.version>1.0.0</wutsi-order-sdk-kotlin.version>
     <wutsi-stats-sdk-kotlin.version>1.2.1</wutsi-stats-sdk-kotlin.version>
-    <wutsi-subscription-sdk.version>1.1.4</wutsi-subscription-sdk.version>
+    <wutsi-subscription-sdk.version>1.0.4</wutsi-subscription-sdk.version>
     <wutsi-tracking-sdk-kotlin.version>1.1.5</wutsi-tracking-sdk-kotlin.version>
     <wutsi-platform.version>1.1.7</wutsi-platform.version>
   </properties>
