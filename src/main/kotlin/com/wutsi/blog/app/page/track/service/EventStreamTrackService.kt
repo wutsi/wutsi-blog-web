@@ -1,6 +1,7 @@
 package com.wutsi.blog.app.page.track.service
 
 import com.wutsi.blog.app.common.service.RequestContext
+import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.util.CookieHelper
 import com.wutsi.blog.app.util.CookieName
@@ -15,14 +16,18 @@ import org.springframework.stereotype.Service
 class EventStreamTrackService(
     private val eventStream: EventStream,
     private val requestContext: RequestContext,
-    private val logger: KVLogger
+    private val logger: KVLogger,
+    private val toggles: Toggles
 ) : TrackService {
     override fun push(form: PushTrackForm): String {
         logger.add("Implementation", "EventStreamTrackService")
-        eventStream.publish(
-            type = TrackingEventType.TRACK_SUBMITTED.urn,
-            payload = createPayload(form)
-        )
+        logger.add("Enabled", toggles.tracking)
+
+        if (toggles.tracking)
+            eventStream.publish(
+                type = TrackingEventType.TRACK_SUBMITTED.urn,
+                payload = createPayload(form)
+            )
         return ""
     }
 

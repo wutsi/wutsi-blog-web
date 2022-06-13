@@ -39,6 +39,7 @@ class Toggles {
     var qaLogin: Boolean = false
     var wpp: Boolean = false
     var statistics: Boolean = false
+    var tracking: Boolean = false
 }
 
 @Service

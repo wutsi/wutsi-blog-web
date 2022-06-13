@@ -61,7 +61,6 @@ wutsi:
     pwa-add-to-homescreen: false
     pwa-badge: false
     pwa-push-notification: false
-    translation: false # DESABLE TRANSACTION BECAUSE OF INCREASED COST
     statistics: false
     recommendation: true
     publish: true
@@ -70,6 +69,8 @@ wutsi:
     sso-github: false
     sso-twitter: false
     sso-yahoo: true
+    translation: false    # Cost saving
+    tracking: false       # Cost savings
     wpp: false
 
   rabbitmq:

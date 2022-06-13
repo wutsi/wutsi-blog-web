@@ -179,7 +179,6 @@ wutsi:
     pwa-push-notification: false    # Enable PWA Push Notification?
     qa-login: false                 # Login provider for QA
     recommendation: true            # Show articles recommendations in reader
-    translation: true               # Enable translation
     statistics: true                # Enable stats module
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
@@ -187,6 +186,8 @@ wutsi:
     sso-github: true
     sso-linkedin: false
     sso-yahoo: false
+    tracking: true                  # Enable tracking
+    translation: true               # Enable translation
     wpp: true                       # Wutsi Partner Program
 
 
