@@ -48,7 +48,6 @@ import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
-import com.wutsi.order.OrderApi
 import com.wutsi.site.SiteApi
 import com.wutsi.site.SiteAttribute
 import com.wutsi.site.dto.Attribute
@@ -139,9 +138,6 @@ abstract class SeleniumTestSupport {
     protected lateinit var siteApi: SiteApi
 
     @MockBean
-    protected lateinit var orderApi: OrderApi
-
-    @MockBean
     protected lateinit var statsApi: StatsApi
 
     protected fun driverOptions(): ChromeOptions {
@@ -197,7 +193,13 @@ abstract class SeleniumTestSupport {
         givenTopics()
 
         givenUser(1, name = "ray.sponsible", fullName = "Ray Sponsible", blog = true)
-        givenUser(3, name = "roger.milla", fullName = "Roger Milla", blog = true, biography = "Just the best african soccer player ever!")
+        givenUser(
+            3,
+            name = "roger.milla",
+            fullName = "Roger Milla",
+            blog = true,
+            biography = "Just the best african soccer player ever!"
+        )
         givenUser(99, name = "john.smith", fullName = "John Smith", blog = false)
         givenUser(6666, name = "ze.god", superUser = true, blog = false)
         givenSearchReturn5()
@@ -206,7 +208,8 @@ abstract class SeleniumTestSupport {
         doReturn(SearchPlanResponse()).whenever(subscriptionApi).partnerPlans(any(), any())
         doReturn(GetSiteResponse(site)).whenever(siteApi).get(any())
 
-        doReturn(SearchViewResponse()).whenever(statsApi).views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        doReturn(SearchViewResponse()).whenever(statsApi)
+            .views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
     }
 
     protected fun createSite() = Site(
@@ -252,7 +255,14 @@ abstract class SeleniumTestSupport {
         biography: String = UserApiFixtures.DEFAULT_BIOGRAPHY
     ) {
         val response = GetUserResponse(
-            user = UserApiFixtures.createUserDto(userId, name, fullName, superUser = superUser, blog = blog, biography = biography)
+            user = UserApiFixtures.createUserDto(
+                userId,
+                name,
+                fullName,
+                superUser = superUser,
+                blog = blog,
+                biography = biography
+            )
         )
         doReturn(response).whenever(userApi).get(userId)
         doReturn(response).whenever(userApi).get(name)
@@ -277,7 +287,8 @@ abstract class SeleniumTestSupport {
 
     protected fun givenUserFollow(userId: Long, followerUserId: Long) {
         val response = FollowerApiFixtures.createSearchFollowerResponse(userId, followerUserId)
-        doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
+        doReturn(response).whenever(followerApi)
+            .search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
     }
 
