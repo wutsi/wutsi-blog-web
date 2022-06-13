@@ -38,6 +38,7 @@ class Toggles {
     var monetization: Boolean = false
     var qaLogin: Boolean = false
     var wpp: Boolean = false
+    var statistics: Boolean = false
 }
 
 @Service

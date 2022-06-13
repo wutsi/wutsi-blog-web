@@ -180,6 +180,7 @@ wutsi:
     qa-login: false                 # Login provider for QA
     recommendation: true            # Show articles recommendations in reader
     translation: true               # Enable translation
+    statistics: true                # Enable stats module
     sso-facebook: false             # SSO Login with social network sites
     sso-google: false
     sso-twitter: false
