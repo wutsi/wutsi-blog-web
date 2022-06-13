@@ -61,7 +61,7 @@ wutsi:
     pwa-add-to-homescreen: false
     pwa-badge: false
     pwa-push-notification: false
-    translation: true
+    translation: false # DESABLE TRANSACTION BECAUSE OF INCREASED COST
     recommendation: true
     publish: true
     sso-facebook: false
