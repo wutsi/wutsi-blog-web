@@ -62,6 +62,7 @@ wutsi:
     pwa-badge: false
     pwa-push-notification: false
     translation: false # DESABLE TRANSACTION BECAUSE OF INCREASED COST
+    statistics: false
     recommendation: true
     publish: true
     sso-facebook: false
