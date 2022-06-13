@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.editor
 
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.editor.model.PublishForm
-import com.wutsi.blog.app.page.monetization.service.MonetizationService
 import com.wutsi.blog.app.page.story.AbstractStoryController
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.model.TopicModel
@@ -23,7 +22,6 @@ import java.util.Date
 @Controller
 class EditorTagController(
     private val topicService: TopicService,
-    private val monetizationService: MonetizationService,
     service: StoryService,
     requestContext: RequestContext,
 ) : AbstractStoryController(service, requestContext) {
@@ -43,18 +41,8 @@ class EditorTagController(
         model.addAttribute("error", error)
         loadTopics(model)
         loadScheduledPublishDate(story, model)
-        loadCurrentPlan(model)
 
         return "page/editor/tag"
-    }
-
-    private fun loadCurrentPlan(model: Model) {
-        if (!requestContext.toggles().monetization)
-            return
-
-        val userId = requestContext.currentUser()!!.id
-        val plan = monetizationService.currentPlan(userId)
-        model.addAttribute("plan", plan)
     }
 
     private fun loadTopics(model: Model) {
