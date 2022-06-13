@@ -46,8 +46,8 @@ wutsi:
     channel-linkedin: true
     channel-telegram: false
     comment: true
-    earning: true
-    event-stream-tracking: true
+    earning: false
+    event-stream-tracking: false
     facebook-pixel: false
     follow: true
     follow-popup: false
@@ -69,7 +69,7 @@ wutsi:
     sso-github: false
     sso-twitter: false
     sso-yahoo: true
-    wpp: true
+    wpp: false
 
   rabbitmq:
     enabled: true
