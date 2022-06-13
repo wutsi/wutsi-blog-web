@@ -276,8 +276,8 @@
         <a class="dropdown-item" href="/me/calendar" id="navbar-calendar" rel="nofollow" th:if="${user.blog} AND ${toggles.post}"
            th:text="#{navbar.calendar}">Calendar</a>
 
-        <div class="dropdown-divider" th:if="${user.blog}"></div>
-        <a class="dropdown-item" href="/stats" id="navbar-stats" rel="nofollow" th:if="${user.blog}" th:text="#{navbar.stats}">Stats</a>
+        <div class="dropdown-divider" th:if="${user.blog} AND (${toggles.statistics} OR ${toggles.earning} OR ${toggles.wpp})"></div>
+        <a class="dropdown-item" href="/stats" id="navbar-stats" rel="nofollow" th:if="${user.blog} AND ${toggles.statistics}" th:text="#{navbar.stats}">Stats</a>
         <a class="dropdown-item" href="/partner" id="navbar-wpp" th:if="${toggles.wpp} AND ${user.blog}" th:text="#{navbar.wpp}">Wutsi Partner Program</a>
         <a class="dropdown-item" href="/me/earning" id="navbar-earnings" th:if="${toggles.earning} AND ${user.blog}"
            th:text="#{navbar.earnings}">Earnings</a>
