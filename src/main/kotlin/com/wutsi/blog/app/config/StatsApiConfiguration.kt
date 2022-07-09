@@ -37,8 +37,10 @@ class StatsApiConfiguration(
                 interceptors = listOf(tracingRequestInterceptor, apiKeyRequestInterceptor),
                 retryer = Retryer.NEVER_RETRY,
                 options = Request.Options(
-                    500L, MILLISECONDS,
-                    500L, MILLISECONDS,
+                    500L,
+                    MILLISECONDS,
+                    500L,
+                    MILLISECONDS,
                     false
                 )
             )

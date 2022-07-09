@@ -53,7 +53,6 @@ abstract class AbstractOAuthLoginController(
     open fun callback(request: HttpServletRequest): String {
         var url: String
         try {
-
             val error = getError(request)
             val connect = request.session.getAttribute(CONNECT_KEY)
             if (connect == null) {
@@ -65,13 +64,11 @@ abstract class AbstractOAuthLoginController(
             logger.add("URL", url)
             return "redirect:$url"
         } catch (ex: OAuthException) {
-
             url = getErrorUrl(ex.message, request)
             logger.add("Exception", ex.javaClass.name)
             logger.add("ExceptionMessage", ex.message)
             LoggerFactory.getLogger(javaClass).error("Failure", ex)
         } finally {
-
             cleanup(request)
         }
 

@@ -1,15 +1,10 @@
 package com.wutsi.blog.app.page.editor
 
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
-import com.wutsi.subscription.dto.Plan
-import com.wutsi.subscription.dto.SearchPlanResponse
 import org.junit.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpMethod
@@ -27,13 +22,6 @@ class EditorNewStoryControllerTest : SeleniumTestSupport() {
         stub(HttpMethod.POST, "/v1/story", HttpStatus.OK, "v1/story/save.json")
         stub(HttpMethod.GET, "/v1/story/[0-9]+/readability", HttpStatus.OK, "v1/story/readability.json")
         stub(HttpMethod.POST, "/v1/story/[0-9]+/publish", HttpStatus.OK, "v1/story/publish.json")
-    }
-
-    override fun setupSdk() {
-        super.setupSdk()
-
-        val plan = Plan(1)
-        doReturn(SearchPlanResponse(listOf(plan))).whenever(subscriptionApi).partnerPlans(any(), any())
     }
 
     @Test

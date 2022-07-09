@@ -2,12 +2,12 @@ package com.wutsi.blog.app.page.editor.service
 
 import org.jsoup.Jsoup
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.junit.jupiter.MockitoExtension
 
-@RunWith(MockitoJUnitRunner::class)
+@ExtendWith(MockitoExtension::class)
 class EJSFilterSetTest {
     @Mock
     private lateinit var filter1: Filter

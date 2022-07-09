@@ -63,7 +63,6 @@ class SettingsController(
     @PostMapping(produces = ["application/json"], consumes = ["application/json"])
     fun set(@RequestBody request: UserAttributeForm): Map<String, Any?> {
         try {
-
             userService.set(request)
             return mapOf("id" to requestContext.currentUser()?.id)
         } catch (ex: Exception) {

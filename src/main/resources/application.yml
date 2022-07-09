@@ -172,7 +172,6 @@ wutsi:
     monetization: true              # Enable Monetization
     next-action: true               # Show NextAction panel on Blog page
     pin: true                       # Pin enabled?
-    post: true                      # Social post enabled?
     pwa: true                       # PWA
     pwa-add-to-homescreen: false    # Enable Badging on app icon
     pwa-badge: false                # Enable Badging on app icon

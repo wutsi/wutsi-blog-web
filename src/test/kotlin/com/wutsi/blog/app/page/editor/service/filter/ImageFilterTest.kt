@@ -6,13 +6,13 @@ import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.RequestContext
 import org.jsoup.Jsoup
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.junit.jupiter.MockitoExtension
 
-@RunWith(MockitoJUnitRunner::class)
+@ExtendWith(MockitoExtension::class)
 class ImageFilterTest {
     @Mock
     private lateinit var imageKitService: ImageKitService
@@ -22,7 +22,7 @@ class ImageFilterTest {
 
     private lateinit var filter: ImageFilter
 
-    @Before
+    @BeforeEach
     fun setUp() {
         filter = ImageFilter(imageKitService, requestContext, 960, 400)
         doReturn(false).whenever(requestContext).isMobileUserAgent()

@@ -56,7 +56,6 @@ wutsi:
     like: true
     monetization: false
     pin: true
-    post: false
     pwa: true
     pwa-add-to-homescreen: false
     pwa-badge: false

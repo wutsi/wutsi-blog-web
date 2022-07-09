@@ -11,7 +11,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.anyOrNull
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
@@ -30,18 +29,14 @@ import com.wutsi.blog.client.user.CountUserResponse
 import com.wutsi.blog.client.user.GetUserResponse
 import com.wutsi.blog.client.user.SearchUserResponse
 import com.wutsi.blog.fixtures.CommentApiFixtures
-import com.wutsi.blog.fixtures.ContractApiFixture
 import com.wutsi.blog.fixtures.FollowerApiFixtures
-import com.wutsi.blog.fixtures.PartnerApiFixtures
 import com.wutsi.blog.fixtures.PinApiFixtures
 import com.wutsi.blog.fixtures.TopicApiFixtures
 import com.wutsi.blog.fixtures.UserApiFixtures
 import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.CommentApi
-import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
-import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.TagApi
 import com.wutsi.blog.sdk.TelegramApi
@@ -53,17 +48,13 @@ import com.wutsi.site.SiteAttribute
 import com.wutsi.site.dto.Attribute
 import com.wutsi.site.dto.GetSiteResponse
 import com.wutsi.site.dto.Site
-import com.wutsi.stats.StatsApi
-import com.wutsi.stats.dto.SearchViewResponse
-import com.wutsi.subscription.SubscriptionApi
-import com.wutsi.subscription.dto.SearchPlanResponse
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
-import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -105,16 +96,10 @@ abstract class SeleniumTestSupport {
     protected lateinit var commentApi: CommentApi
 
     @MockBean
-    protected lateinit var contractApi: ContractApi
-
-    @MockBean
     protected lateinit var followerApi: FollowerApi
 
     @MockBean
     protected lateinit var likeApi: LikeApi
-
-    @MockBean
-    protected lateinit var partnerApi: PartnerApi
 
     @MockBean
     protected lateinit var pinApi: PinApi
@@ -132,13 +117,7 @@ abstract class SeleniumTestSupport {
     protected lateinit var userApi: UserApi
 
     @MockBean
-    protected lateinit var subscriptionApi: SubscriptionApi
-
-    @MockBean
     protected lateinit var siteApi: SiteApi
-
-    @MockBean
-    protected lateinit var statsApi: StatsApi
 
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
@@ -151,7 +130,7 @@ abstract class SeleniumTestSupport {
         return options
     }
 
-    @Before
+    @BeforeEach
     fun setUp() {
         this.url = "http://localhost:$port"
 
@@ -186,7 +165,6 @@ abstract class SeleniumTestSupport {
     protected fun setupSdk() {
         givenNoChannel()
         givenNoComment()
-        givenNoContract()
         givenNoFollower()
         givenNoLike()
         givenNoPin()
@@ -205,11 +183,7 @@ abstract class SeleniumTestSupport {
         givenSearchReturn5()
 
         val site = createSite()
-        doReturn(SearchPlanResponse()).whenever(subscriptionApi).partnerPlans(any(), any())
         doReturn(GetSiteResponse(site)).whenever(siteApi).get(any())
-
-        doReturn(SearchViewResponse()).whenever(statsApi)
-            .views(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
     }
 
     protected fun createSite() = Site(
@@ -273,14 +247,6 @@ abstract class SeleniumTestSupport {
         doThrow(NotFoundException("channel_not_found")).whenever(channelApi).get(any())
     }
 
-    protected fun givenNoContract() {
-        doThrow(NotFoundException("contract_not_found")).whenever(contractApi).get(any())
-    }
-
-    protected fun givenContract(userId: Long) {
-        doReturn(ContractApiFixture.createGetContractResponse(userId)).whenever(contractApi).get(1)
-    }
-
     protected fun givenNoFollower() {
         doReturn(SearchFollowerResponse()).whenever(followerApi).search(any())
     }
@@ -290,22 +256,6 @@ abstract class SeleniumTestSupport {
         doReturn(response).whenever(followerApi)
             .search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
-    }
-
-    protected fun givenNoPartner() {
-        doThrow(NotFoundException("partner_not_found")).whenever(partnerApi).get(any())
-    }
-
-    protected fun givenPartner() {
-        val partner = PartnerApiFixtures.createPartnerDto(
-            country = "CM",
-            mobileNumber = "664032997",
-            fullName = "Ray Sponsible",
-            userId = 1,
-            email = "ray.sponsible@gmail.com"
-        )
-        val response = PartnerApiFixtures.createGetPartnerResponse(partner)
-        doReturn(response).whenever(partnerApi).get(any())
     }
 
     protected fun givenNoPin() {

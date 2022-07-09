@@ -62,9 +62,7 @@ class SecurityConfiguration(
             .antMatchers(HttpMethod.POST, "/upload").authenticated()
             .antMatchers("/monetization/setup").authenticated()
             .antMatchers("/checkout/**/*").authenticated()
-
             .anyRequest().permitAll()
-
             .and()
             .formLogin()
             .loginPage("/login").permitAll()

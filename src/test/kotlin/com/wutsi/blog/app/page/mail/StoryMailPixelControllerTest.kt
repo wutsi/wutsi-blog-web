@@ -9,8 +9,8 @@ import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
 import com.wutsi.blog.app.util.PageName
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -36,7 +36,7 @@ class StoryMailPixelControllerTest {
 
     private val time = 100000L
 
-    @Before
+    @BeforeEach
     fun setUp() {
         doReturn(time).whenever(clock).millis()
     }

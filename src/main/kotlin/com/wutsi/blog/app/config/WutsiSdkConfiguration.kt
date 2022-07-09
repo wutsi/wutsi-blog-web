@@ -2,13 +2,10 @@ package com.wutsi.blog.app.config
 
 import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.CommentApi
-import com.wutsi.blog.sdk.ContractApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
 import com.wutsi.blog.sdk.NewsletterApi
-import com.wutsi.blog.sdk.PartnerApi
 import com.wutsi.blog.sdk.PinApi
-import com.wutsi.blog.sdk.PostApi
 import com.wutsi.blog.sdk.Sdk
 import com.wutsi.blog.sdk.TagApi
 import com.wutsi.blog.sdk.TelegramApi
@@ -32,9 +29,6 @@ class WutsiSdkConfiguration(
     fun commentApi(): CommentApi = sdk().commentApi()
 
     @Bean
-    fun contractApi(): ContractApi = sdk().contractApi()
-
-    @Bean
     fun followerApi(): FollowerApi = sdk().followerApi()
 
     @Bean
@@ -44,13 +38,7 @@ class WutsiSdkConfiguration(
     fun newsletterApi(): NewsletterApi = sdk().newsletterApi()
 
     @Bean
-    fun partnerApi(): PartnerApi = sdk().partnerApi()
-
-    @Bean
     fun pinApi(): PinApi = sdk().pinApi()
-
-    @Bean
-    fun postApi(): PostApi = sdk().postApi()
 
     @Bean
     fun tagApi(): TagApi = sdk().tagApi()

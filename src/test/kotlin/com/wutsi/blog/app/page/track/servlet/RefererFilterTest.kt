@@ -1,23 +1,24 @@
 package com.wutsi.blog.app.page.track.servlet
 
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.core.logging.KVLogger
-import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.test.util.AssertionErrors.assertEquals
 import javax.servlet.FilterChain
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@RunWith(MockitoJUnitRunner::class)
+@ExtendWith(MockitoExtension::class)
 class RefererFilterTest {
     @Mock
     private lateinit var request: HttpServletRequest
@@ -33,7 +34,7 @@ class RefererFilterTest {
 
     private lateinit var filter: RefererFilter
 
-    @Before
+    @BeforeEach
     fun setUp() {
         filter = RefererFilter(logger, "https://www.wutsi.com")
     }
@@ -41,7 +42,7 @@ class RefererFilterTest {
     @Test
     fun googleTraffic() {
         val referer = "https://www.google.com"
-        `when`(request.getHeader("Referer")).thenReturn(referer)
+        doReturn(referer).whenever(request).getHeader("Referer")
 
         filter.doFilter(request, response, chain)
 
@@ -54,7 +55,7 @@ class RefererFilterTest {
 
     @Test
     fun directTraffic() {
-        `when`(request.getHeader("Referer")).thenReturn("")
+        doReturn("").whenever(request).getHeader("Referer")
 
         filter.doFilter(request, response, chain)
 
@@ -68,7 +69,7 @@ class RefererFilterTest {
     @Test
     fun internalTraffic() {
         val referer = "https://www.wutsi.com"
-        `when`(request.getHeader("Referer")).thenReturn(referer)
+        doReturn(referer).whenever(request).getHeader("Referer")
 
         filter.doFilter(request, response, chain)
 

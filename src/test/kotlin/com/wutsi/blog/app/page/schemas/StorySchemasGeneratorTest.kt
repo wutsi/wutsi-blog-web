@@ -1,6 +1,8 @@
 package com.wutsi.blog.app.page.schemas
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.story.model.StoryModel
@@ -10,13 +12,12 @@ import com.wutsi.blog.app.page.story.service.TopicService
 import com.wutsi.editorjs.json.EJSJsonReader
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.junit.jupiter.MockitoExtension
 
-@RunWith(MockitoJUnitRunner::class)
+@ExtendWith(MockitoExtension::class)
 class StorySchemasGeneratorTest {
     @Mock
     lateinit var topics: TopicService
@@ -25,7 +26,7 @@ class StorySchemasGeneratorTest {
     fun generate() {
         val parent = createTopic(1L, 0L, "Topic1")
         val topic = createTopic(11L, 1L, "Topic11")
-        `when`(topics.get(1L)).thenReturn(parent)
+        doReturn(parent).whenever(topics).get(1L)
 
         val requestContext = mock(RequestContext::class.java)
 
@@ -40,7 +41,7 @@ class StorySchemasGeneratorTest {
             baseUrl
         )
 
-        var story = StoryModel(
+        val story = StoryModel(
             id = 123L,
             title = "This is the title",
             tagline = "This is awesome",

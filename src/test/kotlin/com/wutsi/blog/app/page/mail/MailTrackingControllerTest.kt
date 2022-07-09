@@ -9,8 +9,8 @@ import com.wutsi.blog.app.page.track.model.PushTrackForm
 import com.wutsi.blog.app.page.track.service.TrackService
 import com.wutsi.blog.app.util.PageName
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -37,7 +37,7 @@ class MailTrackingControllerTest {
 
     private val time = 100000L
 
-    @Before
+    @BeforeEach
     fun setUp() {
         doReturn(time).whenever(clock).millis()
     }
@@ -130,7 +130,10 @@ class MailTrackingControllerTest {
 
     @Test
     fun `link click is tracked`() {
-        val url = "http://localhost:$port/mail/track/link?u=555&hid=1111&did=2222&url=" + URLEncoder.encode("http://www.google.com", "utf-8")
+        val url = "http://localhost:$port/mail/track/link?u=555&hid=1111&did=2222&url=" + URLEncoder.encode(
+            "http://www.google.com",
+            "utf-8"
+        )
         val cnn = URL(url).openConnection() as HttpURLConnection
         cnn.instanceFollowRedirects = false
         val headers = cnn.headerFields // Will download content

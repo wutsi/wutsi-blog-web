@@ -39,7 +39,6 @@ abstract class AbstractCreateController(
     @GetMapping("/submit")
     fun submit(@RequestParam value: String, model: Model): String {
         try {
-
             userService.set(
                 UserAttributeForm(
                     name = attributeName(),

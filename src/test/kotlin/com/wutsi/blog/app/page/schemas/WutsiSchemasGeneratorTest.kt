@@ -1,17 +1,18 @@
 package com.wutsi.blog.app.page.schemas
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.common.service.RequestContext
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 class WutsiSchemasGeneratorTest {
     @Test
     fun generate() {
         val requestContext = mock(RequestContext::class.java)
-        `when`(requestContext.getMessage("wutsi.description", "")).thenReturn("Ze Description")
+        doReturn("Ze Description").whenever(requestContext).getMessage("wutsi.description", "")
 
         val generator = WutsiSchemasGenerator(
             ObjectMapper(),
