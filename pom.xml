@@ -35,7 +35,7 @@
     <mockito-junit-jupiter.version>4.5.1</mockito-junit-jupiter.version>
     <rome.version>1.18.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
-    <selenium.version>3.141.59</selenium.version>
+    <selenium.version>4.3.0</selenium.version>
     <wiremock.version>1.58</wiremock.version>
 
     <wutsi-blog-client.version>2.0.0</wutsi-blog-client.version>
