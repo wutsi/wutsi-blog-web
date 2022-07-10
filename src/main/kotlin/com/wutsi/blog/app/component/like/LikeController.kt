@@ -5,7 +5,6 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.component.like.model.LikeCountModel
 import com.wutsi.blog.app.component.like.model.LikeModel
 import com.wutsi.blog.app.component.like.service.LikeService
-import com.wutsi.blog.app.page.track.service.TrackService
 import com.wutsi.blog.app.util.PageName
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody
 class LikeController(
     requestContext: RequestContext,
     private val likeService: LikeService,
-    private val trackService: TrackService
 ) : AbstractPageController(requestContext) {
     override fun pageName() = PageName.LIKE
 
