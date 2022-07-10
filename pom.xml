@@ -21,7 +21,7 @@
     <java.version>11</java.version>
 
     <!-- Library versions - in ALPHABETICAL ORDER-->
-    <commons-io.version>2.9.0</commons-io.version>
+    <commons-io.version>2.11.0</commons-io.version>
     <jaxb.version>2.3.3</jaxb.version>
     <junit.version>5.8.2</junit.version>
     <klint.version>0.46.1</klint.version>
