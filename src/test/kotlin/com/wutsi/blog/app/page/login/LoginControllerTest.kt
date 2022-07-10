@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.SeleniumTestSupport
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class LoginControllerTest : SeleniumTestSupport() {
     @Test

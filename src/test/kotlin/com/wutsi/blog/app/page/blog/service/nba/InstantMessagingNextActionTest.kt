@@ -6,13 +6,13 @@ import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 @ExtendWith(MockitoExtension::class)
 class InstantMessagingNextActionTest {

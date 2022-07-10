@@ -40,9 +40,9 @@ class WutsiErrorController(
         }
     }
 
-    override fun getErrorPath(): String {
-        return "/error"
-    }
+//    override fun getErrorPath(): String {
+//        return "/error"
+//    }
 
     private fun toPage(code: Int?) = createPage(
         name = pageName(code),

@@ -2,10 +2,10 @@ package com.wutsi.blog.app.page.create
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Ignore
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import kotlin.test.Ignore
 
 class CreateControllerTest : SeleniumTestSupport() {
     override fun setupWiremock() {
@@ -24,7 +24,7 @@ class CreateControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    @Ignore("flaky test")
+    @Ignore
     fun `create blog`() {
         gotoPage()
 
@@ -41,9 +41,21 @@ class CreateControllerTest : SeleniumTestSupport() {
         click("#btn-next")
 
         assertCurrentPageIs(PageName.BLOG)
-        assertElementAttributeEndsWith(".next-action-biography .next-action a", "href", "/me/settings?highlight=biography-container#general")
-        assertElementAttributeEndsWith(".next-action-newsletter .next-action a", "href", "/me/settings?highlight=newsletter-container#newsletter")
-        assertElementAttributeEndsWith(".next-action-twitter .next-action a", "href", "/me/settings?highlight=channels-container#channels")
+        assertElementAttributeEndsWith(
+            ".next-action-biography .next-action a",
+            "href",
+            "/me/settings?highlight=biography-container#general"
+        )
+        assertElementAttributeEndsWith(
+            ".next-action-newsletter .next-action a",
+            "href",
+            "/me/settings?highlight=newsletter-container#newsletter"
+        )
+        assertElementAttributeEndsWith(
+            ".next-action-twitter .next-action a",
+            "href",
+            "/me/settings?highlight=channels-container#channels"
+        )
         assertElementVisible("#btn-create-story")
 
         click("#btn-create-story")

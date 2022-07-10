@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.login
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 

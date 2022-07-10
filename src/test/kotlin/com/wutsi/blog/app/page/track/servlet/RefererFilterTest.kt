@@ -3,8 +3,8 @@ package com.wutsi.blog.app.page.track.servlet
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.core.logging.KVLogger
-import org.junit.Test
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers
@@ -12,11 +12,11 @@ import org.mockito.Mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.junit.jupiter.MockitoExtension
-import org.springframework.test.util.AssertionErrors.assertEquals
 import javax.servlet.FilterChain
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
 class RefererFilterTest {

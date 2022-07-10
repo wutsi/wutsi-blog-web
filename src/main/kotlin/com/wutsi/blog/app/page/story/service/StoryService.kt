@@ -65,7 +65,11 @@ class StoryService(
         return mapper.toStoryModel(story, user)
     }
 
-    fun search(request: SearchStoryRequest, pin: PinModel? = null, bubbleDownIds: List<Long> = emptyList()): List<StoryModel> {
+    fun search(
+        request: SearchStoryRequest,
+        pin: PinModel? = null,
+        bubbleDownIds: List<Long> = emptyList()
+    ): List<StoryModel> {
         val stories = bubbleDown(backend.search(request).stories, bubbleDownIds)
         val users = searchUserMap(stories)
         return stories.map { mapper.toStoryModel(it, users[it.userId], pin) }
@@ -185,7 +189,7 @@ class StoryService(
         return doc.html()
     }
 
-    fun recommend(storyId: Long, bubbleDownIds: List<Long> = emptyList(), limit: Int = 20): List<StoryModel> {
+    fun recommend(storyId: Long, limit: Int = 20): List<StoryModel> {
         val stories = backend.recommend(
             RecommendStoryRequest(
                 storyId = storyId,

@@ -1,8 +1,8 @@
 package com.wutsi.blog.app.page.editor.service.filter
 
 import org.jsoup.Jsoup
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class LinkTargetFilterTest {
     private val filter = LinkTargetFilter("https://www.wutsi.com")

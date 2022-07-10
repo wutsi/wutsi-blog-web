@@ -10,12 +10,12 @@ import com.wutsi.blog.app.page.story.model.TagModel
 import com.wutsi.blog.app.page.story.model.TopicModel
 import com.wutsi.blog.app.page.story.service.TopicService
 import com.wutsi.editorjs.json.EJSJsonReader
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
 class StorySchemasGeneratorTest {

@@ -1,13 +1,13 @@
 package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.common.service.ImageKitService
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
 class HtmlImageServiceTest {

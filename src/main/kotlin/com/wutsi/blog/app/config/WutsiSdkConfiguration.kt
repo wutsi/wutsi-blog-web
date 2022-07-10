@@ -4,7 +4,6 @@ import com.wutsi.blog.sdk.ChannelApi
 import com.wutsi.blog.sdk.CommentApi
 import com.wutsi.blog.sdk.FollowerApi
 import com.wutsi.blog.sdk.LikeApi
-import com.wutsi.blog.sdk.NewsletterApi
 import com.wutsi.blog.sdk.PinApi
 import com.wutsi.blog.sdk.Sdk
 import com.wutsi.blog.sdk.TagApi
@@ -33,9 +32,6 @@ class WutsiSdkConfiguration(
 
     @Bean
     fun likeApi(): LikeApi = sdk().likeApi()
-
-    @Bean
-    fun newsletterApi(): NewsletterApi = sdk().newsletterApi()
 
     @Bean
     fun pinApi(): PinApi = sdk().pinApi()

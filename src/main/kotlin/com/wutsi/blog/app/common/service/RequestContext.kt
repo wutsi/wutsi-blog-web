@@ -15,8 +15,6 @@ import com.wutsi.core.exception.ForbiddenException
 import com.wutsi.core.exception.NotFoundException
 import com.wutsi.core.logging.KVLogger
 import com.wutsi.core.tracking.DeviceUIDProvider
-import com.wutsi.platform.site.SiteProvider
-import com.wutsi.site.dto.Site
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
@@ -38,7 +36,6 @@ class RequestContext(
     private val sessionMapper: SessionMapper,
     private val device: DeviceUIDProvider,
     private val logger: KVLogger,
-    private val siteProvider: SiteProvider,
     val request: HttpServletRequest,
     val response: HttpServletResponse
 ) {
@@ -176,5 +173,4 @@ class RequestContext(
     }
 
     fun siteId(): Long = 1L
-    fun site(): Site = siteProvider.get(siteId())
 }

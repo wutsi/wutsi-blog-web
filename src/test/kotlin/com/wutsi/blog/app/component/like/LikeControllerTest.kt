@@ -8,7 +8,7 @@ import com.wutsi.blog.client.like.CountLikeResponse
 import com.wutsi.blog.client.like.CreateLikeResponse
 import com.wutsi.blog.client.like.SearchLikeRequest
 import com.wutsi.blog.fixtures.LikeApiFixtures
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 

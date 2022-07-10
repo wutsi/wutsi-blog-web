@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.blog
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.test.context.TestPropertySource
 
 @TestPropertySource(

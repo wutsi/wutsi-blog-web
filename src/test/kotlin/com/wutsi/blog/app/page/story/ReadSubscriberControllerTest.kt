@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.client.follower.FollowerDto
 import com.wutsi.blog.client.follower.SearchFollowerResponse
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 

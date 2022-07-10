@@ -2,8 +2,8 @@ package com.wutsi.blog.app.page.schemas
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.blog.app.page.settings.model.UserModel
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class PersonSchemasGeneratorTest {
     private val generator = PersonSchemasGenerator(

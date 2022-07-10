@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -21,7 +21,10 @@ class StorySyndicateControllerTest : SeleniumTestSupport() {
     fun `import story`() {
         gotoPage()
 
-        input("#url", "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter/")
+        input(
+            "#url",
+            "https://kamerkongossa.cm/2020/01/07/a-yaounde-on-rencontre-le-sous-developpement-par-les-chemins-quon-emprunte-pour-leviter/"
+        )
         click("#btn-submit")
 
         assertCurrentPageIs(PageName.EDITOR)

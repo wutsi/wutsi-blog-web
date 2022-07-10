@@ -4,7 +4,7 @@ import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.blog.service.PinService
 import com.wutsi.blog.app.util.PageName
 import org.apache.commons.lang.time.DateUtils
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.Date
 
 class PinControllerTest : SeleniumTestSupport() {

@@ -9,12 +9,13 @@ import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.channel.ChannelType.twitter
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 @ExtendWith(MockitoExtension::class)
 class TwitterNextActionTest {
@@ -28,14 +29,14 @@ class TwitterNextActionTest {
     fun `return null when toggle off`() {
         setupToggle(false)
 
-        Assert.assertNull(nba.get(UserModel(), channels(true)))
+        assertNull(nba.get(UserModel(), channels(true)))
     }
 
     @Test
     fun `return null when toggle ON and channel connected`() {
         setupToggle(true)
 
-        Assert.assertNull(nba.get(UserModel(), channels(true)))
+        assertNull(nba.get(UserModel(), channels(true)))
     }
 
     @Test
@@ -57,10 +58,10 @@ class TwitterNextActionTest {
 
         val result = nba.get(UserModel(), channels)
 
-        Assert.assertEquals("twitter", result?.name)
-        Assert.assertEquals("/assets/wutsi/img/social/twitter.png", result?.iconUrl)
-        Assert.assertEquals("/me/settings?highlight=channels-container#channels", result?.url)
-        Assert.assertEquals("This is title", result?.title)
+        assertEquals("twitter", result?.name)
+        assertEquals("/assets/wutsi/img/social/twitter.png", result?.iconUrl)
+        assertEquals("/me/settings?highlight=channels-container#channels", result?.url)
+        assertEquals("This is title", result?.title)
     }
 
     private fun setupToggle(enabled: Boolean) {

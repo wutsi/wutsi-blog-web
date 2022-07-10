@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.component.comment
 
 import com.wutsi.blog.SeleniumMobileTestSupport
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource

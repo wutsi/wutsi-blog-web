@@ -9,13 +9,13 @@ import com.wutsi.blog.app.common.service.Toggles
 import com.wutsi.blog.app.page.channel.model.ChannelModel
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.client.channel.ChannelType.linkedin
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 @ExtendWith(MockitoExtension::class)
 class LinkedInNextActionTest {

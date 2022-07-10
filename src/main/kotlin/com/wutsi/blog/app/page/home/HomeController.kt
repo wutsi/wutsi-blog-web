@@ -4,11 +4,12 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.schemas.WutsiSchemasGenerator
 import com.wutsi.blog.app.page.settings.service.UserService
-import com.wutsi.blog.app.page.story.service.RecentViewsService
+import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.SortOrder.descending
+import com.wutsi.blog.client.story.SearchStoryContext
 import com.wutsi.blog.client.story.SearchStoryRequest
 import com.wutsi.blog.client.story.StorySortStrategy.published
 import com.wutsi.blog.client.story.StorySortStrategy.recommended
@@ -27,7 +28,6 @@ class HomeController(
     private val schemas: WutsiSchemasGenerator,
     private val userService: UserService,
     private val storyService: StoryService,
-    private val recentViewsService: RecentViewsService,
     private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
@@ -59,36 +59,46 @@ class HomeController(
         model.addAttribute("writers", writers)
 
         // Recent
-        val views = recentViewsService.get()
         val authorIds = mutableSetOf<Long>()
         val recent = storyService.search(
             request = SearchStoryRequest(
                 sortBy = published,
                 limit = 10,
-                publishedStartDate = DateUtils.addDays(Date(), -7)
-            ),
-            bubbleDownIds = views
-        ).filter {
-            if (authorIds.contains(it.user.id)) {
-                false
-            } else {
-                authorIds.add(it.user.id)
-                true
-            }
-        }.take(3)
-        model.addAttribute("recentStories", mapper.setImpressions(recent))
+                publishedStartDate = DateUtils.addDays(Date(), -7),
+                context = SearchStoryContext(
+                    userId = requestContext.currentUser()?.id,
+                    deviceId = requestContext.deviceId()
+                )
+            )
+        )
+        model.addAttribute("recentStories", ensureUniqueAuthor(recent, 5))
 
         // Recommendations
         val recentIds = recent.map { it.id }
         val recommended = storyService.search(
             request = SearchStoryRequest(
                 sortBy = recommended,
-                limit = 50
-            ),
-            bubbleDownIds = views
+                limit = 50,
+                context = SearchStoryContext(
+                    userId = requestContext.currentUser()?.id,
+                    deviceId = requestContext.deviceId()
+                )
+            )
         ).filter { !recentIds.contains(it.id) }.take(10)
-        model.addAttribute("recommendedStories", mapper.setImpressions(recommended))
+        model.addAttribute("recommendedStories", ensureUniqueAuthor(recommended, 10))
 
         return "page/home/index"
+    }
+
+    private fun ensureUniqueAuthor(stories: List<StoryModel>, max: Int): List<StoryModel> {
+        val authorIds = mutableSetOf<Long>()
+        return stories.filter {
+            if (authorIds.contains(it.user.id)) {
+                false
+            } else {
+                authorIds.add(it.user.id)
+                true
+            }
+        }.take(max)
     }
 }

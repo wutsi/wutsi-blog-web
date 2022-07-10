@@ -5,12 +5,12 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.common.service.ImageKitService
 import com.wutsi.blog.app.common.service.RequestContext
 import org.jsoup.Jsoup
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
 class ImageFilterTest {

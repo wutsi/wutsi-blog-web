@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.story.toggles
 
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource

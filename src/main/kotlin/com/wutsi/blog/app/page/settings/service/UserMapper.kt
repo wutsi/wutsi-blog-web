@@ -1,18 +1,9 @@
 package com.wutsi.blog.app.page.settings.service
 
-import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.wutsi.blog.app.common.model.MobileProviderModel
 import com.wutsi.blog.app.common.service.ImageKitService
-import com.wutsi.blog.app.common.service.LocalizationService
 import com.wutsi.blog.app.page.settings.model.UserModel
-import com.wutsi.blog.app.page.settings.model.WalletModel
-import com.wutsi.blog.client.user.MobileProvider
-import com.wutsi.blog.client.user.MobileProvider.MTN
-import com.wutsi.blog.client.user.MobileProvider.ORANGE
 import com.wutsi.blog.client.user.UserDto
 import com.wutsi.blog.client.user.UserSummaryDto
-import com.wutsi.blog.client.user.WalletDto
-import com.wutsi.blog.client.user.WalletType
 import com.wutsi.core.util.NumberUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -21,7 +12,6 @@ import java.util.Locale
 @Service
 class UserMapper(
     private val imageKit: ImageKitService,
-    private val localizationService: LocalizationService,
     @Value("\${wutsi.image.user.small.width}") private val pictureSmallWidth: Int
 ) {
     fun toUserModel(user: UserDto) = UserModel(
@@ -35,13 +25,13 @@ class UserMapper(
         email = user.email,
         loginCount = user.loginCount,
         slug = slug(user),
-        facebookUrl = user.facebookId?.let { "https://www.facebook.com/$it" } ?: null,
-        linkedinUrl = user.linkedinId?.let { "https://www.linkedin.com/in/$it" } ?: null,
-        twitterUrl = user.twitterId?.let { "https://www.twitter.com/$it" } ?: null,
-        youtubeUrl = user.youtubeId?.let { "https://www.youtube.com/channel/$it" } ?: null,
-        telegramUrl = user.telegramId?.let { "http://t.me/$it" } ?: null,
-        whatsappUrl = user.whatsappId?.let { "http://wa.me/$it" } ?: null,
-        messengerUrl = user.facebookId?.let { "http://m.me/$it" } ?: null,
+        facebookUrl = user.facebookId?.let { "https://www.facebook.com/$it" },
+        linkedinUrl = user.linkedinId?.let { "https://www.linkedin.com/in/$it" },
+        twitterUrl = user.twitterId?.let { "https://www.twitter.com/$it" },
+        youtubeUrl = user.youtubeId?.let { "https://www.youtube.com/channel/$it" },
+        telegramUrl = user.telegramId?.let { "http://t.me/$it" },
+        whatsappUrl = user.whatsappId?.let { "http://wa.me/$it" },
+        messengerUrl = user.facebookId?.let { "http://m.me/$it" },
         rssUrl = slug(user) + "/rss",
         superUser = user.superUser,
         blog = user.blog,
@@ -66,7 +56,6 @@ class UserMapper(
         testUser = user.testUser,
         subscriberCount = user.subscriberCount,
         subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount),
-        wallet = toWalletModel(user.wallet, user.language?.let { it } ?: "fr")
     )
 
     fun slug(user: UserDto) = "/@/${user.name}"
@@ -88,36 +77,4 @@ class UserMapper(
         subscriberCountText = NumberUtils.toHumanReadable(user.subscriberCount),
         testUser = user.testUser
     )
-
-    fun toWalletModel(wallet: WalletDto?, language: String): WalletModel? {
-        if (wallet == null || wallet.type == WalletType.INVALID)
-            return null
-
-        return WalletModel(
-            type = wallet.type,
-            mobileProvider = toMobileProviderModel(wallet.mobileProvider),
-            mobileNumber = formatMobileNumber(wallet.mobileNumber, wallet.country),
-            fullName = wallet.fullName,
-            country = wallet.country,
-            countryDisplayName = Locale(language, wallet.country).getDisplayCountry(Locale(language))
-        )
-    }
-
-    fun toMobileProviderModel(provider: MobileProvider): MobileProviderModel =
-        if (provider == MTN)
-            MobileProviderModel.MTN
-        else if (provider == ORANGE)
-            MobileProviderModel.ORANGE
-        else
-            MobileProviderModel.INVALID
-
-    fun formatMobileNumber(mobileNumber: String, country: String): String {
-        try {
-            val util = PhoneNumberUtil.getInstance()
-            val number = util.parse(mobileNumber, country)
-            return util.format(number, PhoneNumberUtil.PhoneNumberFormat.NATIONAL)
-        } catch (ex: Exception) {
-            return mobileNumber
-        }
-    }
 }

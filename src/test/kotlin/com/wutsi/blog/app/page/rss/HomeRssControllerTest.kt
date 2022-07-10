@@ -2,11 +2,11 @@ package com.wutsi.blog.app.page.rss
 
 import com.rometools.rome.feed.rss.Channel
 import com.wutsi.blog.SeleniumTestSupport
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestTemplate
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class HomeRssControllerTest : SeleniumTestSupport() {
     val rest = RestTemplate()
@@ -36,10 +36,16 @@ class HomeRssControllerTest : SeleniumTestSupport() {
         assertEquals("Lorem Ipsum", item.title)
         assertEquals("Ray Sponsible", item.author)
         assertEquals("http://localhost:8081/read/20/lorem-ipsum", item.link)
-        assertEquals("Lorem Ipsum is simply dummy text of the printing and typesetting industry", item.description.value)
+        assertEquals(
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+            item.description.value
+        )
         assertNotNull(item.pubDate)
         assertEquals(1, channel.items[0].enclosures.size)
         assertEquals("image/jpeg", channel.items[0].enclosures[0].type)
-        assertEquals("https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg", channel.items[0].enclosures[0].url)
+        assertEquals(
+            "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg",
+            channel.items[0].enclosures[0].url
+        )
     }
 }

@@ -3,13 +3,13 @@ package com.wutsi.blog.app.page.pwa
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.pwa.model.ManifestModel
 import com.wutsi.blog.app.util.PageName
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
+import kotlin.test.assertEquals
 
 class PWAControllerTest : SeleniumTestSupport() {
     @Value("\${wutsi.base-url}")
@@ -33,7 +33,11 @@ class PWAControllerTest : SeleniumTestSupport() {
     fun `pwa headers`() {
         driver.get(url)
         assertElementAttributeEndsWith("head link[rel=manifest]", "href", "/manifest.json")
-        assertElementAttributeEndsWith("head link[rel=apple-touch-icon]", "href", "/assets/wutsi/img/logo/logo_96x96.png")
+        assertElementAttributeEndsWith(
+            "head link[rel=apple-touch-icon]",
+            "href",
+            "/assets/wutsi/img/logo/logo_96x96.png"
+        )
         assertElementAttribute("head meta[name=apple-mobile-web-app-status-bar]", "content", "#f8f8f8")
         assertElementAttribute("head meta[name=apple-mobile-web-app-title]", "content", "Wutsi")
         assertElementAttribute("head meta[name=apple-mobile-web-app-capable]", "content", "yes")

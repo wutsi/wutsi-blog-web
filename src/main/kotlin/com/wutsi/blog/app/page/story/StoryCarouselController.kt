@@ -3,7 +3,6 @@ package com.wutsi.blog.app.page.story
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class StoryCarouselController(
     private val storyService: StoryService,
-    private val recentViewsService: RecentViewsService,
     private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
@@ -37,7 +35,6 @@ class StoryCarouselController(
                 sortBy = recommended,
                 limit = 50
             ),
-            bubbleDownIds = recentViewsService.get()
         ).forEach {
             if (!users.contains(it.user.id) && !it.user.testUser) {
                 users.add(it.user.id)

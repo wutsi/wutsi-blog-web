@@ -2,11 +2,11 @@ package com.wutsi.blog.app.page.sitemap
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.page.sitemap.model.SitemapModel
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.net.URL
 import javax.xml.bind.JAXB
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class SitemapControllerTest : SeleniumTestSupport() {
     @Test

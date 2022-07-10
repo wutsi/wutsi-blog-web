@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.home
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class WritersControllerTest : SeleniumTestSupport() {
     @Test

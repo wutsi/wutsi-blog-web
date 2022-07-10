@@ -7,12 +7,12 @@ import com.rometools.rome.feed.rss.Channel
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.client.user.SearchUserResponse
 import com.wutsi.blog.fixtures.UserApiFixtures
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestTemplate
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class BlogRssControllerTest : SeleniumTestSupport() {
     val rest = RestTemplate()
@@ -38,7 +38,8 @@ class BlogRssControllerTest : SeleniumTestSupport() {
 
     @Test
     fun `return RSS for user by date range`() {
-        val response = rest.getForEntity("$url/@/roger.milla/rss?startDate=2020-12-01&endDate=2020-12-10", Channel::class.java)
+        val response =
+            rest.getForEntity("$url/@/roger.milla/rss?startDate=2020-12-01&endDate=2020-12-10", Channel::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
 
         validateRSS(response.body!!)
@@ -57,7 +58,10 @@ class BlogRssControllerTest : SeleniumTestSupport() {
         assertTrue(channel.items[0].link.endsWith("/read/20/cameroon-argentina"))
         assertEquals(1, channel.items[0].enclosures.size)
         assertEquals("image/jpeg", channel.items[0].enclosures[0].type)
-        assertEquals("https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg", channel.items[0].enclosures[0].url)
+        assertEquals(
+            "https://images.pexels.com/photos/2167395/pexels-photo-2167395.jpeg",
+            channel.items[0].enclosures[0].url
+        )
 
         assertEquals("Cameroon Rumania", channel.items[1].title)
         assertEquals("2 buts de Rogers", channel.items[1].description.value)

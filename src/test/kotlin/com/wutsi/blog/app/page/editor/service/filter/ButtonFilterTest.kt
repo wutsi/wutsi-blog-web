@@ -1,8 +1,8 @@
 package com.wutsi.blog.app.page.editor.service.filter
 
-import junit.framework.Assert.assertEquals
 import org.jsoup.Jsoup
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class ButtonFilterTest {
     private val filter = ButtonFilter()

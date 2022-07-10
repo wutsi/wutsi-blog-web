@@ -3,7 +3,7 @@ package com.wutsi.blog.app.page.blog
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.fixtures.UserApiFixtures
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -75,7 +75,11 @@ class BlogControllerTest : SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:description']", "content", UserApiFixtures.DEFAULT_BIOGRAPHY)
         assertElementAttribute("head meta[property='og:type']", "content", "profile")
         assertElementAttribute("head meta[property='og:url']", "content", "http://localhost:8081/@/ray.sponsible")
-        assertElementAttribute("head meta[property='og:image']", "content", "https://avatars3.githubusercontent.com/u/39621277?v=4")
+        assertElementAttribute(
+            "head meta[property='og:image']",
+            "content",
+            "https://avatars3.githubusercontent.com/u/39621277?v=4"
+        )
         assertElementAttribute("head meta[property='og:site_name']", "content", "Wutsi")
 
         assertElementAttributeEndsWith("head link[type='application/rss+xml']", "href", "/@/ray.sponsible/rss")

@@ -1,7 +1,7 @@
 package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.SeleniumMobileTestSupport
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 

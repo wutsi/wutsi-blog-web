@@ -43,19 +43,9 @@ import com.wutsi.blog.sdk.TelegramApi
 import com.wutsi.blog.sdk.TopicApi
 import com.wutsi.blog.sdk.UserApi
 import com.wutsi.core.exception.NotFoundException
-import com.wutsi.site.SiteApi
-import com.wutsi.site.SiteAttribute
-import com.wutsi.site.dto.Attribute
-import com.wutsi.site.dto.GetSiteResponse
-import com.wutsi.site.dto.Site
 import org.apache.commons.io.IOUtils
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.runner.RunWith
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -63,16 +53,18 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.junit4.SpringRunner
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
-@RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("qa")
 abstract class SeleniumTestSupport {
@@ -116,9 +108,6 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var userApi: UserApi
 
-    @MockBean
-    protected lateinit var siteApi: SiteApi
-
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -146,7 +135,7 @@ abstract class SeleniumTestSupport {
         setupSdk()
     }
 
-    @After
+    @AfterEach
     @Throws(Exception::class)
     fun tearDown() {
         wiremock?.resetMappings()
@@ -181,24 +170,7 @@ abstract class SeleniumTestSupport {
         givenUser(99, name = "john.smith", fullName = "John Smith", blog = false)
         givenUser(6666, name = "ze.god", superUser = true, blog = false)
         givenSearchReturn5()
-
-        val site = createSite()
-        doReturn(GetSiteResponse(site)).whenever(siteApi).get(any())
     }
-
-    protected fun createSite() = Site(
-        id = 1L,
-        name = "wutsi",
-        displayName = "Wutsi",
-        websiteUrl = "http://localhost:8081",
-        currency = "XAF",
-        internationalCurrency = "EUR",
-        language = "fr",
-        domainName = "localhost",
-        attributes = listOf(
-            Attribute(urn = SiteAttribute.PAYPAL_ENABLED.urn, "true")
-        )
-    )
 
     protected fun givenNoUser(userId: Long) {
         doThrow(NotFoundException("user_not_found")).whenever(userApi).get(userId)

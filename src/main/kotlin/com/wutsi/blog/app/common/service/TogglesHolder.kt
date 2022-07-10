@@ -34,7 +34,6 @@ class Toggles {
     var ssoTwitter: Boolean = false
     var ssoLinkedin: Boolean = false
     var ssoYahoo: Boolean = false
-    var monetization: Boolean = false
     var qaLogin: Boolean = false
     var wpp: Boolean = false
     var statistics: Boolean = false

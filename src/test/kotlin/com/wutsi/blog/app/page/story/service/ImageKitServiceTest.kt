@@ -1,8 +1,8 @@
 package com.wutsi.blog.app.page.story.service
 
 import com.wutsi.blog.app.common.service.ImageKitService
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class ImageKitServiceTest {
     val service = ImageKitService(true, "http://www.google.com", "http://www.imagekit.io/43043094")

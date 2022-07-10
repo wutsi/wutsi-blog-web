@@ -2,7 +2,6 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
-import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class RecommendationController(
     private val storyService: StoryService,
-    private val recentViewsService: RecentViewsService,
     private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
@@ -32,8 +30,7 @@ class RecommendationController(
         model: Model
     ): String {
         try {
-            val viewedStoryIds: List<Long> = recentViewsService.get()
-            val stories = storyService.recommend(storyId, viewedStoryIds, 20)
+            val stories = storyService.recommend(storyId, 20)
             model.addAttribute("stories", mapper.setImpressions(stories.take(3)))
             if (stories.isNotEmpty()) {
                 val story = storyService.get(storyId)

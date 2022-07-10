@@ -5,7 +5,7 @@ import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.ChannelType
 import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus

@@ -6,13 +6,13 @@ import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.model.UserModel
-import junit.framework.Assert.assertNull
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 @ExtendWith(MockitoExtension::class)
 class WebsiteNextActionTest {
@@ -42,9 +42,9 @@ class WebsiteNextActionTest {
 
         val result = nba.get(UserModel(websiteUrl = websiteUrl), emptyList())
 
-        Assert.assertEquals("website", result?.name)
-        Assert.assertEquals("/assets/wutsi/img/website.png", result?.iconUrl)
-        Assert.assertEquals("/me/settings?highlight=website-container#website", result?.url)
-        Assert.assertEquals("This is title", result?.title)
+        assertEquals("website", result?.name)
+        assertEquals("/assets/wutsi/img/website.png", result?.iconUrl)
+        assertEquals("/me/settings?highlight=website-container#website", result?.url)
+        assertEquals("This is title", result?.title)
     }
 }

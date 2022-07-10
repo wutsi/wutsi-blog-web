@@ -9,7 +9,6 @@ import com.wutsi.blog.app.page.schemas.PersonSchemasGenerator
 import com.wutsi.blog.app.page.settings.model.UserModel
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -31,7 +30,6 @@ class BlogController(
     private val storyService: StoryService,
     private val schemas: PersonSchemasGenerator,
     private val pinService: PinService,
-    private val recentViewsService: RecentViewsService,
     private val mapper: StoryMapper,
     requestContext: RequestContext
 ) : AbstractPageController(requestContext) {
@@ -52,22 +50,20 @@ class BlogController(
 
         model.addAttribute("blog", blog)
 
-        val viewedIds = recentViewsService.get()
         return if (blog.blog)
-            loadWriter(blog, viewedIds, model)
+            loadWriter(blog, model)
         else {
             val followingUserIds = followerService.searchFollowingUserIds()
                 .filter { it != blog.id }
 
-            loadReader(followingUserIds, viewedIds, blog, model)
+            loadReader(followingUserIds, blog, model)
         }
     }
 
     @GetMapping("/@/{name}/my-stories")
     fun myStories(@PathVariable name: String, @RequestParam offset: Int, model: Model): String {
         val blog = userService.get(name)
-        val viewedIds = recentViewsService.get()
-        val stories = loadMyStories(blog, viewedIds, null, model, offset)
+        val stories = loadMyStories(blog, null, model, offset)
 
         model.addAttribute("blog", blog)
         model.addAttribute("stories", stories)
@@ -87,11 +83,10 @@ class BlogController(
             request = SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
-                sortBy = StorySortStrategy.published,
+                sortBy = StorySortStrategy.recommended,
                 sortOrder = SortOrder.descending,
                 limit = 2 * SIDEBAR_SIZE
-            ),
-            bubbleDownIds = recentViewsService.get()
+            )
         ).filter { it.user.id != blog.id }
 
         // Filter follower stories
@@ -108,9 +103,9 @@ class BlogController(
         return "page/blog/writer_sidebar"
     }
 
-    private fun loadWriter(blog: UserModel, viewedIds: List<Long>, model: Model): String {
+    private fun loadWriter(blog: UserModel, model: Model): String {
         val pin = loadPin(blog, model)
-        val stories = loadMyStories(blog, viewedIds, pin, model)
+        val stories = loadMyStories(blog, pin, model)
 
         shouldShowFollowButton(blog, model)
         shouldShowCreateStory(blog, stories, model)
@@ -121,7 +116,12 @@ class BlogController(
         return "page/blog/writer"
     }
 
-    private fun loadMyStories(blog: UserModel, viewedIds: List<Long>, pin: PinModel?, model: Model, offset: Int = 0): List<StoryModel> {
+    private fun loadMyStories(
+        blog: UserModel,
+        pin: PinModel?,
+        model: Model,
+        offset: Int = 0
+    ): List<StoryModel> {
         val limit = MAIN_PAGE_SIZE
         val stories = storyService.search(
             pin = pin,
@@ -129,12 +129,11 @@ class BlogController(
                 userIds = listOf(blog.id),
                 status = StoryStatus.published,
                 live = true,
-                sortBy = StorySortStrategy.published,
+                sortBy = StorySortStrategy.recommended,
                 limit = limit,
                 offset = offset,
                 sortOrder = SortOrder.descending
-            ),
-            bubbleDownIds = viewedIds
+            )
         )
 
         val result = pinStory(stories, pin?.storyId)
@@ -149,7 +148,11 @@ class BlogController(
         return result
     }
 
-    private fun loadFollowingStories(followingUserIds: List<Long>, viewedIds: List<Long>, model: Model, limit: Int): List<StoryModel> {
+    private fun loadFollowingStories(
+        followingUserIds: List<Long>,
+        model: Model,
+        limit: Int
+    ): List<StoryModel> {
         // Find following users
         if (followingUserIds.isEmpty())
             return emptyList()
@@ -164,7 +167,6 @@ class BlogController(
                 limit = limit,
                 context = storyService.createSearchContext()
             ),
-            bubbleDownIds = viewedIds
         )
         model.addAttribute("followingStories", mapper.setImpressions(followingStories))
         return followingStories
@@ -206,8 +208,8 @@ class BlogController(
         return result
     }
 
-    private fun loadReader(followingUserIds: List<Long>, viewedIds: List<Long>, blog: UserModel, model: Model): String {
-        loadFollowingStories(followingUserIds, viewedIds, model, 50)
+    private fun loadReader(followingUserIds: List<Long>, blog: UserModel, model: Model): String {
+        loadFollowingStories(followingUserIds, model, 50)
         val stories = loadLatestStories(blog, followingUserIds, model)
 
         model.addAttribute("page", getPage(blog, stories))

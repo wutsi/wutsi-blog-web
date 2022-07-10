@@ -7,7 +7,7 @@ import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.channel.CreateChannelResponse
 import com.wutsi.blog.client.telegram.CheckBotAccessResponse
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class TelegramControllerTest : SeleniumMobileTestSupport() {
 

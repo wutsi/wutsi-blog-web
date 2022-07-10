@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.rss
 
 import com.wutsi.blog.SeleniumTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class HomeControllerTest : SeleniumTestSupport() {
     @Test
@@ -21,7 +21,11 @@ class HomeControllerTest : SeleniumTestSupport() {
         assertElementAttribute("head title", "text", "Wutsi")
         assertElementPresent("head meta[name='description']")
         assertElementAttribute("head meta[name='robots']", "content", "index,follow")
-        assertElementAttributeEndsWith("head meta[property='og:image']", "content", "/assets/wutsi/img/logo/logo_512x512.png")
+        assertElementAttributeEndsWith(
+            "head meta[property='og:image']",
+            "content",
+            "/assets/wutsi/img/logo/logo_512x512.png"
+        )
 
         assertElementAttributeEndsWith("head link[type='application/rss+xml']", "href", "/rss")
     }

@@ -7,7 +7,7 @@ import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
 import com.wutsi.blog.client.comment.CountCommentResponse
 import com.wutsi.blog.fixtures.CommentApiFixtures
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 

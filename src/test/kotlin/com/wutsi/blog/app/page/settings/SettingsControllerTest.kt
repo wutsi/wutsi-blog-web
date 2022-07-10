@@ -11,7 +11,7 @@ import com.wutsi.blog.client.channel.SearchChannelResponse
 import com.wutsi.blog.fixtures.ChannelApiFixtures
 import com.wutsi.blog.fixtures.UserApiFixtures
 import com.wutsi.core.exception.ConflictException
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class SettingsControllerTest : SeleniumTestSupport() {
     @Test
@@ -66,7 +66,12 @@ class SettingsControllerTest : SeleniumTestSupport() {
         doThrow(ConflictException("duplicate_email")).whenever(userApi).set(any(), any())
 
         val error = "Désolé, cette addresse email est assignée à un autre utilisateur!"
-        testUpdate("email", "ray.sponsible@gmail.com", "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com", error)
+        testUpdate(
+            "email",
+            "ray.sponsible@gmail.com",
+            "ray.sponsible-" + System.currentTimeMillis() + "@gmail.com",
+            error
+        )
     }
 
     @Test

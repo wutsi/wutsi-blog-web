@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.4.RELEASE</version>
+    <version>2.7.1</version>
   </parent>
 
   <groupId>com.wutsi</groupId>
@@ -17,36 +17,34 @@
   <properties>
     <jacoco.threshold.line>0.74</jacoco.threshold.line>
     <jacoco.threshold.class>0.74</jacoco.threshold.class>
-    <jacoco.version>0.8.7</jacoco.version>
+    <jacoco.version>0.8.8</jacoco.version>
     <java.version>11</java.version>
 
     <!-- Library versions - in ALPHABETICAL ORDER-->
-    <common-lang.version>2.6</common-lang.version>
     <commons-io.version>2.9.0</commons-io.version>
     <jaxb.version>2.3.3</jaxb.version>
+    <junit.version>5.8.2</junit.version>
     <klint.version>0.46.1</klint.version>
     <kotlin.version>1.7.10</kotlin.version>
     <kotlin-mockito.version>2.2.0</kotlin-mockito.version>
     <libphonenumber.version>8.12.51</libphonenumber.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
+    <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
-    <mockito.version>4.6.1</mockito.version>
-    <paypal-checkout-sdk.version>1.0.3</paypal-checkout-sdk.version>
+    <mockito-kotlin.version>0.9.0</mockito-kotlin.version>
+    <mockito-junit-jupiter.version>4.5.1</mockito-junit-jupiter.version>
     <rome.version>1.18.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
-    <selenium.version>4.3.0</selenium.version>
+    <selenium.version>3.141.59</selenium.version>
     <wiremock.version>1.58</wiremock.version>
 
-    <wutsi-blog-client.version>1.155.13</wutsi-blog-client.version>
-    <wutsi-core.version>1.28.0</wutsi-core.version>
+    <wutsi-blog-client.version>2.0.0</wutsi-blog-client.version>
+    <wutsi-core.version>2.0.2</wutsi-core.version>
+    <wutsi-platform.version>2.0.2</wutsi-platform.version>
     <wutsi-core-aws.version>1.12.0</wutsi-core-aws.version>
-    <wutsi-extractor.version>1.14.0</wutsi-extractor.version>
+    <wutsi-extractor.version>1.15.1</wutsi-extractor.version>
 
-    <wutsi-earning-sdk-kotlin.version>1.0.0</wutsi-earning-sdk-kotlin.version>
-    <wutsi-stats-sdk-kotlin.version>1.2.1</wutsi-stats-sdk-kotlin.version>
     <wutsi-tracking-sdk-kotlin.version>1.1.5</wutsi-tracking-sdk-kotlin.version>
-    <wutsi-platform.version>1.1.7</wutsi-platform.version>
   </properties>
 
   <dependencies>
@@ -70,6 +68,12 @@
       <groupId>com.wutsi</groupId>
       <artifactId>wutsi-core-aws</artifactId>
       <version>${wutsi-core-aws.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.wutsi</groupId>
+          <artifactId>wutsi-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.wutsi</groupId>
@@ -81,16 +85,6 @@
       <groupId>com.wutsi.platform</groupId>
       <artifactId>wutsi-platform</artifactId>
       <version>${wutsi-platform.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.earning</groupId>
-      <artifactId>earning-sdk-kotlin</artifactId>
-      <version>${wutsi-earning-sdk-kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.stats</groupId>
-      <artifactId>stats-sdk-kotlin</artifactId>
-      <version>${wutsi-stats-sdk-kotlin.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi.tracking</groupId>
@@ -122,11 +116,26 @@
       <version>${kotlin.version}</version>
     </dependency>
 
+    <!-- Junit -->
     <dependency>
-      <groupId>com.paypal.sdk</groupId>
-      <artifactId>checkout-sdk</artifactId>
-      <version>${paypal-checkout-sdk.version}</version>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-test-junit5</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${mockito-junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
 
     <!-- SOCIAL -->
     <dependency>
@@ -172,12 +181,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.nhaarman.mockitokotlin2</groupId>
       <artifactId>mockito-kotlin</artifactId>
       <version>${kotlin-mockito.version}</version>
@@ -185,11 +188,6 @@
     </dependency>
 
     <!-- COMMONS -->
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>${common-lang.version}</version>
-    </dependency>
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>

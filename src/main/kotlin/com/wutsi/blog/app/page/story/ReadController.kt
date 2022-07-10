@@ -4,7 +4,6 @@ import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.follower.service.FollowerService
 import com.wutsi.blog.app.page.schemas.StorySchemasGenerator
 import com.wutsi.blog.app.page.story.model.StoryModel
-import com.wutsi.blog.app.page.story.service.RecentViewsService
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.security.model.Permission
 import com.wutsi.blog.app.util.PageName
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServletResponse
 @Controller
 class ReadController(
     private val schemas: StorySchemasGenerator,
-    private val recentViewsService: RecentViewsService,
 
     followerService: FollowerService,
     ejsJsonReader: EJSJsonReader,
@@ -72,8 +70,6 @@ class ReadController(
         } else {
             loadPage(id, model, null)
         }
-
-        recentViewsService.add(id)
         return "page/story/read"
     }
 

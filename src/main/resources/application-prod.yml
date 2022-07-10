@@ -54,7 +54,6 @@ wutsi:
     google-one-tap-sign-in: true
     imagekit: true
     like: true
-    monetization: false
     pin: true
     pwa: true
     pwa-add-to-homescreen: false

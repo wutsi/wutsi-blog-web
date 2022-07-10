@@ -2,7 +2,7 @@ package com.wutsi.blog.app.page.story
 
 import com.wutsi.blog.SeleniumMobileTestSupport
 import com.wutsi.blog.app.util.PageName
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -52,7 +52,11 @@ class ReadTranslationControllerTest : SeleniumMobileTestSupport() {
         // Then
         assertCurrentPageIs(PageName.READ)
 
-        assertElementAttributeEndsWith("#translation-container a.translation-url", "href", "/read/20/lorem-ipsum?translate=en")
+        assertElementAttributeEndsWith(
+            "#translation-container a.translation-url",
+            "href",
+            "/read/20/lorem-ipsum?translate=en"
+        )
         assertElementAttributeEndsWith("#translation-container a.translation-url", "wutsi-track-event", "translate")
         assertElementCount("#translation-container a.translation-original-url", 0)
     }
@@ -69,8 +73,16 @@ class ReadTranslationControllerTest : SeleniumMobileTestSupport() {
         assertCurrentPageIs(PageName.READ)
 
         assertElementCount("#translation-container a.translation-url", 0)
-        assertElementAttributeEndsWith("#translation-container a.translation-original-url", "href", "/read/20/lorem-ipsum")
-        assertElementAttributeEndsWith("#translation-container a.translation-original-url", "wutsi-track-event", "translate_back")
+        assertElementAttributeEndsWith(
+            "#translation-container a.translation-original-url",
+            "href",
+            "/read/20/lorem-ipsum"
+        )
+        assertElementAttributeEndsWith(
+            "#translation-container a.translation-original-url",
+            "wutsi-track-event",
+            "translate_back"
+        )
 
         assertElementAttribute("html", "lang", "en")
     }
