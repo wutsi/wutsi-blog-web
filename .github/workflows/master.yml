@@ -44,31 +44,31 @@ jobs:
       #--------------------------
       # INT DEPLOYMENT
       #--------------------------
-      - name: int-deploy
-        env:
-          HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
-          HEROKU_APP: int-com-wutsi-blog-web
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-          heroku plugins:install @heroku-cli/plugin-java
-          heroku buildpacks:clear --app ${HEROKU_APP}
-          heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
-
-      - name: int-asset-deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-        run: |
-          aws s3 sync \
-            --acl public-read \
-            --region us-east-1 \
-            --expires '2100-12-31T00:00:00Z' \
-            target/classes/public/ s3://int-wutsi/static/wutsi-blog-web
-
-      - name: int-healthcheck
-        run: |
-          sleep 60
-          curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+      #      - name: int-deploy
+      #        env:
+      #          HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
+      #          HEROKU_APP: int-com-wutsi-blog-web
+      #        run: |
+      #          curl https://cli-assets.heroku.com/install.sh | sh
+      #          heroku plugins:install @heroku-cli/plugin-java
+      #          heroku buildpacks:clear --app ${HEROKU_APP}
+      #          heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
+      #
+      #      - name: int-asset-deploy
+      #        env:
+      #          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      #          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      #        run: |
+      #          aws s3 sync \
+      #            --acl public-read \
+      #            --region us-east-1 \
+      #            --expires '2100-12-31T00:00:00Z' \
+      #            target/classes/public/ s3://int-wutsi/static/wutsi-blog-web
+      #
+      #      - name: int-healthcheck
+      #        run: |
+      #          sleep 60
+      #          curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
 
 
       #--------------------------
