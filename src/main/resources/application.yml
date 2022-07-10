@@ -192,6 +192,3 @@ wutsi:
   rabbitmq:
     enabled: false
     url: ${CLOUDAMQP_URL}
-  security:
-    api-key:
-      id: "9dae2945-b95c-4b41-b9c9-cb695a2f7722"
