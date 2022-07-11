@@ -85,7 +85,10 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.recommended,
                 sortOrder = SortOrder.descending,
-                limit = 2 * SIDEBAR_SIZE
+                limit = 2 * SIDEBAR_SIZE,
+                context = SearchStoryContext(
+                    deviceId = requestContext.deviceId(),
+                )
             )
         ).filter { it.user.id != blog.id }
 
@@ -182,10 +185,7 @@ class BlogController(
                 sortBy = StorySortStrategy.recommended,
                 sortOrder = SortOrder.descending,
                 limit = 50,
-                context = SearchStoryContext(
-                    userId = requestContext.currentUser()?.id,
-                    deviceType = requestContext.deviceId()
-                )
+                context = storyService.createSearchContext()
             )
         )
             .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
