@@ -40,6 +40,7 @@
 
     <wutsi-blog-client.version>2.0.2</wutsi-blog-client.version>
     <wutsi-core.version>2.0.4</wutsi-core.version>
+    <wutsi-editorjs.version>1.20.5</wutsi-editorjs.version>
     <wutsi-platform.version>2.0.2</wutsi-platform.version>
     <wutsi-core-aws.version>1.12.0</wutsi-core-aws.version>
     <wutsi-extractor.version>1.15.1</wutsi-extractor.version>
@@ -54,6 +55,10 @@
         <exclusion>
           <groupId>com.wutsi</groupId>
           <artifactId>wutsi-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.wutsi</groupId>
+          <artifactId>wutsi-editorjs</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -72,6 +77,11 @@
           <artifactId>wutsi-core</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi</groupId>
+      <artifactId>wutsi-editorjs</artifactId>
+      <version>${wutsi-editorjs.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi</groupId>
