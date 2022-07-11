@@ -4,7 +4,6 @@ import com.wutsi.blog.app.common.controller.AbstractPageController
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.schemas.WutsiSchemasGenerator
 import com.wutsi.blog.app.page.settings.service.UserService
-import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.app.page.story.service.StoryMapper
 import com.wutsi.blog.app.page.story.service.StoryService
 import com.wutsi.blog.app.util.PageName
@@ -68,10 +67,11 @@ class HomeController(
                 context = SearchStoryContext(
                     userId = requestContext.currentUser()?.id,
                     deviceId = requestContext.deviceId()
-                )
+                ),
+                dedupUser = true
             )
-        )
-        model.addAttribute("recentStories", ensureUniqueAuthor(recent, 5))
+        ).take(5)
+        model.addAttribute("recentStories", recent)
 
         // Recommendations
         val recentIds = recent.map { it.id }
@@ -82,23 +82,12 @@ class HomeController(
                 context = SearchStoryContext(
                     userId = requestContext.currentUser()?.id,
                     deviceId = requestContext.deviceId()
-                )
+                ),
+                dedupUser = true
             )
         ).filter { !recentIds.contains(it.id) }.take(10)
-        model.addAttribute("recommendedStories", ensureUniqueAuthor(recommended, 10))
+        model.addAttribute("recommendedStories", recommended)
 
         return "page/home/index"
-    }
-
-    private fun ensureUniqueAuthor(stories: List<StoryModel>, max: Int): List<StoryModel> {
-        val authorIds = mutableSetOf<Long>()
-        return stories.filter {
-            if (authorIds.contains(it.user.id)) {
-                false
-            } else {
-                authorIds.add(it.user.id)
-                true
-            }
-        }.take(max)
     }
 }
