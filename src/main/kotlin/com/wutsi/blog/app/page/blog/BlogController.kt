@@ -168,7 +168,7 @@ class BlogController(
                 live = true,
                 sortBy = StorySortStrategy.recommended,
                 limit = limit,
-                context = storyService.createSearchContext()
+                context = storyService.createSearchContext(),
             ),
         )
         model.addAttribute("followingStories", mapper.setImpressions(followingStories))
@@ -176,24 +176,20 @@ class BlogController(
     }
 
     private fun loadLatestStories(blog: UserModel, followingUserIds: List<Long>, model: Model): List<StoryModel> {
-        val userIds = mutableSetOf<Long>()
         val stories = mutableListOf<StoryModel>()
         storyService.search(
             SearchStoryRequest(
                 status = StoryStatus.published,
                 live = true,
-                sortBy = StorySortStrategy.recommended,
+                sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
                 limit = 50,
-                context = storyService.createSearchContext()
+                context = storyService.createSearchContext(),
+                dedupUser = true
             )
         )
             .filter { it.user.id != blog.id && !followingUserIds.contains(it.user.id) }
-            .forEach {
-                if (!userIds.contains(it.user.id)) {
-                    stories.add(it)
-                }
-            }
+
         model.addAttribute("latestStories", mapper.setImpressions(stories.take(5)))
         return stories
     }

@@ -58,7 +58,6 @@ class HomeController(
         model.addAttribute("writers", writers)
 
         // Recent
-        val authorIds = mutableSetOf<Long>()
         val recent = storyService.search(
             request = SearchStoryRequest(
                 sortBy = published,
