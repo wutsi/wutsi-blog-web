@@ -180,7 +180,6 @@ class BlogController(
         storyService.search(
             SearchStoryRequest(
                 status = StoryStatus.published,
-                live = true,
                 sortBy = StorySortStrategy.published,
                 sortOrder = SortOrder.descending,
                 limit = 50,

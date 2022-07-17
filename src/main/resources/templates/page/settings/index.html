@@ -110,25 +110,6 @@
                 </div>
             </div>
 
-            <!-- MONETIZATION -->
-            <div th:if="${toggles.monetization} AND ${user.blog}">
-                <a name="monetization"></a>
-                <div class="setting-section" id="monetization-container" th:if="${user.blog}">
-                    <h4 th:text="#{label.monetization}">Monetization</h4>
-                    <p th:text="#{page.settings.monetization.info}">Monetization</p>
-                    <div id="monetization-content">
-                        <center>
-                            <i class="fas fa-spinner fa-spin"></i>
-                        </center>
-                    </div>
-                    <script>
-                        fetch('/monetization')
-                            .then(response => response.text())
-                            .then(html => document.getElementById('monetization-content').innerHTML = html);
-                    </script>
-                </div>
-            </div>
-
             <a name="subscriptions"></a>
             <div class="setting-section" id="subscriptions-container">
                 <h4 th:text="#{label.my_subscriptions}">My Subscriptions</h4>
