@@ -32,18 +32,22 @@
 
                 <div class="form-group">
                     <label><span th:text="#{page.story.publish.title}">Title</span> <b class="required">*</b></label>
-                    <input class="form-control" id="title" maxlength="200" name="title" required="required" th:value="${story.title}"/>
+                    <input class="form-control" id="title" maxlength="200" name="title" required="required"
+                           th:value="${story.title}"/>
                 </div>
 
                 <div class="form-group">
                     <label th:text="#{page.story.publish.tagline}">Tagline</label>
-                    <input class="form-control" id="tagline" maxlength="200" name="tagline" th:value="${story.tagline}"/>
+                    <input class="form-control" id="tagline" maxlength="200" name="tagline"
+                           th:value="${story.tagline}"/>
                     <small class="form-text text-muted" th:text="#{page.story.publish.tagline.hint}">Help Text</small>
                 </div>
 
                 <div class="form-group">
-                    <label><span th:text="#{page.story.publish.summary}">Summary</span> <b class="required">*</b></label>
-                    <textarea class="form-control" id="summary" maxlength="255" name="summary" required="required" rows="3"
+                    <label><span th:text="#{page.story.publish.summary}">Summary</span> <b
+                        class="required">*</b></label>
+                    <textarea class="form-control" id="summary" maxlength="255" name="summary" required="required"
+                              rows="3"
                               th:text="${story.summary}"></textarea>
                     <small class="form-text text-muted" th:utext="#{page.story.publish.summary.hint}">Help Text</small>
                 </div>
@@ -63,28 +67,34 @@
                 </div>
 
                 <div class="form-group margin-top-2x">
-                    <label><span th:text="#{page.story.publish.tag.info}">Information</span> <b class="required">*</b></label>
+                    <label><span th:text="#{page.story.publish.tag.info}">Information</span> <b
+                        class="required">*</b></label>
                     <select class="form-control" id="tags" multiple="multiple" name="tags" required="required">
-                        <option selected="selected" th:each="tag : ${story.tags}" th:text="${tag.displayName}" th:value="${tag.displayName}">Tag</option>
+                        <option selected="selected" th:each="tag : ${story.tags}" th:text="${tag.displayName}"
+                                th:value="${tag.displayName}">Tag
+                        </option>
                     </select>
                 </div>
 
                 <div class="form-group margin-top-2x" th:if="${story.draft}">
                     <label th:text="#{page.story.publish.schedule.info}">When do you want to publish?</label>
                     <div class="form-check  margin-left">
-                        <input class="form-check-input" id='publish-now-radio' name="publishNow" th:attrappend="checked = ${publishNow} ? checked"
+                        <input class="form-check-input" id='publish-now-radio' name="publishNow"
+                               th:attrappend="checked = ${publishNow} ? checked"
                                type="radio"
                                value="true"
                         />
                         <label class="form-check-label" th:text="#{page.story.publish.schedule.publish_now}">Now</label>
                     </div>
                     <div class="form-check margin-left">
-                        <input class='form-check-input' id='publish-later-radio' name="publishNow" th:attrappend="checked = !${publishNow} ? checked"
+                        <input class='form-check-input' id='publish-later-radio' name="publishNow"
+                               th:attrappend="checked = !${publishNow} ? checked"
                                type="radio"
                                value="false"
                         />
                         <label class="form-check-label">
-                            <span id="publish-later-label" th:text="#{page.story.publish.schedule.publish_later}">Later</span>
+                            <span id="publish-later-label"
+                                  th:text="#{page.story.publish.schedule.publish_later}">Later</span>
                             <span class="required" id='publish-later-required'>*</span>
                             <input class="form-control" id="scheduled-publish-date" name="scheduledPublishDate"
                                    placeholder="yyyy-mm-dd"
@@ -96,26 +106,6 @@
                     </div>
                 </div>
 
-                <div class="form-group margin-top-2x" th:if="${toggles.monetization}">
-                    <label th:text="#{page.story.publish.access}">Who can read the Story?</label>
-                    <select class="form-control" id="access" name="access">
-                        <option th:attrappend="selected = ${story.access.name()} == 'PUBLIC' ? selected" th:text="#{story.access.PUBLIC}"
-                                value="PUBLIC">
-                            Everybody
-                        </option>
-                        <option th:attrappend="selected = ${story.access.name()} == 'SUBSCRIBER' ? selected" th:text="#{story.access.SUBSCRIBER}"
-                                value="SUBSCRIBER">
-                            My Subscribers
-                        </option>
-                        <option th:attrappend="selected = ${story.access.name()} == 'PREMIUM_SUBSCRIBER' ? selected"
-                                th:if="${plan}"
-                                th:text="#{story.access.PREMIUM_SUBSCRIBER}"
-                                value="PREMIUM_SUBSCRIBER">
-                            My Premium Subscribers
-                        </option>
-                    </select>
-                </div>
-
                 <div class="form-group margin-top-2x" th:if="${story.draft}">
                     <label class="form-check">
                         <input checked="checked" class="form-check-input" id='publish-to-social-media-radio'
@@ -123,16 +113,20 @@
                                type="checkbox"
                                value="true"
                         />
-                        <span th:text="#{page.story.publish.publish_to_social_media}">Post this Article on Social Media?</span>
+                        <span
+                            th:text="#{page.story.publish.publish_to_social_media}">Post this Article on Social Media?</span>
                     </label>
-                    <textarea class="form-control" id="social-media-message" maxlength="200" name="socialMediaMessage" rows="2"
+                    <textarea class="form-control" id="social-media-message" maxlength="200" name="socialMediaMessage"
+                              rows="2"
                               th:text="${story.socialMediaMessage}"></textarea>
-                    <small class="form-text text-muted" th:utext="#{page.story.publish.social_media_message.hint}">Help Text</small>
+                    <small class="form-text text-muted" th:utext="#{page.story.publish.social_media_message.hint}">Help
+                        Text</small>
                 </div>
 
                 <!-- Toolbar -->
                 <div class="margin-top-2x padding-top">
-                    <a class="btn btn-light float-left" id="btn-previous" th:href="'/me/story/' + ${story.id} + '/readability'"
+                    <a class="btn btn-light float-left" id="btn-previous"
+                       th:href="'/me/story/' + ${story.id} + '/readability'"
                        th:text="#{button.previous}">Previous</a>
 
                     <button class="float-right btn btn-primary" id="btn-publish" type="submit">

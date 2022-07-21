@@ -18,8 +18,6 @@ class PageName {
 
         const val FOLLOW = "page.follow"
 
-        const val EARNING = "page.earning"
-
         const val ERROR_400 = "page.error.400"
         const val ERROR_403 = "page.error.403"
         const val ERROR_404 = "page.error.404"
@@ -35,28 +33,11 @@ class PageName {
         const val LEGAL_PRIVACY = "page.legal.privacy"
         const val LOGOUT = "page.logout"
 
-        const val MAIL_UNSUBSCRIBE = "page.mail.unsubscribe"
-
         const val READ = "page.read"
         const val RECOMMEND = "page.recommend"
         const val RUN_AS = "page.run.as"
 
-        const val CALENDAR = "calendar"
-        const val CALENDAR_CREATE = "calendar.create"
-        const val CALENDAR_EDIT = "calendar.edit"
-
         const val SETTINGS = "page.settings"
-
-        const val WALLET = "page.wallet"
-        const val WALLET_EDIT = "page.wallet.edit"
-
-        const val MONETIZATION = "page.monetization"
-        const val MONETIZATION_EDIT = "page.monetization.edit"
-
-        const val PARTNER = "page.partner"
-        const val PARTNER_JOIN = "page.partner.join"
-        const val PARTNER_PAYMENT = "page.partner.payment"
-        const val PARTNER_SUCCESS = "page.partner.success"
 
         const val STORY_DRAFT = "page.story.draft"
         const val STORY_PREVIEW = "page.story.preview"
@@ -64,12 +45,7 @@ class PageName {
         const val STORY_SYNDICATE = "page.story.syndicate"
         const val STORY_CAROUSEL = "page.story.carousel"
 
-        const val STATS_STORY = "page.stats.story"
-        const val STATS_USER = "page.stats.user"
-
         const val SUBSCRIPTION = "page.subscription"
-        const val SUBSCRIPTION_SUCCESS = "page.subscription_success"
-        const val SUBSCRIPTION_CANCEL = "page.subscription_cancel"
 
         const val TELEGRAM = "page.telegram"
 
