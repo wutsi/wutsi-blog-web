@@ -22,7 +22,7 @@
 
     <!-- Library versions - in ALPHABETICAL ORDER-->
     <commons-io.version>2.9.0</commons-io.version>
-    <jaxb.version>2.3.3</jaxb.version>
+    <jaxb.version>2.3.6</jaxb.version>
     <junit.version>5.8.2</junit.version>
     <klint.version>0.46.1</klint.version>
     <kotlin.version>1.7.10</kotlin.version>
