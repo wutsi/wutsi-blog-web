@@ -18,12 +18,6 @@ class WhoToFollowControllerTest : SeleniumMobileTestSupport() {
         verifyWhoToFollow()
     }
 
-    @Test
-    fun `story reader`() {
-        driver.get("$url/read/20/test")
-        verifyWhoToFollow()
-    }
-
     private fun verifyWhoToFollow() {
         Thread.sleep(1000) // Wait for AJAX response
         assertElementCount(".who-to-follow .btn-follow", 3)

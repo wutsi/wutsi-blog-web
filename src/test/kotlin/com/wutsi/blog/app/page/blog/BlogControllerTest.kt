@@ -28,7 +28,7 @@ class BlogControllerTest : SeleniumTestSupport() {
 
         assertElementCount("#my-stories .story-card", 7)
 //        assertElementCount("#following-stories .story-summary-card", 7)
-        assertElementCount("#latest-stories .story-summary-card", 4)
+        assertElementCount("#latest-stories .story-summary-card", 5)
     }
 
     @Test

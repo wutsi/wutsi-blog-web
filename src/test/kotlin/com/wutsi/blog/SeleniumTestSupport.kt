@@ -2,7 +2,6 @@ package com.wutsi.blog
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.MappingBuilder
-import com.github.tomakehurst.wiremock.client.UrlMatchingStrategy
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.delete
@@ -10,6 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
+import com.github.tomakehurst.wiremock.matching.UrlPattern
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
@@ -112,8 +112,11 @@ abstract class SeleniumTestSupport {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
         options.addArguments("--lang=en")
+        options.addArguments("--allowed-ips=")
         if (System.getProperty("headless") == "true") {
             options.addArguments("--headless")
+            options.addArguments("--no-sandbox")
+            options.addArguments("--disable-dev-shm-usage")
         }
 //        options.setCapability("resolution", "1920x1080")
         return options
@@ -226,7 +229,7 @@ abstract class SeleniumTestSupport {
     protected fun givenUserFollow(userId: Long, followerUserId: Long) {
         val response = FollowerApiFixtures.createSearchFollowerResponse(userId, followerUserId)
         doReturn(response).whenever(followerApi)
-            .search(SearchFollowerRequest(followerUserId = followerUserId, userId = userId))
+            .search(any())
         doReturn(response).whenever(followerApi).search(SearchFollowerRequest(followerUserId = followerUserId))
     }
 
@@ -308,7 +311,7 @@ abstract class SeleniumTestSupport {
         contentType: String = "application/json",
         queryParams: Map<String, String>? = null
     ) {
-        val urlMatch: UrlMatchingStrategy = urlMatching(url)
+        val urlMatch: UrlPattern = urlMatching(url)
 
         var mapping: MappingBuilder? = null
         if (method == HttpMethod.GET) {
@@ -321,11 +324,10 @@ abstract class SeleniumTestSupport {
             IllegalArgumentException("method not supported: $method")
         }
 
-        if (queryParams != null) {
-            queryParams.keys.forEach {
-                mapping?.withQueryParam(it, WireMock.equalTo(queryParams[it]))
-            }
+        queryParams?.keys?.forEach {
+            mapping?.withQueryParam(it, WireMock.equalTo(queryParams[it]))
         }
+
         val response = aResponse()
             .withHeader("Content-Type", contentType)
             .withStatus(status.value())

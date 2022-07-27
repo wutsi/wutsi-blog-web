@@ -21,22 +21,23 @@
     <java.version>11</java.version>
 
     <!-- Library versions - in ALPHABETICAL ORDER-->
-    <commons-io.version>2.9.0</commons-io.version>
+    <commons-io.version>2.11.0</commons-io.version>
     <jaxb.version>2.3.3</jaxb.version>
     <junit.version>5.8.2</junit.version>
     <klint.version>0.46.1</klint.version>
     <kotlin.version>1.7.10</kotlin.version>
     <kotlin-mockito.version>2.2.0</kotlin-mockito.version>
     <libphonenumber.version>8.12.51</libphonenumber.version>
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+    <closure-compiler-maven-plugin.version>2.23.0</closure-compiler-maven-plugin.version>
     <mobiledetect.version>1.1.1</mobiledetect.version>
     <mockito-kotlin.version>0.9.0</mockito-kotlin.version>
     <mockito-junit-jupiter.version>4.5.1</mockito-junit-jupiter.version>
     <rome.version>1.18.0</rome.version>
     <scribe.version>6.7.0</scribe.version>
-    <selenium.version>3.141.59</selenium.version>
-    <wiremock.version>1.58</wiremock.version>
+    <selenium.version>4.3.0</selenium.version>
+    <wiremock.version>2.27.2</wiremock.version>
 
     <wutsi-blog-client.version>2.0.3</wutsi-blog-client.version>
     <wutsi-core.version>2.0.5</wutsi-core.version>
@@ -224,6 +225,12 @@
       <artifactId>wiremock</artifactId>
       <version>${wiremock.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
@@ -440,7 +447,7 @@
       <plugin>
         <groupId>com.github.blutorange</groupId>
         <artifactId>closure-compiler-maven-plugin</artifactId>
-        <version>2.21.0</version>
+        <version>${closure-compiler-maven-plugin.version}</version>
         <configuration>
           <baseSourceDir>${project.basedir}/src/main/resources</baseSourceDir>
           <baseTargetDir>${project.build.directory}/classes</baseTargetDir>

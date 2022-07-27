@@ -89,7 +89,6 @@ class SettingsControllerTest : SeleniumTestSupport() {
         gotoPage()
 
         assertElementPresent("#channel-twitter .btn-connect")
-        assertElementPresent("#channel-facebook .btn-connect")
     }
 
     @Test
@@ -105,7 +104,6 @@ class SettingsControllerTest : SeleniumTestSupport() {
         gotoPage()
 
         assertElementPresent("#channel-twitter .btn-disconnect")
-        assertElementPresent("#channel-facebook .btn-disconnect")
 
         click("#channel-twitter .btn-disconnect")
         assertCurrentPageIs(PageName.SETTINGS)
