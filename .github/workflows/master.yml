@@ -7,10 +7,6 @@ on:
 
 
 jobs:
-
-  #--------------------------
-  # BUILD
-  #--------------------------
   build:
     runs-on: ubuntu-latest
 
@@ -41,64 +37,69 @@ jobs:
         run: |
           mvn -s settings.xml install -Dmaven.test.skip=true -Dheadless=true
 
-      #--------------------------
-      # INT DEPLOYMENT
-      #--------------------------
-      #      - name: int-deploy
-      #        env:
-      #          HEROKU_API_KEY: ${{secrets.INT_HEROKU_API_KEY}}
-      #          HEROKU_APP: int-com-wutsi-blog-web
-      #        run: |
-      #          curl https://cli-assets.heroku.com/install.sh | sh
-      #          heroku plugins:install @heroku-cli/plugin-java
-      #          heroku buildpacks:clear --app ${HEROKU_APP}
-      #          heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
-      #
-      #      - name: int-asset-deploy
-      #        env:
-      #          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      #          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      #        run: |
-      #          aws s3 sync \
-      #            --acl public-read \
-      #            --region us-east-1 \
-      #            --expires '2100-12-31T00:00:00Z' \
-      #            target/classes/public/ s3://int-wutsi/static/wutsi-blog-web
-      #
-      #      - name: int-healthcheck
-      #        run: |
-      #          sleep 60
-      #          curl -sSf https://int-com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
+      - name: Upload app bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: appbundle
+          path: target/*.jar
 
-
-      #--------------------------
-      # PROD DEPLOYMENT
-      #--------------------------
-      - name: prod-deploy
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: [ deploy-test ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - name: Get artigact
+        uses: actions/download-artifact@v3
+        with:
+          name: appbundle
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku plugins:install @heroku-cli/plugin-java
+      - name: Deploy to Heroku
         env:
-          HEROKU_API_KEY: ${{secrets.PROD_HEROKU_API_KEY}}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY_PROD }}
           HEROKU_APP: com-wutsi-blog-web
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
           heroku plugins:install @heroku-cli/plugin-java
+          heroku apps | grep ${HEROKU_APP} && echo 'app: ${HEROKU_APP} exists' ||  heroku apps:create ${HEROKU_APP}
           heroku buildpacks:clear --app ${HEROKU_APP}
-          heroku deploy:jar target/wutsi-blog-web.jar --app ${HEROKU_APP}
-
-      - name: prod-assets-deploy
+          heroku buildpacks:add heroku/jvm --app ${HEROKU_APP}
+          heroku config:set --app ${HEROKU_APP} APP_PROFILE=prod
+          heroku addons -a ${HEROKU_APP} | grep papertrail && echo 'addon: papertrail exists' ||  heroku addons:create papertrail -a ${HEROKU_APP}
+          heroku deploy:jar wutsi-blog-web.jar --app ${HEROKU_APP}
+      - name: Health check
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          HEROKU_APP: com-wutsi-blog-web
         run: |
-          aws s3 sync \
-          --acl public-read \
-          --region us-east-1 \
-          --expires '2100-12-31T00:00:00Z' \
-          target/classes/public/ s3://prod-wutsi/static/wutsi-blog-web
+          sleep 90
+          curl -sSf https://${HEROKU_APP}.herokuapp.com/actuator/health >> /dev/null
 
+  deploy-prod-notification:
+    runs-on: ubuntu-latest
+    needs: [ deploy-prod ]
+    if: always()
+    steps:
+      - name: Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_TITLE: com-wutsi-blog-web
+          SLACK_MESSAGE: Heroku Deployment in PROD
+          MSG_MINIMAL: true
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: prod-healthcheck
-        run: |
-          sleep 60
-          curl -sSf https://com-wutsi-blog-web.herokuapp.com/actuator/health >> /dev/null
-
-
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [ deploy-prod ]
+    if: always()
+    steps:
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: appbundle
