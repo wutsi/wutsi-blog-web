@@ -161,6 +161,7 @@ wutsi:
     channel-linkedin: true          # Enable LinkedIn Channel
     channel-telegram: true          # Enable Telegram Channel
     comment: true                   # Enable Comments
+    create-blog: true               # Enable Create Blog?
     earning: true                   # Show Earnings
     event-stream-tracking: true     # Tracking via EventStream
     facebook-pixel: false           # Facebook Pixel - Disable since we are no longer doing ads on FB

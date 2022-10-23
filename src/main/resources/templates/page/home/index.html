@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="col-12 col-md-4" id="home-sidebar">
-            <div class="text-center padding margin-top margin-bottom rounded" id="value-prop-main">
+            <div class="text-center padding margin-top margin-bottom rounded" id="value-prop-main" th:if="${toggles.createBlog}">
                 <h1 th:text="#{page.home.main.title}">A place for African Writers</h1>
                 <p class="margin-top" th:text="#{page.home.main.subtitle}">Create your Blog. Build your Audience. Monetize your Blog</p>
                 <p class="highlight" th:text="#{page.home.its_free}"><b>It's all free!</b></p>
