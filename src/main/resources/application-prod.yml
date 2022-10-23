@@ -45,6 +45,7 @@ wutsi:
     channel-facebook: false
     channel-linkedin: true
     channel-telegram: false
+    create-blog: false
     comment: true
     earning: false
     event-stream-tracking: false
