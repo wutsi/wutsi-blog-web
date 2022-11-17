@@ -1049,9 +1049,10 @@
                 <a class="text-small" href="/" th:text="#{label.home}">Home</a>
                 |
                 <a class="text-small" href="/about" th:text="#{label.about}">About</a>
-                |
-                <a class="text-small" href="/create" th:text="#{label.create_blog}">Create Blog</a>
-                |
+                <span th:if="${toggles.createBlog}">|</span>
+                <a class="text-small" href="/create" th:if="${toggles.createBlog}" th:text="#{label.create_blog}">Create
+                    Blog</a>
+                <span th:if="${toggles.wpp}">|</span>
                 <a class="text-small" href="/partner" th:if="${toggles.wpp}">Wutsi Partner Program</a>
                 |
                 <a class="text-small" href="/terms" th:text="#{label.terms_conditions}">Terms and Condition</a>
@@ -1152,7 +1153,8 @@
             <li th:replace="components/layout :: navbar-dropdown"></li>
 
             <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
-                <a class="btn btn-primary" href="/create" id="navbar-create" th:text="#{button.create_blog}">Create your
+                <a class="btn btn-primary" href="/create" id="navbar-create" th:if="${toggles.createBlog}"
+                   th:text="#{button.create_blog}">Create your
                     Blog</a>
             </li>
             <li class="nav-item d-none d-lg-block"
