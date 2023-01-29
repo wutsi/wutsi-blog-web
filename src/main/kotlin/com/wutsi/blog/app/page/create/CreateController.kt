@@ -3,19 +3,18 @@ package com.wutsi.blog.app.page.create
 import com.wutsi.blog.app.common.service.RequestContext
 import com.wutsi.blog.app.page.settings.service.UserService
 import com.wutsi.blog.app.util.PageName
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/create")
-@ConditionalOnProperty(
-    name = ["wutsi.toggles.create-blog"],
-    havingValue = "true"
-)
+//@ConditionalOnProperty(
+//    name = ["wutsi.toggles.create-blog"],
+//    havingValue = "true"
+//)
 class CreateController(
     userService: UserService,
-    requestContext: RequestContext
+    requestContext: RequestContext,
 ) : AbstractCreateController(userService, requestContext) {
     override fun pageName() = PageName.CREATE
 
