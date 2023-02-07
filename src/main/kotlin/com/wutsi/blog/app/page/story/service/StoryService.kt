@@ -12,11 +12,11 @@ import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
-import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryContext
 import com.wutsi.blog.client.story.SearchStoryRequest
+import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -35,7 +35,7 @@ class StoryService(
     private val ejsJsonReader: EJSJsonReader,
     private val ejsHtmlWriter: EJSHtmlWriter,
     private val ejsFilters: EJSFilterSet,
-    private val userService: UserService
+    private val userService: UserService,
 ) {
     fun save(editor: StoryForm): StoryForm {
         var response = SaveStoryResponse()
@@ -68,7 +68,7 @@ class StoryService(
     fun search(
         request: SearchStoryRequest,
         pin: PinModel? = null,
-        bubbleDownIds: List<Long> = emptyList()
+        bubbleDownIds: List<Long> = emptyList(),
     ): List<StoryModel> {
         val stories = bubbleDown(backend.search(request).stories, bubbleDownIds)
         val users = searchUserMap(stories)
@@ -189,14 +189,15 @@ class StoryService(
         return doc.html()
     }
 
-    fun recommend(storyId: Long, limit: Int = 20): List<StoryModel> {
-        val stories = backend.recommend(
-            RecommendStoryRequest(
-                storyId = storyId,
+    fun recommend(storyId: Long, authorId: Long, limit: Int = 20): List<StoryModel> {
+        val stories = backend.search(
+            request = SearchStoryRequest(
+                userIds = listOf(authorId),
                 limit = limit,
-                context = createSearchContext()
+                sortBy = StorySortStrategy.published,
+                context = createSearchContext(),
             )
-        ).stories.filter { it.id != storyId }
+        ).stories
         val users = searchUserMap(stories)
         return stories.map { mapper.toStoryModel(it, users[it.userId], null) }
     }
