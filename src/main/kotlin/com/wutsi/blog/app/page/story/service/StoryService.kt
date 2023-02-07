@@ -194,7 +194,7 @@ class StoryService(
             request = SearchStoryRequest(
                 userIds = listOf(authorId),
                 limit = limit,
-                sortBy = StorySortStrategy.published,
+                sortBy = StorySortStrategy.recommended,
                 context = createSearchContext(),
             )
         ).stories

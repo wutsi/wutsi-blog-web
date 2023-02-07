@@ -32,7 +32,7 @@ class RecommendationController(
     ): String {
         try {
             val stories = storyService.recommend(storyId, authorId, 20)
-            model.addAttribute("stories", mapper.setImpressions(stories.take(3)))
+            model.addAttribute("stories", mapper.setImpressions(stories.take(5)))
             if (stories.isNotEmpty()) {
                 val story = storyService.get(storyId)
                 model.addAttribute("blog", story.user)

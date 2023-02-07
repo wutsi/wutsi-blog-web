@@ -39,7 +39,7 @@ class StoryMapper(
     @Value("\${wutsi.image.story.mobile.large.width}") private val mobileThumbnailLargeWidth: Int,
     @Value("\${wutsi.image.story.mobile.large.height}") private val mobileThumbnailLargeHeight: Int,
     @Value("\${wutsi.image.story.mobile.small.width}") private val mobileThumbnailSmallWidth: Int,
-    @Value("\${wutsi.image.story.mobile.small.height}") private val mobileThumbnailSmallHeight: Int
+    @Value("\${wutsi.image.story.mobile.small.height}") private val mobileThumbnailSmallHeight: Int,
 ) {
     companion object {
         const val MAX_TAGS: Int = 5
@@ -193,7 +193,6 @@ class StoryMapper(
                 return imageKit.transform(
                     url = url,
                     width = desktopThumbnailLargeWidth.toString(),
-                    height = desktopThumbnailLargeHeight.toString(),
                     autoFocus = true
                 )
             }
@@ -202,14 +201,12 @@ class StoryMapper(
                 return imageKit.transform(
                     url = url,
                     width = mobileThumbnailSmallWidth.toString(),
-                    height = mobileThumbnailSmallHeight.toString(),
                     autoFocus = true
                 )
             } else {
                 return imageKit.transform(
                     url = url,
                     width = mobileThumbnailLargeWidth.toString(),
-                    height = mobileThumbnailLargeHeight.toString(),
                     autoFocus = true
                 )
             }
