@@ -26,12 +26,11 @@ class RecommendationController(
     @GetMapping("/recommend")
     fun recommend(
         @RequestParam storyId: Long,
-        @RequestParam authorId: Long,
         @RequestParam(required = false, defaultValue = "summary") layout: String = "summary",
         model: Model,
     ): String {
         try {
-            val stories = storyService.recommend(storyId, authorId, 20)
+            val stories = storyService.recommend(storyId, 20)
             model.addAttribute("stories", mapper.setImpressions(stories.take(5)))
             if (stories.isNotEmpty()) {
                 val story = storyService.get(storyId)

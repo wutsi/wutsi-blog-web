@@ -12,11 +12,11 @@ import com.wutsi.blog.app.page.story.model.StoryForm
 import com.wutsi.blog.app.page.story.model.StoryModel
 import com.wutsi.blog.client.story.ImportStoryRequest
 import com.wutsi.blog.client.story.PublishStoryRequest
+import com.wutsi.blog.client.story.RecommendStoryRequest
 import com.wutsi.blog.client.story.SaveStoryRequest
 import com.wutsi.blog.client.story.SaveStoryResponse
 import com.wutsi.blog.client.story.SearchStoryContext
 import com.wutsi.blog.client.story.SearchStoryRequest
-import com.wutsi.blog.client.story.StorySortStrategy
 import com.wutsi.blog.client.story.StoryStatus
 import com.wutsi.blog.client.story.StorySummaryDto
 import com.wutsi.blog.client.user.SearchUserRequest
@@ -189,13 +189,12 @@ class StoryService(
         return doc.html()
     }
 
-    fun recommend(storyId: Long, authorId: Long, limit: Int = 20): List<StoryModel> {
-        val stories = backend.search(
-            request = SearchStoryRequest(
-                userIds = listOf(authorId),
+    fun recommend(storyId: Long, limit: Int = 20): List<StoryModel> {
+        val stories = backend.recommend(
+            RecommendStoryRequest(
+                storyId = storyId,
                 limit = limit,
-                sortBy = StorySortStrategy.recommended,
-                context = createSearchContext(),
+                context = createSearchContext()
             )
         ).stories.filter { it.id != storyId }
         val users = searchUserMap(stories)
@@ -205,6 +204,6 @@ class StoryService(
     fun createSearchContext() = SearchStoryContext(
         userId = requestContext.currentUser()?.id,
         deviceType = requestContext.deviceId(),
-        language = requestContext.currentUser()?.language
+        language = requestContext.currentUser()?.language,
     )
 }
