@@ -1520,6 +1520,10 @@ a.sso-button:hover {
     text-decoration: none !important;
 }
 
+.ads-container img {
+    max-width: 100%;
+}
+
 
 /* ======================================================================== */
 /*                                                                          */
