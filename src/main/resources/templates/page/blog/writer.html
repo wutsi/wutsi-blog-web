@@ -11,8 +11,10 @@
     <div th:replace="components/author :: card(${blog}, !${toggles.follow})"></div>
 
     <div class="btn-toolbar" th:if="${showCreateStoryButton}">
-        <a class="btn btn-primary" href="/editor" id="btn-create-story" th:text="#{button.create_first_story}">Write your first Story</a>
-        <a class="btn btn-light" href="/me/syndicate" id="btn-import-story" th:text="#{button.syndicate_story}">Import Story</a>
+        <a class="btn btn-primary" href="/editor" id="btn-create-story" th:text="#{button.create_first_story}">Write
+            your first Story</a>
+        <a class="btn btn-light" href="/me/syndicate" id="btn-import-story" th:text="#{button.syndicate_story}">Import
+            Story</a>
     </div>
     <div id="btn-follow-container" th:if="${showFollowButton}">
         <div th:replace="components/follow :: panel(${blog}, ${blog.slug}, null)"></div>
@@ -26,7 +28,12 @@
                 <div th:replace="components/story :: story-card(${story}, 'read', ${it.index}, ${pin})"></div>
 
                 <div th:if="${it.index} == 2">
-                    <div th:replace="components/follow :: who-to-follow"></div>
+                    <div class="border ads-container">
+                        <a href="https://www.wutsi.app" target="_blank">
+                            <img
+                                th:src="${page.assetUrl} + '/assets/wutsi/img/telecharger-application-ecommerce-wutsi.png'"/></a>
+                    </div>
+                    <!--                    <div th:replace="components/follow :: who-to-follow"></div>-->
                 </div>
             </div>
 
