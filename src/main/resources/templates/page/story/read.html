@@ -14,14 +14,16 @@
     <article class="border padding reader main-content">
         <div th:if="${user} AND ${user.id} == ${story.user.id}">
             <div class="dropdown show story-dropdown-menu float-right" id="story-menu">
-                <a aria-expanded="false" aria-haspopup="true" class="btn btn-light btn-sm" data-toggle="dropdown" href="#" role="button"
+                <a aria-expanded="false" aria-haspopup="true" class="btn btn-light btn-sm" data-toggle="dropdown"
+                   href="#" role="button"
                    th:id="'story-menu-' + ${story.id}">
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
 
                 <div class="dropdown-menu" th:aria-labelledby="'story-menu' + ${story.id}">
                     <a class="dropdown-item menu-item-edit" th:href="'/editor/' + ${story.id}" th:text="#{button.edit}">Edit</a>
-                    <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}" th:if="${story.published}" th:text="#{button.stats}">Stats</a>
+                    <a class="dropdown-item menu-item-stats" th:href="'/stats/story/' + ${story.id}"
+                       th:if="${story.published}" th:text="#{button.stats}">Stats</a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -97,10 +99,15 @@
         </div>
     </article>
 
-
     <!-- PWA Install -->
     <div th:if="${toggles.pwa} AND ${fullAccess}">
         <div th:replace="components/pwa :: a2hs-card"></div>
+    </div>
+
+    <!-- e-commerce -->
+    <div class="margin-top border">
+        <a href="https://www.wutsi.app" target="_blank">
+            <img th:src="${page.assetUrl} + '/assets/wutsi/img/telecharger-application-ecommerce-wutsi.png'"/></a>
     </div>
 
     <!-- Recommendations -->
@@ -149,10 +156,12 @@
 <script src="https://player.vimeo.com/api/player.js" th:if="${hasVimeoEmbed}"></script>
 <script th:if="${hasVimeoEmbed}" th:src="${page.assetUrl} + '/assets/wutsi/js/wutsi-editorjs-vimeo-3.js'"></script>
 
-<link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.min.css'" th:if="${hasCode} OR ${hasRaw}" type="text/css"/>
+<link rel="stylesheet" th:href="${page.assetUrl} + '/assets/prettify/css/prettify.min.css'"
+      th:if="${hasCode} OR ${hasRaw}" type="text/css"/>
 <script th:if="${hasCode} OR ${hasRaw}" th:src="${page.assetUrl} + '/assets/prettify/js/prettify.min.js'"></script>
 
-<script id="track-script" th:if="!${user} OR (${user.id} != ${story.user.id} AND !${user.superUser})" th:inline="javascript">
+<script id="track-script" th:if="!${user} OR (${user.id} != ${story.user.id} AND !${user.superUser})"
+        th:inline="javascript">
     /*<![CDATA[*/
 
     $(document).ready(function () {
