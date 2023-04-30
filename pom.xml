@@ -42,7 +42,7 @@
     <wutsi-blog-client.version>2.0.3</wutsi-blog-client.version>
     <wutsi-core.version>2.0.5</wutsi-core.version>
     <wutsi-editorjs.version>1.20.5</wutsi-editorjs.version>
-    <wutsi-platform.version>2.0.21</wutsi-platform.version>
+    <wutsi-platform.version>2.0.22</wutsi-platform.version>
     <wutsi-core-aws.version>1.12.0</wutsi-core-aws.version>
     <wutsi-extractor.version>1.15.1</wutsi-extractor.version>
   </properties>
